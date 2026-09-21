@@ -138,7 +138,7 @@ export class ControlSession {
       if (reason) { results.push({ id: intent.id, status: 'REJECTED', reason }); continue; }
       if (this.seen.size >= this.maxRemembered) { results.push({ id: intent.id, status: 'REJECTED', reason: 'HISTORY_FULL' }); continue; }
       this.seen.add(intent.id);
-      const entry = { id: intent.id, actorId: intent.actorId, binding: intent.binding, session: intent.session,
+      const entry = { id: intent.id, actorId: intent.actorId, binding: intent.binding, session: intent.session, action: intent.action,
         classification: 'MOCK_ONLY', stages: [], dispatchable: false };
       this.ledger.set(intent.id, entry);
       try {

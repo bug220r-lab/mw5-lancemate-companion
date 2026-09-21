@@ -2,6 +2,8 @@
 
 This is a local **offline workbench** with synthetic tactical exercises and optional local conversation/voice previews. It never attaches to or controls MW5. No native adapter or direct piloting exists yet. Default mode is disconnected; simulated dispatch requires a synthetic mission and explicit simulation arming. Game-enabled capabilities remain unavailable.
 
+Each pilot now has an **Action status** button. After simulating recommendations, it reports only the stage actually present in the simulated ledger: submission does not mean acceptance or movement. Without a report it states uncertainty. These fixed authored previews use no model, generate no audio and expire after five real seconds. They are a limited status mode, not full conversation. See [the admission contract](../design/MISSION_SPEECH_ADMISSION.md). Free-form generated auditions remain unverified; both tested Qwen candidates failed factual-boundary checks.
+
 From the project root, run `START_COMPANION.cmd`, or `node companion/server.mjs` and open its printed loopback URL. Stop the terminal with Ctrl+C. No autostart service is installed. Node.js 24 is the tested runtime. No npm dependency is required.
 
 The launcher locates the existing bundled Node executable without relying on Codex's temporary PATH. `START_COMPANION.cmd --check` validates that runtime without opening a browser or starting engines; this check passed with PATH reduced to Windows system directories. An explicit `MW5_COMPANION_NODE` variable can select another full Node.js 24 executable path. The runtime files must remain installed; another computer and an actual Explorer double-click are not yet validated.
@@ -40,7 +42,7 @@ Run `node scripts/Verify-Companion.mjs` for the offline receipt. Existing tactic
 
 The independent conversation/server review initially added **32 passing injected-fake cases**, then four preview-timing cases. Another **25 Node VM cases** execute the actual client script against fake DOM/fetch/Audio APIs. They cover unverified text never becoming commands, cancellation/reset/possession/mute, asynchronous freshness, radio reservation ownership, failed shutdown reporting, disposed lifecycle, unknown actor state and safe client playback cleanup. They also verify that slower audition mode is explicit, keeps the four-second target unchanged and preserves control/identity gates.
 
-The current [complete offline receipt](../research/COMPANION_VALIDATION.json) records **309/309 passing tests**, including existing suites and wrappers preserving 48 tactical scenarios, 31 adversarial cases and three properties. Its hashes bind the result to exact files. Node VM checks are not browser layout, real audio or listening acceptance; no actual models or game ran in the independent fake/VM cases.
+The current [complete offline receipt](../research/COMPANION_VALIDATION.json) records **352/352 passing tests**, including existing suites and wrappers preserving 48 tactical scenarios, 31 adversarial cases and three properties. Its hashes bind the result to exact files. Node VM checks are not browser layout, real audio or listening acceptance; no actual models or game ran in the independent fake/VM cases.
 
 ## Component experiments
 

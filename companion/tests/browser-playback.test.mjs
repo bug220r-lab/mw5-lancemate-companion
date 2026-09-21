@@ -175,3 +175,45 @@ test('out-of-order state responses cannot restore older mission/reply UI', async
   await r.api(); old.resolve(r.jsonResponse(state())); await oldRequest;
   assert.match(r.get('reply').textContent, /Fresh reply/); assert.doesNotMatch(r.get('reply').textContent, /A generated line/);
 });
+
+function descendants(element) { return [element, ...element.children.flatMap(descendants)]; }
+
+test('each Action status button requests only the exact pilot on its card', async () => {
+  const r = await fixture();
+  for (const [index, actorId] of ['alpha', 'bravo', 'charlie'].entries()) {
+    const card = r.get('pilots').children[index];
+    const buttons = descendants(card).filter(node => node.tagName === 'button' && node.textContent === 'Action status');
+    assert.equal(buttons.length, 1); assert.equal(buttons[0].disabled, false);
+    await buttons[0].onclick();
+    assert.deepEqual(r.actions.at(-1), { type: 'mission_status', actorId });
+  }
+  assert.equal(r.actions.length, 3); assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
+});
+
+test('authored Action status response is labeled text-only without invoking engines, generation or playback', async () => {
+  const r = await fixture(), response = state();
+  response.localModels.language.state = 'STOPPED'; response.localModels.speech.state = 'STOPPED';
+  response.localModels.reply = null; response.localModels.audio = null;
+  response.missionSpeech = { status: 'PREPARED', request: { speakerId: 'bravo' },
+    text: 'Simulation: My regroup request was submitted. Acceptance is unconfirmed.',
+    classification: 'MOCK_ONLY', liveEligible: false, dispatchable: false };
+  r.setServer(response);
+  const button = descendants(r.get('pilots').children[1]).find(node => node.textContent === 'Action status');
+  await button.onclick();
+  assert.equal(r.get('radio').textContent, `bravo: ${response.missionSpeech.text} (authored status; text only)`);
+  assert.deepEqual(r.actions, [{ type: 'mission_status', actorId: 'bravo' }]);
+  assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0); assert.equal(r.urls.length, 0);
+  assert.equal(r.get('reply').textContent, 'No generated reply.');
+});
+
+test('a fresh expired or absent status response removes the authored status on the next render', async () => {
+  const r = await fixture();
+  for (const replacement of [{ status: 'EXPIRED' }, { status: 'REJECTED', reason: 'LINE_EXPIRED_OR_INVALID' }, null, undefined]) {
+    const shown = state(); shown.missionSpeech = { status: 'PREPARED', request: { speakerId: 'alpha' }, text: 'I have no current report for that action.' };
+    r.render(shown); assert.match(r.get('radio').textContent, /authored status; text only/);
+    const next = state(); if (replacement !== undefined) next.missionSpeech = replacement;
+    r.setServer(next); await r.api();
+    assert.equal(r.get('radio').textContent, 'No speaker.');
+  }
+  assert.equal(r.actions.length, 0); assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
+});

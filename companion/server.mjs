@@ -11,6 +11,7 @@ import { baseline } from '../synthetic/tactical-cases.mjs';
 import { createConversationCoordinator } from './conversation.mjs';
 import { createLocalLanguageModel } from './local-language-model.mjs';
 import { createLocalSpeech, LOCAL_SPEECH_VOICES } from './local-speech.mjs';
+import { prepareMissionSpeech, revalidateMissionSpeech } from './mission-speech.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const profiles = JSON.parse(await readFile(path.join(directory, 'personas.json'), 'utf8'));
@@ -50,6 +51,33 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   const newConversation = () => createConversationCoordinator({ generate: (context, options) => language.generate(context, options), now: realNow, timeoutMs: previewDeadlineMs });
   let conversation = newConversation();
   let modelError = null, modelStart = null, modelEpoch = 0, reply = null, audioJob = null, disposed = false;
+  let missionSpeech = null;
+  function statusContext() {
+    const entries = control.getState().ledger;
+    // Only the server-owned MOCK ledger is mapped. Arbitrary HTTP reports,
+    // generated dialogue and radio verified:true flags never enter this path.
+    const reports = snapshot.lancemates.flatMap(actor => {
+      const entry = entries.findLast(e => e.actorId === actor.id);
+      const stage = entry?.stages.at(-1);
+      if (!stage || entry.classification !== 'MOCK_ONLY' || entry.binding !== `${actor.controllerId}:${actor.pawnId}:${actor.generation}`) return [];
+      return [{ id: `report_${actor.id}`, session: entry.session, actorId: actor.id, pawnId: actor.pawnId,
+        generation: actor.generation, actionId: entry.id, action: entry.action.toLowerCase(), stage: stage.stage,
+        source: { SUBMITTED: 'DISPATCH_RECEIPT', ASSIGNED: 'NATIVE_ASSIGNMENT', BEHAVIOR_OBSERVED: 'INDEPENDENT_OBSERVATION',
+          COMPLETED: 'MATCHED_COMPLETION', REJECTED: 'DISPATCH_REJECTION' }[stage.stage], classification: 'MOCK_ONLY',
+        observedAtMs: stage.observedAtMs, expiresAtMs: stage.observedAtMs + 5000 }];
+    });
+    return { session: snapshot.session, nowMs: clock, phase: snapshot.phase, reports,
+      bindings: snapshot.lancemates.map(({ id,pawnId,generation,aiOwned,alive }) => ({ id,pawnId,generation,aiOwned,alive })) };
+  }
+  function statusPreview() {
+    if (!missionSpeech || !snapshot) return null;
+    const at = realNow();
+    const result = Number.isFinite(at) && at >= missionSpeech.wallLastObservedMs && at < missionSpeech.wallExpiresAtMs && !disposed
+      ? revalidateMissionSpeech(missionSpeech.line, statusContext()) : { status: 'REJECTED', reason: 'WALL_CLOCK_EXPIRED_OR_INVALID' };
+    if (result.status !== 'VALID') { missionSpeech = null; return { status: 'EXPIRED', reason: result.reason }; }
+    missionSpeech.wallLastObservedMs = at;
+    return { ...clone(missionSpeech.line), delivery: 'TEXT_PREVIEW_ONLY', wallExpiresAtMs: missionSpeech.wallExpiresAtMs };
+  }
   const stopAudio = reason => {
     if (audioJob) audioJob.abort.abort(reason);
     audioJob = null; radio.interrupt(reason);
@@ -63,7 +91,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   }
   const state = () => ({ classification: snapshot ? 'MOCK_ONLY' : 'DISCONNECTED',
     clockMs: clock, settings: clone(settings), settingsStatus, profiles: clone(profiles),
-    control: control.getState(), radio: radio.getState(), last: clone(last),
+    control: control.getState(), radio: radio.getState(), last: clone(last), missionSpeech: statusPreview(),
     localModels: { language: language.status(), speech: speech.getState(), error: modelError,
       starting: !!modelStart, previewDeadlineMs, firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED',
       reply: clone(reply), audio: audioJob ? { id: audioJob.id, status: audioJob.status,
@@ -79,6 +107,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       provenance: 'MOCK_ONLY', session: snapshot.session, sequence, observedAtMs: clock, snapshot: clone(snapshot) });
   }
   function newDemo() {
+    missionSpeech = null;
     cancelConversation('MISSION_CHANGED');
     clock = 1000; sequence = 0; snapshot = baseline(); snapshot.session = `demo_${++epoch}`;
     snapshot.lancemates = ids.map((id, index) => ({ ...clone(snapshot.lancemates[0]), id,
@@ -94,6 +123,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   async function act(input) {
     if (disposed) throw new Error('WORKBENCH_CLOSED');
     if (!input || typeof input.type !== 'string') throw new Error('INVALID_ACTION');
+    if (['step','queue','arm','disarm','interrupt'].includes(input.type)) missionSpeech = null;
     if (input.type === 'preview_timing') {
       if (typeof input.allowSlow !== 'boolean') throw new Error('INVALID_PREVIEW_TIMING');
       cancelConversation('PREVIEW_TIMING_CHANGED'); conversation.dispose();
@@ -143,7 +173,22 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     } else if (input.type === 'disarm') last = control.disarm();
     else {
       if (!snapshot) throw new Error('START_SYNTHETIC_DEMO_FIRST');
-      if (input.type === 'converse') {
+      if (input.type === 'mission_status') {
+        if (Object.keys(input).some(k => !['type','actorId','query','targetId'].includes(k))) throw new Error('INVALID_STATUS_REQUEST');
+        const actor = snapshot.lancemates.find(a => a.id === input.actorId);
+        if (!actor) throw new Error('INVALID_RECIPIENT');
+        const context = statusContext(), report = context.reports.find(r => r.actorId === actor.id);
+        const query = input.query ?? 'action_status';
+        const request = { id: randomUUID(), session: snapshot.session, speakerId: actor.id, pawnId: actor.pawnId,
+          generation: actor.generation, query, ...(query === 'action_status' ? { actionId: report?.actionId ?? 'unobserved_action' } : {}),
+          ...(Object.hasOwn(input, 'targetId') ? { targetId: input.targetId } : {}) };
+        const line = prepareMissionSpeech(request, context), at = realNow();
+        if (line.status !== 'PREPARED') throw new Error(line.reason);
+        if (!Number.isFinite(at) || at < 0) throw new Error('INVALID_CLOCK');
+        missionSpeech = { line, wallCreatedAtMs: at, wallLastObservedMs: at, wallExpiresAtMs: at + 5000 };
+        last = { status: 'AUTHORED_STATUS_PREVIEW', classification: line.classification, nativeCalls: 0,
+          audioGenerated: false, conversationAcceptance: 'NOT_ESTABLISHED' };
+      } else if (input.type === 'converse') {
         if (language.status().state !== 'READY') throw new Error('LOCAL_LANGUAGE_MODEL_NOT_READY');
         const b = bindings().find(b => b.id === input.actorId); if (!b) throw new Error('INVALID_RECIPIENT');
         if (reply?.status === 'GENERATING') throw new Error('CONVERSATION_BUSY');

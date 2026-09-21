@@ -37,7 +37,7 @@ function render(data) {
   $('listen').disabled = models.audio?.status !== 'READY';
   $('voiceStatus').textContent = models.audio ? `${models.audio.status} · ${models.audio.voiceId}${models.audio.error ? ` · ${models.audio.error}` : ''}` : 'No voice preview.';
   clearTimeout(pollTimer);
-  if (models.starting || models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING') pollTimer = setTimeout(() => api(), 750);
+  if (models.starting || models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING' || data.missionSpeech?.status === 'PREPARED') pollTimer = setTimeout(() => api(), 750);
   if (playback && (models.audio?.id !== playback.id || models.reply?.id !== playback.replyId ||
       models.reply?.session !== playback.session || data.settings.speechMuted ||
       (playback.audio && data.radio.playing?.lineId !== playback.id))) cancelPlayback();
@@ -68,13 +68,15 @@ function render(data) {
       const b = node('button', label); b.disabled = data.classification !== 'MOCK_ONLY'; b.onclick = () => api({ type: 'step', event, actorId: p.id }); events.append(b);
     }
     const radio = node('button', 'Radio text preview'); radio.disabled = data.classification !== 'MOCK_ONLY'; radio.onclick = () => api({ type: 'radio', actorId: p.id }); events.append(radio);
+    const status = node('button', 'Action status'); status.disabled = data.classification !== 'MOCK_ONLY'; status.onclick = () => api({ type: 'mission_status', actorId: p.id }); events.append(status);
     body.append(events); card.append(head, body); $('pilots').append(card);
   });
   }
-  $('radio').textContent = data.radio.playing ? `${data.radio.playing.speakerId}: ${data.radio.playing.text} (${data.radio.playing.lineId === models.audio?.id ? 'generated preview; facts unverified' : 'authored text; no audio'})` : 'No speaker.';
+  $('radio').textContent = data.radio.playing ? `${data.radio.playing.speakerId}: ${data.radio.playing.text} (${data.radio.playing.lineId === models.audio?.id ? 'generated preview; facts unverified' : 'authored text; no audio'})` :
+    data.missionSpeech?.status === 'PREPARED' ? `${data.missionSpeech.request.speakerId}: ${data.missionSpeech.text} (authored status; text only)` : 'No speaker.';
   $('complete').disabled = !data.radio.playing;
   $('result').textContent = JSON.stringify({ last: data.last, capabilities: data.control.capabilities, pending: data.control.pending,
-    actionEvidence: data.control.ledger, integration: data.integration }, null, 2);
+    actionEvidence: data.control.ledger, missionSpeech: data.missionSpeech, integration: data.integration }, null, 2);
 }
 $('demo').onclick = () => api({ type: 'demo' }); $('arm').onclick = () => api({ type: 'arm' });
 $('queue').onclick = () => api({ type: 'queue' }); $('disarm').onclick = () => api({ type: 'disarm' });
