@@ -1,0 +1,124 @@
+{
+  "recordedAt": "2026-09-21T05:28:04.439Z",
+  "status": "PRIVATE_SOURCE_BACKUP_VERIFIED",
+  "repository": "https://github.com/bug220r-lab/mw5-lancemate-companion",
+  "owner": "bug220r-lab",
+  "visibility": "private",
+  "branch": "codex/companion-foundation",
+  "commit": "690d54364780d7184e89284e4ffe6f59a33d7ac5",
+  "remoteCommit": "690d54364780d7184e89284e4ffe6f59a33d7ac5",
+  "files": 203,
+  "reviewedBytes": 4256701,
+  "scope": "Original source, design/research reports, synthetic fixtures and bounded authored receipts; not a whole-machine or complete raw-evidence backup.",
+  "excluded": [
+    {
+      "path": ".git/",
+      "reason": "Git administration and credentials are outside source review; directory was not opened."
+    },
+    {
+      "path": "audio/elevenlabs-audition-001/laura.mp3",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/elevenlabs-audition-001/lily.mp3",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/elevenlabs-audition-001/sarah.mp3",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/raw/VA-001.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/raw/VA-002.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/raw/VA-003.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/raw/VA-004.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/raw/VA-005.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/raw/VA-006.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-001-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-001-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-002-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-002-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-003-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-003-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-004-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-004-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-005-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-005-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-006-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/VA-006-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/zira-clean.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/zira-audition-001/zira-radio.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "companion/local/",
+      "reason": "Downloaded models, native runtimes, virtual environments, generated media and local runtime logs."
+    },
+    {
+      "path": "research/evidence/",
+      "reason": "Raw proprietary game/editor exports, generated native declarations, screenshots and downloaded third-party source."
+    },
+    {
+      "path": "tmp/",
+      "reason": "Scratch work, downloaded third-party source/media and intermediate inspection material."
+    }
+  ],
+  "gameDeployment": "NOT_PERFORMED"
+}

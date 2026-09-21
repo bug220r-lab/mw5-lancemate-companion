@@ -1,8 +1,37 @@
-# Kokoro CPU setup feasibility
+# Kokoro CPU setup and component validation
 
-Inspected **2026-09-21**. Status: **SOURCE-SUPPORTED CANDIDATE; installation and synthesis NOT_PERFORMED**. This check read the existing Python's metadata and official project/package sources. It downloaded no package or model payload, created no virtual environment, recorded no microphone audio, called no paid service and ran no game/editor process.
+Updated **2026-09-21**. Status: **PASS_LOCAL_CPU_FILE_SYNTHESIS_ONLY**. The subsequently authorized isolated setup is installed and all three candidate voices produced valid WAV files. No microphone, speaker playback, paid service or game/editor execution occurred. Sound quality approval and performance alongside MW5 remain **NOT_PERFORMED**.
 
-**Conclusion:** the installed 64-bit Python is compatible with published Kokoro 0.9.4, and the official Python implementation has an explicit CPU path. A project-isolated CPU installation is credible. Exact resolved dependency bytes, expanded installation footprint, CPU latency and sound quality remain unmeasured. Keep **10 GiB free on C:** across the combined language, speech-recognition and speech-synthesis stack; allocate a voice budget before installing anything.
+**Observed result:** one CPU model served `af_bella`, `am_adam` and `af_heart` sequentially using two Torch threads. The three 4.10–4.85 second samples required **3.47–4.41 seconds** of synthesis each. Initial imports plus model readiness took **50.40 seconds**, and peak process working set was **1.26 GiB**. This is successful local file synthesis; it does not establish acceptable conversational latency or voice casting. The benchmark's actual values and hashes are in [KOKORO_COMPONENT_BENCHMARK.json](../research/KOKORO_COMPONENT_BENCHMARK.json).
+
+## Completed isolated installation
+
+The parent allocated **4 GiB total additional disk** to TTS while reserving **10 GiB free on C:** for the combined stack. The measured first installation estimate was below that cap; a resumed conservative estimate was **4,119,697,860 bytes**, counting retained archives, twice the expanded installation size, model allowance and overhead. After setup and the three WAVs, the observed TTS directory size was **2,174,498,499 bytes (2.03 GiB)**. C: free in the repaired installation receipt was **18,158,592,000 bytes (16.91 GiB)**; that is a timestamped observation, not a continuing guarantee.
+
+The project-owned [Setup-Kokoro.mjs](../scripts/Setup-Kokoro.mjs) creates a venv from the existing bundled Python if needed, resolves only binary wheels, fetches hash-locked official assets, inspects expanded archive sizes, and installs offline with `--require-hashes --no-index --no-deps --no-compile`. Its disk checks include local temporary/cache files and reject an allocation or free-space violation. It does not install system software or change PATH. No upstream repository setup script was run.
+
+Evidence under `companion/local/tts/manifests/`:
+
+- `resolve.json`: exact resolved wheel URLs and publisher/resolver hashes; `requirements.lock.txt`: the resulting 89-package lock including spaCy's English model.
+- `assets.json`: every selected wheel/model/voice/license asset, size and SHA-256. The four model/voice payloads match the publisher hashes listed below. The official fixed-version spaCy model and small pinned source/license files have recorded download hashes, distinct from publisher-advertised hashes.
+- `budget.json`: the latest measured archive sizes and pre-install/repair budget calculation; `install-receipt.json`: actual installed disk and `pip check` result.
+- `installed.json`: actual installed package versions, including pip and the retained `annotated-doc` dependency from the first resolution. Old downloaded wheel archives remain within the component's measured disk total.
+
+The initial offline import test exposed a real dependency mismatch: spaCy 3.8.4 imports Click, whereas the latest allowed Typer no longer supplies it. The repair pins **Typer 0.15.1, typer-slim 0.15.1 and Click 8.1.8**. The failure and original resolution are preserved in `logs/benchmark-001-click-missing.json` and `logs/resolve-before-cli-pins.json`. Both the repaired `pip check` and actual synthesis pass. The wheel-only resolver selected **num2words 0.5.6**; the numeric phrase `3 pilots, 1 channel. 120 meters.` generated phonemes and WAV successfully. Other pronunciation cases remain untested. Dependency deprecation/SyntaxWarnings were emitted; none were treated as a voice-quality pass.
+
+The [Exercise-Kokoro.py](../scripts/Exercise-Kokoro.py) benchmark verifies local model hashes, CPU-only Torch, local spaCy/eSpeak and WAV headers/content, with Python socket APIs blocked. It recorded **zero network attempts**, finite audio and no out-of-range PCM samples. Its original authored lines assert no mission facts. The files are `companion/local/tts/audio/{edge-af_bella,tactician-am_adam,scout-af_heart}-component.wav`; they were not played.
+
+Offline rerun after setup:
+
+```powershell
+& '.\companion\local\tts\venv\Scripts\python.exe' -B '.\scripts\Exercise-Kokoro.py'
+```
+
+The [Kokoro-Worker.py](../scripts/Kokoro-Worker.py) and [local-speech.mjs](../companion/local-speech.mjs) add an optional persistent CPU process with private NDJSON pipes. `createLocalSpeech()` is inert until `start()`. `synthesize({text,voiceId},{signal})` allows only the three voice IDs above and at most 256 characters; it accepts no paths or commands. One request may run at a time. Abort/timeout kills the owned worker, rejects the request and removes only that interrupted request's known unfinished/unaccepted outputs. An explicit `restart()` is required afterward. Accepted outputs are preserved under `companion/local/speech-output/`; that directory is capped at 64 MiB, with the 10 GiB free reserve checked before synthesis. There is no HTTP listener, microphone, player or game API. These files do not establish factual grounding of supplied text.
+
+The worker's **29 synthetic tests pass**, covering request limits, identity/path validation, lifecycle races, timeout, cancellation, late replies and restart. A separate real local smoke exercise successfully generated three WAVs across model reuse and one explicit restart; it stopped an active synthesis on AbortSignal. Its measured times, package/asset receipt hashes and accepted file hashes are preserved in `companion/local/tts/logs/worker-smoke.json`. `firstAudioMs` means the first tensor became available; the adapter returns only a complete verified file. It is neither an audible-latency measure nor streaming playback. Interrupting a worker requires reloading it; that startup cost remains visible to the calling UI.
+
+**Initial research snapshot follows.** The original inspection was read-only; its proposed 3 GiB allocation and future-tense setup steps below are historical. The completed 4 GiB authorization and measured results above supersede those proposals.
 
 ## Observed local environment
 
@@ -76,4 +105,4 @@ This is a local inference path, with no per-line API billing or subscription in 
 4. Generate a few original short mission lines into local WAV files without microphone capture, playback or game execution. Measure cold-start time, first-audio latency, total synthesis time divided by audio duration, peak memory, CPU use and all three voice outputs. Keep the thread count bounded and record it. A successful file is not a latency/quality pass.
 5. Obtain listening feedback and separately test interrupting the worker and clearing queued audio. Only then connect synthesis to a supervised playback host. Real-time performance alongside MW5 remains a later measurement.
 
-No step above ran during this feasibility check. Required unresolved evidence: complete resolved package lock, installed expanded footprint, CPU benchmark, pronunciation of MW5 terminology, acceptable character voices, and actual cancellation/playback behavior.
+The initial read-only feasibility check did not run these steps. The later authorized setup completed the lock, footprint and CPU benchmark above. Remaining release evidence includes MW5 terminology pronunciation, acceptable character voices, actual playback/interrupt behavior, and game-concurrent latency/overhead. The private worker cancellation check is a process/file result, not a playback result.

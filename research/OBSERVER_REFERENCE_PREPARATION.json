@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-21T05:27:57.1488802Z",
+  "status": "PREPARED_REVIEWED_NATIVE_NOT_PERFORMED",
+  "evidence": "OBSERVED_SOURCE_AND_PROPOSED_NATIVE_ACTION",
+  "helper": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+    "bytes": 11828,
+    "sha256": "20C460FDF678DE74568C477B28C41A65408A5B5C7868BC1BB893D05CECED099B"
+  },
+  "native_lookup": "NOT_PERFORMED",
+  "asset_authoring_cook_deployment": "NOT_PERFORMED",
+  "gameplay": "NOT_PERFORMED",
+  "authorization": {
+    "reported_user_message": "Also feel free to run the game or editor if needed :)",
+    "source_task": "01a0bfd7-7170-7970-87b6-cd273ab64590",
+    "scope": "Existing-editor metadata-only lookup of three direct referencer sets; no additional editor execution approval needed for this scoped action"
+  },
+  "output": {
+    "parent": "research/evidence/editor-source",
+    "folder_pattern": "observer-references-YYYYMMDDTHHMMSSZ-12hex",
+    "files": [
+      "started.json",
+      "checkpoint-00.json",
+      "checkpoint-01.json (conditional)",
+      "checkpoint-02.json (conditional)",
+      "checkpoint-03.json (conditional)",
+      "report.json"
+    ],
+    "maximum_designed_json_bytes": 1081344,
+    "temporary_lock": ".observer-reference-lookup.lock",
+    "writes_to_installed_assets": false
+  },
+  "options": {
+    "include_soft_package_references": true,
+    "include_hard_package_references": true,
+    "include_searchable_names": false,
+    "include_soft_management_references": false,
+    "include_hard_management_references": false
+  },
+  "targets": [
+    {
+      "package": "/Game/Objects/_common/MW5PlayerController",
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "bytes": 1260490,
+      "sha256": "FE6492FB35EF4759D3EF770CB802819DBC4DA38F98FB88416AD8B10B16B5E6BC"
+    },
+    {
+      "package": "/Game/Modes/InstantAction/InstantActionPlayerController",
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6"
+    },
+    {
+      "package": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset",
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\Components\\PlayerControllerComponents\\PlayerControllerComponentDataAsset.uasset",
+      "bytes": 9538,
+      "sha256": "D5D06EE76FD4049E836563FEDB4C65E79AA12862BC9DAD7DBA55FBD467985F5A"
+    }
+  ],
+  "validation": {
+    "receipt": "research/OBSERVER_REFERENCE_HELPER_REVIEW.json",
+    "classification": "MOCK_ONLY",
+    "runtime": "3.7.7 (tags/v3.7.7:d7c567b08f, Mar 10 2020, 10:41:24) [MSC v.1900 64 bit (AMD64)]",
+    "cases_passed": 47,
+    "cases_failed": 0,
+    "receipt_sha256": "C9EE8ADB3A4EF14DE7C0DEC200B34A16EE0A7E15BEC9E5FD0103F93F7033AD20"
+  }
+}

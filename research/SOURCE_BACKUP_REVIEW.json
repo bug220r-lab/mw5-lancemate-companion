@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-21T05:27:45.533Z",
+  "reviewedAt": "2026-09-21T05:51:54.131Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 203,
-    "includedBytesExcludingThisReceipt": 4256701,
+    "includedFiles": 226,
+    "includedBytesExcludingThisReceipt": 4578804,
     "excludedEntries": 27,
     "unresolved": 0
   },
@@ -130,6 +130,8 @@
     "companion/benchmark.mjs",
     "companion/control.mjs",
     "companion/conversation.mjs",
+    "companion/kokoro.lock.json",
+    "companion/llama-runtime-pins.json",
     "companion/local-language-model.mjs",
     "companion/local-speech.mjs",
     "companion/models.lock.json",
@@ -141,13 +143,20 @@
     "companion/radio.mjs",
     "companion/server.mjs",
     "companion/tests/benchmark.test.mjs",
+    "companion/tests/browser-playback.test.mjs",
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
+    "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
+    "companion/tests/llm-review.test.mjs",
+    "companion/tests/local-language-model.test.mjs",
+    "companion/tests/local-speech-review.test.mjs",
+    "companion/tests/local-speech.test.mjs",
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
     "companion/tests/policy-regression.test.mjs",
     "companion/tests/radio.test.mjs",
+    "companion/tests/server-conversation.test.mjs",
     "companion/tests/server.test.mjs",
     "design/AI_MAPPING_AND_EVALUATION.md",
     "design/ARCHITECTURE.md",
@@ -165,6 +174,7 @@
     "design/OFFLINE_TACTICAL_PROTOTYPE.md",
     "design/OVERNIGHT_PROGRESS.md",
     "design/PASSIVE_OBSERVER_HANDOFF.md",
+    "design/PASSIVE_OBSERVER_REFERENCE_LOOKUP.md",
     "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
     "design/PERSONALITY_AUDITION.md",
     "design/PILOT_BEHAVIOR.md",
@@ -198,6 +208,7 @@
     "research/COMPANION_VALIDATION.json",
     "research/CONSOLIDATED_RESEARCH_COLLECTION.md",
     "research/CONTROL_SUPPORT_INDEPENDENT_REVIEW.md",
+    "research/CONVERSATION_LATENCY_DIAGNOSTIC.json",
     "research/EDITOR_COMPLETION.json",
     "research/EDITOR_CONTRACT_GAP_MATRIX.md",
     "research/EDITOR_INSTALLATION.md",
@@ -220,6 +231,7 @@
     "research/FEASIBILITY.md",
     "research/FOLLOW_ORDER_EXPORT.md",
     "research/GAMEPLAY_REFERENCE.md",
+    "research/GITHUB_BACKUP.json",
     "research/IMPLEMENTATION_STATUS.md",
     "research/KOKORO_COMPONENT_BENCHMARK.json",
     "research/LOCAL_CONVERSATION_COMPONENT_BENCHMARK.json",
@@ -229,6 +241,11 @@
     "research/OBSERVER_CALLER_NATIVE_RESULT.md",
     "research/OBSERVER_CALLER_NATIVE_REVIEW.md",
     "research/OBSERVER_REFERENCE_API_REVIEW.md",
+    "research/OBSERVER_REFERENCE_COMMANDLET_REVIEW.md",
+    "research/OBSERVER_REFERENCE_EXECUTION_ACCESS.json",
+    "research/OBSERVER_REFERENCE_HELPER_REVIEW.json",
+    "research/OBSERVER_REFERENCE_HELPER_REVIEW.md",
+    "research/OBSERVER_REFERENCE_PREPARATION.json",
     "research/OFFLINE_COMMAND_REPORT.json",
     "research/OFFLINE_MEMORY_EXERCISE.md",
     "research/OFFLINE_MEMORY_REPORT.json",
@@ -257,6 +274,9 @@
     "research/TACTICAL_INDEPENDENT_REVIEW_BEFORE_FIX.md",
     "research/TACTICAL_STATE_TRACE.md",
     "research/WHISPER_COMPONENT_BENCHMARK.json",
+    "research/WORKBENCH_CONVERSATION_ATTEMPT_001.json",
+    "research/WORKBENCH_CONVERSATION_ATTEMPT_002.json",
+    "research/WORKBENCH_CONVERSATION_BENCHMARK.json",
     "research/_bridge_memo.md",
     "research/_dispatcher_export_review.md",
     "research/_editor_followup.md",
@@ -279,10 +299,12 @@
     "scripts/Exercise-MemoryContract.mjs",
     "scripts/Exercise-TacticalPolicy.mjs",
     "scripts/Exercise-Whisper.mjs",
+    "scripts/Exercise-WorkbenchConversation.mjs",
     "scripts/Expand-LocalRuntimes.ps1",
     "scripts/Export-FollowOrderSources.py",
     "scripts/Export-OpenBlueprints.py",
     "scripts/Finish-ZiraAudition.py",
+    "scripts/Inspect-ConversationLatency.mjs",
     "scripts/Inspect-EditorInstall.ps1",
     "scripts/Inspect-EditorPythonStub.py",
     "scripts/Inspect-EditorReflection.py",
@@ -295,6 +317,7 @@
     "scripts/Prepare-GitHubBackup.mjs",
     "scripts/Review-MemoryContract.mjs",
     "scripts/Review-ObserverCaller.py",
+    "scripts/Review-ObserverReferences.py",
     "scripts/Review-SourceBackup.mjs",
     "scripts/Review-TacticalPolicy.mjs",
     "scripts/Setup-Kokoro.mjs",
@@ -447,9 +470,29 @@
     },
     {
       "path": "companion/conversation.mjs",
-      "bytes": 16296,
-      "sha256": "6f4931592e17614784d2528d20f644090c3df1e3b7242ba03eddf1ca4f1a5359",
-      "lines": 240,
+      "bytes": 17095,
+      "sha256": "796e9e618299cc5df1d9c107c62baadd6fa3809ed8c6304455e3d1229ec1a7ba",
+      "lines": 251,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/kokoro.lock.json",
+      "bytes": 42161,
+      "sha256": "30a10bc4ba92f8487cd226586aa086ae578f7edcbb8c786b7b4def06829400ac",
+      "lines": 909,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/llama-runtime-pins.json",
+      "bytes": 8625,
+      "sha256": "4044968e1b0bef2dade94d3911533df03d225a1cd57761e2dd1eab2e86d47a93",
+      "lines": 266,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -457,9 +500,9 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 18469,
-      "sha256": "542579db592a6f491aa12cb24a9280c61f086257a1caa6360af023ae1dedc4a5",
-      "lines": 258,
+      "bytes": 20922,
+      "sha256": "e5da9acd9c1e9b12dde476330bde9fb056059f597d52f5e8ad7de3e181ee10b6",
+      "lines": 298,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -467,9 +510,9 @@
     },
     {
       "path": "companion/local-speech.mjs",
-      "bytes": 9513,
-      "sha256": "e37173df06b77b122ad9f316cd5570ad4478acef3a5e5fa59141537a86896450",
-      "lines": 172,
+      "bytes": 11833,
+      "sha256": "665fa9af97d74a98db49e1ef5c657b8525abb938257aa9687b43d258d6e506a3",
+      "lines": 211,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -507,9 +550,9 @@
     },
     {
       "path": "companion/public/app.js",
-      "bytes": 5700,
-      "sha256": "46811c31c400d912e401bd562832a055cf7c6f8975ac34bb394aa80a93954d3d",
-      "lines": 64,
+      "bytes": 10828,
+      "sha256": "2e24fbe1f9842dbe3c33aa44478c5f1a950294f07627ea55bc1016d07dd32a00",
+      "lines": 129,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -517,9 +560,9 @@
     },
     {
       "path": "companion/public/index.html",
-      "bytes": 2668,
-      "sha256": "92cab2996118760de0d4ee470f9611d604a7d878eebacfc7248bab7844c70a2e",
-      "lines": 13,
+      "bytes": 4241,
+      "sha256": "6490aeb06caa5b92ff4e23a3634ee4de26f0bfabd4ef785abc4816ead7a418e1",
+      "lines": 14,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -527,9 +570,9 @@
     },
     {
       "path": "companion/public/styles.css",
-      "bytes": 3033,
-      "sha256": "1626a11a0491f62d43c234697e1013188c19a601efa991d52050ff3a4278bcbb",
-      "lines": 2,
+      "bytes": 3282,
+      "sha256": "600a5d717a095d07e13dd40fd111f3032ecff93af4cf687a7dd92035dc5fe1a0",
+      "lines": 3,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -547,19 +590,21 @@
     },
     {
       "path": "companion/README.md",
-      "bytes": 3761,
-      "sha256": "05f5f55d69fa79f768d6645e577ac2fe644ef5f07589daeb2436d6bef1acb798",
-      "lines": 28,
+      "bytes": 10456,
+      "sha256": "139386e9796827e6d2ae91f363b9432b9901bb6c7aa9e691d7b11d330d8caea0",
+      "lines": 60,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
-      "notes": []
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
     },
     {
       "path": "companion/server.mjs",
-      "bytes": 12142,
-      "sha256": "abeec70d5c324253650d9f83ebb8790f10b72a96baae83a12f0a2ca7f5817916",
-      "lines": 178,
+      "bytes": 21718,
+      "sha256": "103fddb025821b53ab39f3bc48833fd66fb6972ac8af709e6e2b54648b93d9dd",
+      "lines": 307,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -570,6 +615,16 @@
       "bytes": 13985,
       "sha256": "8e1442712dc0b6f9a222c3965f64e36693d5eb833526a635b01bb9e812ca0c88",
       "lines": 232,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/browser-playback.test.mjs",
+      "bytes": 12135,
+      "sha256": "710766b49ece6c0b9bdd884f227b80e3d3e73fcd97d88dfba676d14981ea7775",
+      "lines": 178,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -596,10 +651,60 @@
       "notes": []
     },
     {
+      "path": "companion/tests/conversation-review.test.mjs",
+      "bytes": 3300,
+      "sha256": "0ef441e300e34afddedec71e7b6342c4f3ce3e124eea67f7301c486024b98659",
+      "lines": 54,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/conversation.test.mjs",
       "bytes": 17867,
       "sha256": "06f3ce27d7b82eef0fee3607dd9cf59ebffd766a38e19bea1495ea3314376df4",
       "lines": 250,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/llm-review.test.mjs",
+      "bytes": 8849,
+      "sha256": "22f184b00005d1a9d8ab4654877a791e9a48ff9d5563c55ec956e7b2748083f4",
+      "lines": 146,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/local-language-model.test.mjs",
+      "bytes": 15502,
+      "sha256": "46452e9f17881ee1308fc1dd53894f487431d878586a0ad032d4a8bb4a4eedf3",
+      "lines": 217,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/local-speech-review.test.mjs",
+      "bytes": 5211,
+      "sha256": "0933f0d6bba8c4599590daae3654e59c8ac5e12dd942df789e4491355ea87400",
+      "lines": 81,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/local-speech.test.mjs",
+      "bytes": 11447,
+      "sha256": "07d56f35dfd4ec00f941bf150e4c3bd78d544a902cb4a93f73b60af25c6e360a",
+      "lines": 178,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -640,6 +745,16 @@
       "bytes": 20449,
       "sha256": "8fba2f154dd29c41dee3c5c41ceb5ecd810b985c39ef22dbab481ed6d3d1277d",
       "lines": 334,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/server-conversation.test.mjs",
+      "bytes": 19176,
+      "sha256": "17cadf499137f99ebe8e308127a97dc49f73b0f6b5dc8e79cef835ca37af3046",
+      "lines": 308,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -752,9 +867,9 @@
     },
     {
       "path": "design/KOKORO_SETUP.md",
-      "bytes": 13108,
-      "sha256": "9d753eb8ca8c4973bc8b7bbb9933d9e523d56d8108e8a043856e5506449310e3",
-      "lines": 80,
+      "bytes": 18503,
+      "sha256": "46416f3d4d372c0c6fb15bffcec0477a9444f0a1d6ee300bcc9fb32eeec119e0",
+      "lines": 109,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -823,10 +938,23 @@
       "notes": []
     },
     {
-      "path": "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
-      "bytes": 7239,
-      "sha256": "a3d4302b7ef44313bdce9e310b88bf51828a3ca7d02382fea939d9bd28699387",
+      "path": "design/PASSIVE_OBSERVER_REFERENCE_LOOKUP.md",
+      "bytes": 7499,
+      "sha256": "9a21e33bca8bbe8995a5f592b1d95f4409a45038b6fe73665b3f036fa0892478",
       "lines": 46,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
+      "bytes": 8014,
+      "sha256": "ac9cc07d0128618a917aed7a94fa1aa7f4928a42cb52bfe6e73b3466c32e92fa",
+      "lines": 48,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -927,9 +1055,9 @@
     },
     {
       "path": "NEXT_CODEX_PROMPT.md",
-      "bytes": 33860,
-      "sha256": "ab4a4a6c453ac50cc1991bcccab0a5875177f789e42d4350f01880c8a3b03890",
-      "lines": 112,
+      "bytes": 36562,
+      "sha256": "b7b38a90735f13113022f46153a52dd7210c8c46444c46a3d66067c3f93e5fb9",
+      "lines": 120,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -940,9 +1068,9 @@
     },
     {
       "path": "README.md",
-      "bytes": 20140,
-      "sha256": "a975fc9e36579a3b0f183a62c652919d9fc48179d64ac00dd80d5542d65d0f93",
-      "lines": 171,
+      "bytes": 20997,
+      "sha256": "91d4b5a6abc558b346f9bcf495e955156823c7bcbc351b42b56bbc61e59af648",
+      "lines": 173,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1276,9 +1404,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 3525,
-      "sha256": "e0d71cfe445cf8d7a5f211301a80d5959cbc873a5aced87d942ebb5ab5b23be3",
-      "lines": 101,
+      "bytes": 6508,
+      "sha256": "620c07d8928ade19918f47066f0f2759a6ab03b94925766dfe3df9146decd7d2",
+      "lines": 177,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1307,6 +1435,18 @@
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": [
         "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/CONVERSATION_LATENCY_DIAGNOSTIC.json",
+      "bytes": 8981,
+      "sha256": "b4850ef32ae1314ab6f9b77cd9c4ddb9a926de46aade92256c46ee886f8c94fe",
+      "lines": 82,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
       ]
     },
     {
@@ -1609,14 +1749,28 @@
       "notes": []
     },
     {
-      "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 5801,
-      "sha256": "5a0a39586c6a29780e1a90af3dd12a0997fb985207ea5ce883a65c8838716f04",
-      "lines": 39,
+      "path": "research/GITHUB_BACKUP.json",
+      "bytes": 5894,
+      "sha256": "83849f29e4155d5d938bf522fe207aebb8f4efbf3dfee7e863efd8e013c143c8",
+      "lines": 125,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
-      "notes": []
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/IMPLEMENTATION_STATUS.md",
+      "bytes": 11983,
+      "sha256": "acdb89ac69d2ae27a4879fa8c303ff6c90a473d39efae56bba50607c78a3c2de",
+      "lines": 55,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
     },
     {
       "path": "research/KOKORO_COMPONENT_BENCHMARK.json",
@@ -1713,6 +1867,68 @@
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_COMMANDLET_REVIEW.md",
+      "bytes": 11389,
+      "sha256": "5ce7003164019c5c72789fabee9b8babb9cb90917683a096aec5ab82d1a9301a",
+      "lines": 82,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_EXECUTION_ACCESS.json",
+      "bytes": 1826,
+      "sha256": "670d9e4f3250f38d8c9ac90954b8d38b2265f6b583da04202840f905b79fcdca",
+      "lines": 37,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_HELPER_REVIEW.json",
+      "bytes": 61034,
+      "sha256": "c9ee8adb3a4ef14de7c0dec200b34a16ee0a7e15bec9e5fd0103f93f7033ad20",
+      "lines": 1699,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_HELPER_REVIEW.md",
+      "bytes": 3129,
+      "sha256": "109f0a3fba3d398a283c27df7df036e7d8a95b807c9ccb8f945b6e6477b92ead",
+      "lines": 17,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_PREPARATION.json",
+      "bytes": 3144,
+      "sha256": "098a84af424913bba6d3322f6620118a35deae431a70528c3cac8b37ff0b1a9a",
+      "lines": 70,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
         "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
       ]
     },
@@ -2010,6 +2226,42 @@
       ]
     },
     {
+      "path": "research/WORKBENCH_CONVERSATION_ATTEMPT_001.json",
+      "bytes": 5453,
+      "sha256": "d0cfa8de1876a51940c6f9902730c6ec62965e667823d144d76969b9f24f4dcd",
+      "lines": 108,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/WORKBENCH_CONVERSATION_ATTEMPT_002.json",
+      "bytes": 5455,
+      "sha256": "e7d28ff37a021e057fdfe045fdc8dde7f40e904895e3510e2d906fc16519059b",
+      "lines": 108,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/WORKBENCH_CONVERSATION_BENCHMARK.json",
+      "bytes": 6490,
+      "sha256": "ce4cdecdddb75f3af0ffe3bb33f1b524fd929a683cc2bc64580387f3758cb20a",
+      "lines": 133,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
       "path": "scripts/Build-AIReviewIndex.mjs",
       "bytes": 8367,
       "sha256": "a6dba1187bb80cedb4187c62e32d107b8709223376923a0e0499286797f70009",
@@ -2069,9 +2321,9 @@
     },
     {
       "path": "scripts/Exercise-Kokoro.py",
-      "bytes": 8732,
-      "sha256": "f97705c8b10b071aaf10cdc7a68152fd9d4b819670198f1de9df0a558051bd66",
-      "lines": 162,
+      "bytes": 8789,
+      "sha256": "c90326cb8ff0f33fa34273c14916a29aabc547a23048b31619a95235e1431d02",
+      "lines": 163,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2118,6 +2370,16 @@
       "notes": []
     },
     {
+      "path": "scripts/Exercise-WorkbenchConversation.mjs",
+      "bytes": 5205,
+      "sha256": "48db6866e7914c64974b2f80d6ed336f085cb4b959c8498193e8a3ea742bb4ce",
+      "lines": 73,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "scripts/Expand-LocalRuntimes.ps1",
       "bytes": 2417,
       "sha256": "fbf9f707c664c9475dc3dc6c8cbf00c8f683ed35af2a44637c3bd093a31d3be1",
@@ -2152,6 +2414,16 @@
       "bytes": 6262,
       "sha256": "0cd95647ff9c6098b3ada33ec7d788afe3cded829a4e7c9049c8c99018418fbc",
       "lines": 145,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "scripts/Inspect-ConversationLatency.mjs",
+      "bytes": 1499,
+      "sha256": "c77c2403c8d89398657c2c6e3aa0ca6c88f3a400eb9b02576dbe197226277dff",
+      "lines": 26,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2240,9 +2512,9 @@
     },
     {
       "path": "scripts/Kokoro-Worker.py",
-      "bytes": 7296,
-      "sha256": "11360611da1e3a0718c4d685f6b1c8367d912bc98c8415a974a4d03cf28eca70",
-      "lines": 148,
+      "bytes": 7400,
+      "sha256": "66bf096f8bdd740d782b18971052ac5d2b7fd6e7486dae40349ada3e6fc48859",
+      "lines": 149,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2291,6 +2563,18 @@
       ]
     },
     {
+      "path": "scripts/Review-ObserverReferences.py",
+      "bytes": 18583,
+      "sha256": "64eb03b71b19785f4f317052d0d3c2fcc93ad9c808f67645e12377116e33e1a5",
+      "lines": 326,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
       "path": "scripts/Review-SourceBackup.mjs",
       "bytes": 16811,
       "sha256": "c504cb5150f7d384e3238fea43fe3503739aa2bad6e2ff758ead980f59fbadd3",
@@ -2314,9 +2598,9 @@
     },
     {
       "path": "scripts/Setup-Kokoro.mjs",
-      "bytes": 12979,
-      "sha256": "59154102de8205feb03d58372c74449a8e0ad09a469d63a4e24ca4ff62a500dc",
-      "lines": 190,
+      "bytes": 15006,
+      "sha256": "b004ca15459ccee9bc3e3e6a5c6a180f2d12ab60eba8167969f4fcb8177e22aa",
+      "lines": 224,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2400,9 +2684,9 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 2286,
-      "sha256": "1e37926287673e738f35692b11ad468a91b8240a57099cd17ed1fcad17892198",
-      "lines": 28,
+      "bytes": 2527,
+      "sha256": "8e180be62c237a2a552a4c3500141fb40cee857ad6f81b3ff2dbfe84d9e5f980",
+      "lines": 29,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

@@ -23,7 +23,7 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
     throw new TypeError('INVALID_SPEECH_OPTIONS');
   }
   let state = 'NEW', child = null, pending = null, boot = null, ready = null, stderr = '', buffer = '';
-  let restartRequired = false, stopPromise = null, epoch = 0;
+  let restartRequired = false, stopPromise = null, restartPromise = null, epoch = 0, lifecycle = 0;
 
   function settlePending(error, value) {
     const job = pending; if (!job) return;
@@ -44,26 +44,31 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
     }
   }
   function stop(reason = 'STOPPED') {
+    ++lifecycle;
+    return stopOwned(reason);
+  }
+  function stopOwned(reason) {
     if (stopPromise) return stopPromise;
     restartRequired = true;
     const owned = child, interruptedId = pending?.id;
-    ++epoch; state = 'STOPPING'; child = null; ready = null;
+    ++epoch; state = 'STOPPING'; ready = null;
     settleBoot(fault(reason)); settlePending(fault(reason));
     stopPromise = (async () => {
       if (owned) {
-        await new Promise(resolve => {
-          const timer = setTimeout(resolve, 3000);
+        await new Promise((resolve, reject) => {
+          const timer = setTimeout(() => reject(fault('WORKER_STOP_TIMEOUT')), 3000);
           owned.once('close', () => { clearTimeout(timer); resolve(); });
           owned.kill();
         });
       }
+      if (child === owned) child = null;
       await cleanupInterrupted(interruptedId);
       state = 'STOPPED';
       return { status: 'STOPPED', reason, restartRequired: true };
-    })().finally(() => { stopPromise = null; });
+    })().catch(error => { state = 'STOP_FAILED'; throw error; }).finally(() => { stopPromise = null; });
     return stopPromise;
   }
-  function fail(reason) { void stop(reason); }
+  function fail(reason) { void stop(reason).catch(() => {}); }
   async function message(msg, generation) {
     if (generation !== epoch) return;
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return fail('INVALID_WORKER_MESSAGE');
@@ -102,7 +107,8 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
     state = 'STARTING'; buffer = ''; stderr = ''; const generation = ++epoch;
     const env = { ...process.env, PYTHONNOUSERSITE: '1', PYTHONIOENCODING: 'utf-8',
       HF_HOME: path.join(root, 'hf-cache'), HF_HUB_OFFLINE: '1', TRANSFORMERS_OFFLINE: '1',
-      HF_HUB_DISABLE_TELEMETRY: '1', CUDA_VISIBLE_DEVICES: '-1', OMP_NUM_THREADS: '2', MKL_NUM_THREADS: '2' };
+      HF_HUB_DISABLE_TELEMETRY: '1', CUDA_VISIBLE_DEVICES: '-1', OMP_NUM_THREADS: '2', MKL_NUM_THREADS: '2',
+      TEMP: path.join(root, 'tmp'), TMP: path.join(root, 'tmp') };
     delete env.PYTHONPATH;
     let resolve, reject;
     const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
@@ -133,13 +139,20 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
     } catch { fail('WORKER_START_FAILED'); }
     return promise;
   }
-  async function restart() {
-    await stop('RESTARTED'); restartRequired = false; state = 'NEW'; return start();
+  function restart() {
+    if (restartPromise) return restartPromise;
+    const intent = ++lifecycle;
+    restartPromise = (async () => {
+      await stopOwned('RESTARTED');
+      if (intent !== lifecycle) throw fault('RESTART_CANCELLED');
+      restartRequired = false; state = 'NEW'; return start();
+    })().finally(() => { restartPromise = null; });
+    return restartPromise;
   }
   async function synthesize(request, { signal } = {}) {
     if (!request || Object.getPrototypeOf(request) !== Object.prototype ||
         Object.keys(request).sort().join(',') !== 'text,voiceId' || typeof request.text !== 'string' ||
-        !request.text.trim() || request.text.length > 256 || /[\u0000-\u001f\u007f]/u.test(request.text) ||
+        !request.text.trim() || request.text.length > 256 || !request.text.isWellFormed() || /[\u0000-\u001f\u007f]/u.test(request.text) ||
         !LOCAL_SPEECH_VOICES.includes(request.voiceId)) throw fault('INVALID_SPEECH_REQUEST');
     if (signal && (typeof signal.addEventListener !== 'function' || typeof signal.aborted !== 'boolean')) throw fault('INVALID_ABORT_SIGNAL');
     if (signal?.aborted) throw fault('ABORTED');
@@ -166,6 +179,32 @@ async function verifyWave(file, result) {
   const info = await fs.lstat(file);
   if (!info.isFile() || info.isSymbolicLink() || info.size !== result.bytes) throw fault('OUTPUT_FILE_INVALID');
   const data = await fs.readFile(file);
-  if (data.toString('ascii', 0, 4) !== 'RIFF' || data.toString('ascii', 8, 12) !== 'WAVE' ||
+  if (data.length !== result.bytes || data.length < 44 || data.toString('ascii', 0, 4) !== 'RIFF' ||
+      data.readUInt32LE(4) !== data.length - 8 || data.toString('ascii', 8, 12) !== 'WAVE' ||
       createHash('sha256').update(data).digest('hex') !== result.sha256) throw fault('OUTPUT_CONTENT_INVALID');
+  // Hash agreement establishes which bytes the worker wrote, not their format.
+  // Parse the bounded RIFF container and independently verify its PCM metadata.
+  let offset = 12, format = null, audioBytes = null;
+  while (offset + 8 <= data.length) {
+    const tag = data.toString('ascii', offset, offset + 4), size = data.readUInt32LE(offset + 4);
+    const start = offset + 8, end = start + size;
+    if (end > data.length) throw fault('OUTPUT_CONTENT_INVALID');
+    if (tag === 'fmt ') {
+      if (format !== null || size < 16) throw fault('OUTPUT_CONTENT_INVALID');
+      format = { encoding: data.readUInt16LE(start), channels: data.readUInt16LE(start + 2),
+        sampleRate: data.readUInt32LE(start + 4), byteRate: data.readUInt32LE(start + 8),
+        blockAlign: data.readUInt16LE(start + 12), bits: data.readUInt16LE(start + 14) };
+    } else if (tag === 'data') {
+      if (audioBytes !== null) throw fault('OUTPUT_CONTENT_INVALID');
+      audioBytes = size;
+    }
+    offset = end + (size % 2);
+  }
+  if (offset !== data.length || !format || audioBytes === null || format.encoding !== 1 ||
+      format.channels !== 1 || format.channels !== result.channels || format.sampleRate !== 24000 ||
+      format.sampleRate !== result.sampleRate || format.bits !== 16 || format.blockAlign !== 2 ||
+      format.byteRate !== 48000 || audioBytes % 2 !== 0) throw fault('OUTPUT_CONTENT_INVALID');
+  const seconds = audioBytes / 2 / 24000;
+  if (seconds < .1 || seconds > 60 || Math.abs(seconds - result.audioDurationSeconds) > 1 / 24000 + 1e-9)
+    throw fault('OUTPUT_CONTENT_INVALID');
 }

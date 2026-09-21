@@ -20,6 +20,7 @@ for key, value in {
     "HF_HUB_DISABLE_TELEMETRY": "1", "TRANSFORMERS_OFFLINE": "1",
     "CUDA_VISIBLE_DEVICES": "-1", "OMP_NUM_THREADS": "2", "MKL_NUM_THREADS": "2",
     "PYTHONDONTWRITEBYTECODE": "1",
+    "TEMP": str(ROOT / "tmp"), "TMP": str(ROOT / "tmp"),
 }.items():
     os.environ[key] = value
 

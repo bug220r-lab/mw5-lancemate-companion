@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import os from 'node:os';
 
 const project = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const root = path.join(project, 'companion', 'local', 'tts');
@@ -14,8 +15,55 @@ const MODEL_REVISION = '9871713c6a29032f914cee65b617e2b6b3323770';
 const CODE_REVISION = '1c7bdd971d2e32981f0f2b92d1fe5b0051e21457';
 const MISAKI_REVISION = 'e820629b96334db28227df37f280e4836d46fadb';
 const flags = new Set(process.argv.slice(2));
+if ([...flags].some(f => !['--resolve', '--prepare', '--install', '--check-lock'].includes(f)) ||
+    (flags.has('--resolve') && flags.size > 1) || (flags.has('--check-lock') && flags.size > 1)) throw Error('INVALID_SETUP_FLAGS');
 const allowedHosts = new Set(['pypi.org', 'files.pythonhosted.org', 'download.pytorch.org',
   'download-r2.pytorch.org', 'github.com', 'raw.githubusercontent.com', 'huggingface.co']);
+// Source-controlled lock survives source-only backup. Local receipts and fresh
+// resolver results may never silently replace these artifact identities.
+const sourceLockPath = path.join(project, 'companion', 'kokoro.lock.json');
+const sourceLockText = await fs.readFile(sourceLockPath, 'utf8');
+const sourceLock = JSON.parse(sourceLockText);
+const sourceLockSha256 = createHash('sha256').update(sourceLockText).digest('hex');
+if (sourceLock.schemaVersion !== 1 || sourceLock.lockVersion !== 1 || sourceLock.modelRevision !== MODEL_REVISION ||
+    sourceLock.codeRevision !== CODE_REVISION || sourceLock.misakiRevision !== MISAKI_REVISION ||
+    sourceLock.target?.platform !== 'win32' || sourceLock.target?.architecture !== 'x64' || sourceLock.target?.pythonMinor !== '3.12' ||
+    !Array.isArray(sourceLock.assets) || sourceLock.assets.length > 128) throw Error('INVALID_SOURCE_LOCK');
+const lockedFiles = new Set(), lockedPackages = new Map();
+for (const asset of sourceLock.assets) {
+  const url = new URL(asset.url);
+  if (url.protocol !== 'https:' || !allowedHosts.has(url.hostname) || url.username || url.password ||
+      !/^(wheels|models|licenses)\/[A-Za-z0-9_.+-]+$/.test(asset.file) || lockedFiles.has(asset.file) ||
+      !/^[a-f0-9]{64}$/.test(asset.sha256 || '') || !Number.isSafeInteger(asset.size) || asset.size <= 0 || asset.size > CAP ||
+      (asset.maxBytes !== undefined && (!Number.isSafeInteger(asset.maxBytes) || asset.maxBytes < asset.size || asset.maxBytes > CAP))) throw Error('INVALID_SOURCE_ASSET');
+  lockedFiles.add(asset.file);
+  if (asset.package) {
+    const name = asset.package.toLowerCase().replace(/[-_.]+/g, '-');
+    if (!/^[a-z0-9-]+$/.test(name) || !/^[A-Za-z0-9_.+-]+$/.test(asset.version || '') ||
+        !/^wheels\/.+\.whl$/.test(asset.file) || /^(nvidia-|triton)/i.test(name) || lockedPackages.has(name)) throw Error('INVALID_SOURCE_WHEEL');
+    lockedPackages.set(name, asset.version);
+  }
+}
+for (const [name, version] of Object.entries({ torch:'2.6.0+cpu', kokoro:'0.9.4', misaki:'0.9.4',
+  transformers:'4.48.3', 'huggingface-hub':'0.28.1', spacy:'3.8.4', soundfile:'0.14.0', numpy:'2.2.2',
+  'espeakng-loader':'0.2.4', typer:'0.15.1', 'typer-slim':'0.15.1', click:'8.1.8', 'en-core-web-sm':'3.8.0' })) {
+  if (lockedPackages.get(name) !== version) throw Error('REQUIRED_SOURCE_PACKAGE_MISMATCH');
+}
+for (const name of ['models/kokoro-v1_0.pth','models/config.json','models/af_bella.pt','models/am_adam.pt','models/af_heart.pt',
+  'licenses/Kokoro-model-card.md','licenses/Kokoro-Apache-2.0.txt','licenses/Misaki-license.txt']) {
+  if (!lockedFiles.has(name)) throw Error('REQUIRED_SOURCE_ASSET_MISSING');
+}
+const lockReceipt = { sourceLockVersion: sourceLock.lockVersion, sourceLockSha256 };
+if (flags.has('--check-lock')) {
+  console.log(JSON.stringify({ status:'SOURCE_LOCK_VALID', ...lockReceipt, assets:sourceLock.assets.length,
+    wheels:lockedPackages.size, target:sourceLock.target, downloads:false, installation:false, execution:false }));
+  process.exit(0);
+}
+if (!flags.size) {
+  console.log('Use --check-lock for read-only validation; --prepare and --install use companion/kokoro.lock.json. Optional --resolve writes a candidate local report only.');
+  process.exit(0);
+}
+if (process.platform !== 'win32' || process.arch !== 'x64') throw Error('WINDOWS_X64_LOCK_ONLY');
 function inside(relative) {
   const result = path.resolve(root, relative);
   if (!result.startsWith(`${root}${path.sep}`)) throw Error('OUTSIDE_TTS_ROOT');
@@ -90,6 +138,18 @@ async function download(asset) {
 for (const folder of ['manifests', 'wheels', 'models', 'licenses', 'audio', 'logs', 'tmp', 'pip-cache', 'hf-cache']) {
   await fs.mkdir(inside(folder), { recursive: true });
 }
+if (flags.has('--resolve') || flags.has('--prepare') || flags.has('--install')) {
+  try { await fs.access(python); } catch {
+    await budget(64 * 1024 ** 2);
+    const bundled = path.join(os.homedir(), '.cache', 'codex-runtimes', 'codex-primary-runtime', 'dependencies', 'python', 'python.exe');
+    await fs.access(bundled);
+    const created = spawnSync(bundled, ['-I', '-m', 'venv', inside('venv')],
+      { cwd: project, env: childEnv, windowsHide: true, encoding: 'utf8' });
+    if (created.status !== 0) throw Error(`VENV_CREATION_FAILED: ${created.stderr || created.error}`);
+  }
+  const host = JSON.parse(runPython(['-I', '-c', 'import json,platform,struct; print(json.dumps({"minor":".".join(platform.python_version_tuple()[:2]),"bits":struct.calcsize("P")*8,"implementation":platform.python_implementation()}))'], true));
+  if (host.minor !== '3.12' || host.bits !== 64 || host.implementation !== 'CPython') throw Error('CPYTHON_312_X64_REQUIRED');
+}
 if (flags.has('--resolve')) {
   // Resolver downloads wheel metadata/payloads to project TMP but does not install.
   await budget(512 * 1024 ** 2);
@@ -103,31 +163,15 @@ if (flags.has('--resolve')) {
     'typer==0.15.1', 'typer-slim==0.15.1', 'click==8.1.8']);
 }
 if (!flags.has('--prepare') && !flags.has('--install')) {
-  console.log('Use --resolve to refresh resolution, --prepare to fetch/size locked assets, then --install to install only after the budget passes.');
+  console.log('Candidate resolution saved locally. Default preparation/installation still uses the reviewed source lock; no source lock was changed.');
   process.exit(0);
 }
-const report = JSON.parse(await fs.readFile(inside('manifests/resolve.json'), 'utf8'));
-const wheels = report.install.map(item => {
-  const url = item.download_info.url, name = decodeURIComponent(new URL(url).pathname.split('/').at(-1));
-  const hash = item.download_info.archive_info.hashes?.sha256;
-  if (!/^[A-Za-z0-9_.+-]+\.whl$/.test(name) || !/^[a-f0-9]{64}$/.test(hash || '')) throw Error('ONLY_HASHED_WHEELS_ALLOWED');
-  if (/^(nvidia-|triton)/i.test(item.metadata.name)) throw Error('CUDA_DEPENDENCY_FORBIDDEN');
-  return { package: item.metadata.name, version: item.metadata.version, url, sha256: hash,
-    file: `wheels/${name}`, maxBytes: 250 * 1024 ** 2 };
-});
-if (wheels.find(w => w.package.toLowerCase() === 'torch')?.version !== '2.6.0+cpu') throw Error('CPU_TORCH_REQUIRED');
-const spaCyWheel = { package: 'en-core-web-sm', version: '3.8.0',
-  url: 'https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl',
-  file: 'wheels/en_core_web_sm-3.8.0-py3-none-any.whl', maxBytes: 16 * 1024 ** 2 };
-let previous = {};
-try { previous = JSON.parse(await fs.readFile(inside('manifests/assets.json'), 'utf8')); } catch {}
-const known = new Map((previous.assets || []).map(a => [a.file, a]));
+const wheels = sourceLock.assets.filter(asset => asset.package);
 const assets = [];
-for (const asset of [...wheels, spaCyWheel]) {
-  const prior = known.get(asset.file);
-  const item = await download(prior?.url === asset.url ? { ...asset, size: prior.size, sha256: prior.sha256 } : asset);
+for (const asset of wheels) {
+  const item = await download(asset);
   assets.push(item); console.log(`WHEEL ${asset.package} ${item.bytes} bytes`);
-  await json('manifests/assets.json', { classification: 'LOCAL_COMPONENT_SETUP', modelRevision: MODEL_REVISION, assets });
+  await json('manifests/assets.json', { classification: 'LOCAL_COMPONENT_SETUP', modelRevision: MODEL_REVISION, ...lockReceipt, assets });
 }
 const zipScript = `import json,zipfile,pathlib,sys
 root=pathlib.Path(sys.argv[1]); result=[]
@@ -156,22 +200,11 @@ const estimate = { classification: 'PREINSTALL_MEASURED_ARCHIVES_CONSERVATIVE_ES
 await json('manifests/budget.json', estimate);
 await budget(additional);
 console.log(`BUDGET_PASS estimated_peak=${estimate.projectedPeakBytes} cap=${CAP}`);
-const hub = `https://huggingface.co/hexgrad/Kokoro-82M/resolve/${MODEL_REVISION}`;
-const models = [
-  { file: 'models/kokoro-v1_0.pth', url: `${hub}/kokoro-v1_0.pth`, size: 327212226, sha256: '496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4' },
-  { file: 'models/af_heart.pt', url: `${hub}/voices/af_heart.pt`, size: 523425, sha256: '0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff' },
-  { file: 'models/af_bella.pt', url: `${hub}/voices/af_bella.pt`, size: 523425, sha256: '8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6' },
-  { file: 'models/am_adam.pt', url: `${hub}/voices/am_adam.pt`, size: 523420, sha256: 'ced7e284aba12472891be1da3ab34db84cc05cc02b5889535796dbf2d8b0cb34' },
-  { file: 'models/config.json', url: `${hub}/config.json`, maxBytes: 65536 },
-  { file: 'licenses/Kokoro-model-card.md', url: `${hub}/README.md`, maxBytes: 262144 },
-  { file: 'licenses/Kokoro-Apache-2.0.txt', url: `https://raw.githubusercontent.com/hexgrad/kokoro/${CODE_REVISION}/LICENSE`, maxBytes: 65536 },
-  { file: 'licenses/Misaki-license.txt', url: `https://raw.githubusercontent.com/hexgrad/misaki/${MISAKI_REVISION}/LICENSE`, maxBytes: 65536 }
-];
+const models = sourceLock.assets.filter(asset => !asset.package);
 for (const asset of models) {
-  const prior = known.get(asset.file);
-  const item = await download(prior?.url === asset.url ? { ...asset, size: prior.size, sha256: prior.sha256 } : asset);
+  const item = await download(asset);
   assets.push(item); console.log(`ASSET ${asset.file} ${item.bytes} bytes`);
-  await json('manifests/assets.json', { classification: 'LOCAL_COMPONENT_SETUP', modelRevision: MODEL_REVISION, assets });
+  await json('manifests/assets.json', { classification: 'LOCAL_COMPONENT_SETUP', modelRevision: MODEL_REVISION, ...lockReceipt, assets });
 }
 await fs.writeFile(inside('manifests/requirements.lock.txt'), assets.filter(a => a.package)
   .map(a => `${a.package}==${a.version} --hash=sha256:${a.sha256}`).join('\n') + '\n');
@@ -183,6 +216,7 @@ if (flags.has('--install')) {
   const freeze = runPython(['-m', 'pip', 'list', '--format=json'], true);
   await fs.writeFile(inside('manifests/installed.json'), freeze);
   await json('manifests/install-receipt.json', { status: 'INSTALLED_CPU_COMPONENT', createdAt: new Date().toISOString(),
+    ...lockReceipt,
     pipCheck: check.trim(), disk: await budget(), capBytes: CAP, freeSpaceReserveBytes: RESERVE,
     gameExecution: false, microphoneCapture: false, audioPlayback: false, synthesisPerformed: false });
   console.log(check.trim());

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-21T05:43:47.513Z",
+  "classification": "LOCAL_CPU_INTEGRATION_SYNTHETIC_INPUTS",
+  "status": "INCOMPLETE_LOCAL_PIPELINE",
+  "samples": [
+    {
+      "actorId": "alpha",
+      "textMs": 4056,
+      "replyStatus": "CANCELLED",
+      "reason": "GENERATION_TIMEOUT"
+    },
+    {
+      "actorId": "bravo",
+      "textMs": 4034,
+      "replyStatus": "CANCELLED",
+      "reason": "GENERATION_TIMEOUT"
+    },
+    {
+      "actorId": "charlie",
+      "textMs": 4040,
+      "replyStatus": "CANCELLED",
+      "reason": "GENERATION_TIMEOUT"
+    }
+  ],
+  "gameTests": "NOT_PERFORMED",
+  "microphoneTests": "NOT_PERFORMED",
+  "playbackTests": "NOT_PERFORMED",
+  "voiceQualityAcceptance": "NOT_PERFORMED",
+  "sources": {
+    "companion/server.mjs": "e01ee80d371d27c4497809d2a55549058b4d607d5af2e1ba23cae5608e55c077",
+    "companion/conversation.mjs": "796e9e618299cc5df1d9c107c62baadd6fa3809ed8c6304455e3d1229ec1a7ba",
+    "companion/local-language-model.mjs": "e5da9acd9c1e9b12dde476330bde9fb056059f597d52f5e8ad7de3e181ee10b6",
+    "companion/local-speech.mjs": "665fa9af97d74a98db49e1ef5c657b8525abb938257aa9687b43d258d6e506a3",
+    "scripts/Kokoro-Worker.py": "66bf096f8bdd740d782b18971052ac5d2b7fd6e7486dae40349ada3e6fc48859"
+  },
+  "limitations": [
+    "File delivery latency is not first audible response latency.",
+    "Three short generated previews do not establish mission factuality or game performance."
+  ],
+  "startupMs": 24273,
+  "engines": {
+    "language": {
+      "state": "READY",
+      "modelId": "qwen1_7b",
+      "threads": 4,
+      "classification": "LOCAL_COMPONENT_UNVALIDATED",
+      "verification": "PINNED_FILES_VERIFIED",
+      "ownedPid": 32016,
+      "ownedProcessStopped": false,
+      "activeGeneration": false,
+      "lastError": null,
+      "exitCode": null,
+      "log": "0.00.001.382 I srv  llama_server: initializing ...\r\n0.00.043.812 W Setting 'enable_thinking' via --chat-template-kwargs is deprecated. Use --reasoning on / --reasoning off instead.\r\n0.00.044.002 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\r\n0.00.044.173 I srv          init: The UI is disabled\r\n0.00.044.175 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable\r\n0.00.050.203 I srv    load_model: loading model 'C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\Qwen3-1.7B-Q8_0.gguf'\r\n0.00.779.284 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\r\n0.01.141.607 I cmn          init: llama threadpool init, n_threads = 4\r\n0.01.662.104 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'\r\n0.01.681.548 I srv  llama_server: model loaded\r\n0.01.681.554 I srv  lla",
+      "settings": {
+        "host": "127.0.0.1",
+        "contextTokens": 2048,
+        "maxOutputTokens": 64,
+        "maxOutputChars": 256,
+        "gpuLayers": 0,
+        "simultaneousModels": 1,
+        "thinking": false,
+        "webUI": false,
+        "mcpProxy": false
+      },
+      "gameTests": "NOT_PERFORMED",
+      "audioGenerated": false,
+      "nativeCalls": 0
+    },
+    "speech": {
+      "state": "READY",
+      "restartRequired": false,
+      "busy": false,
+      "ready": {
+        "type": "ready",
+        "protocol": 1,
+        "device": "cpu",
+        "voices": [
+          "af_bella",
+          "am_adam",
+          "af_heart"
+        ],
+        "startupMs": 17513.784,
+        "versions": {
+          "kokoro": "0.9.4",
+          "misaki": "0.9.4",
+          "torch": "2.6.0+cpu",
+          "spacy": "3.8.4",
+          "en-core-web-sm": "3.8.0",
+          "typer": "0.15.1",
+          "click": "8.1.8"
+        },
+        "assetManifestSha256": "45d598ae78a9d8924eb3ed73d35e86fcab9cba2917bac8e680f8ffb1c2795e0b",
+        "installedManifestSha256": "c26a53d2ab8c4ca0194fbbdac3a420b16eeb92f7681e078caacd0880f31ed86b",
+        "microphoneCapture": false,
+        "speakerPlayback": false
+      },
+      "stderrTail": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\tts\\venv\\Lib\\site-packages\\num2words\\lang_PT_BR.py:142: SyntaxWarning: invalid escape sequence '\\w'\r\n  if re.match('.*{} e \\w*ento'.format(ext), result):\r\nC:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\tts\\venv\\Lib\\site-packages\\num2words\\lang_PT_BR.py:170: SyntaxWarning: invalid escape sequence '\\s'\r\n  result = re.sub('\\s+', ' ', result)\r\nC:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\tts\\venv\\Lib\\site-packages\\torch\\nn\\modules\\rnn.py:123: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.2 and num_layers=1\r\n  warnings.warn(\r\nC:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\tts\\venv\\Lib\\site-packages\\torch\\nn\\utils\\weight_norm.py:143: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.\r\n  WeightNorm.apply(module, name, dim)\r\n",
+      "microphoneCapture": false,
+      "speakerPlayback": false
+    }
+  },
+  "shutdown": {
+    "status": "LOCAL_MODELS_STOPPED"
+  },
+  "minAvailableRamBytes": 2756661248
+}

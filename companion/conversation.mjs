@@ -160,11 +160,22 @@ export function createConversationCoordinator({ generate, personas = defaultPers
   function updateBinding(input) {
     const t = time(); if (disposed || t === null) return rejected(disposed ? 'DISPOSED' : 'CLOCK_INVALID');
     let b; try { b = jsonCopy(input); } catch { return rejected('INVALID_BINDING'); }
+    const known = bindings.get(b?.id);
+    if (known && b.pawnId === known.pawnId && b.profileId === known.profileId &&
+        (typeof b.aiOwned !== 'boolean' || typeof b.alive !== 'boolean')) {
+      // A coherent reference to the known pawn with unknown ownership/life
+      // state revokes old certainty. This deny-only floor never grants speech.
+      known.invalidated = true;
+      known.revokedGeneration = Math.max(known.generation, known.revokedGeneration ?? 0,
+        Number.isSafeInteger(b.generation) && b.generation >= 1 ? b.generation : 0);
+      for (const job of [...pending.values()]) if (job.request.speakerId === b.id) cancelJob(job, 'BINDING_STATE_UNKNOWN');
+      histories.set(b.id, []); return rejected('BINDING_STATE_UNKNOWN');
+    }
     if (!validBinding(b, profiles) || !bindings.has(b.id)) return rejected('INVALID_BINDING');
     const old = bindings.get(b.id);
     const changed = old.invalidated || b.pawnId !== old.pawnId || b.aiOwned !== old.aiOwned || b.alive !== old.alive;
     if (b.profileId !== old.profileId || (pawnOwners.has(b.pawnId) && pawnOwners.get(b.pawnId) !== b.id)) return rejected('BINDING_OWNER_CHANGED');
-    if (b.generation < old.generation || (changed && b.generation <= old.generation)) {
+    if (b.generation < old.generation || (changed && b.generation <= Math.max(old.generation, old.revokedGeneration ?? 0))) {
       old.invalidated = true;
       for (const job of [...pending.values()]) if (job.request.speakerId === b.id) cancelJob(job, 'BINDING_INVALID');
       histories.set(b.id, []); return rejected('GENERATION_MUST_ADVANCE');

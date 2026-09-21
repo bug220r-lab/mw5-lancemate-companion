@@ -11,7 +11,8 @@ const run = spawnSync(process.execPath, ['--test', '--test-reporter=tap', ...tes
 const text = (run.stdout || '') + (run.stderr || '');
 const count = key => Number(text.match(new RegExp(`^# ${key} (\\d+)`, 'm'))?.[1] ?? 0);
 const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter(f => /\.(mjs|json)$/.test(f)).map(f => `companion/${f}`),
-  'scripts/tactical-policy.mjs','synthetic/tactical-cases.mjs','synthetic/release-benchmark.json'];
+  ...(await readdir(path.join(root, 'companion/public'))).filter(f => /\.(js|html|css)$/.test(f)).map(f => `companion/public/${f}`),
+  'scripts/Kokoro-Worker.py','scripts/tactical-policy.mjs','synthetic/tactical-cases.mjs','synthetic/release-benchmark.json'];
 const hashes = [];
 for (const file of files) hashes.push({ file, sha256: createHash('sha256').update(await readFile(path.join(root, file))).digest('hex') });
 const receipt = { schemaVersion: 1, recordedAt: new Date().toISOString(), classification: 'MOCK_ONLY',
@@ -19,7 +20,7 @@ const receipt = { schemaVersion: 1, recordedAt: new Date().toISOString(), classi
   tests: count('tests'), passed: count('pass'), failed: count('fail'), skipped: count('skipped'),
   legacyAssertions: '48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged',
   nodeVersion: process.version, testFiles: tests, hashes, gameTests: 'NOT_PERFORMED', nativeAdapter: 'NOT_BUILT',
-  visualBrowserCheck: 'NOT_PERFORMED: browser automation failed to initialize kernel assets',
+  visualBrowserCheck: 'NOT_PERFORMED: browser automation initialization failed; native browser URL verification also blocked this turn. DOM mocks are not visual acceptance.',
   failures: run.status === 0 ? [] : [text.slice(-16000), run.error?.message ?? null] };
 await writeFile(path.join(root, 'research/COMPANION_VALIDATION.json'), JSON.stringify(receipt, null, 2) + '\n');
 console.log(JSON.stringify({ status: receipt.status, tests: receipt.tests, passed: receipt.passed, failed: receipt.failed,

@@ -1,0 +1,1698 @@
+{
+  "schema_version": 1,
+  "classification": "MOCK_ONLY",
+  "native_execution": "NOT_PERFORMED",
+  "status": "PASS_MOCK_ONLY",
+  "reviewed_at": "2026-09-21T05:29:07.072132+00:00",
+  "runtime": "3.7.7 (tags/v3.7.7:d7c567b08f, Mar 10 2020, 10:41:24) [MSC v.1900 64 bit (AMD64)]",
+  "helper_path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+  "helper_sha256_before": "20c460fdf678de74568c477b28c41a65408a5b5c7868bc1bb893d05ceced099b",
+  "helper_sha256_after": "20c460fdf678de74568c477b28c41a65408a5b5c7868bc1bb893d05ceced099b",
+  "review_script_sha256": "64eb03b71b19785f4f317052d0d3c2fcc93ad9c808f67645e12377116e33e1a5",
+  "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323",
+  "cases_passed": 47,
+  "cases_failed": 0,
+  "cases": [
+    {
+      "name": "normal",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-01-normal\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-55653b635a06"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5558,
+          "sha256": "2015e32164a2bda199f59e4bb39a4e2042feffc7f9c91b393630bb21fc294eed"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2913,
+          "sha256": "865f669a6983c44d85d25834e9c6a3481c34bb6033c0c21081044b296e7841e6"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "empty_return",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-02-empty_return\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-16f791b99b47"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5390,
+          "sha256": "326b0a76631627935fdb7915aa52f27b1c8037d12de92fa4e7b2d6935c52eb63"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2937,
+          "sha256": "fc630a8299572b637728378d6d6af3d8a0d17f0e08e020b7034df03de6815547"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "null_return",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "PARTIAL_NULL_RETURN",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-03-null_return\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-0cb616741c5e"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4822,
+          "sha256": "6a9b3895aeeed79d5469b00c01bab2794f48fafdd9005e71fb83e4f1911e1a8f"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2933,
+          "sha256": "d9e0bccc17ee70906e63c8b2b78dbc03d7fa9b689eb8a37fe204a1413eebf8d4"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "duplicates",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-04-duplicates\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-41dbdf135148"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5556,
+          "sha256": "9f69ef321c7b0ee8a952372bb90e01d443031e246d2ba1f80b86c7517d3670bb"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2929,
+          "sha256": "0b21472558b24465d7e7c5d1527aaf6dc3a7c43343767d02c71d0c04b741b3b8"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "unicode_valid",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-05-unicode_valid\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-3feb95ff8d56"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5484,
+          "sha256": "add6b756a96f5bc22b12bd4f6945726366bebbd6287f7e1c1cc2e349b97cf8eb"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2941,
+          "sha256": "18e6eedafc29268cc46d09440caadd7c0b3e1fdf95bdf10b6035bdf298348fb6"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "pin_mismatch",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: TARGET_HASH_MISMATCH: /Game/Objects/_common/MW5PlayerController",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "pin_empty",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: PIN_FILE_SIZE_LIMIT",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "pin_oversized",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: PIN_FILE_SIZE_LIMIT",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "wrong_target_count",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: EXACT_THREE_PACKAGE_NAMES_REQUIRED",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "wrong_target_order",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: EXACT_THREE_PACKAGE_NAMES_REQUIRED",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "native_scope",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: NATIVE_SCOPE_MISMATCH",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "real_api_marker",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: REAL_UNREAL_API_FORBIDDEN_IN_MOCK_MODE",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "missing_evidence",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "ValueError: PROJECT_EVIDENCE_DIRECTORY_MISSING",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "active_guard",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "RuntimeError: ANOTHER_RESEARCH_INSPECTION_ACTIVE",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "other_active_guard",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "RuntimeError: ANOTHER_RESEARCH_INSPECTION_ACTIVE",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "completed_guard",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-16-completed_guard\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-82cc1750c23d"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5621,
+          "sha256": "7a01f1ad867ef1ba6ebb81e3adaf9f8b5ba6eb96cca354c46b1a7db58f4f555b"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2949,
+          "sha256": "1588b62e7f8832d448029bdb6ad835e221470a06d59dfaed7771ad5be3c5791f"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "other_lock",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "RuntimeError: OTHER_INSPECTION_LOCK_PRESENT",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "stale_lock",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "FileExistsError: [Errno 17] File exists: 'C:\\\\Users\\\\jlewi\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\MW5 LANCEMATE COMPANION\\\\research\\\\evidence\\\\editor-source\\\\observer-reference-helper-review-20260921T052904Z-448a59e323\\\\case-18-stale_lock\\\\research\\\\evidence\\\\editor-source\\\\.observer-reference-lookup.lock'",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "lock_replaced",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-19-lock_replaced\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-8e38b739add3"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5607,
+          "sha256": "aafe19f0cacdf1a4f7568223979aa4ce5f0e715690aef0dc11dec6dc052b177f"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2941,
+          "sha256": "70c3c7ffcae27624e8bb23eacc1b6e5af088516d5f98c9a7f88bd9574f89de17"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "lock_nonascii",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-20-lock_nonascii\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-22c2c6387ea8"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5607,
+          "sha256": "a885071cbd4ea3755145d772c6019e5fb07f681307a07f7d75600a161fc9ad35"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2941,
+          "sha256": "0eae9513aa445e036e0a97cfda676a2193c93465677aa0914fb8b8dbbdaab22f"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "disk_before",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "RuntimeError: RESOURCE_STOP",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "physical_before",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "RuntimeError: RESOURCE_STOP",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "commit_before",
+      "classification": "MOCK_ONLY",
+      "api_calls": [],
+      "queried_packages": [],
+      "caught": "RuntimeError: RESOURCE_STOP",
+      "status": null,
+      "output_directories": [],
+      "json_files": [],
+      "passed": true
+    },
+    {
+      "name": "loading_before",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets"
+      ],
+      "queried_packages": [],
+      "caught": null,
+      "status": "STOPPED_REGISTRY_LOADING",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-24-loading_before\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-61649d873b6c"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4676,
+          "sha256": "363377b0fc30ad0b4d40f9a61bbd57783f668cf8e4972cf7dd7edd112832399b"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2945,
+          "sha256": "04bf4f8d61c2b401bd069d80fdb32a5313c0bd2d107fc275eac84591826669ff"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "loading_after",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "PARTIAL_REGISTRY_LOADING",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-25-loading_after\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-63e742ecbc68"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4962,
+          "sha256": "211cf03db10ed00d701493d67215c1c009a0930221a5b185d58f9d5ab450d05a"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2941,
+          "sha256": "2cfbcfa7a4a93b6c9e5bc3420dd1ca96e4eddbea3ee9363c96b53e84238bb55a"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "per_target_cap",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "PARTIAL_CAP_REACHED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-26-per_target_cap\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-882af0d3d658"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 18226,
+          "sha256": "09de035bf14b625357ee865ffb45d45ce716aff2bbdb6eb765c6d4b69dc88a7b"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2945,
+          "sha256": "d32a2ac7a0a3af1035080d70a59b02f69f23eff2a369a5fe83c017415dd7d79a"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "total_cap",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "PARTIAL_CAP_REACHED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-27-total_cap\\research\\evidence\\editor-source\\observer-references-20260921T052905Z-7ceca671620b"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 35097,
+          "sha256": "fe238b155e7ce2c75b4556a9753fda975f224d356f056a72b35281ea8545e824"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2925,
+          "sha256": "42403d246ca024b24a83a55c2965895e96c6d19abaf55d7fa99014f0fabe4e1b"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "exact_total_empty_last",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-28-exact_total_empty_last\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-5d7cda640ca1"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 35179,
+          "sha256": "49e6987aef39b8d063b4463a4eea2057b7147f4ca58ffd3bdb13a916bf9193ad"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2977,
+          "sha256": "e26eed34fb0644e370182a2990d2f8adfe99aa36803e33b32471d5bcc2cdbd1d"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_empty",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-29-invalid_empty\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-b9054cd87b5c"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4924,
+          "sha256": "922a5a4590d507dc0cdb16f781fd982e961ff50b1bbdbbd7e4d385d1f9e10d2c"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2941,
+          "sha256": "1956cdafe07bfa628a139d616df1e1fd4e1b82c252ffe599889511847bd6c4b4"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_no_slash",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-30-invalid_no_slash\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-188f84f1a47c"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4945,
+          "sha256": "938e5891d0a552bef5254079aef90ca3edbe6fa63804123d27220a846d64cd31"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2953,
+          "sha256": "2d3fac9b5bda425f55156ccee1d2e396e96a57cdfaae9ca46a79bbb10bddb5a2"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_control",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-31-invalid_control\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-939db115e8b7"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4938,
+          "sha256": "51763ce69c8873931222f578f43da8ada227c850a35b5812a9538a3ecf00b9a7"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2949,
+          "sha256": "edf5b1bfbea65d27e5ce5aab8c8b9dae434ef9725402df3a1981edc6a915aa0d"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_too_long",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-32-invalid_too_long\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-92ac993040e0"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4945,
+          "sha256": "f00b18aaf4d52dca3caf1c2acd2f7cf1ff05201b62fb37bec58bac20300a0846"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2953,
+          "sha256": "bb8113a64837931c123cf3bf57f7bf9f926c49d0216db532b56c8e2787afa93e"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_encoded",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-33-invalid_encoded\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-a28c85ea4cd9"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4938,
+          "sha256": "3e0c5911fb5af7f2cd96e764f00b44f7ae8b6a3dfd1c555bf11072208caa9414"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2949,
+          "sha256": "7cbaf20354751907bece79ce8e251ee205df229c3dc5213af52ff54ca55d85f8"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_root_only",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-34-invalid_root_only\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-8d22567b9dfc"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4952,
+          "sha256": "96c1e0ad9ea269ef69cac7855cf80c64034fe99b9773b2e2013051e09a418651"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2957,
+          "sha256": "7b8ca9401733324fa34a351950f464e42a00ab8d7700b2e470653a849056219e"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_dot_segment",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-35-invalid_dot_segment\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-c1f8cab41d1a"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4966,
+          "sha256": "2f576ce1832a21d88d0081a3a7ad92857a94249434097292cdcbc38c078b2780"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2965,
+          "sha256": "4482d638130a64a3060c3cb16e527a53a986dd2611129621e363c6abb340a5f5"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_empty_segment",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-36-invalid_empty_segment\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-5cd261dfb0bb"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4980,
+          "sha256": "3100a6dcf17b717d00de15b006de1ea7f2a0fadd26345d2ccdd2f4757a677469"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2973,
+          "sha256": "dff359b3dd1b26b0e3da88e69a67a36826d0b10a73e3f19506fc33562b81c34e"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_backslash",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-37-invalid_backslash\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-24403c4c5280"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4952,
+          "sha256": "770e1b95c14f67f673f22ceff198df4ab0e5a10c4b7563e30e0e352125761983"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2957,
+          "sha256": "fd0ef0f8892298c936b52c19add7de129661eb29e376858cc0ee527cb38a36aa"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_object_path",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-38-invalid_object_path\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-fac55356cb4b"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4966,
+          "sha256": "1d63d673ef5f509592ceadb9ca51d4da172497df14225e1585a5c0cd09885601"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2965,
+          "sha256": "6c91170c53a5937a828079a249334634f92a23d80c14f1979897b259cacac74b"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid_trailing_slash",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-39-invalid_trailing_slash\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-e08a2c54fc5a"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4987,
+          "sha256": "47f5981fc79c9bc90a12f3c9e7a199ddfc62d0b8682ff38757665a60f504a21c"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2977,
+          "sha256": "5275481b023820f751845ab66e936f772e076f54fd84e68da5ec2a18d8da8975"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "source_drift",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-40-source_drift\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-119d22b230b4"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4204,
+          "sha256": "4d3ac64f2cc97ab3cbb5a3293cf7519fa7e50b445afd67d6d0e8c87880d54d8b"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2937,
+          "sha256": "ab67f3b3ccbafa872f09cd3cea00096b65eab0f536ce8fdf99e1c5ab0299bbee"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "registry_exception",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry"
+      ],
+      "queried_packages": [],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-41-registry_exception\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-7537b0024b95"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4601,
+          "sha256": "ca465feede862320ac3f30e3f9fcf899c1ae597cd070f619b6633e9a6fd82aef"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2961,
+          "sha256": "537aa760d0ea3c8050f2a66d1d813a8788f0f9b6b718796ce3f5a969a64f65b2"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "query_exception",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-42-query_exception\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-6605d814277a"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4873,
+          "sha256": "bf7ca16b863451c745bfe18ff8083806395283d8d4f1b92ed6ad0647e13859a4"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2949,
+          "sha256": "c2e14b9f4f1458f17b770d07f5e663d8faeaec6dd437d4fdf80794c525b04590"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "resource_during_query",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-43-resource_during_query\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-b662d3f033f1"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5046,
+          "sha256": "451a58e87d69c0d521439f8e3c8a686ee8d5aa42a72a24c3b9c0e0ea420b0cf5"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2973,
+          "sha256": "2248f8220a6f36bc75d4010883e790651bcc0973dc1c69d635743733f1fec99b"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "time_during_query",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-44-time_during_query\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-facacc18db1d"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 5036,
+          "sha256": "1c1d2cdd7e8783214f80c7a4d47062db16ae62ff2b43017251fbdad4485a16d2"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2957,
+          "sha256": "8451bfc1bc0fc4840dead5d227505bd189486e588da4dc991500ced861e4e17b"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "user_stop",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController"
+      ],
+      "caught": null,
+      "status": "ERROR_EVIDENCE_RETAINED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-45-user_stop\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-5906ce5661ac"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "report.json",
+          "bytes": 4967,
+          "sha256": "b577195b9008981e98eb6d14a4cd47eeb58944975b19dc45a537710649b89265"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2925,
+          "sha256": "8faab5590dbb65ff462463019fc4be25ea7e750ee404621d2248e619fd4737d8"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "json_guard",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": "RuntimeError: JSON_SIZE_LIMIT",
+      "status": null,
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-46-json_guard\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-2a28e9826975"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2925,
+          "sha256": "814b15a944bfa026cc64b0ac8c4096cdbccb588e61e542e2932e708baf527f2d"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "max_json_payload",
+      "classification": "MOCK_ONLY",
+      "api_calls": [
+        "get_asset_registry",
+        "options",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets",
+        "get_referencers",
+        "is_loading_assets"
+      ],
+      "queried_packages": [
+        "/Game/Objects/_common/MW5PlayerController",
+        "/Game/Modes/InstantAction/InstantActionPlayerController",
+        "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+      ],
+      "caught": null,
+      "status": "MOCK_ONLY_COMPLETED",
+      "output_directories": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-helper-review-20260921T052904Z-448a59e323\\case-47-max_json_payload\\research\\evidence\\editor-source\\observer-references-20260921T052906Z-31edfb758013"
+      ],
+      "json_files": [
+        {
+          "name": "checkpoint-00.json",
+          "bytes": 134,
+          "sha256": "6a504eec4f0b8fe8ab42c00ce245ba5f69089daf94236d7e005c29ce0fa18e03"
+        },
+        {
+          "name": "checkpoint-01.json",
+          "bytes": 160,
+          "sha256": "d2ecdcde882e4ef09cb12c3f1dd98c3574d3fb78d4de25e2b60b1a9005c8f5ea"
+        },
+        {
+          "name": "checkpoint-02.json",
+          "bytes": 174,
+          "sha256": "aa0ac5e7452ef9a980c4e2b25bfff59f7c6d5d5f0f740be0817e14b58b6d346d"
+        },
+        {
+          "name": "checkpoint-03.json",
+          "bytes": 213,
+          "sha256": "6ad05e7a5f5dd12f309bc351d4644dd7769c287870fef108dcc0615f8bb84cd2"
+        },
+        {
+          "name": "report.json",
+          "bytes": 793921,
+          "sha256": "8c678d03d1ff7ad9ba1b3e04c3b897f578edcfc19ecdc3aba1c25beca5e60f0b"
+        },
+        {
+          "name": "started.json",
+          "bytes": 2953,
+          "sha256": "047815ba920228fb0ceb78dbc20a34b228ace444495c63ba43ee33b222a4eb7b"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Fake APIs and synthetic package files only; no Unreal import or editor action.",
+    "No native registry completeness, timing, allocation, serialization, or gameplay proof.",
+    "JSON cap fault injection retains started/checkpoint files; final receipt may be absent.",
+    "Production helper and original evidence were not modified by this review."
+  ]
+}

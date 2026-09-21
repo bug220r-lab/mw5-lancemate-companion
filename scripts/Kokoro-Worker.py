@@ -20,7 +20,8 @@ PROTOCOL = sys.stdout
 START = time.perf_counter()
 os.environ.update({"HF_HOME": str(ROOT / "hf-cache"), "HF_HUB_OFFLINE": "1",
     "HF_HUB_DISABLE_TELEMETRY": "1", "TRANSFORMERS_OFFLINE": "1",
-    "CUDA_VISIBLE_DEVICES": "-1", "OMP_NUM_THREADS": "2", "MKL_NUM_THREADS": "2"})
+    "CUDA_VISIBLE_DEVICES": "-1", "OMP_NUM_THREADS": "2", "MKL_NUM_THREADS": "2",
+    "TEMP": str(ROOT / "tmp"), "TMP": str(ROOT / "tmp")})
 
 def refuse_network(*args, **kwargs):
     raise RuntimeError("NETWORK_PROHIBITED")
@@ -109,7 +110,7 @@ while True:
         if not isinstance(request_id, str) or not re.fullmatch(r"[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}", request_id):
             raise ValueError("INVALID_REQUEST_ID")
         text, voice = request["text"], request["voiceId"]
-        if not isinstance(text, str) or not text.strip() or len(text) > 256 or any(ord(c) < 32 for c in text):
+        if not isinstance(text, str) or not text.strip() or len(text) > 256 or any(ord(c) < 32 or ord(c) == 127 or 0xD800 <= ord(c) <= 0xDFFF for c in text):
             raise ValueError("INVALID_TEXT")
         if voice not in VOICES:
             raise ValueError("INVALID_VOICE")

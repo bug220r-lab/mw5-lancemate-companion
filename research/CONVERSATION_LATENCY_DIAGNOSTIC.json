@@ -1,0 +1,81 @@
+{
+  "recordedAt": "2026-09-21T05:45:51.317Z",
+  "classification": "LOCAL_COMPONENT_TIMING_DIAGNOSTIC",
+  "diagnosticTimeoutMs": 10000,
+  "acceptanceTargetMs": 4000,
+  "acceptance": "NOT_ESTABLISHED",
+  "samples": [
+    {
+      "persona": "edge",
+      "text": "\"Check the radio, say 'Hello' in eight words or fewer.\"",
+      "completeTextMs": 5347
+    },
+    {
+      "persona": "tactician",
+      "text": "Radio check. Station ready.",
+      "completeTextMs": 4126
+    },
+    {
+      "persona": "scout",
+      "text": "Whistle, ready for radio! 🚀",
+      "completeTextMs": 4604
+    }
+  ],
+  "error": null,
+  "model": {
+    "state": "READY",
+    "modelId": "qwen1_7b",
+    "threads": 4,
+    "classification": "LOCAL_COMPONENT_UNVALIDATED",
+    "verification": "PINNED_FILES_VERIFIED",
+    "ownedPid": 31252,
+    "ownedProcessStopped": false,
+    "activeGeneration": false,
+    "lastError": null,
+    "exitCode": null,
+    "log": "0.00.001.391 I srv  llama_server: initializing ...\r\n0.00.045.896 W Setting 'enable_thinking' via --chat-template-kwargs is deprecated. Use --reasoning on / --reasoning off instead.\r\n0.00.046.082 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\r\n0.00.046.194 I srv          init: The UI is disabled\r\n0.00.046.195 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable\r\n0.00.056.301 I srv    load_model: loading model 'C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\Qwen3-1.7B-Q8_0.gguf'\r\n0.00.752.459 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\r\n0.01.053.681 I cmn          init: llama threadpool init, n_threads = 4\r\n0.01.592.980 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'\r\n0.01.612.089 I srv  llama_server: model loaded\r\n0.01.612.095 I srv  llama_server: listening on http://127.0.0.1:61944\r\n0.02.069.749 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1\r\n0.02.069.849 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0\r\n0.07.397.627 I slot print_timing: id  0 | task 0 | prompt eval time =    3400.30 ms /   162 tokens (   20.99 ms per token,    47.64 tokens per second)\r\n0.07.397.631 I slot print_timing: id  0 | task 0 |        eval time =    1927.46 ms /    16 tokens (  128.50 ms per token,     7.78 tokens per second)\r\n0.07.397.632 I slot print_timing: id  0 | task 0 |       total time =    5327.76 ms /   178 tokens\r\n0.07.397.654 I slot print_timing: id  0 | task 0 |    graphs reused =         15\r\n0.07.397.689 I slot      release: id  0 | task 0 | stop processing: n_tokens = 177, truncated = 0\r\n0.07.413.367 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.544 (> 0.100 thold), f_keep = 0.492\r\n0.07.420.642 I slot launch_slot_: id  0 | task 17 | processing task, is_child = 0\r\n0.11.524.162 I slot print_timing: id  0 | task 17 | prompt eval time =    3322.60 ms /   160 tokens (   20.77 ms per token,    48.16 tokens per second)\r\n0.11.524.166 I slot print_timing: id  0 | task 17 |        eval time =     780.89 ms /     7 tokens (  130.15 ms per token,     7.68 tokens per second)\r\n0.11.524.168 I slot print_timing: id  0 | task 17 |       total time =    4103.48 ms /   167 tokens\r\n0.11.524.169 I slot print_timing: id  0 | task 17 |    graphs reused =         20\r\n0.11.524.208 I slot      release: id  0 | task 17 | stop processing: n_tokens = 166, truncated = 0\r\n0.11.543.871 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.551 (> 0.100 thold), f_keep = 0.524\r\n0.11.544.127 I slot launch_slot_: id  0 | task 25 | processing task, is_child = 0\r\n0.16.128.204 I slot print_timing: id  0 | task 25 | prompt eval time =    3334.53 ms /   158 tokens (   21.10 ms per token,    47.38 tokens per second)\r\n0.16.128.209 I slot print_timing: id  0 | task 25 |        eval time =    1249.51 ms /    11 tokens (  124.95 ms per token,     8.00 tokens per second)\r\n0.16.128.212 I slot print_timing: id  0 | task 25 |       total time =    4584.05 ms /   169 tokens\r\n0.16.128.214 I slot print_timing: id  0 | task 25 |    graphs reused =         29\r\n0.16.128.275 I slot      release: id  0 | task 25 | ",
+    "settings": {
+      "host": "127.0.0.1",
+      "contextTokens": 2048,
+      "maxOutputTokens": 64,
+      "maxOutputChars": 256,
+      "gpuLayers": 0,
+      "simultaneousModels": 1,
+      "thinking": false,
+      "webUI": false,
+      "mcpProxy": false
+    },
+    "gameTests": "NOT_PERFORMED",
+    "audioGenerated": false,
+    "nativeCalls": 0
+  },
+  "shutdown": {
+    "state": "STOPPED",
+    "modelId": "qwen1_7b",
+    "threads": 4,
+    "classification": "LOCAL_COMPONENT_UNVALIDATED",
+    "verification": "PINNED_FILES_VERIFIED",
+    "ownedPid": null,
+    "ownedProcessStopped": true,
+    "activeGeneration": false,
+    "lastError": null,
+    "exitCode": -1,
+    "log": "0.00.001.391 I srv  llama_server: initializing ...\r\n0.00.045.896 W Setting 'enable_thinking' via --chat-template-kwargs is deprecated. Use --reasoning on / --reasoning off instead.\r\n0.00.046.082 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\r\n0.00.046.194 I srv          init: The UI is disabled\r\n0.00.046.195 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable\r\n0.00.056.301 I srv    load_model: loading model 'C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\Qwen3-1.7B-Q8_0.gguf'\r\n0.00.752.459 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\r\n0.01.053.681 I cmn          init: llama threadpool init, n_threads = 4\r\n0.01.592.980 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'\r\n0.01.612.089 I srv  llama_server: model loaded\r\n0.01.612.095 I srv  llama_server: listening on http://127.0.0.1:61944\r\n0.02.069.749 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1\r\n0.02.069.849 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0\r\n0.07.397.627 I slot print_timing: id  0 | task 0 | prompt eval time =    3400.30 ms /   162 tokens (   20.99 ms per token,    47.64 tokens per second)\r\n0.07.397.631 I slot print_timing: id  0 | task 0 |        eval time =    1927.46 ms /    16 tokens (  128.50 ms per token,     7.78 tokens per second)\r\n0.07.397.632 I slot print_timing: id  0 | task 0 |       total time =    5327.76 ms /   178 tokens\r\n0.07.397.654 I slot print_timing: id  0 | task 0 |    graphs reused =         15\r\n0.07.397.689 I slot      release: id  0 | task 0 | stop processing: n_tokens = 177, truncated = 0\r\n0.07.413.367 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.544 (> 0.100 thold), f_keep = 0.492\r\n0.07.420.642 I slot launch_slot_: id  0 | task 17 | processing task, is_child = 0\r\n0.11.524.162 I slot print_timing: id  0 | task 17 | prompt eval time =    3322.60 ms /   160 tokens (   20.77 ms per token,    48.16 tokens per second)\r\n0.11.524.166 I slot print_timing: id  0 | task 17 |        eval time =     780.89 ms /     7 tokens (  130.15 ms per token,     7.68 tokens per second)\r\n0.11.524.168 I slot print_timing: id  0 | task 17 |       total time =    4103.48 ms /   167 tokens\r\n0.11.524.169 I slot print_timing: id  0 | task 17 |    graphs reused =         20\r\n0.11.524.208 I slot      release: id  0 | task 17 | stop processing: n_tokens = 166, truncated = 0\r\n0.11.543.871 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.551 (> 0.100 thold), f_keep = 0.524\r\n0.11.544.127 I slot launch_slot_: id  0 | task 25 | processing task, is_child = 0\r\n0.16.128.204 I slot print_timing: id  0 | task 25 | prompt eval time =    3334.53 ms /   158 tokens (   21.10 ms per token,    47.38 tokens per second)\r\n0.16.128.209 I slot print_timing: id  0 | task 25 |        eval time =    1249.51 ms /    11 tokens (  124.95 ms per token,     8.00 tokens per second)\r\n0.16.128.212 I slot print_timing: id  0 | task 25 |       total time =    4584.05 ms /   169 tokens\r\n0.16.128.214 I slot print_timing: id  0 | task 25 |    graphs reused =         29\r\n0.16.128.275 I slot      release: id  0 | task 25 | stop processing: n_tokens = 168, truncated = 0\r\n",
+    "settings": {
+      "host": "127.0.0.1",
+      "contextTokens": 2048,
+      "maxOutputTokens": 64,
+      "maxOutputChars": 256,
+      "gpuLayers": 0,
+      "simultaneousModels": 1,
+      "thinking": false,
+      "webUI": false,
+      "mcpProxy": false
+    },
+    "gameTests": "NOT_PERFORMED",
+    "audioGenerated": false,
+    "nativeCalls": 0
+  },
+  "gameTests": "NOT_PERFORMED",
+  "speechTests": "NOT_PERFORMED"
+}

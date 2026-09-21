@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-21T05:29:17.2009857Z",
+  "status": "BLOCKED_UI_ACCESS_BEFORE_NATIVE_LOOKUP",
+  "evidence": "OBSERVED",
+  "native_lookup": "NOT_PERFORMED",
+  "authorization_required_again": false,
+  "helper": "scripts/Inspect-ObserverReferences.py",
+  "source_export_preceding_this_lookup": "PASS_EDITOR_SOURCE_EXPORT; see OBSERVER_CALLER_NATIVE_RESULT.json",
+  "ui": {
+    "api": "node_repl + @oai/sky",
+    "current_window_id": 593470,
+    "current_window_title": "MW5Mercs - Unreal Editor",
+    "current_window_count": 1,
+    "current_accessibility_tree": "Window: MW5Mercs - Unreal Editor, App: UE4Editor.exe. 0 window MW5Mercs - Unreal Editor Secondary Actions: Raise",
+    "current_control_elements_available": false,
+    "new_input_actions": 0,
+    "script_path_entered": false,
+    "execute_submitted": false,
+    "new_screenshot_attempts": 0,
+    "prior_capture_attempts": 2,
+    "prior_capture_error": "SetIsBorderRequired failed: No such interface supported (0x80004002)",
+    "prior_capture_evidence": "research/OBSERVER_CALLER_EXECUTION_ATTEMPT.json"
+  },
+  "commandlet": {
+    "new_launches": 0,
+    "review": "research/OBSERVER_REFERENCE_COMMANDLET_REVIEW.md",
+    "prior_run": "research/evidence/editor-source/native-reflection-run.json",
+    "prior_exit_code": 3,
+    "prior_error": "EXCEPTION_ACCESS_VIOLATION reading address 0x0000000000000058 before Python report",
+    "retry": "NOT_PERFORMED; no established correction to earlier startup failure"
+  },
+  "native_output_directories": [],
+  "writes_to_assets_settings_retail": false,
+  "next": "Run prepared helper once through existing editor File > Execute Python Script when supported UI access or user assistance is available; preserve receipt and review exact direct candidates"
+}
