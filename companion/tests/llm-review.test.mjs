@@ -143,3 +143,47 @@ test('review: each actual profile uses a compact greeting prompt with the same f
     assert.equal(Object.hasOwn(body, 'tools'), false);
   }
 });
+
+for (const ok of [true, false]) {
+  test(`review: stop does not wait for stalled ${ok ? 'OK' : 'not-ready'} health body cancellation`, async t => {
+    let releaseCancel, reachedCancel;
+    const stalledCancel = new Promise(resolve => { releaseCancel = resolve; });
+    const cancellationReached = new Promise(resolve => { reachedCancel = resolve; });
+    const r = rig(t, (io, a) => {
+      io.fetch = async (url, options) => {
+        a.requests.push({ url, options });
+        assert.ok(url.endsWith('/health'), 'no inference may be requested during startup');
+        return { ok, status: ok ? 200 : 503, body: { cancel() { reachedCancel(); return stalledCancel; } } };
+      };
+    });
+    const startup = r.model.start().then(() => ({ resolved: true }), error => ({ error: error.message }));
+    let stopping;
+    try {
+      // Startup must actually reach the adversarial promise before stopping.
+      const reached = await Promise.race([cancellationReached.then(() => true), tick().then(() => false)]);
+      assert.equal(reached, true);
+      assert.equal(r.api.children.length, 1);
+      let stopSettled = false;
+      stopping = r.model.stop().then(result => { stopSettled = true; return result; });
+      await tick();
+      const settledWithoutBodyCleanup = stopSettled;
+      const childStoppedBeforeCleanup = r.model.status().ownedProcessStopped;
+      releaseCancel();
+      await stopping;
+      const startOutcome = await startup;
+      await flush();
+      assert.equal(settledWithoutBodyCleanup, true, 'stop must settle independently of an unresponsive body.cancel promise');
+      assert.equal(childStoppedBeforeCleanup, true);
+      assert.equal(startOutcome.error, 'START_CANCELLED');
+      assert.equal(r.model.status().state, 'STOPPED', 'late body cleanup cannot promote a stopped model to READY');
+      assert.equal(r.api.children.length, 1, 'late cleanup cannot spawn a replacement child');
+      assert.equal(r.api.children[0].kills, 1);
+      assert.equal(r.api.requests.length, 1, 'late cleanup cannot restart health polling or inference');
+    } finally {
+      // Always release synthetic work, including on the expected regression failure.
+      releaseCancel();
+      if (stopping) await stopping;
+      await startup;
+    }
+  });
+}

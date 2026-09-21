@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-21T06:24:55.962Z",
+  "reviewedAt": "2026-09-21T06:45:06.023Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 243,
-    "includedBytesExcludingThisReceipt": 4770029,
+    "includedFiles": 251,
+    "includedBytesExcludingThisReceipt": 4894806,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -151,6 +151,7 @@
     "companion/tests/control.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
+    "companion/tests/grounding-diagnostic.test.mjs",
     "companion/tests/llm-review.test.mjs",
     "companion/tests/local-language-model.test.mjs",
     "companion/tests/local-speech-review.test.mjs",
@@ -169,6 +170,7 @@
     "design/CAMPAIGN_MEMORY.md",
     "design/CHARACTER_OPTIONS.md",
     "design/COMMAND_CONTRACT.md",
+    "design/CONVERSATION_GROUNDING_DIAGNOSTIC.md",
     "design/EDITOR_INSPECTION.md",
     "design/EDITOR_READY_CHECKLIST.md",
     "design/FORWARD_PLAN.md",
@@ -277,6 +279,10 @@
     "research/PASSIVE_OBSERVER_PREPARATION.json",
     "research/PASSIVE_OBSERVER_PREPARATION.md",
     "research/PASSIVE_OBSERVER_PREPARATION_VALIDATION.json",
+    "research/QWEN4B_GROUNDING_COMPACT_DIAGNOSTIC.json",
+    "research/QWEN4B_GROUNDING_DIAGNOSTIC.json",
+    "research/QWEN4B_GROUNDING_NOREPACK_DIAGNOSTIC.json",
+    "research/QWEN4B_GROUNDING_REVIEW.md",
     "research/QWEN_CONVERSATION_QUALITY_REVIEW.md",
     "research/QWEN_QUANTIZATION_COMPARISON.json",
     "research/QWEN_REQUANTIZATION_RECEIPT.json",
@@ -309,6 +315,7 @@
     "scripts/Collect-AIResearch.py",
     "scripts/Collect-ModResearch.py",
     "scripts/Exercise-CommandContract.mjs",
+    "scripts/Exercise-ConversationGrounding.mjs",
     "scripts/Exercise-Kokoro.py",
     "scripts/Exercise-LocalConversation.mjs",
     "scripts/Exercise-MemoryContract.mjs",
@@ -348,6 +355,7 @@
     "scripts/Verify-OvernightPackage.mjs",
     "scripts/tactical-policy.mjs",
     "synthetic/command-cases.json",
+    "synthetic/conversation-grounding-cases.json",
     "synthetic/memory-branch-cases.json",
     "synthetic/mission-rehearsal.json",
     "synthetic/personality-audition.json",
@@ -542,9 +550,9 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 20929,
-      "sha256": "99075f252cfab699b5747c3f0a639c761d336ec0c179d3fd9d64fc0c15c370af",
-      "lines": 298,
+      "bytes": 21443,
+      "sha256": "0a6a9fd911e0a05328ce4d371dba55720b5ba0bc521d3fe7291d02b7224fda47",
+      "lines": 303,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -642,9 +650,9 @@
     },
     {
       "path": "companion/README.md",
-      "bytes": 11507,
-      "sha256": "d2e55ef1f163ee6d27af041a7f5e669f77406845bf9d8a7c74f76ce6265bc1d0",
-      "lines": 64,
+      "bytes": 11901,
+      "sha256": "083ff6cadd9b38525e37222da5e882d1f62b6b212ca1f3c9dfd99d5a73e3a8f8",
+      "lines": 66,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -723,10 +731,20 @@
       "notes": []
     },
     {
+      "path": "companion/tests/grounding-diagnostic.test.mjs",
+      "bytes": 2207,
+      "sha256": "afe9c1683ba39d749c0fbc52dbeb46880ef81dea8cb775f6217547112fa0add6",
+      "lines": 36,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/llm-review.test.mjs",
-      "bytes": 8849,
-      "sha256": "22f184b00005d1a9d8ab4654877a791e9a48ff9d5563c55ec956e7b2748083f4",
-      "lines": 146,
+      "bytes": 11119,
+      "sha256": "09b88e85d078ba9fcb86032c471c80ed6af55128fb0250954bbc203528c2db96",
+      "lines": 190,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -734,9 +752,9 @@
     },
     {
       "path": "companion/tests/local-language-model.test.mjs",
-      "bytes": 15502,
-      "sha256": "46452e9f17881ee1308fc1dd53894f487431d878586a0ad032d4a8bb4a4eedf3",
-      "lines": 217,
+      "bytes": 22326,
+      "sha256": "469e3e422975c646c763ff925d22b99c5a56ad3cae971a748b1306cc77d30cac",
+      "lines": 320,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -897,6 +915,16 @@
       "bytes": 9037,
       "sha256": "449c024f6c11adc1debdf2d6d6d515611cf8ce0c7e7e27c732932afffd38fbd8",
       "lines": 64,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/CONVERSATION_GROUNDING_DIAGNOSTIC.md",
+      "bytes": 6211,
+      "sha256": "8a4c5aefd4a7bf1081009d837f877d953fb7df751dbedf62540b86279d1f80d5",
+      "lines": 28,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1516,9 +1544,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 7360,
-      "sha256": "50e8bbd33bf6007a474fec2d862d09a4bee3206351a581eaf4adb90d18c11c10",
-      "lines": 199,
+      "bytes": 7885,
+      "sha256": "5bfa3aab4f1b3274f9feaef848a1a0f7d5abcbeb90dd831791447fab8e535c4a",
+      "lines": 212,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1863,7 +1891,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "d648bd7636287c05feca4e91b4ae56a44e2ed84102730d6d3d75c363e38b232b",
+      "sha256": "1ee69bc9d292ccc00c154a2f5eafbc867f322047a5a791083013f95c01793d6c",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -1874,9 +1902,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 14912,
-      "sha256": "d6602b4e2385975ccb76316a93f8c012e6abd0cea59ca251869c045e5b12195d",
-      "lines": 65,
+      "bytes": 16197,
+      "sha256": "1fd706ef2cdd81a1ebdbeba73bc70c4952447d1d21f4a4d05aee153eefda5d6b",
+      "lines": 69,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2315,6 +2343,52 @@
       ]
     },
     {
+      "path": "research/QWEN4B_GROUNDING_COMPACT_DIAGNOSTIC.json",
+      "bytes": 21861,
+      "sha256": "94b5c631f4d0281de06572d33464b71bead06cf89041a670d299cd34396a3c8c",
+      "lines": 462,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/QWEN4B_GROUNDING_DIAGNOSTIC.json",
+      "bytes": 21663,
+      "sha256": "7be55d4e263e01bbcb2babaf2c803f20afc0ddcb53a8e54bbe6534a91d4f6982",
+      "lines": 456,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/QWEN4B_GROUNDING_NOREPACK_DIAGNOSTIC.json",
+      "bytes": 25501,
+      "sha256": "26130f7945e835e681a90d1d1956bc737d9dade44e1815e5d2fd1e377448a816",
+      "lines": 516,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/QWEN4B_GROUNDING_REVIEW.md",
+      "bytes": 9101,
+      "sha256": "012b3bf4ec7056cac36a6f45402d6d51a8eef205ea7ece811257838f3cb9c89d",
+      "lines": 76,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/SOURCES.md",
       "bytes": 36674,
       "sha256": "91befbfe2d3e292b970686ee28aad1ed59b7c9413e6c38a621e533abe845c392",
@@ -2491,6 +2565,16 @@
       "bytes": 14144,
       "sha256": "76ff979110d2f202e6dc82a367229d9983488f02d94f6991096dd91750955637",
       "lines": 255,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "scripts/Exercise-ConversationGrounding.mjs",
+      "bytes": 9433,
+      "sha256": "854a21929d8a4ed5238acf63b7cfd35961c9d65b11faecd53b1ee24246ca7deb",
+      "lines": 140,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2881,9 +2965,9 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 2549,
-      "sha256": "3fde0d6d9dd0793f2077d65c6fc31d5718845e066c78d837c77ae0d342b9894c",
-      "lines": 29,
+      "bytes": 2643,
+      "sha256": "9dd65c6bed04ca5e4a2ed6cc35112e5cec365b9bbd44365b4c8c22b3a47fda11",
+      "lines": 30,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2914,6 +2998,16 @@
       "bytes": 66595,
       "sha256": "4e2f68f66b0763ba2275e68f5ff7b20caf947cbe55f0ee735f7682d455df2fed",
       "lines": 2826,
+      "category": "PROJECT_SYNTHETIC_FIXTURE",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "synthetic/conversation-grounding-cases.json",
+      "bytes": 16894,
+      "sha256": "2139103acf90c3eab87eb2e1bf38d25de75e069e0f295b19ab23600962f331fb",
+      "lines": 356,
       "category": "PROJECT_SYNTHETIC_FIXTURE",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

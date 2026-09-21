@@ -12,7 +12,8 @@ const text = (run.stdout || '') + (run.stderr || '');
 const count = key => Number(text.match(new RegExp(`^# ${key} (\\d+)`, 'm'))?.[1] ?? 0);
 const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter(f => /\.(mjs|json)$/.test(f)).map(f => `companion/${f}`),
   ...(await readdir(path.join(root, 'companion/public'))).filter(f => /\.(js|html|css)$/.test(f)).map(f => `companion/public/${f}`),
-  'START_COMPANION.cmd','scripts/Kokoro-Worker.py','scripts/tactical-policy.mjs','synthetic/tactical-cases.mjs','synthetic/release-benchmark.json'];
+  'START_COMPANION.cmd','scripts/Kokoro-Worker.py','scripts/tactical-policy.mjs','synthetic/tactical-cases.mjs','synthetic/release-benchmark.json',
+  'scripts/Exercise-ConversationGrounding.mjs','synthetic/conversation-grounding-cases.json'];
 const hashes = [];
 for (const file of files) hashes.push({ file, sha256: createHash('sha256').update(await readFile(path.join(root, file))).digest('hex') });
 const receipt = { schemaVersion: 1, recordedAt: new Date().toISOString(), classification: 'MOCK_ONLY',

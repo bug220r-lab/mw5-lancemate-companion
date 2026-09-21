@@ -81,8 +81,9 @@ export function messagesFor(input) {
 }
 
 /** Test dependency overrides are code-only and mark status MOCK_ONLY. Never pass request data here. */
-export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4 } = {}, testDependencies = null) {
-  if (!['qwen1_7b', 'qwen4b'].includes(modelId) || ![2, 4].includes(threads)) fail('UNSUPPORTED_MODEL_CONFIGURATION');
+export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, processingBatch = 'default', weightRepacking = true } = {}, testDependencies = null) {
+  if (!['qwen1_7b', 'qwen4b'].includes(modelId) || ![2, 4].includes(threads) ||
+      !['default','compact'].includes(processingBatch) || typeof weightRepacking !== 'boolean') fail('UNSUPPORTED_MODEL_CONFIGURATION');
   const defaults = { spawn, fetch: globalThis.fetch, readFile, lstat, realpath, readdir, hashFile, reservePort,
     sleep, now: () => performance.now(), randomBytes };
   if (testDependencies && Object.entries(testDependencies).some(([k, v]) => !Object.hasOwn(defaults, k) || typeof v !== 'function')) fail('INVALID_TEST_DEPENDENCIES');
@@ -178,6 +179,8 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4 } =
         const args = ['-m', path.join(root, 'companion/local/models', pins[modelId].name), '--host', '127.0.0.1', '--port', String(port),
           '--api-key', token, '--offline', '--no-webui', '--no-webui-mcp-proxy', '-ngl', '0', '-t', String(threads), '-tb', String(threads),
           '-c', '2048', '-np', '1', '-n', '64', '--jinja', '--chat-template-kwargs', '{"enable_thinking":false}', '--reasoning-budget', '0'];
+        if (processingBatch === 'compact') args.push('-b', '128', '-ub', '64');
+        if (!weightRepacking) args.push('--no-repack');
         try { child = io.spawn(executable, args, { cwd: runtimeDirectory, windowsHide: true, shell: false, env, stdio: ['ignore', 'pipe', 'pipe'] }); }
         catch { childExited = true; resolveExit(); fail('LOCAL_PROCESS_START_FAILED'); }
         const ownedChild = child;
@@ -201,8 +204,8 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4 } =
             const healthSignal = AbortSignal.any([startupAbort.signal, AbortSignal.timeout(Math.max(1, Math.ceil(Math.min(750, deadline - io.now()))))]);
             const response = await abortable(io.fetch(`${origin}/health`, { headers: { Authorization: `Bearer ${token}` },
               signal: healthSignal }), healthSignal);
-            if (response.ok) { await response.body?.cancel(); checkAbort(startupAbort.signal); if (childExited) fail('LOCAL_SERVER_EXITED'); state = 'READY'; return status(); }
-            await response.body?.cancel();
+            if (response.ok) { await abortable(response.body?.cancel(), healthSignal); checkAbort(startupAbort.signal); if (childExited) fail('LOCAL_SERVER_EXITED'); state = 'READY'; return status(); }
+            await abortable(response.body?.cancel(), healthSignal);
           } catch { checkAbort(startupAbort.signal); }
           await io.sleep(Math.min(500, Math.max(1, deadline - io.now())));
         }
@@ -290,6 +293,8 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4 } =
     return { state, modelId, threads, classification, verification, ownedPid: !childExited ? child?.pid ?? null : null,
       ownedProcessStopped: childExited, activeGeneration, lastError, exitCode, log,
       settings: { host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
+        processingBatch, weightRepacking, logicalBatchTokens: processingBatch === 'compact' ? 128 : 2048,
+        physicalBatchTokens: processingBatch === 'compact' ? 64 : 512,
         simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false },
       gameTests: 'NOT_PERFORMED', audioGenerated: false, nativeCalls: 0 };
   }

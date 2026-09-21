@@ -27,7 +27,7 @@ function sse(parts, { done = true, onCancel = () => {} } = {}) {
     for (const value of values) controller.enqueue(new TextEncoder().encode(value)); controller.close();
   }, cancel: onCancel }), { headers: { 'Content-Type': 'text/event-stream' } });
 }
-function rig(t, customize = () => {}) {
+function rig(t, customize = () => {}, modelOptions = {}) {
   const modelLock = structuredClone(lock), manifest = structuredClone(inventory), calls = [], fetches = [], hashed = [];
   let clock = 0, healthReady = true, currentChild;
   const stats = new Map(), hashes = new Map();
@@ -60,7 +60,7 @@ function rig(t, customize = () => {}) {
     }
   };
   customize(io, api);
-  const model = createLocalLanguageModel({}, io); t.after(() => model.stop().catch(() => {}));
+  const model = createLocalLanguageModel(modelOptions, io); t.after(() => model.stop().catch(() => {}));
   return { ...api, model, io, api };
 }
 
@@ -87,6 +87,109 @@ test('start verifies pinned model/archive and every inventoried runtime file bef
   const token = args[args.indexOf('--api-key') + 1]; assert.match(token, /^[a-f0-9]{48}$/);
   assert.equal(r.fetches[0].options.headers.Authorization, `Bearer ${token}`);
   assert.equal(JSON.stringify(r.model.status()).includes(token), false);
+});
+
+test('processing batch configuration rejects arbitrary profiles before any runtime activity', () => {
+  for (const processingBatch of ['other', 'COMPACT', '-b 1024 -ngl 99', '', 128, null, {}, []]) {
+    assert.throws(() => createLocalLanguageModel({ processingBatch }), /UNSUPPORTED_MODEL_CONFIGURATION/);
+  }
+});
+
+test('implicit and explicit default batch profiles preserve the original command and describe its batch settings', async t => {
+  const implicit = rig(t), explicit = rig(t, () => {}, { processingBatch: 'default', weightRepacking: true });
+  for (const r of [implicit, explicit]) {
+    const before = r.model.status().settings;
+    assert.equal(before.processingBatch, 'default');
+    assert.equal(before.weightRepacking, true);
+    assert.equal(before.logicalBatchTokens, 2048); assert.equal(before.physicalBatchTokens, 512);
+    await r.model.start();
+    const args = r.calls[0].args, token = args[args.indexOf('--api-key') + 1];
+    assert.deepEqual(args, [
+      '-m', path.join(root, 'companion/local/models/Qwen3-1.7B-Q8_0.gguf'),
+      '--host', '127.0.0.1', '--port', '45678', '--api-key', token,
+      '--offline', '--no-webui', '--no-webui-mcp-proxy', '-ngl', '0', '-t', '4', '-tb', '4',
+      '-c', '2048', '-np', '1', '-n', '64', '--jinja', '--chat-template-kwargs',
+      '{"enable_thinking":false}', '--reasoning-budget', '0'
+    ]);
+    for (const flag of ['-b', '-ub', '--batch-size', '--ubatch-size']) assert.equal(args.includes(flag), false);
+    assert.equal(args.includes('--no-repack'), false);
+    assert.equal(r.model.status().settings.processingBatch, 'default');
+  }
+  assert.deepEqual(implicit.calls[0].args, explicit.calls[0].args);
+});
+
+test('weight repacking rejects non-boolean configuration instead of coercing it into launch flags', () => {
+  for (const weightRepacking of ['false', 'true', 0, 1, null, {}, [], '--no-repack']) {
+    assert.throws(() => createLocalLanguageModel({ weightRepacking }), /UNSUPPORTED_MODEL_CONFIGURATION/);
+  }
+});
+
+test('disabling weight repacking adds exactly one flag while retaining both batch profiles and launch limits', async t => {
+  for (const processingBatch of ['default', 'compact']) {
+    const options = { modelId: 'qwen4b', threads: 2, processingBatch };
+    const normal = rig(t, () => {}, options), disabled = rig(t, () => {}, { ...options, weightRepacking: false });
+    assert.equal(normal.calls.length, 0); assert.equal(disabled.calls.length, 0);
+    assert.equal(normal.model.status().settings.weightRepacking, true);
+    assert.equal(disabled.model.status().settings.weightRepacking, false);
+    await normal.model.start(); await disabled.model.start();
+    const baselineArgs = normal.calls[0].args, args = disabled.calls[0].args;
+    assert.equal(baselineArgs.includes('--no-repack'), false);
+    assert.equal(args.filter(value => value === '--no-repack').length, 1);
+    assert.deepEqual(args.filter(value => value !== '--no-repack'), baselineArgs);
+    assert.deepEqual(disabled.calls[0].options, normal.calls[0].options);
+    assert.deepEqual(disabled.model.status().settings, { ...normal.model.status().settings, weightRepacking: false });
+    for (const [flag, value] of [['--host', '127.0.0.1'], ['-c', '2048'], ['-n', '64'], ['-ngl', '0'], ['-t', '2'], ['-tb', '2'], ['-np', '1']])
+      assert.equal(args[args.indexOf(flag) + 1], value);
+    for (const flag of ['--offline', '--no-webui', '--no-webui-mcp-proxy']) assert.ok(args.includes(flag));
+    if (processingBatch === 'compact') {
+      assert.equal(args[args.indexOf('-b') + 1], '128'); assert.equal(args[args.indexOf('-ub') + 1], '64');
+    } else { assert.equal(args.includes('-b'), false); assert.equal(args.includes('-ub'), false); }
+    await disabled.model.generate(ctx());
+    const request = disabled.fetches.at(-1), body = JSON.parse(request.options.body);
+    const token = args[args.indexOf('--api-key') + 1];
+    assert.equal(request.options.headers.Authorization, `Bearer ${token}`);
+    assert.equal(request.url, 'http://127.0.0.1:45678/v1/chat/completions');
+    assert.equal(body.max_tokens, 64); assert.equal(body.chat_template_kwargs.enable_thinking, false);
+    assert.equal(disabled.model.status().nativeCalls, 0); assert.equal(disabled.model.status().audioGenerated, false);
+    await normal.model.stop(); await disabled.model.stop();
+    assert.equal(disabled.model.status().ownedProcessStopped, true);
+  }
+});
+
+test('compact batches affect only processing batch sizes and retain CPU, private transport, context and output limits', async t => {
+  for (const threads of [2, 4]) {
+    const r = rig(t, () => {}, { modelId: 'qwen4b', threads, processingBatch: 'compact' });
+    assert.equal(r.calls.length, 0); assert.equal(r.fetches.length, 0);
+    await r.model.start();
+    const { args, options } = r.calls[0], settings = r.model.status().settings;
+    for (const [flag, value] of [
+      ['-b', '128'], ['-ub', '64'], ['-c', '2048'], ['-n', '64'], ['-ngl', '0'],
+      ['-t', String(threads)], ['-tb', String(threads)], ['-np', '1'], ['--host', '127.0.0.1']
+    ]) {
+      assert.equal(args.filter(a => a === flag).length, 1);
+      assert.equal(args[args.indexOf(flag) + 1], value);
+    }
+    assert.equal(args[args.indexOf('-m') + 1], path.join(root, 'companion/local/models/Qwen3-4B-Q4_K_M.gguf'));
+    for (const flag of ['--offline', '--no-webui', '--no-webui-mcp-proxy']) assert.ok(args.includes(flag));
+    assert.equal(options.windowsHide, true); assert.equal(options.shell, false);
+    assert.ok(Object.keys(options.env).every(k => !/^LLAMA_ARG_/i.test(k)));
+    assert.equal(settings.processingBatch, 'compact');
+    assert.equal(settings.logicalBatchTokens, 128); assert.equal(settings.physicalBatchTokens, 64);
+    assert.equal(settings.contextTokens, 2048); assert.equal(settings.maxOutputTokens, 64);
+    assert.equal(settings.maxOutputChars, 256); assert.equal(settings.gpuLayers, 0);
+    assert.equal(settings.simultaneousModels, 1); assert.equal(settings.thinking, false);
+    const token = args[args.indexOf('--api-key') + 1]; assert.match(token, /^[a-f0-9]{48}$/);
+    assert.equal(r.fetches[0].options.headers.Authorization, `Bearer ${token}`);
+    await r.model.generate(ctx());
+    const request = r.fetches.at(-1), body = JSON.parse(request.options.body);
+    assert.equal(request.url, 'http://127.0.0.1:45678/v1/chat/completions');
+    assert.equal(request.options.headers.Authorization, `Bearer ${token}`);
+    assert.equal(body.max_tokens, 64); assert.equal(body.chat_template_kwargs.enable_thinking, false);
+    assert.equal(Object.hasOwn(body, 'tools'), false);
+    assert.equal(JSON.stringify(r.model.status()).includes(token), false);
+    assert.equal(r.model.status().nativeCalls, 0); assert.equal(r.model.status().audioGenerated, false);
+    await r.model.stop();
+  }
 });
 
 test('tampered pins, model bytes/hashes and runtime hashes prevent all spawning', async t => {
