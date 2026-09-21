@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-21T05:16:47.085Z",
+  "classification": "MOCK_ONLY",
+  "status": "PASS",
+  "tests": 161,
+  "passed": 161,
+  "failed": 0,
+  "skipped": 0,
+  "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
+  "nodeVersion": "v24.19.0",
+  "testFiles": [
+    "companion/tests/benchmark.test.mjs",
+    "companion/tests/control-review.test.mjs",
+    "companion/tests/control.test.mjs",
+    "companion/tests/observation-review.test.mjs",
+    "companion/tests/observation.test.mjs",
+    "companion/tests/policy-regression.test.mjs",
+    "companion/tests/radio.test.mjs",
+    "companion/tests/server.test.mjs"
+  ],
+  "hashes": [
+    {
+      "file": "companion/tests/benchmark.test.mjs",
+      "sha256": "8e1442712dc0b6f9a222c3965f64e36693d5eb833526a635b01bb9e812ca0c88"
+    },
+    {
+      "file": "companion/tests/control-review.test.mjs",
+      "sha256": "9e1cd8108cf1328f71ca5fa0b8ec81eab6727c98b12dc70ed7fed106a55e9331"
+    },
+    {
+      "file": "companion/tests/control.test.mjs",
+      "sha256": "ac09200386aaace64f079c84d15af6d91c41de2a75eb348ff89c076fc36be4a3"
+    },
+    {
+      "file": "companion/tests/observation-review.test.mjs",
+      "sha256": "982b7c6336ae62541a4b97a879b09fba63b0fc552058c5a24892302d487081bc"
+    },
+    {
+      "file": "companion/tests/observation.test.mjs",
+      "sha256": "00a130a64b16af939e8305467f715a6d2a8bc3d922f7bb7c89cf4f0babd2892d"
+    },
+    {
+      "file": "companion/tests/policy-regression.test.mjs",
+      "sha256": "1ae2b7c17926456b262c99063c98a162ba9966d8f38fbd20c1064d29d1ae5e5f"
+    },
+    {
+      "file": "companion/tests/radio.test.mjs",
+      "sha256": "8fba2f154dd29c41dee3c5c41ceb5ecd810b985c39ef22dbab481ed6d3d1277d"
+    },
+    {
+      "file": "companion/tests/server.test.mjs",
+      "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102"
+    },
+    {
+      "file": "companion/benchmark.mjs",
+      "sha256": "9bd0ecab38361f9fa2fc05f5e186ecac0a287ed399b47439d5a6ab89e398192d"
+    },
+    {
+      "file": "companion/control.mjs",
+      "sha256": "7b27764fb8e40b0eec7d568e7b8137e13dcf1407c9ab27838c647db03b1ccf14"
+    },
+    {
+      "file": "companion/models.lock.json",
+      "sha256": "035aa0318e1c3f92de9ede3fbea5cdb8ad5750e5db289774545e86b35a325fc3"
+    },
+    {
+      "file": "companion/observation.mjs",
+      "sha256": "107f6ecb9eeaf65b075735a012c5ffa100d10f490a880951f44d2106c2d22af9"
+    },
+    {
+      "file": "companion/personas.json",
+      "sha256": "1f66276cc3db94dd8dc824d069440c24eb5e2bfb005960b02d9e1ab4b690d0ee"
+    },
+    {
+      "file": "companion/radio.mjs",
+      "sha256": "3964516e729a974dd4375698597e4d4efc0daf6da6544c960971494a7b652279"
+    },
+    {
+      "file": "companion/server.mjs",
+      "sha256": "abeec70d5c324253650d9f83ebb8790f10b72a96baae83a12f0a2ca7f5817916"
+    },
+    {
+      "file": "scripts/tactical-policy.mjs",
+      "sha256": "4b6712af3804f4a6613d1a36cbb1be3d00801b143aae7bcc1981339aec19784e"
+    },
+    {
+      "file": "synthetic/tactical-cases.mjs",
+      "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+    },
+    {
+      "file": "synthetic/release-benchmark.json",
+      "sha256": "d9f350772924d9e087ff8c4377f747ce0d849da4039cb3f63fdc7aff44eba599"
+    }
+  ],
+  "gameTests": "NOT_PERFORMED",
+  "nativeAdapter": "NOT_BUILT",
+  "visualBrowserCheck": "NOT_PERFORMED: browser automation failed to initialize kernel assets",
+  "failures": []
+}

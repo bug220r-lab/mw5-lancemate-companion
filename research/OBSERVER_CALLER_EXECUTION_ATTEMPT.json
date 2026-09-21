@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-21T04:41:17.6525049Z",
+  "status": "BLOCKED_UI_ACCESS_BEFORE_NATIVE_EXECUTION",
+  "evidence": "OBSERVED",
+  "authorization": {
+    "repeat_approval_required": false,
+    "persists": true,
+    "user_message": "Approved.",
+    "does_not_include": [
+      "Editor relaunch",
+      "Broad collection",
+      "Asset authoring or saving",
+      "Cooking or deployment",
+      "Retail gameplay",
+      "Native commands"
+    ],
+    "scope": "Run scripts/Inspect-ObserverCaller.py once in the existing editor, then inspect source/defaults/receipt"
+  },
+  "helper": {
+    "sha256": "B99B1B05375BE98AF1160C9C2CCB3474AF80EB97AA673EA492130D83386D0FA0",
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverCaller.py"
+  },
+  "candidate": {
+    "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6",
+    "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset"
+  },
+  "ui": {
+    "script_path_entered": false,
+    "execute_action_submitted": false,
+    "capture_attempts": 2,
+    "accessibility": "Only main editor and Dpad_LanceOrderDispatcher window titles; no menu controls",
+    "api": "node_repl + @oai/sky",
+    "capture_error": "SetIsBorderRequired failed: No such interface supported (0x80004002)",
+    "existing_main_window": {
+      "id": 593470,
+      "app": "process:C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+      "title": "MW5Mercs - Unreal Editor"
+    },
+    "inputs": [
+      "Activated existing editor window",
+      "Alt_L+f; subsequent accessibility showed no menu entries"
+    ],
+    "plugin": "computer-use"
+  },
+  "native_helper_execution": "NOT_PERFORMED",
+  "native_output_directories": [],
+  "gameplay": "NOT_PERFORMED",
+  "cook_deployment": "NOT_PERFORMED",
+  "next_action": "Use File > Execute Python Script in the existing official editor and select the approved helper once; inspect a newly produced direct-child observer-caller-YYYY... receipt afterward. No new permission is needed for that exact step.",
+  "limits": [
+    "Failed screenshot capture does not prove the editor is unresponsive.",
+    "Menu state after Alt+f is unknown; no further blind inputs were sent.",
+    "The assistant did not run the helper; separate concurrent user activity is not inferred.",
+    "Previous static/mock receipts remain historical; this is an access-attempt record, not native export evidence."
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-09-21T04:36:46.2627494Z",
+  "status": "PASS_STATIC_PREPARATION_ONLY",
+  "scope": "New research handoff, metadata consistency and prepared source helper; not observer implementation or gameplay",
+  "local_links_checked": 35,
+  "json_documents_parsed": 4,
+  "external_named_hashes_rechecked": 13,
+  "external_hash_drift_count": 0,
+  "helper_sha256": "B99B1B05375BE98AF1160C9C2CCB3474AF80EB97AA673EA492130D83386D0FA0",
+  "independent_mock_cases_passed": 29,
+  "independent_mock_cases_failed": 0,
+  "mock_runtime": "Python 3.12.14",
+  "mock_receipt": "research/PASSIVE_OBSERVER_HELPER_REVIEW.json",
+  "editor_python_syntax": {
+    "method": "Standalone interpreter compile(read_bytes(), filename, exec); no helper or unreal import",
+    "behavioral_suite": "NOT_PERFORMED",
+    "version": "3.7.7",
+    "status": "PASS"
+  },
+  "native_helper_output_directories": 0,
+  "native_editor_execution": "NOT_PERFORMED",
+  "observer_assets": "NOT_BUILT",
+  "cook": "NOT_PERFORMED",
+  "retail_game_tests": "NOT_PERFORMED",
+  "unchanged_tactical_tests": "NOT_RERUN",
+  "errors": [],
+  "artifacts": [
+    {
+      "path": "research/PASSIVE_OBSERVER_PREPARATION.md",
+      "bytes": 10783,
+      "sha256": "D0FE31124C2B45706159443E7BE246DF114BF8AACB8E3641997D884154725808"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_OFFICIAL_PATH.md",
+      "bytes": 10582,
+      "sha256": "0823739DCA84B31F124AF1FB132E84A00DADCC215C045D54449BCE32F7D4EE8B"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_FACTORY_TRACE.md",
+      "bytes": 18142,
+      "sha256": "0C86E343B1A14F15FF9E714AB46FA5F98BED5681AE2565DDDBE11BC3FE002443"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_PACKAGING_CONTRACT.md",
+      "bytes": 11308,
+      "sha256": "89FA29914A03E4C63A003DE2D86D9FF51529799B2499FFA89D9A2BE803EDE04D"
+    },
+    {
+      "path": "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
+      "bytes": 5936,
+      "sha256": "A3A11939848C4451837C78318E0FA50A514B2EE15434371E0E44F4DDB0D213C0"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_LOCAL_SNAPSHOT.json",
+      "bytes": 8104,
+      "sha256": "1D82916A0447D6AD597016C213E77E3836F98464DC8196642B685AE4036B31B2"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_CALLER_ASSET.json",
+      "bytes": 470,
+      "sha256": "0ECAB3C6E3CC9B0BC360818F0019565DFB556089F65AA3FB60B3AEEE13314C64"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_PREPARATION.json",
+      "bytes": 4000,
+      "sha256": "B61846665BB498D5FF0B43EDE707FEABE879BBC3BBF77BA60E1B8B4D2D98234C"
+    },
+    {
+      "path": "research/PASSIVE_OBSERVER_HELPER_REVIEW.json",
+      "bytes": 17480,
+      "sha256": "1E99D29D0D47568E54C1D36501E4940D9FCD08312D88B0576D62DB7BF22E277B"
+    },
+    {
+      "path": "scripts/Inspect-ObserverCaller.py",
+      "bytes": 14058,
+      "sha256": "B99B1B05375BE98AF1160C9C2CCB3474AF80EB97AA673EA492130D83386D0FA0"
+    },
+    {
+      "path": "scripts/Review-ObserverCaller.py",
+      "bytes": 18496,
+      "sha256": "0953515FCA50DEF0DE0411821A4C87CD0EA432F7C57133C6720D1BFE7EA0B83D"
+    },
+    {
+      "path": "README.md",
+      "bytes": 19991,
+      "sha256": "6C51D680CF883DA2A8447DBFFFFBB00D1B7612B74F2F9DBC3A25148CF0129934"
+    },
+    {
+      "path": "NEXT_CODEX_PROMPT.md",
+      "bytes": 31668,
+      "sha256": "9561399D43E1A86316FBEBF98C3AFE26C91B121FB9798068F3C323096351A9A6"
+    }
+  ],
+  "limits": [
+    "Receipt verifies only the explicitly listed files and bounded checks.",
+    "Mock results do not verify Unreal API behavior, inheritance, caller discovery or runtime initialization.",
+    "Observed external hashes are metadata/source inputs, not a deployable package dependency manifest.",
+    "This receipt does not hash itself; earlier overnight receipts remain historical and unchanged by this check."
+  ]
+}

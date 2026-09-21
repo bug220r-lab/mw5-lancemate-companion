@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-21T05:10:30.307Z",
+  "classification": "LOCAL_COMPONENT_BENCHMARK_SYNTHETIC_PROMPTS",
+  "gameTests": "NOT_PERFORMED",
+  "speechTests": "NOT_PERFORMED",
+  "styleAcceptance": "NOT_PERFORMED",
+  "model": {
+    "id": "qwen4b",
+    "sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5",
+    "version": "bc640142c66e1fdd12af0bd68f40445458f3869b"
+  },
+  "runtime": "llama.cpp b11065 CPU x64",
+  "settings": {
+    "threads": 4,
+    "contextTokens": 2048,
+    "maxOutputTokens": 64,
+    "gpuLayers": 0,
+    "thinking": false,
+    "simultaneousModels": 1
+  },
+  "samples": [
+    {
+      "persona": "edgy_female",
+      "style": "an edgy woman with dry wit and loyalty",
+      "fact": "The squad is holding position because of the player order.",
+      "user": "Are you still holding?",
+      "firstTextMs": 3242.5993000000017,
+      "totalMs": 5310.215700000001,
+      "output": "Still holding. Player order's the issue, not me.",
+      "finishReason": "stop",
+      "groundingReview": "PENDING_HUMAN_REVIEW",
+      "dispatched": false,
+      "played": false
+    },
+    {
+      "persona": "composed_tactician",
+      "style": "a composed, concise tactician",
+      "fact": "Enemy status, route safety and teammate damage are unknown.",
+      "user": "Is that route safe?",
+      "firstTextMs": 2846.5532999999996,
+      "totalMs": 4456.7804,
+      "output": "Route safety is unknown; proceed with caution.",
+      "finishReason": "stop",
+      "groundingReview": "PENDING_HUMAN_REVIEW",
+      "dispatched": false,
+      "played": false
+    },
+    {
+      "persona": "energetic_scout",
+      "style": "an energetic but precise scout",
+      "fact": "One hostile target was visible in the current synthetic observation. No kill is verified.",
+      "user": "Did we get that target?",
+      "firstTextMs": 2988.2603000000017,
+      "totalMs": 5371.221600000001,
+      "output": "No kill verified. One hostile target observed, no confirmation of engagement.",
+      "finishReason": "stop",
+      "groundingReview": "PENDING_HUMAN_REVIEW",
+      "dispatched": false,
+      "played": false
+    }
+  ],
+  "status": "COMPONENT_SMOKE_COMPLETE",
+  "limitations": [
+    "Component-only CPU run; MW5 workload not started or measured.",
+    "First generated text is not first spoken audio.",
+    "Generated output is untrusted and was never played or dispatched."
+  ],
+  "startupMs": 12919.746600000002,
+  "ownedProcessStopped": true,
+  "minimumAvailableRamBytes": 17707008,
+  "completedAt": "2026-09-21T05:10:58.791Z",
+  "runtimeLog": "0.00.002.595 I srv  llama_server: initializing ...\r\n0.00.033.581 W Setting 'enable_thinking' via --chat-template-kwargs is deprecated. Use --reasoning on / --reasoning off instead.\r\n0.00.033.954 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\r\n0.00.034.257 I srv          init: The UI is disabled\r\n0.00.034.258 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable\r\n0.00.050.308 I srv    load_model: loading model 'C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\Qwen3-4B-Q4_K_M.gguf'\r\n0.00.868.995 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\r\n0.10.434.330 I cmn          init: llama threadpool init, n_threads = 4\r\n0.12.498.002 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'\r\n0.12.558.234 I srv  llama_server: model loaded\r\n0.12.558.690 I srv  llama_server: listening on http://127.0.0.1:60914\r\n0.12.969.582 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1\r\n0.12.971.173 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0\r\n0.18.181.389 I slot print_timing: id  0 | task 0 | prompt eval time =    3144.39 ms /   100 tokens (   31.44 ms per token,    31.80 tokens per second)\r\n0.18.181.393 I slot print_timing: id  0 | task 0 |        eval time =    2065.57 ms /    13 tokens (  172.13 ms per token,     5.81 tokens per second)\r\n0.18.181.395 I slot print_timing: id  0 | task 0 |       total time =    5209.96 ms /   113 tokens\r\n0.18.181.395 I slot print_timing: id  0 | task 0 |    graphs reused =         12\r\n0.18.184.005 I slot      release: id  0 | task 0 | stop processing: n_tokens = 112, truncated = 0\r\n0.18.204.263 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = 18155453\r\n0.18.210.623 I slot launch_slot_: id  0 | task 14 | processing task, is_child = 0\r\n0.22.642.112 I slot print_timing: id  0 | task 14 | prompt eval time =    2821.70 ms /    92 tokens (   30.67 ms per token,    32.60 tokens per second)\r\n0.22.642.116 I slot print_timing: id  0 | task 14 |        eval time =    1609.78 ms /    10 tokens (  178.86 ms per token,     5.59 tokens per second)\r\n0.22.642.117 I slot print_timing: id  0 | task 14 |       total time =    4431.47 ms /   102 tokens\r\n0.22.642.118 I slot print_timing: id  0 | task 14 |    graphs reused =         20\r\n0.22.642.750 I slot      release: id  0 | task 14 | stop processing: n_tokens = 106, truncated = 0\r\n0.22.662.457 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = 22614230\r\n0.22.668.466 I slot launch_slot_: id  0 | task 25 | processing task, is_child = 0\r\n0.28.013.641 I slot print_timing: id  0 | task 25 | prompt eval time =    2962.62 ms /    97 tokens (   30.54 ms per token,    32.74 tokens per second)\r\n0.28.013.690 I slot print_timing: id  0 | task 25 |        eval time =    2382.51 ms /    15 tokens (  170.18 ms per token,     5.88 tokens per second)\r\n0.28.013.693 I slot print_timing: id  0 | task 25 |       total time =    5345.13 ms /   112 tokens\r\n0.28.013.696 I slot print_timing: id  0 | task 25 |    graphs reused =         33\r\n0.28.014.027 I slot      release: id  0 | task 25 | stop processing: n_tokens = 116, truncated = 0\r\n"
+}

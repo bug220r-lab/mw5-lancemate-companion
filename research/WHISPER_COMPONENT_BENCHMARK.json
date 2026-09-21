@@ -1,0 +1,762 @@
+{
+  "schemaVersion": 1,
+  "classification": "LOCAL_COMPONENT_BENCHMARK",
+  "runId": "2026-09-21T05-14-05-115Z",
+  "startedAt": "2026-09-21T05:14:05.116Z",
+  "status": "SMOKE_COMPLETED",
+  "execution": "PERFORMED_CPU_ONLY",
+  "mode": "CPU_ONLY",
+  "threads": 4,
+  "clips": [
+    {
+      "id": "VA-001",
+      "referenceText": "Heard you.",
+      "status": "TRANSCRIBED",
+      "source": {
+        "file": "audio/zira-audition-001/VA-001-clean.wav",
+        "sha256": "9cb38253c239f7dff520b2401d48d822dff69276f3d7b5ac7198091717ba9935",
+        "sampleRate": 24000,
+        "frames": 39828,
+        "durationSeconds": 1.6595
+      },
+      "prepared": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001-16k.wav",
+        "sha256": "2107ecb69e0dedd465f4fc478430693fff78a8b59d2918e176d32d127a7856d4",
+        "sampleRate": 16000,
+        "frames": 26552,
+        "durationSeconds": 1.6595
+      },
+      "arguments": [
+        "--model",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\ggml-base.en.bin",
+        "--file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-001-16k.wav",
+        "--threads",
+        "4",
+        "--language",
+        "en",
+        "--no-gpu",
+        "--output-txt",
+        "--output-json",
+        "--output-file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-001"
+      ],
+      "startedAt": "2026-09-21T05:14:07.098Z",
+      "wallTimeMs": 1877.952,
+      "completedAt": "2026-09-21T05:14:08.977Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stdout": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001.stdout.log",
+        "sha256": "75f6365099e25a668dc5215fde482ed670d7d1f149f370024ccd475c7fffedec"
+      },
+      "stderr": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001.stderr.log",
+        "sha256": "78da386e2cdc042af58bcb494f42c904b36a4a31363f30ee2de9d201608c4ab9"
+      },
+      "timingLines": [
+        "whisper_init_with_params_no_state: use gpu    = 0",
+        "system_info: n_threads = 4 / 12 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "whisper_print_timings:     load time =   218.99 ms",
+        "whisper_print_timings:      mel time =     3.98 ms",
+        "whisper_print_timings:   sample time =    26.97 ms /    31 runs (     0.87 ms per run)",
+        "whisper_print_timings:   encode time =  1336.40 ms /     1 runs (  1336.40 ms per run)",
+        "whisper_print_timings:   decode time =    13.80 ms /     1 runs (    13.80 ms per run)",
+        "whisper_print_timings:   batchd time =   110.22 ms /    26 runs (     4.24 ms per run)",
+        "whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)",
+        "whisper_print_timings:    total time =  1760.56 ms"
+      ],
+      "noGpuLogConfirmed": true,
+      "transcript": "Heard you.",
+      "outputs": [
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001.txt",
+          "sha256": "fb11dd2c1d5c42414c57c58e8808c4c4d7152a3d29b95f8005dd9d7fad6dc04f",
+          "bytes": 12
+        },
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001.json",
+          "sha256": "765076dce081baac4f578e87515bc2efeaac8e744d43c98fd81a0fa0b4399b34",
+          "bytes": 896
+        }
+      ],
+      "wordError": {
+        "referenceWords": 2,
+        "hypothesisWords": 2,
+        "wordEdits": 0,
+        "rate": 0
+      },
+      "realTimeFactor": 1.13163724013257
+    },
+    {
+      "id": "VA-002",
+      "referenceText": "No confirmation. I'm keeping that separate from success.",
+      "status": "TRANSCRIBED",
+      "source": {
+        "file": "audio/zira-audition-001/VA-002-clean.wav",
+        "sha256": "3dd1dc433d46fb60ea3c3185f50b3141f3d9856b20aac01a192e3468d6b4a776",
+        "sampleRate": 24000,
+        "frames": 122268,
+        "durationSeconds": 5.0945
+      },
+      "prepared": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-002-16k.wav",
+        "sha256": "6e62c3ec87b844a9d6a97b2d085a272f6e2fa85ff0324f7c52716d77e3dce480",
+        "sampleRate": 16000,
+        "frames": 81512,
+        "durationSeconds": 5.0945
+      },
+      "arguments": [
+        "--model",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\ggml-base.en.bin",
+        "--file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-002-16k.wav",
+        "--threads",
+        "4",
+        "--language",
+        "en",
+        "--no-gpu",
+        "--output-txt",
+        "--output-json",
+        "--output-file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-002"
+      ],
+      "startedAt": "2026-09-21T05:14:08.981Z",
+      "wallTimeMs": 1992.332,
+      "completedAt": "2026-09-21T05:14:10.974Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stdout": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-002.stdout.log",
+        "sha256": "3f9f956b0cac741e0d7bd4b7c8c235b248b8a8956f58d90730ec4ad093f3de20"
+      },
+      "stderr": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-002.stderr.log",
+        "sha256": "418a4c149d4c52929787448f73d7f6ac11bc5945ae8e1803f6e6afbd5f85fd99"
+      },
+      "timingLines": [
+        "whisper_init_with_params_no_state: use gpu    = 0",
+        "system_info: n_threads = 4 / 12 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "whisper_print_timings:     load time =   215.24 ms",
+        "whisper_print_timings:      mel time =     5.90 ms",
+        "whisper_print_timings:   sample time =    65.10 ms /    75 runs (     0.87 ms per run)",
+        "whisper_print_timings:   encode time =  1280.26 ms /     1 runs (  1280.26 ms per run)",
+        "whisper_print_timings:   decode time =     7.50 ms /     1 runs (     7.50 ms per run)",
+        "whisper_print_timings:   batchd time =   261.62 ms /    70 runs (     3.74 ms per run)",
+        "whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)",
+        "whisper_print_timings:    total time =  1876.85 ms"
+      ],
+      "noGpuLogConfirmed": true,
+      "transcript": "No confirmation.\r\nI'm keeping that separate from success.",
+      "outputs": [
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-002.txt",
+          "sha256": "97ac036f4c663e6617c62585e65453721c4ab96836062ac18659cd919c8dd86b",
+          "bytes": 59
+        },
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-002.json",
+          "sha256": "144116518349ce41076a46df9a82e9e321fd4f23661b2a407bd2289cd7e740e8",
+          "bytes": 1109
+        }
+      ],
+      "wordError": {
+        "referenceWords": 8,
+        "hypothesisWords": 8,
+        "wordEdits": 0,
+        "rate": 0
+      },
+      "realTimeFactor": 0.3910750809696732
+    },
+    {
+      "id": "VA-003",
+      "referenceText": "Critical damage to my left arm.",
+      "status": "TRANSCRIBED",
+      "source": {
+        "file": "audio/zira-audition-001/VA-003-clean.wav",
+        "sha256": "58a43ed17b607aa2a40fb7fff82af1fb399a7753333e78ec03f687fe93d94a5a",
+        "sampleRate": 24000,
+        "frames": 69348,
+        "durationSeconds": 2.8895
+      },
+      "prepared": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-003-16k.wav",
+        "sha256": "49a918693758ac29bd98ed759f6b71d14b0a7c8dfd4c264ca4a1a7bbcbd6033f",
+        "sampleRate": 16000,
+        "frames": 46232,
+        "durationSeconds": 2.8895
+      },
+      "arguments": [
+        "--model",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\ggml-base.en.bin",
+        "--file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-003-16k.wav",
+        "--threads",
+        "4",
+        "--language",
+        "en",
+        "--no-gpu",
+        "--output-txt",
+        "--output-json",
+        "--output-file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-003"
+      ],
+      "startedAt": "2026-09-21T05:14:10.976Z",
+      "wallTimeMs": 2153.065,
+      "completedAt": "2026-09-21T05:14:13.130Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stdout": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-003.stdout.log",
+        "sha256": "25c8740dd7f9dfbbe7786fbe248836bc2113940c23c58f1d16f02600114fb0e5"
+      },
+      "stderr": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-003.stderr.log",
+        "sha256": "3600cae1d3bc941f6f468b603cafd8acc52c49fc57d833b26abd83fef17e8201"
+      },
+      "timingLines": [
+        "whisper_init_with_params_no_state: use gpu    = 0",
+        "system_info: n_threads = 4 / 12 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "whisper_print_timings:     load time =   260.49 ms",
+        "whisper_print_timings:      mel time =     6.80 ms",
+        "whisper_print_timings:   sample time =    44.34 ms /    47 runs (     0.94 ms per run)",
+        "whisper_print_timings:   encode time =  1379.95 ms /     1 runs (  1379.95 ms per run)",
+        "whisper_print_timings:   decode time =    15.84 ms /     1 runs (    15.84 ms per run)",
+        "whisper_print_timings:   batchd time =   162.96 ms /    42 runs (     3.88 ms per run)",
+        "whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)",
+        "whisper_print_timings:    total time =  1920.19 ms"
+      ],
+      "noGpuLogConfirmed": true,
+      "transcript": "Critical damage to my left arm",
+      "outputs": [
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-003.txt",
+          "sha256": "8bdd433f4f97a749bbad72a5ea14f7a4bf752bc2c08ded0bb999e4e2964b38d4",
+          "bytes": 32
+        },
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-003.json",
+          "sha256": "bd455c3b0f15be6b5173cb89bb6951538b93c3adcd2b5d9959a496e56ab12fec",
+          "bytes": 916
+        }
+      ],
+      "wordError": {
+        "referenceWords": 6,
+        "hypothesisWords": 6,
+        "wordEdits": 0,
+        "rate": 0
+      },
+      "realTimeFactor": 0.7451341062467555
+    },
+    {
+      "id": "VA-004",
+      "referenceText": "I can't confirm a casualty. We don't have reliable pilot status.",
+      "status": "TRANSCRIBED",
+      "source": {
+        "file": "audio/zira-audition-001/VA-004-clean.wav",
+        "sha256": "0e24a8bc845be9d323ac68cb249d1cac4d9791bddcb38faf1f2b9eb4f72afda6",
+        "sampleRate": 24000,
+        "frames": 137748,
+        "durationSeconds": 5.7395
+      },
+      "prepared": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-004-16k.wav",
+        "sha256": "12bab3ac69302c2b89a1ecd467cead83526d438d2f153b60610c6fef44aa6306",
+        "sampleRate": 16000,
+        "frames": 91832,
+        "durationSeconds": 5.7395
+      },
+      "arguments": [
+        "--model",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\ggml-base.en.bin",
+        "--file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-004-16k.wav",
+        "--threads",
+        "4",
+        "--language",
+        "en",
+        "--no-gpu",
+        "--output-txt",
+        "--output-json",
+        "--output-file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-004"
+      ],
+      "startedAt": "2026-09-21T05:14:13.135Z",
+      "wallTimeMs": 2430.342,
+      "completedAt": "2026-09-21T05:14:15.566Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stdout": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-004.stdout.log",
+        "sha256": "6d755cc89a133d3ed466deec132077661d039276c9872b27757c8ecb17c34348"
+      },
+      "stderr": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-004.stderr.log",
+        "sha256": "5c5bd180a41f23e8d7146c964552e43e2e7557606cee737fdd9976fa6fa69603"
+      },
+      "timingLines": [
+        "whisper_init_with_params_no_state: use gpu    = 0",
+        "system_info: n_threads = 4 / 12 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "whisper_print_timings:     load time =   336.41 ms",
+        "whisper_print_timings:      mel time =     9.42 ms",
+        "whisper_print_timings:   sample time =   101.61 ms /    98 runs (     1.04 ms per run)",
+        "whisper_print_timings:   encode time =  1367.71 ms /     1 runs (  1367.71 ms per run)",
+        "whisper_print_timings:   decode time =    13.79 ms /     1 runs (    13.79 ms per run)",
+        "whisper_print_timings:   batchd time =   409.83 ms /    93 runs (     4.41 ms per run)",
+        "whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)",
+        "whisper_print_timings:    total time =  2281.64 ms"
+      ],
+      "noGpuLogConfirmed": true,
+      "transcript": "I can't confirm a casualty.\r\nWe don't have reliable pilot status.",
+      "outputs": [
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-004.txt",
+          "sha256": "4fb7c69b69d8de88464969545b0299a41a1e16d048ed28ee9cdad0e848630660",
+          "bytes": 67
+        },
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-004.json",
+          "sha256": "e25213e796e90f3623f05693ee32450a29baf0cb190e8d0b6f229a42f5f82a07",
+          "bytes": 1117
+        }
+      ],
+      "wordError": {
+        "referenceWords": 11,
+        "hypothesisWords": 11,
+        "wordEdits": 0,
+        "rate": 0
+      },
+      "realTimeFactor": 0.42344141475738306
+    },
+    {
+      "id": "VA-005",
+      "referenceText": "Quiet for the moment. I'm suspicious already.",
+      "status": "TRANSCRIBED",
+      "source": {
+        "file": "audio/zira-audition-001/VA-005-clean.wav",
+        "sha256": "9040849330b649c09f298b308cd6d507f600e6d692ececf5f2a1af1629c8514d",
+        "sampleRate": 24000,
+        "frames": 104868,
+        "durationSeconds": 4.3695
+      },
+      "prepared": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-005-16k.wav",
+        "sha256": "8eaf34fee227f7f764ef56cc9a991f3ba4f78ad725cc8872b67cd2a5db00f98a",
+        "sampleRate": 16000,
+        "frames": 69912,
+        "durationSeconds": 4.3695
+      },
+      "arguments": [
+        "--model",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\ggml-base.en.bin",
+        "--file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-005-16k.wav",
+        "--threads",
+        "4",
+        "--language",
+        "en",
+        "--no-gpu",
+        "--output-txt",
+        "--output-json",
+        "--output-file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-005"
+      ],
+      "startedAt": "2026-09-21T05:14:15.570Z",
+      "wallTimeMs": 1976.522,
+      "completedAt": "2026-09-21T05:14:17.547Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stdout": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-005.stdout.log",
+        "sha256": "0e01cc67b212c53fb550f7a3f0c0bd8594676bb611eb8026bf5ad3c1f654937a"
+      },
+      "stderr": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-005.stderr.log",
+        "sha256": "2abf18e2dcf2d05b8e64ee85a524fbe511aabd2ceeeb7fcb8c4149e7634e10a2"
+      },
+      "timingLines": [
+        "whisper_init_with_params_no_state: use gpu    = 0",
+        "system_info: n_threads = 4 / 12 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "whisper_print_timings:     load time =   231.93 ms",
+        "whisper_print_timings:      mel time =     6.22 ms",
+        "whisper_print_timings:   sample time =    54.46 ms /    63 runs (     0.86 ms per run)",
+        "whisper_print_timings:   encode time =  1295.48 ms /     1 runs (  1295.48 ms per run)",
+        "whisper_print_timings:   decode time =     9.40 ms /     1 runs (     9.40 ms per run)",
+        "whisper_print_timings:   batchd time =   227.75 ms /    58 runs (     3.93 ms per run)",
+        "whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)",
+        "whisper_print_timings:    total time =  1861.21 ms"
+      ],
+      "noGpuLogConfirmed": true,
+      "transcript": "Quiet for the moment. I'm suspicious already.",
+      "outputs": [
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-005.txt",
+          "sha256": "a571f1582d3097ba0cfc4fc75175f61d71a29b29b0f17b26f2378b070b9e0362",
+          "bytes": 47
+        },
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-005.json",
+          "sha256": "7e1d2835aea607e7b5bac965889f7c41c2798d02b3af9887288f1d0e5b5cb48b",
+          "bytes": 931
+        }
+      ],
+      "wordError": {
+        "referenceWords": 7,
+        "hypothesisWords": 7,
+        "wordEdits": 0,
+        "rate": 0
+      },
+      "realTimeFactor": 0.45234511957889917
+    },
+    {
+      "id": "VA-006",
+      "referenceText": "Withdrawal understood. No more target suggestions.",
+      "status": "TRANSCRIBED",
+      "source": {
+        "file": "audio/zira-audition-001/VA-006-clean.wav",
+        "sha256": "26bc27f3fbfef6edba45cb189f1db3c25aa6ebb666f9a323e272a550b77f94dc",
+        "sampleRate": 24000,
+        "frames": 114348,
+        "durationSeconds": 4.7645
+      },
+      "prepared": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-006-16k.wav",
+        "sha256": "a357610e09d61c3f44dfe2cc877c6b935ad2ec4532d90232d07230c09397ac44",
+        "sampleRate": 16000,
+        "frames": 76232,
+        "durationSeconds": 4.7645
+      },
+      "arguments": [
+        "--model",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\models\\ggml-base.en.bin",
+        "--file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-006-16k.wav",
+        "--threads",
+        "4",
+        "--language",
+        "en",
+        "--no-gpu",
+        "--output-txt",
+        "--output-json",
+        "--output-file",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-006"
+      ],
+      "startedAt": "2026-09-21T05:14:17.551Z",
+      "wallTimeMs": 2069.444,
+      "completedAt": "2026-09-21T05:14:19.620Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stdout": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-006.stdout.log",
+        "sha256": "601dff5a014c4bdc2d61536df645c9dd34d273572024e70a049e02cfb7e4e2c0"
+      },
+      "stderr": {
+        "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-006.stderr.log",
+        "sha256": "925f35bf456c34d25b084c022c5fdaeb2779beae856a27aa21a7a871d11c582d"
+      },
+      "timingLines": [
+        "whisper_init_with_params_no_state: use gpu    = 0",
+        "system_info: n_threads = 4 / 12 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "whisper_print_timings:     load time =   232.88 ms",
+        "whisper_print_timings:      mel time =     8.46 ms",
+        "whisper_print_timings:   sample time =    62.72 ms /    64 runs (     0.98 ms per run)",
+        "whisper_print_timings:   encode time =  1326.40 ms /     1 runs (  1326.40 ms per run)",
+        "whisper_print_timings:   decode time =    15.15 ms /     1 runs (    15.15 ms per run)",
+        "whisper_print_timings:   batchd time =   266.44 ms /    59 runs (     4.52 ms per run)",
+        "whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)",
+        "whisper_print_timings:    total time =  1946.12 ms"
+      ],
+      "noGpuLogConfirmed": true,
+      "transcript": "Withdrawal understood, no more target suggestions.",
+      "outputs": [
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-006.txt",
+          "sha256": "73c811c3e3532930d071a534873eca23d80bf883684e0a69640a0a72b3f28630",
+          "bytes": 52
+        },
+        {
+          "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-006.json",
+          "sha256": "0d6b2b599184f7e61de1b0603207f946360ecf01fbb3c0ff8b0a599d2177050e",
+          "bytes": 936
+        }
+      ],
+      "wordError": {
+        "referenceWords": 6,
+        "hypothesisWords": 6,
+        "wordEdits": 0,
+        "rate": 0
+      },
+      "realTimeFactor": 0.43434652114597544
+    }
+  ],
+  "gameWorkload": "NOT_PERFORMED",
+  "humanRecordingAcceptance": "NOT_PERFORMED",
+  "microphoneCapture": false,
+  "automaticPlayback": false,
+  "networkCalls": 0,
+  "paidApiCalls": 0,
+  "limits": [
+    "Six existing synthetic Zira clips, not100 human command recordings.",
+    "Per-clip new-process wall time includes model load; not push-to-talk or in-game latency.",
+    "Background activity is uncontrolled (other installation work may occur); no matched game workload.",
+    "Word error is against the source script; no intent, recipient, natural-speech or noisy-game acceptance."
+  ],
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
+    "logicalProcessors": 12,
+    "totalRamBytes": 16988229632,
+    "availableRamBytesAtStart": 4640169984,
+    "availableRamBytesAtEnd": 4372504576
+  },
+  "script": {
+    "file": "scripts/Exercise-Whisper.mjs",
+    "sha256": "6fe12a3ead4edddd05a626af022d5d766521e10cf28288b221c37ba33fc13b37"
+  },
+  "artifacts": {
+    "lock": {
+      "file": "companion/models.lock.json",
+      "sha256": "035aa0318e1c3f92de9ede3fbea5cdb8ad5750e5db289774545e86b35a325fc3"
+    },
+    "runtimeArchive": {
+      "id": "whisper-cpu",
+      "version": "b5130",
+      "name": "whisper-bin-x64.zip",
+      "bytes": 8573270,
+      "sha256": "f9ec6c52a2e949b62ab51fa21d0d497958f9e41c3010c157c4e42932d5316f3c",
+      "url": "https://github.com/ggml-org/whisper.cpp/releases/download/b5130/whisper-bin-x64.zip",
+      "license": "MIT",
+      "licenseUrl": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/b5130/LICENSE"
+    },
+    "model": {
+      "id": "whisper-base-en",
+      "version": "5359861c739e955e79d9a303bcbc70fb988958b1",
+      "name": "ggml-base.en.bin",
+      "bytes": 147964211,
+      "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en.bin",
+      "license": "MIT",
+      "licenseUrl": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/b5130/LICENSE"
+    },
+    "runtimeFiles": [
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-base.dll",
+        "bytes": 689664,
+        "sha256": "a5241b52206f61c9dfd6f0f53a8ef19076f9528ead2db1e039a66d7e03817bfc"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-alderlake.dll",
+        "bytes": 864256,
+        "sha256": "5a5b11dcd38e321b13f85c95414940db9eab1132be3da6342f03dfb1d8e51bd5"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-cannonlake.dll",
+        "bytes": 908288,
+        "sha256": "2c858781450b52eda95c381232cc65c9e19cbf621cc7b254d8c44fdbab77791e"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-cascadelake.dll",
+        "bytes": 904704,
+        "sha256": "ddf49bb749b34800afcb3d6224544966a05c5d00f1d0b6565bee9f3b010dd53c"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-haswell.dll",
+        "bytes": 866304,
+        "sha256": "6b772e094b8976e22b4c043be86a1a8deda4b50511dc803a693b652c51b24944"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-icelake.dll",
+        "bytes": 904704,
+        "sha256": "bbd87ea5920edc401054848071ad2ef8c96bbf8007c4e4cd0ea82ba9b9e3bd10"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-sandybridge.dll",
+        "bytes": 860672,
+        "sha256": "de2ad5f84c7dfa557d515b3678d6452ce0216590268b2ca79cc537fe87cf239d"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-skylakex.dll",
+        "bytes": 908288,
+        "sha256": "9fa3f9d984ca42d568181dd345072299db2978b328800343218c2c7f000b7152"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-sse42.dll",
+        "bytes": 846848,
+        "sha256": "740fc769ef433985dfdb24a609a42d5acf188abda52287a4d89b89b567507c19"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml-cpu-x64.dll",
+        "bytes": 850432,
+        "sha256": "43ccf32b9b70aa4c47d0a12ac2ed3c241e0045571acdad565ecd9d1f99ffc08b"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\ggml.dll",
+        "bytes": 62464,
+        "sha256": "c6e88687d6aa0238f2e834a87958f38d2dc96075a6a7bf6fb8b9cd728a0faed2"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\llama.dll",
+        "bytes": 2501120,
+        "sha256": "8a889862463eb4bf2f9e44041960b0e438be95158d8f6648e0faf151705fba09"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\parakeet.dll",
+        "bytes": 582144,
+        "sha256": "fac30f11a9ed424e7897ed02c7186377ff7201bc9bc59bc5e025c84d296cd367"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\SDL2.dll",
+        "bytes": 2500096,
+        "sha256": "de23db1694a3c7a4a735e7ecd3d214b2023cc2267922c6c35d30c7fc7370d677"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\whisper-cli.exe",
+        "bytes": 479232,
+        "sha256": "19b976e037c02c0de712fa26096842d4ebafca03c976b12e8e6123215e7aab58"
+      },
+      {
+        "artifact": "whisper-cpu",
+        "path": "companion\\local\\runtimes\\whisper-cpu-b5130\\Release\\whisper.dll",
+        "bytes": 1368576,
+        "sha256": "b7bb4ba92bd36b8afe0c00059ca6a0f69c6767193bfb5f0761e9ed27b1087803"
+      }
+    ],
+    "runtimeInventory": {
+      "file": "companion/local/runtimes/runtime-files.json",
+      "sha256": "a7981d75b4f82a7e27ed972b10b8201a36b7ec046f320ee6d621fce8caebf853"
+    }
+  },
+  "converter": {
+    "method": "project-authored48-tap Hann-windowed sinc low-pass resampling to16kHz PCM16mono",
+    "selfChecks": {
+      "status": "PASS",
+      "checks": [
+        "24kHz to16kHz duration/format",
+        "1kHz RMS within2%",
+        "10kHz alias attenuation greaterthan30dB",
+        "malformed header rejected"
+      ]
+    },
+    "independentPythonValidation": {
+      "status": "PASS",
+      "pythonVersion": "3.12.14",
+      "files": [
+        {
+          "file": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-001-16k.wav",
+          "frames": 26552,
+          "sampleRate": 16000,
+          "channels": 1,
+          "bits": 16,
+          "peakAbs": 11904,
+          "clippedSamples": 0,
+          "sha256": "2107ecb69e0dedd465f4fc478430693fff78a8b59d2918e176d32d127a7856d4"
+        },
+        {
+          "file": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-002-16k.wav",
+          "frames": 81512,
+          "sampleRate": 16000,
+          "channels": 1,
+          "bits": 16,
+          "peakAbs": 15951,
+          "clippedSamples": 0,
+          "sha256": "6e62c3ec87b844a9d6a97b2d085a272f6e2fa85ff0324f7c52716d77e3dce480"
+        },
+        {
+          "file": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-003-16k.wav",
+          "frames": 46232,
+          "sampleRate": 16000,
+          "channels": 1,
+          "bits": 16,
+          "peakAbs": 13442,
+          "clippedSamples": 0,
+          "sha256": "49a918693758ac29bd98ed759f6b71d14b0a7c8dfd4c264ca4a1a7bbcbd6033f"
+        },
+        {
+          "file": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-004-16k.wav",
+          "frames": 91832,
+          "sampleRate": 16000,
+          "channels": 1,
+          "bits": 16,
+          "peakAbs": 16006,
+          "clippedSamples": 0,
+          "sha256": "12bab3ac69302c2b89a1ecd467cead83526d438d2f153b60610c6fef44aa6306"
+        },
+        {
+          "file": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-005-16k.wav",
+          "frames": 69912,
+          "sampleRate": 16000,
+          "channels": 1,
+          "bits": 16,
+          "peakAbs": 14840,
+          "clippedSamples": 0,
+          "sha256": "8eaf34fee227f7f764ef56cc9a991f3ba4f78ad725cc8872b67cd2a5db00f98a"
+        },
+        {
+          "file": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\whisper-benchmark\\2026-09-21T05-14-05-115Z\\VA-006-16k.wav",
+          "frames": 76232,
+          "sampleRate": 16000,
+          "channels": 1,
+          "bits": 16,
+          "peakAbs": 13457,
+          "clippedSamples": 0,
+          "sha256": "a357610e09d61c3f44dfe2cc877c6b935ad2ec4532d90232d07230c09397ac44"
+        }
+      ]
+    }
+  },
+  "textManifest": {
+    "file": "synthetic/zira-audition.json",
+    "sha256": "fbe3f0c075b7ff9499f2eedabce564b87a3c802a474b8070d73005ffc4fa95e1"
+  },
+  "help": {
+    "exitCode": 0,
+    "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/whisper-help.txt",
+    "sha256": "a0c82658c8ea678d41557804a958965bc0a8aede91a29ef72d3c4b4250094491"
+  },
+  "summary": {
+    "clipCount": 6,
+    "totalSourceAudioSeconds": 24.516999999999996,
+    "wallTimeMs": {
+      "count": 6,
+      "min": 1877.952,
+      "median": 2030.888,
+      "p95NearestRank": 2430.342,
+      "max": 2430.342
+    },
+    "realTimeFactor": {
+      "count": 6,
+      "min": 0.3910750809696732,
+      "median": 0.4433458203624373,
+      "p95NearestRank": 1.13163724013257,
+      "max": 1.13163724013257
+    },
+    "wordEdits": 0,
+    "referenceWords": 40,
+    "aggregateWordErrorRate": 0,
+    "noGpuLogConfirmedForEveryClip": true,
+    "releaseAcceptance": "NOT_PERFORMED"
+  },
+  "completedAt": "2026-09-21T05:14:19.624Z"
+}

@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-09-21T04:26:29.4631828Z",
+  "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+  "bytes": 53635,
+  "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6",
+  "evidence": "OBSERVED",
+  "source_body_status": "NOT_COLLECTED",
+  "limitation": "Path and hash do not prove inheritance, active mission assignment or caller graph."
+}

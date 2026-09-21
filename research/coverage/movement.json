@@ -1,0 +1,1853 @@
+{
+  "workstream": "movement",
+  "review_date": "2026-09-21",
+  "evidence_run": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930",
+  "method": "Registered Blueprint execution/data pins and runtime BT/EQS root/children/services/decorators reviewed, with class defaults where exported. Empty/supporting assets reviewed as such; editor graph layouts and native declaration stubs are not executable body evidence. All gameplay NOT_PERFORMED.",
+  "assets": [
+    {
+      "id": 4,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Follow initialization sets Follow command type from order context, but InitWorker reacquires the player squad leader, sets TravelActor and formation/attack/wait/guard flags, and invokes group FollowUnit. Leader death reinitializes workers or fails; teardown is guarded by component validity. No connected formation-reached FinishSuccess.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/004-Ally_FollowJob-source.COPY",
+          "lines": [
+            249,
+            493
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/004-Ally_FollowJob-source.COPY",
+          "lines": [
+            495,
+            948
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/004-Ally_FollowJob-source.COPY",
+          "lines": [
+            1039,
+            1126
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/004-Ally_FollowJob-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "Native leader selection, formation allocation, worker arbitration, FollowUnit(null) cleanup and shipping acceptance are unavailable; prior lifecycle trace reused and source/defaults reviewed.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 12,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Team-order selector prioritizes Wait, Stop/HoldPosition, Move, Attack and Follow, then waits. Move uses direct movement only while not-arrived AND moving-with-hold-fire; Attack explicitly sets combat target before shared combat. MissionOrders enum and formation keys gate branches.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/012-BT_MechTeamOrders-source.COPY",
+          "lines": [
+            343,
+            486
+          ]
+        }
+      ],
+      "limitations": [
+        "Serialized mission-order readers do not establish their native writers or actual runtime tree assignment.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 13,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Follow selector prioritizes nav recovery, then combat-capable following when interaction is FireAt and FormationTravelActor is set. Formation movement uses actor/location-change and distance decorators with several acceptance radii; a separate TravelActor fallback exists. Root targeting service repeats at 1.5 +/- 0.5 seconds.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/013-BT_MechFollow-source.COPY",
+          "lines": [
+            391,
+            597
+          ]
+        }
+      ],
+      "limitations": [
+        "Formation key writers, native movement and IsBBEntrySame implementation are absent. Exported RotateToFace and TimeLimit objects are not reachable children and are not counted as executed.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 14,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ally master priority is Wait, Guard/GoToLocation, Attack/set-target-and-combat, then Follow and short fallback wait. Root jump-jet and nav recovery services are configured.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/014-BT_AllyMechMasterTree-source.COPY",
+          "lines": [
+            225,
+            305
+          ]
+        }
+      ],
+      "limitations": [
+        "Required tree in a job default is source configuration, not proof of the shipping controller's active assignment.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 15,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Mech blackboard inherits MWUnitBlackboard and adds FocusLocation, IntermediateTravelLocation/Actor, TravelActor, Wait, Throttle, JumpJetLocation, RequiredToGetToFormation, IsLanceMember and ForceActive.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/015-Blackboard_Mech-source.COPY",
+          "lines": [
+            32,
+            55
+          ]
+        }
+      ],
+      "limitations": [
+        "Key schema does not supply live values or native writer behavior.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 16,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Registered condition casts owner to AI, checks target actor and pawn, and compares squared 3D distance inclusively against MinDistance squared and MaxDistance squared. Defaults are 0 and 10000.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/016-BTDecorator_WithinRangeFromActor-source.COPY",
+          "lines": [
+            578,
+            814
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/016-BTDecorator_WithinRangeFromActor-defaults.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "No unit conversion in graph; failed validity paths have no connected explicit false result.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 29,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Abstract job board has unconnected BeginPlay/Tick and entry-only PostJobForUnits/AssignJobBoardToActor graphs. Parent is native MWJobBoardComponent; subclass 038 supplies implementations.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/029-AbstractJobBoardComponent-source.COPY",
+          "lines": [
+            18,
+            78
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/029-AbstractJobBoardComponent-defaults.COPY",
+          "lines": [
+            1,
+            18
+          ]
+        }
+      ],
+      "limitations": [
+        "Empty Blueprint bodies do not mean native posting is absent. Defaults disable tick and replication.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 30,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "AlertGarrison provides/replaces proxy workers. VTOLs flee to encounter location; ground actors trace for a Landscape hit and store its location. Encounter overlap admits only this job's workers, can raise REDCON once, adds the arriving unit to the encounter and reassigns its job board. EndWorker clears FleeLocation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/030-AlertGarrisonJob-source.COPY",
+          "lines": [
+            2590,
+            2717
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/030-AlertGarrisonJob-source.COPY",
+          "lines": [
+            2718,
+            3195
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/030-AlertGarrisonJob-source.COPY",
+          "lines": [
+            3196,
+            3542
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/030-AlertGarrisonJob-source.COPY",
+          "lines": [
+            3543,
+            3752
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/030-AlertGarrisonJob-defaults.COPY",
+          "lines": [
+            1,
+            20
+          ]
+        }
+      ],
+      "limitations": [
+        "REDCON defaults are zero; actual configured values and native encounter behavior unknown. Ground trace uses hardcoded TraceTypeQuery1/radius10. No connected general completion/overlap unbind established.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 31,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Dropship exit job stops each worker's logic, writes mech movement throttle 1, repeats every 0.1 seconds, and removes matching workers on trigger exit after throttle 0. Empty remaining-worker array leads to success and timer/delegate cleanup; absent trigger fails.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/031-Ally_ExitDropshipJob-source.COPY",
+          "lines": [
+            2038,
+            2183
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/031-Ally_ExitDropshipJob-source.COPY",
+          "lines": [
+            2184,
+            2294
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/031-Ally_ExitDropshipJob-source.COPY",
+          "lines": [
+            2295,
+            2699
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/031-Ally_ExitDropshipJob-defaults.COPY",
+          "lines": [
+            1,
+            19
+          ]
+        }
+      ],
+      "limitations": [
+        "Scripted dropship-only control, not a general piloting endpoint. Abort/end-worker cleanup and resuming stopped native logic are not implemented in the registered Blueprint paths.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 32,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ally move projects target onto navigation using ProjectionDistanceMeters*100 (default20m), writes TravelLocation, clears Wait/Attack and sets Guard. Binds path completion; Success emits arrival dialogue then unbinds if required components/casts succeed. EndWorker clears Guard.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/032-Ally_GoToLocationJob-source.COPY",
+          "lines": [
+            156,
+            368
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/032-Ally_GoToLocationJob-source.COPY",
+          "lines": [
+            428,
+            624
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/032-Ally_GoToLocationJob-source.COPY",
+          "lines": [
+            677,
+            841
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/032-Ally_GoToLocationJob-defaults.COPY",
+          "lines": [
+            1,
+            21
+          ]
+        }
+      ],
+      "limitations": [
+        "Handler ignores RequestID and has no FinishSuccess, distance validation or recipient-completion proof. Dialogue cannot release a persistent human order. Native path acceptance remains unknown.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 33,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ally attack validates target/living/not-dead/not-friendly/not-issuer, sets FireAt/TargetActor/Attack and clears Wait/Guard, adds known target to awareness. Target death finishes job; teardown clears combat target/focus/Attack/face target and removes known target behind casts.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/033-Ally_TargetAttackJob-source.COPY",
+          "lines": [
+            239,
+            797
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/033-Ally_TargetAttackJob-source.COPY",
+          "lines": [
+            878,
+            1195
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/033-Ally_TargetAttackJob-defaults.COPY",
+          "lines": [
+            1,
+            20
+          ]
+        }
+      ],
+      "limitations": [
+        "Cleanup does not explicitly clear TargetActor. Native attitude, awareness and job scheduling are unavailable; target death is not kill credit.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 34,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Generic AttackTargetJob handles proxy workers and an array of targets, adding awareness and setting Attack plus a very large idle-distance override. Counts dead targets and finishes when all die; initial all-dead condition aborts. Callable AttackTarget helper runs a passed tree and writes TargetActor.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/034-AttackTargetJob-source.COPY",
+          "lines": [
+            296,
+            1164
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/034-AttackTargetJob-source.COPY",
+          "lines": [
+            1165,
+            1410
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/034-AttackTargetJob-source.COPY",
+          "lines": [
+            1411,
+            1526
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/034-AttackTargetJob-defaults.COPY",
+          "lines": [
+            1,
+            20
+          ]
+        }
+      ],
+      "limitations": [
+        "TargetUnit and TargetActors are distinct. No registered EventGraph call of AttackTarget helper established; its SetCombatTarget execution is disconnected. EndWorker does not visibly undo Attack/distance override; native ownership/cleanup unknown.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 35,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Generic GoToLocationJob stores and validates TargetLocation, then BeginWorker runs BT_HoldPosition and writes TravelLocation after actor/AI validity checks.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/035-GoToLocationJob-source.COPY",
+          "lines": [
+            582,
+            799
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/035-GoToLocationJob-defaults.COPY",
+          "lines": [
+            1,
+            16
+          ]
+        }
+      ],
+      "limitations": [
+        "Unlike ally move, no nav projection, Guard setup, arrival handler or connected job completion/teardown. Do not interchange these job contracts.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 36,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "GoToNewHomeLocationJob handles proxy replacement; real worker writes boolean true through SetValueAsBool to BB_Home, whose default key name is HomeLocation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/036-GoToNewHomeLocationJob-source.COPY",
+          "lines": [
+            447,
+            600
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/036-GoToNewHomeLocationJob-defaults.COPY",
+          "lines": [
+            1,
+            17
+          ]
+        }
+      ],
+      "limitations": [
+        "MWUnitBlackboard declares HomeLocation as vector. This apparent type mismatch is source-observed, not a proven runtime defect. No MoveTo or vector home-location write occurs in registered graph.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 37,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "GuardJob proxy handling leads only the turret cast to RunBehaviorTree(TurretMaster). Separate callable Mech/Tank/VTOL Patrol helpers run their master trees; EndWorker has conditional debug output.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/037-GuardJob-source.COPY",
+          "lines": [
+            114,
+            340
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/037-GuardJob-source.COPY",
+          "lines": [
+            341,
+            532
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/037-GuardJob-defaults.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "No connected EventGraph call to the three helper functions was found. Display name Guard does not prove shared guard behavior or a completion contract.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 38,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Concrete job-board overrides call internal helpers. Posting copies requirements, appends a newly constructed UnitFromListRequirement, posts natively, then restores the local posting's original requirements. Assignment gets the worker component and sets its JobBoard.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/038-JobBoardComponent-source.COPY",
+          "lines": [
+            88,
+            162
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/038-JobBoardComponent-source.COPY",
+          "lines": [
+            163,
+            373
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/038-JobBoardComponent-source.COPY",
+          "lines": [
+            374,
+            443
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/038-JobBoardComponent-defaults.COPY",
+          "lines": [
+            1,
+            18
+          ]
+        }
+      ],
+      "limitations": [
+        "Native PostJob result and allocation/arbitration semantics unavailable. Restoring the local structure does not prove native job requirements changed back.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 39,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "PatrolJob replaces proxies, dispatches Mech/VTOL/Tank to master trees and supplies routes only when current route is invalid. Ground actors randomly select ground routes; VTOL takes first air route, records it used and removes it from available routes.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/039-PatrolJob-source.COPY",
+          "lines": [
+            228,
+            523
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/039-PatrolJob-source.COPY",
+          "lines": [
+            524,
+            729
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/039-PatrolJob-source.COPY",
+          "lines": [
+            730,
+            935
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/039-PatrolJob-source.COPY",
+          "lines": [
+            936,
+            1174
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/039-PatrolJob-defaults.COPY",
+          "lines": [
+            1,
+            16
+          ]
+        }
+      ],
+      "limitations": [
+        "Route following service/native path logic unavailable; empty/invalid route behavior remains native. EndWorker only prints.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 40,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "AliveRequirement checks worker actor validity, requires cast to AbstractPilotEncounter, requires living component and returns not dead; failures return false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/040-AliveRequirement_-source.COPY",
+          "lines": [
+            41,
+            178
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/040-AliveRequirement_-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Not a generic living-mech predicate: the encounter cast is a real gate. No proof this requirement is applied to every combat job.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 41,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "PatrolRequirement gets actor unit GUID, looks it up in configured encounter UnitDetails, and returns the found entry's UnitDeckUsage.bPatrol; missing entry returns false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/041-PatrolRequirement-source.COPY",
+          "lines": [
+            39,
+            186
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/041-PatrolRequirement-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Encounter defaults None. No human-possession or friendly-authority test in this requirement.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 42,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "UnitFromListRequirement returns whether actor GetUnitGuid is contained in configured Units.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/042-UnitFromListRequirement-source.COPY",
+          "lines": [
+            31,
+            133
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/042-UnitFromListRequirement-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Unconnected owner/AI cast does not gate execution. GUID lifetime and uniqueness are native unknowns.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 43,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "UnitRequirement tests configured allowed tags and corresponding Tank/Mech/VTOL/Turret casts, returning true for an allowed matching class and false after remaining branches.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/043-UnitRequirement-source.COPY",
+          "lines": [
+            81,
+            422
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/043-UnitRequirement-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Configured tags are a class allowance, not a runtime actor-owned-tags read. Empty default tags do not establish configured job requirements.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 44,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "UnitMannedSuitability returns 1.0 for a valid worker actor with a valid UnitPilotComponent reporting IsPiloted; otherwise 0.5. Bucket defaults Unit.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/044-UnitMannedSuitability-source.COPY",
+          "lines": [
+            31,
+            127
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/044-UnitMannedSuitability-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Preference score is not a human-possession exclusion or command authority check. Native IsPiloted meaning unavailable.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 45,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "JobInteractionInterface declares GetInteractions, GetJobs and GetMWWorkerComponent output contracts; graphs contain only interface entry/result scaffolding.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/045-JobInteractionInterface-source.COPY",
+          "lines": [
+            22,
+            89
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/045-JobInteractionInterface-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "No implementation, allocator policy or external control interface is established.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 73,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "FightWhileFollowing selector first honors RequiredToGetToFormation by clearing flag then moving. Otherwise shared combat below raw7500; return-with-aggro branch at >=5000 and <10000 after earlier failure; opportunistic return at >=5000 after earlier failure; final return fallback. Services vary targeting and movement-with-respect policy.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/073-BT_MechFightWhileFollowing-source.COPY",
+          "lines": [
+            335,
+            525
+          ]
+        }
+      ],
+      "limitations": [
+        "Distance comparison is inclusive outside and strict inside; overlapping branch conditions are priority ordered, not exclusive bands. Formation/movement execution and actual separation are native unknowns.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 74,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "IsClosingIn actually returns NOT nearly-zero(abs velocity) using default threshold25 multiplied by100. It does not compare heading or distance to any target.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/074-BTMechDecorator_IsClosingIn-source.COPY",
+          "lines": [
+            29,
+            119
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/074-BTMechDecorator_IsClosingIn-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Component-wise nearly-zero test is not a scalar speed threshold or progress-to-target measurement; name alone is misleading.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 75,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "GoDirectlyToLocation runs MoveTo TravelLocation with acceptance radius1500 and services choosing Opportunistic targeting and MoveWithRespectTo=False.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/075-BT_MechGoDirectlyToLocation-source.COPY",
+          "lines": [
+            72,
+            104
+          ]
+        }
+      ],
+      "limitations": [
+        "No connected hold-fire write; direct movement does not itself establish weapons cease firing.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 76,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "GoToLocation selects recovery, None-interaction direct movement, damaged/outside-5500 movement, ordinary outside-5500 movement, then wait/EQS/GuardLocation movement. Near destination EQS supplies inner0/outer5000 and random-best25percent. Root picks targets; damage branches use 15s and 5s conditions.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/076-BT_MechGoToLocation-source.COPY",
+          "lines": [
+            391,
+            604
+          ]
+        }
+      ],
+      "limitations": [
+        "One service labeled Opportunistic serializes EMWTargetSelectionStrategy_MAX. At-location check ignores Z. Native task defaults/enum handling unresolved; no hard arrival freeze or universally path-valid EQS output established.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 77,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Main movement selector prioritizes FleeLocation movement with conditional jump jets, then travel without EQS, melee rush with 30s cooldown, then EQS-selected travel. Jump-jet branches use velocity/heading/range/equipment predicates; EQS movement has 3s time limit.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/077-BT_MechMovement_Main-source.COPY",
+          "lines": [
+            578,
+            867
+          ]
+        }
+      ],
+      "limitations": [
+        "Native movement/jump-jet physics and mark-stuck implementation unavailable. IsClosingIn does not prove progress. Export is configuration, not observed jump reliability.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 78,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Patrol tree loops selector, native route service writes/reads route and waypoint keys, valid waypoint moves with radius500 and mark-stuck decorator then looks around; absent waypoint waits1s.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/078-BT_MechPatrol-source.COPY",
+          "lines": [
+            136,
+            201
+          ]
+        }
+      ],
+      "limitations": [
+        "Native route sequencing and route key assignment beyond reviewed jobs unknown.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 79,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "MechPatrol blackboard inherits Mech blackboard and adds AggroedActor/AggroedLocation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/079-Blackboard_MechPatrol-source.COPY",
+          "lines": [
+            8,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "078 actually points to base Mech blackboard, so derived schema existence does not establish use there.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 80,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial IsAtFinalDestination reads boolean IsAtDestination from owner's blackboard and returns it.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/080-BTDecorator_IsAtFinalDestination-source.COPY",
+          "lines": [
+            23,
+            76
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/080-BTDecorator_IsAtFinalDestination-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "No distance/arrival computation. Tutorial-specific population.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 81,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial service obtains spawner's mech and waypoint array, writes current Destination, and advances waypoint when 3D distance is below raw600; last waypoint sets IsAtDestination. Interval0.5 +/-0.1s.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/081-BTService_Tutorial-source.COPY",
+          "lines": [
+            1029,
+            1510
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/081-BTService_Tutorial-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "No empty-array/index validity guard on its main selection path. Tutorial only; no evidence this observes ordinary lancemates.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 82,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "TutorialMoveTo service advances waypoint at raw65 distance, guards next index against last index before selection, and writes destination/final flag. Interval0.5 +/-0.1s.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/082-BTService_TutorialMoveTo-source.COPY",
+          "lines": [
+            1038,
+            1526
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/082-BTService_TutorialMoveTo-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "Spawner cast's success execution is unconnected; unlike081 it does not copy spawner Mech/Waypoints in active path. External initialization needed, default mech None. Tutorial only.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 83,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "AllyIsAtFinalDestination task writes IsAtDestination=true then finishes success.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/083-BTTask_AllyIsAtFinalDestination-source.COPY",
+          "lines": [
+            38,
+            96
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/083-BTTask_AllyIsAtFinalDestination-defaults.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "It marks completion rather than checking location. In091 it follows the movement task; tutorial use is not a general completion detector.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 84,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial ClearCombatTarget task casts MWMechAI, sets combat target with empty argument, then finishes success.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/084-BTTask_ClearCombatTarget-source.COPY",
+          "lines": [
+            36,
+            88
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/084-BTTask_ClearCombatTarget-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Cast failure has no connected completion path; native meaning of null target and abort behavior unavailable.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 85,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "EnemyAtFinalDestination writes IsAtDestination=true and finishes success.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/085-BTTask_EnemyAtFinalDestination-source.COPY",
+          "lines": [
+            24,
+            82
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/085-BTTask_EnemyAtFinalDestination-defaults.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "No geometry; tutorial tree089 supplies the preceding movement operation.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 86,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial FireAtTarget explicitly chooses GetPlayerPawn(0), sets combat target, validates it, faces it, chooses FireAt interaction, sets movement-with-respect property and finishes.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/086-BTTask_FireAtTarget-source.COPY",
+          "lines": [
+            466,
+            672
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/086-BTTask_FireAtTarget-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "No aim, projectile or weapon scheduler implementation here. Tutorial target choice must not be generalized to normal AI perception.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 87,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial ObservePlayer validates player pawn then invokes FaceTarget and finishes; invalid player fails.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/087-BTTask_ObservePlayer-source.COPY",
+          "lines": [
+            132,
+            349
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/087-BTTask_ObservePlayer-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "SetCombatTarget node exists but has no connected execution path. Looking at player is not proof of firing or target assignment.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 88,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial fire tree selector first runs MechFireAtCombatTarget with movement-respect true, then wait fallback.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/088-BT_FireAtTarget-source.COPY",
+          "lines": [
+            60,
+            81
+          ]
+        }
+      ],
+      "limitations": [
+        "It does not call086 FireAtTarget despite similar names. Shared task body and native weapons are separate evidence.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 89,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial MoveToAndAttack first moves to Destination and marks final flag. At destination, looping sequence chooses EQS position, executes shared fire task and movement/facing selector with periodic EQS service; outer wait fallback exists.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/089-BT_MoveToAndAttack-source.COPY",
+          "lines": [
+            372,
+            532
+          ]
+        }
+      ],
+      "limitations": [
+        "Exported Combat/Mobile RunBehavior objects are not reachable children. Blackboard/context values and actual tutorial initialization are not measured.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 90,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial MoveToAndFire has a sequence: inverse-final-destination movement child, then final-destination firing child, plus082 tutorial service.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/090-BT_MoveToAndFire-source.COPY",
+          "lines": [
+            46,
+            94
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/090-BT_MoveToAndFire-source.COPY",
+          "lines": [
+            185,
+            189
+          ]
+        }
+      ],
+      "limitations": [
+        "Sequence gating is not equivalent to selector; already-final state can fail the first child on re-entry. Actual runtime progression/initialization requires tutorial observation.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 91,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial MoveToAndLook selector moves via clear-target, rotate, MoveTo radius25, mark-final task; final-state branch observes player and waits20s.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/091-BT_MoveToAndLook-source.COPY",
+          "lines": [
+            184,
+            261
+          ]
+        }
+      ],
+      "limitations": [
+        "This controlled tutorial arrangement does not establish ordinary ally arrival or observation behavior.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 92,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Tutorial MoveToAndFire blackboard declares Route, Waypoint, AggroedActor/Location, Spawner, Destination, IsAtDestination, SelfActor and TravelActor.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/092-Blackboard_MoveToAndFire-source.COPY",
+          "lines": [
+            42,
+            51
+          ]
+        }
+      ],
+      "limitations": [
+        "No parent serialized; schema values/initialization unknown and not a general telemetry interface.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 93,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Nav recovery EQS offers circle5500 then circle10000 options, ten points each, downward nav projection100000 and pathfinding tests using native nav-anchor context.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/093-EQS_NavMeshFindRecoveryPoint-source.COPY",
+          "lines": [
+            183,
+            219
+          ]
+        }
+      ],
+      "limitations": [
+        "Native anchor/context/default path test semantics unavailable. Query naming retains an old name; no measured recovery success or guaranteed path exists.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 126,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "NavFilter_Mech inherits NavigationQueryFilter with no additional Blueprint logic or exported area overrides; include flags all true and exclude flags false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/126-NavFilter_Mech-source.COPY",
+          "lines": [
+            4,
+            20
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/126-NavFilter_Mech-defaults.COPY",
+          "lines": [
+            1,
+            4
+          ]
+        }
+      ],
+      "limitations": [
+        "Default flags alone do not prove geometry traversable or native nav filter behavior.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 158,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "AIWaypoint inherits native MWAIWaypoint with empty event/construction graphs; hidden actor, no tick, NavigationInvoker=None in defaults.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/158-AIWaypoint-source.COPY",
+          "lines": [
+            16,
+            94
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/158-AIWaypoint-defaults.COPY",
+          "lines": [
+            1,
+            90
+          ]
+        }
+      ],
+      "limitations": [
+        "Route semantics and native waypoint behavior absent; no active graph inferred from name.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 159,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Explosion_NavBlocker has empty events/construction; actor/component properties exported but no Blueprint blocking behavior.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/159-Explosion_NavBlocker-source.COPY",
+          "lines": [
+            22,
+            110
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/159-Explosion_NavBlocker-defaults.COPY",
+          "lines": [
+            1,
+            77
+          ]
+        }
+      ],
+      "limitations": [
+        "Referenced construction/component templates are not fully represented; Sphere/NavModifier None in class defaults does not prove no runtime blocker or its shape/radius.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 160,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "MechObstacle has empty events/construction and component references in class defaults.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/160-MechObstacle-source.COPY",
+          "lines": [
+            22,
+            117
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/160-MechObstacle-defaults.COPY",
+          "lines": [
+            1,
+            78
+          ]
+        }
+      ],
+      "limitations": [
+        "No complete component shape/collision setup in source export; cannot infer obstacle dimensions or nav behavior from filename.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 161,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "NavBlocker has empty events/construction and Box/DefaultSceneRoot references.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/161-NavBlocker-source.COPY",
+          "lines": [
+            22,
+            117
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/161-NavBlocker-defaults.COPY",
+          "lines": [
+            1,
+            77
+          ]
+        }
+      ],
+      "limitations": [
+        "Component templates/collision configuration not fully exported; no blocking dimensions or dynamic behavior claim.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 162,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "AvoidanceArea_GroundAI inherits NavArea with DefaultCost2 and entering cost0, all sixteen agent support flags enabled.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/162-AvoidanceArea_GroundAI-source.COPY",
+          "lines": [
+            4,
+            21
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/162-AvoidanceArea_GroundAI-defaults.COPY",
+          "lines": [
+            1,
+            22
+          ]
+        }
+      ],
+      "limitations": [
+        "Only serialized area configuration; native application, assignment to world volumes and actual path choice unknown.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 163,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ambient tree resets ambient location then loops EQS selection, MoveTo radius100, optional HomeRotation facing with ForceSuccess, and LookAround. Root home-location-change decorator can abort; wait fallback exists.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/163-BT_Ambient-source.COPY",
+          "lines": [
+            196,
+            290
+          ]
+        }
+      ],
+      "limitations": [
+        "Native IsBBEntrySame behavior and active actor assignments unknown; scored EQS result is not guaranteed safe cover.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 164,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "HoldPosition moves to TravelLocation when set and outside raw100, with MoveTo acceptance50 and observation of blackboard changes, then waits0.5; fallback wait exists.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/164-BT_HoldPosition-source.COPY",
+          "lines": [
+            114,
+            167
+          ]
+        }
+      ],
+      "limitations": [
+        "No source proof of human order lifecycle, precision in actual physics, or global immobility.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 165,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Nav recovery selector attempts query-selected recovery point, direct movement with8s limit, a NeedsNavMeshRecovery key-setting task, and TravelLocation clear. Fallback sets same key and clears recovery point.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/165-BT_NavMeshCheckRecovery-source.COPY",
+          "lines": [
+            156,
+            222
+          ]
+        }
+      ],
+      "limitations": [
+        "SetBlackboardKey value is absent in serialized object; cannot claim it clears the recovery flag. Native recovery search/straight movement/key-task body unavailable.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 166,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Null tree consists of selector with Wait task.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/166-BT_Null-source.COPY",
+          "lines": [
+            44,
+            55
+          ]
+        }
+      ],
+      "limitations": [
+        "No explicit duration exported and no proof native controller perception/weapons are absent.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 167,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Scout tree loops sequence of guarded recovery, EQS scouting location, movement/look-or-rotate-or-wait selector, then wait1.5 +/-0.5. Recovery decorator reads NeedsNavMeshRecovery despite old cached label.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/167-BT_Scout-source.COPY",
+          "lines": [
+            205,
+            306
+          ]
+        }
+      ],
+      "limitations": [
+        "Guarded recovery is the first sequence child, not an automatically skipped optional step; runtime gating outcome unknown. Native movement and context freshness unresolved.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 173,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "IsAllyNearby scans all pawns, excludes self, requires living/not-dead/friendly and qualifying MWMech weight cases, counts qualifying allies, and accepts any within default300m. Returns true also when qualifying count is zero.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/173-BTDecorator_IsAllyNearby-source.COPY",
+          "lines": [
+            291,
+            709
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/173-BTDecorator_IsAllyNearby-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Light output is unconnected; empty unnamed/Medium/Heavy/Assault outputs connect. No friendly-visibility limit. World scan cost unmeasured; this is not a general companion observation contract.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 174,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "IsAtLocation2D resolves owner/pawn, subtracts blackboard vector from actor location, explicitly zeros Z and compares squared XY distance <= squared AcceptableRadius(default500).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/174-BTDecorator_IsAtLocation2D-source.COPY",
+          "lines": [
+            55,
+            262
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/174-BTDecorator_IsAtLocation2D-defaults.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "No altitude agreement is checked; key/actor validity failures not comprehensively gated. Raw radius not labelled meters.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 176,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "IsGoingAtLeastXVelocity validates pawn and compares squared speed magnitude >= RequiredSpeed squared; invalid pawn returns false. Default100.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/176-BTDecorator_IsGoingAtLeastXVelocity-source.COPY",
+          "lines": [
+            35,
+            144
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/176-BTDecorator_IsGoingAtLeastXVelocity-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "No *100 conversion or target-progress test; raw velocity units cannot be read as meters/second.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 177,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "OutsideRangeFromActor validates AI, target and pawn and compares squared 3D distance >= Distance squared.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/177-BTDecorator_OutsideRangeFromActor-source.COPY",
+          "lines": [
+            47,
+            227
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/177-BTDecorator_OutsideRangeFromActor-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Equality is outside; inverse is strict less-than. Invalid paths have no explicit connected false return; default distance0 is not runtime configured value.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 180,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ambient context obtains AI controller and blackboard from querier, returning AmbientLocation vector.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/180-Context_AmbientLocation-source.COPY",
+          "lines": [
+            25,
+            88
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/180-Context_AmbientLocation-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "No fallback/validity/freshness gate in graph; native querier resolution unavailable.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 181,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Scout context reads SuspicionActor; controller with valid pawn returns pawn location, Pawn returns its location, otherwise SuspicionLocation vector fallback.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/181-Context_ScoutLocation-source.COPY",
+          "lines": [
+            47,
+            222
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/181-Context_ScoutLocation-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "No age/visibility constraint in graph. Native suspicion writers and knowledge provenance must be separately verified.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 182,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ambient EQS generates circle3000 around ambient context, projects to navigation, and scores ground-unit distance, 2D distance and inverse path length relative to3000.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/182-EQS_FindAmbientLocation-source.COPY",
+          "lines": [
+            82,
+            129
+          ]
+        }
+      ],
+      "limitations": [
+        "Score terms are not hard safety/path constraints; native contexts and effective defaults matter.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 183,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Scout EQS uses CurrentLocation generator with Context_ScoutLocation and has no serialized tests.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/183-EQS_FindLocationToScout-source.COPY",
+          "lines": [
+            37,
+            47
+          ]
+        }
+      ],
+      "limitations": [
+        "Does not search cover/paths or prove location validity; accepts context construction rather than omniscient scouting knowledge.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 184,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "NearbyAlly EQS uses donut8000 option and circle10000 around nearest ally alternative; scoring includes path length, pathfinding, unit distance and tether shape.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/184-EQS_NearbyAlly-source.COPY",
+          "lines": [
+            142,
+            231
+          ]
+        }
+      ],
+      "limitations": [
+        "Score-only path/shape terms do not guarantee feasibility or a hard tether. Native nearest-friendly context and units of scores unavailable.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 185,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "RandomLocationNearLocation uses parameterized donut around movement-goal context (defaults inner2500/outer10000, four rings), with distance filter minimum5000 and constant scoring.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/185-EQS_RandomLocationNearLocation-source.COPY",
+          "lines": [
+            20,
+            34
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/185-EQS_RandomLocationNearLocation-source.COPY",
+          "lines": [
+            66,
+            80
+          ]
+        }
+      ],
+      "limitations": [
+        "Caller076 overrides radii to0/5000. No serialized pathfinding test; distance-test context/native defaults and redirected186 equivalence remain unresolved.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 186,
+      "disposition": "UNAVAILABLE",
+      "summary": "EQS_RandomLocationNearTravelLocation metadata is INVALID_OR_REDIRECTED_METADATA; no behavior export exists. Dependency points to185 but resolved redirect behavior was not collected.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json",
+          "lines": [
+            9356,
+            9373
+          ]
+        }
+      ],
+      "limitations": [
+        "No semantic behavior review possible. Do not treat the old QueryName in185 as proof of186 resolution. Targeted future redirect-resolution inspection only if it affects a candidate interface."
+      ]
+    },
+    {
+      "id": 187,
+      "disposition": "UNAVAILABLE",
+      "summary": "DiamondFormation inventory entry is METADATA_ONLY_UNSUPPORTED_CLASS (MWFormationAsset); formation slot/spacing contents are unavailable.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json",
+          "lines": [
+            9374,
+            9394
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/unreal-api-reference.txt",
+          "lines": [
+            325425,
+            325469
+          ]
+        }
+      ],
+      "limitations": [
+        "API fields formation and bucket_threshold_metres are declarations, not DiamondFormation values or allocator implementation. Targeted future asset serialization/reflection needed before formation optimization."
+      ]
+    },
+    {
+      "id": 188,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "GroundAI_Filter is NavigationQueryFilter with include flags true/exclude flags false and no exported area overrides.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/188-GroundAI_Filter-source.COPY",
+          "lines": [
+            4,
+            21
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/188-GroundAI_Filter-defaults.COPY",
+          "lines": [
+            1,
+            4
+          ]
+        }
+      ],
+      "limitations": [
+        "No inferred path feasibility, obstacle costs or runtime unit assignment from this configuration alone.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 189,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "MWUnitBlackboard declares route/movement/formation, target/combat, guard/attack/mission orders, suspicion, home/ambient, melee, nav recovery and other shared keys. HomeLocation is vector; IdleDistanceFromPlayerMetres description explicitly says meters.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/189-MWUnitBlackboard-source.COPY",
+          "lines": [
+            106,
+            154
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/189-MWUnitBlackboard-source.COPY",
+          "lines": [
+            177,
+            217
+          ]
+        }
+      ],
+      "limitations": [
+        "Key declarations do not prove observation freshness, writers, interface support, authority or visibility boundaries.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 190,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "NullAIController inherits native MWAIController with empty graphs; defaults reference BT_Null and retain native worker/target/range/weapon/perception components.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/190-NullAIController-source.COPY",
+          "lines": [
+            14,
+            71
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/190-NullAIController-defaults.COPY",
+          "lines": [
+            1,
+            174
+          ]
+        }
+      ],
+      "limitations": [
+        "Null behavior tree does not prove disabled native systems; possession settings are defaults, not observed controller lifecycle.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 192,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "PlacedJumpJetNavLink has empty actor events and two callable regeneration functions forwarding to native GenerateDefaultTimeline/GenerateTimeline with configured thresholds and simple-link option.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/192-PlacedJumpJetNavLink-source.COPY",
+          "lines": [
+            58,
+            191
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/192-PlacedJumpJetNavLink-source.COPY",
+          "lines": [
+            295,
+            316
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/192-PlacedJumpJetNavLink-defaults.COPY",
+          "lines": [
+            1,
+            115
+          ]
+        }
+      ],
+      "limitations": [
+        "Native link generation/physics absent; callable regeneration is not a shipping direct jump-jet control contract.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 195,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "LookAround task validates pawn/controller, delays, repeatedly picks focus offset by random +/-30..90 yaw and1000 distance from eyes, flips bias, waits LookTime +/- variance, counts down and clears focus before success unless infinite.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/195-BTTask_LookAround-source.COPY",
+          "lines": [
+            144,
+            551
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/195-BTTask_LookAround-source.COPY",
+          "lines": [
+            552,
+            730
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/195-BTTask_LookAround-source.COPY",
+          "lines": [
+            731,
+            815
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/195-BTTask_LookAround-defaults.COPY",
+          "lines": [
+            1,
+            17
+          ]
+        }
+      ],
+      "limitations": [
+        "Default count2/initial1s/look3 +/-0.5; FinishDelay default1 is not read by connected graph. Looking does not prove perception sampling; some invalid-controller paths have no completion output.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 196,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "ResetAmbientLocation task writes ControlledPawn location to AmbientLocation and finishes success.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/196-BTTask_ResetAmbientLocation-source.COPY",
+          "lines": [
+            24,
+            94
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/196-BTTask_ResetAmbientLocation-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "AmbientRotation default property is unused in registered graph; no broader state reset inferred.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 200,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "MWBlackboard declares SelfActor object key constrained to Actor.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/200-MWBlackboard-source.COPY",
+          "lines": [
+            4,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Schema only, not a guarantee which pawn/controller fills it or when.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 201,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "MWEQSTestingPawn inherits EQSTestingPawn with empty actor graphs; defaults QueryTemplate=None, no game tick, not visible in game, AllMatching query mode and editor drawing options.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/201-MWEQSTestingPawn-source.COPY",
+          "lines": [
+            14,
+            69
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/201-MWEQSTestingPawn-defaults.COPY",
+          "lines": [
+            1,
+            149
+          ]
+        }
+      ],
+      "limitations": [
+        "Debug-only configuration is not evidence of production controller use, runtime query success, or control support.",
+        "Offline source/default review only; shipping gameplay NOT_PERFORMED."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema_id": "mw5lc.local_voice_audition",
+  "schema_version": 1,
+  "audition_id": "zira-mission-trial-001",
+  "scope": "Six separate fictional mission contexts; listening audition only",
+  "voice": "Microsoft Zira Desktop",
+  "rate": 0,
+  "volume": 90,
+  "sample_rate": 24000,
+  "permanent_voice_selection": null,
+  "lines": [
+    {"id": "VA-001", "context": "A request was heard; no acceptance or outcome is known.", "text": "Heard you."},
+    {"id": "VA-002", "context": "An attempted order has no confirmed outcome.", "text": "No confirmation. I'm keeping that separate from success."},
+    {"id": "VA-003", "context": "Fresh fictional evidence identifies critical damage to her mech's left-arm component.", "text": "Critical damage to my left arm."},
+    {"id": "VA-004", "context": "The player asks about an unconfirmed casualty; reliable pilot status is unavailable.", "text": "I can't confirm a casualty. We don't have reliable pilot status."},
+    {"id": "VA-005", "context": "An explicitly safe mission lull with no active danger or damage alert; dry humor only.", "text": "Quiet for the moment. I'm suspicious already."},
+    {"id": "VA-006", "context": "The player decides to withdraw and ends target suggestions; movement is not claimed.", "text": "Withdrawal understood. No more target suggestions."}
+  ]
+}

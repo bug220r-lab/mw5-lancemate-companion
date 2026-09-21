@@ -1,0 +1,1391 @@
+{
+  "workstream": "other-units",
+  "schema_version": "1.0.0",
+  "collection": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930",
+  "access_date": "2026-09-21",
+  "review_method": "Connected registered Blueprint source graphs, runtime RootNode/Children behavior-tree links, EQS options/tests, class defaults and supporting schemas were read semantically. Generated duplicate graphs are not counted as additional behavior. Native calls are delimited dependencies, not reverse-engineered bodies.",
+  "gameplay_validation": "NOT_PERFORMED",
+  "assets": [
+    {
+      "id": 18,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Condition casts the owner to InfantryAIController and its pawn to Infantry_Pilot, then returns DestinationExists. Default inverse condition is false; tree instances can override decorator settings.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/018-BTDecorator_CheckForTarget_-source.COPY",
+          "lines": [
+            25,
+            89
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/018-BTDecorator_CheckForTarget_-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Failed casts have no explicit true result. Destination selection and Infantry_Pilot implementation are outside this export."
+      ]
+    },
+    {
+      "id": 19,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "ReceiveExecute casts the owner and pawn to the infantry classes, sets IsCowering=true, then finishes successfully. TickInterval defaults to -1.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/019-BTTask_Cower-source.COPY",
+          "lines": [
+            26,
+            102
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/019-BTTask_Cower-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Failed casts have no connected FinishExecute. Animation and locomotion consequences of IsCowering are not exported here."
+      ]
+    },
+    {
+      "id": 20,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Builds a flee query center from player-character index 0 toward OwnerActor, scales the horizontal direction by 7500, adds OwnerActor location, queries navigation within 2000, writes its FleeLocation key and finishes true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/020-BTTask_FindFleeLocation-source.COPY",
+          "lines": [
+            38,
+            183
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/020-BTTask_FindFleeLocation-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "OwnerActor location is used, not an explicit controlled-pawn location. Navigation-query success is not checked; a returned vector is not proof of a traversable escape. Values are raw coordinate units."
+      ]
+    },
+    {
+      "id": 21,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Gets an AI controller from OwnerActor, requires InfantryAIController, calls ArriveAtTarget and finishes true. The AtTarget key is not consumed on this path.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/021-BTTask_ReachTarget-source.COPY",
+          "lines": [
+            24,
+            84
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/021-BTTask_ReachTarget-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Failure to cast has no connected finish. Reused by tank/VTOL hold trees despite the infantry-specific cast; execution and assignment must be observed before calling this a game defect."
+      ]
+    },
+    {
+      "id": 22,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Gets the owner AI controller and Infantry_Pilot pawn, copies DestinationLocation to the selected VehicleLocation blackboard vector and finishes true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/022-BTTask_WorkerFindTarget_-source.COPY",
+          "lines": [
+            30,
+            123
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/022-BTTask_WorkerFindTarget_-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Does not itself choose a destination or prove path feasibility. Failed casts have no connected finish."
+      ]
+    },
+    {
+      "id": 23,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Root selects non-burning or burning behavior. Non-burning runs Wait 2 with 0.5 deviation, FindFleeLocation, MoveTo MoveLocation with 500 acceptable radius, then Cower; burning runs OnFire then MoveTo. Burning decorators abort both ways.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/023-BT_Flee-source.COPY",
+          "lines": [
+            184,
+            268
+          ]
+        }
+      ],
+      "limitations": [
+        "MoveTo, navigation and burning/pilot state implementation remain dependencies. Timing and coordinates are serialized configuration, not measured gameplay."
+      ]
+    },
+    {
+      "id": 24,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Non-burning workers with DestinationExists copy the destination, move to MoveLocation with 300 acceptable radius and GroundAI_Filter, then notify arrival. Burning branch selects a random nearby location and moves.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/024-BT_GarrisonWorker-source.COPY",
+          "lines": [
+            182,
+            264
+          ]
+        }
+      ],
+      "limitations": [
+        "Worker route allocation and whether a unit receives this tree are not established for all infantry."
+      ]
+    },
+    {
+      "id": 25,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Infantry controller/pawn casts read the inherited Infantry.OnFire flag as the condition; default inverse is false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/025-BTDecorator_CheckBurning-source.COPY",
+          "lines": [
+            25,
+            88
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/025-BTDecorator_CheckBurning-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Does not define fire damage, duration or how OnFire is set. Cast failure has no explicit successful return."
+      ]
+    },
+    {
+      "id": 26,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "On execute, casts owner to InfantryAIController, queries a random navigable location within 400 of its pawn, writes the configured flee vector, and finishes true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/026-BTTask_OnFire-source.COPY",
+          "lines": [
+            30,
+            129
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/026-BTTask_OnFire-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Navigation-query success is unused. This is burning movement, not damage or extinguishing logic."
+      ]
+    },
+    {
+      "id": 27,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Human blackboard inherits MWBlackboard and adds MoveLocation as a vector.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/027-BlackBoard_Human-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Parent keys and their native writers are separate evidence. A key declaration is not runtime population."
+      ]
+    },
+    {
+      "id": 28,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Start calls RunBehaviorTree with BT_GarrisonWorker; Flee calls BT_Flee; ArriveAtTarget casts its pawn and calls ReachedTarget. BeginPlay/Tick are unconnected. Defaults have no DefaultBehaviorTree, no PrimaryCombatTactic and bStartAILogicOnPossess=false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/028-InfantryAIController-source.COPY",
+          "lines": [
+            36,
+            173
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/028-InfantryAIController-defaults.COPY",
+          "lines": [
+            1,
+            173
+          ]
+        }
+      ],
+      "limitations": [
+        "Start/Flee callers and Infantry_Pilot body are not collected here. This maps workers and fleeing pilots, not all armed infantry."
+      ]
+    },
+    {
+      "id": 127,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Long-range condition succeeds if the tank controller reports OnlyHasLRMs, otherwise tests its MWTank pawn bFightFromLongRange; controller or pawn cast failure returns false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/127-BTDecorator_TankShouldFightAtLongRange-source.COPY",
+          "lines": [
+            35,
+            143
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/127-BTDecorator_TankShouldFightAtLongRange-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "OnlyHasLRMs implementation and weapon range calculation are native dependencies."
+      ]
+    },
+    {
+      "id": 128,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Execute gets player pawn index 0 and requires MWMech, sets the owner combat target and FireAt interaction through interfaces, then finishes using bSuccess. Cast failure sets bSuccess=false; default bSuccess=true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/128-BTTask_FireAtPlayer-source.COPY",
+          "lines": [
+            40,
+            183
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/128-BTTask_FireAtPlayer-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Player index 0 targeting is special-purpose behavior, not proof that general enemy AI always targets the human. Interface calls are not firing receipts."
+      ]
+    },
+    {
+      "id": 129,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Sets combat interaction then loops: with a target, queries TankCombatCircle and chooses long-range move with TankLRMBruteForce EQS service or ordinary circle-query movement and 0.1 wait; without a target waits 1. Long-range service interval 1 and move radius 500 are serialized. Stored MoveTo_8 and its EQS service have no root-connected path.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/129-BT_Tank_Aggressive-source.COPY",
+          "lines": [
+            296,
+            409
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/129-BT_Tank_Aggressive-source.COPY",
+          "lines": [
+            410,
+            466
+          ]
+        }
+      ],
+      "limitations": [
+        "Native movement/EQS bodies and exact chosen positions are unavailable. Unconnected stored nodes are not active branches."
+      ]
+    },
+    {
+      "id": 130,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Root prioritizes combat when a target exists, otherwise branches on FormationTravelActor, destination status and distance to follow a formation actor or TravelLocation. Movement radii include 10, 1000, 2300 and 5000 in raw coordinates; final-destination task is explicit.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/130-BT_TankFollow-source.COPY",
+          "lines": [
+            396,
+            595
+          ]
+        }
+      ],
+      "limitations": [
+        "Effective movement depends on native MWMoveTo and formation state producers. Collected tree existence does not establish every vehicle assignment."
+      ]
+    },
+    {
+      "id": 131,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Infinite root selects a sequence moving to TravelLocation if not at it, calling human BTTask_ReachTarget at destination, finishing when MissionOrders is None and waiting 0.5; fallback waits.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/131-BT_TankHoldPosition-source.COPY",
+          "lines": [
+            200,
+            279
+          ]
+        }
+      ],
+      "limitations": [
+        "Human ReachTarget dependency requires InfantryAIController, a mismatch requiring a narrow runtime test. No tested tank Stop behavior is claimed."
+      ]
+    },
+    {
+      "id": 132,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tank root updates senses, skips active tree when Idle, and orders branches: flee location, mission orders, can-attack aggressive combat, suspicion scouting, waypoint movement, then home movement/ambient. Native PickCombatTarget auto-attack service runs at 1 plus 0.25 deviation; patrol route service maintains waypoints.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/132-BT_TankMasterTree-source.COPY",
+          "lines": [
+            408,
+            449
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/132-BT_TankMasterTree-source.COPY",
+          "lines": [
+            521,
+            638
+          ]
+        }
+      ],
+      "limitations": [
+        "Native target ranking, path following and concrete spawned-controller assignment remain unknown. Mission orders precede autonomous combat in the serialized tree."
+      ]
+    },
+    {
+      "id": 133,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Root selector connects only MissionOrders Stop (integer 5) to TankHoldPosition, then a Wait fallback. Stored Follow/Attack/Move subgraphs are not reachable from this runtime root.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/133-BT_TankTeamOrders-source.COPY",
+          "lines": [
+            345,
+            417
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/133-BT_TankTeamOrders-source.COPY",
+          "lines": [
+            438,
+            476
+          ]
+        }
+      ],
+      "limitations": [
+        "Not evidence that every tank ignores those commands: actual runtime asset assignment, overrides and cooked asset parity are unverified."
+      ]
+    },
+    {
+      "id": 134,
+      "disposition": "UNAVAILABLE",
+      "summary": "Allowlisted /Game/AI/Tank/Behaviors/BT_VTOLHoldPosition has no source/default export and is categorized invalid or redirected metadata. Separate VTOL-folder asset 147 is reviewed.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json",
+          "lines": [
+            6823,
+            6838
+          ]
+        }
+      ],
+      "limitations": [
+        "No exact redirect resolution is asserted. Treat this inventory entry as unavailable, not reviewed or silently substituted."
+      ]
+    },
+    {
+      "id": 135,
+      "disposition": "UNAVAILABLE",
+      "summary": "Allowlisted /Game/AI/Tank/Behaviors/BT_VTOLTeamOrders has no source/default export and is categorized invalid or redirected metadata. Separate VTOL-folder asset 149 is reviewed;148 runtime reference explicitly names that VTOL-folder asset.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json",
+          "lines": [
+            6841,
+            6856
+          ]
+        }
+      ],
+      "limitations": [
+        "Raw metadata frontier still mentions the Tank path. Metadata references and resolved export references are distinguished; no recollection performed."
+      ]
+    },
+    {
+      "id": 136,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Not-at-final-destination branch moves along a waypoint with 2300 acceptable radius then marks final-destination state; final branch calls FireAtPlayer and waits 0.25. Patrol service updates route/waypoint.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/136-BT_TankMoveToAndFire-source.COPY",
+          "lines": [
+            163,
+            235
+          ]
+        }
+      ],
+      "limitations": [
+        "Scripted player-target behavior is not a general combat policy. Movement helper and target firing internals are dependencies."
+      ]
+    },
+    {
+      "id": 137,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Patrol root moves to a set waypoint if not within 200 and key is unchanged; otherwise waits 0.25. UpdatePatrolRoute service and stuck checking are configured.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/137-BT_TankPatrol-source.COPY",
+          "lines": [
+            140,
+            214
+          ]
+        }
+      ],
+      "limitations": [
+        "Recovery and route choice bodies are native/dependent."
+      ]
+    },
+    {
+      "id": 138,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Tank blackboard inherits MWUnitBlackboard and adds IsAtDestination boolean.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/138-Blackboard_Tank-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Blackboard schema does not establish producers or timing."
+      ]
+    },
+    {
+      "id": 139,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Execute casts owner to MWAIController, reads suspicion actor, focuses its pawn if it is a Controller, otherwise the actor itself; then finishes true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/139-BTTask_Turret_RotateTowardsTarget-source.COPY",
+          "lines": [
+            32,
+            138
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/139-BTTask_Turret_RotateTowardsTarget-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Look-focus native implementation and cast-failure behavior are not established beyond visible connections."
+      ]
+    },
+    {
+      "id": 140,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Turret root sets raw target-strategy enum value 2, updates senses and, when not Idle, prioritizes CanAttack combat interaction/wait, suspicion rotation/wait, then nearby-player look-around. Native PickCombatTarget auto-attack service is 1 plus 0.25 deviation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/140-BT_TurretMasterTree-source.COPY",
+          "lines": [
+            247,
+            333
+          ]
+        }
+      ],
+      "limitations": [
+        "Strategy enum 2 is not given an invented tactical meaning. Suspicion location gates a task reading suspicion actor; consistency of those keys requires observation."
+      ]
+    },
+    {
+      "id": 141,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Turret blackboard only declares parent MWUnitBlackboard, with no additional keys.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/141-Blackboard_Turret-source.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Shared keys do not prove identical behavior or hostility rules."
+      ]
+    },
+    {
+      "id": 142,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Sets combat interaction and loops: with target, runs VTOLCircle RandomBest 25Pct, moves to TravelLocation with 1000 acceptable radius and a10-second EQS update service, then waits 0.1; without target waits 1.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/142-BT_VTOL_Aggressive-source.COPY",
+          "lines": [
+            178,
+            258
+          ]
+        }
+      ],
+      "limitations": [
+        "RandomBest 25Pct is configured selection, not globally optimal firing-position search. Actual native move/weapon behavior is unobserved."
+      ]
+    },
+    {
+      "id": 143,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "VTOLCircle generates six points on a25000-radius, 60-degree arc centered on combat target and oriented to its view direction; native VTOLOptimalElevation overrides default 8000 height. Score-only tests include distance from VTOLs, a 2D distance term, combat-target visibility trace and tether shape.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/143-EQS_VTOLCircle-source.COPY",
+          "lines": [
+            102,
+            161
+          ]
+        }
+      ],
+      "limitations": [
+        "Score-only visibility is not a mandatory LOS filter. Distance 2D omits its DistanceTo context, so own-distance semantics require native-default confirmation. Provider values, complete scoring defaults and native tether test cannot be inferred from omitted fields. Raw coordinates only."
+      ]
+    },
+    {
+      "id": 144,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ambient VTOL resets ambient location, repeatedly queries ambient candidates RandomBest 25Pct, moves with 900 acceptance under not-at-location/force-success decorators and waits 3 plus 1 deviation; home-location change abort tolerance 100.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/144-BT_VTOLAmbient-source.COPY",
+          "lines": [
+            178,
+            263
+          ]
+        }
+      ],
+      "limitations": [
+        "Force-success changes branch completion, not path validity. Assignment to a spawned VTOL remains unverified."
+      ]
+    },
+    {
+      "id": 145,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ambient location EQS uses a5000-radius circle centered on Context_AmbientLocation, no trace, navigation projection defaults, and a score-only distance test.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/145-EQS_VTOLFindAmbientLocation-source.COPY",
+          "lines": [
+            60,
+            82
+          ]
+        }
+      ],
+      "limitations": [
+        "FloatValueMin 50 appears in a score-only test and must not be reported as a hard minimum distance."
+      ]
+    },
+    {
+      "id": 146,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "VTOL follow prioritizes existing-target aggressive combat; otherwise follows a set FormationTravelActor with 10000 acceptable radius and 5000 observed-location tolerance.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/146-BT_VTOLFollow-source.COPY",
+          "lines": [
+            85,
+            123
+          ]
+        }
+      ],
+      "limitations": [
+        "These are large raw coordinate tolerances, not proof of formation quality. Actor identity and runtime assignment remain unverified."
+      ]
+    },
+    {
+      "id": 147,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "VTOL hold-position root moves to TravelLocation, calls the same human ReachTarget task when at it, conditionally finishes when orders clear, and waits 0.5 with fallback.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/147-BT_VTOLHoldPosition-source.COPY",
+          "lines": [
+            200,
+            279
+          ]
+        }
+      ],
+      "limitations": [
+        "Infantry-specific ReachTarget reuse is a validation lead, not a proven shipping defect."
+      ]
+    },
+    {
+      "id": 148,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "VTOL master orders flee, mission orders, aggressive combat, scouting, waypoint, home/ambient beneath not-Idle with senses/target services. RunBehavior runtime reference points to /Game/AI/VTOL/Behaviors/BT_VTOLTeamOrders, resolving the local reviewed dependency 149 independently of stale Tank-folder metadata.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/148-BT_VTOLMasterTree-source.COPY",
+          "lines": [
+            341,
+            383
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/148-BT_VTOLMasterTree-source.COPY",
+          "lines": [
+            488,
+            539
+          ]
+        }
+      ],
+      "limitations": [
+        "Native target selection and real mission assignment are not collected gameplay evidence."
+      ]
+    },
+    {
+      "id": 149,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Root connects only Stop to VTOLHoldPosition, Follow to VTOLFollow, and Wait fallback. Attack/Move sequences exist in storage but are disconnected from the runtime root.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/149-BT_VTOLTeamOrders-source.COPY",
+          "lines": [
+            334,
+            459
+          ]
+        }
+      ],
+      "limitations": [
+        "Do not infer a shipping command bug or universal vehicle behavior without assignment and execution evidence."
+      ]
+    },
+    {
+      "id": 150,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial FireAndStrafe tick initializes the tutorial spawner/VTOL once, copies CombatWaypoints, writes Destination, advances when XY distance is below 2750, and loops at the last waypoint. Default interval 0.5 plus 0.1 deviation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/150-BTService_FireAndStrafe-source.COPY",
+          "lines": [
+            300,
+            858
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/150-BTService_FireAndStrafe-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "Despite its name the connected service does not directly issue a fire call. Initialization success, waypoint validity and concrete assignment are unverified."
+      ]
+    },
+    {
+      "id": 151,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial FlyToAndFire uses spawner Waypoints, writes successive destinations at XY distance below 2750, then marks local and blackboard final-destination state. Default interval 0.5 plus 0.1; BT 155 instance overrides 0.03 with no deviation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/151-BTService_FlyToAndFire-source.COPY",
+          "lines": [
+            308,
+            885
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/151-BTService_FlyToAndFire-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "Serialized interval is not achieved sampling latency. Empty paths/cast failure are not guaranteed to recover."
+      ]
+    },
+    {
+      "id": 152,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tutorial target task obtains its AbstractVTOL from blackboard SelfActor, the tutorial spawner and Targets array, randomly selects a valid actor, then sets combat target through its AI controller and finishes true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/152-BTTask_FindRandomTarget-source.COPY",
+          "lines": [
+            140,
+            364
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/152-BTTask_FindRandomTarget-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "No hostility/visibility check on this path; invalid selection and failed casts have no connected finish. Do not generalize tutorial target availability."
+      ]
+    },
+    {
+      "id": 153,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Gets tutorial VTOL AI controller from blackboard SelfActor, sets FireAt interaction through an interface and finishes true. It does not itself choose a random target; stored direct-property/debug nodes are disconnected.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/153-BTTask_FireAtRandomTargets-source.COPY",
+          "lines": [
+            70,
+            230
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/153-BTTask_FireAtRandomTargets-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "FireAt interface invocation is not a measured shot. Depends on separate target-selection task 152."
+      ]
+    },
+    {
+      "id": 154,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Drone ambient tree resets ambient location, loops EQS selection, force-success movement with 1000 acceptable radius and wait 0.5 plus 0.25 deviation, and aborts when home changes.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/154-BT_DroneTarget-source.COPY",
+          "lines": [
+            178,
+            263
+          ]
+        }
+      ],
+      "limitations": [
+        "Tutorial/ambient configuration is not enemy-wide piloting policy."
+      ]
+    },
+    {
+      "id": 155,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "FlyToAndFire tree approaches Destination until IsAtDestination, then selects a random target and runs movement plus fire interaction through a simple parallel; FireAndStrafe service updates destination. Root FlyToAndFire service interval 0.03.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/155-BT_FlyToAndFire-source.COPY",
+          "lines": [
+            181,
+            266
+          ]
+        }
+      ],
+      "limitations": [
+        "Parallel task semantics and actual firing/navigation require runtime verification; tutorial spawner references differ from general VTOL combat."
+      ]
+    },
+    {
+      "id": 156,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Drone ambient EQS is a circle radius 500 with spacing 500 centered on ambient context and a score-only distance test.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/156-EQS_DroneFindAmbientLocation-source.COPY",
+          "lines": [
+            60,
+            83
+          ]
+        }
+      ],
+      "limitations": [
+        "No hard minimum-distance or LOS filter is established by this query."
+      ]
+    },
+    {
+      "id": 157,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "VTOL blackboard extends MWUnitBlackboard with Destination vector, IsAtDestination boolean, Spawner object and IsAtStrafeDestination boolean.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/157-Blackboard_VTOL-source.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "Declaration is not proof all keys are written in every tree."
+      ]
+    },
+    {
+      "id": 214,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Abstract pilot encounter declares empty extension points for setup, spawning, manning and reaching targets; GetUnitsAvailable returns its empty default output. Construction forwards parent; ordinary actor events are unconnected.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/214-AbstractPilotEncounter-source.COPY",
+          "lines": [
+            52,
+            242
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/214-AbstractPilotEncounter-defaults.COPY",
+          "lines": [
+            1,
+            127
+          ]
+        }
+      ],
+      "limitations": [
+        "Concrete subclasses/native encounter machinery are outside this asset. Default SpawnRadius is not a universal spawn distance."
+      ]
+    },
+    {
+      "id": 215,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ambush trigger requires an unpaused/untriggered hostile overlap by player-squad member, nonempty deck, speed>100 and heading dot>0.6 toward encounter locator. It partitions VTOL/vehicle/mech cards into ground or reinforcement spawning. UnitSpawned adds player-squad actors to awareness and sets Attack/large idle-distance value on valid targets/blackboard.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/215-AmbushBehaviorComponent-source.COPY",
+          "lines": [
+            1053,
+            2528
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/215-AmbushBehaviorComponent-source.COPY",
+          "lines": [
+            2529,
+            2909
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/215-AmbushBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            27
+          ]
+        }
+      ],
+      "limitations": [
+        "Ground-weight local default 200 is configuration; native spawner results, reinforcement availability and enemy knowledge cannot be assumed universally. Target seeding is mission-side information, not legal companion observation."
+      ]
+    },
+    {
+      "id": 216,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Setup binds reinforcement-arrival callbacks; Start activates units. A valid arriving unit is added to the first dispatch target encounter and assigned that target job board. Stored map/home-location alternatives are unconnected.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/216-DispatchReinforcementsBehaviorComponent-source.COPY",
+          "lines": [
+            293,
+            623
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/216-DispatchReinforcementsBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            29
+          ]
+        }
+      ],
+      "limitations": [
+        "DispatchTargets[0] requires valid configuration. Unit addition and board assignment do not independently prove movement/arrival."
+      ]
+    },
+    {
+      "id": 217,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Reads units/base-REDCON/increase from additional data. Start binds first target inner zone, constructs critical AlertGarrisonJob and posts it with UseSpecificUnits=false, then transfers listed units and assigns board. First matching usable unit reaching the zone signals successful dispatch. Defaults increase 1,base 2.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/217-DispatchUnitsToAlertBehaviorComponent-source.COPY",
+          "lines": [
+            521,
+            1438
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/217-DispatchUnitsToAlertBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            29
+          ]
+        }
+      ],
+      "limitations": [
+        "Listed GUIDs are not a dispatch-selection restriction when UseSpecificUnits is false. Completion means a qualifying arrival, not arrival of every unit."
+      ]
+    },
+    {
+      "id": 218,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Blank-garrison hostile overlap once-awake path posts patrol and turret-guard jobs and sets IsAwakened. The visible K2_IsEnabled(garrisonbehavior) false branch has no execution successor, unlike standard garrison.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/218-StandardBlankGarrisonBehaviorComponent-source.COPY",
+          "lines": [
+            191,
+            522
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/218-StandardBlankGarrisonBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            29
+          ]
+        }
+      ],
+      "limitations": [
+        "Requires targeted assignment/debug-state test before alleging a shipped defect. Return false is not equivalent to no internal side effects."
+      ]
+    },
+    {
+      "id": 219,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Standard garrison starts REDCON at 4, updates alert state on hostile identification/sensing/overlap/building changes, wakes configured spawns and posts patrol/guard jobs. It tracks known targets across encounter awareness components, selects faction/attitude commander dialogue and gates 8-second radar sweeps with 30-second cooldown.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/219-StandardGarrisonBehaviorComponent-source.COPY",
+          "lines": [
+            2351,
+            2926
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/219-StandardGarrisonBehaviorComponent-source.COPY",
+          "lines": [
+            2927,
+            4669
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/219-StandardGarrisonBehaviorComponent-source.COPY",
+          "lines": [
+            4670,
+            5810
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/219-StandardGarrisonBehaviorComponent-source.COPY",
+          "lines": [
+            5811,
+            6412
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/219-StandardGarrisonBehaviorComponent-source.COPY",
+          "lines": [
+            6413,
+            7276
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/219-StandardGarrisonBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            29
+          ]
+        }
+      ],
+      "limitations": [
+        "Uses shared native awareness and job machinery. Faction dialogue differences are not proof of separate ally/enemy locomotion AI. Lower REDCON numeric values mean higher alert through the base subtracting increase method."
+      ]
+    },
+    {
+      "id": 220,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Wave EQS context accepts a DispatchWaves component or DispatchWavesToGoToLocation mission component, chooses a random configured mission-flow location, resolves its locator and outputs actor position.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/220-Context_WaveLocation-source.COPY",
+          "lines": [
+            139,
+            325
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/220-Context_WaveLocation-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Empty lists, locator validity and native GetLocator resolution are not proven safe by the visible path."
+      ]
+    },
+    {
+      "id": 221,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Dispatch wave enum labels distinguish AttackBuildings, AttackPlayerLance and GoToHomeLocation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/221-DispatchWaveType-source.COPY",
+          "lines": [
+            1,
+            4
+          ]
+        }
+      ],
+      "limitations": [
+        "Labels gain execution meaning only through 222 switch connections."
+      ]
+    },
+    {
+      "id": 222,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Wave component selects wave-specific additional-data units excluding left-play list, activates/transfers them, posts critical jobs against destructibles or player squad, or writes home destinations from EQS. Next wave is timer-driven or waits for current wave left-play count to zero; minimum fallback delay 0.01. Default CurrentWave 1 and WaveType 0.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/222-DispatchWavesBehaviorComponent-source.COPY",
+          "lines": [
+            1341,
+            1800
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/222-DispatchWavesBehaviorComponent-source.COPY",
+          "lines": [
+            1801,
+            2441
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/222-DispatchWavesBehaviorComponent-source.COPY",
+          "lines": [
+            2442,
+            2831
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/222-DispatchWavesBehaviorComponent-source.COPY",
+          "lines": [
+            2904,
+            3549
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/222-DispatchWavesBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            33
+          ]
+        }
+      ],
+      "limitations": [
+        "OnUnitLeftPlay is broader than proven combat death. Failed query can still set QueryRun and flush destination queue; empty result handling needs a targeted test. Spawn/job calls are not gameplay receipts."
+      ]
+    },
+    {
+      "id": 223,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Wave home-location EQS generates 20 circle points at radius 11000 around Context_WaveLocation and projects to navmesh with vertical extents 1000000; no tests are serialized.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/223-EQS_WaveHomeLocationCircle-source.COPY",
+          "lines": [
+            71,
+            89
+          ]
+        }
+      ],
+      "limitations": [
+        "Serialized ArcAngle 60 alone does not establish arc mode because bDefineArc is not set. No cover, danger or LOS optimization is demonstrated."
+      ]
+    },
+    {
+      "id": 224,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "BehaviorTypes enumerates standard/blank garrison, building/player/new-home waves, reinforcement dispatch, alert dispatch and ambush component variants.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/224-BehaviorTypes-source.COPY",
+          "lines": [
+            1,
+            4
+          ]
+        }
+      ],
+      "limitations": [
+        "Selection mappings are implemented in EncounterClassParent; enum entries alone do not execute behavior."
+      ]
+    },
+    {
+      "id": 225,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "DispatchMode declares Full, Strike, Assault and Scout labels.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/225-DispatchMode-source.COPY",
+          "lines": [
+            1,
+            4
+          ]
+        }
+      ],
+      "limitations": [
+        "No distinct complete tactical policy follows from these labels or the Strike default alone."
+      ]
+    },
+    {
+      "id": 226,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Base encounter component connects overlap/attitude dispatch, relevant GUID lookup, awareness subscriptions, unit lifecycle and job-board transfer. Increase REDCON subtracts and Decrease adds, passing Min=1 and Max=MinimumREDCON to Clamp. Activation delegates to reinforcements; base hooks mostly return false; setup conditionally binds observers. Default tick capability is false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            1153,
+            2478
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            2508,
+            3017
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            3018,
+            3411
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            3462,
+            4152
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            4182,
+            5126
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            5291,
+            5771
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-source.COPY",
+          "lines": [
+            5772,
+            6980
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/226-EncounterBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "MinimumREDCON defaults to 0, so a valid Clamp interval depends on initialization; standard garrison separately initializes it to 4. Native sensors/spawn helpers and shared function-library bodies are dependencies. Return booleans do not universally summarize side effects; ActivateUnitsForJobs returns HasActivated=false despite a post call."
+      ]
+    },
+    {
+      "id": 227,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Dispatch base configures wave-locator decks, transfers units, handles hotdrop ground/air capacities and queues vehicle spawns on a grid. Grid uses default 16 spots and per-call cell size; team information is applied at call sites. Remaining units fall through to parent activation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/227-EncounterDispatchBehaviorComponent-source.COPY",
+          "lines": [
+            1489,
+            2706
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/227-EncounterDispatchBehaviorComponent-source.COPY",
+          "lines": [
+            2707,
+            3122
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/227-EncounterDispatchBehaviorComponent-source.COPY",
+          "lines": [
+            3123,
+            3739
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/227-EncounterDispatchBehaviorComponent-defaults.COPY",
+          "lines": [
+            1,
+            27
+          ]
+        }
+      ],
+      "limitations": [
+        "Queued spawn is not an observed spawn. No universal player-exclusion distance is established. One wave-locator MoveUnitData path supplies the created encounter as both self and destination, requiring a targeted trace before assigning effects."
+      ]
+    },
+    {
+      "id": 228,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "UnitActivationType has independent Spawned, InGarage and InReinforcementDrop flags; Spawned tooltip explicitly excludes job assignment.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/228-UnitActivationType-source.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Flags are bookkeeping, not proof of a live actor or running job."
+      ]
+    },
+    {
+      "id": 229,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Encounter parent owns GUID-to-unit metadata, activation/usage/type/death filtering, board construction, target/building/spawner inventories, critical posting wrappers and queued spawn lifecycle. Registered source paths queue spawns; callbacks attach sensors/pilot component and update activation. Behavior selection creates component variants. Editor autofill/capacity and test helpers are separate from runtime policy.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            3113,
+            3902
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            3903,
+            5835
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            5953,
+            7891
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            8030,
+            9013
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            9372,
+            9854
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            9855,
+            12582
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            12708,
+            14888
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            14889,
+            17457
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-source.COPY",
+          "lines": [
+            17458,
+            18746
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/229-EncounterClassParent-defaults.COPY",
+          "lines": [
+            1,
+            126
+          ]
+        }
+      ],
+      "limitations": [
+        "Type-tag filter appends when HasTag=false, so it must not be assumed to be an inclusion filter. Native queue/job bodies and level-specific assignment remain unknown. Stored direct-spawn alternatives are disconnected. LeftPlay sets IsDead, which does not establish cause of removal."
+      ]
+    },
+    {
+      "id": 230,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "EncounterUnitData stores activation flags, deck usage, unit type tag and IsDead.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/230-EncounterUnitData-source.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "This is encounter accounting; it is not a full combat snapshot or reliable casualty cause without lifecycle context."
+      ]
+    }
+  ]
+}

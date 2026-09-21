@@ -1,0 +1,391 @@
+{
+  "reviewed_at": "2026-09-21T00:34:03.604031-04:00",
+  "classification": "INDEPENDENT_STATIC_AND_MOCK_ONLY_REVIEW",
+  "native_editor_execution": "NOT_PERFORMED",
+  "gameplay": "NOT_PERFORMED",
+  "helper_path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverCaller.py",
+  "helper_sha256": "b99b1b05375be98af1160c9c2ccb3474af80eb97aa673ea492130d83386d0fa0",
+  "review_script_sha256": "0953515fca50def0de0411821a4c87cd0ea432f7c57133c6720d1bfe7ea0b83d",
+  "python_executable": "C:\\Users\\jlewi\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "fixtures": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff",
+  "cases": [
+    {
+      "case": "uppercase_crlf_loaded",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": null,
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "helper_status": "MOCK_ONLY_COMPLETED",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\uppercase_crlf_loaded"
+    },
+    {
+      "case": "named_load",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": null,
+      "api_calls": [
+        "find_asset",
+        "load_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "helper_status": "MOCK_ONLY_COMPLETED",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\named_load"
+    },
+    {
+      "case": "changed_source_hash",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_HASH_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\changed_source_hash"
+    },
+    {
+      "case": "source_size_limit",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "FILE_SIZE_LIMIT",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\source_size_limit"
+    },
+    {
+      "case": "native_wrong_root",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_SCOPE_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\native_wrong_root"
+    },
+    {
+      "case": "native_wrong_source",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_SCOPE_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\native_wrong_source"
+    },
+    {
+      "case": "native_wrong_hash",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_SCOPE_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\native_wrong_hash"
+    },
+    {
+      "case": "real_api_in_mock_mode",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "REAL_UNREAL_API_FORBIDDEN_IN_MOCK_MODE",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\real_api_in_mock_mode"
+    },
+    {
+      "case": "wrong_found_type",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\wrong_found_type"
+    },
+    {
+      "case": "wrong_found_path",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\wrong_found_path"
+    },
+    {
+      "case": "wrong_loaded_type",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "load_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\wrong_loaded_type"
+    },
+    {
+      "case": "missing_loaded_asset",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "load_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\missing_loaded_asset"
+    },
+    {
+      "case": "wrong_generated_class",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "GENERATED_CLASS_IDENTITY_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\wrong_generated_class"
+    },
+    {
+      "case": "wrong_default_class",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "DEFAULT_OBJECT_IDENTITY_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\wrong_default_class"
+    },
+    {
+      "case": "wrong_default_path",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "DEFAULT_OBJECT_IDENTITY_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\wrong_default_path"
+    },
+    {
+      "case": "export_false",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_FAILURE_OR_ERRORS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\export_false"
+    },
+    {
+      "case": "export_errors",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_FAILURE_OR_ERRORS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\export_errors"
+    },
+    {
+      "case": "export_exception",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_FAILURE_OR_ERRORS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\export_exception"
+    },
+    {
+      "case": "export_no_file",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_PRODUCED_NO_FILE",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\export_no_file"
+    },
+    {
+      "case": "export_empty",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_OUTPUT_LIMIT",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\export_empty"
+    },
+    {
+      "case": "export_oversized",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_OUTPUT_LIMIT",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\export_oversized"
+    },
+    {
+      "case": "nontext_exporter",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPECTED_TEXT_EXPORTER_UNAVAILABLE",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\nontext_exporter"
+    },
+    {
+      "case": "mutation_before_load",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_CHANGED_DURING_INSPECTION",
+      "api_calls": [
+        "find_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\mutation_before_load"
+    },
+    {
+      "case": "mutation_after_source",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_CHANGED_DURING_INSPECTION",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\mutation_after_source"
+    },
+    {
+      "case": "mutation_after_defaults",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_CHANGED_DURING_INSPECTION",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\mutation_after_defaults"
+    },
+    {
+      "case": "low_resources",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "RESOURCE_STOP",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\low_resources"
+    },
+    {
+      "case": "time_budget",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "COOPERATIVE_BUDGET_STOP",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\time_budget"
+    },
+    {
+      "case": "active_other_collection",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "ANOTHER_RESEARCH_INSPECTION_ACTIVE",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\active_other_collection"
+    },
+    {
+      "case": "stale_lock",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "FileExistsError",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-helper-review-20260921T043403Z-a9c414ff\\stale_lock"
+    }
+  ],
+  "scope_limits": [
+    "Fake API has no Unreal module or editor connection.",
+    "Synthetic sources are not game assets; no installed asset was loaded/read by tests.",
+    "No native exporter, source body, inheritance, runtime creation or cooking proof.",
+    "Native output/time/resource limits remain cooperative, not preemptive.",
+    "Retained fixtures contain synthetic data only.",
+    "Fake-API behavior was checked using Codex bundled Python 3.12.14. The reviewer uses ast.unparse (Python 3.9+). Editor Python 3.7 behavioral validation is NOT_PERFORMED; separate author syntax validation does not establish equivalent behavior."
+  ],
+  "static_review": {
+    "classification": "STATIC_SOURCE_REVIEW",
+    "api_call_surface": [
+      "api.AssetExportTask",
+      "api.EditorAssetLibrary.load_blueprint_class",
+      "api.Exporter.run_asset_export_task",
+      "api.ObjectExporterT3D",
+      "api.find_asset",
+      "api.get_default_object",
+      "api.load_asset"
+    ],
+    "native_path_hash_match_observed_pin": true,
+    "verified_exporter_api_reference": "scripts/Collect-AIResearch.py:213-221,288-400",
+    "observed_uppercase_formats_reference": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json:12904-12907",
+    "no_save_compile_play_cook_install_recursive_scan_api_call": true
+  },
+  "passed": 29,
+  "failed": 0,
+  "helper_unchanged_during_review": true,
+  "status": "PASS_MOCK_ONLY",
+  "python_compatibility_limit": {
+    "fake_api_test_runtime": "Codex bundled Python 3.12.14",
+    "reviewer_minimum_for_ast_unparse": "Python 3.9",
+    "editor_python37_behavior": "NOT_PERFORMED",
+    "editor_python37_syntax": "PASS: parent independently compiled helper source with actual editor Python 3.7.7, exit 0; no helper execution or unreal import"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-09-21T04:45:10.2819658Z",
+  "evidence": "OBSERVED",
+  "status": "PASS_EDITOR_SOURCE_EXPORT",
+  "run_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-caller-20260921T044217Z-54302cc3f1af",
+  "user_report": "Script ran.",
+  "native_receipt_status": "COLLECTED_REQUIRES_REVIEW",
+  "native_receipt_execution_label": "ATTEMPTED",
+  "raw_receipt_preserved": true,
+  "validation": {
+    "source_unchanged_after": true,
+    "defaults_lines": 235,
+    "helper_hash_matches_review": true,
+    "lock_present_at_verification": false,
+    "source_lines": 468,
+    "errors": []
+  },
+  "findings": {
+    "startup_caller": "UNKNOWN/BLOCKED",
+    "actual_mission_controller_assignment": "UNKNOWN",
+    "runtime_component_creation": "NOT_PERFORMED",
+    "construction": "source.COPY:109-128 delegates only to parent; collected parent 010:7402-7412 has no connected construction body",
+    "parent_class": "MW5PlayerController_C",
+    "factory_name_hits_in_new_source": 0,
+    "parent_evidence": "source.COPY:421",
+    "registered_functions": [
+      "UserConstructionScript",
+      "CheckAndShowPostMissionScreen"
+    ],
+    "registration_evidence": "source.COPY:424-426"
+  },
+  "source_sha256": "6690e8c5a192d28cc15f84798c6e053fe3f543728f7aecee0f2ce81968c6a0fd",
+  "defaults_sha256": "fa10c21c165e2ab68a2d7c841c413909fc3ff04b58097d1a15b710c2cbedf7c0",
+  "installed_asset_sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6",
+  "helper_sha256": "b99b1b05375be98af1160c9c2ccb3474af80eb97aa673ea492130d83386d0fa0",
+  "receipt_elapsed_seconds": 1.25,
+  "game_tests": "NOT_PERFORMED",
+  "observer_assets": "NOT_BUILT",
+  "cook_install_publish": "NOT_PERFORMED",
+  "repeat_export_needed": false,
+  "next_source_question": "Find actual references/callers to MW5PlayerController.AddPlayerControllerComponents and establish the controller assignment/lifecycle; a bounded editor lookup or reverse-reference metadata is still needed.",
+  "authorization_limit": "The approved once-only helper run is completed. This result does not authorize additional editor exports, authoring, cooking, deployment or gameplay.",
+  "raw_run_files": [
+    {
+      "file": "checkpoint-00.json",
+      "bytes": 1538,
+      "sha256": "4F32BFE2BD3EB2170ABCEFD241199B075FF0B2F53B7BF43E193078E6E00ED609"
+    },
+    {
+      "file": "checkpoint-01.json",
+      "bytes": 1694,
+      "sha256": "6C8B5126B52B451B80A320A03CEDE8E17F99565D4D16A76F92D221D980CEFD69"
+    },
+    {
+      "file": "checkpoint-02.json",
+      "bytes": 1989,
+      "sha256": "56CBAF8DB771F531D2FF91DE804328C987F72BBDB60D214D70BCD28ACD60A0FB"
+    },
+    {
+      "file": "checkpoint-03.json",
+      "bytes": 2358,
+      "sha256": "C0ACE9A865DC2B611F331E4B1800BBF95EADB67394C6F00F66F2B55F192FBEB1"
+    },
+    {
+      "file": "checkpoint-04.json",
+      "bytes": 2775,
+      "sha256": "F9B26C9194C1E25C684B6F0CE1FBBB72F436D9427153FA2DFA8760268B8A2B6A"
+    },
+    {
+      "file": "defaults.COPY",
+      "bytes": 9087,
+      "sha256": "FA10C21C165E2AB68A2D7C841C413909FC3FF04B58097D1A15B710C2CBEDF7C0"
+    },
+    {
+      "file": "report.json",
+      "bytes": 2995,
+      "sha256": "F3A8D60C904C6375F6E413F439D854957A951D583B4CD5DDAAB49BA0C35B5543"
+    },
+    {
+      "file": "source.COPY",
+      "bytes": 83932,
+      "sha256": "6690E8C5A192D28CC15F84798C6E053FE3F543728F7AECEE0F2CE81968C6A0FD"
+    }
+  ],
+  "limits": [
+    "Editor text/default exports are not shipping behavior or compatibility evidence.",
+    "Default-object values are not a live controller, pawn, authority or registration observation.",
+    "Exports reflect editor memory; unchanged on-disk source does not exclude prior unsaved edits.",
+    "No factory name/call in this asset does not exclude native, inherited, dynamic or uncollected callers.",
+    "Timing is the helper receipt duration, not game performance."
+  ]
+}

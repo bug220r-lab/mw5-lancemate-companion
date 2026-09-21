@@ -1,0 +1,3140 @@
+{
+  "classification": "MOCK_ONLY",
+  "policyVersion": "1.0.0",
+  "generatedUtc": "2026-09-21T04:11:09.970Z",
+  "status": "EXPECTATIONS_MET",
+  "scenarioCount": 48,
+  "propertyCount": 3,
+  "failureCount": 0,
+  "gameplay": "NOT_PERFORMED",
+  "nativeCalls": 0,
+  "inputs": [
+    {
+      "file": "scripts/tactical-policy.mjs",
+      "sha256": "f0db998754bbb55b867549f635adad5cecd33d435470979b31bf4a08dec2f357"
+    },
+    {
+      "file": "synthetic/tactical-cases.mjs",
+      "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+    },
+    {
+      "file": "scripts/Exercise-TacticalPolicy.mjs",
+      "sha256": "998694b387856d036f953efde27fea56474d2acfbd9fd00f0f7179c89109de1b"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "T01",
+      "purpose": "Use a known visible hostile inside weapon range",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "purpose": "Reposition a short-range mech using supplied path evidence",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REPOSITION",
+              "reason": "REACH_USEFUL_WEAPON_RANGE",
+              "evidence": [
+                "MOVE-01",
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "positionId": "position1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "REPOSITION",
+                  "reason": "REACH_USEFUL_WEAPON_RANGE",
+                  "evidence": [
+                    "MOVE-01",
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "positionId": "position1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "purpose": "Protect a damaged mech with a supplied safer position",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REPOSITION",
+              "reason": "PROTECT_DAMAGED_MECH",
+              "evidence": [
+                "MOVE-01",
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "positionId": "position1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "REPOSITION",
+                  "reason": "PROTECT_DAMAGED_MECH",
+                  "evidence": [
+                    "MOVE-01",
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "positionId": "position1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "purpose": "Regroup a damaged mech only along a stipulated safe route",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "PROTECT_DAMAGED_MECH",
+              "evidence": [
+                "FOLLOW-01",
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "REGROUP",
+                  "reason": "PROTECT_DAMAGED_MECH",
+                  "evidence": [
+                    "FOLLOW-01",
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "purpose": "Do not invent a safe retreat",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_SAFE_RETREAT",
+              "evidence": [
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [
+                "SAFE_REPOSITION_OR_REGROUP"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_SAFE_RETREAT",
+                  "evidence": [
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [
+                    "SAFE_REPOSITION_OR_REGROUP"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T06",
+      "purpose": "Regroup an isolated mech under fire",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION",
+              "evidence": [
+                "FOLLOW-01",
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "REGROUP",
+                  "reason": "RESTORE_LANCE_COHESION",
+                  "evidence": [
+                    "FOLLOW-01",
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T07",
+      "purpose": "Do not follow an unverified native leader",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T08",
+      "purpose": "Leave cooling to native combat",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "ALLOW_NATIVE_COOLING",
+              "evidence": [
+                "COMBAT-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "ALLOW_NATIVE_COOLING",
+                  "evidence": [
+                    "COMBAT-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T09",
+      "purpose": "Do not recommend shooting without a usable ammunition opportunity",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_AMMUNITION_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_AMMUNITION_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T10",
+      "purpose": "Lost visibility is not a current firing opportunity",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "FRESH_KNOWN_HOSTILE_TARGET"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "FRESH_KNOWN_HOSTILE_TARGET"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T11",
+      "purpose": "Dead targets are ineligible",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "FRESH_KNOWN_HOSTILE_TARGET"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "FRESH_KNOWN_HOSTILE_TARGET"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T12",
+      "purpose": "Friendly targets are ineligible",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "FRESH_KNOWN_HOSTILE_TARGET"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "FRESH_KNOWN_HOSTILE_TARGET"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T13",
+      "purpose": "Hidden targets cannot inform selection",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "FRESH_KNOWN_HOSTILE_TARGET"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "FRESH_KNOWN_HOSTILE_TARGET"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T14",
+      "purpose": "Stale target observations cannot inform selection",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "FRESH_KNOWN_HOSTILE_TARGET"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 2101,
+            "nowMs": 2101,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "FRESH_KNOWN_HOSTILE_TARGET"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T15",
+      "purpose": "Distribute a three-mech lance when an alternative target exists",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy2"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              },
+              "bravo": {
+                "binding": "controller2:pawn2:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "bravo",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              },
+              "charlie": {
+                "binding": "controller3:pawn3:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "charlie",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy2"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T16",
+      "purpose": "A supplied location cannot be reserved by two teammates",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REPOSITION",
+              "reason": "REACH_USEFUL_WEAPON_RANGE",
+              "evidence": [
+                "MOVE-01",
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "positionId": "position1"
+            },
+            {
+              "actorId": "bravo",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            },
+            {
+              "actorId": "charlie",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "REPOSITION",
+                  "reason": "REACH_USEFUL_WEAPON_RANGE",
+                  "evidence": [
+                    "MOVE-01",
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "positionId": "position1"
+                }
+              },
+              "bravo": {
+                "binding": "controller2:pawn2:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "bravo",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              },
+              "charlie": {
+                "binding": "controller3:pawn3:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "charlie",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T17",
+      "purpose": "Keep a useful target despite a small threat fluctuation",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "RETAIN_USEFUL_TARGET",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T18",
+      "purpose": "Human order immediately takes precedence",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T19",
+      "purpose": "Resume after matching verified completion",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": null,
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T20",
+      "purpose": "A persistent order is not released by completion",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": true,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "HUMAN_ORDER_NOT_RELEASED",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "HUMAN_ORDER_NOT_RELEASED"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": true,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "HUMAN_ORDER_NOT_RELEASED",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "HUMAN_ORDER_NOT_RELEASED"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T21",
+      "purpose": "Explicit release returns initiative",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": true,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": null,
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T22",
+      "purpose": "Missing order is not evidence of completion",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "HUMAN_ORDER_NOT_RELEASED",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "HUMAN_ORDER_NOT_RELEASED"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "HUMAN_ORDER_NOT_RELEASED",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "HUMAN_ORDER_NOT_RELEASED"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T23",
+      "purpose": "Stale snapshots do not permit recommendations",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "STALE_OR_FUTURE_SNAPSHOT",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "STALE_OR_FUTURE_SNAPSHOT"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": -1,
+            "observedAtMs": -1,
+            "nowMs": -1,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T24",
+      "purpose": "Reject replayed sequence",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "REGRESSING_OR_REPLAYED_SNAPSHOT",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "REGRESSING_OR_REPLAYED_SNAPSHOT"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T25",
+      "purpose": "Future observations are invalid",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "STALE_OR_FUTURE_SNAPSHOT",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "STALE_OR_FUTURE_SNAPSHOT"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": -1,
+            "observedAtMs": -1,
+            "nowMs": -1,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T26",
+      "purpose": "Pause blocks tactical initiative",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INACTIVE_OR_UNKNOWN_AUTHORITY"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T27",
+      "purpose": "Loading blocks tactical initiative",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INACTIVE_OR_UNKNOWN_AUTHORITY"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T28",
+      "purpose": "Unknown world authority blocks tactical initiative",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INACTIVE_OR_UNKNOWN_AUTHORITY"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T29",
+      "purpose": "Never direct a human-possessed mech",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_OR_HUMAN_BINDING",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_OR_HUMAN_BINDING"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "controlValid": false,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "INVALID_OR_HUMAN_BINDING",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "INVALID_OR_HUMAN_BINDING"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T30",
+      "purpose": "Changed possession binding requires reobservation",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "BINDING_CHANGED_REOBSERVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "BINDING_CHANGED_REOBSERVE"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:newpawn:2",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "BINDING_CHANGED_REOBSERVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "BINDING_CHANGED_REOBSERVE"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T31",
+      "purpose": "Duplicate recipients make the snapshot ambiguous",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_SNAPSHOT",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_SNAPSHOT"
+              ],
+              "dispatchable": false
+            },
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_SNAPSHOT",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_SNAPSHOT"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": -1,
+            "observedAtMs": -1,
+            "nowMs": -1,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T32",
+      "purpose": "Missing heat observation is unknown, not zero",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INCOMPLETE_TACTICAL_OBSERVATION",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INCOMPLETE_TACTICAL_OBSERVATION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "INCOMPLETE_TACTICAL_OBSERVATION",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "INCOMPLETE_TACTICAL_OBSERVATION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T33",
+      "purpose": "Unsupported actions are not selected",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T34",
+      "purpose": "Unknown path cannot support repositioning",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T35",
+      "purpose": "Unknown line of fire is not clear",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T36",
+      "purpose": "Occupied positions are excluded",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T37",
+      "purpose": "Correct leader alone does not establish a safe regroup path",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T38",
+      "purpose": "Do not infer manual state from absent fields",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "UNKNOWN_MANUAL_ORDER",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "UNKNOWN_MANUAL_ORDER"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "UNKNOWN_MANUAL_ORDER",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "UNKNOWN_MANUAL_ORDER"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T39",
+      "purpose": "Unrelated completion cannot release a player order",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "HUMAN_ORDER_NOT_RELEASED",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "HUMAN_ORDER_NOT_RELEASED"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "manualRevision": 1,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 1
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "HUMAN_ORDER_NOT_RELEASED",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "HUMAN_ORDER_NOT_RELEASED"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T40",
+      "purpose": "Manual observation revision must not go backward",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "manualRevision": 2,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 2
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "HUMAN_ORDER_ACTIVE",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "REGRESSING_MANUAL_REVISION",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "REGRESSING_MANUAL_REVISION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "manualRevision": 2,
+                "heldHumanOrder": {
+                  "id": "human1",
+                  "persistent": false,
+                  "revision": 2
+                },
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "REGRESSING_MANUAL_REVISION",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "REGRESSING_MANUAL_REVISION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T41",
+      "purpose": "Unknown individual authority blocks that recipient",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_OR_HUMAN_BINDING",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_OR_HUMAN_BINDING"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "controlValid": false,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "INVALID_OR_HUMAN_BINDING",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "INVALID_OR_HUMAN_BINDING"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T42",
+      "purpose": "Out-of-squad recipient is ineligible",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_OR_HUMAN_BINDING",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_OR_HUMAN_BINDING"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "controlValid": false,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "INVALID_OR_HUMAN_BINDING",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "INVALID_OR_HUMAN_BINDING"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T43",
+      "purpose": "Dead recipient is ineligible",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_OR_HUMAN_BINDING",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_OR_HUMAN_BINDING"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "controlValid": false,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "INVALID_OR_HUMAN_BINDING",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "INVALID_OR_HUMAN_BINDING"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T44",
+      "purpose": "Mixed weapon envelopes produce complementary recommendations",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            },
+            {
+              "actorId": "bravo",
+              "action": "REPOSITION",
+              "reason": "REACH_USEFUL_WEAPON_RANGE",
+              "evidence": [
+                "MOVE-01",
+                "TACTIC-02"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "positionId": "position1"
+            },
+            {
+              "actorId": "charlie",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "USABLE_RANGE_PATH_OR_ACTION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              },
+              "bravo": {
+                "binding": "controller2:pawn2:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "bravo",
+                  "action": "REPOSITION",
+                  "reason": "REACH_USEFUL_WEAPON_RANGE",
+                  "evidence": [
+                    "MOVE-01",
+                    "TACTIC-02"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "positionId": "position1"
+                }
+              },
+              "charlie": {
+                "binding": "controller3:pawn3:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "charlie",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "USABLE_RANGE_PATH_OR_ACTION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T45",
+      "purpose": "A large threat change can justify a new target",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy2"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy2"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T46",
+      "purpose": "Unknown tactical values remain unknown",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INCOMPLETE_TACTICAL_OBSERVATION",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INCOMPLETE_TACTICAL_OBSERVATION"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "DEFER",
+                  "reason": "INCOMPLETE_TACTICAL_OBSERVATION",
+                  "evidence": [
+                    "CONTROL-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "INCOMPLETE_TACTICAL_OBSERVATION"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "T47",
+      "purpose": "Unknown snapshot structure fails closed",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INVALID_SNAPSHOT",
+              "evidence": [
+                "CONTROL-01"
+              ],
+              "unmetPrerequisites": [
+                "INVALID_SNAPSHOT"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": -1,
+            "observedAtMs": -1,
+            "nowMs": -1,
+            "actors": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "T48",
+      "purpose": "Mission replacement does not inherit target hysteresis",
+      "status": "PASS",
+      "traces": [
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+              "evidence": [
+                "COMBAT-01",
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [],
+              "dispatchable": false,
+              "targetId": "enemy1"
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission1",
+            "sequence": 1,
+            "observedAtMs": 1000,
+            "nowMs": 1000,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "FOCUS",
+                  "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY",
+                  "evidence": [
+                    "COMBAT-01",
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [],
+                  "dispatchable": false,
+                  "targetId": "enemy1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "classification": "MOCK_ONLY",
+          "policyVersion": "1.0.0",
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "NO_VERIFIED_BETTER_ACTION",
+              "evidence": [
+                "TACTIC-01"
+              ],
+              "unmetPrerequisites": [
+                "FRESH_KNOWN_HOSTILE_TARGET"
+              ],
+              "dispatchable": false
+            }
+          ],
+          "state": {
+            "schemaVersion": 1,
+            "policyVersion": "1.0.0",
+            "session": "mission2",
+            "sequence": 2,
+            "observedAtMs": 1200,
+            "nowMs": 1200,
+            "actors": {
+              "alpha": {
+                "binding": "controller1:pawn1:1",
+                "controlValid": true,
+                "manualRevision": 0,
+                "heldHumanOrder": null,
+                "recommendation": {
+                  "actorId": "alpha",
+                  "action": "MAINTAIN",
+                  "reason": "NO_VERIFIED_BETTER_ACTION",
+                  "evidence": [
+                    "TACTIC-01"
+                  ],
+                  "unmetPrerequisites": [
+                    "FRESH_KNOWN_HOSTILE_TARGET"
+                  ],
+                  "dispatchable": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "name": "Hidden target facts cannot alter a valid recommendation",
+      "status": "PASS"
+    },
+    {
+      "name": "Input array order does not change coordinated decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "Malformed top-level input never dispatches",
+      "status": "PASS"
+    }
+  ]
+}

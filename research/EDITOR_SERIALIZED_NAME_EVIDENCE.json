@@ -1,0 +1,2461 @@
+{
+  "observed_at": "2026-09-20T18:48:15.9582231-04:00",
+  "editor_version": "1.1.390.0e",
+  "evidence": "OBSERVED_SERIALIZED_ASCII_FRAGMENTS",
+  "method": "Read eight named uncooked Blueprint assets as bytes; preserve byte offsets of matching printable ASCII runs; no execution or asset mutation",
+  "limits": [
+    "Not a UAsset parser or graph export; no connections or signatures reconstructed",
+    "Presence may be an import, name, generated symbol, pin label or unused reference",
+    "Blueprint class/function authority, runtime binding and shipping behavior remain unverified"
+  ],
+  "assets": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_FormOnMeLogic.uasset",
+      "relative_content_path": "UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_FormOnMeLogic.uasset",
+      "bytes": 61619,
+      "sha256": "F62EFBE25BE7426ABFC03817219E12392D852CC13DA78C2E8815BF6C3EDB25F2",
+      "fragments": [
+        {
+          "byte_offset": 446,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder"
+        },
+        {
+          "byte_offset": 676,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 753,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 829,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_FormOnMeLogic.Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 1949,
+          "text": "CallFunc_GetLocalController_ReturnValue"
+        },
+        {
+          "byte_offset": 1997,
+          "text": "CallFunc_GetSquadCommandOrderContext_ReturnValue"
+        },
+        {
+          "byte_offset": 2256,
+          "text": "Controller"
+        },
+        {
+          "byte_offset": 2291,
+          "text": "Default__Dpad_BaseLanceOrder_C"
+        },
+        {
+          "byte_offset": 2330,
+          "text": "Default__Dpad_FormOnMeLogic_C"
+        },
+        {
+          "byte_offset": 2546,
+          "text": "Dpad_BaseLanceOrder_C"
+        },
+        {
+          "byte_offset": 2576,
+          "text": "Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 2603,
+          "text": "Dpad_FormOnMeLogic_C"
+        },
+        {
+          "byte_offset": 3054,
+          "text": "FollowOrder_C"
+        },
+        {
+          "byte_offset": 3186,
+          "text": "GetLocalController"
+        },
+        {
+          "byte_offset": 3213,
+          "text": "GetSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 3497,
+          "text": "IssuerPawn"
+        },
+        {
+          "byte_offset": 3693,
+          "text": "K2Node_MakeStruct_MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 3825,
+          "text": "L LocalController"
+        },
+        {
+          "byte_offset": 4233,
+          "text": "MWPlayerController"
+        },
+        {
+          "byte_offset": 4260,
+          "text": "MWSquadCommandOrder"
+        },
+        {
+          "byte_offset": 4288,
+          "text": "MWSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 4323,
+          "text": "MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 4653,
+          "text": "OrderClass"
+        },
+        {
+          "byte_offset": 4672,
+          "text": "OrderContext"
+        },
+        {
+          "byte_offset": 4693,
+          "text": "OrderRecipients"
+        },
+        {
+          "byte_offset": 4851,
+          "text": "PostSquadOrderClass"
+        },
+        {
+          "byte_offset": 5331,
+          "text": "SquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 10822,
+          "text": "Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 10861,
+          "text": "Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 11013,
+          "text": "Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 11055,
+          "text": "BlueprintGeneratedClass'/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_FormOnMeLogic.Dpad_FormOnMeLogic_C'"
+        },
+        {
+          "byte_offset": 11189,
+          "text": "BlueprintGeneratedClass'/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder.Dpad_BaseLanceOrder_C'"
+        },
+        {
+          "byte_offset": 40621,
+          "text": "L Local Controller"
+        },
+        {
+          "byte_offset": 41005,
+          "text": "ORDER RECIPIENTS"
+        },
+        {
+          "byte_offset": 44605,
+          "text": "ORDER RECIPIENTS"
+        },
+        {
+          "byte_offset": 48895,
+          "text": "L Local Controller"
+        },
+        {
+          "byte_offset": 51484,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 51577,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 52719,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 52809,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 53622,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 53912,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 53933,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 53969,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 54812,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 54830,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 54844,
+          "text": "MWSquad Command Order Context Structure"
+        },
+        {
+          "byte_offset": 54885,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 54969,
+          "text": "(IssuerPawn=None,TargetActor=None,TargetLocation=(X=340282346638528859811704183484516925440.000000,Y=340282346638528859811704183484516925440.000000,Z=340282346638528859811704183484516925440.000000))"
+        },
+        {
+          "byte_offset": 55172,
+          "text": "(IssuerPawn=None,TargetActor=None,TargetLocation=(X=340282346638528859811704183484516925440.000000,Y=340282346638528859811704183484516925440.000000,Z=340282346638528859811704183484516925440.000000))"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_BaseLanceOrder.uasset",
+      "relative_content_path": "UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_BaseLanceOrder.uasset",
+      "bytes": 62889,
+      "sha256": "E9D488E4FF162F0CBD95A104EC8B7B11D90FA494E2FEEA786AC0D50C7B38B1E6",
+      "fragments": [
+        {
+          "byte_offset": 592,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 669,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder.Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 1771,
+          "text": "CallFunc_GetLocalController_ReturnValue"
+        },
+        {
+          "byte_offset": 1819,
+          "text": "CallFunc_GetSquadCommandOrderContext_ReturnValue"
+        },
+        {
+          "byte_offset": 2100,
+          "text": "Controller"
+        },
+        {
+          "byte_offset": 2205,
+          "text": "Default__Dpad_BaseLanceOrder_C"
+        },
+        {
+          "byte_offset": 2467,
+          "text": "Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 2495,
+          "text": "Dpad_BaseLanceOrder_C"
+        },
+        {
+          "byte_offset": 3039,
+          "text": "GetLocalController"
+        },
+        {
+          "byte_offset": 3066,
+          "text": "GetSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 3322,
+          "text": "IssuerPawn"
+        },
+        {
+          "byte_offset": 3518,
+          "text": "K2Node_MakeStruct_MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 3650,
+          "text": "L LocalController"
+        },
+        {
+          "byte_offset": 4076,
+          "text": "MWPlayerController"
+        },
+        {
+          "byte_offset": 4103,
+          "text": "MWSquadCommandOrder"
+        },
+        {
+          "byte_offset": 4131,
+          "text": "MWSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 4166,
+          "text": "MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 4530,
+          "text": "OrderClass"
+        },
+        {
+          "byte_offset": 4549,
+          "text": "OrderContext"
+        },
+        {
+          "byte_offset": 4570,
+          "text": "OrderRecipients"
+        },
+        {
+          "byte_offset": 4728,
+          "text": "PostSquadOrderClass"
+        },
+        {
+          "byte_offset": 5208,
+          "text": "SquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 10761,
+          "text": "Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 10801,
+          "text": "Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 10954,
+          "text": "Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 10997,
+          "text": "BlueprintGeneratedClass'/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder.Dpad_BaseLanceOrder_C'"
+        },
+        {
+          "byte_offset": 39171,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 39805,
+          "text": "Order Class"
+        },
+        {
+          "byte_offset": 41169,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 41341,
+          "text": "Order Class"
+        },
+        {
+          "byte_offset": 41982,
+          "text": "L Local Controller"
+        },
+        {
+          "byte_offset": 42366,
+          "text": "ORDER RECIPIENTS"
+        },
+        {
+          "byte_offset": 45908,
+          "text": "ORDER RECIPIENTS"
+        },
+        {
+          "byte_offset": 50198,
+          "text": "L Local Controller"
+        },
+        {
+          "byte_offset": 52758,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 52851,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 53993,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 54083,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 54896,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 55186,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 55207,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 55243,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 56086,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 56104,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 56118,
+          "text": "MWSquad Command Order Context Structure"
+        },
+        {
+          "byte_offset": 56159,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 56243,
+          "text": "(IssuerPawn=None,TargetActor=None,TargetLocation=(X=340282346638528859811704183484516925440.000000,Y=340282346638528859811704183484516925440.000000,Z=340282346638528859811704183484516925440.000000))"
+        },
+        {
+          "byte_offset": 56446,
+          "text": "(IssuerPawn=None,TargetActor=None,TargetLocation=(X=340282346638528859811704183484516925440.000000,Y=340282346638528859811704183484516925440.000000,Z=340282346638528859811704183484516925440.000000))"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_LanceOrderDispatcher.uasset",
+      "relative_content_path": "UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_LanceOrderDispatcher.uasset",
+      "bytes": 438860,
+      "sha256": "DB261C72B7B66C88A9C35AE9234E9A93C9346C3F074DBD7710722C2AD28870CE",
+      "fragments": [
+        {
+          "byte_offset": 446,
+          "text": "/Game/UI/Mech/Components/LanceStatus/LanceStatusWidget"
+        },
+        {
+          "byte_offset": 699,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_AttackTargetLogic"
+        },
+        {
+          "byte_offset": 779,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder"
+        },
+        {
+          "byte_offset": 856,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_FormOnMeLogic"
+        },
+        {
+          "byte_offset": 932,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 1015,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_LanceOrderDispatcher.Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 1124,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_MoveToLogic"
+        },
+        {
+          "byte_offset": 1198,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_ToggleHoldFireLogic"
+        },
+        {
+          "byte_offset": 1280,
+          "text": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_ToggleLanceECMLogic"
+        },
+        {
+          "byte_offset": 1362,
+          "text": "/Game/UI/Textures/Action_Panel/HUDIcons_LanceMate-1"
+        },
+        {
+          "byte_offset": 1422,
+          "text": "/Game/UI/Textures/Action_Panel/HUDIcons_LanceMate-2"
+        },
+        {
+          "byte_offset": 1482,
+          "text": "/Game/UI/Textures/Action_Panel/HUDIcons_LanceMate-3"
+        },
+        {
+          "byte_offset": 2173,
+          "text": "AsDpad Base Lance Order"
+        },
+        {
+          "byte_offset": 2205,
+          "text": "AsDpad Lance Order Dispatcher"
+        },
+        {
+          "byte_offset": 2388,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 3308,
+          "text": "CallFunc_BindToSquadMemberDisplayObject_bSuccess"
+        },
+        {
+          "byte_offset": 3464,
+          "text": "CallFunc_CreateCommandForSlot_Lance_Order"
+        },
+        {
+          "byte_offset": 3514,
+          "text": "CallFunc_CreateDpadLanceOrder_Lance_Order"
+        },
+        {
+          "byte_offset": 3845,
+          "text": "CallFunc_GetLocalController_ReturnValue"
+        },
+        {
+          "byte_offset": 4532,
+          "text": "Controller"
+        },
+        {
+          "byte_offset": 4669,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 4917,
+          "text": "Default__Dpad_LanceOrderDispatcher_C"
+        },
+        {
+          "byte_offset": 5260,
+          "text": "DispatchOrders"
+        },
+        {
+          "byte_offset": 5283,
+          "text": "DispatchOrders_DLC"
+        },
+        {
+          "byte_offset": 5310,
+          "text": "DispatchOrders_NoDLC"
+        },
+        {
+          "byte_offset": 5553,
+          "text": "Dpad_BaseLanceOrder_C"
+        },
+        {
+          "byte_offset": 5583,
+          "text": "Dpad_FormOnMeLogic_C"
+        },
+        {
+          "byte_offset": 5639,
+          "text": "Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 5673,
+          "text": "Dpad_LanceOrderDispatcher_C"
+        },
+        {
+          "byte_offset": 5791,
+          "text": "Dpad_ToggleLanceECMLogic_C"
+        },
+        {
+          "byte_offset": 6281,
+          "text": "ExecuteUbergraph_Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 6391,
+          "text": "FetchSquadInfo"
+        },
+        {
+          "byte_offset": 6684,
+          "text": "GetLocalController"
+        },
+        {
+          "byte_offset": 6839,
+          "text": "HUDIcons_LanceMate-1"
+        },
+        {
+          "byte_offset": 6868,
+          "text": "HUDIcons_LanceMate-2"
+        },
+        {
+          "byte_offset": 6897,
+          "text": "HUDIcons_LanceMate-3"
+        },
+        {
+          "byte_offset": 7447,
+          "text": "K2Node_DynamicCast_AsDpad_Base_Lance_Order"
+        },
+        {
+          "byte_offset": 7498,
+          "text": "K2Node_DynamicCast_AsDpad_Lance_Order_Dispatcher"
+        },
+        {
+          "byte_offset": 8203,
+          "text": "L Lance Order Layout"
+        },
+        {
+          "byte_offset": 8232,
+          "text": "L LanceOrder"
+        },
+        {
+          "byte_offset": 8274,
+          "text": "L OtherSquadMates"
+        },
+        {
+          "byte_offset": 8300,
+          "text": "Lance Order"
+        },
+        {
+          "byte_offset": 8320,
+          "text": "LanceIndex"
+        },
+        {
+          "byte_offset": 8339,
+          "text": "LanceMemberDisplayInfo"
+        },
+        {
+          "byte_offset": 8370,
+          "text": "LanceOrderLogic"
+        },
+        {
+          "byte_offset": 8394,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 8420,
+          "text": "LanceStatusWidget_C"
+        },
+        {
+          "byte_offset": 9023,
+          "text": "MWPlayerController"
+        },
+        {
+          "byte_offset": 9072,
+          "text": "MWSquadDisplayInfo"
+        },
+        {
+          "byte_offset": 9099,
+          "text": "MWSquadMemberDisplayInfo"
+        },
+        {
+          "byte_offset": 9644,
+          "text": "OrderRecipients"
+        },
+        {
+          "byte_offset": 10493,
+          "text": "SquadDisplayInfo"
+        },
+        {
+          "byte_offset": 10518,
+          "text": "SquadMemberId"
+        },
+        {
+          "byte_offset": 41806,
+          "text": "Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 41852,
+          "text": "Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 42011,
+          "text": "Dpad_LanceOrderDispatcher"
+        },
+        {
+          "byte_offset": 42060,
+          "text": "BlueprintGeneratedClass'/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_LanceOrderDispatcher.Dpad_LanceOrderDispatcher_C'"
+        },
+        {
+          "byte_offset": 230795,
+          "text": "Lance Index"
+        },
+        {
+          "byte_offset": 231436,
+          "text": "Lance Status Widget"
+        },
+        {
+          "byte_offset": 232073,
+          "text": "Lance Member Display Info"
+        },
+        {
+          "byte_offset": 232716,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 233350,
+          "text": "Dispatch Orders"
+        },
+        {
+          "byte_offset": 234617,
+          "text": "Dispatch Orders DLC"
+        },
+        {
+          "byte_offset": 235254,
+          "text": "Dispatch Orders No DLC"
+        },
+        {
+          "byte_offset": 236229,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 236571,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 237913,
+          "text": "Lance Index"
+        },
+        {
+          "byte_offset": 238028,
+          "text": "Lance Status Widget"
+        },
+        {
+          "byte_offset": 238156,
+          "text": "Lance Member Display Info"
+        },
+        {
+          "byte_offset": 238290,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 238462,
+          "text": "Dispatch Orders"
+        },
+        {
+          "byte_offset": 238749,
+          "text": "Dispatch Orders DLC"
+        },
+        {
+          "byte_offset": 238932,
+          "text": "Dispatch Orders No DLC"
+        },
+        {
+          "byte_offset": 241852,
+          "text": "L Lance Order Layout"
+        },
+        {
+          "byte_offset": 242919,
+          "text": "L Other Squad Mates"
+        },
+        {
+          "byte_offset": 249801,
+          "text": "L Lance Order"
+        },
+        {
+          "byte_offset": 320990,
+          "text": "L Lance Order Layout"
+        },
+        {
+          "byte_offset": 322734,
+          "text": "L Other Squad Mates"
+        },
+        {
+          "byte_offset": 326093,
+          "text": "L Lance Order"
+        },
+        {
+          "byte_offset": 375638,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 376463,
+          "text": "Squad Member Id"
+        },
+        {
+          "byte_offset": 378455,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 379345,
+          "text": "Squad Member Id"
+        },
+        {
+          "byte_offset": 382037,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 383728,
+          "text": "Controller:PlayerState"
+        },
+        {
+          "byte_offset": 384238,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 384804,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 386123,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 395802,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 396319,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 397529,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 398085,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 398641,
+          "text": "CreateDpadLanceOrder"
+        },
+        {
+          "byte_offset": 410889,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 412167,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 414857,
+          "text": "BindToSquadMemberDisplayObject"
+        },
+        {
+          "byte_offset": 420237,
+          "text": "CreateDpadLanceOrder"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\FollowOrder.uasset",
+      "relative_content_path": "Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\FollowOrder.uasset",
+      "bytes": 17308,
+      "sha256": "682F83F7D2EA606C56BE6935A4397774622602DAFB848C0FCDFD9DE083A6D932",
+      "fragments": [
+        {
+          "byte_offset": 386,
+          "text": "/Game/AI/Jobs/Ally_FollowJob"
+        },
+        {
+          "byte_offset": 423,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder"
+        },
+        {
+          "byte_offset": 507,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder.FollowOrder"
+        },
+        {
+          "byte_offset": 603,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase"
+        },
+        {
+          "byte_offset": 825,
+          "text": "Ally_FollowJob_C"
+        },
+        {
+          "byte_offset": 1210,
+          "text": "Default__FollowOrder_C"
+        },
+        {
+          "byte_offset": 1241,
+          "text": "Default__SquadOrderBase_C"
+        },
+        {
+          "byte_offset": 1510,
+          "text": "ExecuteOrder"
+        },
+        {
+          "byte_offset": 1531,
+          "text": "ExecuteUbergraph_FollowOrder"
+        },
+        {
+          "byte_offset": 1590,
+          "text": "FollowOrder"
+        },
+        {
+          "byte_offset": 1610,
+          "text": "FollowOrder_C"
+        },
+        {
+          "byte_offset": 1749,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 1852,
+          "text": "K2Node_Event_OrderInfo"
+        },
+        {
+          "byte_offset": 1883,
+          "text": "K2Node_Event_Squad"
+        },
+        {
+          "byte_offset": 2079,
+          "text": "MWSquad"
+        },
+        {
+          "byte_offset": 2095,
+          "text": "MWSquadCommandOrder"
+        },
+        {
+          "byte_offset": 2123,
+          "text": "MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 2307,
+          "text": "OrderInfo"
+        },
+        {
+          "byte_offset": 2325,
+          "text": "OrderJob"
+        },
+        {
+          "byte_offset": 2676,
+          "text": "SquadOrderBase_C"
+        },
+        {
+          "byte_offset": 4809,
+          "text": "FollowOrder"
+        },
+        {
+          "byte_offset": 4833,
+          "text": "FollowOrder"
+        },
+        {
+          "byte_offset": 4951,
+          "text": "FollowOrder"
+        },
+        {
+          "byte_offset": 4986,
+          "text": "BlueprintGeneratedClass'/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder.FollowOrder_C'"
+        },
+        {
+          "byte_offset": 5121,
+          "text": "BlueprintGeneratedClass'/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase.SquadOrderBase_C'"
+        },
+        {
+          "byte_offset": 5268,
+          "text": "Class'/Script/MechWarrior.MWSquadCommandOrder'"
+        },
+        {
+          "byte_offset": 16382,
+          "text": "MWSquad Object Reference"
+        },
+        {
+          "byte_offset": 16615,
+          "text": "Order Info"
+        },
+        {
+          "byte_offset": 16626,
+          "text": "MWSquad Command Order Info Structure (by ref)"
+        },
+        {
+          "byte_offset": 17122,
+          "text": "Public/Gameplay/MWSquadCommandOrder.h"
+        },
+        {
+          "byte_offset": 17205,
+          "text": "Public/Gameplay/MWSquadCommandOrder.h"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\SquadOrderBase.uasset",
+      "relative_content_path": "Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\SquadOrderBase.uasset",
+      "bytes": 212408,
+      "sha256": "F9D840728B40CD70DC5C145FE7FABA40D197E60EC48F9EA46E4500CD3CEE531F",
+      "fragments": [
+        {
+          "byte_offset": 542,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase"
+        },
+        {
+          "byte_offset": 629,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase.SquadOrderBase"
+        },
+        {
+          "byte_offset": 959,
+          "text": "AILanceIndex"
+        },
+        {
+          "byte_offset": 1135,
+          "text": "AsMWAIController"
+        },
+        {
+          "byte_offset": 1312,
+          "text": "bIsLanceCommand"
+        },
+        {
+          "byte_offset": 2237,
+          "text": "CallFunc_GetMembersForOrder_ReturnValue"
+        },
+        {
+          "byte_offset": 2417,
+          "text": "CallFunc_InitializeFromSquadCommandOrderInfo_ReturnValue"
+        },
+        {
+          "byte_offset": 2561,
+          "text": "CallFunc_K2_GetPawn_ReturnValue"
+        },
+        {
+          "byte_offset": 2722,
+          "text": "CallFunc_SpawnObject_ReturnValue"
+        },
+        {
+          "byte_offset": 2971,
+          "text": "Controller"
+        },
+        {
+          "byte_offset": 3098,
+          "text": "Default__MWSquadCommandOrder"
+        },
+        {
+          "byte_offset": 3135,
+          "text": "Default__SquadOrderBase_C"
+        },
+        {
+          "byte_offset": 4027,
+          "text": "GetMembersForOrder"
+        },
+        {
+          "byte_offset": 4230,
+          "text": "InAIController"
+        },
+        {
+          "byte_offset": 4267,
+          "text": "InitializeFromSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 4463,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 4482,
+          "text": "IssuerPawn"
+        },
+        {
+          "byte_offset": 4607,
+          "text": "K2_GetPawn"
+        },
+        {
+          "byte_offset": 4741,
+          "text": "K2Node_DynamicCast_AsMWAIController"
+        },
+        {
+          "byte_offset": 5837,
+          "text": "MWAIController"
+        },
+        {
+          "byte_offset": 6027,
+          "text": "MWSquad"
+        },
+        {
+          "byte_offset": 6043,
+          "text": "MWSquadCommandOrder"
+        },
+        {
+          "byte_offset": 6071,
+          "text": "MWSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 6106,
+          "text": "MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 6406,
+          "text": "OrderContext"
+        },
+        {
+          "byte_offset": 6427,
+          "text": "OrderInfo"
+        },
+        {
+          "byte_offset": 6445,
+          "text": "OrderInstigator"
+        },
+        {
+          "byte_offset": 6469,
+          "text": "OrderJob"
+        },
+        {
+          "byte_offset": 6486,
+          "text": "OrderRecipients"
+        },
+        {
+          "byte_offset": 6934,
+          "text": "RequiredPawns"
+        },
+        {
+          "byte_offset": 7274,
+          "text": "SpawnObject"
+        },
+        {
+          "byte_offset": 7308,
+          "text": "SquadOrderBase"
+        },
+        {
+          "byte_offset": 7331,
+          "text": "SquadOrderBase_C"
+        },
+        {
+          "byte_offset": 7379,
+          "text": "StopIssuedOrder"
+        },
+        {
+          "byte_offset": 22037,
+          "text": "SquadOrderBase"
+        },
+        {
+          "byte_offset": 22064,
+          "text": "SquadOrderBase"
+        },
+        {
+          "byte_offset": 22185,
+          "text": "SquadOrderBase"
+        },
+        {
+          "byte_offset": 22223,
+          "text": "BlueprintGeneratedClass'/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase.SquadOrderBase_C'"
+        },
+        {
+          "byte_offset": 22364,
+          "text": "Class'/Script/MechWarrior.MWSquadCommandOrder'"
+        },
+        {
+          "byte_offset": 22437,
+          "text": "Class'/Script/MechWarrior.MWSquadCommandOrder'"
+        },
+        {
+          "byte_offset": 104403,
+          "text": "Required Pawns"
+        },
+        {
+          "byte_offset": 104560,
+          "text": "AILance Index"
+        },
+        {
+          "byte_offset": 114628,
+          "text": "StopIssuedOrder"
+        },
+        {
+          "byte_offset": 114799,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 116551,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 116643,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 117783,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 117872,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 118680,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 118989,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 119010,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 119046,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 119896,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 119914,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 119928,
+          "text": "MWSquad Command Order Context Structure"
+        },
+        {
+          "byte_offset": 119969,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 126968,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 157328,
+          "text": "AILance Index"
+        },
+        {
+          "byte_offset": 157880,
+          "text": "Required Pawns"
+        },
+        {
+          "byte_offset": 199916,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 205803,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 206345,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 206887,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 207429,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 207971,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 208537,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 209079,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 209621,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 210163,
+          "text": "IssueOrder"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadCommandComponent.uasset",
+      "relative_content_path": "Modes\\MissionDirectorSystem\\MissionComponents\\SquadCommandComponent.uasset",
+      "bytes": 223182,
+      "sha256": "8CE40EA42BEA475B0A2291CB3CC0399E9302F716F8868D7EC8B4ACCA57E0E54B",
+      "fragments": [
+        {
+          "byte_offset": 590,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadCommandComponent"
+        },
+        {
+          "byte_offset": 672,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadCommandComponent.SquadCommandComponent"
+        },
+        {
+          "byte_offset": 776,
+          "text": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder"
+        },
+        {
+          "byte_offset": 1165,
+          "text": "AIController"
+        },
+        {
+          "byte_offset": 1186,
+          "text": "AILanceIndex"
+        },
+        {
+          "byte_offset": 1362,
+          "text": "AsMWAIController"
+        },
+        {
+          "byte_offset": 1539,
+          "text": "bIsLanceCommand"
+        },
+        {
+          "byte_offset": 1854,
+          "text": "BlueprintSpawnableComponent"
+        },
+        {
+          "byte_offset": 2569,
+          "text": "CallFunc_GetMembersForOrder_ReturnValue"
+        },
+        {
+          "byte_offset": 2664,
+          "text": "CallFunc_GetSquad_ReturnValue"
+        },
+        {
+          "byte_offset": 2839,
+          "text": "CallFunc_InitializeFromSquadCommandOrderInfo_ReturnValue"
+        },
+        {
+          "byte_offset": 2983,
+          "text": "CallFunc_K2_GetPawn_ReturnValue"
+        },
+        {
+          "byte_offset": 3144,
+          "text": "CallFunc_SpawnObject_ReturnValue"
+        },
+        {
+          "byte_offset": 3483,
+          "text": "Controller"
+        },
+        {
+          "byte_offset": 3665,
+          "text": "Default__MWSquadCommandComponent"
+        },
+        {
+          "byte_offset": 3706,
+          "text": "Default__SquadCommandComponent_C"
+        },
+        {
+          "byte_offset": 3804,
+          "text": "DefaultOrderClass"
+        },
+        {
+          "byte_offset": 4491,
+          "text": "FollowOrder_C"
+        },
+        {
+          "byte_offset": 4735,
+          "text": "GetMembersForOrder"
+        },
+        {
+          "byte_offset": 4818,
+          "text": "GetSquad"
+        },
+        {
+          "byte_offset": 5007,
+          "text": "InitializeFromSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 5203,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 5222,
+          "text": "IssuerPawn"
+        },
+        {
+          "byte_offset": 5347,
+          "text": "K2_GetPawn"
+        },
+        {
+          "byte_offset": 5481,
+          "text": "K2Node_DynamicCast_AsMWAIController"
+        },
+        {
+          "byte_offset": 6637,
+          "text": "MWAIController"
+        },
+        {
+          "byte_offset": 6852,
+          "text": "MWSquad"
+        },
+        {
+          "byte_offset": 6868,
+          "text": "MWSquad Command Component"
+        },
+        {
+          "byte_offset": 6902,
+          "text": "MWSquadCommandComponent"
+        },
+        {
+          "byte_offset": 6934,
+          "text": "MWSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 6969,
+          "text": "MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 7295,
+          "text": "OrderContext"
+        },
+        {
+          "byte_offset": 7316,
+          "text": "OrderInfo"
+        },
+        {
+          "byte_offset": 7334,
+          "text": "OrderInstigator"
+        },
+        {
+          "byte_offset": 7358,
+          "text": "OrderJob"
+        },
+        {
+          "byte_offset": 7375,
+          "text": "OrderRecipients"
+        },
+        {
+          "byte_offset": 7925,
+          "text": "RequiredPawns"
+        },
+        {
+          "byte_offset": 8265,
+          "text": "SpawnObject"
+        },
+        {
+          "byte_offset": 8285,
+          "text": "SquadCommandComponent"
+        },
+        {
+          "byte_offset": 8315,
+          "text": "SquadCommandComponent_C"
+        },
+        {
+          "byte_offset": 8370,
+          "text": "StopIssuedOrder"
+        },
+        {
+          "byte_offset": 25129,
+          "text": "SquadCommandComponent"
+        },
+        {
+          "byte_offset": 25171,
+          "text": "SquadCommandComponent"
+        },
+        {
+          "byte_offset": 25326,
+          "text": "SquadCommandComponent"
+        },
+        {
+          "byte_offset": 25371,
+          "text": "BlueprintGeneratedClass'/Game/Modes/MissionDirectorSystem/MissionComponents/SquadCommandComponent.SquadCommandComponent_C'"
+        },
+        {
+          "byte_offset": 25514,
+          "text": "Class'/Script/MechWarrior.MWSquadCommandComponent'"
+        },
+        {
+          "byte_offset": 25591,
+          "text": "Class'/Script/MechWarrior.MWSquadCommandComponent'"
+        },
+        {
+          "byte_offset": 110120,
+          "text": "StopIssuedOrder"
+        },
+        {
+          "byte_offset": 110291,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 112359,
+          "text": "Required Pawns"
+        },
+        {
+          "byte_offset": 112516,
+          "text": "AILance Index"
+        },
+        {
+          "byte_offset": 122799,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 122892,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 124034,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 124124,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 124937,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 125251,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 125272,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 125308,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 126173,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 126191,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 126205,
+          "text": "MWSquad Command Order Context Structure"
+        },
+        {
+          "byte_offset": 126246,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 133271,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 166415,
+          "text": "AILance Index"
+        },
+        {
+          "byte_offset": 166971,
+          "text": "Required Pawns"
+        },
+        {
+          "byte_offset": 210875,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 216840,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 217386,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 217932,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 218502,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 219048,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 219594,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 220140,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 221462,
+          "text": "IssueOrder"
+        },
+        {
+          "byte_offset": 222008,
+          "text": "IssueOrder"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\LanceStatusWidget.uasset",
+      "relative_content_path": "UI\\Mech\\Components\\LanceStatus\\LanceStatusWidget.uasset",
+      "bytes": 1103004,
+      "sha256": "8C481418738BDEF9DA3ADFD3E1A2EAC1A046456B54C698D5D5B941407A7594B0",
+      "fragments": [
+        {
+          "byte_offset": 487,
+          "text": "/Game/Objects/_common/FollowSpectatingPawn"
+        },
+        {
+          "byte_offset": 538,
+          "text": "/Game/UI/Mech/Components/LanceStatus/LanceMemberWidget"
+        },
+        {
+          "byte_offset": 601,
+          "text": "/Game/UI/Mech/Components/LanceStatus/LanceOrderWidget"
+        },
+        {
+          "byte_offset": 663,
+          "text": "/Game/UI/Mech/Components/LanceStatus/LanceOrderWindow"
+        },
+        {
+          "byte_offset": 725,
+          "text": "/Game/UI/Mech/Components/LanceStatus/LanceStatusWidget"
+        },
+        {
+          "byte_offset": 788,
+          "text": "/Game/UI/Mech/Components/LanceStatus/LanceStatusWidget.LanceStatusWidget"
+        },
+        {
+          "byte_offset": 869,
+          "text": "/Game/UI/Mech/Components/LanceStatus/OrderAllWidget"
+        },
+        {
+          "byte_offset": 1362,
+          "text": "AddLanceMemberWidget"
+        },
+        {
+          "byte_offset": 1465,
+          "text": "AllyCanReceiveOrders"
+        },
+        {
+          "byte_offset": 1604,
+          "text": "AnySquadMemberAlive"
+        },
+        {
+          "byte_offset": 1632,
+          "text": "AnySquadMemberHasECM"
+        },
+        {
+          "byte_offset": 1854,
+          "text": "AsFollow Spectating Pawn"
+        },
+        {
+          "byte_offset": 1887,
+          "text": "AsLance Member Widget"
+        },
+        {
+          "byte_offset": 1917,
+          "text": "AsLance Order Widget"
+        },
+        {
+          "byte_offset": 1946,
+          "text": "AsLance Order Window"
+        },
+        {
+          "byte_offset": 2033,
+          "text": "bAscendingOrder"
+        },
+        {
+          "byte_offset": 2321,
+          "text": "bHasBotLancemates"
+        },
+        {
+          "byte_offset": 2485,
+          "text": "BindControllerChangedListeners"
+        },
+        {
+          "byte_offset": 2684,
+          "text": "bIsOrderWindowOpen"
+        },
+        {
+          "byte_offset": 3250,
+          "text": "BndEvt__LanceStatusWidget_OrderAllWidget_K2Node_ComponentBoundEvent_0_OnInputTypeChanged__DelegateSignature"
+        },
+        {
+          "byte_offset": 3976,
+          "text": "CallFunc_AllyCanReceiveOrders_bSuccess"
+        },
+        {
+          "byte_offset": 4023,
+          "text": "CallFunc_AnySquadMemberAlive_bSuccess"
+        },
+        {
+          "byte_offset": 4261,
+          "text": "CallFunc_CanOrderMechs_CanOrder"
+        },
+        {
+          "byte_offset": 4632,
+          "text": "CallFunc_GetController_ReturnValue"
+        },
+        {
+          "byte_offset": 4810,
+          "text": "CallFunc_GetLanceMemberWidget_OutWidget"
+        },
+        {
+          "byte_offset": 4858,
+          "text": "CallFunc_GetLocalController_ReturnValue"
+        },
+        {
+          "byte_offset": 4949,
+          "text": "CallFunc_GetSquadCommandOrderContext_ReturnValue"
+        },
+        {
+          "byte_offset": 5050,
+          "text": "CallFunc_HasBotLancemates_bHasBotLancemates"
+        },
+        {
+          "byte_offset": 5341,
+          "text": "CallFunc_K2_GetPawn_ReturnValue"
+        },
+        {
+          "byte_offset": 5895,
+          "text": "CancelOrders"
+        },
+        {
+          "byte_offset": 5916,
+          "text": "CanOrder"
+        },
+        {
+          "byte_offset": 5933,
+          "text": "CanOrderMechs"
+        },
+        {
+          "byte_offset": 6191,
+          "text": "CloseOrderWindow"
+        },
+        {
+          "byte_offset": 6452,
+          "text": "Controller"
+        },
+        {
+          "byte_offset": 6471,
+          "text": "controller"
+        },
+        {
+          "byte_offset": 6745,
+          "text": "Default__LanceStatusWidget_C"
+        },
+        {
+          "byte_offset": 7428,
+          "text": "DispatchLance"
+        },
+        {
+          "byte_offset": 7450,
+          "text": "DispatchLanceMate"
+        },
+        {
+          "byte_offset": 7476,
+          "text": "DispatchLanceMate1"
+        },
+        {
+          "byte_offset": 7503,
+          "text": "DispatchLanceMate2"
+        },
+        {
+          "byte_offset": 7530,
+          "text": "DispatchLanceMate3"
+        },
+        {
+          "byte_offset": 7557,
+          "text": "DispatchLanceMate4"
+        },
+        {
+          "byte_offset": 7584,
+          "text": "DispatchOrder"
+        },
+        {
+          "byte_offset": 7606,
+          "text": "DispatchToLance"
+        },
+        {
+          "byte_offset": 9238,
+          "text": "ExecuteUbergraph_LanceStatusWidget"
+        },
+        {
+          "byte_offset": 9438,
+          "text": "FollowSpectatingPawn_C"
+        },
+        {
+          "byte_offset": 10005,
+          "text": "GetController"
+        },
+        {
+          "byte_offset": 10099,
+          "text": "GetLanceMemberWidget"
+        },
+        {
+          "byte_offset": 10128,
+          "text": "GetLocalController"
+        },
+        {
+          "byte_offset": 10177,
+          "text": "GetSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 10333,
+          "text": "HasBotLancemates"
+        },
+        {
+          "byte_offset": 10430,
+          "text": "IgnoreLance"
+        },
+        {
+          "byte_offset": 10732,
+          "text": "InputAction_CancelOrder"
+        },
+        {
+          "byte_offset": 10764,
+          "text": "InputAction_DispatchLance"
+        },
+        {
+          "byte_offset": 10798,
+          "text": "InputAction_DispatchLanceMate1"
+        },
+        {
+          "byte_offset": 10837,
+          "text": "InputAction_DispatchLanceMate2"
+        },
+        {
+          "byte_offset": 10876,
+          "text": "InputAction_DispatchLanceMate3"
+        },
+        {
+          "byte_offset": 11029,
+          "text": "InSquadSlot"
+        },
+        {
+          "byte_offset": 11379,
+          "text": "IssueOrderToRecipient"
+        },
+        {
+          "byte_offset": 11409,
+          "text": "IssuerPawn"
+        },
+        {
+          "byte_offset": 11461,
+          "text": "K2_GetPawn"
+        },
+        {
+          "byte_offset": 11928,
+          "text": "K2Node_CustomEvent_IgnoreLance"
+        },
+        {
+          "byte_offset": 12126,
+          "text": "K2Node_CustomEvent_SquadMemberDisplayInfo"
+        },
+        {
+          "byte_offset": 12203,
+          "text": "K2Node_DynamicCast_AsFollow_Spectating_Pawn"
+        },
+        {
+          "byte_offset": 12255,
+          "text": "K2Node_DynamicCast_AsLance_Order_Widget"
+        },
+        {
+          "byte_offset": 12303,
+          "text": "K2Node_DynamicCast_AsLance_Order_Window"
+        },
+        {
+          "byte_offset": 12770,
+          "text": "K2Node_MakeStruct_MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 13283,
+          "text": "Lance Status Widget"
+        },
+        {
+          "byte_offset": 13311,
+          "text": "LanceMemberIndex"
+        },
+        {
+          "byte_offset": 13336,
+          "text": "LanceMemberStack"
+        },
+        {
+          "byte_offset": 13361,
+          "text": "LanceMemberWidget"
+        },
+        {
+          "byte_offset": 13387,
+          "text": "LanceMemberWidget_C"
+        },
+        {
+          "byte_offset": 13415,
+          "text": "LanceMemberWidgets"
+        },
+        {
+          "byte_offset": 13442,
+          "text": "LanceOrderVerticalBox"
+        },
+        {
+          "byte_offset": 13472,
+          "text": "LanceOrderWidget_C"
+        },
+        {
+          "byte_offset": 13499,
+          "text": "LanceOrderWindow"
+        },
+        {
+          "byte_offset": 13524,
+          "text": "LanceOrderWindow_C"
+        },
+        {
+          "byte_offset": 13551,
+          "text": "LanceStatusPanel"
+        },
+        {
+          "byte_offset": 13576,
+          "text": "LanceStatusRetainerBox"
+        },
+        {
+          "byte_offset": 13607,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 13633,
+          "text": "LanceStatusWidget_C"
+        },
+        {
+          "byte_offset": 13798,
+          "text": "LegacySortOrder"
+        },
+        {
+          "byte_offset": 14822,
+          "text": "MovieScenePossessable"
+        },
+        {
+          "byte_offset": 15191,
+          "text": "MWPlayerController"
+        },
+        {
+          "byte_offset": 15240,
+          "text": "MWSquadCommandOrder"
+        },
+        {
+          "byte_offset": 15268,
+          "text": "MWSquadCommandOrderContext"
+        },
+        {
+          "byte_offset": 15303,
+          "text": "MWSquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 15335,
+          "text": "MWSquadDisplayInfo"
+        },
+        {
+          "byte_offset": 15362,
+          "text": "MWSquadMemberDisplayInfo"
+        },
+        {
+          "byte_offset": 15993,
+          "text": "OnControllerChanged"
+        },
+        {
+          "byte_offset": 16234,
+          "text": "OnLocalControllerChanged__DelegateSignature"
+        },
+        {
+          "byte_offset": 16286,
+          "text": "OnOrderIssued"
+        },
+        {
+          "byte_offset": 16308,
+          "text": "OnOrderIssued__DelegateSignature"
+        },
+        {
+          "byte_offset": 16433,
+          "text": "OnSquadDisplayInfoChanged__DelegateSignature"
+        },
+        {
+          "byte_offset": 16486,
+          "text": "OnSquadLeaderChanged"
+        },
+        {
+          "byte_offset": 16515,
+          "text": "OnSquadMemberPlayerStateChanged__DelegateSignature"
+        },
+        {
+          "byte_offset": 16574,
+          "text": "OnSquadMembersChanged"
+        },
+        {
+          "byte_offset": 16604,
+          "text": "OpenOrderWindow"
+        },
+        {
+          "byte_offset": 16708,
+          "text": "OrderAllWidget"
+        },
+        {
+          "byte_offset": 16731,
+          "text": "OrderAllWidget_C"
+        },
+        {
+          "byte_offset": 16756,
+          "text": "OrderContext"
+        },
+        {
+          "byte_offset": 16777,
+          "text": "OrderRecipients"
+        },
+        {
+          "byte_offset": 17386,
+          "text": "Possessables"
+        },
+        {
+          "byte_offset": 17407,
+          "text": "PossessedObjectClass"
+        },
+        {
+          "byte_offset": 17436,
+          "text": "PostSquadOrderClass"
+        },
+        {
+          "byte_offset": 18433,
+          "text": "SetOrderInfo"
+        },
+        {
+          "byte_offset": 18513,
+          "text": "SetupDispatchOrders"
+        },
+        {
+          "byte_offset": 18541,
+          "text": "SetupLanceMemberWidget"
+        },
+        {
+          "byte_offset": 18572,
+          "text": "SetupLanceStatus"
+        },
+        {
+          "byte_offset": 18793,
+          "text": "SortingOrder"
+        },
+        {
+          "byte_offset": 18834,
+          "text": "SortSquadMembers"
+        },
+        {
+          "byte_offset": 18859,
+          "text": "SpecifiedAllyCanReceiveOrders"
+        },
+        {
+          "byte_offset": 18897,
+          "text": "SquadCommandOrderInfo"
+        },
+        {
+          "byte_offset": 18927,
+          "text": "SquadDisplayInfo"
+        },
+        {
+          "byte_offset": 18952,
+          "text": "SquadMemberDead"
+        },
+        {
+          "byte_offset": 18976,
+          "text": "SquadMemberDisplayInfo"
+        },
+        {
+          "byte_offset": 19007,
+          "text": "SquadMemberId"
+        },
+        {
+          "byte_offset": 19029,
+          "text": "SquadMemberLookUp"
+        },
+        {
+          "byte_offset": 19055,
+          "text": "SquadMemberLookUp_Value"
+        },
+        {
+          "byte_offset": 19708,
+          "text": "TriggerOrder"
+        },
+        {
+          "byte_offset": 20033,
+          "text": "UpdateOrderAll"
+        },
+        {
+          "byte_offset": 106157,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 106195,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 106503,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 106544,
+          "text": "WidgetBlueprintGeneratedClass'/Game/UI/Mech/Components/LanceStatus/LanceStatusWidget.LanceStatusWidget_C'"
+        },
+        {
+          "byte_offset": 535718,
+          "text": "LanceStatusPanel"
+        },
+        {
+          "byte_offset": 536003,
+          "text": "LanceStatusPanel"
+        },
+        {
+          "byte_offset": 543166,
+          "text": "Order All"
+        },
+        {
+          "byte_offset": 543635,
+          "text": "Cancel Order Button"
+        },
+        {
+          "byte_offset": 543881,
+          "text": "Listen to Selected Order"
+        },
+        {
+          "byte_offset": 598216,
+          "text": "SquadMemberId"
+        },
+        {
+          "byte_offset": 659528,
+          "text": "Lance Order Window Object Reference"
+        },
+        {
+          "byte_offset": 703230,
+          "text": "Can Order"
+        },
+        {
+          "byte_offset": 724822,
+          "text": "MWPlayer Controller Object Reference"
+        },
+        {
+          "byte_offset": 725077,
+          "text": "MWSquad Command Order Class Reference"
+        },
+        {
+          "byte_offset": 725327,
+          "text": "Squad Command Order Info"
+        },
+        {
+          "byte_offset": 725352,
+          "text": "MWSquad Command Order Info Structure"
+        },
+        {
+          "byte_offset": 756383,
+          "text": "Has Bot Lancemates"
+        },
+        {
+          "byte_offset": 926314,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 926407,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 927549,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 927639,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 928452,
+          "text": "Controller Object Reference"
+        },
+        {
+          "byte_offset": 928742,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 928763,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 928799,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 929642,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 929660,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 929674,
+          "text": "MWSquad Command Order Context Structure"
+        },
+        {
+          "byte_offset": 929715,
+          "text": "Order Context"
+        },
+        {
+          "byte_offset": 929799,
+          "text": "(IssuerPawn=None,TargetActor=None,TargetLocation=(X=340282346638528859811704183484516925440.000000,Y=340282346638528859811704183484516925440.000000,Z=340282346638528859811704183484516925440.000000))"
+        },
+        {
+          "byte_offset": 930002,
+          "text": "(IssuerPawn=None,TargetActor=None,TargetLocation=(X=340282346638528859811704183484516925440.000000,Y=340282346638528859811704183484516925440.000000,Z=340282346638528859811704183484516925440.000000))"
+        },
+        {
+          "byte_offset": 941840,
+          "text": "Squad Member Dead"
+        },
+        {
+          "byte_offset": 943928,
+          "text": "AnySquadMemberAlive"
+        },
+        {
+          "byte_offset": 947248,
+          "text": "Squad Member Dead"
+        },
+        {
+          "byte_offset": 950154,
+          "text": "AnySquadMemberHasECM"
+        },
+        {
+          "byte_offset": 951845,
+          "text": "Controller:PlayerState"
+        },
+        {
+          "byte_offset": 966021,
+          "text": "DispatchOrder"
+        },
+        {
+          "byte_offset": 1006008,
+          "text": "Controller:PlayerState"
+        },
+        {
+          "byte_offset": 1018057,
+          "text": "Squad Member Dead"
+        },
+        {
+          "byte_offset": 1027185,
+          "text": "AnySquadMemberAlive"
+        },
+        {
+          "byte_offset": 1028427,
+          "text": "AnySquadMemberAlive"
+        },
+        {
+          "byte_offset": 1029670,
+          "text": "AnySquadMemberHasECM"
+        },
+        {
+          "byte_offset": 1030913,
+          "text": "AnySquadMemberHasECM"
+        },
+        {
+          "byte_offset": 1070532,
+          "text": "LanceStatusPanel"
+        },
+        {
+          "byte_offset": 1071700,
+          "text": "LanceStatusPanel"
+        },
+        {
+          "byte_offset": 1076418,
+          "text": "LanceStatusRetainerBox"
+        },
+        {
+          "byte_offset": 1076636,
+          "text": "LanceStatusRetainerBox"
+        },
+        {
+          "byte_offset": 1076860,
+          "text": "LanceMemberStack"
+        },
+        {
+          "byte_offset": 1077190,
+          "text": "LanceMemberStack"
+        },
+        {
+          "byte_offset": 1080202,
+          "text": "Is Order Window Open"
+        },
+        {
+          "byte_offset": 1080765,
+          "text": "Input Action Cancel Order"
+        },
+        {
+          "byte_offset": 1081421,
+          "text": "Input Action Dispatch Lance"
+        },
+        {
+          "byte_offset": 1082079,
+          "text": "Input Action Dispatch Lance Mate 1"
+        },
+        {
+          "byte_offset": 1082744,
+          "text": "Input Action Dispatch Lance Mate 2"
+        },
+        {
+          "byte_offset": 1083409,
+          "text": "Input Action Dispatch Lance Mate 3"
+        },
+        {
+          "byte_offset": 1084627,
+          "text": "Squad Display Info"
+        },
+        {
+          "byte_offset": 1085188,
+          "text": "Sort Squad Members"
+        },
+        {
+          "byte_offset": 1085894,
+          "text": "Lance Member Widgets"
+        },
+        {
+          "byte_offset": 1086564,
+          "text": "Squad Member Look Up"
+        },
+        {
+          "byte_offset": 1087127,
+          "text": "Lance Member Index"
+        },
+        {
+          "byte_offset": 1087688,
+          "text": "Order Recipients"
+        },
+        {
+          "byte_offset": 1093514,
+          "text": "CloseOrderWindow"
+        },
+        {
+          "byte_offset": 1094032,
+          "text": "CanOrderMechs"
+        },
+        {
+          "byte_offset": 1094201,
+          "text": "AnySquadMemberAlive"
+        },
+        {
+          "byte_offset": 1094376,
+          "text": "DispatchOrder"
+        },
+        {
+          "byte_offset": 1094710,
+          "text": "GetLanceMemberWidget"
+        },
+        {
+          "byte_offset": 1095228,
+          "text": "OpenOrderWindow"
+        },
+        {
+          "byte_offset": 1095399,
+          "text": "UpdateOrderAll"
+        },
+        {
+          "byte_offset": 1095738,
+          "text": "IssueOrderToRecipient"
+        },
+        {
+          "byte_offset": 1097465,
+          "text": "LanceMemberStack"
+        },
+        {
+          "byte_offset": 1097494,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 1097583,
+          "text": "LanceOrderWindow"
+        },
+        {
+          "byte_offset": 1097612,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 1097701,
+          "text": "LanceStatusPanel"
+        },
+        {
+          "byte_offset": 1097730,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 1097819,
+          "text": "LanceStatusRetainerBox"
+        },
+        {
+          "byte_offset": 1097854,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 1097943,
+          "text": "OrderAllWidget"
+        },
+        {
+          "byte_offset": 1098078,
+          "text": "LanceStatusWidget"
+        },
+        {
+          "byte_offset": 1098167,
+          "text": "Is Order Window Open"
+        },
+        {
+          "byte_offset": 1098281,
+          "text": "Input Action Cancel Order"
+        },
+        {
+          "byte_offset": 1098411,
+          "text": "Input Action Dispatch Lance"
+        },
+        {
+          "byte_offset": 1098543,
+          "text": "Input Action Dispatch Lance Mate 1"
+        },
+        {
+          "byte_offset": 1098682,
+          "text": "Input Action Dispatch Lance Mate 2"
+        },
+        {
+          "byte_offset": 1098821,
+          "text": "Input Action Dispatch Lance Mate 3"
+        },
+        {
+          "byte_offset": 1099062,
+          "text": "Squad Display Info"
+        },
+        {
+          "byte_offset": 1099172,
+          "text": "Sort Squad Members"
+        },
+        {
+          "byte_offset": 1099362,
+          "text": "Lance Member Widgets"
+        },
+        {
+          "byte_offset": 1099542,
+          "text": "Squad Member Look Up"
+        },
+        {
+          "byte_offset": 1099756,
+          "text": "Lance Member Index"
+        },
+        {
+          "byte_offset": 1099862,
+          "text": "Order Recipients"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\_common\\VariableContainerComponents\\UnitPilotComponent.uasset",
+      "relative_content_path": "AI\\_common\\VariableContainerComponents\\UnitPilotComponent.uasset",
+      "bytes": 15025,
+      "sha256": "3A615736783451C8CF6CE7781CCD475582C050C9EC272F54944CE6F6ABE980B6",
+      "fragments": [
+        {
+          "byte_offset": 366,
+          "text": "/Game/AI/_common/VariableContainerComponents/UnitPilotComponent"
+        },
+        {
+          "byte_offset": 438,
+          "text": "/Game/AI/_common/VariableContainerComponents/UnitPilotComponent.UnitPilotComponent"
+        },
+        {
+          "byte_offset": 889,
+          "text": "BlueprintSpawnableComponent"
+        },
+        {
+          "byte_offset": 1347,
+          "text": "Default__UnitPilotComponent_C"
+        },
+        {
+          "byte_offset": 1957,
+          "text": "IsPiloted"
+        },
+        {
+          "byte_offset": 2882,
+          "text": "UnitPilotComponent"
+        },
+        {
+          "byte_offset": 2909,
+          "text": "UnitPilotComponent_C"
+        },
+        {
+          "byte_offset": 4345,
+          "text": "UnitPilotComponent"
+        },
+        {
+          "byte_offset": 4376,
+          "text": "UnitPilotComponent"
+        },
+        {
+          "byte_offset": 4501,
+          "text": "UnitPilotComponent"
+        },
+        {
+          "byte_offset": 4543,
+          "text": "BlueprintGeneratedClass'/Game/AI/_common/VariableContainerComponents/UnitPilotComponent.UnitPilotComponent_C'"
+        },
+        {
+          "byte_offset": 10630,
+          "text": "Is Piloted"
+        },
+        {
+          "byte_offset": 11222,
+          "text": "Is Piloted"
+        }
+      ]
+    }
+  ]
+}

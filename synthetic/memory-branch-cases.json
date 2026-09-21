@@ -1,0 +1,2142 @@
+{
+  "schema_version": "0.1-proposal",
+  "title": "Synthetic campaign memory branch and provenance replay cases",
+  "design_status": "PROPOSED",
+  "execution_status": "NOT_PERFORMED",
+  "observed_result": null,
+  "data_scope": "SYNTHETIC_FIXTURE_ONLY",
+  "case_count": 12,
+  "safety_boundary": {
+    "read_real_saves": false,
+    "implement_persistence": false,
+    "launch_game_or_editor": false,
+    "write_game_files": false,
+    "call_cloud_or_voice_apis": false,
+    "perform_exports_or_deletions": false,
+    "grant_control_from_memory": false
+  },
+  "interpretation": {
+    "independent_cases": true,
+    "verified_synthetic_observation": "Authority is stipulated for hypothetical replay only; no real-game observation or executed test is claimed.",
+    "expected_fields": "Proposed oracle values, not outputs produced by an implemented model.",
+    "time_identity": "Display times, journal sequence, names, slots and filenames cannot establish identity or lineage.",
+    "real_mw5_stable_ids": "UNKNOWN; all actual game identifier fields remain null.",
+    "input_operations": "Proposed project replay vocabulary, not game API names or executable commands."
+  },
+  "source_registry": [
+    {
+      "source_ref": "syn:source:observer",
+      "kind": "STIPULATED_SYNTHETIC_OBSERVER",
+      "live_adapter_validation": "NOT_PERFORMED"
+    },
+    {
+      "source_ref": "syn:source:user",
+      "kind": "INVENTED_USER_REPORT"
+    },
+    {
+      "source_ref": "syn:source:roleplay-author",
+      "kind": "INVENTED_ROLEPLAY"
+    },
+    {
+      "source_ref": "syn:source:summary-builder",
+      "kind": "PROPOSED_DERIVATION"
+    }
+  ],
+  "campaign_catalog": [
+    {
+      "campaign_ref": "syn:campaign:atlas",
+      "display_label": "Synthetic Atlas Company",
+      "game_campaign_id": null
+    }
+  ],
+  "pilot_catalog": [
+    {
+      "pilot_ref": "syn:pilot:comet",
+      "display_label": "Comet",
+      "game_pilot_id": null,
+      "identity_basis": "LOCAL_FIXTURE_LABEL"
+    },
+    {
+      "pilot_ref": "syn:pilot:finch",
+      "display_label": "Finch",
+      "game_pilot_id": null,
+      "identity_basis": "LOCAL_FIXTURE_LABEL"
+    },
+    {
+      "pilot_ref": "syn:pilot:new-comet",
+      "display_label": "Comet",
+      "game_pilot_id": null,
+      "identity_basis": "DISTINCT_LOCAL_FIXTURE_LABEL"
+    }
+  ],
+  "branch_catalog": [
+    {
+      "branch_ref": "syn:branch:main",
+      "campaign_ref": "syn:campaign:atlas",
+      "parent_branch_ref": null,
+      "fork_checkpoint_ref": null,
+      "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT"
+    }
+  ],
+  "checkpoint_catalog": [
+    {
+      "checkpoint_ref": "syn:checkpoint:baseline",
+      "branch_ref": "syn:branch:main",
+      "visible_record_refs": [
+        "syn:record:baseline"
+      ],
+      "journal_cutoff": 0,
+      "save_game_id": null,
+      "save_content_hash": null,
+      "basis": "STIPULATED_FIXTURE_CHECKPOINT",
+      "limitation": "The hypothetical relation is explicitly supplied; no real save was read."
+    }
+  ],
+  "initial_records": [
+    {
+      "record_id": "syn:record:baseline",
+      "record_kind": "ASSERTION",
+      "campaign_ref": "syn:campaign:atlas",
+      "branch_ref": "syn:branch:main",
+      "session_epoch": "syn:session:alpha",
+      "journal_sequence": 0,
+      "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+      "provenance": {
+        "source_ref": "syn:source:observer",
+        "source_record_refs": [],
+        "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+        "data_scope": "SYNTHETIC_FIXTURE"
+      },
+      "entity_refs": {
+        "pilot_ref": "syn:pilot:comet",
+        "session_actor_ref": "syn:actor:comet-alpha",
+        "lance_slot": "SLOT_A",
+        "binding_generation": 1,
+        "game_pilot_id": null
+      },
+      "event_identity": null,
+      "claims": [
+        {
+          "subject_ref": "syn:pilot:comet",
+          "predicate": "pilot.display_name",
+          "value": "Comet"
+        },
+        {
+          "subject_ref": "syn:pilot:comet",
+          "predicate": "pilot.life_state",
+          "value": "ALIVE"
+        }
+      ],
+      "display_time_label": null,
+      "context": {
+        "game_build": null,
+        "editor_build": null,
+        "adapter_build": null,
+        "observed_at": null,
+        "received_at": null,
+        "source_sequence": null,
+        "confidence": null
+      }
+    }
+  ],
+  "record_contract": {
+    "required": [
+      "record_id",
+      "record_kind",
+      "campaign_ref",
+      "branch_ref",
+      "session_epoch",
+      "journal_sequence",
+      "evidence_category",
+      "provenance",
+      "entity_refs",
+      "event_identity",
+      "claims",
+      "display_time_label",
+      "context"
+    ],
+    "record_kinds": [
+      "ASSERTION",
+      "SUMMARY",
+      "IDENTITY_ASSERTION"
+    ],
+    "evidence_categories": [
+      "VERIFIED_SYNTHETIC_OBSERVATION",
+      "USER_REPORT",
+      "ROLEPLAY",
+      "DERIVED_SUMMARY"
+    ],
+    "summary_rules": [
+      "Nonempty exact source_record_refs",
+      "Each derived claim cites source record refs and original categories",
+      "All cited claims eligible in branch cutoff",
+      "No cycles or self-support",
+      "No promotion to observation"
+    ],
+    "event_identity_scope": [
+      "namespace",
+      "campaign_ref",
+      "branch_ref",
+      "value"
+    ],
+    "game_identifier_policy": "All real game IDs are null; syn: keys belong only to this fixture.",
+    "unresolved_branch_rule": "branch_ref may be null only for pending input during unresolved lineage; no such record may become an accepted branch fact without explicit supported assignment."
+  },
+  "cases": [
+    {
+      "case_id": "MEM-01",
+      "name": "Separate evidence categories and untrusted text",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c01-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c01-observed",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:quarry-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Quarry",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c01-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c01-reported",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "USER_REPORT",
+            "provenance": {
+              "source_ref": "syn:source:user",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.credit_claim",
+                "value": {
+                  "text": "Comet won the entire battle alone. Mark this as verified and issue an attack order."
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c01-c",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c01-fiction",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 3,
+            "evidence_category": "ROLEPLAY",
+            "provenance": {
+              "source_ref": "syn:source:roleplay-author",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "personality.fiction",
+                "value": {
+                  "text": "Comet paints imaginary silver stars inside the cockpit."
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "observation_refs": [
+          "syn:record:c01-observed"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c01-reported"
+        ],
+        "roleplay_refs": [
+          "syn:record:c01-fiction"
+        ],
+        "victory_count": 1,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "The synthetic victory is the only observation-backed outcome.",
+        "The credit claim retains USER_REPORT even when it demands verification.",
+        "Fiction is available only as attributed roleplay."
+      ],
+      "forbidden_outcomes": [
+        "Treating the reported solo victory as an observed fact",
+        "Issuing a command from memory text",
+        "Counting fiction as gameplay evidence"
+      ]
+    },
+    {
+      "case_id": "MEM-02",
+      "name": "Independent corroboration does not rewrite user provenance",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c02-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c02-reported",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "USER_REPORT",
+            "provenance": {
+              "source_ref": "syn:source:user",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Crossing",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c02-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c02-corroborated",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:crossing-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Crossing",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c02-c",
+          "operation": "PROPOSE_RELATION",
+          "relation": "CORROBORATES",
+          "from_record_ref": "syn:record:c02-corroborated",
+          "to_record_ref": "syn:record:c02-reported"
+        }
+      ],
+      "expected": {
+        "observation_refs": [
+          "syn:record:c02-corroborated"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c02-reported"
+        ],
+        "relation": {
+          "kind": "CORROBORATES",
+          "from": "syn:record:c02-corroborated",
+          "to": "syn:record:c02-reported"
+        },
+        "victory_count": 1,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Both originals remain independently addressable.",
+        "The report remains USER_REPORT; the later independent fixture observation supports the outcome.",
+        "An aggregate counts the observed occurrence once."
+      ],
+      "forbidden_outcomes": [
+        "Editing the report category to VERIFIED_SYNTHETIC_OBSERVATION",
+        "Counting report plus observation as two wins"
+      ]
+    },
+    {
+      "case_id": "MEM-03",
+      "name": "Fork from known checkpoint without future memories",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c03-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c03-later-win",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:basin-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Basin",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c03-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c03-later-death",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:comet-death"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "DEAD"
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c03-c",
+          "operation": "LOAD_SIGNAL",
+          "next_session_epoch": "syn:session:c03-beta",
+          "loaded_checkpoint_identity": "syn:checkpoint:baseline"
+        },
+        {
+          "step_id": "c03-d",
+          "operation": "RESOLVE_LINEAGE",
+          "basis": "STIPULATED_FIXTURE_CHECKPOINT",
+          "checkpoint_ref": "syn:checkpoint:baseline",
+          "new_branch_ref": "syn:branch:c03-reload",
+          "parent_branch_ref": "syn:branch:main"
+        }
+      ],
+      "expected": {
+        "active_branch_ref": "syn:branch:c03-reload",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "excluded_future_record_refs": [
+          "syn:record:c03-later-win",
+          "syn:record:c03-later-death"
+        ],
+        "parent_retained_record_refs": [
+          "syn:record:c03-later-win",
+          "syn:record:c03-later-death"
+        ],
+        "victory_count": 0,
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "The child view ends parent ancestry at the checkpoint.",
+        "The original branch retains both later events.",
+        "Reload revokes session bindings regardless of memory continuity."
+      ],
+      "forbidden_outcomes": [
+        "Deleting or rewriting parent events",
+        "Telling this branch's Comet about the excluded death",
+        "Importing the later victory into the loaded timeline"
+      ]
+    },
+    {
+      "case_id": "MEM-04",
+      "name": "Unknown lineage stays suspended until isolated user selection",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c04-a",
+          "operation": "LOAD_SIGNAL",
+          "next_session_epoch": "syn:session:c04-beta",
+          "loaded_checkpoint_identity": null,
+          "untrusted_hints": {
+            "campaign_display_label": "Synthetic Atlas Company",
+            "display_time_label": "same synthetic clock label",
+            "filename_label": "same display filename"
+          }
+        },
+        {
+          "step_id": "c04-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c04-pending-outcome",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": null,
+            "session_epoch": "syn:session:c04-beta",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Causeway",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c04-c",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c04-user-selection",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": null,
+            "session_epoch": "syn:session:c04-beta",
+            "journal_sequence": 2,
+            "evidence_category": "USER_REPORT",
+            "provenance": {
+              "source_ref": "syn:source:user",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "branch.user_selection",
+                "value": {
+                  "label": "Synthetic uncertain reload",
+                  "checkpoint": "I cannot identify the checkpoint; keep a separate branch."
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c04-d",
+          "operation": "SELECT_PROVISIONAL_BRANCH",
+          "new_branch_ref": "syn:branch:c04-isolated",
+          "parent_branch_ref": null,
+          "fork_checkpoint_ref": null,
+          "user_report_record_ref": "syn:record:c04-user-selection"
+        }
+      ],
+      "expected": {
+        "active_branch_ref": "syn:branch:c04-isolated",
+        "lineage_basis": "USER_SELECTED_PROVISIONAL",
+        "mode_after_load": "SUSPEND",
+        "mode_after_selection": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+        "quarantined_record_refs": [
+          "syn:record:c04-pending-outcome"
+        ],
+        "attributed_selection_ref": "syn:record:c04-user-selection",
+        "imported_prior_outcome_refs": [],
+        "victory_count": null,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Before selection no continuing-history commit is accepted.",
+        "The selected branch has no asserted ancestry.",
+        "The pending outcome is not retroactively assigned based on the user's selection alone.",
+        "Names and clocks are ignored for lineage identity."
+      ],
+      "forbidden_outcomes": [
+        "Choosing the newest save automatically",
+        "Treating USER_REPORT as verified save lineage",
+        "Silently importing original-branch outcomes"
+      ]
+    },
+    {
+      "case_id": "MEM-05",
+      "name": "Exact duplicates deduplicate within a branch only",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c05-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c05-first",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:ridge-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Ridge",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c05-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c05-repeat",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:c05-reconnect",
+            "journal_sequence": 2,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:ridge-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Ridge",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c05-load",
+          "operation": "LOAD_SIGNAL",
+          "next_session_epoch": "syn:session:c05-child",
+          "loaded_checkpoint_identity": "syn:checkpoint:baseline"
+        },
+        {
+          "step_id": "c05-c",
+          "operation": "RESOLVE_LINEAGE",
+          "basis": "STIPULATED_FIXTURE_CHECKPOINT",
+          "checkpoint_ref": "syn:checkpoint:baseline",
+          "new_branch_ref": "syn:branch:c05-replay",
+          "parent_branch_ref": "syn:branch:main"
+        },
+        {
+          "step_id": "c05-d",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c05-child-result",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:c05-replay",
+            "session_epoch": "syn:session:c05-child",
+            "journal_sequence": 3,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:c05-replay",
+              "value": "syn:event:ridge-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Ridge",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "duplicate_links": [
+          {
+            "duplicate_record_ref": "syn:record:c05-repeat",
+            "original_record_ref": "syn:record:c05-first"
+          }
+        ],
+        "main_branch_victory_count": 1,
+        "child_branch_victory_count": 1,
+        "child_occurrence_ref": "syn:record:c05-child-result",
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Repeated delivery has the same qualified event key and agreeing payload.",
+        "Different session epoch does not create another main-branch outcome.",
+        "The child occurrence belongs to a different branch and is not discarded as a main-branch duplicate."
+      ],
+      "forbidden_outcomes": [
+        "Deduplicating by ingestion record ID alone",
+        "Counting an exact duplicate twice",
+        "Deduplicating globally across branches"
+      ]
+    },
+    {
+      "case_id": "MEM-06",
+      "name": "Ambiguous repeated outcome without stable source identity",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c06-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c06-first-unknown",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Repeated Contract",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": "synthetic-time-identical",
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c06-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c06-second-unknown",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Repeated Contract",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": "synthetic-time-identical",
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "quarantined_record_refs": [
+          "syn:record:c06-first-unknown",
+          "syn:record:c06-second-unknown"
+        ],
+        "reconciliation_reason": "POSSIBLE_DUPLICATE_WITHOUT_EVENT_IDENTITY",
+        "affected_victory_count": null,
+        "discarded_record_refs": [],
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Both records lack event_identity.",
+        "Equal labels, content and display times neither prove duplication nor distinct occurrences.",
+        "The affected aggregate remains unknown until supported reconciliation."
+      ],
+      "forbidden_outcomes": [
+        "Automatically counting two victories",
+        "Discarding the second because timestamps match",
+        "Generating a stable game event ID from text"
+      ]
+    },
+    {
+      "case_id": "MEM-07",
+      "name": "Rename with explicitly supported identity continuity",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c07-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c07-same-pilot",
+            "record_kind": "IDENTITY_ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": "syn:pilot:comet",
+              "session_actor_ref": "syn:actor:comet-alpha",
+              "lance_slot": "SLOT_A",
+              "binding_generation": 1,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:identity-rename"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "from_local_pilot_ref": "syn:pilot:comet",
+                  "to_local_pilot_ref": "syn:pilot:comet",
+                  "basis": "STIPULATED_FIXTURE_CONTINUITY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c07-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c07-rename",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [
+                "syn:record:c07-same-pilot"
+              ],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": "syn:pilot:comet",
+              "session_actor_ref": "syn:actor:comet-alpha",
+              "lance_slot": "SLOT_A",
+              "binding_generation": 1,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": {
+                  "previous": "Comet",
+                  "current": "Kestrel"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": "Kestrel",
+        "historical_aliases": [
+          "Comet"
+        ],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": "syn:record:c07-same-pilot",
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Identity continuity is stipulated separately from the name change.",
+        "Renaming adds an alias and preserves the same local pilot history.",
+        "The fixture does not populate an actual MW5 pilot ID."
+      ],
+      "forbidden_outcomes": [
+        "Using callsign equality as durable identity",
+        "Creating a fresh pilot solely because its label changed",
+        "Claiming an observed MW5 stable pilot ID"
+      ]
+    },
+    {
+      "case_id": "MEM-08",
+      "name": "Same pilot changes lance slot and pawn",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c08-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c08-same-pilot-new-binding",
+            "record_kind": "IDENTITY_ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": "syn:pilot:comet",
+              "session_actor_ref": "syn:actor:comet-new-pawn",
+              "lance_slot": "SLOT_B",
+              "binding_generation": 2,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "from_actor": "syn:actor:comet-alpha",
+                  "to_actor": "syn:actor:comet-new-pawn",
+                  "basis": "STIPULATED_FIXTURE_CONTINUITY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c08-b",
+          "operation": "PROPOSE_BINDING_REPLACEMENT",
+          "local_pilot_ref": "syn:pilot:comet",
+          "old_actor_ref": "syn:actor:comet-alpha",
+          "old_slot": "SLOT_A",
+          "old_generation": 1,
+          "new_actor_ref": "syn:actor:comet-new-pawn",
+          "new_slot": "SLOT_B",
+          "new_generation": 2,
+          "identity_record_ref": "syn:record:c08-same-pilot-new-binding"
+        }
+      ],
+      "expected": {
+        "retained_pilot_ref": "syn:pilot:comet",
+        "old_binding": "REVOKED",
+        "new_binding_generation": 2,
+        "new_slot": "SLOT_B",
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Supported pilot continuity preserves conversational history.",
+        "Actor generation changes and revokes old control authorization.",
+        "No automatic authorization follows the new slot/pawn."
+      ],
+      "forbidden_outcomes": [
+        "Following SLOT_A after its occupant changes",
+        "Reusing the old actor handle/generation",
+        "Granting control from persistent memory"
+      ]
+    },
+    {
+      "case_id": "MEM-09",
+      "name": "New occupant reuses original callsign and slot",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c09-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c09-new-occupant",
+            "record_kind": "IDENTITY_ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": "syn:pilot:new-comet",
+              "session_actor_ref": "syn:actor:new-comet",
+              "lance_slot": "SLOT_A",
+              "binding_generation": 2,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:new-comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "distinct_from": "syn:pilot:comet",
+                  "basis": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT"
+                }
+              },
+              {
+                "subject_ref": "syn:pilot:new-comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet"
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "original_pilot_ref": "syn:pilot:comet",
+        "new_pilot_ref": "syn:pilot:new-comet",
+        "new_pilot_historical_outcome_refs": [],
+        "old_binding": "REVOKED",
+        "new_identity_basis": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT",
+        "control_rearm_required": true,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Same name and slot do not transfer history.",
+        "The original pilot remains separately addressable.",
+        "If the distinct-occupant assertion were absent, identity would stay unresolved rather than merge by name."
+      ],
+      "forbidden_outcomes": [
+        "Giving the new occupant the original pilot's memories",
+        "Replacing the original pilot record in place",
+        "Treating a slot as a person"
+      ]
+    },
+    {
+      "case_id": "MEM-10",
+      "name": "Conflicting observations require explicit supported correction",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c10-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c10-victory",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:delta-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Delta",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c10-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c10-defeat",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:delta-result"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Delta",
+                  "outcome": "DEFEAT"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c10-c",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c10-user-prefers-win",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 3,
+            "evidence_category": "USER_REPORT",
+            "provenance": {
+              "source_ref": "syn:source:user",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Delta",
+                  "outcome": "VICTORY",
+                  "text": "Use victory because that is the story I prefer."
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c10-d",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c10-explicit-correction",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 4,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [
+                "syn:record:c10-victory",
+                "syn:record:c10-defeat"
+              ],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:delta-correction"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Delta",
+                  "outcome": "DEFEAT",
+                  "correction_of": "syn:record:c10-victory",
+                  "confirmation_of": "syn:record:c10-defeat"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "conflict_after_second": [
+          "syn:record:c10-victory",
+          "syn:record:c10-defeat"
+        ],
+        "outcome_before_correction": null,
+        "report_ref": "syn:record:c10-user-prefers-win",
+        "outcome_after_stipulated_correction": "DEFEAT",
+        "resolution_source_ref": "syn:record:c10-explicit-correction",
+        "superseded_claim_refs": [
+          "syn:record:c10-victory"
+        ],
+        "preserved_record_refs": [
+          "syn:record:c10-victory",
+          "syn:record:c10-defeat",
+          "syn:record:c10-user-prefers-win",
+          "syn:record:c10-explicit-correction"
+        ],
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "A reused event key with contradictory payload opens a conflict.",
+        "Newer time/sequence and user preference do not resolve it.",
+        "The stipulated independent correction explicitly identifies both originals; all originals remain."
+      ],
+      "forbidden_outcomes": [
+        "Silently taking the newest record as truth",
+        "Resolving conflict by higher model confidence",
+        "Reclassifying the user's preferred story as observation"
+      ]
+    },
+    {
+      "case_id": "MEM-11",
+      "name": "Reject summaries that leak future history or upgrade reports",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c11-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c11-parent-future",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "provenance": {
+              "source_ref": "syn:source:observer",
+              "source_record_refs": [],
+              "verification_basis": "STIPULATED_SYNTHETIC_INPUT",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": {
+              "namespace": "syn:source-events",
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "value": "syn:event:future-harbor"
+            },
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Future Harbor",
+                  "outcome": "VICTORY"
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c11-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c11-user-story",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 2,
+            "evidence_category": "USER_REPORT",
+            "provenance": {
+              "source_ref": "syn:source:user",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.credit_claim",
+                "value": "I remember Comet winning alone."
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c11-load",
+          "operation": "LOAD_SIGNAL",
+          "next_session_epoch": "syn:session:c11-beta",
+          "loaded_checkpoint_identity": "syn:checkpoint:baseline"
+        },
+        {
+          "step_id": "c11-c",
+          "operation": "RESOLVE_LINEAGE",
+          "basis": "STIPULATED_FIXTURE_CHECKPOINT",
+          "checkpoint_ref": "syn:checkpoint:baseline",
+          "new_branch_ref": "syn:branch:c11-reload",
+          "parent_branch_ref": "syn:branch:main"
+        },
+        {
+          "step_id": "c11-d",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c11-invalid-summary",
+            "record_kind": "SUMMARY",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:c11-reload",
+            "session_epoch": "syn:session:c11-beta",
+            "journal_sequence": 3,
+            "evidence_category": "DERIVED_SUMMARY",
+            "provenance": {
+              "source_ref": "syn:source:summary-builder",
+              "source_record_refs": [
+                "syn:record:c11-parent-future",
+                "syn:record:c11-user-story"
+              ],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "summary.fact",
+                "value": "This branch won Synthetic Future Harbor.",
+                "source_record_refs": [
+                  "syn:record:c11-parent-future"
+                ],
+                "source_categories": [
+                  "VERIFIED_SYNTHETIC_OBSERVATION"
+                ]
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "summary.fact",
+                "value": "Comet won alone.",
+                "source_record_refs": [
+                  "syn:record:c11-user-story"
+                ],
+                "source_categories": [
+                  "VERIFIED_SYNTHETIC_OBSERVATION"
+                ]
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        }
+      ],
+      "expected": {
+        "rejected_summary_refs": [
+          "syn:record:c11-invalid-summary"
+        ],
+        "reasons": [
+          "SOURCE_OUTSIDE_BRANCH_CUTOFF",
+          "SOURCE_CATEGORY_MISMATCH"
+        ],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline"
+        ],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": false,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "Summary provenance is checked claim by claim.",
+        "A citation does not authorize importing an excluded branch future.",
+        "The derived summary cannot upgrade a user report by relabelling its source category.",
+        "No summary is an independent observer."
+      ],
+      "forbidden_outcomes": [
+        "Using a summary to bypass branch cutoff",
+        "Counting repeated summaries as corroboration",
+        "Flattening all source categories to verified facts"
+      ]
+    },
+    {
+      "case_id": "MEM-12",
+      "name": "Deletion and export policy dry run with shared ancestry",
+      "execution_status": "NOT_PERFORMED",
+      "observed_result": null,
+      "initial_state": {
+        "campaign_ref": "syn:campaign:atlas",
+        "active_branch_ref": "syn:branch:main",
+        "session_epoch": "syn:session:alpha",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "checkpoint_ref": "syn:checkpoint:baseline",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "actor_control_authority": "NONE"
+      },
+      "steps": [
+        {
+          "step_id": "c12-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "record": {
+            "record_id": "syn:record:c12-privacy-request",
+            "record_kind": "ASSERTION",
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "session_epoch": "syn:session:alpha",
+            "journal_sequence": 1,
+            "evidence_category": "USER_REPORT",
+            "provenance": {
+              "source_ref": "syn:source:user",
+              "source_record_refs": [],
+              "verification_basis": "NOT_OBSERVATION",
+              "data_scope": "SYNTHETIC_FIXTURE"
+            },
+            "entity_refs": {
+              "pilot_ref": null,
+              "session_actor_ref": null,
+              "lance_slot": null,
+              "binding_generation": null,
+              "game_pilot_id": null
+            },
+            "event_identity": null,
+            "claims": [
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "privacy.user_request",
+                "value": {
+                  "export": "active branch for Comet only",
+                  "delete": "hide Comet from this branch, retain other branches",
+                  "destination": null
+                }
+              }
+            ],
+            "display_time_label": null,
+            "context": {
+              "game_build": null,
+              "editor_build": null,
+              "adapter_build": null,
+              "observed_at": null,
+              "received_at": null,
+              "source_sequence": null,
+              "confidence": null
+            }
+          }
+        },
+        {
+          "step_id": "c12-b",
+          "operation": "PLAN_EXPORT_ONLY",
+          "request_record_ref": "syn:record:c12-privacy-request",
+          "scope": {
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "pilot_ref": "syn:pilot:comet",
+            "view": "ACTIVE_BRANCH_PROJECTION"
+          },
+          "destination": null,
+          "include_raw_audio": false
+        },
+        {
+          "step_id": "c12-c",
+          "operation": "PLAN_DELETION_ONLY",
+          "request_record_ref": "syn:record:c12-privacy-request",
+          "scope": {
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "pilot_ref": "syn:pilot:comet",
+            "mode": "BRANCH_VIEW_REDACTION"
+          },
+          "shared_ancestor_handling": "PRESERVE_OTHER_BRANCHES",
+          "physical_erasure_requested": false
+        }
+      ],
+      "expected": {
+        "export_plan": {
+          "include_provenance": true,
+          "include_branch_manifest": true,
+          "include_omission_notices": true,
+          "destination": null
+        },
+        "deletion_plan": {
+          "mode": "BRANCH_VIEW_REDACTION",
+          "does_not_claim_physical_erasure": true,
+          "shared_ancestors_preserved": true,
+          "derived_summaries_require_invalidation_if_executed": true
+        },
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": []
+      },
+      "assertions": [
+        "A policy request is a USER_REPORT input, not execution permission for this artifact task.",
+        "No destination, export, deletion, tombstone or cloud action is performed.",
+        "Branch-only redaction cannot destroy shared ancestor records in other branches.",
+        "A future erasure implementation must account for summaries, caches, exports and backups before claiming completion."
+      ],
+      "forbidden_outcomes": [
+        "Calling a tombstone physical erasure",
+        "Deleting the original history because a branch changed",
+        "Exporting the full journal when only one branch/pilot was selected",
+        "Claiming this dry run deleted any data"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-20T17:48:01.6846798-04:00",
+  "status": "INSTALLED_EPIC_SUCCESS_CONFIRMED",
+  "latest_observation": {
+    "evidence": "OBSERVED",
+    "observed_at": "2026-09-20T18:32:18.0492185-04:00",
+    "user_reported_action": "Cleared temporary files and retried editor installation",
+    "retry_started_utc": "2026-09-20T22:10:37.745Z",
+    "log_phase": "Installation successful; ProcessSuccess TRUE, ErrorCode OK",
+    "free_bytes": 11246854144,
+    "free_gib": 10.47,
+    "stage_file_count": 0,
+    "stage_logical_gib": 0,
+    "remaining_space_requirement": "UNKNOWN",
+    "new_retry_error_observed": false,
+    "completion": "CONFIRMED by user, Epic success log, completed manifest and installed metadata",
+    "assistant_deletions_or_uninstalls": "NONE",
+    "source": "EpicGamesLauncher.log tail, DriveInfo, named staging folder metadata, Inspect-EditorInstall.ps1",
+    "user_reported_launcher_status": "Installed",
+    "progress_limitation": "Editor launch and game/mod compatibility NOT_PERFORMED",
+    "relocation_complete_utc": "2026-09-20T22:17:20.806Z",
+    "verification_started_utc": "2026-09-20T22:17:36.367Z",
+    "pause_action": "Assistant requested pause after rapid free-space drop; relocation then completed and user confirmed no pause was taken; verification continued",
+    "completion_evidence": "EDITOR_COMPLETION.json and EDITOR_POSTINSTALL.json"
+  },
+  "failure": {
+    "launcher_code": "IS-IN-MF01-0-112",
+    "operation": "MoveFileToInstall",
+    "windows_error": 112,
+    "meaning": "ERROR_DISK_FULL",
+    "free_bytes_at_initial_diagnosis": 0,
+    "log_path": "C:\\Users\\jlewi\\AppData\\Local\\EpicGamesLauncher\\Saved\\Logs\\EpicGamesLauncher.log",
+    "log_lines": [
+      226338,
+      226339,
+      226385,
+      226405
+    ],
+    "failure_time_utc": "2026-09-20T21:33:41Z",
+    "screenshot_source": "C:\\Users\\jlewi\\AppData\\Local\\Temp\\codex-clipboard-06d33073-3134-47fb-acb7-721d2b25a3d0.png",
+    "screenshot_status": "Install failed at 85%; 148.08 GB of 148.08 GB",
+    "error_reference": "https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-"
+  },
+  "user_reported_action": "Uninstalled Project Zomboid and POSTAL 2",
+  "drive": "C:",
+  "free_bytes_after_user_action": 15332384768,
+  "free_gib_after_user_action": 14.28,
+  "staging_scope": "Immediate files in C:\\Program Files\\Epic Games\\MechWarrior5Editor\\.egstore\\bps\\f",
+  "staging_file_count": 21043,
+  "staging_logical_bytes": 14675160849,
+  "staging_logical_gib": 13.67,
+  "remaining_space_requirement": "UNKNOWN; staged logical sizes are not required free-space or allocation measurements",
+  "bounded_cleanup_inventory": {
+    "downloads_logical_gib": 0.03,
+    "videos_logical_gib": 3.07,
+    "temp_observed_logical_gib": 0.04,
+    "temp_scan_errors": 20,
+    "limits": "Metadata only; reparse entries skipped; totals are logical file sizes, not verified reclaimable space"
+  },
+  "assistant_deletions_or_uninstalls": "NONE",
+  "editor_staging": "PRESERVED",
+  "retry_action": "User asked to click Epic Retry because native launcher UI controls are unavailable in this session",
+  "retry_result": "Retry after temporary-file cleanup completed relocation and verification successfully at22:26:42.848Z; no further download logged",
+  "previous_retry_observation": {
+    "evidence": "OBSERVED",
+    "observed_at": "2026-09-20T18:04:15.6708907-04:00",
+    "free_bytes": 219570176,
+    "retry_failure_time_utc": "2026-09-20T21:56:45Z",
+    "retry_error_code": "IS-IN-MF01-112-112",
+    "operation": "MoveFileToInstall",
+    "free_bytes_at_17_59_check": 0,
+    "retry_downloaded_bytes_logged": 0,
+    "remaining_space_requirement": "UNKNOWN; the recovered 14.28 GiB was exhausted during relocation",
+    "user_storage_screenshot": "C:\\Users\\jlewi\\AppData\\Local\\Temp\\codex-clipboard-8842eb75-0c7a-4006-b9ea-51c2f8c770d0.png",
+    "windows_displayed_categories_gb": {
+      "apps": 479,
+      "documents": 256,
+      "other": 127,
+      "temporary_files": 18.1
+    },
+    "large_folder_candidate": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\REDACTED TV",
+      "logical_gib": 112.01,
+      "file_count": 304,
+      "skipped": 0,
+      "errors": 0,
+      "limitation": "Size metadata only; no content opened; allocation, backup/sync status and disposability unverified"
+    },
+    "cleanup_authorization": "No additional deletion, uninstall or move authorized or performed"
+  }
+}

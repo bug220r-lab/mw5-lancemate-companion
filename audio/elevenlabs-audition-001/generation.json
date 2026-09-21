@@ -1,0 +1,83 @@
+{
+  "audition_id": "elevenlabs-mission-trial-001",
+  "generated_date": "2026-09-20",
+  "provider": "ElevenLabs",
+  "method": "Signed-in website UI; Download latest",
+  "plan_verified": "Free",
+  "status": "GENERATED_AND_DOWNLOADED",
+  "permanent_voice_selection": null,
+  "user_listening_acceptance": "PENDING",
+  "model": "Eleven Multilingual v2",
+  "settings": {
+    "speed": 1.0,
+    "stability": 0.5,
+    "similarity": 0.75,
+    "style_exaggeration": 0,
+    "speaker_boost": true,
+    "language_override": false
+  },
+  "requested_format": "mp3_44100_128",
+  "credits": {
+    "before": 10000,
+    "after": 9202,
+    "used": 798,
+    "characters_per_generation": 266,
+    "generations": 3,
+    "verification": "Website balance and History"
+  },
+  "script": "Heard you.\n\nNo confirmation. I'm keeping that separate from success.\n\nCritical damage to my left arm.\n\nI can't confirm a casualty. We don't have reliable pilot status.\n\nQuiet for the moment. I'm suspicious already.\n\nWithdrawal understood. No more target suggestions.",
+  "lines": [
+    {
+      "id": "VA-001",
+      "context": "A request was heard; no acceptance or outcome is known.",
+      "text": "Heard you."
+    },
+    {
+      "id": "VA-002",
+      "context": "An attempted order has no confirmed outcome.",
+      "text": "No confirmation. I'm keeping that separate from success."
+    },
+    {
+      "id": "VA-003",
+      "context": "Fresh fictional evidence identifies critical damage to her mech's left-arm component.",
+      "text": "Critical damage to my left arm."
+    },
+    {
+      "id": "VA-004",
+      "context": "The player asks about an unconfirmed casualty; reliable pilot status is unavailable.",
+      "text": "I can't confirm a casualty. We don't have reliable pilot status."
+    },
+    {
+      "id": "VA-005",
+      "context": "An explicitly safe mission lull with no active danger or damage alert; dry humor only.",
+      "text": "Quiet for the moment. I'm suspicious already."
+    },
+    {
+      "id": "VA-006",
+      "context": "The player decides to withdraw and ends target suggestions; movement is not claimed.",
+      "text": "Withdrawal understood. No more target suggestions."
+    }
+  ],
+  "files": [
+    {
+      "voice": "laura",
+      "file": "laura.mp3",
+      "bytes": 287067,
+      "sha256": "551dfa185fa7bd32fb0ff48cc145fdae32f898674b638ade47069a11856e05a3"
+    },
+    {
+      "voice": "sarah",
+      "file": "sarah.mp3",
+      "bytes": 298770,
+      "sha256": "eaf04c2ad9d707d93bd15a1d27796c033d02b6b702b0878e7cd5fb9bcc1fc1cc"
+    },
+    {
+      "voice": "lily",
+      "file": "lily.mp3",
+      "bytes": 311309,
+      "sha256": "5617194d8261b562064626fe28007c04745030fa0577530bbfa6697cae1e89e0"
+    }
+  ],
+  "game_integration": "NOT_PERFORMED",
+  "pilot_behavior_sha256": "01c9a95bd0d4a192930b0d1d5f08b1550af5b3723bf03f85f957aefc440edea0"
+}

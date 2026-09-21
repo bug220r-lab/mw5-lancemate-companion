@@ -1,0 +1,810 @@
+{
+  "workstream": "control-support",
+  "assets": [
+    {
+      "id": 0,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Form On Me posts configured FollowOrder with current recipients/context and immediately emits UI completion.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/000-Dpad_FormOnMeLogic-source.COPY",
+          "lines": [
+            410,
+            558
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/000-Dpad_FormOnMeLogic-defaults.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Native acceptance is not returned.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 1,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Dispatcher builds directional actions, binds member display IDs, retries unresolved squad info and enables according to nonempty recipients.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/001-Dpad_LanceOrderDispatcher-source.COPY",
+          "lines": [
+            4519,
+            5169
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/001-Dpad_LanceOrderDispatcher-source.COPY",
+          "lines": [
+            5170,
+            5219
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/001-Dpad_LanceOrderDispatcher-source.COPY",
+          "lines": [
+            5647,
+            5882
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/001-Dpad_LanceOrderDispatcher-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Display index and nonempty array do not establish current AI identity.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 2,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "ExecuteOrder passes inputs to IssueOrder with Ally_FollowJob.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/002-FollowOrder-source.COPY",
+          "lines": [
+            18,
+            41
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/002-FollowOrder-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Native dispatch into ExecuteOrder is not exported.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 3,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Creates/initializes a job, maps recipients to pawn GUID requirements, removes workers from older player-issued jobs and posts without retaining returned posting ID.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/003-SquadOrderBase-source.COPY",
+          "lines": [
+            175,
+            803
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/003-SquadOrderBase-source.COPY",
+          "lines": [
+            889,
+            1024
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/003-SquadOrderBase-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Native resolver and scheduler; cast failure is not an AI-only guard.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 5,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Base action has empty Initialize and Activate; IsActionDisabled returns false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/005-Dpad_ActionLogic-source.COPY",
+          "lines": [
+            204,
+            251
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/005-Dpad_ActionLogic-defaults.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Base defaults are overridden by concrete actions.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 6,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Factory constructs/validates action, sets owner/world, optionally initializes then returns it.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/006-Dpad_FunctionLib-source.COPY",
+          "lines": [
+            410,
+            580
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/006-Dpad_FunctionLib-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Constructing an action does not execute an order.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 7,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Base lance action validates controller/class, posts Medium nonpersistent order and signals UI completion.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/007-Dpad_BaseLanceOrder-source.COPY",
+          "lines": [
+            415,
+            568
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/007-Dpad_BaseLanceOrder-defaults.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "No acceptance readback.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 8,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Widget binds dispatch inputs, selects recipients, posts through order-window delegate, gates UI eligibility; CancelOrders binding closes menu only.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/008-LanceStatusWidget-source.COPY",
+          "lines": [
+            1589,
+            1764
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/008-LanceStatusWidget-source.COPY",
+          "lines": [
+            4122,
+            4490
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/008-LanceStatusWidget-source.COPY",
+          "lines": [
+            5041,
+            5307
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/008-LanceStatusWidget-source.COPY",
+          "lines": [
+            5999,
+            6130
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/008-LanceStatusWidget-defaults.COPY",
+          "lines": [
+            1,
+            74
+          ]
+        }
+      ],
+      "limitations": [
+        "Presentation reviewed as support; other input paths and physical human provenance remain unknown.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 10,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Controller possession changes rebind living/mech events and notify configured components; input handlers forward native parent calls; dynamic component factory exists.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/010-MW5PlayerController-source.COPY",
+          "lines": [
+            1444,
+            1741
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/010-MW5PlayerController-source.COPY",
+          "lines": [
+            3575,
+            3586
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/010-MW5PlayerController-source.COPY",
+          "lines": [
+            4722,
+            5426
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/010-MW5PlayerController-source.COPY",
+          "lines": [
+            5599,
+            5699
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/010-MW5PlayerController-source.COPY",
+          "lines": [
+            6580,
+            6782
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/010-MW5PlayerController-defaults.COPY",
+          "lines": [
+            1,
+            235
+          ]
+        }
+      ],
+      "limitations": [
+        "Creation-function caller, native input internals and live lifecycle reliability unresolved; unrelated UI/dialogue reviewed as support.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 11,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Derived controller forwards BeginPlay and construction, with disconnected Tick and overridden UI defaults.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/011-MW5PlayerControllerDerived-source.COPY",
+          "lines": [
+            18,
+            79
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/011-MW5PlayerControllerDerived-defaults.COPY",
+          "lines": [
+            1,
+            235
+          ]
+        }
+      ],
+      "limitations": [
+        "Defaults are not current instance authority.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 231,
+      "disposition": "UNAVAILABLE",
+      "summary": "MW5_FunctionLibrary source intentionally deferred by size budget; AddUnitToSpawnQueue body remains unavailable.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json",
+          "lines": [
+            11666,
+            11685
+          ]
+        }
+      ],
+      "limitations": [
+        "Do not infer spawn queue implementation from call signature.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 232,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Tag utilities count exact/wildcard matches, filter categories, map footprint tags and format combat-role names; no tactical selection.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/232-MW5_GameplayTagLibrary-source.COPY",
+          "lines": [
+            698,
+            1374
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/232-MW5_GameplayTagLibrary-source.COPY",
+          "lines": [
+            1856,
+            2111
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/232-MW5_GameplayTagLibrary-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Native tag algorithms and runtime caller/population not established.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 233,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Generic graph macros support arrays/maps/grid/indexing/debug/tags/random selection/dialogue handles and mode-specific constants; range helper compares raw actor distance.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/233-MW5_MacroLibrary-source.COPY",
+          "lines": [
+            3351,
+            3826
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/233-MW5_MacroLibrary-source.COPY",
+          "lines": [
+            4021,
+            4509
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/233-MW5_MacroLibrary-source.COPY",
+          "lines": [
+            6822,
+            7452
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/233-MW5_MacroLibrary-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Relevant helper semantics reviewed; not exhaustive verification of every generic utility or runtime use.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 234,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "ExecuteOrder selects Ally_TargetAttackJob and forwards squad/order/player-issued inputs.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/234-AttackOrder-source.COPY",
+          "lines": [
+            18,
+            41
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/234-AttackOrder-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "See job review for target checks; native acceptance unknown.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 235,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "ExecuteOrder selects Ally_GoToLocationJob and forwards incoming order inputs.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/235-GoToLocationOrder-source.COPY",
+          "lines": [
+            18,
+            41
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/235-GoToLocationOrder-defaults.COPY",
+          "lines": [
+            1,
+            3
+          ]
+        }
+      ],
+      "limitations": [
+        "Nav projection/job construction is not observed arrival.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 236,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Resolves recipients, casts AI controllers and cycles valid pawn ECM components.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/236-ToggleECMMode-source.COPY",
+          "lines": [
+            36,
+            153
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/236-ToggleECMMode-defaults.COPY",
+          "lines": [
+            1,
+            4
+          ]
+        }
+      ],
+      "limitations": [
+        "Toggle/cycle has no explicit desired-state acknowledgement.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 237,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Chooses common combat interaction across recipients, posts dialogue then applies mode.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/237-ToggleHoldFireWeaponsFreeOrder-source.COPY",
+          "lines": [
+            72,
+            426
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/237-ToggleHoldFireWeaponsFreeOrder-defaults.COPY",
+          "lines": [
+            1,
+            5
+          ]
+        }
+      ],
+      "limitations": [
+        "Not a job posting or idempotent explicit hold-fire setter.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 238,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Base ControllerConfigured event is empty, BeginPlay/Tick disconnected; tick and autoactivation defaults disabled.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/238-PlayerControllerComponent-source.COPY",
+          "lines": [
+            20,
+            64
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/238-PlayerControllerComponent-defaults.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "Subclass and creation path required.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 239,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Primary data asset class declares component class and add-at-runtime flag; defaults None/false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/239-PlayerControllerComponentDataAsset-source.COPY",
+          "lines": [
+            1,
+            20
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/239-PlayerControllerComponentDataAsset-defaults.COPY",
+          "lines": [
+            1,
+            6
+          ]
+        }
+      ],
+      "limitations": [
+        "Schema is not registration or actual runtime asset instance.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 240,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Mech-switch component validates candidates, stops fire/movement, swaps controllers and restarts logic, then updates UI/fade state.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/240-PlayerControllerSwitchMech-source.COPY",
+          "lines": [
+            1144,
+            1402
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/240-PlayerControllerSwitchMech-source.COPY",
+          "lines": [
+            2180,
+            2262
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/240-PlayerControllerSwitchMech-source.COPY",
+          "lines": [
+            2688,
+            2907
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/240-PlayerControllerSwitchMech-source.COPY",
+          "lines": [
+            4307,
+            4574
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/240-PlayerControllerSwitchMech-defaults.COPY",
+          "lines": [
+            1,
+            33
+          ]
+        }
+      ],
+      "limitations": [
+        "Special scripted transition; complete authority/callback delivery still unverified.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 241,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Interface declares Switch Mech and availability toggle without implementations.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/241-SwitchMechInterface-source.COPY",
+          "lines": [
+            12,
+            38
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/241-SwitchMechInterface-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "An interface declaration is not a control bridge.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 242,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Attack Target action uses base-shaped posting path and selects AttackOrder in defaults.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/242-Dpad_AttackTargetLogic-source.COPY",
+          "lines": [
+            410,
+            558
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/242-Dpad_AttackTargetLogic-defaults.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Actual attack-job eligibility and acceptance are downstream.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 243,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Empty action reports disabled and sends an OnComplete UI response on activation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/243-Dpad_EmptyLogic-source.COPY",
+          "lines": [
+            37,
+            77
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/243-Dpad_EmptyLogic-defaults.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "No native AI action.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 244,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Builds four directional action objects then returns layout; defaults choose ECM and hold-fire entries.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/244-Dpad_MoreCommandsLayout-source.COPY",
+          "lines": [
+            129,
+            411
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/244-Dpad_MoreCommandsLayout-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Layout construction does not execute orders.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 245,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Move To action uses base-shaped posting path and selects GoToLocationOrder in defaults.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/245-Dpad_MoveToLogic-source.COPY",
+          "lines": [
+            410,
+            558
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/245-Dpad_MoveToLogic-defaults.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Supplied context needs nav validation; no inferred safe path.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 246,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Builds select-all directional layout with attack/move/more/follow action defaults.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/246-Dpad_SelectAllLayout-source.COPY",
+          "lines": [
+            129,
+            411
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/246-Dpad_SelectAllLayout-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Recipient binding is performed elsewhere.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 247,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Hold Fire action posts configured ToggleHoldFireWeaponsFreeOrder using standard context.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/247-Dpad_ToggleHoldFireLogic-source.COPY",
+          "lines": [
+            410,
+            558
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/247-Dpad_ToggleHoldFireLogic-defaults.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Toggle semantics require current readback.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 248,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Initialize updates ECM availability from squad/recipients; Activate posts configured ECM cycle order.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/248-Dpad_ToggleLanceECMLogic-source.COPY",
+          "lines": [
+            1733,
+            2261
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/248-Dpad_ToggleLanceECMLogic-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Recipient-to-array availability calculation is UI logic, not a trusted identity map.",
+        "Editor source/default review only; gameplay NOT_PERFORMED."
+      ]
+    }
+  ]
+}

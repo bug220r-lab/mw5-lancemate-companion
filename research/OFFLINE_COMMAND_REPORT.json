@@ -1,0 +1,2867 @@
+{
+  "schemaVersion": 1,
+  "evidenceClass": "MOCK_ONLY",
+  "observedAt": "2026-09-20T23:08:04.294Z",
+  "question": "Do these synthetic traces satisfy the proposed command arbitration rules?",
+  "result": "EXPECTATIONS_MET",
+  "cases": 47,
+  "expectationsMet": 47,
+  "nativeCallsPerformed": 0,
+  "gameIntegration": "NOT_PERFORMED",
+  "fixturesSha256": "4e2f68f66b0763ba2275e68f5ff7b20caf947cbe55f0ee735f7682d455df2fed",
+  "scriptSha256": "76ff979110d2f202e6dc82a367229d9983488f02d94f6991096dd91750955637",
+  "limits": [
+    "All observations and dispatches are synthetic.",
+    "No native field, manual-order hook, transport, game identity or runtime behavior is established.",
+    "The model rejects writes when manual-order observation is unknown.",
+    "Single actor/action, single model-owned clock, no concurrency or process/network behavior tested.",
+    "Ledger/queue sizes and timing values are evaluation settings, not production performance claims."
+  ],
+  "results": [
+    {
+      "id": "C01",
+      "title": "Fresh explicitly armed single-AI intent reaches only mock dispatch",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "mock_dispatch:C1:NO_NATIVE_CALL",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C02",
+      "title": "No implicit arming",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:DISARMED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C03",
+      "title": "Unknown manual observation cannot be treated as generation zero",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MANUAL_OBSERVATION_UNKNOWN",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "MANUAL_OBSERVATION_UNKNOWN"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MANUAL_OBSERVATION_UNKNOWN"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C04",
+      "title": "Fractional manual generation is not usable evidence",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MANUAL_OBSERVATION_UNKNOWN",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "MANUAL_OBSERVATION_UNKNOWN"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MANUAL_OBSERVATION_UNKNOWN"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C05",
+      "title": "Human order between receipt and dispatch cancels queue despite rearm",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:HUMAN_OVERRIDE",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "HUMAN_OVERRIDE"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "HUMAN_OVERRIDE"
+          },
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "rejected",
+              "reason": "HUMAN_OVERRIDE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "C06",
+      "title": "Identical queued and dispatched duplicates never dispatch again",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "queued",
+              "reason": null
+            }
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 2500,
+            "type": "disarmed",
+            "id": null,
+            "detail": "USER_DISARM"
+          },
+          {
+            "atMs": 2500,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "mock_dispatch",
+              "reason": null
+            }
+          },
+          {
+            "atMs": 2500,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C07",
+      "title": "Reusing an ID with an altered binding rejects the collision",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:ID_REUSE_MISMATCH",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "ID_REUSE_MISMATCH"
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C08",
+      "title": "Old-session queue and replay cannot survive mission rotation",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:SESSION_CHANGED",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:WRONG_SESSION",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 0,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "SESSION_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "SESSION_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "session_changed",
+            "id": null,
+            "detail": "E2"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "WRONG_SESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C09",
+      "title": "A new occupant in the selected slot invalidates the old command",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:BINDING_CHANGED",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:WRONG_BINDING",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "BINDING_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "BINDING_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "WRONG_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C10",
+      "title": "Human possession revokes a queued AI command",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:NOT_LIVE_AI",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "NOT_LIVE_AI"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "NOT_LIVE_AI"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C11",
+      "title": "Destroyed pawn revokes a queued command",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:NOT_LIVE_AI",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "NOT_LIVE_AI"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "NOT_LIVE_AI"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C12",
+      "title": "Pause and resume cannot resurrect queued work",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:INACTIVE_MISSION",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:DISARMED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "INACTIVE_MISSION"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "INACTIVE_MISSION"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "DISARMED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C13",
+      "title": "Unknown authority at dispatch cancels queued work",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:UNKNOWN_AUTHORITY",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "UNKNOWN_AUTHORITY"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "UNKNOWN_AUTHORITY"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C14",
+      "title": "IPC disconnection and reconnection require explicit rearm",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:DISCONNECTED",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:DISARMED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "DISARMED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C15",
+      "title": "TTL expires at the exact first-receipt deadline",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:EXPIRED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 1000,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "EXPIRED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C16",
+      "title": "Retransmission does not extend the original deadline",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:EXPIRED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 900,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "queued",
+              "reason": null
+            }
+          },
+          {
+            "atMs": 1000,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "EXPIRED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C17",
+      "title": "Fresh receipt cannot renew an old telemetry observation",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:STALE_SAMPLE",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 1001,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "STALE_SAMPLE"
+          },
+          {
+            "atMs": 1001,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C18",
+      "title": "Future synthetic sample times are invalid",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:INVALID_SAMPLE",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "INVALID_SAMPLE"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "INVALID_SAMPLE"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C19",
+      "title": "Snapshot context must still match at dispatch",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:SNAPSHOT_CHANGED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "SNAPSHOT_CHANGED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C20",
+      "title": "Explicit rearm cannot bypass the two-second rate limit",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:RATE_LIMITED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "USER_DISARM"
+          },
+          {
+            "atMs": 1000,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 1000,
+            "type": "queued",
+            "id": "C2",
+            "detail": null
+          },
+          {
+            "atMs": 1000,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "RATE_LIMITED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C21",
+      "title": "Fresh command may dispatch at the exact cooldown boundary",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "mock_dispatch:C2:NO_NATIVE_CALL",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 2,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 2000,
+            "type": "queued",
+            "id": "C2",
+            "detail": null
+          },
+          {
+            "atMs": 2000,
+            "type": "mock_dispatch",
+            "id": "C2",
+            "detail": "NO_NATIVE_CALL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C22",
+      "title": "A third queued command is rejected at capacity",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C3:QUEUE_FULL",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:RATE_LIMITED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 3,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C2",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C3",
+            "detail": "QUEUE_FULL"
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "RATE_LIMITED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C23",
+      "title": "Ledger saturation disarms without evicting a rejected command ID",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C9:LEDGER_FULL",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 8,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C3",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C4",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C5",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C6",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C7",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C8",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "LEDGER_FULL"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C9",
+            "detail": "LEDGER_FULL"
+          },
+          {
+            "atMs": 0,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "rejected",
+              "reason": "DISARMED"
+            }
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C24",
+      "title": "Unconfirmed outcome never produces automatic retry or acceptance",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "unconfirmed:C1:NO_RETRY",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:DISARMED",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OUTCOME_UNKNOWN"
+          },
+          {
+            "atMs": 0,
+            "type": "unconfirmed",
+            "id": "C1",
+            "detail": "NO_RETRY"
+          },
+          {
+            "atMs": 2500,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 2500,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "unconfirmed",
+              "reason": "OUTCOME_UNKNOWN"
+            }
+          },
+          {
+            "atMs": 2500,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C25",
+      "title": "Unsupported attack action is rejected before queueing",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MALFORMED_COMMAND",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 0,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MALFORMED_COMMAND"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C26",
+      "title": "Extra target or arbitrary payload field is rejected",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MALFORMED_COMMAND",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 0,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MALFORMED_COMMAND"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C27",
+      "title": "Wrong primitive types cannot impersonate a valid command",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MALFORMED_COMMAND",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:MALFORMED_COMMAND",
+          "met": true
+        },
+        {
+          "name": "rejected:C3:MALFORMED_COMMAND",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 0,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MALFORMED_COMMAND"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "MALFORMED_COMMAND"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C3",
+            "detail": "MALFORMED_COMMAND"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C28",
+      "title": "Oversized supplied text is rejected as data",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MALFORMED_COMMAND",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 0,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MALFORMED_COMMAND"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C29",
+      "title": "Manual revision must match even with a fresh snapshot",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:MANUAL_REVISION_CHANGED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "MANUAL_REVISION_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C30",
+      "title": "Missing native capability rejects every write",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:CAPABILITY_UNAVAILABLE",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "CAPABILITY_UNAVAILABLE"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "CAPABILITY_UNAVAILABLE"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C31",
+      "title": "An explicitly refreshed new session can use a local ID again",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:SESSION_CHANGED",
+          "met": true
+        },
+        {
+          "name": "mock_dispatch:C1:NO_NATIVE_CALL",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "SESSION_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "SESSION_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "session_changed",
+            "id": null,
+            "detail": "E2"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "HUMAN_OVERRIDE"
+          },
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C32",
+      "title": "A sequence regression revokes already queued work",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_REGRESSION",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C33",
+      "title": "A fresh command immediately before TTL remains eligible",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "mock_dispatch:C1:NO_NATIVE_CALL",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 999,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C34",
+      "title": "A backwards model clock is a fixture error, never an age reset",
+      "expectationMet": true,
+      "expectedError": "INVALID_TIME_ADVANCE",
+      "actualError": "INVALID_TIME_ADVANCE"
+    },
+    {
+      "id": "C35",
+      "title": "Replayed snapshot time cannot freshen old queued intent or support rearm",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_REGRESSION",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:OBSERVATION_FAULT",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 900,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 1100,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 1100,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 1100,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 1100,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 1100,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C36",
+      "title": "Manual revision rollback cannot become the baseline on explicit rearm",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_REGRESSION",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:OBSERVATION_FAULT",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:OBSERVATION_FAULT",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C37",
+      "title": "A reused epoch cannot clear the ledger and make old traffic new",
+      "expectationMet": true,
+      "expectedError": "REUSED_SESSION_ID",
+      "actualError": "REUSED_SESSION_ID"
+    },
+    {
+      "id": "C38",
+      "title": "Pause cannot hide manual rollback or permit rearm from retained state",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "observation_rejected:*:OBSERVATION_REGRESSION",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:OBSERVATION_FAULT",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_FAULT",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_RECOVERY_REQUIRED"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_RECOVERY_REQUIRED"
+          },
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C39",
+      "title": "Rejected future sample cannot mature into permission as time catches up",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "observation_rejected:*:INVALID_SAMPLE",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:OBSERVATION_FAULT",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_FAULT",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "INVALID_SAMPLE"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "INVALID_SAMPLE"
+          },
+          {
+            "atMs": 100,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 100,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 100,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C40",
+      "title": "Unknown manual observation retains the prior revision high-water mark",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "disarmed:*:MANUAL_OBSERVATION_UNKNOWN",
+          "met": true
+        },
+        {
+          "name": "observation_rejected:*:OBSERVATION_REGRESSION",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_FAULT",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "MANUAL_OBSERVATION_UNKNOWN"
+          },
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C41",
+      "title": "Fault recovery requires a fresh newer valid observation and explicit rearm",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "observation_rejected:*:OBSERVATION_REGRESSION",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:OBSERVATION_FAULT",
+          "met": true
+        },
+        {
+          "name": "observation_rejected:*:OBSERVATION_RECOVERY_REQUIRED",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_FAULT",
+          "met": true
+        },
+        {
+          "name": "mock_dispatch:C2:NO_NATIVE_CALL",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 0,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_RECOVERY_REQUIRED"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_RECOVERY_REQUIRED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 1,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 1,
+            "type": "queued",
+            "id": "C2",
+            "detail": null
+          },
+          {
+            "atMs": 1,
+            "type": "mock_dispatch",
+            "id": "C2",
+            "detail": "NO_NATIVE_CALL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "C42",
+      "title": "Pause cannot hide a sample-time rollback behind a newer sequence",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:OBSERVATION_REGRESSION",
+          "met": true
+        },
+        {
+          "name": "observation_rejected:*:OBSERVATION_RECOVERY_REQUIRED",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:OBSERVATION_FAULT",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 100,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 100,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 100,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 100,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 100,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_REGRESSION"
+          },
+          {
+            "atMs": 100,
+            "type": "observation_rejected",
+            "id": null,
+            "detail": "OBSERVATION_RECOVERY_REQUIRED"
+          },
+          {
+            "atMs": 100,
+            "type": "disarmed",
+            "id": null,
+            "detail": "OBSERVATION_RECOVERY_REQUIRED"
+          },
+          {
+            "atMs": 100,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 100,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "OBSERVATION_FAULT"
+          },
+          {
+            "atMs": 100,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C43",
+      "title": "New epoch cannot inherit authority or mission readiness from the prior world",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:DISCONNECTED",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:DISCONNECTED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "SESSION_CHANGED"
+          },
+          {
+            "atMs": 0,
+            "type": "session_changed",
+            "id": null,
+            "detail": "E2"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C44",
+      "title": "Wrong actor with otherwise matching generation is rejected directly",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:WRONG_BINDING",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": true,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "WRONG_BINDING"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C45",
+      "title": "Unknown actor binding cannot be armed or inferred from the command",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "arm_rejected:*:UNKNOWN_BINDING",
+          "met": true
+        },
+        {
+          "name": "rejected:C1:UNKNOWN_BINDING",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 0,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 1,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "arm_rejected",
+            "id": null,
+            "detail": "UNKNOWN_BINDING"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C1",
+            "detail": "UNKNOWN_BINDING"
+          },
+          {
+            "atMs": 0,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C46",
+      "title": "Human override after mock dispatch prevents duplicate or fresh-ID correction",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "disarmed:*:HUMAN_OVERRIDE",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:DISARMED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 2,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 2500,
+            "type": "disarmed",
+            "id": null,
+            "detail": "HUMAN_OVERRIDE"
+          },
+          {
+            "atMs": 2500,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "mock_dispatch",
+              "reason": null
+            }
+          },
+          {
+            "atMs": 2500,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 2500,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "C47",
+      "title": "Disconnect after mock dispatch prevents replay or resumed writes on reconnect",
+      "expectationMet": true,
+      "assertions": [
+        {
+          "name": "dispatchCount",
+          "met": true
+        },
+        {
+          "name": "armed",
+          "met": true
+        },
+        {
+          "name": "queued",
+          "met": true
+        },
+        {
+          "name": "ledgerSize",
+          "met": true
+        },
+        {
+          "name": "disarmed:*:DISCONNECTED",
+          "met": true
+        },
+        {
+          "name": "rejected:C2:DISCONNECTED",
+          "met": true
+        },
+        {
+          "name": "duplicate_history:C1:[object Object]",
+          "met": true
+        },
+        {
+          "name": "rejected:C3:DISARMED",
+          "met": true
+        }
+      ],
+      "actual": {
+        "dispatchCount": 1,
+        "armed": false,
+        "queued": 0,
+        "ledgerSize": 3,
+        "events": [
+          {
+            "atMs": 0,
+            "type": "armed",
+            "id": null,
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "queued",
+            "id": "C1",
+            "detail": null
+          },
+          {
+            "atMs": 0,
+            "type": "mock_dispatch",
+            "id": "C1",
+            "detail": "NO_NATIVE_CALL"
+          },
+          {
+            "atMs": 0,
+            "type": "disarmed",
+            "id": null,
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 0,
+            "type": "rejected",
+            "id": "C2",
+            "detail": "DISCONNECTED"
+          },
+          {
+            "atMs": 2500,
+            "type": "duplicate_history",
+            "id": "C1",
+            "detail": {
+              "stage": "mock_dispatch",
+              "reason": null
+            }
+          },
+          {
+            "atMs": 2500,
+            "type": "rejected",
+            "id": "C3",
+            "detail": "DISARMED"
+          },
+          {
+            "atMs": 2500,
+            "type": "queue_empty",
+            "id": null,
+            "detail": null
+          }
+        ]
+      }
+    }
+  ]
+}

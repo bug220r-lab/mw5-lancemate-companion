@@ -1,0 +1,55 @@
+﻿{
+    "status":  "LOCAL_SPEECH_FILES_GENERATED",
+    "generated_at":  "2026-09-20T20:34:21.2375830Z",
+    "engine":  "System.Speech.Synthesis.SpeechSynthesizer",
+    "assembly_version":  "4.0.0.0",
+    "voice":  "Microsoft Zira Desktop",
+    "culture":  "en-US",
+    "rate":  0,
+    "volume":  90,
+    "manifest_sha256":  "FBE3F0C075B7FF9499F2EEDABCE564B87A3C802A474B8070D73005FFC4FA95E1",
+    "api_requests":  0,
+    "api_fees_usd":  0,
+    "microphone_capture":  false,
+    "automatic_playback":  false,
+    "game_access":  false,
+    "files":  [
+                  {
+                      "id":  "VA-001",
+                      "path":  "raw/VA-001.wav",
+                      "elapsed_synthesis_ms":  59,
+                      "sha256":  "9A99E9CE197E202EE61296429D81752478EBA70352C0C595ABA02F3A36533727"
+                  },
+                  {
+                      "id":  "VA-002",
+                      "path":  "raw/VA-002.wav",
+                      "elapsed_synthesis_ms":  42,
+                      "sha256":  "29DCCA131D06D05A6B533669307AF1A8D84001E44064863FB517A39C31DFAD16"
+                  },
+                  {
+                      "id":  "VA-003",
+                      "path":  "raw/VA-003.wav",
+                      "elapsed_synthesis_ms":  24,
+                      "sha256":  "6278B5C733399F71D3BD89EC2E463069777395829F7407032E8E2350111E5733"
+                  },
+                  {
+                      "id":  "VA-004",
+                      "path":  "raw/VA-004.wav",
+                      "elapsed_synthesis_ms":  28,
+                      "sha256":  "A8995D911A90999D868D60E2777E2A863F4B1361CC550495562FB842950CE53B"
+                  },
+                  {
+                      "id":  "VA-005",
+                      "path":  "raw/VA-005.wav",
+                      "elapsed_synthesis_ms":  19,
+                      "sha256":  "C78A67B89F72D73E72A0BE85BEE0C9F7D69E1A61DB68BBEA2DF72A0A8D1198FF"
+                  },
+                  {
+                      "id":  "VA-006",
+                      "path":  "raw/VA-006.wav",
+                      "elapsed_synthesis_ms":  19,
+                      "sha256":  "A6A673A4731BA64988EB7EA53528DB505B40C3D593696F7BA6E31304CA398A1A"
+                  }
+              ],
+    "timing_limit":  "Offline synthesis wall time only; not conversation or in-game latency."
+}

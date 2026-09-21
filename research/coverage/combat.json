@@ -1,0 +1,1957 @@
+{
+  "workstream": "combat",
+  "assets": [
+    {
+      "id": 9,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "MechAIController adds an empty Blueprint graph to native MWMechAIController. Defaults reference BT_MechMasterTree and native target-selection, weapon-control, optimal-range, perception and path-following components; combat tactic and primary tactic default to None and AI startup-on-possession is false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/009-MechAIController-source.COPY",
+          "lines": [
+            10,
+            28
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/009-MechAIController-defaults.COPY",
+          "lines": [
+            1,
+            181
+          ]
+        }
+      ],
+      "limitations": [
+        "Component implementations, runtime configuration binding and actual startup are native or external.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 17,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "MechTargetComponent primarily binds armor/internal/damage textures to paper-doll widgets in SetupPaperDoll. Widget selection contains owner/mech/weight-class mapping, but the IsValid macro input is unconnected; the texture-selection switch also has no connected outgoing execution. Defaults expose visibility-marker flags and replicated target presentation, not a targeting policy.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/017-MechTargetComponent-source.COPY",
+          "lines": [
+            2654,
+            2927
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/017-MechTargetComponent-source.COPY",
+          "lines": [
+            2928,
+            3104
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/017-MechTargetComponent-source.COPY",
+          "lines": [
+            3695,
+            4430
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/017-MechTargetComponent-source.COPY",
+          "lines": [
+            5144,
+            5144
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/017-MechTargetComponent-defaults.COPY",
+          "lines": [
+            1,
+            75
+          ]
+        }
+      ],
+      "limitations": [
+        "Native MWTargetComponent owns unavailable visibility/target behavior; disconnected graph fragments are not claimed operational.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 46,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "On ReceiveExecuteAI, casts to MechAIController, validates CombatTarget, requests K2_FaceTarget and immediately finishes true; invalid controller/target branches finish false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/046-BTTask_MechFaceCombatTarget-source.COPY",
+          "lines": [
+            296,
+            390
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/046-BTTask_MechFaceCombatTarget-defaults.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Finishing this task means the request path ran, not that facing completed.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 47,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Master-tree runtime root first initializes UseJJCheckForClosingIn when absent, then selects non-idle work, otherwise waits. Non-idle priority is flee, mission-team orders, CanAttack/combat, suspicion, patrol, home/ambient. Root services update senses, feather jump jets and check navigation recovery. Flee scope changes target strategy; active selector runs native combat-target selection with auto-attack.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/047-BT_MechMasterTree-source.COPY",
+          "lines": [
+            480,
+            558
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/047-BT_MechMasterTree-source.COPY",
+          "lines": [
+            561,
+            644
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/047-BT_MechMasterTree-source.COPY",
+          "lines": [
+            665,
+            710
+          ]
+        }
+      ],
+      "limitations": [
+        "Native target selection and task implementations remain unavailable. MissionOrders is not itself proof of human-order provenance.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 48,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "AI condition obtains combat tactic through MWCombatControllerInterface.K2_GetCombatTactic and tests membership in the configured CombatTactic set.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/048-BTDecorator_CheckCombatTactic-source.COPY",
+          "lines": [
+            25,
+            88
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/048-BTDecorator_CheckCombatTactic-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Native accessor and runtime tactic assignment outside this predicate are not implemented here.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 49,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Returns recent damage only when LastTimeDamageTaken > 0 and current game time <= LastTimeDamageTaken + TimeThreshold. Tank-role caller supplies 15 seconds.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/049-BTDecorator_HasBeenDamagedRecently-source.COPY",
+          "lines": [
+            33,
+            142
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/049-BTDecorator_HasBeenDamagedRecently-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Default threshold is zero; caller configuration must be used. Cast-failure path has no explicit return chain.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 50,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Validates controlled pawn and MWJumpJetComponent, then returns native HasJumpJets; invalid objects return false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/050-BTDecorator_HasJumpJets-source.COPY",
+          "lines": [
+            31,
+            118
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/050-BTDecorator_HasJumpJets-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Availability predicate does not establish jump feasibility, cooldown or path safety.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 51,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Validates pawn and living-actor component, then compares GetCurrentHealthPercent <= HealthThreshold; invalid objects return false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/051-BTDecorator_IsBelowHealthPercent-source.COPY",
+          "lines": [
+            33,
+            133
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/051-BTDecorator_IsBelowHealthPercent-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Default threshold zero is overridden by combat tree to 0.9; native health aggregation is unavailable.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 52,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Scoped service saves the current blackboard target-selection enum on activation, writes configured strategy, and restores the saved value on deactivation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/052-BTService_ChangeTargetSelectionStrategy-source.COPY",
+          "lines": [
+            50,
+            207
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/052-BTService_ChangeTargetSelectionStrategy-source.COPY",
+          "lines": [
+            282,
+            282
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/052-BTService_ChangeTargetSelectionStrategy-defaults.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "Native strategy implementation and scoped-service lifecycle timing remain unavailable.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 53,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tick increments or decrements a clamped counter according to native IsCombatTargetInDeadZone. Counter at threshold sets EvasiveManeuvers true; reaching zero clears it. Default trigger is 8 intervals; Mobile tree overrides service interval to 1 second.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/053-BTService_CheckEvasiveManeuvers-source.COPY",
+          "lines": [
+            70,
+            372
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/053-BTService_CheckEvasiveManeuvers-defaults.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "This is dead-zone hysteresis, not a demonstrated damage-avoidance policy. Tick scheduling and native dead-zone calculation require observation.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 54,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Scoped service saves controller bMoveWithRespectToCombatTarget, sets configured MoveWithRespect on activation, and restores it on deactivation.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/054-BTService_MoveWithRespectToCombatTarget-source.COPY",
+          "lines": [
+            48,
+            187
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/054-BTService_MoveWithRespectToCombatTarget-source.COPY",
+          "lines": [
+            266,
+            266
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/054-BTService_MoveWithRespectToCombatTarget-defaults.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "Native movement interpretation and concurrent override arbitration are unavailable.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 55,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Activation and ticks select an eligible primary tactic first; fallback is Light\u2192HitAndRun, long optimal range\u2192Ranged when non-LRM long-range capable else Indirect, otherwise Heavy/Assault\u2192Tank and remaining classes\u2192Mobile. Primary-role checks differ: Mobile requires valid target plus Light/Medium close capability, Tank allows either target-validity branch before close capability, Indirect checks LRM, Ranged checks long-range capability, HitAndRun checks Light/Medium.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/055-BTService_PickCombatTactic-source.COPY",
+          "lines": [
+            253,
+            394
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/055-BTService_PickCombatTactic-source.COPY",
+          "lines": [
+            416,
+            800
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/055-BTService_PickCombatTactic-source.COPY",
+          "lines": [
+            849,
+            1300
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/055-BTService_PickCombatTactic-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Range/capability providers and assignment of PrimaryCombatTactic are native/external. Explicit 179 m boundary and 100 conversion must not be mixed with raw EQS units.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 56,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Execute validates native mech controller and CombatTarget, then sets focus, requests FireAt interaction, sets bMoveWithRespectToCombatTarget from parameter and finishes true. Invalid target finishes false; controller cast-failure has no connected completion.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/056-BTTask_MechFireAtCombatTarget-source.COPY",
+          "lines": [
+            48,
+            221
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/056-BTTask_MechFireAtCombatTarget-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "No proof of shot acceptance, weapon selection, discharge or damage; this task sets intent.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 57,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Combat root requires CombatTarget, optionally clears TetherShapeComponent when health <= 0.9 with force-success, then selects navigation recovery before Ranged, Indirect, Tank, Mobile, HitAndRun and unconditional Ranged fallback. PickCombatTactic service runs at configured 1.25 \u00b1 0.25 seconds.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/057-BT_MechCombat-source.COPY",
+          "lines": [
+            370,
+            538
+          ]
+        }
+      ],
+      "limitations": [
+        "Health test releases a tether; it is not a general retreat trigger. Native recovery/tactic execution timing remains unobserved.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 58,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "HitAndRun root loops: beyond 500 m it selects RushTarget EQS and shared movement; otherwise it tries MeleeRush behind 30-second cooldown then a start/end rush sequence. Start has 10-second time limit; end movement runs alongside conditional jump-jet activation when equipped, off, nearby and velocity predicate passes. Movement-with-respect is false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/058-BT_MechCombat_HitAndRun-source.COPY",
+          "lines": [
+            560,
+            609
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/058-BT_MechCombat_HitAndRun-source.COPY",
+          "lines": [
+            647,
+            680
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/058-BT_MechCombat_HitAndRun-source.COPY",
+          "lines": [
+            695,
+            780
+          ]
+        }
+      ],
+      "limitations": [
+        "Native EQS, movement, cooldown and velocity predicate determine actual behavior. Raw spatial thresholds are not all metres.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 59,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Indirect root loops. HasLineOfSight branch installs IndirectCircle EQS and calls shared movement; fallback runs BruteForceCircle then moves while inverse visibility holds, with repeating query service and short wait; final fallback waits.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/059-BT_MechCombat_Indirect-source.COPY",
+          "lines": [
+            243,
+            361
+          ]
+        }
+      ],
+      "limitations": [
+        "Visibility predicate uses native 2-second threshold; selected position is not proof of clear fire or path completion.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 60,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Mobile root requires CombatTarget, then prioritizes an EvasiveManeuvers branch using repeated BruteForceCircle queries (11000 distance override) and movement; otherwise it selects BruteForceCircle for shared movement. Dead-zone service runs at 1 second; final root fallback waits 0.1 second.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/060-BT_MechCombat_Mobile-source.COPY",
+          "lines": [
+            333,
+            502
+          ]
+        }
+      ],
+      "limitations": [
+        "A separately serialized sequence/direct-movement branch is not reachable from recorded RootNode. Query outcomes and native movement are unobserved.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 61,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Ranged root first uses visibility-gated RangedCircle through shared movement, then BruteForceCircle/negative-visibility movement and waits. Serialized jump-jet simple-parallel branch and direct RangedCircle service exist but are not reachable from root.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/061-BT_MechCombat_Ranged-source.COPY",
+          "lines": [
+            342,
+            520
+          ]
+        }
+      ],
+      "limitations": [
+        "Do not infer active jump behavior from dormant serialized nodes. RangedCircle fallback can lack trace filtering.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 62,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Tank combat-role root first delegates to Mobile for damage within 15 seconds, then tries MechTankCircle through shared movement, then clears travel location and uses inverse-visibility recovery (MoveTowardCombatTarget if no travel point, otherwise shared movement), then waits. Recovery service overrides movement-with-respect false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/062-BT_MechCombat_Tank-source.COPY",
+          "lines": [
+            526,
+            792
+          ]
+        }
+      ],
+      "limitations": [
+        "Tank here is a mech tactic, not the tank vehicle tree. Serialized older simple-parallel/jump movement is not root-reachable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 63,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "MeleeRush sequence gates on ShouldStartMeleeAttack, sets ShouldMelee true, then runs a maximum 30-second loop while that key holds. Continue predicate gates movement to CombatTarget; failure branch writes ShouldMelee without a serialized bool value. Scoped movement-with-respect is false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/063-BT_MechMovement_MeleeRush-source.COPY",
+          "lines": [
+            201,
+            278
+          ]
+        }
+      ],
+      "limitations": [
+        "Native melee-desirability, actual strike selection and damage are not implemented here. Omitted bool value requires native class-default confirmation; unrelated FloatValue=10 does not set a timer.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 64,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "BruteForceCircle evaluates its donut option before a target-centered circle fallback. Donut includes path filtering, inverse navigation-range scoring, spacing/orientation/tether preferences; its trace test is Score, not a hard LOS filter. Circle fallback also uses scoring rather than guaranteed clear fire.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/064-EQS_BruteForceCircle-source.COPY",
+          "lines": [
+            249,
+            398
+          ]
+        }
+      ],
+      "limitations": [
+        "EQS native provider/test math and result selection are unavailable; NodeName comments do not override TestPurpose.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 65,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "EndRush uses a 24000-radius 16-point donut centered on CombatTarget with ground-spacing, directional-dot, distance, path scoring and tether scoring. Runtime Options contains only EnvQueryOption_1.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/065-EQS_HitAndRun_EndRush-source.COPY",
+          "lines": [
+            167,
+            227
+          ]
+        }
+      ],
+      "limitations": [
+        "Path scoring is not proof of feasibility; radii are raw exported spatial units.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 66,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "StartRush uses a 12000-radius 16-point donut with path filter, spacing, bounded dot preference, distance, inverse navigation-target path-length score and tether score.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/066-EQS_HitAndRun_StartRush-source.COPY",
+          "lines": [
+            178,
+            251
+          ]
+        }
+      ],
+      "limitations": [
+        "Native query result and geometry feasibility remain unobserved; exported distances are raw units.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 67,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "IndirectCircle orders 5000 and 15000 donut options before a 12000 target-centered circle. Donuts score spacing and native optimal-range path length, pathfinding and tether; no explicit trace test establishes LOS filtering.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/067-EQS_IndirectCircle-source.COPY",
+          "lines": [
+            200,
+            346
+          ]
+        }
+      ],
+      "limitations": [
+        "Indirect query name does not prove ballistic feasibility or target knowledge.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 68,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "MechTankCircle uses 5000 donut then 12000 target circle. Donut scores native optimal-range path length (maximum 12000), spacing, pathfinding, tether and trace; trace TestPurpose is Score.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/068-EQS_MechTankCircle-source.COPY",
+          "lines": [
+            171,
+            277
+          ]
+        }
+      ],
+      "limitations": [
+        "Query name does not guarantee tanking, cover or clear fire.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 69,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "RangedCircle orders 5000/15000/30000 donut options then a 12000 target-centered circle. Main donuts explicitly filter trace results and score range/path/spacing/tether; circle fallback has no trace filter.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/069-EQS_RangedCircle-source.COPY",
+          "lines": [
+            349,
+            617
+          ]
+        }
+      ],
+      "limitations": [
+        "Even this query cannot guarantee every returned fallback point has line of sight. Exact trace/native context semantics require runtime validation.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 70,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "RushTarget orders a 5000-range cone (90.01-degree spread, 15-degree steps) before a 10000 target circle; cone applies path filter plus spacing/navigation/dot/tether scores, circle uses path and tether scoring.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/070-EQS_RushTarget-source.COPY",
+          "lines": [
+            179,
+            279
+          ]
+        }
+      ],
+      "limitations": [
+        "Cone points are candidate positions, not validated tactical destinations.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 71,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "TankCombatCircle runtime options are Option_2 donut and Option_1 target circle; Option_0 is serialized but not selected. Active donut has path filter, spacing/navigation/facing/tether scores and Score-only trace; fallback also filters path.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/071-EQS_TankCombatCircle-source.COPY",
+          "lines": [
+            324,
+            529
+          ]
+        }
+      ],
+      "limitations": [
+        "Unselected Option_0 must not contribute claimed active tests; LOS comment is not a trace filter.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 72,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "TankLRMBruteForce orders a 4000 donut then a 50000 target circle. Donut scores spacing, navigation range (30000 reference), dots, distance, trace, path and tether; fallback scores distance/path/tether.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/072-EQS_TankLRMBruteForce-source.COPY",
+          "lines": [
+            210,
+            372
+          ]
+        }
+      ],
+      "limitations": [
+        "No explicit hard trace/path filter in these serialized tests; native inherited defaults and firing solution remain unknown.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 94,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Boss damage service only proceeds when its configured HasTakenTooMuchDamage key already reads true; connected comparison uses literal 0 <= HealthThresholdPercent after living-component validation, not a health getter, then writes true.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/094-BTService_MechCon2018Boss_CheckForDamage-source.COPY",
+          "lines": [
+            114,
+            282
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/094-BTService_MechCon2018Boss_CheckForDamage-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Cannot claim this detects a fresh damage transition. Defaults key differs from boss-root AreMinionsTooDamaged. Runtime use unproven.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 95,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Boss proximity service only proceeds when HasEnemyBeenNearby already reads true, then compares native squared distance to player squad with square(DistanceThreshold*100), writing true on success. Boss-root instance sets threshold 200.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/095-BTService_MechCon2018Boss_CheckForNearbyEnemy-source.COPY",
+          "lines": [
+            110,
+            311
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/095-BTService_MechCon2018Boss_CheckForNearbyEnemy-defaults.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Cannot claim activation from initially false key. Native squad-distance calculation and runtime boss use unobserved.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 96,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Boss root selects FightFromRange while AreMinionsTooDamaged and HasEnemyBeenNearby are unset, otherwise loops MechMasterTree. Root services check damage and proximity at one-second intervals.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/096-BT_MechCon2018Boss-source.COPY",
+          "lines": [
+            126,
+            184
+          ]
+        }
+      ],
+      "limitations": [
+        "Damage service default writes a different key; problematic service gates prevent simple narrative of automatic damage/proximity transition.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 97,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Boss range tree checks CombatTarget, faces it, runs FindFirePosition using RandomBest25Pct, then chooses a FireAt variant based on cone decorator before moving to TravelLocation and facing again; otherwise waits. Native target picker auto-attacks.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/097-BT_MechCon2018Boss_FightFromRange-source.COPY",
+          "lines": [
+            207,
+            302
+          ]
+        }
+      ],
+      "limitations": [
+        "Cone/query/native firing semantics and runtime activation are unverified.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 98,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Boss blackboard inherits Mech blackboard and adds boolean HasEnemyBeenNearby and AreMinionsTooDamaged.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/098-Blackboard_Mech_MechCon2018Boss-source.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "Does not add HasTakenTooMuchDamage used by damage-service default.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 99,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Provides member pawns of the first valid MWSquad found by GetAllActorsOfClass; no team or player filter is wired despite PlayerSquadMechs name.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/099-Context_MechCon2018Boss_PlayerSquadMechs-source.COPY",
+          "lines": [
+            117,
+            184
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/099-Context_MechCon2018Boss_PlayerSquadMechs-defaults.COPY",
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Actor enumeration order and which squad is selected in game are unknown.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 100,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Boss FindFirePosition uses a 15000 pathing grid with 5000 spacing and tests distance to the custom squad context (minimum 20000) plus a combat-target trace condition.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/100-EQS_MechCon2018Boss_FindFirePosition-source.COPY",
+          "lines": [
+            57,
+            82
+          ]
+        }
+      ],
+      "limitations": [
+        "Custom context is not proven player-only; omitted inherited test-purpose defaults and native trace behavior remain unknown.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 101,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "AdranSortek config: skill 8 Commander, Boss accuracy curve, lethality 0.85, shielding 0.4, Large coordination and 10-card overheat deck. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/101-AdranSortek_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 102,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Boss accuracy cubic curve keys (metres,value): (0,1.5), (300,1.2), (1200,0.7).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/102-Boss_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 103,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Boss config: skill 6 Elite, Boss accuracy curve, lethality 1, shielding 0.5, Large coordination and 10-card deck. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/103-Boss_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 104,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "BountyHunter accuracy cubic keys: (0,1.5), (300,1.25), (1200,0.85).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/104-BountyHunter_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 105,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "BountyHunter config: skill 8, battle-value multiplier 4, BountyHunter accuracy curve, lethality 1, shielding 0.65, Large coordination and 10-card deck. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/105-BountyHunter_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 106,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "D4_RoR_Intro accuracy cubic keys: (0,0.9), (200,0.7), (1200,0.07).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/106-D4_IntroLevel_AccuracyAtDistance-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 107,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "D4_RoR_Intro config: battle-value multiplier 0.9, overheat willingness 0.2, 100-card deck, dedicated intro accuracy curve and lethality 0.1. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/107-D4_IntroLevel_Config-source.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 108,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Default accuracy cubic keys: (0,1.1), (250,0.85), (1200,0.4).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/108-DefaultAIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 109,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Default evasion modifier curve keys: (0,0), (694.44,0.3), (2500,0.55), (3600,0.6).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/109-DefaultAIEvasionModifierCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Native input transformation/units and combination with pilot modifiers are unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 110,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Default lateral-movement accuracy modifier curve keys: (0,0), (3600,0.8).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/110-DefaultAILateralMovementAccuracyModifierCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Native input transformation/units and combination with pilot modifiers are unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 111,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Default config: overheat willingness 0.1, 10-card deck, Default accuracy curve and lethality 0.25. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/111-Default_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 112,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Elite accuracy cubic keys: (0,1.3), (300,1), (1200,0.6).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/112-Elite_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 113,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Elite config: skill 4, battle-value multiplier 1.4, Elite accuracy curve, lethality 0.8, shielding 0.4, Large coordination, 100-card deck and Instant Action-list visibility. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/113-Elite_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 114,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Green accuracy cubic keys: (0,1), (200,0.775), (1200,0.15).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/114-Green_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 115,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Green config: skill 1, battle-value multiplier 0.9, overheat willingness 0.15, Green accuracy, lethality 0.4, shielding 0.05 and 100-card deck; listed in Instant Action. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/115-Green_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 116,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "IntroRecruit config: battle-value multiplier 0.8, overheat willingness 0.2, intro accuracy, lethality 0.1, 100-card deck and distinct torso/arm targeting weights. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/116-IntroMission_Recruit_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 117,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "IntroRecruit accuracy cubic keys: (0,0.75), (200,0.47), (1200,0.07).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/117-IntroMissions_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 118,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Lancemate config: Default accuracy curve, lethality 0.8, Large coordination and 100-card deck. Overheat willingness is not serialized and must not be assumed zero. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/118-LanceMateBehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 119,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Recruit accuracy cubic keys: (0,0.9), (200,0.7), (1200,0.07).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/119-Recruit_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 120,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Recruit config: skill 0, battle-value multiplier 0.8, overheat willingness 0.2, Recruit accuracy, lethality 0.25 and 100-card deck; listed in Instant Action. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/120-Recruit_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 121,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Regular accuracy cubic keys: (0,1.1), (250,0.85), (1200,0.25).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/121-Regular_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 122,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Regular config: skill 2, overheat willingness 0.1, Regular accuracy, lethality 0.55, shielding 0.1, Small coordination and 100-card deck; listed in Instant Action. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/122-Regular_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 123,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Trainer config: skill -2, Default accuracy curve, lethality 0.5 and 10-card deck. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/123-Trainer_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 124,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Veteran accuracy cubic keys: (0,1.2), (275,0.9), (1200,0.45).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/124-Veteran_AIAccuracyAtDistanceCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve values are configuration inputs, not observed hit probabilities; several exceed one. Native combination/clamping is unavailable.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 125,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "Veteran config: skill 3, battle-value multiplier 1.2, overheat willingness 0.05, Veteran accuracy, lethality 0.675, shielding 0.25, Moderate coordination and 100-card deck; listed in Instant Action. Config also references common lateral/evasion curves and explicit part-target weights.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/125-Veteran_BehaviorConfig-source.COPY",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ],
+      "limitations": [
+        "Native application, live assignment and combined accuracy/heat/target calculation are not established by this data asset. Omitted properties inherit defaults.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 168,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Validates pawn and jump-jet component, requires HasJumpJets, then treats Warmup or Active states as jets on; invalid paths return false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/168-BTDecorator_AreJumpJetsOn-source.COPY",
+          "lines": [
+            45,
+            198
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/168-BTDecorator_AreJumpJetsOn-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Native component state and actual thrust effects are unavailable.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 169,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "CanAttack reads the Attack boolean from AI controller blackboard and returns it; it does not inspect weapons or ammunition.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/169-BTDecorator_CanAttack-source.COPY",
+          "lines": [
+            29,
+            110
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/169-BTDecorator_CanAttack-defaults.COPY",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Attack-key writers and weapon readiness must be considered separately.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 170,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Generic condition implementation returns false. AI implementation obtains CombatTargetInteraction and compares it with configured Interaction (class default None).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/170-BTDecorator_CombatTargetInteraction-source.COPY",
+          "lines": [
+            29,
+            99
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/170-BTDecorator_CombatTargetInteraction-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Native accessor and interaction execution are unavailable.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 171,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Casts controller, obtains CombatTarget and returns object validity.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/171-BTDecorator_HasCombatTarget-source.COPY",
+          "lines": [
+            25,
+            92
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/171-BTDecorator_HasCombatTarget-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "Object validity does not establish allegiance, current visibility or reachable path.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 172,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Validates native controller, blackboard and selected actor, then returns IsActorVisible(actor,2 seconds); invalid prerequisites return false. Class default observes blackboard and has Both abort mode.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/172-BTDecorator_HasLineOfSight-source.COPY",
+          "lines": [
+            47,
+            234
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/172-BTDecorator_HasLineOfSight-defaults.COPY",
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ],
+      "limitations": [
+        "This is a native visibility-history predicate, not an instantaneous ray trace or weapon-clearance guarantee.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 175,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Converts configured metres to squared raw distance via (DistanceInMeters*100)^2 and compares native squared pawn-to-combat-target distance <= threshold. Invalid target returns false; out-of-range branch lacks explicit return node.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/175-BTDecorator_IsCombatTargetWithinRange-source.COPY",
+          "lines": [
+            49,
+            234
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/175-BTDecorator_IsCombatTargetWithinRange-defaults.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "Native distance calculation and implicit return behavior are not expanded; default threshold is 100 m.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 178,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Continue-melee decorator initializes timer, health threshold and distance from blackboard once, checks target validity/range, timer and mech health, and resets or deactivates on failing conditions. Tick decrements local timer when active; the blackboard timer-write node is disconnected. Controlled-pawn cast failure routes to true in the health check.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/178-BTDecorator_ShouldContineMeleeAttack-source.COPY",
+          "lines": [
+            188,
+            320
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/178-BTDecorator_ShouldContineMeleeAttack-source.COPY",
+          "lines": [
+            321,
+            685
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/178-BTDecorator_ShouldContineMeleeAttack-source.COPY",
+          "lines": [
+            686,
+            1022
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/178-BTDecorator_ShouldContineMeleeAttack-defaults.COPY",
+          "lines": [
+            1,
+            20
+          ]
+        }
+      ],
+      "limitations": [
+        "Timer/state reuse and native decorator lifecycle require gameplay validation; do not claim a continuous blackboard countdown.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 179,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "Start-melee condition calls native IsMeleeDesirable, initializes parameters, checks mech health, requires a mech target and compares squared range. Parameters start at 100 m/0.5 health/10 s; sequential exact combat-role tags override to Juggernaut 250/0.15/10, Brawler 250/0.4/10, Skirmisher 300/0.4/15 and write three blackboard values.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/179-BTDecorator_ShouldStartMeleeAttack-source.COPY",
+          "lines": [
+            210,
+            615
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/179-BTDecorator_ShouldStartMeleeAttack-source.COPY",
+          "lines": [
+            616,
+            1217
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/179-BTDecorator_ShouldStartMeleeAttack-defaults.COPY",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "limitations": [
+        "Later matching tags overwrite earlier values. Native desirability and firing/strike logic unavailable; some false/cast paths have no explicit return.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 191,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "PerceptionAimTarget Blueprint has empty construction and disabled/unconnected default event stubs; behavior is inherited from native MWAIPerceptionAimTarget. Defaults contain living/aggro components, team 255 and no automatic perception registration.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/191-PerceptionAimTarget-source.COPY",
+          "lines": [
+            16,
+            74
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/191-PerceptionAimTarget-defaults.COPY",
+          "lines": [
+            1,
+            98
+          ]
+        }
+      ],
+      "limitations": [
+        "No evidence of runtime spawning, team assignment or use as a combat decoy from this asset alone.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 193,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "SensorData DataTable export identifies row struct MWSensorConfig but contains no rows or sensor parameter values.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/193-SensorData-source.COPY",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ],
+      "limitations": [
+        "Sensor ranges, thresholds and per-unit lookup values remain unavailable in this export; metadata review is complete, table contents are not collected.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 194,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "UpdateSenses binds awareness callbacks on activation and gates callback reactions on service activity. Tick checks player proximity (configured metres converted to squared raw distance), perceived hostiles and awareness to decide idle/activation; callbacks clear or populate suspicion from sensor strength and power up eligible units. ShouldActImmediately tests IgnoreAutoPowerUp, non-None MissionOrders or ForceActive. SelectTarget helper minimizes ActorsTargetingMe but has no connected caller; power-down helper call is disconnected. One immediate SetIdle call lacks its AIController argument.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/194-BTService_UpdateSenses-source.COPY",
+          "lines": [
+            530,
+            1330
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/194-BTService_UpdateSenses-source.COPY",
+          "lines": [
+            1331,
+            1716
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/194-BTService_UpdateSenses-source.COPY",
+          "lines": [
+            1717,
+            2255
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/194-BTService_UpdateSenses-source.COPY",
+          "lines": [
+            2256,
+            2571
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/194-BTService_UpdateSenses-source.COPY",
+          "lines": [
+            2572,
+            2998
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/194-BTService_UpdateSenses-defaults.COPY",
+          "lines": [
+            1,
+            27
+          ]
+        }
+      ],
+      "limitations": [
+        "Native awareness/visibility and power-up implementations unavailable. Sensor-data lookup success return is ignored. Suspicion is not ground truth; uncalled helpers are not claimed live behavior.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 197,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "SetCombatTarget reads configured blackboard object, casts it to Actor and owner to MWAIController, requests K2_SetCombatTarget and finishes true; either cast failure finishes false.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/197-BTTask_SetCombatTarget-source.COPY",
+          "lines": [
+            40,
+            195
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/197-BTTask_SetCombatTarget-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Task itself does not validate allegiance, visibility, freshness or authority; true means call path, not observed engagement.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 198,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "SetCombatTargetInteraction casts MWAIController, requests configured interaction and finishes true, otherwise false; class default FireAt.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/198-BTTask_SetCombatTargetInteraction-source.COPY",
+          "lines": [
+            26,
+            106
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/198-BTTask_SetCombatTargetInteraction-defaults.COPY",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ],
+      "limitations": [
+        "Native acceptance and resulting weapon behavior remain unknown.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 199,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "UnitPilotComponent contains disabled/unconnected BeginPlay and Tick stubs and defaults IsPiloted=true with ticking disabled; no pilot policy implementation is present.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/199-UnitPilotComponent-source.COPY",
+          "lines": [
+            10,
+            43
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/199-UnitPilotComponent-defaults.COPY",
+          "lines": [
+            1,
+            16
+          ]
+        }
+      ],
+      "limitations": [
+        "Flag default is not evidence of actual possession or autonomous control.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 202,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "EvasivePercentageIncrease keys (1,0),(10,1).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/202-EvasivePercentageIncrease-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 203,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "GunneryDamageBonus has zero-value keys at levels 1 and 30.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/203-GunneryDamageBonus-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 204,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "GunnerySubskillDamageBonus keys (1,0),(10,0.2).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/204-GunnerySubskillDamageBonus-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 205,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "HeatCapIncrease keys (0,0),(18,0.2).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/205-HeatCapIncrease-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 206,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "HeatCoolingIncrease keys (0,0),(10,0.2).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/206-HeatCoolingIncrease-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 207,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "PilotSkillEvasiveCurve has zero-value keys at 0 and 30.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/207-PilotSkillEvasiveCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 208,
+      "disposition": "SEMANTIC_REVIEWED",
+      "summary": "PilotSkillGrowth floors native skill level before curve evaluation. Damage boost adds general gunnery curve then one matching ballistic, energy or missile/Artemis subskill curve. Shielding/evasion add their subskill curve and piloting curve; heat cap/cooling use HeatManagement only. Commendations select highest reached tiers for evasion, armor-minus-structure damage, generated heat minus 50 per overheat clamped at zero, weapon-category hostile damage, and flank count; missile and Artemis are separate sequential awards. AI config wrapper forwards DefaultAIBehaviourConfig with zero accuracy/lethality/DPS bonuses and false boss/focus flags.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/208-PilotSkillGrowth-source.COPY",
+          "lines": [
+            1643,
+            2850
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/208-PilotSkillGrowth-source.COPY",
+          "lines": [
+            2851,
+            3420
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/208-PilotSkillGrowth-source.COPY",
+          "lines": [
+            3421,
+            4110
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/208-PilotSkillGrowth-source.COPY",
+          "lines": [
+            4111,
+            5267
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/208-PilotSkillGrowth-source.COPY",
+          "lines": [
+            5268,
+            5631
+          ]
+        },
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/208-PilotSkillGrowth-defaults.COPY",
+          "lines": [
+            1,
+            13
+          ]
+        }
+      ],
+      "limitations": [
+        "Native skill-level progression, tracking-stat collection and gameplay application remain unavailable. Piloting heat/cooling curves exist in defaults but are not wired into exported heat functions. This is existing game progression, not tactical learning.",
+        "Class defaults are configuration, not live controller state.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 209,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "PilotSkillHeatCapCurve has zero-value keys at 0 and 10.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/209-PilotSkillHeatCapCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 210,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "PilotSkillHeatCoolingCurve has zero-value keys at 0 and 10.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/210-PilotSkillHeatCoolingCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 211,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "PilotSkillLevelCurve maps XP keys 0/260/975/1980/3422/5072/6962/8874/11250/14110 to levels 1 through 10.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/211-PilotSkillLevelCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 212,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "PilotSkillShieldingCurve has zero-value keys at 0 and 30.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/212-PilotSkillShieldingCurve-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    },
+    {
+      "id": 213,
+      "disposition": "SUPPORTING_DATA_REVIEWED",
+      "summary": "ShieldingPercentageIncrease keys (0,0),(10,0.3).",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/213-ShieldingPercentageIncrease-source.COPY",
+          "lines": [
+            1,
+            8
+          ]
+        }
+      ],
+      "limitations": [
+        "Curve endpoint configuration is not model training or observed effectiveness; application/native clamps must be distinguished.",
+        "Static editor export review; shipping-game execution NOT_PERFORMED."
+      ]
+    }
+  ]
+}

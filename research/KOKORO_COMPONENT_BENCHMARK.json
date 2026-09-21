@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "classification": "LOCAL_COMPONENT_BENCHMARK_NOT_GAMEPLAY",
+  "status": "PASS_LOCAL_CPU_FILE_SYNTHESIS_ONLY",
+  "timestampUtc": "2026-09-21T05:24:02Z",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "deviceRequested": "cpu",
+  "microphoneCapture": false,
+  "speakerPlayback": false,
+  "gameOrEditorExecution": false,
+  "paidApiCalls": 0,
+  "userVoiceApproval": "NOT_PERFORMED",
+  "latencyAlongsideGame": "NOT_PERFORMED",
+  "samples": [
+    {
+      "personaId": "edge",
+      "voiceCandidate": "af_bella",
+      "fixtureKind": "ORIGINAL_AUTHORED_COMPONENT_TEXT_NOT_MISSION_FACTS",
+      "text": "Radio check. Keep it tight. I didn't come here to babysit scrap.",
+      "phonemes": [
+        "\u0279\u02c8AdiO \u02a7\u02c8\u025bk. k\u02c8ip \u026at t\u02c8It. \u02ccI d\u02c8\u026ad\u1d4ant k\u02c8\u028cm h\u02c8\u026a\u0279 t\u0259 b\u02c8Abis\u02cc\u026at sk\u0279\u02c8\u00e6p."
+      ],
+      "firstChunkMs": 4411.926,
+      "synthesisMs": 4412.035,
+      "processCpuMs": 8328.125,
+      "audioDurationSeconds": 4.85,
+      "realTimeFactor": 0.9097,
+      "rawPeakAmplitude": 0.5666779279708862,
+      "samplesBeyondPcmRange": 0,
+      "wav": "companion/local/tts/audio/edge-af_bella-component.wav",
+      "sampleRate": 24000,
+      "channels": 1,
+      "frames": 116400,
+      "bytes": 232844,
+      "sha256": "233de092162052606663db1e785ab7ccb5581d79c94c42e1b5e69a9f906a53aa"
+    },
+    {
+      "personaId": "tactician",
+      "voiceCandidate": "am_adam",
+      "fixtureKind": "ORIGINAL_AUTHORED_COMPONENT_TEXT_NOT_MISSION_FACTS",
+      "text": "Radio check. 3 pilots, 1 channel. 120 meters.",
+      "phonemes": [
+        "\u0279\u02c8AdiO \u02a7\u02c8\u025bk. \u03b8\u0279\u02c8i p\u02c8Il\u0259ts, w\u02c8\u028cn \u02a7\u02c8\u00e6n\u1d4al. w\u02c8\u028cn h\u02c8\u028cnd\u0279\u0259d tw\u02c8\u025bnti m\u02c8iT\u0259\u0279z."
+      ],
+      "firstChunkMs": 4124.246,
+      "synthesisMs": 4124.268,
+      "processCpuMs": 7828.125,
+      "audioDurationSeconds": 4.55,
+      "realTimeFactor": 0.9064,
+      "rawPeakAmplitude": 0.6631940603256226,
+      "samplesBeyondPcmRange": 0,
+      "wav": "companion/local/tts/audio/tactician-am_adam-component.wav",
+      "sampleRate": 24000,
+      "channels": 1,
+      "frames": 109200,
+      "bytes": 218444,
+      "sha256": "9ee9b952f880cd0423bc8c07a18a6f752ab0d79e279fb5bdc2394b20f05888e1"
+    },
+    {
+      "personaId": "scout",
+      "voiceCandidate": "af_heart",
+      "fixtureKind": "ORIGINAL_AUTHORED_COMPONENT_TEXT_NOT_MISSION_FACTS",
+      "text": "Radio check. Two turns, then I'll quit talking. Probably.",
+      "phonemes": [
+        "\u0279\u02c8AdiO \u02a7\u02c8\u025bk. t\u02c8u t\u02c8\u025c\u0279nz, \u00f0\u02c8\u025bn \u02ccIl kw\u02c8\u026at t\u02c8\u0254k\u026a\u014b. p\u0279\u02c8\u0251b\u0259bli."
+      ],
+      "firstChunkMs": 3469.979,
+      "synthesisMs": 3470.001,
+      "processCpuMs": 6640.625,
+      "audioDurationSeconds": 4.1,
+      "realTimeFactor": 0.8463,
+      "rawPeakAmplitude": 0.36992982029914856,
+      "samplesBeyondPcmRange": 0,
+      "wav": "companion/local/tts/audio/scout-af_heart-component.wav",
+      "sampleRate": 24000,
+      "channels": 1,
+      "frames": 98400,
+      "bytes": 196844,
+      "sha256": "3ed12546f385f4ba87bd7576d66c7474f95ae0f8cdb59fc36e8c55ff2abc5965"
+    }
+  ],
+  "assetManifestSha256": "45d598ae78a9d8924eb3ed73d35e86fcab9cba2917bac8e680f8ffb1c2795e0b",
+  "setupBudgetSha256": "647fdf39b9cddd13e02261348e75e38376adae31e9e2b88e9413d87f706362b3",
+  "installedManifestSha256": "c26a53d2ab8c4ca0194fbbdac3a420b16eeb92f7681e078caacd0880f31ed86b",
+  "verifiedModelAssets": [
+    {
+      "file": "models/kokoro-v1_0.pth",
+      "sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
+      "bytes": 327212226
+    },
+    {
+      "file": "models/af_heart.pt",
+      "sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+      "bytes": 523425
+    },
+    {
+      "file": "models/af_bella.pt",
+      "sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+      "bytes": 523425
+    },
+    {
+      "file": "models/am_adam.pt",
+      "sha256": "ced7e284aba12472891be1da3ab34db84cc05cc02b5889535796dbf2d8b0cb34",
+      "bytes": 523420
+    },
+    {
+      "file": "models/config.json",
+      "sha256": "5abb01e2403b072bf03d04fde160443e209d7a0dad49a423be15196b9b43c17f",
+      "bytes": 2351
+    }
+  ],
+  "importsMs": 45155.874,
+  "versions": {
+    "kokoro": "0.9.4",
+    "misaki": "0.9.4",
+    "torch": "2.6.0+cpu",
+    "transformers": "4.48.3",
+    "huggingface-hub": "0.28.1",
+    "spacy": "3.8.4",
+    "en-core-web-sm": "3.8.0",
+    "soundfile": "0.14.0",
+    "espeakng-loader": "0.2.4",
+    "numpy": "2.2.2",
+    "num2words": "0.5.6"
+  },
+  "torchThreads": 2,
+  "torchInteropThreads": 1,
+  "espeakLibrary": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\tts\\venv\\Lib\\site-packages\\espeakng_loader\\espeak-ng.dll",
+  "loadMs": 5227.412,
+  "readyFromScriptStartMs": 50401.548,
+  "deviceObserved": "cpu",
+  "networkAttemptsBlocked": 0,
+  "peakProcessWorkingSetBytes": 1350213632,
+  "totalScriptMs": 62476.794,
+  "ttsDirectoryBytes": 2174498499
+}

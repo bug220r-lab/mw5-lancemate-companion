@@ -1,0 +1,89 @@
+{
+  "observed_at": "2026-09-20T13:40:38.0390924-04:00",
+  "scope": "Read-only bridge prerequisite follow-up",
+  "game_version": "1.14.390",
+  "game_changelist": 456620,
+  "steam_buildid": "24241637",
+  "disk_free_bytes": 87011803136,
+  "receipt_path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\MW5Mercs\\Binaries\\Win64\\MechWarrior-Win64-Shipping.target",
+  "receipt_sha256": "E359B90434023F682D24BF722A4B6F26191790A8A8DC5878B24CCE9A4F621384",
+  "receipt_engine_version": {
+    "MajorVersion": 4,
+    "MinorVersion": 26,
+    "PatchVersion": 2,
+    "Changelist": 0,
+    "CompatibleChangelist": 14830424,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 0,
+    "BranchName": "++UE4+Release-4.26",
+    "BuildId": "9bd41d70-2eec-41d4-8ae2-2ad7e06162b7"
+  },
+  "receipt_target": {
+    "configuration": "Shipping",
+    "type": "Game",
+    "platform": "Win64",
+    "name": "MechWarrior"
+  },
+  "shipping_exe_sha256": "7F213246776E64F4FE63B8D68ACFA00CB4B16BD0AE72853B250F51C5C96A4888",
+  "relevant_declared_runtime_dependencies": [
+    {
+      "Path": "$(ProjectDir)/Plugins/VictoryPlugin/VictoryBPLibrary.uplugin",
+      "Type": "UFS"
+    },
+    {
+      "Path": "$(ProjectDir)/Plugins/LowEntryJson/LowEntryJson.uplugin",
+      "Type": "UFS"
+    },
+    {
+      "Path": "$(EngineDir)/Plugins/Experimental/PythonScriptPlugin/PythonScriptPlugin.uplugin",
+      "Type": "UFS"
+    },
+    {
+      "Path": "$(EngineDir)/Plugins/Editor/EditorScriptingUtilities/EditorScriptingUtilities.uplugin",
+      "Type": "UFS"
+    }
+  ],
+  "loose_plugin_descriptors": {
+    "lowentry_present": false,
+    "victory_present": false
+  },
+  "epic": {
+    "launcher_installed_file": "C:\\ProgramData\\Epic\\UnrealEngineLauncher\\LauncherInstalled.dat",
+    "installation_count": 0,
+    "standard_manifest_directory_present": false,
+    "editor_uninstall_entry_found": false
+  },
+  "prior_metadata_hash_comparison": [
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\workshop\\content\\784080\\2677921408\\mod.json",
+      "sha256": "A8387D3600DF4A750E545BC913994898CCBC9BC24313639381ECF175BB7C5891",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\workshop\\content\\784080\\2811899266\\mod.json",
+      "sha256": "B992FB3580BFB8C24203F03CA26875A5BF9DCF8C2161A5F90D825B9CA8190193",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\workshop\\content\\784080\\3746349463\\mod.json",
+      "sha256": "167E10B9874A0568E87F79F76A23843D60723B763E8CFAE2BF77A94E69E3BF4F",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\game_info.xml",
+      "sha256": "A3FBBE56A51CA7950B85570B2C074C9C54BEEBA585E48CB1887E307850316AFB",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\MW5Mercs\\Mods\\modlist.json",
+      "sha256": "B64A793A16BCAFA3AB69471B051CE00178E7890FDC42E604A7400E4D6690A9CA",
+      "unchanged": true
+    }
+  ],
+  "limits": [
+    "Receipt reports engine4.26.2; it does not establish editor match or all PGI engine modifications",
+    "RuntimeDependencies list includes editor-only plugins; declaration is not proof of callable shipping functions",
+    "No editor discovered in relevant registry, launcher manifests and default paths; not an exhaustive disk scan",
+    "No PAK extraction, binary disassembly, process attach, game/editor launch, installation or live control"
+  ]
+}

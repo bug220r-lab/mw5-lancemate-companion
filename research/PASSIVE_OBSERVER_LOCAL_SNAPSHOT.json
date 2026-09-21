@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "evidence": "OBSERVED",
+  "observed_at": "2026-09-21T04:22:17.4920931Z",
+  "scope": "Named metadata, template listing, config excerpts and free space only; no editor/game execution",
+  "editor": {
+    "engine": {
+      "MajorVersion": 4,
+      "MinorVersion": 26,
+      "PatchVersion": 2,
+      "Changelist": 0,
+      "CompatibleChangelist": 14830424,
+      "IsLicenseeVersion": 0,
+      "IsPromotedBuild": 0,
+      "BranchName": "++UE4+Release-4.26"
+    },
+    "root": "C:\\Program Files\\Epic Games\\MechWarrior5Editor",
+    "manifest_incomplete": false,
+    "package_version": "1.1.390.0e"
+  },
+  "retail": {
+    "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries",
+    "modlist": {
+      "gameVersion": "1.14.390",
+      "modStatus": {}
+    },
+    "enabled_mods_in_game": "UNKNOWN",
+    "game_info_xml": "<?xml version='1.0' encoding='utf-16'?>\r\n<Game Version=\"1.14.390\" Changelist=\"456620\" Timestamp=\"07/15/2026 11:29:46\" Stream=\"Main_Release\" BuildName=\"Main_Release-390_Shipping_CL456620\" />",
+    "dlc_entitlement": "UNKNOWN",
+    "steam_identity_lines": [
+      "\"appid\"\t\t\"784080\"",
+      "\"name\"\t\t\"MechWarrior 5: Mercenaries\"",
+      "\"installdir\"\t\t\"MechWarrior 5 Mercenaries\"",
+      "\"buildid\"\t\t\"24241637\""
+    ]
+  },
+  "editor_modlist": {
+    "gameVersion": "1.14.70",
+    "modStatus": {}
+  },
+  "template_files": [
+    "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\ModTemplates\\BaseTemplate\\Config\\Input\\PLUGIN_NAMEInput.ini",
+    "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\ModTemplates\\BaseTemplate\\Config\\Tags\\PLUGIN_NAMETags.ini",
+    "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\ModTemplates\\BaseTemplate\\Resources\\Icon128.png"
+  ],
+  "config_excerpts": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultEngine.ini",
+      "start_line": 29,
+      "end_line": 34,
+      "text": "+Categories=(CategoryName=\"TargetSelection\",SlotIdx=\"12\",ActiveInGame=\"Enable\",ActiveInSimulate=\"Enable\",Hidden=\"UseDefault\",bOverrideSlotIdx=\"false\")\n\n[/Script/Engine.Engine]\nLocalPlayerClassName=/Script/MechWarrior.MWLocalPlayer\nAssetManagerClassName=/Script/MechWarrior.MWAssetManager\nNavigationSystemClassName=/Script/MechWarrior.MWNavigationSystem"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultGame.ini",
+      "start_line": 63,
+      "end_line": 67,
+      "text": "[/Script/Engine.AssetManagerSettings]\n-PrimaryAssetTypesToScan=(PrimaryAssetType=\"Map\",AssetBaseClass=/Script/Engine.World,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path=\"/Game/Maps\")))\n-PrimaryAssetTypesToScan=(PrimaryAssetType=\"PrimaryAssetLabel\",AssetBaseClass=/Script/Engine.PrimaryAssetLabel,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path=\"/Game\")))\n+PrimaryAssetTypesToScan=(PrimaryAssetType=\"PrimaryAssetLabel\",AssetBaseClass=/Script/Engine.PrimaryAssetLabel,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path=\"/Game\")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))\n+PrimaryAssetTypesToScan=(PrimaryAssetType=\"Map\",AssetBaseClass=/Script/Engine.World,bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=((Path=\"/Game/Maps\"),(Path=\"/Game/Levels\")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultGame.ini",
+      "start_line": 143,
+      "end_line": 147,
+      "text": "+DirectoriesToExclude=(Path=\"/ModOverride/\")\nbOnlyCookProductionAssets=False\nbShouldManagerDetermineTypeAndName=False\nbShouldGuessTypeAndNameInEditor=False\nbShouldAcquireMissingChunksOnLoad=False"
+    }
+  ],
+  "fingerprints": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Build\\Build.version",
+      "bytes": 212,
+      "last_write_utc": "2026-09-20T18:18:17.7032660Z",
+      "sha256": "820D6814CF61B6458FB4FC22247A0EE77B964B3BD7A48FE07222C78389785765"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "bytes": 4653,
+      "last_write_utc": "2026-09-20T21:25:01.0399659Z",
+      "sha256": "A66A2197DF7AE9780A648735520884D04A7BDB2CCE656E324E9ECD5AC4EBAEAB"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultGame.ini",
+      "bytes": 44609,
+      "last_write_utc": "2026-09-20T19:25:44.6621862Z",
+      "sha256": "89458486787B13CAE43DB03090AB34748AE72493F1293192AB48889AB68036DD"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultEngine.ini",
+      "bytes": 33476,
+      "last_write_utc": "2026-09-20T19:25:44.6621862Z",
+      "sha256": "3543892993C407F648491E7F0B6DEBE928D7BF80C62708046AD7AD51F7C91C6E"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Mods\\modlist.json",
+      "bytes": 55,
+      "last_write_utc": "2026-09-20T23:00:01.0498426Z",
+      "sha256": "E022076305578BCA5BF885484C300FDD943947088421C26FCBB750E0EB1C4A44"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\ModTemplates\\BaseTemplate\\Config\\Tags\\PLUGIN_NAMETags.ini",
+      "bytes": 43,
+      "last_write_utc": "2026-09-20T20:17:26.9027184Z",
+      "sha256": "AD7F8B6D4415FB7EDB4D52E83942A67C66313DA7EA504E6196679DB31B147E1B"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\ModTemplates\\BaseTemplate\\Config\\Input\\PLUGIN_NAMEInput.ini",
+      "bytes": 1383,
+      "last_write_utc": "2026-09-20T20:17:26.9017219Z",
+      "sha256": "FC21B00D6DB183E8434466E27F0F4FC194F7E852F66CE68BC15C9323271AA17D"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\ModTemplates\\BaseTemplate\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "last_write_utc": "2026-09-20T20:17:26.9027184Z",
+      "sha256": "EC157F56F486E5A68FD4B27DF6C88FECDB1B8F9BFFF18AA5EF10A21BCA6A4C5E"
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\game_info.xml",
+      "bytes": 380,
+      "last_write_utc": "2026-08-11T03:52:51.9439209Z",
+      "sha256": "A3FBBE56A51CA7950B85570B2C074C9C54BEEBA585E48CB1887E307850316AFB"
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\MW5Mercs\\Mods\\modlist.json",
+      "bytes": 56,
+      "last_write_utc": "2026-09-03T01:43:12.7766425Z",
+      "sha256": "B64A793A16BCAFA3AB69471B051CE00178E7890FDC42E604A7400E4D6690A9CA"
+    },
+    {
+      "path": "C:\\Program Files (x86)\\Steam\\steamapps\\appmanifest_784080.acf",
+      "bytes": 1013,
+      "last_write_utc": "2026-09-19T01:35:15.3490092Z",
+      "sha256": "954C3633FD07643F6B1869A318C0C70BB9237AFDEA072AFB9F1C0766E760244C"
+    },
+    {
+      "path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+      "bytes": 2398,
+      "last_write_utc": "2026-09-20T22:26:42.8840339Z",
+      "sha256": "1A304CCF534B8DD0433F0361FE1D4B8EDCBFE48867899CD91E5C138946D1891C"
+    }
+  ],
+  "free_bytes": 7073288192,
+  "proposed_destination": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\MW5Mercs\\Mods\\LanceObserverProbe",
+  "proposed_destination_exists": false,
+  "limits": [
+    "Metadata and hashes do not prove entitlement, enabled mods, compatibility or runtime loading.",
+    "Template file inventory does not establish a registration mechanism.",
+    "Free space is an observation, not a proven cook budget.",
+    "No source/cooked observer package exists; no package or dependency hash is claimed."
+  ]
+}

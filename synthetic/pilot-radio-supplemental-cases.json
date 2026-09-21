@@ -1,0 +1,280 @@
+{
+  "schema_id": "mw5lc.synthetic.pilot_radio_supplemental_cases",
+  "schema_version": "1.0.0",
+  "fixture_set_id": "pilot-radio-scene-supplement-001",
+  "created_date": "2026-09-20",
+  "status": "AUTHORED_STATIC_EXPECTATIONS_NOT_EXECUTED",
+  "purpose": "Four focused semantic cases extracted after reading the connected rehearsal, addressing gaps identified in the unchanged original radio suite. These are reviewable regression criteria, not held-out tests or runtime inputs.",
+  "all_events_synthetic": true,
+  "real_game_observations": false,
+  "runtime_actions_permitted": false,
+  "native_actions": 0,
+  "evaluation_status": "NOT_PERFORMED",
+  "authorship": {
+    "author": "Assistant agent /root/bridge_research",
+    "relationship": "The supplemental-case author is also the separate-agent semantic reviewer, not the scene or audition author. Expectations were written after seeing the scene; no independent held-out oracle is claimed."
+  },
+  "source_artifacts": [
+    {
+      "role": "scene",
+      "path": "synthetic/mission-rehearsal.json",
+      "sha256": "DAC44F916017FDF0A8732AE95C75AA1D713BF5506C51E2AA300621379B03E733",
+      "rehearsal_id": "mission-rehearsal-001",
+      "revision": "0.1.0"
+    },
+    {
+      "role": "audition",
+      "path": "synthetic/personality-audition.json",
+      "sha256": "C4894C5CCA7499600211A23F5D4930EE546AF7CB8850F38C6AD1DCC1A44C340A",
+      "audition_id": "personality-audition-001"
+    },
+    {
+      "role": "profile",
+      "path": "design/PILOT_BEHAVIOR.md",
+      "sha256": "01C9A95BD0D4A192930B0D1D5F08B1550AF5B3723BF03F85F957AEFC440EDEA0",
+      "profile_id": "mw5lc.pilot.edgy-female.v0.1",
+      "profile_version": "0.1.0"
+    },
+    {
+      "role": "original_radio_fixture",
+      "path": "synthetic/pilot-radio-cases.json",
+      "sha256": "A3263912313EB48815DE67AC844BA6483E2B5FAFA6FF16390F865AF073B2D09D",
+      "modified": false
+    }
+  ],
+  "path_base": "project root",
+  "shared_rules": [
+    "No field or stage in these cases establishes a real MW5 API, event, radio detector or controller.",
+    "All spoken candidates live in the pinned scene; no response generator was run.",
+    "Speech mute and active user speech override every permitted spoken response. The pinned scene defaults to unmuted and does not enact a mute transition.",
+    "Suppressing speech does not cancel an already accepted native order. Manual changes and invalid bindings separately govern proposed command authority.",
+    "Unknown, conflicting and fictional information cannot become verified campaign memory.",
+    "Compare semantic properties, not exact wording; fictional timestamps are not measured latency."
+  ],
+  "cases": [
+    {
+      "id": "PRS-001",
+      "title": "A confirmed native refusal does not identify its cause",
+      "mapped_beat_ids": [
+        "MR-011",
+        "MR-012",
+        "MR-013",
+        "MR-014"
+      ],
+      "related_original_case_ids": [
+        "PRC-002"
+      ],
+      "context": {
+        "source": "The human's fictional native movement input; companion arming has been revoked.",
+        "evidence": [
+          "Confirmed actor-associated refusal of that move.",
+          "The native feedback ends before the completed human question and companion reply."
+        ],
+        "unknowns": [
+          "Terrain, range, navigation, pilot motive and every other refusal cause.",
+          "Whether a previous native order remains active."
+        ]
+      },
+      "expected": {
+        "speech_decision": "SPEAK",
+        "priority": "P2",
+        "maximum_words": 16,
+        "required_properties": [
+          "State the move was refused and its cause is unknown.",
+          "Wait for the native line and user turn to finish."
+        ],
+        "forbidden_properties": [
+          "Guess a terrain, range, navigation or disobedience cause.",
+          "Treat missing confirmation alone as a confirmed refusal.",
+          "Retry, propose an implemented project go-to action or automatically rearm.",
+          "Claim the previous order survived the refusal."
+        ]
+      },
+      "review_targets": [
+        "MR-014"
+      ],
+      "future_control_expectation": "No dispatch or retry; no expansion beyond the proposed FORM_ON_PLAYER allowlist.",
+      "candidate_source": "Pinned scene beats identified by review_targets; no additional candidate authored.",
+      "evaluation_status": "NOT_PERFORMED"
+    },
+    {
+      "id": "PRS-002",
+      "title": "Optional speech yields to native radio and is dropped",
+      "mapped_beat_ids": [
+        "MR-001",
+        "MR-002",
+        "MR-006",
+        "MR-007",
+        "MR-015",
+        "MR-016"
+      ],
+      "related_original_case_ids": [
+        "PRC-008"
+      ],
+      "context": {
+        "source": "Three author-stipulated occupied native-radio intervals: 0–10, 28–31 and 130–137 seconds.",
+        "evidence": [
+          "Optional commentary would overlap briefing, order feedback or a mission warning.",
+          "No direct question or fresh actor-specific immediate danger is supplied at these silence beats."
+        ],
+        "unknowns": [
+          "A real native-radio occupancy signal or detector.",
+          "Acoustic overlap, device routing and actual interruption latency."
+        ]
+      },
+      "expected": {
+        "speech_decision": "SILENT",
+        "priority": "P3_OR_P4_SUPPRESSED",
+        "maximum_words": 0,
+        "required_properties": [
+          "Leave all three companion utterances empty.",
+          "Drop optional remarks rather than replay them at the hold boundary.",
+          "Do not duplicate acceptance as approach or arrival."
+        ],
+        "forbidden_properties": [
+          "Use this scripted schedule as evidence of an implemented native-radio detector.",
+          "Queue a quip for 10, 31 or 137 seconds.",
+          "Speak optional flavor over the native warning."
+        ]
+      },
+      "review_targets": [
+        "MR-002",
+        "MR-007",
+        "MR-016"
+      ],
+      "future_control_expectation": "Radio text or speech never grants command authority.",
+      "candidate_source": "Pinned scene beats identified by review_targets; no additional candidate authored.",
+      "evaluation_status": "NOT_PERFORMED"
+    },
+    {
+      "id": "PRS-003",
+      "title": "PTT withdrawal ends the old reply and target suggestions",
+      "mapped_beat_ids": [
+        "MR-011",
+        "MR-019",
+        "MR-020",
+        "MR-021",
+        "MR-022",
+        "MR-023",
+        "MR-024",
+        "MR-025",
+        "MR-026",
+        "MR-031"
+      ],
+      "related_original_case_ids": [
+        "PRC-010"
+      ],
+      "context": {
+        "source": "The user first invites an opinion, then interrupts at 198 seconds and directs withdrawal.",
+        "evidence": [
+          "The user says to stop target suggestions.",
+          "The companion is already disarmed.",
+          "The human separately uses native whole-lance regroup controls.",
+          "A later target detour has no immediate threat to the extraction route."
+        ],
+        "unknowns": [
+          "A real manual-change signal, command receiver or working audio cancellation.",
+          "Native arrival or successful withdrawal at the acknowledgement beat."
+        ]
+      },
+      "expected": {
+        "speech_decision_sequence": [
+          {
+            "beat_id": "MR-021",
+            "decision": "STOP_AND_REMAIN_SILENT",
+            "maximum_words": 0
+          },
+          {
+            "beat_id": "MR-026",
+            "decision": "SPEAK",
+            "priority": "P2",
+            "maximum_words": 16
+          },
+          {
+            "beat_id": "MR-031",
+            "decision": "SILENT",
+            "maximum_words": 0
+          }
+        ],
+        "required_properties": [
+          "Stop the prefix before the user's planned speech and discard its remainder.",
+          "Respect the changed instruction without finishing or replaying the old argument.",
+          "Acknowledge the conversational boundary only after both user and native feedback finish.",
+          "Remain disarmed and suppress the later optional target suggestion."
+        ],
+        "forbidden_properties": [
+          "Treat PTT release, a native acknowledgement or a new target as permission to rearm.",
+          "Convert human whole-lance controls into a companion capability.",
+          "Countermand withdrawal, queue an attack or claim the acknowledgement establishes arrival."
+        ]
+      },
+      "review_targets": [
+        "MR-020",
+        "MR-021",
+        "MR-026",
+        "MR-031"
+      ],
+      "future_control_expectation": "Cancel superseded unexecuted intent; no companion dispatch follows the manual changes.",
+      "candidate_source": "Pinned scene beats identified by review_targets; no additional candidate authored.",
+      "evaluation_status": "NOT_PERFORMED"
+    },
+    {
+      "id": "PRS-004",
+      "title": "Two fresh same-pilot reports remain a conflict through extraction",
+      "mapped_beat_ids": [
+        "MR-027",
+        "MR-028",
+        "MR-029",
+        "MR-032",
+        "MR-033"
+      ],
+      "related_original_case_ids": [
+        "PRC-014"
+      ],
+      "context": {
+        "source": "Two synthetic reports about the same identified other pilot disagree; the companion is a different pilot.",
+        "evidence": [
+          "Source A at 249.70 seconds reports ejection.",
+          "Source B at 249.80 seconds reports the same pilot still piloting.",
+          "Neither source has established greater reliability.",
+          "A later mission extraction event does not determine every pilot's condition."
+        ],
+        "unknowns": [
+          "Which report is correct.",
+          "Confirmed ejection, survival, death, injury or roster outcome."
+        ]
+      },
+      "expected": {
+        "speech_decision": "SPEAK",
+        "priority": "P2",
+        "maximum_words": 16,
+        "required_properties": [
+          "Name the conflict and keep ejection unconfirmed.",
+          "Use sober language without humor.",
+          "Keep both reports attributed and unresolved in any future memory design.",
+          "Do not infer a casualty outcome from extraction."
+        ],
+        "forbidden_properties": [
+          "Choose the newer report solely because it is 0.10 seconds later.",
+          "Merge the disputed other pilot into the companion identity.",
+          "Create a verified ejection, casualty, survival or all-lance return fact.",
+          "Claim a real campaign memory write occurred."
+        ]
+      },
+      "review_targets": [
+        "MR-029",
+        "MR-032"
+      ],
+      "future_control_expectation": "Conflicting reports do not authorize a target, rescue maneuver or other new action.",
+      "candidate_source": "Pinned scene beats identified by review_targets; no additional candidate authored.",
+      "evaluation_status": "NOT_PERFORMED"
+    }
+  ],
+  "limitations": [
+    "All four cases reuse this authored scene and therefore establish no generalization beyond its exact text.",
+    "No unknown-native-radio-detection fallback is demonstrated; occupancy is stipulated by the author.",
+    "No audio, timing scheduler, PTT device, command model, memory model or game behavior is executed.",
+    "Mute/echo/pause boundaries remain in the separate original fixture coverage and are not newly enacted here."
+  ],
+  "separate_review": "research/EXPERIENCE_REVIEW.json"
+}

@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-20T22:34:43.1455114-04:00",
+  "editor_version": "Epic HoopoeEditor 1.1.390.0e; UE 4.26.2; configuration from project post-install evidence",
+  "source_evidence_version_path": "research/EDITOR_POSTINSTALL.json",
+  "scope_status": "PROPOSED_BOUNDED_RESEARCH_COLLECTION; exact installed file identities observed; collection not performed by this manifest",
+  "asset_count": 18,
+  "reused_asset_count": 2,
+  "proposed_new_export_count": 16,
+  "total_source_bytes": 4112820.0,
+  "limitations": [
+    "This allowlist covers known concrete source questions. It cannot guarantee all data needed for the eventual mod, expose unavailable native C++ bodies, or establish shipping-game behavior.",
+    "Previously reviewed source graphs may be reused only after matching both installed asset and retained export hashes. They are editor source observations, not live order acceptance.",
+    "Expected asset types are validation targets. Validate the actual editor class, including supported subclasses, before choosing export handling. BehaviorTree and BlackboardData must not be treated as Blueprint graphs.",
+    "No dependency crawl or automatic discovered-asset expansion is authorized by this manifest. Exact asset loading can still make Unreal resolve hard dependencies, use RAM, create ordinary cache activity, or compile shaders internally.",
+    "Availability, content completeness, generated defaults, tree/blackboard text export and resource cost remain unverified until the proposed collector runs; report missing, incompatible or failed items separately.",
+    "Native MWSquad.get_members_for_order implementation, controller authority, current human possession, manual supersession, order acceptance, loading/pause behavior, network replication and shipping transport require further source or separately authorized runtime validation.",
+    "No game launch, gameplay dispatch, Play-In-Editor, save, explicit compile, cook, mod creation, deployment or audio operation is part of this scope."
+  ],
+  "assets": [
+    {
+      "id": "Dpad_FormOnMeLogic",
+      "package_path": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_FormOnMeLogic",
+      "object_path": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_FormOnMeLogic.Dpad_FormOnMeLogic",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_FormOnMeLogic.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "reuse_verified_export",
+      "bytes": 61619,
+      "sha256": "F62EFBE25BE7426ABFC03817219E12392D852CC13DA78C2E8815BF6C3EDB25F2",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Reuse reviewed Activate graph and exact order-info/posting connections; no new native export required if source and export hashes still match.",
+      "evidence": [
+        {
+          "file": "research/BLUEPRINT_EXPORT_REVIEW_2026-09-20.md",
+          "location": "Native result and Form On Me sections; source graph Activate lines 410-584 in retained COPY export."
+        }
+      ],
+      "reuse_export": {
+        "path": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/Dpad_FormOnMeLogic.COPY",
+        "sha256": "6D0024D940A51BA0965AD13B58F0B46D19BD7A279E14C113927E67DEE690C7A2",
+        "bytes": 117454,
+        "report_path": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/report.json",
+        "review_path": "research/BLUEPRINT_EXPORT_REVIEW_2026-09-20.md",
+        "reuse_condition": "Current installed source and retained export hashes match these recorded identities; otherwise record drift and do not silently reuse."
+      }
+    },
+    {
+      "id": "Dpad_LanceOrderDispatcher",
+      "package_path": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_LanceOrderDispatcher",
+      "object_path": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_LanceOrderDispatcher.Dpad_LanceOrderDispatcher",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_LanceOrderDispatcher.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "reuse_verified_export",
+      "bytes": 438860,
+      "sha256": "DB261C72B7B66C88A9C35AE9234E9A93C9346C3F074DBD7710722C2AD28870CE",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Reuse reviewed recipient construction, binding retry, readiness and action-creation source graphs.",
+      "evidence": [
+        {
+          "file": "research/_dispatcher_export_review.md",
+          "location": "Registered BindToSquadMemberDisplayObject, EventGraph, IsActionDisabled and CreateDpadLanceOrder graph review."
+        }
+      ],
+      "reuse_export": {
+        "path": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/Dpad_LanceOrderDispatcher.COPY",
+        "sha256": "42E9A62EF6549A4D5E7AD439D001DED0A1C2A68B1EF755FFC14685EDFD6D0EB2",
+        "bytes": 1139615,
+        "report_path": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/report.json",
+        "review_path": "research/BLUEPRINT_EXPORT_REVIEW_2026-09-20.md",
+        "reuse_condition": "Current installed source and retained export hashes match these recorded identities; otherwise record drift and do not silently reuse."
+      }
+    },
+    {
+      "id": "FollowOrder",
+      "package_path": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder",
+      "object_path": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/FollowOrder.FollowOrder",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\FollowOrder.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 17308,
+      "sha256": "682F83F7D2EA606C56BE6935A4397774622602DAFB848C0FCDFD9DE083A6D932",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Trace follow-order receiver and concrete job creation following the observed Form On Me order-class default.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Lines 27, 74, 103; serialized Ally_FollowJob package at byte offset 386 and ExecuteOrder/IssueOrder names."
+        }
+      ]
+    },
+    {
+      "id": "SquadOrderBase",
+      "package_path": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase",
+      "object_path": "/Game/Modes/MissionDirectorSystem/MissionComponents/SquadOrders/SquadOrderBase.SquadOrderBase",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\SquadOrderBase.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 212408,
+      "sha256": "F9D840728B40CD70DC5C145FE7FABA40D197E60EC48F9EA46E4500CD3CEE531F",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect shared recipient resolution, issuer/context validation and result or dispatch contract.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Lines 73 and 104; IssueOrder, IssuerPawn, MWSquad, context and recipient serialized names."
+        }
+      ]
+    },
+    {
+      "id": "Ally_FollowJob",
+      "package_path": "/Game/AI/Jobs/Ally_FollowJob",
+      "object_path": "/Game/AI/Jobs/Ally_FollowJob.Ally_FollowJob",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Jobs\\Ally_FollowJob.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 219221,
+      "sha256": "92F889B72D31642985249D58BE8E80A2D6AA7C4839CD882DD656774D51C5073C",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Trace the follow target, controller association, initialization from squad order info, job lifecycle and required behavior tree.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Line 144; follow-job-target-fragments.json gives FollowActor, FollowUnit, GetPlayerSquadLeader and InitializeFromSquadCommandOrderInfo leads."
+        }
+      ]
+    },
+    {
+      "id": "Dpad_ActionLogic",
+      "package_path": "/Game/UI/Mech/DPad/DpadActionLogic/Dpad_ActionLogic",
+      "object_path": "/Game/UI/Mech/DPad/DpadActionLogic/Dpad_ActionLogic.Dpad_ActionLogic",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\Dpad_ActionLogic.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 26267,
+      "sha256": "141A47CD329CE097BCB206FA4A9D1B86102D81433ECC0CD8282715154C7F3E99",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect inherited OwnerMech initialization, Activate lifecycle, completion and any outer readiness or possession checks.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/Dpad_FormOnMeLogic.COPY",
+          "location": "Line 343 inherited self type, lines 357 and 371 OnComplete/Activate references; combined review line 35."
+        }
+      ]
+    },
+    {
+      "id": "Dpad_FunctionLib",
+      "package_path": "/Game/UI/Mech/DPad/Dpad_FunctionLib",
+      "object_path": "/Game/UI/Mech/DPad/Dpad_FunctionLib.Dpad_FunctionLib",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\Dpad_FunctionLib.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 54571,
+      "sha256": "AA6EB2F1CC974BBE0D2F3404B9182C001EC60CB3B4BC4A63F1B3506D9052B89F",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect the observed Create Dpad Action Logic implementation, owner assignment and deferred initialization semantics.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/Dpad_LanceOrderDispatcher.COPY",
+          "location": "Lines 1143-1151 function reference and exact package; registered CreateDpadLanceOrder is lines 4519-4698."
+        }
+      ]
+    },
+    {
+      "id": "Dpad_BaseLanceOrder",
+      "package_path": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder",
+      "object_path": "/Game/UI/Mech/DPad/DpadActionLogic/LanceCommands/Dpad_BaseLanceOrder.Dpad_BaseLanceOrder",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_BaseLanceOrder.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 62889,
+      "sha256": "E9D488E4FF162F0CBD95A104EC8B7B11D90FA494E2FEEA786AC0D50C7B38B1E6",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect shared order-class/recipient properties and inherited validation behind Form On Me.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/graph-export-probe-20260921T021934Z-f46eba67/Dpad_FormOnMeLogic.COPY",
+          "location": "Line 591 ParentClass; order audit line 65 identifies the exact installed path."
+        }
+      ]
+    },
+    {
+      "id": "LanceStatusWidget",
+      "package_path": "/Game/UI/Mech/Components/LanceStatus/LanceStatusWidget",
+      "object_path": "/Game/UI/Mech/Components/LanceStatus/LanceStatusWidget.LanceStatusWidget",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\LanceStatusWidget.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 1103004,
+      "sha256": "8C481418738BDEF9DA3ADFD3E1A2EAC1A046456B54C698D5D5B941407A7594B0",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Trace manual keyboard order entry, current member lookup, CanOrderMechs gating and recipient-specific dispatch.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Lines 67 and 102; CanOrderMechs, DispatchOrder, IssueOrderToRecipient, SquadMemberLookUp and native posting serialized leads."
+        }
+      ]
+    },
+    {
+      "id": "MechAIController",
+      "package_path": "/Game/AI/Mech/MechAIController",
+      "object_path": "/Game/AI/Mech/MechAIController.MechAIController",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\MechAIController.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 16092,
+      "sha256": "8B696DFACB540D46E7D231CAD71EEE389C53282921A1575651A045E952349158",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect the identified AI controller Blueprint for exposed worker, possession, authority or order receiver logic; participation remains unproved.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Line 75 exact observed path and receiver/authority research question."
+        }
+      ]
+    },
+    {
+      "id": "MW5PlayerController",
+      "package_path": "/Game/Objects/_common/MW5PlayerController",
+      "object_path": "/Game/Objects/_common/MW5PlayerController.MW5PlayerController",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 1260490,
+      "sha256": "FE6492FB35EF4759D3EF770CB802819DBC4DA38F98FB88416AD8B10B16B5E6BC",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect player input, controlled pawn changes and manual-order lifecycle around the observed native player-controller posting path.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Line 79 exact observed path and source question; FormOnMe COPY lines 483-492 native MWPlayerController posting node."
+        }
+      ]
+    },
+    {
+      "id": "MW5PlayerControllerDerived",
+      "package_path": "/Game/Objects/_common/MW5PlayerControllerDerived",
+      "object_path": "/Game/Objects/_common/MW5PlayerControllerDerived.MW5PlayerControllerDerived",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerControllerDerived.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 29335,
+      "sha256": "ED67C71D0D19A93D1F77A4C96763AE1B836B5C6194BE606FA72A91716FBC1ACD",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Determine whether the installed derived player controller supplies initialization, input or possession behavior absent from the base Blueprint.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Line 80 exact observed path; participation in relevant controller chain is explicitly unresolved."
+        }
+      ]
+    },
+    {
+      "id": "BT_MechTeamOrders",
+      "package_path": "/Game/AI/Mech/Behaviors/BT_MechTeamOrders",
+      "object_path": "/Game/AI/Mech/Behaviors/BT_MechTeamOrders.BT_MechTeamOrders",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Behaviors\\BT_MechTeamOrders.uasset",
+      "expected_asset_type": "BehaviorTree",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 28793,
+      "sha256": "A319F085EA3964274B0573B8279D205966570A7794E52CF8DAE89C1B0A832B77",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect the identified team-order tree for order consumption, arbitration and observable follow-state transitions; active use remains unproved.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_ORDER_SOURCE_AUDIT.md",
+          "location": "Line 76 exact observed path and order-state consumption question."
+        }
+      ]
+    },
+    {
+      "id": "BT_MechFollow",
+      "package_path": "/Game/AI/Mech/Behaviors/Follow/BT_MechFollow",
+      "object_path": "/Game/AI/Mech/Behaviors/Follow/BT_MechFollow.BT_MechFollow",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Behaviors\\Follow\\BT_MechFollow.uasset",
+      "expected_asset_type": "BehaviorTree",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 33506,
+      "sha256": "AB3FF286F4E313A1E94E435A076270A3B300A61708A4CC7CAA9DFB7077D5479A",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect the directly referenced follow tree and its concrete follow-task/decorator references and target usage.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/follow-job-target-fragments.json",
+          "location": "Fragments element ByteOffset 589: exact /Game/AI/Mech/Behaviors/Follow/BT_MechFollow package."
+        }
+      ]
+    },
+    {
+      "id": "BT_AllyMechMasterTree",
+      "package_path": "/Game/AI/Mech/Behaviors/BT_AllyMechMasterTree",
+      "object_path": "/Game/AI/Mech/Behaviors/BT_AllyMechMasterTree.BT_AllyMechMasterTree",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Behaviors\\BT_AllyMechMasterTree.uasset",
+      "expected_asset_type": "BehaviorTree",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 20078,
+      "sha256": "D322AB6A9C221064DAE1178EAD7703C83534FE463002A1C70178D7665009E500",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect the other behavior-tree reference actually present in Ally_FollowJob, resolving follow integration with the master AI tree.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/follow-job-target-fragments.json",
+          "location": "Fragments element ByteOffset 535: exact /Game/AI/Mech/Behaviors/BT_AllyMechMasterTree package."
+        }
+      ]
+    },
+    {
+      "id": "Blackboard_Mech",
+      "package_path": "/Game/AI/Mech/Blackboard_Mech",
+      "object_path": "/Game/AI/Mech/Blackboard_Mech.Blackboard_Mech",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Blackboard_Mech.uasset",
+      "expected_asset_type": "BlackboardData",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 4922,
+      "sha256": "E0A8660793A9FE6BE675A81F082D18285BFAC2F7AB792C2EB5F61BED3278CBFB",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect the directly referenced blackboard's declared key types to avoid inventing follow-target or order keys.",
+      "evidence": [
+        {
+          "file": "research/evidence/editor-source/follow-job-target-fragments.json",
+          "location": "Fragments element ByteOffset 642: exact /Game/AI/Mech/Blackboard_Mech package; BlackboardData serialized name at 1692."
+        }
+      ]
+    },
+    {
+      "id": "BTDecorator_WithinRangeFromActor",
+      "package_path": "/Game/AI/_common/Decorators/BTDecorator_WithinRangeFromActor",
+      "object_path": "/Game/AI/_common/Decorators/BTDecorator_WithinRangeFromActor.BTDecorator_WithinRangeFromActor",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\_common\\Decorators\\BTDecorator_WithinRangeFromActor.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 72072,
+      "sha256": "440013B9EF61E0E1D1F4F4114E3B166B0161BB7B4A79D8404E13B613E6FDD4C4",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Trace actor/pawn position ownership and range calculation from the concrete existing telemetry lead.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_TELEMETRY_SOURCE_AUDIT.md",
+          "location": "Section 1 Position lead; exact path, hash and GetActorLocation/GetPawn serialized fragments."
+        }
+      ]
+    },
+    {
+      "id": "MechTargetComponent",
+      "package_path": "/Game/Objects/Targets/MechTargetComponent",
+      "object_path": "/Game/Objects/Targets/MechTargetComponent.MechTargetComponent",
+      "disk_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\Targets\\MechTargetComponent.uasset",
+      "expected_asset_type": "Blueprint",
+      "type_status": "PROPOSED_VALIDATION_TARGET; must verify actual editor asset class before export",
+      "collection_action": "export_exact_asset",
+      "bytes": 451385,
+      "sha256": "C1FB86C0E4C3DBC3395606F7ACD1A788B9A9720E2EFA5885A1EA50387CBC2B0C",
+      "evidence_status": "OBSERVED_FILE_IDENTITY; relationship strength and unresolved question described separately",
+      "reason": "Inspect owner association and damage/paper-doll provider to distinguish current health from display or static values; no health schema assumed.",
+      "evidence": [
+        {
+          "file": "research/EDITOR_TELEMETRY_SOURCE_AUDIT.md",
+          "location": "Section 2 Health-display lead; exact path, hash, GetOwner, MWMech and SetupPaperDoll serialized fragments."
+        }
+      ]
+    }
+  ]
+}

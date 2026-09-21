@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-20T18:30:51.5535884-04:00",
+  "status": "READY_FOR_VERSION_REVIEW",
+  "editor_root": "C:\\Program Files\\Epic Games\\MechWarrior5Editor",
+  "editor_root_exists": true,
+  "staging_directory_present": true,
+  "launcher_registered_entries": 1,
+  "manifests": [
+    {
+      "manifest_path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+      "display_name": "MechWarrior 5 Editor",
+      "app_name": "HoopoeEditor",
+      "catalog_item_id": "8b875a03af264458a79b8bad35a16f52",
+      "catalog_namespace": "b9def67e597b4be7a16146146a044d02",
+      "version": "1.1.390.0e",
+      "install_location": "C:/Program Files/Epic Games/MechWarrior5Editor",
+      "incomplete": false,
+      "declared_install_bytes": 256122524996
+    }
+  ],
+  "expected_editor_executable_present": true,
+  "editor_engine_version": {
+    "MajorVersion": 4,
+    "MinorVersion": 26,
+    "PatchVersion": 2,
+    "Changelist": 0,
+    "CompatibleChangelist": 14830424,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 0,
+    "BranchName": "++UE4+Release-4.26"
+  },
+  "projects": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "engine_association": "",
+      "file_version": 3,
+      "modules": [
+        {
+          "Name": "MechWarrior",
+          "Type": "Runtime",
+          "LoadingPhase": "Default"
+        },
+        {
+          "Name": "MechWarriorEditor",
+          "Type": "Editor",
+          "LoadingPhase": "PostEngineInit"
+        },
+        {
+          "Name": "MechWarriorFactory",
+          "Type": "Editor",
+          "LoadingPhase": "PostEngineInit"
+        }
+      ]
+    }
+  ],
+  "plugin_descriptors": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\VictoryPlugin\\VictoryBPLibrary.uplugin",
+      "version": 1,
+      "version_name": "1.0",
+      "modules": [
+        {
+          "Name": "VictoryBPLibrary",
+          "Type": "Runtime",
+          "LoadingPhase": "PreDefault"
+        }
+      ]
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LowEntryJson\\LowEntryJson.uplugin",
+      "version": 25,
+      "version_name": "4.25.0 r2",
+      "modules": [
+        {
+          "Name": "LowEntryJson",
+          "Type": "Runtime",
+          "LoadingPhase": "PreDefault"
+        },
+        {
+          "Name": "LowEntryJsonEditor",
+          "Type": "UncookedOnly",
+          "LoadingPhase": "Default"
+        }
+      ]
+    }
+  ],
+  "metadata_fingerprints": [
+    {
+      "path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+      "bytes": 2398,
+      "last_write_utc": "2026-09-20T22:26:42.8840339Z",
+      "sha256": "1A304CCF534B8DD0433F0361FE1D4B8EDCBFE48867899CD91E5C138946D1891C"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Build\\Build.version",
+      "bytes": 212,
+      "last_write_utc": "2026-09-20T18:18:17.7032660Z",
+      "sha256": "820D6814CF61B6458FB4FC22247A0EE77B964B3BD7A48FE07222C78389785765"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "bytes": 4653,
+      "last_write_utc": "2026-09-20T21:25:01.0399659Z",
+      "sha256": "A66A2197DF7AE9780A648735520884D04A7BDB2CCE656E324E9ECD5AC4EBAEAB"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\VictoryPlugin\\VictoryBPLibrary.uplugin",
+      "bytes": 807,
+      "last_write_utc": "2026-09-20T21:25:01.7999341Z",
+      "sha256": "48089205E3EF311602621680A579BAC5D24660BA6B18F4BB10DAC1C08CA29761"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LowEntryJson\\LowEntryJson.uplugin",
+      "bytes": 749,
+      "last_write_utc": "2026-09-20T21:25:01.2514006Z",
+      "sha256": "7A29B3DB3CE8043E37FEC4AA8C4E325E8AE1451111FD3D2846372BCEDCA53DC3"
+    }
+  ],
+  "retail_receipt_engine_version": {
+    "MajorVersion": 4,
+    "MinorVersion": 26,
+    "PatchVersion": 2,
+    "Changelist": 0,
+    "CompatibleChangelist": 14830424,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 0,
+    "BranchName": "++UE4+Release-4.26",
+    "BuildId": "9bd41d70-2eec-41d4-8ae2-2ad7e06162b7"
+  },
+  "version_metadata_usable": true,
+  "drive": "C:\\",
+  "free_bytes": 11248013312,
+  "errors": [],
+  "limits": [
+    "An active download can create .egstore before registration; its presence is not completion.",
+    "Manifest and expected file presence are not full package-integrity or launch validation.",
+    "Editor/game BuildIds need not match; matching engine versions alone do not establish compatibility.",
+    "Only named metadata locations are inspected. Missing expected paths require bounded discovery, not guessed conclusions.",
+    "Free bytes during installation do not reveal remaining allocation or peak staging demand.",
+    "No game/editor launch, asset parsing, cloud calls, save access or settings changes are performed."
+  ]
+}

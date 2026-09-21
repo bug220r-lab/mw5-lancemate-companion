@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "generatedUtc": "2026-09-21T04:17:47.695Z",
+  "status": "PASS_OFFLINE_PACKAGE",
+  "classification": "STATIC_AND_MOCK_ONLY",
+  "gameplay": "NOT_PERFORMED",
+  "nativeCalls": 0,
+  "checks": [
+    {
+      "name": "Required documents exist",
+      "status": "PASS"
+    },
+    {
+      "name": "Complete 249-entry reviewed collection with five explicit gaps",
+      "status": "PASS"
+    },
+    {
+      "name": "372 preserved source/default artifacts",
+      "status": "PASS"
+    },
+    {
+      "name": "Raw source/default contents still match all 372 recorded hashes",
+      "status": "PASS"
+    },
+    {
+      "name": "Original collection receipt content still matches its recorded hash",
+      "status": "PASS"
+    },
+    {
+      "name": "Ledger current: research/coverage/combat.json",
+      "status": "PASS"
+    },
+    {
+      "name": "Ledger current: research/coverage/movement.json",
+      "status": "PASS"
+    },
+    {
+      "name": "Ledger current: research/coverage/other-units.json",
+      "status": "PASS"
+    },
+    {
+      "name": "Ledger current: research/coverage/control-support.json",
+      "status": "PASS"
+    },
+    {
+      "name": "Unresolved references remain explicitly unreviewed metadata",
+      "status": "PASS"
+    },
+    {
+      "name": "Primary 48 scenarios and three properties pass as MOCK_ONLY",
+      "status": "PASS"
+    },
+    {
+      "name": "Primary receipt current: scripts/tactical-policy.mjs",
+      "status": "PASS"
+    },
+    {
+      "name": "Primary receipt current: synthetic/tactical-cases.mjs",
+      "status": "PASS"
+    },
+    {
+      "name": "Primary receipt current: scripts/Exercise-TacticalPolicy.mjs",
+      "status": "PASS"
+    },
+    {
+      "name": "At least 24 independently specified adversarial cases all pass",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent policy verdict passes and preserves synthetic boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent receipt current: scripts/tactical-policy.mjs",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent receipt current: scripts/Review-TacticalPolicy.mjs",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent receipt current: design/OFFLINE_TACTICAL_PROTOTYPE.md",
+      "status": "PASS"
+    },
+    {
+      "name": "Original failing independent review retained",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent source integration review passes",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent source review identifies all six inspected artifacts",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-review identity current: research/AI_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-review identity current: research/AI_TECHNICAL_APPENDIX.md",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-review identity current: research/AI_COVERAGE_LEDGER.json",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-review identity current: design/TACTICAL_PLAYBOOK.json",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-review identity current: design/PASSIVE_OBSERVER_HANDOFF.md",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-review identity current: scripts/Build-AIReviewIndex.mjs",
+      "status": "PASS"
+    },
+    {
+      "name": "Versioned playbook includes all six fully specified rules",
+      "status": "PASS"
+    },
+    {
+      "name": "Every primary recommendation is unexecutable and references the playbook",
+      "status": "PASS"
+    }
+  ],
+  "linkChecks": {
+    "localLinks": 539,
+    "sourceLineLinks": 91,
+    "anchors": 6
+  },
+  "scenarioCounts": {
+    "primary": 48,
+    "generalProperties": 3,
+    "independent": 31
+  },
+  "artifacts": [
+    {
+      "file": "README.md",
+      "sha256": "0bcc3f88c2b58bbe97351cf2de705d46607bcb7573bb6f5ac3dc1677eb5ddde0"
+    },
+    {
+      "file": "NEXT_CODEX_PROMPT.md",
+      "sha256": "a468a05fb5d016fc091cd82e89ea5615f385c9d5bfc0ec3ce0a9a30e1b9263c3"
+    },
+    {
+      "file": "AGENTS.md",
+      "sha256": "e894db649212142f499b87e07b7dce29316378d1442baa1225e907ecbf96ea61"
+    },
+    {
+      "file": "design/OVERNIGHT_PROGRESS.md",
+      "sha256": "a08cc3ddf964b8f897e1fdda98b9367a5bbe5a2663b2d7217393583fae8db413"
+    },
+    {
+      "file": "design/OFFLINE_TACTICAL_PROTOTYPE.md",
+      "sha256": "4a268f723fb076281a52c1b63b927ec6b8cf5acc319981d5cbad7c964d3c98ea"
+    },
+    {
+      "file": "design/TACTICAL_PLAYBOOK.md",
+      "sha256": "3774f42de791767eaeff3f49d303ec9f009090403191ac3df01d43d12088ea2d"
+    },
+    {
+      "file": "design/PASSIVE_OBSERVER_HANDOFF.md",
+      "sha256": "f986c61b8aecfffd4ac8bb03bc7fcfc6ebe8a13c1c09b156efcbc4207611c147"
+    },
+    {
+      "file": "research/AI_REPORT.md",
+      "sha256": "6487d77176a3cd72bfc328efb97eef62213371fd449c514f1c07c9dd6e82f119"
+    },
+    {
+      "file": "research/AI_TECHNICAL_APPENDIX.md",
+      "sha256": "a22c5050d76f9f9878010cac61c71475afa085ec3cde728ba3b0b8474b7bca48"
+    },
+    {
+      "file": "research/AI_COMBAT_ANALYSIS.md",
+      "sha256": "c03c84ddce6cda125632c04226bf35027ec6a9fc7087bbee8fae03aae7f2dd58"
+    },
+    {
+      "file": "research/AI_MOVEMENT_ANALYSIS.md",
+      "sha256": "78cfbfda96bb77a665a7da4a978a00608e028bbe5102232a6aa9987cf0cce7dc"
+    },
+    {
+      "file": "research/AI_OTHER_UNITS_ANALYSIS.md",
+      "sha256": "5c647af05e203a93a94d0fa8dfa2dfdfff93f1d757d8bf9b278bd90550417f0c"
+    },
+    {
+      "file": "research/AI_CONTROL_SUPPORT_ANALYSIS.md",
+      "sha256": "6a77fa51124954dcd6f0b71fd7c790067182a1aa0bb980ab807c39a8d0641c57"
+    },
+    {
+      "file": "research/OVERNIGHT_SOURCE_INDEPENDENT_REVIEW.md",
+      "sha256": "2828dac7e2153ec68e04df527b227d97dae76bc86decd2cb0c08dbdcf269c5ca"
+    },
+    {
+      "file": "research/CONTROL_SUPPORT_INDEPENDENT_REVIEW.md",
+      "sha256": "9c993467f4d67ac3f5d49515b3ffdccc1b1d9bf4de8fee1ab543116f324fec7c"
+    },
+    {
+      "file": "research/OTHER_UNITS_INDEPENDENT_REVIEW.md",
+      "sha256": "67f9002e3ed9f84ec5cf7a302c531335326c68e8e668e1beb672b4555e455bad"
+    },
+    {
+      "file": "research/TACTICAL_INDEPENDENT_REVIEW.md",
+      "sha256": "f9f18c7aaccec71aab439a6d47f4c883b2b3dc825c0834c9c5211192fae9a4af"
+    },
+    {
+      "file": "research/OVERNIGHT_HANDOFF.md",
+      "sha256": "555cdd9819d143c8b12526e5b4814129e06ebf6c944b22974f85e0c06b4556db"
+    },
+    {
+      "file": "design/TACTICAL_PLAYBOOK.json",
+      "sha256": "7a5733e37c1b3308066e0848d33247c61c288c4d2f8dfdcb3cd4d334ec33b925"
+    },
+    {
+      "file": "scripts/tactical-policy.mjs",
+      "sha256": "f0db998754bbb55b867549f635adad5cecd33d435470979b31bf4a08dec2f357"
+    },
+    {
+      "file": "synthetic/tactical-cases.mjs",
+      "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+    },
+    {
+      "file": "scripts/Exercise-TacticalPolicy.mjs",
+      "sha256": "998694b387856d036f953efde27fea56474d2acfbd9fd00f0f7179c89109de1b"
+    },
+    {
+      "file": "scripts/Review-TacticalPolicy.mjs",
+      "sha256": "e96031c98a3c54f8978dc3b54e9380f25f03b6b56522fa018cbad487457b16b7"
+    },
+    {
+      "file": "scripts/Build-AIReviewIndex.mjs",
+      "sha256": "a6dba1187bb80cedb4187c62e32d107b8709223376923a0e0499286797f70009"
+    },
+    {
+      "file": "scripts/Verify-OvernightPackage.mjs",
+      "sha256": "b3a4b6ba439f2ed5372932745e18a3e7bd751862c916e99ff25f3a52b57568b0"
+    },
+    {
+      "file": "research/AI_COVERAGE_LEDGER.json",
+      "sha256": "b8cb16c2b69ce4e6998e7463606d83f5bfdb88755fd916cab81c67e7c406f3e4"
+    },
+    {
+      "file": "research/OFFLINE_TACTICAL_RESULTS.json",
+      "sha256": "9417696379c146bfd10a8ed7f4554fa8552a60faa82edeff00c8b2456aa5fefc"
+    },
+    {
+      "file": "research/TACTICAL_INDEPENDENT_REVIEW_BEFORE_FIX.md",
+      "sha256": "10495f025d12963ad38fb97b038629c967b3f6f7ccd74ef76f70d6dc91ab77aa"
+    }
+  ],
+  "errors": []
+}

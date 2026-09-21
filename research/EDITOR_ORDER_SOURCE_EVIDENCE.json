@@ -1,0 +1,261 @@
+{
+  "observed_at": "2026-09-20T18:42:47.2955102-04:00",
+  "status": "STATIC_PATH_AND_TEXT_AUDIT_ONLY",
+  "editor_package": "1.1.390.0e",
+  "project_root": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs",
+  "manifest": {
+    "path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+    "sha256": "1A304CCF534B8DD0433F0361FE1D4B8EDCBFE48867899CD91E5C138946D1891C",
+    "app_name": "HoopoeEditor",
+    "version": "1.1.390.0e",
+    "incomplete": false
+  },
+  "scope": {
+    "content_filename_enumeration": true,
+    "config_and_plugins_text_globs": [
+      "*.h",
+      "*.hpp",
+      "*.cpp",
+      "*.cs",
+      "*.ini",
+      "*.json",
+      "*.uplugin"
+    ],
+    "config_and_plugins_text_file_count": 72,
+    "config_and_plugins_source_extension_count": 0,
+    "content_text_filename_globs": [
+      "*.h",
+      "*.hpp",
+      "*.cpp",
+      "*.cs",
+      "*.ini",
+      "*.json",
+      "*.txt"
+    ],
+    "content_text_filename_count": 3431,
+    "content_source_extension_count": 0,
+    "named_subtree_text_count": 0,
+    "named_subtrees": [
+      "Content\\UI\\Mech",
+      "Content\\AI\\Mech",
+      "Content\\Objects\\_common",
+      "Content\\Modes\\MissionDirectorSystem"
+    ],
+    "text_search_pattern": "DispatchLance|CancelOrders|SquadCommand|LanceStatus|FormOnMe|Form On Me",
+    "source_absence_claim": "Only searched scopes/extensions; no claim about all installation/source-access methods"
+  },
+  "files": [
+    {
+      "relative_path": "Config\\DefaultInput.ini",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultInput.ini",
+      "bytes": 74500,
+      "sha256": "52506733F01D33ED6A6F589BC742162D1F28CA510CD450CA5B5AE2939D799462",
+      "evidence": "OBSERVED_TEXT"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\Components\\LanceStatus\\OrderAllWidget.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\OrderAllWidget.uasset",
+      "bytes": 154446,
+      "sha256": "DEF92F0507B925CDA22553D69B0B402ACB991C7998F6B3DD2C8CD10F20981126",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\Components\\LanceStatus\\LanceStatusWidget.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\LanceStatusWidget.uasset",
+      "bytes": 1103004,
+      "sha256": "8C481418738BDEF9DA3ADFD3E1A2EAC1A046456B54C698D5D5B941407A7594B0",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\Components\\LanceStatus\\LanceOrderWindow.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\LanceOrderWindow.uasset",
+      "bytes": 386060,
+      "sha256": "A831E7ABF9DDC94E461F0B0146CC7EE8B85C7E137D303AC2EBDBEF0186D525EB",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\Components\\LanceStatus\\LanceOrderWidget.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\LanceOrderWidget.uasset",
+      "bytes": 156777,
+      "sha256": "A023733AA41A21049A54A57F8D5EC5B2E97CBA6CEB53CDAB366F870AD545FA1A",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\Components\\LanceStatus\\LanceMemberWidget.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\Components\\LanceStatus\\LanceMemberWidget.uasset",
+      "bytes": 642045,
+      "sha256": "524182220D35585E68A6EA0FC1DE40E846811A106F28616BBD494A8C91865E99",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_FormOnMeLogic.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_FormOnMeLogic.uasset",
+      "bytes": 61619,
+      "sha256": "F62EFBE25BE7426ABFC03817219E12392D852CC13DA78C2E8815BF6C3EDB25F2",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_LanceOrderDispatcher.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_LanceOrderDispatcher.uasset",
+      "bytes": 438860,
+      "sha256": "DB261C72B7B66C88A9C35AE9234E9A93C9346C3F074DBD7710722C2AD28870CE",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_BaseLanceOrder.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_BaseLanceOrder.uasset",
+      "bytes": 62889,
+      "sha256": "E9D488E4FF162F0CBD95A104EC8B7B11D90FA494E2FEEA786AC0D50C7B38B1E6",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_SelectAllLayout.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\Mech\\DPad\\DpadActionLogic\\LanceCommands\\Dpad_SelectAllLayout.uasset",
+      "bytes": 91955,
+      "sha256": "C682891250F70CF6A15AC232FB3F0C6386B15DDFCFCEC1E8368AFBF76FC09713",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadCommandComponent.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadCommandComponent.uasset",
+      "bytes": 223182,
+      "sha256": "8CE40EA42BEA475B0A2291CB3CC0399E9302F716F8868D7EC8B4ACCA57E0E54B",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\SquadOrderBase.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\SquadOrderBase.uasset",
+      "bytes": 212408,
+      "sha256": "F9D840728B40CD70DC5C145FE7FABA40D197E60EC48F9EA46E4500CD3CEE531F",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\FollowOrder.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MissionDirectorSystem\\MissionComponents\\SquadOrders\\FollowOrder.uasset",
+      "bytes": 17308,
+      "sha256": "682F83F7D2EA606C56BE6935A4397774622602DAFB848C0FCDFD9DE083A6D932",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\AI\\Mech\\MechAIController.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\MechAIController.uasset",
+      "bytes": 16092,
+      "sha256": "8B696DFACB540D46E7D231CAD71EEE389C53282921A1575651A045E952349158",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\AI\\Mech\\Behaviors\\BT_MechTeamOrders.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Behaviors\\BT_MechTeamOrders.uasset",
+      "bytes": 28793,
+      "sha256": "A319F085EA3964274B0573B8279D205966570A7794E52CF8DAE89C1B0A832B77",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\AI\\Mech\\Behaviors\\Follow\\BT_MechFollow.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Behaviors\\Follow\\BT_MechFollow.uasset",
+      "bytes": 33506,
+      "sha256": "AB3FF286F4E313A1E94E435A076270A3B300A61708A4CC7CAA9DFB7077D5479A",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\AI\\Mech\\Behaviors\\Follow\\BT_MechFightWhileFollowing.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\AI\\Mech\\Behaviors\\Follow\\BT_MechFightWhileFollowing.uasset",
+      "bytes": 31607,
+      "sha256": "056B0D257017B128C88EC70F69B72F39C67A0A5986ACF4F2D0760ADBD48AD0DA",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "bytes": 1260490,
+      "sha256": "FE6492FB35EF4759D3EF770CB802819DBC4DA38F98FB88416AD8B10B16B5E6BC",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\Objects\\_common\\MW5PlayerControllerDerived.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerControllerDerived.uasset",
+      "bytes": 29335,
+      "sha256": "ED67C71D0D19A93D1F77A4C96763AE1B836B5C6194BE606FA72A91716FBC1ACD",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    },
+    {
+      "relative_path": "Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "absolute_path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6",
+      "evidence": "OBSERVED_FILE_IDENTITY_ONLY"
+    }
+  ],
+  "input_section": {
+    "line": 31,
+    "text": "[/Script/Engine.InputSettings]"
+  },
+  "input_action_mappings": [
+    {
+      "line": 210,
+      "text": "+ActionMappings=(ActionName=\"DispatchLance\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=F1)"
+    },
+    {
+      "line": 211,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate1\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=F2)"
+    },
+    {
+      "line": 212,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate2\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=F3)"
+    },
+    {
+      "line": 213,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate3\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=F4)"
+    },
+    {
+      "line": 237,
+      "text": "+ActionMappings=(ActionName=\"CancelOrders\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=F5)"
+    },
+    {
+      "line": 243,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate4\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=F6)"
+    },
+    {
+      "line": 310,
+      "text": "+ActionMappings=(ActionName=\"DispatchLance\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=None)"
+    },
+    {
+      "line": 311,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate1\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=None)"
+    },
+    {
+      "line": 312,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate2\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=None)"
+    },
+    {
+      "line": 313,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate3\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=None)"
+    },
+    {
+      "line": 337,
+      "text": "+ActionMappings=(ActionName=\"CancelOrders\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=None)"
+    },
+    {
+      "line": 342,
+      "text": "+ActionMappings=(ActionName=\"DispatchLanceMate4\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=None)"
+    }
+  ],
+  "call_graph_status": "UNKNOWN",
+  "actual_order_signature_status": "UNKNOWN",
+  "one_actor_selection_status": "UNKNOWN",
+  "native_order_acceptance_status": "NOT_PERFORMED",
+  "observed_behavior_status": "NOT_PERFORMED",
+  "actions": {
+    "editor_launches": 0,
+    "game_launches": 0,
+    "gameplay_calls": 0,
+    "asset_content_parses": 0,
+    "binary_disassemblies": 0
+  },
+  "limitations": [
+    "File hashes prove identity, not asset semantics or graph edges.",
+    "Input mappings define action/key names, not second-stage order semantics or active runtime settings.",
+    "No source signature, order receiver, return contract, authority or manual-order origin established.",
+    "Other source/reflection investigation is separate; this audit does not declare every route blocked."
+  ]
+}

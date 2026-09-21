@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "accessedAt": "2026-09-21",
+  "purpose": "CPU-only local component evaluation; no game acceptance implied",
+  "artifacts": [
+    {"id":"qwen1_7b","version":"90862c4b9d2787eaed51d12237eafdfe7c5f6077","name":"Qwen3-1.7B-Q8_0.gguf","bytes":1834426016,"sha256":"061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a","url":"https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/90862c4b9d2787eaed51d12237eafdfe7c5f6077/Qwen3-1.7B-Q8_0.gguf","license":"Apache-2.0","licenseUrl":"https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/raw/90862c4b9d2787eaed51d12237eafdfe7c5f6077/LICENSE"},
+    {"id":"llama-cpu","version":"b11065","name":"llama-b11065-bin-win-cpu-x64.zip","bytes":18466663,"sha256":"33f941a74b8db38e92690f5f151a770ef5a66481c07dabfe2e505b57e3546807","url":"https://github.com/ggml-org/llama.cpp/releases/download/b11065/llama-b11065-bin-win-cpu-x64.zip","license":"MIT","licenseUrl":"https://raw.githubusercontent.com/ggml-org/llama.cpp/b11065/LICENSE"},
+    {"id":"qwen4b","version":"bc640142c66e1fdd12af0bd68f40445458f3869b","name":"Qwen3-4B-Q4_K_M.gguf","bytes":2497280256,"sha256":"7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5","url":"https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/bc640142c66e1fdd12af0bd68f40445458f3869b/Qwen3-4B-Q4_K_M.gguf","license":"Apache-2.0","licenseUrl":"https://huggingface.co/Qwen/Qwen3-4B-GGUF/raw/bc640142c66e1fdd12af0bd68f40445458f3869b/LICENSE"},
+    {"id":"whisper-cpu","version":"b5130","name":"whisper-bin-x64.zip","bytes":8573270,"sha256":"f9ec6c52a2e949b62ab51fa21d0d497958f9e41c3010c157c4e42932d5316f3c","url":"https://github.com/ggml-org/whisper.cpp/releases/download/b5130/whisper-bin-x64.zip","license":"MIT","licenseUrl":"https://raw.githubusercontent.com/ggml-org/whisper.cpp/b5130/LICENSE"},
+    {"id":"whisper-base-en","version":"5359861c739e955e79d9a303bcbc70fb988958b1","name":"ggml-base.en.bin","bytes":147964211,"sha256":"a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002","url":"https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en.bin","license":"MIT","licenseUrl":"https://raw.githubusercontent.com/ggml-org/whisper.cpp/b5130/LICENSE"}
+  ],
+  "pending": [{"id":"kokoro82m","status":"DEPENDENCIES_UNDER_REVIEW"}],
+  "allGameWorkloadValidation":"NOT_PERFORMED"
+}

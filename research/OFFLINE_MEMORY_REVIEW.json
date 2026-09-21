@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "evidence_class": "MOCK_ONLY",
+  "evaluator": "Independent root-agent mutation checks against the subagent-authored research model",
+  "observed_at": "2026-09-20T19:24:30.145Z",
+  "result": "EXPECTATIONS_MET",
+  "case_count": 14,
+  "expectations_met": 14,
+  "inputs": {
+    "fixture_sha256": "5c88e23ad8622d18511a8c91ccfd40a1ab3e36d0c086a94b3272ec3734531833",
+    "model_sha256": "4b34eb329950622c7eec902058f3b2565551f38872f8cde199a1d1a65e9d65e5",
+    "review_script_sha256": "6293899f5d9e001daf985a0925ccf0a0a0dd3e32d0dd8bbd9862f02551c171d6"
+  },
+  "limits": [
+    "All inputs are synthetic mutations; no native identifiers or state are validated.",
+    "This is the same model system with independently authored checks, not human acceptance or formal verification.",
+    "Summary prose entailment, durable storage, real reload detection, audio and game integration are NOT_PERFORMED.",
+    "The only filesystem writes are this research report; no exports, deletions, tombstones or game actions occur."
+  ],
+  "native_calls": 0,
+  "tests": [
+    {
+      "id": "MEM-ADV-01",
+      "title": "A user source cannot impersonate the stipulated observer",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "input retained as rejected",
+          "actual": "REJECTED",
+          "expected": "REJECTED",
+          "met": true
+        },
+        {
+          "name": "rejection reason recorded",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "no observed victories",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-02",
+      "title": "Event identity cannot name a different campaign",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "input retained as rejected",
+          "actual": "REJECTED",
+          "expected": "REJECTED",
+          "met": true
+        },
+        {
+          "name": "rejection reason recorded",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "no observed victories",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-03",
+      "title": "Event identity cannot name a different branch",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "input retained as rejected",
+          "actual": "REJECTED",
+          "expected": "REJECTED",
+          "met": true
+        },
+        {
+          "name": "rejection reason recorded",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "no observed victories",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-04",
+      "title": "Binding proposal cannot change the tuple supported by its evidence",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "supported old binding exists before rejection",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "tuple mismatch rejected",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "unsupported generation not recorded",
+          "actual": false,
+          "expected": false,
+          "met": true
+        },
+        {
+          "name": "rejected proposal preserves the old binding",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "memory grants no authority",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-05",
+      "title": "A reload cannot reuse identity evidence from the excluded future",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "replacement rejected",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "old binding remains recorded for review",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "old binding remains revoked",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "excluded identity is not visible",
+          "actual": false,
+          "expected": false,
+          "met": true
+        },
+        {
+          "name": "memory grants no authority",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-06",
+      "title": "Nested branch views respect every ancestor cutoff",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "grandchild selected",
+          "actual": "syn:branch:review-grandchild",
+          "expected": "syn:branch:review-grandchild",
+          "met": true
+        },
+        {
+          "name": "eligible ancestor victory visible",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "future parent death excluded",
+          "actual": false,
+          "expected": false,
+          "met": true
+        },
+        {
+          "name": "future child victory excluded",
+          "actual": false,
+          "expected": false,
+          "met": true
+        },
+        {
+          "name": "only one eligible victory counted",
+          "actual": 1,
+          "expected": 1,
+          "met": true
+        },
+        {
+          "name": "all originals retained in journal",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-07",
+      "title": "Accurate citations cannot make invented summary prose an observation",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "no fabricated victories counted",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        },
+        {
+          "name": "category stays derived",
+          "actual": "DERIVED_SUMMARY",
+          "expected": "DERIVED_SUMMARY",
+          "met": true
+        },
+        {
+          "name": "invented text absent from factual claims",
+          "actual": false,
+          "expected": false,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-08",
+      "title": "Unsupported operations raise the deliberate guard error",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "typed guard, not arbitrary failure",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "unsupported operation rejected explicitly",
+          "actual": "UNSUPPORTED_OPERATION",
+          "expected": "UNSUPPORTED_OPERATION",
+          "met": true
+        },
+        {
+          "name": "input state unchanged",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-09",
+      "title": "Object-key order does not turn an identical event into a conflict",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "one agreed source event counted once",
+          "actual": 1,
+          "expected": 1,
+          "met": true
+        },
+        {
+          "name": "duplicate ingestion accepted and retained",
+          "actual": "ACCEPTED",
+          "expected": "ACCEPTED",
+          "met": true
+        },
+        {
+          "name": "delivery linked to original source event",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "no conflict created",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        },
+        {
+          "name": "entire actual operation inputs unchanged",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "prior state remains unchanged",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-10",
+      "title": "A correction cannot resolve a conflict by citing an unrelated record",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "unrelated correction rejected",
+          "actual": "REJECTED",
+          "expected": "REJECTED",
+          "met": true
+        },
+        {
+          "name": "disputed aggregate still unknown",
+          "actual": null,
+          "expected": null,
+          "met": true
+        },
+        {
+          "name": "both conflicting originals retained",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-11",
+      "title": "Stale occupant identity cannot be stamped into the current session",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "stale identity rejected",
+          "actual": "REJECTED",
+          "expected": "REJECTED",
+          "met": true
+        },
+        {
+          "name": "binding evidence left unchanged",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "stale actor not adopted",
+          "actual": false,
+          "expected": false,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-12",
+      "title": "Provisional conversation cannot accept continuing-history observation facts",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "still conversation-only",
+          "actual": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+          "expected": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+          "met": true
+        },
+        {
+          "name": "continuing-history assertion quarantined",
+          "actual": "QUARANTINED",
+          "expected": "QUARANTINED",
+          "met": true
+        },
+        {
+          "name": "not a visible factual record",
+          "actual": false,
+          "expected": false,
+          "met": true
+        },
+        {
+          "name": "outcome total remains unknown",
+          "actual": null,
+          "expected": null,
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-13",
+      "title": "Changing the expected answer cannot change the model result to match",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "deliberately wrong oracle fails",
+          "actual": "EXPECTATIONS_NOT_MET",
+          "expected": "EXPECTATIONS_NOT_MET",
+          "met": true
+        },
+        {
+          "name": "actual remains derived from inputs",
+          "actual": 1,
+          "expected": 1,
+          "met": true
+        },
+        {
+          "name": "mismatch is specifically detected",
+          "actual": "NOT_MET",
+          "expected": "NOT_MET",
+          "met": true
+        }
+      ]
+    },
+    {
+      "id": "MEM-ADV-14",
+      "title": "A bad reload epoch still invalidates the old memory view and binding",
+      "result": "EXPECTATIONS_MET",
+      "checks": [
+        {
+          "name": "reused epoch: commits suspended",
+          "actual": "SUSPEND",
+          "expected": "SUSPEND",
+          "met": true
+        },
+        {
+          "name": "reused epoch: prior active view unavailable",
+          "actual": null,
+          "expected": null,
+          "met": true
+        },
+        {
+          "name": "reused epoch: no factual output from old view",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        },
+        {
+          "name": "reused epoch: prior binding retained and revoked",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "reused epoch: invalid epoch recorded",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "reused epoch: checkpoint alone cannot reenable continuity",
+          "actual": "SUSPEND",
+          "expected": "SUSPEND",
+          "met": true
+        },
+        {
+          "name": "reused epoch: a fresh valid load can recover",
+          "actual": "ALLOW_BRANCH_LOCAL",
+          "expected": "ALLOW_BRANCH_LOCAL",
+          "met": true
+        },
+        {
+          "name": "reused epoch: recovery still grants no control",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "missing epoch: commits suspended",
+          "actual": "SUSPEND",
+          "expected": "SUSPEND",
+          "met": true
+        },
+        {
+          "name": "missing epoch: prior active view unavailable",
+          "actual": null,
+          "expected": null,
+          "met": true
+        },
+        {
+          "name": "missing epoch: no factual output from old view",
+          "actual": 0,
+          "expected": 0,
+          "met": true
+        },
+        {
+          "name": "missing epoch: prior binding retained and revoked",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "missing epoch: invalid epoch recorded",
+          "actual": true,
+          "expected": true,
+          "met": true
+        },
+        {
+          "name": "missing epoch: checkpoint alone cannot reenable continuity",
+          "actual": "SUSPEND",
+          "expected": "SUSPEND",
+          "met": true
+        },
+        {
+          "name": "missing epoch: a fresh valid load can recover",
+          "actual": "ALLOW_BRANCH_LOCAL",
+          "expected": "ALLOW_BRANCH_LOCAL",
+          "met": true
+        },
+        {
+          "name": "missing epoch: recovery still grants no control",
+          "actual": true,
+          "expected": true,
+          "met": true
+        }
+      ]
+    }
+  ]
+}

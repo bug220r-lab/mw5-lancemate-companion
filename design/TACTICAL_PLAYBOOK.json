@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "classification": "PROPOSED_TACTICAL_POLICY_WITH_SOURCE_EVIDENCE",
+  "applicableEvidence": "Editor 1.1.390.0e / UE4.26.2; collection 20260921T030437Z-f7d8e930",
+  "gameplayValidation": "NOT_PERFORMED",
+  "objective": "Complete the mission while preserving the lance and complementing weapon ranges; human orders immediately supersede autonomous choices.",
+  "knowledgeBoundary": "Use only fresh information available to the friendly lance. Fixture observations and policy thresholds are proposals, not acquired MW5 state.",
+  "rules": [
+    {
+      "id": "CONTROL-01",
+      "decision": "Defer when control prerequisites are unknown; preserve human orders until verified completion or explicit release.",
+      "status": "RECOMMENDATION_ONLY",
+      "requiredObservations": ["Current reciprocal AI controller/pawn binding and squad membership", "Fresh mission/authority state", "Reliable manual-order origin, revision and completion/release"],
+      "sourceFindings": ["Generic recipient resolution is not proven AI-only", "Mech switching changes controller/pawn association", "Player-issued classification is not physical human origin", "Menu closing is not job cancellation"],
+      "evidence": [
+        {"assetId": 3, "kind": "source", "lines": [404, 474]},
+        {"assetId": 240, "kind": "source", "lines": [4307, 4574]},
+        {"assetId": 8, "kind": "source", "lines": [4122, 4258]}
+      ],
+      "assumptions": ["Project-only manual revision and binding generation can be reliably acquired later; currently stipulated"],
+      "possibleNativeAction": null,
+      "expectedBenefit": "Avoid misdirected or conflicting decisions.",
+      "abortConditions": ["Pause/loading", "Human possession", "Changed binding", "Unknown or stale state", "Unresolved human order"],
+      "evaluation": ["T18-T31", "T38-T43"]
+    },
+    {
+      "id": "FOLLOW-01",
+      "decision": "Regroup with the verified native player-squad leader when safe and appropriate.",
+      "status": "SOURCE_SUPPORTED_CANDIDATE_NOT_GAME_VERIFIED",
+      "requiredObservations": ["Correct current leader binding", "Safe regroup path", "Eligible AI recipient", "No overriding human order"],
+      "sourceFindings": ["Follow initialization changes its target to GetPlayerSquadLeader during worker setup", "Follow writes TravelActor and formation state", "Following retains combat branches"],
+      "evidence": [
+        {"assetId": 4, "kind": "source", "lines": [619, 948]},
+        {"assetId": 13, "kind": "source", "lines": [398, 594]}
+      ],
+      "assumptions": ["500 m isolation threshold is proposed", "Safe route is an input assertion, not provided by this prototype"],
+      "possibleNativeAction": "FollowOrder -> Ally_FollowJob; first live action only after the separate proof",
+      "expectedBenefit": "Restore cohesion without replacing native combat.",
+      "abortConditions": ["Leader mismatch", "Unsafe/unknown route", "Human order", "Unknown acceptance"],
+      "evaluation": ["T04-T07", "T37"]
+    },
+    {
+      "id": "COMBAT-01",
+      "decision": "Prefer a known useful firing opportunity and leave immediate firing/heat control to native AI.",
+      "status": "RECOMMENDATION_ONLY",
+      "requiredObservations": ["Fresh friendly-lance target knowledge", "Hostile/alive target", "Current visibility and clear firing opportunity", "Weapon envelope", "Heat and usable weapon/ammunition opportunity"],
+      "sourceFindings": ["Exposed combat tactic picker considers role feasibility, weight and weapon range using native capability/range helpers", "Shared combat trees contain role-specific movement and firing behavior"],
+      "evidence": [
+        {"assetId": 55, "kind": "source", "lines": [416, 800]},
+        {"assetId": 57, "kind": "source", "lines": [375, 533]}
+      ],
+      "assumptions": ["Heat >=0.9 cooling threshold and envelope/threat estimates are proposed", "ammoAvailable means a usable weapon opportunity, including energy weapons that do not consume ammunition", "Fixture visibility is not the native remembered-visibility test"],
+      "possibleNativeAction": "AttackOrder -> Ally_TargetAttackJob is a later candidate; no firing calls implemented",
+      "expectedBenefit": "Avoid ineffective engagement recommendations.",
+      "abortConditions": ["Lost visibility", "Unknown line of fire", "Dead/friendly/hidden target", "Stale target", "Overriding human order"],
+      "evaluation": ["T01-T02", "T08-T14", "T35", "T44"]
+    },
+    {
+      "id": "MOVE-01",
+      "decision": "Use only supplied, path-verified unoccupied reposition candidates.",
+      "status": "SOURCE_SUPPORTED_CANDIDATE_NOT_GAME_VERIFIED",
+      "requiredObservations": ["Candidate position identity", "Path feasibility", "Occupancy", "Useful range/clear fire for engagement or relative safety for retreat"],
+      "sourceFindings": ["Move job projects the supplied location to navigation", "Projection is not proof of a complete path", "Formation and movement use separate native and exposed logic"],
+      "evidence": [{"assetId": 32, "kind": "source", "lines": [677, 823]}],
+      "assumptions": ["Candidates are externally supplied fixture data; the policy does not solve navigation", "Location IDs uniquely identify shared positions within a snapshot"],
+      "possibleNativeAction": "GoToLocationOrder -> Ally_GoToLocationJob, after separate action/arrival validation",
+      "expectedBenefit": "Reach effective range or reduce exposure without inventing a safe route.",
+      "abortConditions": ["Path unknown", "Position occupied/reserved", "Target knowledge lost", "Binding/manual state changed"],
+      "evaluation": ["T02-T03", "T16", "T34", "T36", "T44"]
+    },
+    {
+      "id": "TACTIC-01",
+      "decision": "Coordinate target assignment and retain a useful target through small threat changes.",
+      "status": "PROPOSED_HEURISTIC",
+      "requiredObservations": ["Per-mech valid engagement opportunities", "Friendly-lance threat estimates", "Previous recommendation in the same mission/binding"],
+      "sourceFindings": ["Lance configuration includes coordination-related settings", "Existing native coordination is not replaced or simulated by this heuristic"],
+      "evidence": [{"assetId": 118, "kind": "source", "lines": [1, 9]}],
+      "assumptions": ["Prefer at most two recommendations per target when alternatives exist", "0.2 normalized threat hysteresis is proposed", "This is not damage/overkill prediction"],
+      "possibleNativeAction": "Per-recipient attack intentions only; dispatch unimplemented",
+      "expectedBenefit": "Reduce gratuitous switching and use alternative opportunities.",
+      "abortConditions": ["Prior target invalid", "Materially higher threat", "New mission/binding", "Human order"],
+      "evaluation": ["T15", "T17", "T45", "T48"]
+    },
+    {
+      "id": "TACTIC-02",
+      "decision": "Favor a supplied safer position for a critically damaged mech, otherwise safe regroup or native behavior.",
+      "status": "PROPOSED_HEURISTIC",
+      "requiredObservations": ["Health fraction", "Relative candidate safety", "Path and leader evidence"],
+      "sourceFindings": ["Health decorators read the living component and compare a threshold", "Current health alone does not predict incoming damage or safe escape"],
+      "evidence": [{"assetId": 51, "kind": "source", "lines": [35, 112]}],
+      "assumptions": ["Health <=0.25 is a proposed research threshold", "Safety is stipulated, not inferred from distance alone"],
+      "possibleNativeAction": "Later verified move/follow intentions",
+      "expectedBenefit": "Preserve lance capability while avoiding unjustified escape paths.",
+      "abortConditions": ["Safety evidence missing", "Route infeasible", "Human order"],
+      "evaluation": ["T03-T06", "T46"]
+    }
+  ]
+}

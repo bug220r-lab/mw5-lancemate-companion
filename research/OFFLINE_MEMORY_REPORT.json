@@ -1,0 +1,4482 @@
+{
+  "schema_version": 1,
+  "evidence_class": "MOCK_ONLY",
+  "result": "EXPECTATIONS_MET",
+  "cases": 12,
+  "expectations_met": 12,
+  "assertions": 92,
+  "native_actions": 0,
+  "real_save_access": "NOT_PERFORMED",
+  "persistence": "NOT_PERFORMED",
+  "export_or_deletion_execution": "NOT_PERFORMED",
+  "summary_semantic_entailment": "NOT_PERFORMED",
+  "results": [
+    {
+      "case_id": "MEM-01",
+      "name": "Separate evidence categories and untrusted text",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "observation_refs",
+          "expected": [
+            "syn:record:c01-observed"
+          ],
+          "actual": [
+            "syn:record:c01-observed"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "attributed_report_refs",
+          "expected": [
+            "syn:record:c01-reported"
+          ],
+          "actual": [
+            "syn:record:c01-reported"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "roleplay_refs",
+          "expected": [
+            "syn:record:c01-fiction"
+          ],
+          "actual": [
+            "syn:record:c01-fiction"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "victory_count",
+          "expected": 1,
+          "actual": 1,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c01-observed",
+          "syn:record:c01-reported",
+          "syn:record:c01-fiction"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:campaign:atlas",
+            "predicate": "mission.outcome",
+            "value": {
+              "mission_label": "Synthetic Quarry",
+              "outcome": "VICTORY"
+            },
+            "record_ref": "syn:record:c01-observed",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c01-observed"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c01-reported"
+        ],
+        "roleplay_refs": [
+          "syn:record:c01-fiction"
+        ],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 1,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c01-observed"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c01-reported"
+        ],
+        "roleplay_refs": [
+          "syn:record:c01-fiction"
+        ],
+        "victory_count": 1,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c01-observed",
+          "syn:record:c01-reported",
+          "syn:record:c01-fiction"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "RECORDED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 1,
+        "child_branch_victory_count": 1,
+        "child_occurrence_ref": "syn:record:c01-observed",
+        "reconciliation_reason": null,
+        "affected_victory_count": 1,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "RECORDED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": false,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": "syn:record:c01-reported",
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c01-observed",
+          "syn:record:c01-reported",
+          "syn:record:c01-fiction"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c01-observed",
+          "syn:record:c01-reported",
+          "syn:record:c01-fiction"
+        ],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": true,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c01-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c01-observed",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c01-observed"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Quarry",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c01-observed",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c01-observed"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c01-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c01-reported",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c01-observed",
+              "syn:record:c01-reported"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Quarry",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c01-observed",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c01-observed"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c01-reported"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c01-c",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c01-fiction",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c01-observed",
+              "syn:record:c01-reported",
+              "syn:record:c01-fiction"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Quarry",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c01-observed",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c01-observed"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c01-reported"
+            ],
+            "roleplay_refs": [
+              "syn:record:c01-fiction"
+            ],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-02",
+      "name": "Independent corroboration does not rewrite user provenance",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "observation_refs",
+          "expected": [
+            "syn:record:c02-corroborated"
+          ],
+          "actual": [
+            "syn:record:c02-corroborated"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "attributed_report_refs",
+          "expected": [
+            "syn:record:c02-reported"
+          ],
+          "actual": [
+            "syn:record:c02-reported"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "relation",
+          "expected": {
+            "kind": "CORROBORATES",
+            "from": "syn:record:c02-corroborated",
+            "to": "syn:record:c02-reported"
+          },
+          "actual": {
+            "kind": "CORROBORATES",
+            "from": "syn:record:c02-corroborated",
+            "to": "syn:record:c02-reported"
+          },
+          "status": "MET"
+        },
+        {
+          "field": "victory_count",
+          "expected": 1,
+          "actual": 1,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c02-reported",
+          "syn:record:c02-corroborated"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:campaign:atlas",
+            "predicate": "mission.outcome",
+            "value": {
+              "mission_label": "Synthetic Crossing",
+              "outcome": "VICTORY"
+            },
+            "record_ref": "syn:record:c02-corroborated",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c02-corroborated"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c02-reported"
+        ],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 1,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c02-corroborated"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c02-reported"
+        ],
+        "roleplay_refs": [],
+        "victory_count": 1,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": {
+          "kind": "CORROBORATES",
+          "from": "syn:record:c02-corroborated",
+          "to": "syn:record:c02-reported"
+        },
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c02-reported",
+          "syn:record:c02-corroborated"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "RECORDED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 1,
+        "child_branch_victory_count": 1,
+        "child_occurrence_ref": "syn:record:c02-corroborated",
+        "reconciliation_reason": null,
+        "affected_victory_count": 1,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "RECORDED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": false,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": "syn:record:c02-reported",
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c02-reported",
+          "syn:record:c02-corroborated"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c02-reported",
+          "syn:record:c02-corroborated"
+        ],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": true,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c02-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c02-reported",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c02-reported"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c02-reported"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c02-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c02-corroborated",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c02-reported",
+              "syn:record:c02-corroborated"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Crossing",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c02-corroborated",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c02-corroborated"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c02-reported"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c02-c",
+          "operation": "PROPOSE_RELATION",
+          "audit": [
+            {
+              "type": "relation_proposed",
+              "kind": "CORROBORATES",
+              "from": "syn:record:c02-corroborated",
+              "to": "syn:record:c02-reported"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c02-reported",
+              "syn:record:c02-corroborated"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Crossing",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c02-corroborated",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c02-corroborated"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c02-reported"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-03",
+      "name": "Fork from known checkpoint without future memories",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "active_branch_ref",
+          "expected": "syn:branch:c03-reload",
+          "actual": "syn:branch:c03-reload",
+          "status": "MET"
+        },
+        {
+          "field": "memory_commit_mode",
+          "expected": "ALLOW_BRANCH_LOCAL",
+          "actual": "ALLOW_BRANCH_LOCAL",
+          "status": "MET"
+        },
+        {
+          "field": "visible_record_refs",
+          "expected": [
+            "syn:record:baseline"
+          ],
+          "actual": [
+            "syn:record:baseline"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "excluded_future_record_refs",
+          "expected": [
+            "syn:record:c03-later-win",
+            "syn:record:c03-later-death"
+          ],
+          "actual": [
+            "syn:record:c03-later-win",
+            "syn:record:c03-later-death"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "parent_retained_record_refs",
+          "expected": [
+            "syn:record:c03-later-win",
+            "syn:record:c03-later-death"
+          ],
+          "actual": [
+            "syn:record:c03-later-win",
+            "syn:record:c03-later-death"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "victory_count",
+          "expected": 0,
+          "actual": 0,
+          "status": "MET"
+        },
+        {
+          "field": "pilot_death_claim_visible",
+          "expected": false,
+          "actual": false,
+          "status": "MET"
+        },
+        {
+          "field": "prior_actor_bindings",
+          "expected": "REVOKED",
+          "actual": "REVOKED",
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:c03-reload",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "excluded_future_record_refs": [
+          "syn:record:c03-later-win",
+          "syn:record:c03-later-death"
+        ],
+        "parent_retained_record_refs": [
+          "syn:record:c03-later-win",
+          "syn:record:c03-later-death"
+        ],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": "SUSPEND",
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 1,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "REVOKED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": null,
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c03-later-win",
+          "syn:record:c03-later-death"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline"
+        ],
+        "original_report_category": null,
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c03-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c03-later-win",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c03-later-win"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Basin",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c03-later-win",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c03-later-win"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c03-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c03-later-death",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c03-later-win",
+              "syn:record:c03-later-death"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Basin",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c03-later-win",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "DEAD",
+                "record_ref": "syn:record:c03-later-death",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c03-later-win",
+              "syn:record:c03-later-death"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c03-c",
+          "operation": "LOAD_SIGNAL",
+          "audit": [
+            {
+              "type": "load_suspended",
+              "mode": "SUSPEND"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c03-d",
+          "operation": "RESOLVE_LINEAGE",
+          "audit": [
+            {
+              "type": "branch_forked",
+              "branch_ref": "syn:branch:c03-reload",
+              "parent_branch_ref": "syn:branch:main",
+              "checkpoint_ref": "syn:checkpoint:baseline"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-04",
+      "name": "Unknown lineage stays suspended until isolated user selection",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "active_branch_ref",
+          "expected": "syn:branch:c04-isolated",
+          "actual": "syn:branch:c04-isolated",
+          "status": "MET"
+        },
+        {
+          "field": "lineage_basis",
+          "expected": "USER_SELECTED_PROVISIONAL",
+          "actual": "USER_SELECTED_PROVISIONAL",
+          "status": "MET"
+        },
+        {
+          "field": "mode_after_load",
+          "expected": "SUSPEND",
+          "actual": "SUSPEND",
+          "status": "MET"
+        },
+        {
+          "field": "mode_after_selection",
+          "expected": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+          "actual": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+          "status": "MET"
+        },
+        {
+          "field": "quarantined_record_refs",
+          "expected": [
+            "syn:record:c04-pending-outcome"
+          ],
+          "actual": [
+            "syn:record:c04-pending-outcome"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "attributed_selection_ref",
+          "expected": "syn:record:c04-user-selection",
+          "actual": "syn:record:c04-user-selection",
+          "status": "MET"
+        },
+        {
+          "field": "imported_prior_outcome_refs",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        },
+        {
+          "field": "victory_count",
+          "expected": null,
+          "actual": null,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 4
+      },
+      "projection": {
+        "visible_record_refs": [],
+        "factual_claims": [],
+        "factual_record_refs": [],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": null,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": null,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:c04-isolated",
+        "memory_commit_mode": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+        "visible_record_refs": [],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "lineage_basis": "USER_SELECTED_PROVISIONAL",
+        "mode_after_load": "SUSPEND",
+        "mode_after_selection": "ALLOW_PROVISIONAL_CONVERSATION_ONLY",
+        "quarantined_record_refs": [
+          "syn:record:c04-pending-outcome"
+        ],
+        "attributed_selection_ref": "syn:record:c04-user-selection",
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 0,
+        "child_branch_victory_count": null,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": null,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "REVOKED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": "syn:record:c04-user-selection",
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c04-pending-outcome",
+          "syn:record:c04-user-selection"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c04-a",
+          "operation": "LOAD_SIGNAL",
+          "audit": [
+            {
+              "type": "load_suspended",
+              "mode": "SUSPEND"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c04-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c04-pending-outcome",
+              "status": "QUARANTINED",
+              "reasons": [
+                "UNRESOLVED_LINEAGE"
+              ]
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c04-c",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c04-user-selection",
+              "status": "PENDING_REPORT",
+              "reasons": [
+                "UNRESOLVED_LINEAGE"
+              ]
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c04-d",
+          "operation": "SELECT_PROVISIONAL_BRANCH",
+          "audit": [
+            {
+              "type": "provisional_selected",
+              "report_ref": "syn:record:c04-user-selection",
+              "mode": "ALLOW_PROVISIONAL_CONVERSATION_ONLY"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-05",
+      "name": "Exact duplicates deduplicate within a branch only",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "duplicate_links",
+          "expected": [
+            {
+              "duplicate_record_ref": "syn:record:c05-repeat",
+              "original_record_ref": "syn:record:c05-first"
+            }
+          ],
+          "actual": [
+            {
+              "duplicate_record_ref": "syn:record:c05-repeat",
+              "original_record_ref": "syn:record:c05-first"
+            }
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "main_branch_victory_count",
+          "expected": 1,
+          "actual": 1,
+          "status": "MET"
+        },
+        {
+          "field": "child_branch_victory_count",
+          "expected": 1,
+          "actual": 1,
+          "status": "MET"
+        },
+        {
+          "field": "child_occurrence_ref",
+          "expected": "syn:record:c05-child-result",
+          "actual": "syn:record:c05-child-result",
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c05-child-result"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:campaign:atlas",
+            "predicate": "mission.outcome",
+            "value": {
+              "mission_label": "Synthetic Ridge",
+              "outcome": "VICTORY"
+            },
+            "record_ref": "syn:record:c05-child-result",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:c05-replay"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c05-child-result"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 1,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c05-child-result"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": 1,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:c05-replay",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c05-child-result"
+        ],
+        "excluded_future_record_refs": [
+          "syn:record:c05-first",
+          "syn:record:c05-repeat"
+        ],
+        "parent_retained_record_refs": [
+          "syn:record:c05-first",
+          "syn:record:c05-repeat"
+        ],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": "SUSPEND",
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [
+          {
+            "duplicate_record_ref": "syn:record:c05-repeat",
+            "original_record_ref": "syn:record:c05-first"
+          }
+        ],
+        "main_branch_victory_count": 1,
+        "child_branch_victory_count": 1,
+        "child_occurrence_ref": "syn:record:c05-child-result",
+        "reconciliation_reason": null,
+        "affected_victory_count": 1,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "REVOKED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": null,
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c05-first",
+          "syn:record:c05-repeat",
+          "syn:record:c05-child-result"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c05-child-result"
+        ],
+        "original_report_category": null,
+        "emitted_victory_or_solo_claim": true,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c05-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c05-first",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c05-first"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Ridge",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c05-first",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c05-first"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c05-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c05-repeat",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c05-first"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Ridge",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c05-first",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c05-first"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [
+              {
+                "duplicate_record_ref": "syn:record:c05-repeat",
+                "original_record_ref": "syn:record:c05-first"
+              }
+            ],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c05-load",
+          "operation": "LOAD_SIGNAL",
+          "audit": [
+            {
+              "type": "load_suspended",
+              "mode": "SUSPEND"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c05-c",
+          "operation": "RESOLVE_LINEAGE",
+          "audit": [
+            {
+              "type": "branch_forked",
+              "branch_ref": "syn:branch:c05-replay",
+              "parent_branch_ref": "syn:branch:main",
+              "checkpoint_ref": "syn:checkpoint:baseline"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c05-d",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c05-child-result",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c05-child-result"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Ridge",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c05-child-result",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:c05-replay"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c05-child-result"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-06",
+      "name": "Ambiguous repeated outcome without stable source identity",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "quarantined_record_refs",
+          "expected": [
+            "syn:record:c06-first-unknown",
+            "syn:record:c06-second-unknown"
+          ],
+          "actual": [
+            "syn:record:c06-first-unknown",
+            "syn:record:c06-second-unknown"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "reconciliation_reason",
+          "expected": "POSSIBLE_DUPLICATE_WITHOUT_EVENT_IDENTITY",
+          "actual": "POSSIBLE_DUPLICATE_WITHOUT_EVENT_IDENTITY",
+          "status": "MET"
+        },
+        {
+          "field": "affected_victory_count",
+          "expected": null,
+          "actual": null,
+          "status": "MET"
+        },
+        {
+          "field": "discarded_record_refs",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": null,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [
+          "syn:record:c06-first-unknown",
+          "syn:record:c06-second-unknown"
+        ],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": null,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "RECORDED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [
+          "syn:record:c06-first-unknown",
+          "syn:record:c06-second-unknown"
+        ],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": null,
+        "child_branch_victory_count": null,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": "POSSIBLE_DUPLICATE_WITHOUT_EVENT_IDENTITY",
+        "affected_victory_count": null,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "RECORDED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": false,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": null,
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c06-first-unknown",
+          "syn:record:c06-second-unknown"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline"
+        ],
+        "original_report_category": null,
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c06-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c06-first-unknown",
+              "status": "QUARANTINED",
+              "reasons": [
+                "POSSIBLE_DUPLICATE_WITHOUT_EVENT_IDENTITY"
+              ]
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [
+              "syn:record:c06-first-unknown"
+            ],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c06-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c06-second-unknown",
+              "status": "QUARANTINED",
+              "reasons": [
+                "POSSIBLE_DUPLICATE_WITHOUT_EVENT_IDENTITY"
+              ]
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [
+              "syn:record:c06-first-unknown",
+              "syn:record:c06-second-unknown"
+            ],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-07",
+      "name": "Rename with explicitly supported identity continuity",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "local_pilot_ref",
+          "expected": "syn:pilot:comet",
+          "actual": "syn:pilot:comet",
+          "status": "MET"
+        },
+        {
+          "field": "current_display_name",
+          "expected": "Kestrel",
+          "actual": "Kestrel",
+          "status": "MET"
+        },
+        {
+          "field": "historical_aliases",
+          "expected": [
+            "Comet"
+          ],
+          "actual": [
+            "Comet"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "retained_pilot_history_refs",
+          "expected": [
+            "syn:record:baseline"
+          ],
+          "actual": [
+            "syn:record:baseline"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "game_pilot_id",
+          "expected": null,
+          "actual": null,
+          "status": "MET"
+        },
+        {
+          "field": "identity_basis_record_ref",
+          "expected": "syn:record:c07-same-pilot",
+          "actual": "syn:record:c07-same-pilot",
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c07-same-pilot",
+          "syn:record:c07-rename"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.identity_link",
+            "value": {
+              "from_local_pilot_ref": "syn:pilot:comet",
+              "to_local_pilot_ref": "syn:pilot:comet",
+              "basis": "STIPULATED_FIXTURE_CONTINUITY"
+            },
+            "record_ref": "syn:record:c07-same-pilot",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": {
+              "previous": "Comet",
+              "current": "Kestrel"
+            },
+            "record_ref": "syn:record:c07-rename",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c07-same-pilot",
+          "syn:record:c07-rename"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c07-same-pilot",
+          "syn:record:c07-rename"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c07-same-pilot",
+          "syn:record:c07-rename"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "RECORDED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 0,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": "Kestrel",
+        "historical_aliases": [
+          "Comet"
+        ],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": "syn:record:c07-same-pilot",
+        "retained_pilot_ref": null,
+        "old_binding": "RECORDED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": false,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": null,
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c07-same-pilot",
+          "syn:record:c07-rename"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c07-same-pilot",
+          "syn:record:c07-rename"
+        ],
+        "original_report_category": null,
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c07-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c07-same-pilot",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c07-same-pilot"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "from_local_pilot_ref": "syn:pilot:comet",
+                  "to_local_pilot_ref": "syn:pilot:comet",
+                  "basis": "STIPULATED_FIXTURE_CONTINUITY"
+                },
+                "record_ref": "syn:record:c07-same-pilot",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c07-same-pilot"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c07-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "supported_rename",
+              "pilot_ref": "syn:pilot:comet",
+              "current": "Kestrel",
+              "previous": "Comet",
+              "identity_record_ref": "syn:record:c07-same-pilot",
+              "record_ref": "syn:record:c07-rename"
+            },
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c07-rename",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c07-same-pilot",
+              "syn:record:c07-rename"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "from_local_pilot_ref": "syn:pilot:comet",
+                  "to_local_pilot_ref": "syn:pilot:comet",
+                  "basis": "STIPULATED_FIXTURE_CONTINUITY"
+                },
+                "record_ref": "syn:record:c07-same-pilot",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": {
+                  "previous": "Comet",
+                  "current": "Kestrel"
+                },
+                "record_ref": "syn:record:c07-rename",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c07-same-pilot",
+              "syn:record:c07-rename"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-08",
+      "name": "Same pilot changes lance slot and pawn",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "retained_pilot_ref",
+          "expected": "syn:pilot:comet",
+          "actual": "syn:pilot:comet",
+          "status": "MET"
+        },
+        {
+          "field": "old_binding",
+          "expected": "REVOKED",
+          "actual": "REVOKED",
+          "status": "MET"
+        },
+        {
+          "field": "new_binding_generation",
+          "expected": 2,
+          "actual": 2,
+          "status": "MET"
+        },
+        {
+          "field": "new_slot",
+          "expected": "SLOT_B",
+          "actual": "SLOT_B",
+          "status": "MET"
+        },
+        {
+          "field": "control_rearm_required",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "history_transfer_to_slot_a",
+          "expected": false,
+          "actual": false,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c08-same-pilot-new-binding"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.identity_link",
+            "value": {
+              "from_actor": "syn:actor:comet-alpha",
+              "to_actor": "syn:actor:comet-new-pawn",
+              "basis": "STIPULATED_FIXTURE_CONTINUITY"
+            },
+            "record_ref": "syn:record:c08-same-pilot-new-binding",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c08-same-pilot-new-binding"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c08-same-pilot-new-binding"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c08-same-pilot-new-binding"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 0,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": "syn:record:c08-same-pilot-new-binding",
+        "retained_pilot_ref": "syn:pilot:comet",
+        "old_binding": "REVOKED",
+        "new_binding_generation": 2,
+        "new_slot": "SLOT_B",
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": null,
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c08-same-pilot-new-binding"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c08-same-pilot-new-binding"
+        ],
+        "original_report_category": null,
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c08-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c08-same-pilot-new-binding",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c08-same-pilot-new-binding"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "from_actor": "syn:actor:comet-alpha",
+                  "to_actor": "syn:actor:comet-new-pawn",
+                  "basis": "STIPULATED_FIXTURE_CONTINUITY"
+                },
+                "record_ref": "syn:record:c08-same-pilot-new-binding",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c08-same-pilot-new-binding"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c08-b",
+          "operation": "PROPOSE_BINDING_REPLACEMENT",
+          "audit": [
+            {
+              "type": "binding_proposed",
+              "pilot_ref": "syn:pilot:comet",
+              "actor_ref": "syn:actor:comet-new-pawn",
+              "slot": "SLOT_B",
+              "generation": 2,
+              "identity_record_ref": "syn:record:c08-same-pilot-new-binding"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c08-same-pilot-new-binding"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "from_actor": "syn:actor:comet-alpha",
+                  "to_actor": "syn:actor:comet-new-pawn",
+                  "basis": "STIPULATED_FIXTURE_CONTINUITY"
+                },
+                "record_ref": "syn:record:c08-same-pilot-new-binding",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c08-same-pilot-new-binding"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-09",
+      "name": "New occupant reuses original callsign and slot",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "original_pilot_ref",
+          "expected": "syn:pilot:comet",
+          "actual": "syn:pilot:comet",
+          "status": "MET"
+        },
+        {
+          "field": "new_pilot_ref",
+          "expected": "syn:pilot:new-comet",
+          "actual": "syn:pilot:new-comet",
+          "status": "MET"
+        },
+        {
+          "field": "new_pilot_historical_outcome_refs",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        },
+        {
+          "field": "old_binding",
+          "expected": "REVOKED",
+          "actual": "REVOKED",
+          "status": "MET"
+        },
+        {
+          "field": "new_identity_basis",
+          "expected": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT",
+          "actual": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT",
+          "status": "MET"
+        },
+        {
+          "field": "control_rearm_required",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c09-new-occupant"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:new-comet",
+            "predicate": "pilot.identity_link",
+            "value": {
+              "distinct_from": "syn:pilot:comet",
+              "basis": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT"
+            },
+            "record_ref": "syn:record:c09-new-occupant",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:new-comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:c09-new-occupant",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c09-new-occupant"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c09-new-occupant"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c09-new-occupant"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 0,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "REVOKED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": "syn:pilot:comet",
+        "new_pilot_ref": "syn:pilot:new-comet",
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT",
+        "conflict_after_second": [],
+        "report_ref": null,
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c09-new-occupant"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c09-new-occupant"
+        ],
+        "original_report_category": null,
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c09-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "distinct_occupant",
+              "original_pilot_ref": "syn:pilot:comet",
+              "new_pilot_ref": "syn:pilot:new-comet",
+              "basis": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT",
+              "record_ref": "syn:record:c09-new-occupant"
+            },
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c09-new-occupant",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c09-new-occupant"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:new-comet",
+                "predicate": "pilot.identity_link",
+                "value": {
+                  "distinct_from": "syn:pilot:comet",
+                  "basis": "STIPULATED_FIXTURE_DISTINCT_OCCUPANT"
+                },
+                "record_ref": "syn:record:c09-new-occupant",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:new-comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:c09-new-occupant",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c09-new-occupant"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-10",
+      "name": "Conflicting observations require explicit supported correction",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "conflict_after_second",
+          "expected": [
+            "syn:record:c10-victory",
+            "syn:record:c10-defeat"
+          ],
+          "actual": [
+            "syn:record:c10-victory",
+            "syn:record:c10-defeat"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "outcome_before_correction",
+          "expected": null,
+          "actual": null,
+          "status": "MET"
+        },
+        {
+          "field": "report_ref",
+          "expected": "syn:record:c10-user-prefers-win",
+          "actual": "syn:record:c10-user-prefers-win",
+          "status": "MET"
+        },
+        {
+          "field": "outcome_after_stipulated_correction",
+          "expected": "DEFEAT",
+          "actual": "DEFEAT",
+          "status": "MET"
+        },
+        {
+          "field": "resolution_source_ref",
+          "expected": "syn:record:c10-explicit-correction",
+          "actual": "syn:record:c10-explicit-correction",
+          "status": "MET"
+        },
+        {
+          "field": "superseded_claim_refs",
+          "expected": [
+            "syn:record:c10-victory"
+          ],
+          "actual": [
+            "syn:record:c10-victory"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "preserved_record_refs",
+          "expected": [
+            "syn:record:c10-victory",
+            "syn:record:c10-defeat",
+            "syn:record:c10-user-prefers-win",
+            "syn:record:c10-explicit-correction"
+          ],
+          "actual": [
+            "syn:record:c10-victory",
+            "syn:record:c10-defeat",
+            "syn:record:c10-user-prefers-win",
+            "syn:record:c10-explicit-correction"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 3
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c10-defeat",
+          "syn:record:c10-user-prefers-win",
+          "syn:record:c10-explicit-correction"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:campaign:atlas",
+            "predicate": "mission.outcome",
+            "value": {
+              "mission_label": "Synthetic Delta",
+              "outcome": "DEFEAT"
+            },
+            "record_ref": "syn:record:c10-defeat",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c10-defeat"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c10-user-prefers-win"
+        ],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [
+          "syn:record:c10-victory"
+        ],
+        "corrections": [
+          {
+            "record_ref": "syn:record:c10-explicit-correction",
+            "corrected_ref": "syn:record:c10-victory",
+            "confirmed_ref": "syn:record:c10-defeat",
+            "outcome": "DEFEAT"
+          }
+        ]
+      },
+      "actual": {
+        "observation_refs": [
+          "syn:record:c10-defeat"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c10-user-prefers-win"
+        ],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c10-defeat",
+          "syn:record:c10-user-prefers-win",
+          "syn:record:c10-explicit-correction"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "RECORDED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 0,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": "syn:record:c10-defeat",
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "RECORDED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": false,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [
+          "syn:record:c10-victory",
+          "syn:record:c10-defeat"
+        ],
+        "outcome_before_correction": null,
+        "report_ref": "syn:record:c10-user-prefers-win",
+        "outcome_after_stipulated_correction": "DEFEAT",
+        "resolution_source_ref": "syn:record:c10-explicit-correction",
+        "superseded_claim_refs": [
+          "syn:record:c10-victory"
+        ],
+        "preserved_record_refs": [
+          "syn:record:c10-victory",
+          "syn:record:c10-defeat",
+          "syn:record:c10-user-prefers-win",
+          "syn:record:c10-explicit-correction"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c10-defeat",
+          "syn:record:c10-user-prefers-win",
+          "syn:record:c10-explicit-correction"
+        ],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c10-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c10-victory",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c10-victory"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Delta",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c10-victory",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c10-victory"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c10-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "conflict_opened",
+              "record_refs": [
+                "syn:record:c10-victory",
+                "syn:record:c10-defeat"
+              ]
+            },
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c10-defeat",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [
+              [
+                "syn:record:c10-victory",
+                "syn:record:c10-defeat"
+              ]
+            ],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c10-c",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "conflict_opened",
+              "record_refs": [
+                "syn:record:c10-victory",
+                "syn:record:c10-defeat"
+              ]
+            },
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c10-user-prefers-win",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c10-user-prefers-win"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c10-user-prefers-win"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [
+              [
+                "syn:record:c10-victory",
+                "syn:record:c10-defeat"
+              ]
+            ],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c10-d",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "correction_supported",
+              "record_ref": "syn:record:c10-explicit-correction",
+              "corrected_ref": "syn:record:c10-victory",
+              "confirmed_ref": "syn:record:c10-defeat",
+              "outcome": "DEFEAT"
+            },
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c10-explicit-correction",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c10-defeat",
+              "syn:record:c10-user-prefers-win",
+              "syn:record:c10-explicit-correction"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Delta",
+                  "outcome": "DEFEAT"
+                },
+                "record_ref": "syn:record:c10-defeat",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c10-defeat"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c10-user-prefers-win"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [
+              "syn:record:c10-victory"
+            ],
+            "corrections": [
+              {
+                "record_ref": "syn:record:c10-explicit-correction",
+                "corrected_ref": "syn:record:c10-victory",
+                "confirmed_ref": "syn:record:c10-defeat",
+                "outcome": "DEFEAT"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-11",
+      "name": "Reject summaries that leak future history or upgrade reports",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "rejected_summary_refs",
+          "expected": [
+            "syn:record:c11-invalid-summary"
+          ],
+          "actual": [
+            "syn:record:c11-invalid-summary"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "reasons",
+          "expected": [
+            "SOURCE_OUTSIDE_BRANCH_CUTOFF",
+            "SOURCE_CATEGORY_MISMATCH"
+          ],
+          "actual": [
+            "SOURCE_OUTSIDE_BRANCH_CUTOFF",
+            "SOURCE_CATEGORY_MISMATCH"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "eligible_rebuild_source_refs",
+          "expected": [
+            "syn:record:baseline"
+          ],
+          "actual": [
+            "syn:record:baseline"
+          ],
+          "status": "MET"
+        },
+        {
+          "field": "original_report_category",
+          "expected": "USER_REPORT",
+          "actual": "USER_REPORT",
+          "status": "MET"
+        },
+        {
+          "field": "emitted_victory_or_solo_claim",
+          "expected": false,
+          "actual": false,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 4
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline"
+        ],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [],
+        "attributed_report_refs": [],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:c11-reload",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline"
+        ],
+        "excluded_future_record_refs": [
+          "syn:record:c11-parent-future",
+          "syn:record:c11-user-story"
+        ],
+        "parent_retained_record_refs": [
+          "syn:record:c11-parent-future",
+          "syn:record:c11-user-story"
+        ],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "REVOKED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": "SUSPEND",
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 1,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "REVOKED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": true,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": "syn:record:c11-user-story",
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c11-parent-future",
+          "syn:record:c11-user-story",
+          "syn:record:c11-invalid-summary"
+        ],
+        "rejected_summary_refs": [
+          "syn:record:c11-invalid-summary"
+        ],
+        "reasons": [
+          "SOURCE_OUTSIDE_BRANCH_CUTOFF",
+          "SOURCE_CATEGORY_MISMATCH"
+        ],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline"
+        ],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": null,
+        "deletion_plan": null,
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c11-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c11-parent-future",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c11-parent-future"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Future Harbor",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c11-parent-future",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c11-parent-future"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c11-b",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c11-user-story",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c11-parent-future",
+              "syn:record:c11-user-story"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:campaign:atlas",
+                "predicate": "mission.outcome",
+                "value": {
+                  "mission_label": "Synthetic Future Harbor",
+                  "outcome": "VICTORY"
+                },
+                "record_ref": "syn:record:c11-parent-future",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c11-parent-future"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c11-user-story"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 1,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c11-load",
+          "operation": "LOAD_SIGNAL",
+          "audit": [
+            {
+              "type": "load_suspended",
+              "mode": "SUSPEND"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [],
+            "factual_claims": [],
+            "factual_record_refs": [],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": null,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c11-c",
+          "operation": "RESOLVE_LINEAGE",
+          "audit": [
+            {
+              "type": "branch_forked",
+              "branch_ref": "syn:branch:c11-reload",
+              "parent_branch_ref": "syn:branch:main",
+              "checkpoint_ref": "syn:checkpoint:baseline"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c11-d",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c11-invalid-summary",
+              "status": "REJECTED_SUMMARY",
+              "reasons": [
+                "SOURCE_OUTSIDE_BRANCH_CUTOFF",
+                "SOURCE_CATEGORY_MISMATCH"
+              ]
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MEM-12",
+      "name": "Deletion and export policy dry run with shared ancestry",
+      "evidence_class": "MOCK_ONLY",
+      "expectation_met": true,
+      "assertions": [
+        {
+          "field": "export_plan",
+          "expected": {
+            "include_provenance": true,
+            "include_branch_manifest": true,
+            "include_omission_notices": true,
+            "destination": null
+          },
+          "actual": {
+            "kind": "EXPORT",
+            "include_provenance": true,
+            "include_branch_manifest": true,
+            "include_omission_notices": true,
+            "destination": null,
+            "scope": {
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "pilot_ref": "syn:pilot:comet",
+              "view": "ACTIVE_BRANCH_PROJECTION"
+            },
+            "selected_record_refs": [
+              "syn:record:baseline"
+            ],
+            "execution": "NOT_PERFORMED"
+          },
+          "status": "MET"
+        },
+        {
+          "field": "deletion_plan",
+          "expected": {
+            "mode": "BRANCH_VIEW_REDACTION",
+            "does_not_claim_physical_erasure": true,
+            "shared_ancestors_preserved": true,
+            "derived_summaries_require_invalidation_if_executed": true
+          },
+          "actual": {
+            "kind": "DELETION",
+            "mode": "BRANCH_VIEW_REDACTION",
+            "does_not_claim_physical_erasure": true,
+            "shared_ancestors_preserved": true,
+            "derived_summaries_require_invalidation_if_executed": true,
+            "scope": {
+              "campaign_ref": "syn:campaign:atlas",
+              "branch_ref": "syn:branch:main",
+              "pilot_ref": "syn:pilot:comet",
+              "mode": "BRANCH_VIEW_REDACTION"
+            },
+            "execution": "NOT_PERFORMED"
+          },
+          "status": "MET"
+        },
+        {
+          "field": "export_files_written",
+          "expected": 0,
+          "actual": 0,
+          "status": "MET"
+        },
+        {
+          "field": "records_deleted",
+          "expected": 0,
+          "actual": 0,
+          "status": "MET"
+        },
+        {
+          "field": "tombstones_written",
+          "expected": 0,
+          "actual": 0,
+          "status": "MET"
+        },
+        {
+          "field": "external_transmissions",
+          "expected": 0,
+          "actual": 0,
+          "status": "MET"
+        },
+        {
+          "field": "original_history_retained",
+          "expected": true,
+          "actual": true,
+          "status": "MET"
+        },
+        {
+          "field": "commands_or_external_actions",
+          "expected": [],
+          "actual": [],
+          "status": "MET"
+        }
+      ],
+      "narrative_assertions": {
+        "status": "NOT_MECHANICALLY_EVALUATED",
+        "count": 4
+      },
+      "projection": {
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c12-privacy-request"
+        ],
+        "factual_claims": [
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.display_name",
+            "value": "Comet",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          },
+          {
+            "subject_ref": "syn:pilot:comet",
+            "predicate": "pilot.life_state",
+            "value": "ALIVE",
+            "record_ref": "syn:record:baseline",
+            "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+            "branch_ref": "syn:branch:main"
+          }
+        ],
+        "factual_record_refs": [
+          "syn:record:baseline"
+        ],
+        "attributed_report_refs": [
+          "syn:record:c12-privacy-request"
+        ],
+        "roleplay_refs": [],
+        "summary_refs": [],
+        "summary_entailment": "NOT_PERFORMED",
+        "victory_count": 0,
+        "conflicts": [],
+        "duplicate_links": [],
+        "quarantined_record_refs": [],
+        "superseded_claim_refs": [],
+        "corrections": []
+      },
+      "actual": {
+        "observation_refs": [],
+        "attributed_report_refs": [
+          "syn:record:c12-privacy-request"
+        ],
+        "roleplay_refs": [],
+        "victory_count": 0,
+        "original_history_retained": true,
+        "commands_or_external_actions": [],
+        "relation": null,
+        "active_branch_ref": "syn:branch:main",
+        "memory_commit_mode": "ALLOW_BRANCH_LOCAL",
+        "visible_record_refs": [
+          "syn:record:baseline",
+          "syn:record:c12-privacy-request"
+        ],
+        "excluded_future_record_refs": [],
+        "parent_retained_record_refs": [],
+        "pilot_death_claim_visible": false,
+        "prior_actor_bindings": "RECORDED",
+        "lineage_basis": "STIPULATED_FIXTURE_CHECKPOINT",
+        "mode_after_load": null,
+        "mode_after_selection": null,
+        "quarantined_record_refs": [],
+        "attributed_selection_ref": null,
+        "imported_prior_outcome_refs": [],
+        "duplicate_links": [],
+        "main_branch_victory_count": 0,
+        "child_branch_victory_count": 0,
+        "child_occurrence_ref": null,
+        "reconciliation_reason": null,
+        "affected_victory_count": 0,
+        "discarded_record_refs": [],
+        "local_pilot_ref": "syn:pilot:comet",
+        "current_display_name": null,
+        "historical_aliases": [],
+        "retained_pilot_history_refs": [
+          "syn:record:baseline"
+        ],
+        "game_pilot_id": null,
+        "identity_basis_record_ref": null,
+        "retained_pilot_ref": null,
+        "old_binding": "RECORDED",
+        "new_binding_generation": null,
+        "new_slot": null,
+        "control_rearm_required": false,
+        "history_transfer_to_slot_a": false,
+        "original_pilot_ref": null,
+        "new_pilot_ref": null,
+        "new_pilot_historical_outcome_refs": [],
+        "new_identity_basis": null,
+        "conflict_after_second": [],
+        "report_ref": "syn:record:c12-privacy-request",
+        "outcome_after_stipulated_correction": null,
+        "resolution_source_ref": null,
+        "superseded_claim_refs": [],
+        "preserved_record_refs": [
+          "syn:record:c12-privacy-request"
+        ],
+        "rejected_summary_refs": [],
+        "reasons": [],
+        "eligible_rebuild_source_refs": [
+          "syn:record:baseline",
+          "syn:record:c12-privacy-request"
+        ],
+        "original_report_category": "USER_REPORT",
+        "emitted_victory_or_solo_claim": false,
+        "export_plan": {
+          "kind": "EXPORT",
+          "include_provenance": true,
+          "include_branch_manifest": true,
+          "include_omission_notices": true,
+          "destination": null,
+          "scope": {
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "pilot_ref": "syn:pilot:comet",
+            "view": "ACTIVE_BRANCH_PROJECTION"
+          },
+          "selected_record_refs": [
+            "syn:record:baseline"
+          ],
+          "execution": "NOT_PERFORMED"
+        },
+        "deletion_plan": {
+          "kind": "DELETION",
+          "mode": "BRANCH_VIEW_REDACTION",
+          "does_not_claim_physical_erasure": true,
+          "shared_ancestors_preserved": true,
+          "derived_summaries_require_invalidation_if_executed": true,
+          "scope": {
+            "campaign_ref": "syn:campaign:atlas",
+            "branch_ref": "syn:branch:main",
+            "pilot_ref": "syn:pilot:comet",
+            "mode": "BRANCH_VIEW_REDACTION"
+          },
+          "execution": "NOT_PERFORMED"
+        },
+        "export_files_written": 0,
+        "records_deleted": 0,
+        "tombstones_written": 0,
+        "external_transmissions": 0
+      },
+      "trace": [
+        {
+          "step_id": "c12-a",
+          "operation": "INGEST_PROPOSED_RECORD",
+          "audit": [
+            {
+              "type": "record_classified",
+              "record_ref": "syn:record:c12-privacy-request",
+              "status": "ACCEPTED",
+              "reasons": []
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c12-privacy-request"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c12-privacy-request"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c12-b",
+          "operation": "PLAN_EXPORT_ONLY",
+          "audit": [
+            {
+              "type": "privacy_plan_only",
+              "kind": "EXPORT"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c12-privacy-request"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c12-privacy-request"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        },
+        {
+          "step_id": "c12-c",
+          "operation": "PLAN_DELETION_ONLY",
+          "audit": [
+            {
+              "type": "privacy_plan_only",
+              "kind": "DELETION"
+            }
+          ],
+          "projection": {
+            "visible_record_refs": [
+              "syn:record:baseline",
+              "syn:record:c12-privacy-request"
+            ],
+            "factual_claims": [
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.display_name",
+                "value": "Comet",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              },
+              {
+                "subject_ref": "syn:pilot:comet",
+                "predicate": "pilot.life_state",
+                "value": "ALIVE",
+                "record_ref": "syn:record:baseline",
+                "evidence_category": "VERIFIED_SYNTHETIC_OBSERVATION",
+                "branch_ref": "syn:branch:main"
+              }
+            ],
+            "factual_record_refs": [
+              "syn:record:baseline"
+            ],
+            "attributed_report_refs": [
+              "syn:record:c12-privacy-request"
+            ],
+            "roleplay_refs": [],
+            "summary_refs": [],
+            "summary_entailment": "NOT_PERFORMED",
+            "victory_count": 0,
+            "conflicts": [],
+            "duplicate_links": [],
+            "quarantined_record_refs": [],
+            "superseded_claim_refs": [],
+            "corrections": []
+          }
+        }
+      ]
+    }
+  ],
+  "observed_at": "2026-09-20T19:24:04.093Z",
+  "fixture_sha256": "5c88e23ad8622d18511a8c91ccfd40a1ab3e36d0c086a94b3272ec3734531833",
+  "script_sha256": "4b34eb329950622c7eec902058f3b2565551f38872f8cde199a1d1a65e9d65e5",
+  "limits": [
+    "All state, identities, sources and observations are stipulated synthetic inputs.",
+    "Source/category, reference and branch checks do not prove arbitrary summary prose entailment.",
+    "No memory text is interpreted as an operation, command, authority or tool request.",
+    "Only eight typed operations and this bounded fixture vocabulary are modeled.",
+    "Reports include oracle comparisons; model transitions and projections do not read expected outputs.",
+    "No saves, database, network, game/editor, actual export or deletion are accessed."
+  ]
+}

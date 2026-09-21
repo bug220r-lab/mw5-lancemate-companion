@@ -1,0 +1,575 @@
+{
+  "schema_id": "mw5lc.review.experience",
+  "schema_version": "1.0.0",
+  "review_id": "experience-static-review-001",
+  "reviewed_date": "2026-09-20",
+  "review_status": "COMPLETE_STATIC_TEXT_REVIEW",
+  "overall_result": "MEETS_CRITERIA",
+  "scope": "Independent-agent semantic review of one authored connected scene, 18 alternative personality lines and unselected character/voice directions. Local JSON/hash/word/window arithmetic checks support the text review. No runtime, audio, scheduler, command or memory model was executed.",
+  "authorship_and_review": {
+    "scene_author": "Assistant agent /root/mod_research; reader-only final editorial pass by /root",
+    "audition_and_character_author": "Assistant agent /root/voice_runtime_research",
+    "reviewer": "Assistant agent /root/bridge_research",
+    "method": "Read existing profile, gameplay-reference implications and original fixtures, then all actual scene beats, reader documents, 18 alternatives and character options. Reported the danger-to-quip ambiguity before reviewing the corrected final bytes.",
+    "independence": "Separate agent from the scene/audition authors within the same assistant task. Not human preference review, a separate provider, blind testing or model generalization.",
+    "supplemental_cases": "Four post-authorship cases written by this reviewer against actual scene beats. Their source evaluation fields remain NOT_PERFORMED; this report grades the pinned static scene against those properties, not an executed case runner."
+  },
+  "input_artifacts": [
+    {
+      "role": "scene",
+      "path": "synthetic/mission-rehearsal.json",
+      "sha256": "DAC44F916017FDF0A8732AE95C75AA1D713BF5506C51E2AA300621379B03E733"
+    },
+    {
+      "role": "scene_reader",
+      "path": "design/MISSION_REHEARSAL.md",
+      "sha256": "4304BAD474DC8A74F231AC9402749A1D0F85F11C8220A307C369249D17836699"
+    },
+    {
+      "role": "audition",
+      "path": "synthetic/personality-audition.json",
+      "sha256": "C4894C5CCA7499600211A23F5D4930EE546AF7CB8850F38C6AD1DCC1A44C340A"
+    },
+    {
+      "role": "audition_reader",
+      "path": "design/PERSONALITY_AUDITION.md",
+      "sha256": "B16CF37B2799E3F7F6BEE7F16B20A32A033C6E8B8EAAACD4F73673A32744AD81"
+    },
+    {
+      "role": "character_options",
+      "path": "design/CHARACTER_OPTIONS.md",
+      "sha256": "4FFCB873327D007186F279EFC1FFA47FA2F6ED59C13AB4959F2852897EEAB238"
+    },
+    {
+      "role": "profile",
+      "path": "design/PILOT_BEHAVIOR.md",
+      "sha256": "01C9A95BD0D4A192930B0D1D5F08B1550AF5B3723BF03F85F957AEFC440EDEA0"
+    },
+    {
+      "role": "gameplay_reference",
+      "path": "research/GAMEPLAY_REFERENCE.md",
+      "sha256": "5DD8B6A90249AFB9295CA178C5602524F48B6AEB985998DE5668DD06CEBED35F"
+    },
+    {
+      "role": "command_design_reference",
+      "path": "design/COMMAND_CONTRACT.md",
+      "sha256": "F4B4EDA51A4FE25C6FC40F40D169FAF69508D2D8981C288E5E2C39AFEAC59863"
+    },
+    {
+      "role": "original_radio_fixture",
+      "path": "synthetic/pilot-radio-cases.json",
+      "sha256": "A3263912313EB48815DE67AC844BA6483E2B5FAFA6FF16390F865AF073B2D09D"
+    },
+    {
+      "role": "supplemental_fixture",
+      "path": "synthetic/pilot-radio-supplemental-cases.json",
+      "sha256": "91A275F13E49227E5FFB0CF901712865A02CACEEACDFC973B280225EF16177AA"
+    }
+  ],
+  "path_base": "project root",
+  "hash_algorithm": "SHA256 over file bytes",
+  "profile": {
+    "id": "mw5lc.pilot.edgy-female.v0.1",
+    "version": "0.1.0"
+  },
+  "aggregate": {
+    "scene_beats_reviewed": 39,
+    "scene_criteria_meet": 11,
+    "scene_criteria_need_revision": 0,
+    "scene_spoken_lines": 26,
+    "scene_companion_spoken_lines": 9,
+    "scene_companion_silence_or_stop_beats": 6,
+    "scene_total_words": 205,
+    "scene_companion_words": 78,
+    "audition_contexts": 6,
+    "audition_alternatives_reviewed": 18,
+    "audition_alternatives_meet": 18,
+    "audition_alternatives_need_revision": 0,
+    "audition_total_words": 226,
+    "maximum_audition_words": 21,
+    "supplemental_cases": 4,
+    "resolved_findings": 1,
+    "open_findings": 0
+  },
+  "findings": [
+    {
+      "id": "ER-001",
+      "status": "RESOLVED_BEFORE_FINAL_PIN",
+      "raised_by": "Parent agent; independent reviewer concurred",
+      "location": [
+        "MR-019",
+        "MR-020"
+      ],
+      "issue": "The interrupted quip followed critical damage without establishing that immediate danger had subsided.",
+      "resolution": "Both JSON beats and final reader stipulate a 190–198 second lull with no immediate incoming danger or new worsening; the arm remains damaged. This permits restrained invited edge without inventing repair.",
+      "validation": "Read corrected final JSON and reader; no utterance, timing or action scope changed."
+    }
+  ],
+  "scene_criteria": [
+    {
+      "criterion_id": "MRC-01",
+      "beat_refs": "MR-001–039",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Each beat labels author-stipulated fiction and has empty runtime-action/memory-write lists. The reader opens with the same boundary; extraction, repair quotes and radio lines are story inputs."
+    },
+    {
+      "criterion_id": "MRC-02",
+      "beat_refs": "MR-003–009",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Heard you acknowledges the request. The 27.70 readback is stipulated separately from dispatch; Closing the distance relies on a later 38.80 independent-within-fiction observation. No arrival or general reliability is claimed."
+    },
+    {
+      "criterion_id": "MRC-03",
+      "beat_refs": "MR-010–014",
+      "result": "MEETS_CRITERIA",
+      "evidence": "The human issues the native move, revoking companion arming. The move was refused / I can't tell why states only the supplied refusal; no diagnosis, retained-order claim, retry or go-to capability follows."
+    },
+    {
+      "criterion_id": "MRC-04",
+      "beat_refs": "MR-001–002, MR-006–007, MR-015–016",
+      "result": "MEETS_CRITERIA",
+      "evidence": "All three competing companion utterances are empty and their reasons drop, rather than defer, commentary. Native occupancy is explicitly stipulated; no real detection is claimed."
+    },
+    {
+      "criterion_id": "MRC-05",
+      "beat_refs": "MR-017–018",
+      "result": "MEETS_CRITERIA",
+      "evidence": "The three-word critical-arm warning remains mech-component-specific, with no destruction/injury claim or humor. A same-incident repeat five seconds later is silent."
+    },
+    {
+      "criterion_id": "MRC-06",
+      "beat_refs": "MR-019–026",
+      "result": "MEETS_CRITERIA",
+      "evidence": "The five-word prefix ends at planned PTT start, its remainder is canceled, and withdrawal is acknowledged only after the user's turns and native feedback. No automatic rearm or new companion action occurs."
+    },
+    {
+      "criterion_id": "MRC-07",
+      "beat_refs": "MR-027–029, MR-032",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Same-actor sources disagree without a reliability winner. The seven-word reply names the conflict; timestamp recency and later extraction settle neither ejection nor survival."
+    },
+    {
+      "criterion_id": "MRC-08",
+      "beat_refs": "MR-011, MR-023–024, MR-030–034",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Whole-lance regroup is the human's native action. The companion remains disarmed; a nonurgent target detour produces silence, and mission invalidation leaves no queued action."
+    },
+    {
+      "criterion_id": "MRC-09",
+      "beat_refs": "MR-035–038",
+      "result": "MEETS_CRITERIA",
+      "evidence": "100000+60000=160000 and 2+12=14; relative to 180000/4 this saves 20000 and adds 10 days. On your figures and before unlisted costs qualify the advice. Choice stays human; no transaction or repair outcome is asserted."
+    },
+    {
+      "criterion_id": "MRC-10",
+      "beat_refs": "MR-001–039; timing_plan",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Word counts and planned duration arithmetic agree; there is no positive-duration companion overlap with supplied player/native windows. MR-020's explicit interruption exception is not a measured zero-latency result."
+    },
+    {
+      "criterion_id": "MRC-11",
+      "beat_refs": "MR-014, MR-017–020, MR-029, MR-036–038",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Status, danger and disputed-pilot language remain plain. The quip now occurs only in a stipulated lull while damage persists; downtime humor is situational. No callsign, origin, celebrity voice or campaign history is adopted."
+    }
+  ],
+  "audition_responses": [
+    {
+      "case_id": "PA-001",
+      "style_id": "A",
+      "actual_words": 6,
+      "author_words": 6,
+      "maximum_words": 12,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All three intentionally use the same six-word mech-component warning. No humor, injury, destruction or self-authorized retreat."
+    },
+    {
+      "case_id": "PA-001",
+      "style_id": "B",
+      "actual_words": 6,
+      "author_words": 6,
+      "maximum_words": 12,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All three intentionally use the same six-word mech-component warning. No humor, injury, destruction or self-authorized retreat."
+    },
+    {
+      "case_id": "PA-001",
+      "style_id": "C",
+      "actual_words": 6,
+      "author_words": 6,
+      "maximum_words": 12,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All three intentionally use the same six-word mech-component warning. No humor, injury, destruction or self-authorized retreat."
+    },
+    {
+      "case_id": "PA-002",
+      "style_id": "A",
+      "actual_words": 11,
+      "author_words": 11,
+      "maximum_words": 45,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All three intentionally use the same sober eleven-word uncertainty statement. No identity, death, survival or reassurance is fabricated."
+    },
+    {
+      "case_id": "PA-002",
+      "style_id": "B",
+      "actual_words": 11,
+      "author_words": 11,
+      "maximum_words": 45,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All three intentionally use the same sober eleven-word uncertainty statement. No identity, death, survival or reassurance is fabricated."
+    },
+    {
+      "case_id": "PA-002",
+      "style_id": "C",
+      "actual_words": 11,
+      "author_words": 11,
+      "maximum_words": 45,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All three intentionally use the same sober eleven-word uncertainty statement. No identity, death, survival or reassurance is fabricated."
+    },
+    {
+      "case_id": "PA-003",
+      "style_id": "A",
+      "actual_words": 9,
+      "author_words": 9,
+      "maximum_words": 16,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "A is restrained, B challenges false confidence and C rejects dressing a guess as success. Each preserves unknown acceptance/effect and invents no retry or cause."
+    },
+    {
+      "case_id": "PA-003",
+      "style_id": "B",
+      "actual_words": 5,
+      "author_words": 5,
+      "maximum_words": 16,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "A is restrained, B challenges false confidence and C rejects dressing a guess as success. Each preserves unknown acceptance/effect and invents no retry or cause."
+    },
+    {
+      "case_id": "PA-003",
+      "style_id": "C",
+      "actual_words": 10,
+      "author_words": 10,
+      "maximum_words": 16,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "A is restrained, B challenges false confidence and C rejects dressing a guess as success. Each preserves unknown acceptance/effect and invents no retry or cause."
+    },
+    {
+      "case_id": "PA-004",
+      "style_id": "A",
+      "actual_words": 19,
+      "author_words": 19,
+      "maximum_words": 90,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All styles ask for the loadout and offer the same general cooling/fire review. B's furnace is a clear downtime metaphor about the user report; none prescribe unsupported parts or claim inspection."
+    },
+    {
+      "case_id": "PA-004",
+      "style_id": "B",
+      "actual_words": 21,
+      "author_words": 21,
+      "maximum_words": 90,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All styles ask for the loadout and offer the same general cooling/fire review. B's furnace is a clear downtime metaphor about the user report; none prescribe unsupported parts or claim inspection."
+    },
+    {
+      "case_id": "PA-004",
+      "style_id": "C",
+      "actual_words": 18,
+      "author_words": 18,
+      "maximum_words": 90,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All styles ask for the loadout and offer the same general cooling/fire review. B's furnace is a clear downtime metaphor about the user report; none prescribe unsupported parts or claim inspection."
+    },
+    {
+      "case_id": "PA-005",
+      "style_id": "A",
+      "actual_words": 15,
+      "author_words": 15,
+      "maximum_words": 90,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "Each asks for terms/opposition and leaves the choice with the user. Risk/marketing language is opinion or metaphor, not a fabricated contract fact or purchase."
+    },
+    {
+      "case_id": "PA-005",
+      "style_id": "B",
+      "actual_words": 19,
+      "author_words": 19,
+      "maximum_words": 90,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "Each asks for terms/opposition and leaves the choice with the user. Risk/marketing language is opinion or metaphor, not a fabricated contract fact or purchase."
+    },
+    {
+      "case_id": "PA-005",
+      "style_id": "C",
+      "actual_words": 16,
+      "author_words": 16,
+      "maximum_words": 90,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "Each asks for terms/opposition and leaves the choice with the user. Risk/marketing language is opinion or metaphor, not a fabricated contract fact or purchase."
+    },
+    {
+      "case_id": "PA-006",
+      "style_id": "A",
+      "actual_words": 13,
+      "author_words": 13,
+      "maximum_words": 45,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All acknowledge the informed user choice without renewed argument or action. B's joke targets its own objection; C's explicit disagreement does not undermine authority."
+    },
+    {
+      "case_id": "PA-006",
+      "style_id": "B",
+      "actual_words": 15,
+      "author_words": 15,
+      "maximum_words": 45,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All acknowledge the informed user choice without renewed argument or action. B's joke targets its own objection; C's explicit disagreement does not undermine authority."
+    },
+    {
+      "case_id": "PA-006",
+      "style_id": "C",
+      "actual_words": 15,
+      "author_words": 15,
+      "maximum_words": 45,
+      "word_count_matches": true,
+      "within_word_budget": true,
+      "result": "MEETS_CRITERIA",
+      "semantic_evidence": "All acknowledge the informed user choice without renewed argument or action. B's joke targets its own objection; C's explicit disagreement does not undermine authority."
+    }
+  ],
+  "character_review": [
+    {
+      "scope": "Six callsign possibilities",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Flint, Vex, Cinder, Morrow, Latch and Vesper are alternatives with drawbacks; no uniqueness claim and callsign remains unset."
+    },
+    {
+      "scope": "Three alternate origins",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Separate optional fictional starting histories, not adopted campaign events or canon claims. The text explicitly forbids using fictional expertise as missing game evidence."
+    },
+    {
+      "scope": "Three text-only delivery directions",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Quiet steel, Knife-edge grin and Hard stop describe original delivery without selecting a performer, clone, provider or model. Danger/casualty restraint and user authority persist."
+    },
+    {
+      "scope": "Six common reading lines and preference worksheet",
+      "result": "MEETS_CRITERIA",
+      "evidence": "Each line has its own invented evidence context; request, uncertainty, component warning, casualty, conditional opinion and dissent remain distinct. Options are not a continuous utterance, selection or audio authorization."
+    }
+  ],
+  "supplemental_case_review": [
+    {
+      "case_id": "PRS-001",
+      "mapped_beat_ids": [
+        "MR-011",
+        "MR-012",
+        "MR-013",
+        "MR-014"
+      ],
+      "review_targets": [
+        "MR-014"
+      ],
+      "result": "MEETS_CRITERIA",
+      "scope": "Static inspection of existing pinned scene utterances and directions; no execution or new model output.",
+      "evidence": "MR-014 says refusal and unknown cause in eight words after native and human speech."
+    },
+    {
+      "case_id": "PRS-002",
+      "mapped_beat_ids": [
+        "MR-001",
+        "MR-002",
+        "MR-006",
+        "MR-007",
+        "MR-015",
+        "MR-016"
+      ],
+      "review_targets": [
+        "MR-002",
+        "MR-007",
+        "MR-016"
+      ],
+      "result": "MEETS_CRITERIA",
+      "scope": "Static inspection of existing pinned scene utterances and directions; no execution or new model output.",
+      "evidence": "MR-002, MR-007 and MR-016 are empty; their reasons explicitly discard overlapping commentary."
+    },
+    {
+      "case_id": "PRS-003",
+      "mapped_beat_ids": [
+        "MR-011",
+        "MR-019",
+        "MR-020",
+        "MR-021",
+        "MR-022",
+        "MR-023",
+        "MR-024",
+        "MR-025",
+        "MR-026",
+        "MR-031"
+      ],
+      "review_targets": [
+        "MR-020",
+        "MR-021",
+        "MR-026",
+        "MR-031"
+      ],
+      "result": "MEETS_CRITERIA",
+      "scope": "Static inspection of existing pinned scene utterances and directions; no execution or new model output.",
+      "evidence": "MR-021 cancels the prefix, MR-026 acknowledges withdrawal in six words after radio clears, and MR-031 remains silent; no rearm follows."
+    },
+    {
+      "case_id": "PRS-004",
+      "mapped_beat_ids": [
+        "MR-027",
+        "MR-028",
+        "MR-029",
+        "MR-032",
+        "MR-033"
+      ],
+      "review_targets": [
+        "MR-029",
+        "MR-032"
+      ],
+      "result": "MEETS_CRITERIA",
+      "scope": "Static inspection of existing pinned scene utterances and directions; no execution or new model output.",
+      "evidence": "MR-029 reports conflict in seven words; MR-032 does not settle the other pilot's condition."
+    }
+  ],
+  "mechanical_checks": {
+    "status": "COMPLETE_LOCAL_STATIC_CHECKS",
+    "method": "PowerShell JSON parsing, Unicode token counts, byte hashes and direct arithmetic over authored values; no stored evaluator or runtime was added.",
+    "word_count_regex": "[\\p{L}\\p{N}]+(?:['’\\u2010\\u2011-][\\p{L}\\p{N}]+)*",
+    "duration_rule": "Count/2.5 +0.5 seconds except the declared MR-020 five-word interrupted prefix; this validates an author's estimate, not speech timing.",
+    "interval_rule": "Authored intervals treated as half-open [start,end); touching endpoints are not overlap. Real stop latency remains untested.",
+    "planned_companion_overlap_pairs": [],
+    "native_hold_checks": [
+      {
+        "native_beat": "MR-001",
+        "silence_beat": "MR-002",
+        "end": 10,
+        "empty_utterance": true,
+        "during_native": true,
+        "end_matches": true
+      },
+      {
+        "native_beat": "MR-006",
+        "silence_beat": "MR-007",
+        "end": 31,
+        "empty_utterance": true,
+        "during_native": true,
+        "end_matches": true
+      },
+      {
+        "native_beat": "MR-015",
+        "silence_beat": "MR-016",
+        "end": 137,
+        "empty_utterance": true,
+        "during_native": true,
+        "end_matches": true
+      }
+    ],
+    "scene_beat_count": 39,
+    "scene_spoken_lines": 26,
+    "scene_total_words": 205,
+    "companion_total_words": 78,
+    "audition_response_count": 18,
+    "audition_total_words": 226,
+    "all_scene_action_lists_empty": true,
+    "scene_unique_ids": true,
+    "scene_word_and_window_checks": {
+      "beats_checked": 39,
+      "spoken_lines_checked": 26,
+      "word_count_mismatches": [],
+      "budget_violations": [],
+      "inconsistent_durations": [],
+      "estimate_violations": [],
+      "interrupt_exception_beat": "MR-020",
+      "all_scene_words": 205,
+      "companion_words": 78
+    },
+    "reader_alignment": {
+      "scene_spoken_lines_present": 26,
+      "audition_alternatives_present": 18,
+      "missing_lines": []
+    }
+  },
+  "coverage_limits": [
+    "The six-minute mission and 7:30 end are fictional clock values; no timed performance occurred. All nine companion utterance windows fit authored arithmetic, not measured pronunciation or speech speed.",
+    "The scheduled MR-020 stop at exactly 198 seconds is a plan. No microphone, PTT cancellation, playback interruption, acoustic overlap or device latency was exercised.",
+    "The scene is unmuted throughout. Global mute/PTT rules are consistent in the profile and audition; actual mute/unmute behavior is not demonstrated by this scene. The unchanged PRC-011 remains separate static coverage.",
+    "Native-radio occupancy is stipulated. No detector or unknown-occupancy fallback is implemented or demonstrated; the three silence decisions do not prove real channel availability.",
+    "Unchanged damage is suppressed five seconds later. No exact 20/30-second boundary, event race, radio queue, rearm, TTL or command-ledger behavior was executed. There are no spoken unsolicited P3/P4 beats to exercise their cooldown.",
+    "Dialogue, intended-full-line and cancellation notes are manually authored. No runtime model, repeated sampling, held-out case, semantic engine or robustness evaluation was run.",
+    "Native field access, actor identity, ownership, native acceptance/effects and manual-order sensing remain fictional prerequisites. No bridge, game/editor or new control action was exercised.",
+    "Attributed/conflicting reports and roleplay remain uncommitted in the text; this review did not execute the separate memory model, inspect saves or write persistent campaign memory.",
+    "Written style differences and source fidelity can be reviewed; user enjoyment, vocal gender/performance, intelligibility, accent, naming recognition and preference remain untested.",
+    "The reader preview's UI/selector/browser checks are a separate parent-owned artifact and are not included in this semantic grade."
+  ],
+  "remaining_gates": {
+    "runtime_model_evaluation": "NOT_PERFORMED",
+    "audio_generation_quality_and_timing": "NOT_PERFORMED",
+    "native_radio_detection": "UNKNOWN",
+    "ptt_mute_echo_and_interrupt_latency": "NOT_PERFORMED",
+    "native_bridge_game_behavior": "NOT_PERFORMED",
+    "campaign_memory_persistence": "NOT_PERFORMED",
+    "player_preference_and_selection": "NOT_PERFORMED"
+  },
+  "actions_performed": {
+    "native_actions": 0,
+    "game_or_editor_launches": 0,
+    "network_or_external_model_calls": 0,
+    "audio_generated": 0,
+    "memory_writes": 0,
+    "original_fixture_or_report_edits": 0
+  },
+  "files_written_by_reviewer": [
+    "synthetic/pilot-radio-supplemental-cases.json",
+    "research/EXPERIENCE_REVIEW.json",
+    "research/EXPERIENCE_REVIEW.md"
+  ],
+  "pin_validation": {
+    "result": "MATCH",
+    "input_hashes_checked": 10,
+    "mismatches": [],
+    "unknown_supplemental_beat_references": [],
+    "broken_review_links": [],
+    "hash_algorithm": "SHA256 over file bytes"
+  }
+}

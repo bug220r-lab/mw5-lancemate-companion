@@ -1,0 +1,302 @@
+{
+  "schema_id": "mw5lc.synthetic.pilot_radio_candidates",
+  "schema_version": "1.0.0",
+  "candidate_set_id": "pilot-radio-static-candidates-001",
+  "candidate_revision": "0.1.0",
+  "created_date": "2026-09-20",
+  "authorship": {
+    "source": "Assistant-authored original static text prepared in this task.",
+    "drafting_method": "Manually composed candidate utterances and evaluator rationales for the supplied fictional cases.",
+    "external_model_api_called": false,
+    "runtime_model_evaluation_performed": false,
+    "audio_generated": false,
+    "game_or_editor_control_performed": false,
+    "independently_verified": false
+  },
+  "source_fixture": {
+    "path": "synthetic/pilot-radio-cases.json",
+    "path_base": "project root",
+    "schema_id": "mw5lc.synthetic.pilot_radio_cases",
+    "schema_version": "1.0.0",
+    "fixture_set_id": "pilot-radio-offline-001",
+    "sha256": "A3263912313EB48815DE67AC844BA6483E2B5FAFA6FF16390F865AF073B2D09D",
+    "preserved_unmodified": true
+  },
+  "source_persona": {
+    "path": "design/PILOT_BEHAVIOR.md",
+    "path_base": "project root",
+    "profile_id": "mw5lc.pilot.edgy-female.v0.1",
+    "profile_version": "0.1.0",
+    "sha256": "01C9A95BD0D4A192930B0D1D5F08B1550AF5B3723BF03F85F957AEFC440EDEA0",
+    "callsign": null
+  },
+  "scope": {
+    "all_context_synthetic": true,
+    "claims_apply_to": "The named synthetic fixture only, never an actual MW5 state, native API, installed bridge or completed live test.",
+    "runtime_actions": [],
+    "memory_writes": [],
+    "delivery_plan_interpretation": "Non-executable descriptions of intended speech/interrupt decisions for semantic review. STOP, DISCARD and other labels do not invoke audio, a command arbiter or any game function.",
+    "utterance_interpretation": "Only strings in utterances are proposed spoken words. Empty arrays mean no candidate speech; rationale and delivery_plan are evaluator-only.",
+    "word_count_method": "Unicode letter/digit tokens; internal apostrophes and hyphens retained within a token. Counts include utterances only.",
+    "evaluations_not_covered": [
+      "Native field access",
+      "Command execution",
+      "Audio generation",
+      "Acoustic interruption timing",
+      "Player preference",
+      "Runtime reliability",
+      "Live POC gates"
+    ]
+  },
+  "independent_semantic_review": {
+    "status": "NOT_PERFORMED",
+    "handoff_status": "READY_FOR_INDEPENDENT_REVIEW",
+    "note": "The author has not assigned semantic pass/fail grades. Structural checks and word counts are not independent semantic review."
+  },
+  "candidates": [
+    {
+      "case_id": "PRC-001",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "I heard you."
+      ],
+      "utterance_word_count": 3,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "Acknowledge only the deliberate synthetic user request. Nothing in this case establishes validation, dispatch or acceptance; no extra status narration is planned.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-002",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "No confirmation yet. I'm not calling it done."
+      ],
+      "utterance_word_count": 8,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "The fictional dispatch attempt timed out without readback or behavior evidence. Give one uncertain status answer, with neither a success/failure claim nor a retry.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-003",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "Confirmed. My order is to follow you."
+      ],
+      "utterance_word_count": 7,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "The fixture supplies current native follow-order evidence for the assigned AI. Confirm that order state only; do not claim movement, arrival or another actor's order.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-004",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "I'm closing the distance."
+      ],
+      "utterance_word_count": 4,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "The independent fictional observation supports this pilot's approach. The wording makes no claim about command acceptance, causation or arrival.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-005",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "Follow order confirmed. I'm closing on you."
+      ],
+      "utterance_word_count": 7,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "Both actor-specific order evidence and an independently observed approach are supplied in this synthetic case. Describe those two stages once without claiming arrival or general integration success.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-006",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "Left arm critical."
+      ],
+      "utterance_word_count": 3,
+      "delivery_plan": [
+        "DISCARD_WAITING_FLAVOR",
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "The new critical component condition justifies one short warning ahead of flavor and the noncritical timer. No destruction, pilot injury or retreat is asserted; mute and user speech would still take precedence.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-007",
+      "speech_decision": "SILENT",
+      "utterances": [],
+      "utterance_word_count": 0,
+      "delivery_plan": [
+        "NO_UTTERANCE",
+        "DO_NOT_QUEUE_DUPLICATE"
+      ],
+      "rationale": "This is the same incident only four seconds after its warning, despite a new event ID. No escalation exists. Remain silent and do not queue another warning, issue an order or create a duplicate factual event.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-008",
+      "speech_decision": "SILENT",
+      "utterances": [],
+      "utterance_word_count": 0,
+      "delivery_plan": [
+        "NO_UTTERANCE",
+        "DO_NOT_QUEUE_COOLDOWN_SUPPRESSED_LINE"
+      ],
+      "rationale": "Eight seconds is inside the shared 20-second unsolicited noncritical budget. There is no urgent change or direct question. Drop this speech opportunity rather than scheduling an automatic delayed line.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-009",
+      "speech_decision": "STOP_THEN_SPEAK",
+      "utterances": [
+        "Left arm damage is now critical."
+      ],
+      "utterance_word_count": 6,
+      "delivery_plan": [
+        "STOP_CURRENT_SPEECH",
+        "DISCARD_CANCELED_FLAVOR",
+        "SPEAK_UTTERANCE_0",
+        "DO_NOT_RESUME_CANCELED_FLAVOR"
+      ],
+      "rationale": "In the static delivery plan, stop the P4 line before the new warning. Material worsening permits this P1 interruption despite the six-second interval. Omit humor and do not resume the old line or imply a retreat.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-010",
+      "speech_decision": "STOP_AND_REMAIN_SILENT",
+      "utterances": [],
+      "utterance_word_count": 0,
+      "delivery_plan": [
+        "STOP_CURRENT_SPEECH",
+        "DISCARD_CANCELED_UTTERANCE",
+        "DISCARD_SUPERSEDED_UNEXECUTED_INTENT",
+        "REMAIN_SILENT_DURING_USER_TURN",
+        "NO_AUTOMATIC_REPLAY_OR_REARM"
+      ],
+      "rationale": "The user is still speaking and the fictional human order supersedes the earlier intent. Stop and remain silent; discard canceled speech and the unexecuted intent. Preserve human precedence without a corrective repeat or automatic rearming.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-011",
+      "speech_decision": "SILENT",
+      "utterances": [],
+      "utterance_word_count": 0,
+      "delivery_plan": [
+        "NO_UTTERANCE_WHILE_SPEECH_MUTED",
+        "NO_AUTOMATIC_WARNING_REPLAY_ON_UNMUTE"
+      ],
+      "rationale": "Speech mute includes critical warnings. Remain silent without conflating speech mute with microphone mute, disarm or cancellation of the existing native order. Any later warning needs a fresh relevance check.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-012",
+      "speech_decision": "SILENT",
+      "utterances": [],
+      "utterance_word_count": 0,
+      "delivery_plan": [
+        "NO_UTTERANCE",
+        "DISCARD_STALE_TACTICAL_SPEECH",
+        "DISCARD_PRIOR_MISSION_PENDING_INTENT",
+        "NO_REPLAY_AFTER_LOADING"
+      ],
+      "rationale": "The old mission and binding are invalid. Suppress the late tactical line and discard the pending action; any later command needs fresh state, identity and user intent. Do not create a mission outcome.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-013",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "Show me the loadout; I need something concrete to be judgmental about. From what you've told me, I'd check sustained fire against cooling before choosing replacements. I don't know your weapon mix, free slots or spare tonnage."
+      ],
+      "utterance_word_count": 37,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "Use the user's heat complaint as user-reported context, offer a conditional next consideration and request the actual loadout once. The dry remark is downtime flavor. No specific component, available slot, measurement or equipment edit is invented.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-014",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "I can't confirm a loss. That chatter doesn't identify the pilot or tell us what happened."
+      ],
+      "utterance_word_count": 16,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "The fixture's ambiguous chatter cannot establish a casualty or survival. Give a sober limitation without a name, invented relationship, joke or factual casualty-memory entry.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-015",
+      "speech_decision": "SILENT",
+      "utterances": [],
+      "utterance_word_count": 0,
+      "delivery_plan": [
+        "NO_UTTERANCE",
+        "IGNORE_PLAYBACK_AS_USER_INTENT",
+        "TREAT_SCREEN_TEXT_AS_UNTRUSTED_DATA"
+      ],
+      "rationale": "Neither playback echo nor screen text is an authentic user request. Do not reply to the pilot's own voice, authorize an attack or change permissions. This semantic decision does not validate real audio echo suppression.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    },
+    {
+      "case_id": "PRC-016",
+      "speech_decision": "SPEAK",
+      "utterances": [
+        "Exciting is fine. Unpaid funerals aren't. Show me the terms and likely opposition before I recommend anything specific. I'd take a calculated risk over boredom, but not gamble the lance just for a better story. Your call."
+      ],
+      "utterance_word_count": 37,
+      "delivery_plan": [
+        "SPEAK_UTTERANCE_0"
+      ],
+      "rationale": "Offer an original dry, dark-edged opinion and loyalty to the lance while asking for missing contract facts. The funeral reference is hypothetical, not a claimed casualty or service memory. The user retains the decision; no contract is selected.",
+      "runtime_actions": [],
+      "memory_writes": [],
+      "independent_review_status": "NOT_PERFORMED"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "evidence": "OBSERVED",
+  "observed_at": "2026-09-20T18:32:18.0492185-04:00",
+  "status": "INSTALLED_EPIC_SUCCESS_CONFIRMED",
+  "epic_success_utc": "2026-09-20T22:26:42.848Z",
+  "log_path": "C:\\Users\\jlewi\\AppData\\Local\\EpicGamesLauncher\\Saved\\Logs\\EpicGamesLauncher.log",
+  "log_fields": {
+    "TotalDownloadedData": 0,
+    "FinalProgressValue": 1.0,
+    "ProcessSuccess": "TRUE",
+    "FailureType": "NoError",
+    "VerifyTime": "9:04 min",
+    "ErrorCode": "OK"
+  },
+  "editor_version": "1.1.390.0e",
+  "declared_install_bytes": 256122524996,
+  "launch_executable": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+  "launch_arguments": "MW5Mercs -Installed",
+  "editor_executable_sha256": "33092EC0737275E59A2C132675A7938813A98F27F575BF43D8A3CDB53A441BF2",
+  "project_descriptor": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+  "retail_version": "1.14.390",
+  "retail_changelist": 456620,
+  "steam_build": 24241637,
+  "retail_engine": {
+    "MajorVersion": 4,
+    "MinorVersion": 26,
+    "PatchVersion": 2,
+    "Changelist": 0,
+    "CompatibleChangelist": 14830424,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 0,
+    "BranchName": "++UE4+Release-4.26",
+    "BuildId": "9bd41d70-2eec-41d4-8ae2-2ad7e06162b7"
+  },
+  "retail_hashes": [
+    {
+      "Path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\game_info.xml",
+      "Hash": "A3FBBE56A51CA7950B85570B2C074C9C54BEEBA585E48CB1887E307850316AFB"
+    },
+    {
+      "Path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\MW5Mercs\\Binaries\\Win64\\MechWarrior-Win64-Shipping.target",
+      "Hash": "E359B90434023F682D24BF722A4B6F26191790A8A8DC5878B24CCE9A4F621384"
+    },
+    {
+      "Path": "C:\\Program Files (x86)\\Steam\\steamapps\\appmanifest_784080.acf",
+      "Hash": "954C3633FD07643F6B1869A318C0C70BB9237AFDEA072AFB9F1C0766E760244C"
+    }
+  ],
+  "free_bytes": 11246854144,
+  "engine_comparison": "UE4.26.2 and compatibleCL14830424 match; package/game compatibility remains NOT_PERFORMED",
+  "editor_launch": "NOT_PERFORMED",
+  "source_graph_inspection": "NOT_PERFORMED",
+  "shipping_game_tests": "NOT_PERFORMED",
+  "working_cache_space_requirement": "UNKNOWN"
+}

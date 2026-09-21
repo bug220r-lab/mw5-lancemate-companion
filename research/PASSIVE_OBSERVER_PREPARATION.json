@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-09-21T04:28:24.0856956Z",
+  "project": "MW5 Lancemate Companion",
+  "proposed_mod_id": "LanceObserverProbe",
+  "status": "PARTIAL_INITIALIZATION_BLOCKED",
+  "installable": false,
+  "evidence": {
+    "observer_cooked_assets": "NOT_BUILT",
+    "current_packaging_declarations": "OBSERVED",
+    "official_packaging": "DOCUMENTED",
+    "factory_caller": "UNKNOWN/BLOCKED",
+    "observer_source_assets": "NOT_BUILT",
+    "editor_game_execution_this_pass": "NOT_PERFORMED",
+    "gameplay_tests": "NOT_PERFORMED",
+    "template_and_config": "OBSERVED",
+    "new_asset_cooked_registry_inclusion": "UNKNOWN/BLOCKED"
+  },
+  "baseline_snapshot": "research/PASSIVE_OBSERVER_LOCAL_SNAPSHOT.json",
+  "caller_candidate_snapshot": "research/PASSIVE_OBSERVER_CALLER_ASSET.json",
+  "actual_runtime_artifacts": [],
+  "actual_runtime_dependencies": [],
+  "generated_descriptor": null,
+  "cooked_package_sha256": null,
+  "cooked_package_bytes": null,
+  "peak_build_space_bytes": null,
+  "observed_free_bytes": 7073288192,
+  "free_space_is_sufficiency_proof": false,
+  "proposed_assets": [
+    {
+      "role": "passive controller component",
+      "package_path": null,
+      "sha256": null,
+      "status": "PROPOSED_NOT_BUILT",
+      "name": "LanceObserverProbe component"
+    },
+    {
+      "role": "registration data-asset instance if factory route established",
+      "package_path": null,
+      "sha256": null,
+      "status": "PROPOSED_CONDITIONAL_NOT_BUILT",
+      "name": "LanceObserverProbe registration"
+    },
+    {
+      "role": "diagnostic runtime widget",
+      "package_path": null,
+      "sha256": null,
+      "status": "PROPOSED_NOT_BUILT",
+      "name": "LanceObserverProbe diagnostic widget"
+    }
+  ],
+  "proposed_local_output": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\artifacts\\LanceObserverProbe",
+  "proposed_retail_destination": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MechWarrior 5 Mercenaries\\MW5Mercs\\Mods\\LanceObserverProbe",
+  "retail_destination_exists_at_snapshot": false,
+  "applied_enabled_mod_changes": [],
+  "applied_retail_file_changes": [],
+  "removal_manifest": [],
+  "backed_up_modified_game_files": [],
+  "absence_of_manifest_means": "No deployed package exists; this is not a deployable manifest or authorization.",
+  "next_source_action": {
+    "scope": "One exact Blueprint plus its own associated generated-class/default metadata and exports; no dependency traversal or broad collector.",
+    "native_execution_requires_new_authorization": true,
+    "worksheet": "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
+    "status": "PREPARED_NATIVE_NOT_PERFORMED",
+    "asset": {
+      "observed_at": "2026-09-21T04:26:29.4631828Z",
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6",
+      "evidence": "OBSERVED",
+      "source_body_status": "NOT_COLLECTED",
+      "limitation": "Path and hash do not prove inheritance, active mission assignment or caller graph."
+    },
+    "helper": "scripts/Inspect-ObserverCaller.py"
+  },
+  "future_gates": [
+    "Establish connected factory caller or explicitly scoped creation-only experiment.",
+    "Prove correct owner/world and actual data-asset instance registry inclusion.",
+    "Build actual source assets through a supported editor path.",
+    "Preserve generated descriptor, package members, hashes, dependency closure and measured disk requirements.",
+    "Prepare exact enable/config backup/addition/removal manifest and get concrete deployment approval.",
+    "Perform isolated passive Instant Action baseline and lifecycle/duplicate/freshness/performance checks.",
+    "Keep native order control as a separate later evidence and permission gate."
+  ]
+}

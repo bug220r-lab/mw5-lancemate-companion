@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-20T17:06:47.5935591-04:00",
+  "status": "INSTALLATION_NOT_CONFIRMED",
+  "editor_root": "C:\\Program Files\\Epic Games\\MechWarrior5Editor",
+  "editor_root_exists": true,
+  "staging_directory_present": true,
+  "launcher_registered_entries": 0,
+  "manifests": [],
+  "expected_editor_executable_present": false,
+  "editor_engine_version": null,
+  "projects": [],
+  "plugin_descriptors": [],
+  "metadata_fingerprints": [],
+  "retail_receipt_engine_version": {
+    "MajorVersion": 4,
+    "MinorVersion": 26,
+    "PatchVersion": 2,
+    "Changelist": 0,
+    "CompatibleChangelist": 14830424,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 0,
+    "BranchName": "++UE4+Release-4.26",
+    "BuildId": "9bd41d70-2eec-41d4-8ae2-2ad7e06162b7"
+  },
+  "version_metadata_usable": false,
+  "drive": "C:\\",
+  "free_bytes": 41299017728,
+  "errors": [],
+  "limits": [
+    "An active download can create .egstore before registration; its presence is not completion.",
+    "Manifest and expected file presence are not full package-integrity or launch validation.",
+    "Editor/game BuildIds need not match; matching engine versions alone do not establish compatibility.",
+    "Only named metadata locations are inspected. Missing expected paths require bounded discovery, not guessed conclusions.",
+    "Free bytes during installation do not reveal remaining allocation or peak staging demand.",
+    "No game/editor launch, asset parsing, cloud calls, save access or settings changes are performed."
+  ]
+}

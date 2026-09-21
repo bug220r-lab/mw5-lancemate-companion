@@ -1,0 +1,208 @@
+{
+  "status": "LOCAL_AUDIO_GENERATED_FILE_CHECKS_PASS",
+  "voice": "Microsoft Zira Desktop",
+  "api_requests": 0,
+  "api_fees_usd": 0,
+  "manifest_sha256": "fbe3f0c075b7ff9499f2eedabce564b87a3c802a474b8070d73005ffc4fa95e1",
+  "generation_record_sha256": "82535a33fa89ea329ae62d9c6583a348d545faa9f1e89662cd17bffc3dfcb973",
+  "filter": {
+    "highpass_hz": 250,
+    "lowpass_hz": 3600,
+    "order_each": 2,
+    "compression": "gentle tanh soft saturation, gain 1.6",
+    "active_rms_target_dbfs": -22,
+    "sample_peak_ceiling_dbfs": -3,
+    "transmission_pip": "original 25 ms sine, 1750 Hz, quiet level"
+  },
+  "comparison": "Identical synthesis, phrasing, rate and timing in clean/radio versions.",
+  "listening_acceptance": "NOT_PERFORMED; user will audition",
+  "pronunciation_and_intelligibility_review": "NOT_PERFORMED; no listening/transcription tool available",
+  "in_game_latency_and_integration": "NOT_PERFORMED",
+  "permanent_voice_selection": null,
+  "timeline": [
+    {
+      "id": "VA-001",
+      "start_seconds": 0.0,
+      "end_seconds": 1.659,
+      "text": "Heard you.",
+      "context": "A request was heard; no acceptance or outcome is known."
+    },
+    {
+      "id": "VA-002",
+      "start_seconds": 2.459,
+      "end_seconds": 7.554,
+      "text": "No confirmation. I'm keeping that separate from success.",
+      "context": "An attempted order has no confirmed outcome."
+    },
+    {
+      "id": "VA-003",
+      "start_seconds": 8.354,
+      "end_seconds": 11.243,
+      "text": "Critical damage to my left arm.",
+      "context": "Fresh fictional evidence identifies critical damage to her mech's left-arm component."
+    },
+    {
+      "id": "VA-004",
+      "start_seconds": 12.043,
+      "end_seconds": 17.783,
+      "text": "I can't confirm a casualty. We don't have reliable pilot status.",
+      "context": "The player asks about an unconfirmed casualty; reliable pilot status is unavailable."
+    },
+    {
+      "id": "VA-005",
+      "start_seconds": 18.583,
+      "end_seconds": 22.953,
+      "text": "Quiet for the moment. I'm suspicious already.",
+      "context": "An explicitly safe mission lull with no active danger or damage alert; dry humor only."
+    },
+    {
+      "id": "VA-006",
+      "start_seconds": 23.753,
+      "end_seconds": 28.517,
+      "text": "Withdrawal understood. No more target suggestions.",
+      "context": "The player decides to withdraw and ends target suggestions; movement is not claimed."
+    }
+  ],
+  "files": [
+    {
+      "path": "VA-001-clean.wav",
+      "duration_seconds": 1.659,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -8.7,
+      "clipped_samples": 0,
+      "sha256": "9cb38253c239f7dff520b2401d48d822dff69276f3d7b5ac7198091717ba9935"
+    },
+    {
+      "path": "VA-001-radio.wav",
+      "duration_seconds": 1.659,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -7.72,
+      "clipped_samples": 0,
+      "sha256": "914f8a0ac203518c9488988c6597c86cae49d84094a87a7ae3974b79d53497e3"
+    },
+    {
+      "path": "VA-002-clean.wav",
+      "duration_seconds": 5.095,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.24,
+      "clipped_samples": 0,
+      "sha256": "3dd1dc433d46fb60ea3c3185f50b3141f3d9856b20aac01a192e3468d6b4a776"
+    },
+    {
+      "path": "VA-002-radio.wav",
+      "duration_seconds": 5.095,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -7.11,
+      "clipped_samples": 0,
+      "sha256": "bde79311853024800c2fe9c37afbbac2554c9d97de4402777afa6db3a1dc24d8"
+    },
+    {
+      "path": "VA-003-clean.wav",
+      "duration_seconds": 2.889,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -7.74,
+      "clipped_samples": 0,
+      "sha256": "58a43ed17b607aa2a40fb7fff82af1fb399a7753333e78ec03f687fe93d94a5a"
+    },
+    {
+      "path": "VA-003-radio.wav",
+      "duration_seconds": 2.889,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -8.18,
+      "clipped_samples": 0,
+      "sha256": "5f818bcc50bccf35f99e30ab4be570f11ba0d38cf177c6646c29f2972259b92d"
+    },
+    {
+      "path": "VA-004-clean.wav",
+      "duration_seconds": 5.739,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.22,
+      "clipped_samples": 0,
+      "sha256": "0e24a8bc845be9d323ac68cb249d1cac4d9791bddcb38faf1f2b9eb4f72afda6"
+    },
+    {
+      "path": "VA-004-radio.wav",
+      "duration_seconds": 5.739,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.91,
+      "clipped_samples": 0,
+      "sha256": "f10ea3dcf87b026927a5637778b68ca716e831256a09935e978b5bbad93dd69a"
+    },
+    {
+      "path": "VA-005-clean.wav",
+      "duration_seconds": 4.37,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.88,
+      "clipped_samples": 0,
+      "sha256": "9040849330b649c09f298b308cd6d507f600e6d692ececf5f2a1af1629c8514d"
+    },
+    {
+      "path": "VA-005-radio.wav",
+      "duration_seconds": 4.37,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.39,
+      "clipped_samples": 0,
+      "sha256": "6f981944c877870db639a7ff763cdd6744bac7aeb96a5f420ce8e7cde25a1163"
+    },
+    {
+      "path": "VA-006-clean.wav",
+      "duration_seconds": 4.764,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -7.64,
+      "clipped_samples": 0,
+      "sha256": "26bc27f3fbfef6edba45cb189f1db3c25aa6ebb666f9a323e272a550b77f94dc"
+    },
+    {
+      "path": "VA-006-radio.wav",
+      "duration_seconds": 4.764,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -8.16,
+      "clipped_samples": 0,
+      "sha256": "8c5c75d5ee085f78908f2500130b493d72892ee4cc717ae1a3fcb8cc6cbae8d7"
+    },
+    {
+      "path": "zira-clean.wav",
+      "duration_seconds": 28.517,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.22,
+      "clipped_samples": 0,
+      "sha256": "783f407884c6b5795f9629b172b191cc31bf4ac38bef900b7fd45b87475abc31"
+    },
+    {
+      "path": "zira-radio.wav",
+      "duration_seconds": 28.517,
+      "sample_rate": 24000,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "peak_dbfs": -6.39,
+      "clipped_samples": 0,
+      "sha256": "a6e3fdaf0b33755fc7dcf74b66eef04d30a76d078b48b1015b4da88b864a88db"
+    }
+  ]
+}
