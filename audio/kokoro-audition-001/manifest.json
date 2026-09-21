@@ -1,0 +1,36 @@
+{
+  "classification": "LOCAL_CPU_AUDITION_ONLY",
+  "sourceReceipt": "research/WORKBENCH_CONVERSATION_BENCHMARK.json",
+  "listenedTo": "NOT_PERFORMED",
+  "userApproved": "NOT_PERFORMED",
+  "gameIntegration": "NOT_PERFORMED",
+  "samples": [
+    {
+      "actorId": "alpha",
+      "voiceId": "af_bella",
+      "text": "\"Radio check. How's the signal?\"",
+      "file": "alpha-af_bella.wav",
+      "sha256": "987d9f78f2c64c2c92beaf2509ee2c1949d65c8712dffbe9c28ac3ea7902b292",
+      "bytes": 132044,
+      "sourcePath": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\speech-output\\c9285120-5eb4-4247-8c73-ad451495b26d.wav"
+    },
+    {
+      "actorId": "bravo",
+      "voiceId": "am_adam",
+      "text": "Radio check. I am ready.",
+      "file": "bravo-am_adam.wav",
+      "sha256": "5d558247625b5242a6069949b95adf844271ebd867b96c6658b7c123a5ef2b92",
+      "bytes": 112844,
+      "sourcePath": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\speech-output\\1820c4fb-bcf5-412f-ad0e-1ad361593ff4.wav"
+    },
+    {
+      "actorId": "charlie",
+      "voiceId": "af_heart",
+      "text": "Squad radio check! Ready to roll! 🚀",
+      "file": "charlie-af_heart.wav",
+      "sha256": "a8f89b0fa24a6e5796de7fe04d158445a97d4fc26837a0b2eb1621858be3d091",
+      "bytes": 127244,
+      "sourcePath": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\companion\\local\\speech-output\\f81c2917-f34f-4dca-98a7-3cd57b11e60f.wav"
+    }
+  ]
+}

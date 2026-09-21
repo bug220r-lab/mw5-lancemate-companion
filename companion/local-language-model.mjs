@@ -60,7 +60,7 @@ function copyData(value) {
   }
   return visit(value, 0);
 }
-function messagesFor(input) {
+export function messagesFor(input) {
   const c = copyData(input);
   if (!c || !c.persona || typeof c.persona.id !== 'string' || !c.request || typeof c.request.text !== 'string' ||
       !c.request.text.trim() || c.request.text.length > 300 || !Array.isArray(c.facts) || c.facts.length > 8 ||

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-21T05:50:51.342Z",
+  "recordedAt": "2026-09-21T06:05:30.415Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
   "tests": 309,
@@ -114,7 +114,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "e5da9acd9c1e9b12dde476330bde9fb056059f597d52f5e8ad7de3e181ee10b6"
+      "sha256": "99075f252cfab699b5747c3f0a639c761d336ec0c179d3fd9d64fc0c15c370af"
     },
     {
       "file": "companion/local-speech.mjs",
@@ -141,6 +141,10 @@
       "sha256": "103fddb025821b53ab39f3bc48833fd66fb6972ac8af709e6e2b54648b93d9dd"
     },
     {
+      "file": "companion/whisper-runtime-pins.json",
+      "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+    },
+    {
       "file": "companion/public/app.js",
       "sha256": "2e24fbe1f9842dbe3c33aa44478c5f1a950294f07627ea55bc1016d07dd32a00"
     },
@@ -151,6 +155,10 @@
     {
       "file": "companion/public/styles.css",
       "sha256": "600a5d717a095d07e13dd40fd111f3032ecff93af4cf687a7dd92035dc5fe1a0"
+    },
+    {
+      "file": "START_COMPANION.cmd",
+      "sha256": "f6a824637ecf2bbd39ae91b1c57e59d5e726f5572d22bd429f5f6e34d25028ba"
     },
     {
       "file": "scripts/Kokoro-Worker.py",

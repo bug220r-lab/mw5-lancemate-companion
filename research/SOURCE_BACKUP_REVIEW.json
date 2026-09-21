@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-21T05:51:54.131Z",
+  "reviewedAt": "2026-09-21T06:06:01.292Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,9 +24,9 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 226,
-    "includedBytesExcludingThisReceipt": 4578804,
-    "excludedEntries": 27,
+    "includedFiles": 239,
+    "includedBytesExcludingThisReceipt": 4723806,
+    "excludedEntries": 30,
     "unresolved": 0
   },
   "gitignore": {
@@ -123,6 +123,8 @@
     "audio/elevenlabs-audition-001/generation.json",
     "audio/elevenlabs-audition-001/next-audition-draft.txt",
     "audio/elevenlabs-audition-001/user-feedback.json",
+    "audio/kokoro-audition-001/README.md",
+    "audio/kokoro-audition-001/manifest.json",
     "audio/zira-audition-001/README.md",
     "audio/zira-audition-001/audio-checks.json",
     "audio/zira-audition-001/generation.json",
@@ -158,6 +160,7 @@
     "companion/tests/radio.test.mjs",
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server.test.mjs",
+    "companion/whisper-runtime-pins.json",
     "design/AI_MAPPING_AND_EVALUATION.md",
     "design/ARCHITECTURE.md",
     "design/CAMPAIGN_MEMORY.md",
@@ -179,12 +182,14 @@
     "design/PERSONALITY_AUDITION.md",
     "design/PILOT_BEHAVIOR.md",
     "design/PROOF_OF_CONCEPT.md",
+    "design/QWEN_REQUANTIZATION_PROPOSAL.md",
     "design/TACTICAL_CONTROL_READINESS.md",
     "design/TACTICAL_EVALUATION_PROTOCOL.md",
     "design/TACTICAL_PLAYBOOK.json",
     "design/TACTICAL_PLAYBOOK.md",
     "design/THREE_PILOT_RADIO.md",
     "design/WAITING_WINDOW_PLAN.md",
+    "design/WARM_WHISPER_BENCHMARK.md",
     "research/AI_ASSIGNMENT_TRACE.md",
     "research/AI_BEHAVIOR_MAP_FIRST_PASS.md",
     "research/AI_COLLECTION_RESULT_2026-09-20.md",
@@ -268,11 +273,16 @@
     "research/PASSIVE_OBSERVER_PREPARATION.json",
     "research/PASSIVE_OBSERVER_PREPARATION.md",
     "research/PASSIVE_OBSERVER_PREPARATION_VALIDATION.json",
+    "research/QWEN_CONVERSATION_QUALITY_REVIEW.md",
+    "research/QWEN_QUANTIZATION_COMPARISON.json",
+    "research/QWEN_REQUANTIZATION_RECEIPT.json",
     "research/SOURCES.md",
     "research/SOURCE_BACKUP_REVIEW.json",
     "research/TACTICAL_INDEPENDENT_REVIEW.md",
     "research/TACTICAL_INDEPENDENT_REVIEW_BEFORE_FIX.md",
     "research/TACTICAL_STATE_TRACE.md",
+    "research/WARM_WHISPER_COMPONENT_BENCHMARK.json",
+    "research/WARM_WHISPER_RUNTIME_PROVENANCE.json",
     "research/WHISPER_COMPONENT_BENCHMARK.json",
     "research/WORKBENCH_CONVERSATION_ATTEMPT_001.json",
     "research/WORKBENCH_CONVERSATION_ATTEMPT_002.json",
@@ -289,6 +299,7 @@
     "research/coverage/control-support.json",
     "research/coverage/movement.json",
     "research/coverage/other-units.json",
+    "scripts/Benchmark-QwenQuantizations.mjs",
     "scripts/Build-AIReviewIndex.mjs",
     "scripts/Checkpoint-SourceBackup.mjs",
     "scripts/Collect-AIResearch.py",
@@ -298,6 +309,7 @@
     "scripts/Exercise-LocalConversation.mjs",
     "scripts/Exercise-MemoryContract.mjs",
     "scripts/Exercise-TacticalPolicy.mjs",
+    "scripts/Exercise-WarmWhisper.mjs",
     "scripts/Exercise-Whisper.mjs",
     "scripts/Exercise-WorkbenchConversation.mjs",
     "scripts/Expand-LocalRuntimes.ps1",
@@ -315,6 +327,7 @@
     "scripts/Kokoro-Worker.py",
     "scripts/New-ZiraAudition.ps1",
     "scripts/Prepare-GitHubBackup.mjs",
+    "scripts/Requantize-QwenCandidate.mjs",
     "scripts/Review-MemoryContract.mjs",
     "scripts/Review-ObserverCaller.py",
     "scripts/Review-ObserverReferences.py",
@@ -413,6 +426,31 @@
       ]
     },
     {
+      "path": "audio/kokoro-audition-001/manifest.json",
+      "bytes": 1570,
+      "sha256": "d44f5faf43996e0d751e199ad6750a4d9dd6c7ab75a5a7a981f9963334be8c33",
+      "lines": 36,
+      "category": "AUDITION_TEXT_OR_METADATA_ONLY",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "Audio payloads are deliberately excluded; this retains only original text, settings, provenance and feedback."
+      ]
+    },
+    {
+      "path": "audio/kokoro-audition-001/README.md",
+      "bytes": 1216,
+      "sha256": "e85339f231f96dc156396a8b3b6b6553936dae9c7801f52b45b95e4a15f23333",
+      "lines": 12,
+      "category": "AUDITION_TEXT_OR_METADATA_ONLY",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Audio payloads are deliberately excluded; this retains only original text, settings, provenance and feedback."
+      ]
+    },
+    {
       "path": "audio/zira-audition-001/audio-checks.json",
       "bytes": 6816,
       "sha256": "83557faf7bf88074d5fb22bc1be1a0f0ffbd00632ce4f0031471e3d217dc601f",
@@ -500,8 +538,8 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 20922,
-      "sha256": "e5da9acd9c1e9b12dde476330bde9fb056059f597d52f5e8ad7de3e181ee10b6",
+      "bytes": 20929,
+      "sha256": "99075f252cfab699b5747c3f0a639c761d336ec0c179d3fd9d64fc0c15c370af",
       "lines": 298,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
@@ -590,9 +628,9 @@
     },
     {
       "path": "companion/README.md",
-      "bytes": 10456,
-      "sha256": "139386e9796827e6d2ae91f363b9432b9901bb6c7aa9e691d7b11d330d8caea0",
-      "lines": 60,
+      "bytes": 10936,
+      "sha256": "122f6b9e0023836c9226b5bdae7363a907eb3a5aa4e34aa028e1f2d7f5b791f9",
+      "lines": 62,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -765,6 +803,16 @@
       "bytes": 15180,
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102",
       "lines": 223,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/whisper-runtime-pins.json",
+      "bytes": 8990,
+      "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a",
+      "lines": 252,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -994,6 +1042,16 @@
       "notes": []
     },
     {
+      "path": "design/QWEN_REQUANTIZATION_PROPOSAL.md",
+      "bytes": 5280,
+      "sha256": "4f8bbf822db697c5b45dbd7bb9a0af8f5812b7b049c28a394fd43fd4b981d1c5",
+      "lines": 42,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "design/TACTICAL_CONTROL_READINESS.md",
       "bytes": 12249,
       "sha256": "25fcc826a8863c41ba7cf1fd380ee9f4edb98412c7fe5ad5b56ae75b4a000186",
@@ -1048,6 +1106,16 @@
       "bytes": 9850,
       "sha256": "0a125f2fa9a88dd571edb0aff480f334c711d7e88b47633a1c7e13cdfe22cf8a",
       "lines": 70,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/WARM_WHISPER_BENCHMARK.md",
+      "bytes": 4318,
+      "sha256": "1dd9dead907a0f1b60b61e95aaee3ac1d9d7e0cf70d8f5e15c901b9389438455",
+      "lines": 26,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1404,9 +1472,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 6508,
-      "sha256": "620c07d8928ade19918f47066f0f2759a6ab03b94925766dfe3df9146decd7d2",
-      "lines": 177,
+      "bytes": 6790,
+      "sha256": "3f2262c547ff25b522a6bb6f7904655c766b81633b0ba21240c1449df3a54efa",
+      "lines": 185,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1751,7 +1819,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 5894,
-      "sha256": "83849f29e4155d5d938bf522fe207aebb8f4efbf3dfee7e863efd8e013c143c8",
+      "sha256": "d3e8de379108b359e5fdbc3180b9df4a12e87188664dfcfea00fbae3460746c2",
       "lines": 125,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -1762,9 +1830,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 11983,
-      "sha256": "acdb89ac69d2ae27a4879fa8c303ff6c90a473d39efae56bba50607c78a3c2de",
-      "lines": 55,
+      "bytes": 13500,
+      "sha256": "a90c480cd6d6f8262a1526757fb1ea0c88770cb0678776c9c76d8724f70a4090",
+      "lines": 61,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2168,6 +2236,41 @@
       "notes": []
     },
     {
+      "path": "research/QWEN_CONVERSATION_QUALITY_REVIEW.md",
+      "bytes": 3870,
+      "sha256": "2046c2bdd0ac91c84131eccb024d1971c758f91d1c591ba6cca706760bf7bbcb",
+      "lines": 29,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/QWEN_QUANTIZATION_COMPARISON.json",
+      "bytes": 35311,
+      "sha256": "e7436871dafffcdbf15766e62c7289d854f11f7bd1361ee2227284124e47c63b",
+      "lines": 452,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
+      ]
+    },
+    {
+      "path": "research/QWEN_REQUANTIZATION_RECEIPT.json",
+      "bytes": 12902,
+      "sha256": "dd9790fc24463c0f114d6ca2efaa8043408b856b94e0371bd8a184339fca6d56",
+      "lines": 334,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
       "path": "research/SOURCES.md",
       "bytes": 36674,
       "sha256": "91befbfe2d3e292b970686ee28aad1ed59b7c9413e6c38a621e533abe845c392",
@@ -2211,6 +2314,26 @@
       "notes": [
         "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
       ]
+    },
+    {
+      "path": "research/WARM_WHISPER_COMPONENT_BENCHMARK.json",
+      "bytes": 29785,
+      "sha256": "3c2cf112a7c317152559b72c03327d416d84bd49bcd26228162ae1fad81d7326",
+      "lines": 545,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/WARM_WHISPER_RUNTIME_PROVENANCE.json",
+      "bytes": 1481,
+      "sha256": "06faaeff29e9beb6d1584991c4fc57b3d857d9addd2a7502a38c45e4cab25ceb",
+      "lines": 35,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
     },
     {
       "path": "research/WHISPER_COMPONENT_BENCHMARK.json",
@@ -2260,6 +2383,16 @@
       "notes": [
         "Contains the local Windows username/path; personal project backup is intended to remain private."
       ]
+    },
+    {
+      "path": "scripts/Benchmark-QwenQuantizations.mjs",
+      "bytes": 12926,
+      "sha256": "5bbd829387fa8f30160ea40fc8a210a644d7971f72280c678fa6a3b41c04b242",
+      "lines": 193,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
     },
     {
       "path": "scripts/Build-AIReviewIndex.mjs",
@@ -2354,6 +2487,16 @@
       "bytes": 3966,
       "sha256": "998694b387856d036f953efde27fea56474d2acfbd9fd00f0f7179c89109de1b",
       "lines": 59,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "scripts/Exercise-WarmWhisper.mjs",
+      "bytes": 13327,
+      "sha256": "b5517ca274a466a133aff55ea90b879defc843d29b8b1c4bd4a0c0934dcca3e1",
+      "lines": 123,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2541,6 +2684,16 @@
       "notes": []
     },
     {
+      "path": "scripts/Requantize-QwenCandidate.mjs",
+      "bytes": 10939,
+      "sha256": "f853cdfc790aa82774d39041425b0334ccdda3dc1d645cb1e5e78992ae3878aa",
+      "lines": 167,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "scripts/Review-MemoryContract.mjs",
       "bytes": 17686,
       "sha256": "6293899f5d9e001daf985a0925ccf0a0a0dd3e32d0dd8bbd9862f02551c171d6",
@@ -2684,8 +2837,8 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 2527,
-      "sha256": "8e180be62c237a2a552a4c3500141fb40cee857ad6f81b3ff2dbfe84d9e5f980",
+      "bytes": 2549,
+      "sha256": "3fde0d6d9dd0793f2077d65c6fc31d5718845e066c78d837c77ae0d342b9894c",
       "lines": 29,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
@@ -2704,9 +2857,9 @@
     },
     {
       "path": "START_COMPANION.cmd",
-      "bytes": 219,
-      "sha256": "0775ca1992599ed4992db418af0a3d1096d3729163c185caa4c8399b717739c4",
-      "lines": 12,
+      "bytes": 998,
+      "sha256": "f6a824637ecf2bbd39ae91b1c57e59d5e726f5572d22bd429f5f6e34d25028ba",
+      "lines": 31,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2883,6 +3036,27 @@
       "path": "audio/elevenlabs-audition-001/sarah.mp3",
       "kind": "FILE",
       "bytes": 298770,
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents.",
+      "contentRead": false
+    },
+    {
+      "path": "audio/kokoro-audition-001/alpha-af_bella.wav",
+      "kind": "FILE",
+      "bytes": 132044,
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents.",
+      "contentRead": false
+    },
+    {
+      "path": "audio/kokoro-audition-001/bravo-am_adam.wav",
+      "kind": "FILE",
+      "bytes": 112844,
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents.",
+      "contentRead": false
+    },
+    {
+      "path": "audio/kokoro-audition-001/charlie-af_heart.wav",
+      "kind": "FILE",
+      "bytes": 127244,
       "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents.",
       "contentRead": false
     },

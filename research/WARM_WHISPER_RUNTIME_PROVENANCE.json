@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "classification": "READ_ONLY_RUNTIME_PROVENANCE_CHECK",
+  "checkedAt": "2026-09-21T05:57:43.572050+00:00",
+  "status": "PASS",
+  "nativeExecution": "NOT_PERFORMED",
+  "modelInference": "NOT_PERFORMED",
+  "downloads": 0,
+  "archiveSha256": "f9ec6c52a2e949b62ab51fa21d0d497958f9e41c3010c157c4e42932d5316f3c",
+  "archiveBytes": 8573270,
+  "manifestFile": "companion/whisper-runtime-pins.json",
+  "manifestSha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a",
+  "zipPayloadsCompared": 40,
+  "allInstalledFilesMatchZip": true,
+  "historicalRecordedFileHashesMatchZip": true,
+  "originalTimingReceipt": {
+    "file": "research/WARM_WHISPER_COMPONENT_BENCHMARK.json",
+    "sha256": "3c2cf112a7c317152559b72c03327d416d84bd49bcd26228162ae1fad81d7326",
+    "scriptSha256AtBenchmark": "bb9ae3973db5ea13cad36852c4d5f7469ecd3bbdcbaaf02c9fbbde2801cc9b4e",
+    "unchanged": true
+  },
+  "limits": [
+    "This later provenance check does not rerun or extend the timing benchmark.",
+    "Original timing receipt records the earlier script and local inventory; future preflight is revised separately."
+  ],
+  "futurePreflight": {
+    "status": "PASS",
+    "nativeExecution": "NOT_PERFORMED",
+    "scriptFile": "scripts/Exercise-WarmWhisper.mjs",
+    "scriptSha256": "b5517ca274a466a133aff55ea90b879defc843d29b8b1c4bd4a0c0934dcca3e1",
+    "inventorySha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a",
+    "fileCount": 40
+  }
+}

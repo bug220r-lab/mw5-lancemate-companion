@@ -4,6 +4,8 @@ This is a local **offline workbench** with synthetic tactical exercises and opti
 
 From the project root, run `START_COMPANION.cmd`, or `node companion/server.mjs` and open its printed loopback URL. Stop the terminal with Ctrl+C. No autostart service is installed. Node.js 24 is the tested runtime. No npm dependency is required.
 
+The launcher locates the existing bundled Node executable without relying on Codex's temporary PATH. `START_COMPANION.cmd --check` validates that runtime without opening a browser or starting engines; this check passed with PATH reduced to Windows system directories. An explicit `MW5_COMPANION_NODE` variable can select another full Node.js 24 executable path. The runtime files must remain installed; another computer and an actual Explorer double-click are not yet validated.
+
 The workbench supports three independent mock recipients, human holds/releases, pause/resume, possession, damage, command-parser previews, radio scheduling, preference persistence and bounded JSON observation replay. Local conversation and voice previews now passed a three-pilot generation-and-WAV-delivery smoke using the explicitly slower audition mode. Complete WAV delivery took **5.87–6.84 seconds**, so the four-second spoken-response target has not passed. Microphone, actual listening and gameplay remain untested.
 
 **The microphone is not connected.** Typed commands are parser fixtures and never issue an order or release a real human hold. Authored preview text is fictional; generated replies remain unverified and currently receive no live mission facts. Generated speech is never used as command input.
