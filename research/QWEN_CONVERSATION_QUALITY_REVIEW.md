@@ -21,6 +21,8 @@ Sampling was stochastic, one output per case, with no fixed seed; prompt setting
 
 **Decision:** retain Q8 as the existing offline audition default only. Do not select the derived Q4 candidate or accept either for factual mission speech on this evidence. The pinned Q8 is unchanged; Q4 remains a separate local artifact. `GENERATED_UNVERIFIED` is a provenance label, not a factuality check. Radio fact IDs and speaker checks likewise cannot prove that free-form words are entailed by observations.
 
+After the run, review found that the benchmark's finalizer could overwrite an existing receipt when a rerun was refused. A write-ownership guard now prevents that. The refusal path was executed with the existing receipt: exit code 1, identical before/after receipt SHA-256, and no model startup. The original receipt keeps the script hash actually used for inference; the guard change is subsequent hardening, not another model run.
+
 ## Next bounded work
 
 Before any live dialogue, add an explicit admission boundary for observable claims and order-result speech. Submission, native assignment, observed behavior and completion must remain distinct. A deterministic fact-to-line renderer could provide a clearly labeled limited mode while a conversational candidate is evaluated; it must not be called full conversation. Generated dialogue must never create observations or command permissions.

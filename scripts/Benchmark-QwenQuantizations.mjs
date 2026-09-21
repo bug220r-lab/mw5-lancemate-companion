@@ -46,13 +46,13 @@ const report = { schemaVersion: 1, classification: 'LOCAL_CPU_DIAGNOSTIC_SYNTHET
   microphoneCapture: false, speakerPlayback: false, nativeCalls: 0 };
 const globalAbort = new AbortController(), globalStarted = performance.now();
 let live = null, stopped = true, liveExit = null, timer, monitor, token = '', logs = '';
-let minimumRam = os.freemem();
+let minimumRam = os.freemem(), ownsReceipt = false;
 async function hash(file) { const h = createHash('sha256'); for await (const part of createReadStream(file, { signal: globalAbort.signal })) h.update(part); return h.digest('hex'); }
 async function pinned(file, size, sha256) {
   const stat = await fs.lstat(file), real = await fs.realpath(file);
   if (!stat.isFile() || stat.isSymbolicLink() || stat.size !== size || real.toLowerCase() !== file.toLowerCase() || await hash(file) !== sha256) throw Error('ARTIFACT_PIN_MISMATCH');
 }
-async function save() { await fs.writeFile(receiptFile, JSON.stringify(report, null, 2) + '\n'); }
+async function save() { if (ownsReceipt) await fs.writeFile(receiptFile, JSON.stringify(report, null, 2) + '\n'); }
 async function stop() {
   if (!live || stopped) return;
   live.kill(); await Promise.race([liveExit, sleep(1000)]);
@@ -149,6 +149,7 @@ async function generate(origin, specification) {
 try {
   try { await fs.lstat(receiptFile); throw Error('RECEIPT_EXISTS'); } catch (error) { if (error.code !== 'ENOENT') throw error; }
   await fs.writeFile(receiptFile, JSON.stringify(report, null, 2) + '\n', { flag: 'wx' });
+  ownsReceipt = true;
   timer = setTimeout(() => { globalAbort.abort(); if (live && !stopped) live.kill(); }, 290000);
   monitor = setInterval(() => { minimumRam = Math.min(minimumRam, os.freemem()); }, 500);
   report.sources = {};

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-21T06:06:01.292Z",
+  "reviewedAt": "2026-09-21T06:08:00.959Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -25,7 +25,7 @@
   },
   "counts": {
     "includedFiles": 239,
-    "includedBytesExcludingThisReceipt": 4723806,
+    "includedBytesExcludingThisReceipt": 4724919,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -1818,9 +1818,9 @@
     },
     {
       "path": "research/GITHUB_BACKUP.json",
-      "bytes": 5894,
-      "sha256": "d3e8de379108b359e5fdbc3180b9df4a12e87188664dfcfea00fbae3460746c2",
-      "lines": 125,
+      "bytes": 6513,
+      "sha256": "7a25456d3c6dce45fd8e9409dee091dcd08af9587258182c4dcffa95b3ece3fb",
+      "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2237,9 +2237,9 @@
     },
     {
       "path": "research/QWEN_CONVERSATION_QUALITY_REVIEW.md",
-      "bytes": 3870,
-      "sha256": "2046c2bdd0ac91c84131eccb024d1971c758f91d1c591ba6cca706760bf7bbcb",
-      "lines": 29,
+      "bytes": 4304,
+      "sha256": "19dfd1995e4cc50254d1f904a70eb482b1c73a6fd22d1ad4e847824163a71549",
+      "lines": 31,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2386,9 +2386,9 @@
     },
     {
       "path": "scripts/Benchmark-QwenQuantizations.mjs",
-      "bytes": 12926,
-      "sha256": "5bbd829387fa8f30160ea40fc8a210a644d7971f72280c678fa6a3b41c04b242",
-      "lines": 193,
+      "bytes": 12986,
+      "sha256": "d186132e46ac92f5671f9da27df958539865e3e8573f8cfd64d7e28be03e97e9",
+      "lines": 194,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

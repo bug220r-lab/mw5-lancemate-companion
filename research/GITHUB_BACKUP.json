@@ -1,14 +1,14 @@
 {
-  "recordedAt": "2026-09-21T05:52:11.409Z",
+  "recordedAt": "2026-09-21T06:06:18.902Z",
   "status": "PRIVATE_SOURCE_BACKUP_VERIFIED",
   "repository": "https://github.com/bug220r-lab/mw5-lancemate-companion",
   "owner": "bug220r-lab",
   "visibility": "private",
   "branch": "codex/companion-foundation",
-  "commit": "a3f638aedeb446cd168a59883e32f6e1fd227146",
-  "remoteCommit": "a3f638aedeb446cd168a59883e32f6e1fd227146",
-  "files": 226,
-  "reviewedBytes": 4578804,
+  "commit": "d604a568ba538b9a7f0fa4b75564b3abacf65f0c",
+  "remoteCommit": "d604a568ba538b9a7f0fa4b75564b3abacf65f0c",
+  "files": 239,
+  "reviewedBytes": 4723806,
   "scope": "Original source, design/research reports, synthetic fixtures and bounded authored receipts; not a whole-machine or complete raw-evidence backup.",
   "excluded": [
     {
@@ -25,6 +25,18 @@
     },
     {
       "path": "audio/elevenlabs-audition-001/sarah.mp3",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/kokoro-audition-001/alpha-af_bella.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/kokoro-audition-001/bravo-am_adam.wav",
+      "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
+    },
+    {
+      "path": "audio/kokoro-audition-001/charlie-af_heart.wav",
       "reason": "Media payload: source-only backup retains authored manifests rather than audio/screenshots/downloaded documents."
     },
     {
