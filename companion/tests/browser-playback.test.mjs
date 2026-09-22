@@ -21,8 +21,9 @@ function state({ audioId = 'audio1', replyId = 'reply1', session = 'mission1', p
     last: null, integration: { game: 'NOT_BUILT' } };
 }
 
-async function fixture() {
+async function fixture({ deferCommands = false } = {}) {
   const elements = new Map(), calls = [], actions = [], audioFetches = [], audios = [], urls = [], revoked = [], listeners = {};
+  const commandRequests = [];
   const timers = new Map(); let nextTimer = 0;
   const stateQueue = []; let server = state(), clock = 10000, audioPlay = null;
   class Element {
@@ -38,7 +39,13 @@ async function fixture() {
   const fetch = (url, options = {}) => {
     const call = { url, options }; calls.push(call);
     if (url.startsWith('/api/audio/')) { const d = deferred(); audioFetches.push({ ...call, ...d }); return d.promise; }
-    if (url === '/api/action') { actions.push(JSON.parse(options.body)); return Promise.resolve(jsonResponse(server)); }
+    if (url === '/api/action') {
+      const action = JSON.parse(options.body); actions.push(action);
+      if (deferCommands && action.type === 'command') {
+        const pending = deferred(); commandRequests.push({ action, ...pending }); return pending.promise;
+      }
+      return Promise.resolve(jsonResponse(server));
+    }
     if (url === '/api/state') return stateQueue.length ? stateQueue.shift().promise : Promise.resolve(jsonResponse(server));
     throw new Error('Unexpected mocked URL');
   };
@@ -63,7 +70,7 @@ async function fixture() {
     server = structuredClone(data); job.request.resolve({ ok: true, blob: async () => ({ type: 'audio/wav', synthetic: true }) });
     await job.pending; await flush();
   };
-  return { get, calls, actions, audioFetches, audios, urls, revoked, listeners, timers, api, render, listen, begin, completeAudio,
+  return { get, calls, actions, commandRequests, audioFetches, audios, urls, revoked, listeners, timers, api, render, listen, begin, completeAudio,
     setServer: value => { server = structuredClone(value); }, queueState: d => { stateQueue.push(d); },
     at: value => { clock = value; }, deferPlay: d => { audioPlay = d; }, jsonResponse };
 }
@@ -262,4 +269,36 @@ test('a fresh expired or absent status response removes the authored status on t
     assert.equal(r.get('radio').textContent, 'No speaker.');
   }
   assert.equal(r.actions.length, 0); assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
+});
+
+test('a poll carrying the prior parser result cannot impersonate a pending new command and invalidation rejects late results', async () => {
+  const r = await fixture({ deferCommands: true });
+  const parsed = (action, recipient) => ({ ...state(), last: { status: 'INTENT', action, recipientIds: [recipient],
+    inputSource: 'TYPED_TRANSCRIPT_FIXTURE', classification: 'MOCK_ONLY', dispatchable: false } });
+  const submit = async text => {
+    r.get('transcript').value = text; r.get('transcript').listeners.input();
+    r.get('command').onsubmit({ preventDefault() {} }); await flush();
+    return r.commandRequests.at(-1);
+  };
+  const a = await submit('regroup slot 1');
+  a.resolve(r.jsonResponse(parsed('REGROUP', 'alpha'))); await flush();
+  assert.match(r.get('commandPreview').textContent, /regroup for alpha/);
+
+  const b = await submit('focus slot 2');
+  r.setServer(parsed('REGROUP', 'alpha')); await r.api();
+  assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for alpha|focus .*bravo/);
+  b.resolve(r.jsonResponse(parsed('FOCUS', 'bravo'))); await flush();
+  assert.match(r.get('commandPreview').textContent, /focus .*bravo/);
+  assert.match(r.get('commandPreview').textContent, /Nothing was sent/);
+
+  const edited = await submit('regroup slot 3');
+  r.get('transcript').value = 'regroup slot 2'; r.get('transcript').listeners.input();
+  edited.resolve(r.jsonResponse(parsed('REGROUP', 'charlie'))); await flush();
+  assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for charlie/);
+
+  const reset = await submit('regroup slot 3');
+  r.setServer(state()); await r.api({ type: 'demo' });
+  reset.resolve(r.jsonResponse(parsed('REGROUP', 'charlie'))); await flush();
+  assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for charlie/);
+  assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
 });

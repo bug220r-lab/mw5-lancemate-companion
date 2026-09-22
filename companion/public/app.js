@@ -1,6 +1,7 @@
 'use strict';
 const token = location.hash.slice(1); let current = null, pollTimer = null, settingsDirty = false;
 let playback = null, playbackEpoch = 0, requestSequence = 0;
+let commandEpoch = 0, parsedCommand = null;
 const $ = id => document.getElementById(id);
 let microphoneJob = null, microphoneEpoch = 0, microphoneStatus = 'Microphone idle.', holdSource = null;
 const recorder = typeof MW5Microphone === 'undefined' ? null : MW5Microphone.createRecorder({
@@ -105,6 +106,7 @@ function invalidatesPlayback(action) {
     (action.type === 'settings' && action.settings.speechMuted));
 }
 async function api(action) {
+  if (action && action.type !== 'command') clearCommandPreview();
   if (invalidatesPlayback(action)) cancelPlayback();
   if (invalidatesMicrophone(action)) cancelMicrophone('Recording interrupted.');
   const sequence = ++requestSequence;
@@ -118,6 +120,27 @@ async function api(action) {
   } catch (error) { $('error').textContent = error.message; }
 }
 function node(tag, text, cls) { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; }
+function commandPreview(result) {
+  if (result?.inputSource !== 'TYPED_TRANSCRIPT_FIXTURE') return 'No command preview. Nothing has been sent.';
+  const actions = { REGROUP: 'regroup', FOCUS: 'focus the selected synthetic target', REPOSITION: 'reposition',
+    RELEASE_HUMAN_HOLD: 'release the human hold', DISARM: 'disarm companion control' };
+  if (result.status === 'INTENT' && actions[result.action]) {
+    const recipients = result.scope === 'ALL_COMPANION_CONTROL' ? 'all companions' : result.recipientIds.join(', ');
+    return `Preview only: ${actions[result.action]} for ${recipients}${result.locationId ? ` at ${result.locationId}` : ''}. Nothing was sent.`;
+  }
+  const explanations = {
+    USE_EXPLICIT_SLOT_OR_ACTOR_AND_SUPPORTED_VERB: 'Use a supported action and an explicit recipient, for example “regroup slot 1”.',
+    AMBIGUOUS_RECIPIENT: 'Specify each recipient as “slot 1”, “slot 2”, “slot 3” or an explicit actor.',
+    UNKNOWN_OR_DUPLICATE_RECIPIENT: 'A recipient is unknown or listed twice. Check the pilot slots.',
+    KNOWN_SELECTED_TARGET_REQUIRED: 'No confirmed selected target is available.',
+    KNOWN_NAMED_LOCATION_REQUIRED: 'That location is not available in this preview.',
+    INELIGIBLE_RECIPIENT: 'That pilot is unavailable or currently under human control.',
+  };
+  return `${explanations[result.reason] || 'The command could not be resolved from the current information.'} Nothing was sent.`;
+}
+function clearCommandPreview() {
+  ++commandEpoch; parsedCommand = null; $('commandPreview').textContent = commandPreview(null);
+}
 function residentUnavailable(models) {
   return !!(models?.starting || models?.stopping || models?.cleanupPending || models?.resources?.cleanupPending);
 }
@@ -183,6 +206,8 @@ function render(data) {
   $('radio').textContent = data.radio.playing ? `${data.radio.playing.speakerId}: ${data.radio.playing.text} (${data.radio.playing.lineId === models.audio?.id ? 'generated preview; facts unverified' : 'authored text; no audio'})` :
     data.missionSpeech?.status === 'PREPARED' ? `${data.missionSpeech.request.speakerId}: ${data.missionSpeech.text} (authored status; text only)` : 'No speaker.';
   $('complete').disabled = !data.radio.playing;
+  // Polls cannot attach an older global "last action" to a newer typed request.
+  $('commandPreview').textContent = commandPreview($('transcript').value === parsedCommand?.text ? parsedCommand.result : null);
   $('result').textContent = JSON.stringify({ last: data.last, capabilities: data.control.capabilities, pending: data.control.pending,
     actionEvidence: data.control.ledger, missionSpeech: data.missionSpeech, speechInput: data.speechInput, integration: data.integration }, null, 2);
   renderMicrophone(data);
@@ -190,7 +215,15 @@ function render(data) {
 $('demo').onclick = () => api({ type: 'demo' }); $('arm').onclick = () => api({ type: 'arm' });
 $('queue').onclick = () => api({ type: 'queue' }); $('disarm').onclick = () => api({ type: 'disarm' });
 $('complete').onclick = () => api({ type: 'radio_complete', lineId: current.radio.playing?.lineId });
-$('command').onsubmit = event => { event.preventDefault(); api({ type: 'command', text: $('transcript').value }); };
+$('command').onsubmit = async event => {
+  event.preventDefault(); clearCommandPreview();
+  const epoch = commandEpoch, text = $('transcript').value;
+  const data = await api({ type: 'command', text });
+  if (epoch !== commandEpoch || $('transcript').value !== text) return;
+  parsedCommand = { text, result: data?.last };
+  $('commandPreview').textContent = commandPreview(parsedCommand.result);
+};
+$('transcript').addEventListener('input', clearCommandPreview);
 $('save').onclick = () => { const settings = structuredClone(current.settings);
   for (const k of ['micMuted', 'speechMuted', 'quiet']) settings[k] = $(k).checked;
   for (const p of settings.pilots) { p.mode = $(`mode-${p.id}`).value; p.callsign = $(`callsign-${p.id}`).value || null; p.voice = $(`voice-${p.id}`).value || null; }
@@ -228,7 +261,7 @@ if (recorder) {
   $('copyTranscript').onclick = () => {
     const capture = current?.speechInput?.current;
     if (capture?.status !== 'TRANSCRIBED' || capture.expiresAtMs <= Date.now() || typeof capture.text !== 'string') return;
-    $('transcript').value = capture.text.slice(0, 300); $('transcript').focus();
+    $('transcript').value = capture.text.slice(0, 300); clearCommandPreview(); $('transcript').focus();
     microphoneStatus = capture.text.length > 300 ? 'First 300 characters copied. Review them, then click Parse.' : 'Copied. Review the command field, then click Parse.';
     renderMicrophone(current);
   };

@@ -2,7 +2,9 @@
 
 Prepared **2026-09-22**. **PROPOSED; execution NOT_PERFORMED.** This is a preparation review requested by the coordinating task. The editor was closed normally to free RAM, and the instruction for this turn is to leave it closed. No editor/game/lookup was launched. The [machine-readable experiment](../research/OBSERVER_NORMAL_EDITOR_EXPERIMENT.json) and [read-only snapshot](../research/OBSERVER_NORMAL_EDITOR_PREFLIGHT_2026-09-22.json) are preparation artifacts, not an executed launcher or native receipt.
 
-**Decision:** one future full-editor startup is a justified, distinct diagnostic once admission and supervision are ready. It is not a proven remedy for the earlier commandlet crash. Current admission fails the proposed RAM threshold, and a process supervisor is **NOT_BUILT**. Do not copy the command below into an unmonitored shell or lower the thresholds simply to launch it.
+**September 22 implementation continuation:** the [supervisor implementation](../research/OBSERVER_SUPERVISOR_IMPLEMENTATION.md) is built for synthetic process supervision and read-only native preflight. Its independent review finished **129/130, FAILED**: one synthetic descendant-cleanup case lost verified ownership. A separate later read-only check found all four recorded fixture PIDs absent; the original uncertain cleanup and lock remain preserved. Native desktop observation/normal close and the native helper STOP bridge remain unavailable. No editor/game/lookup execution occurred.
+
+**Decision:** one future full-editor startup remains a distinct diagnostic once admission and supervision are ready. It is not a proven remedy for the earlier commandlet crash. The latest read-only snapshot has **5.14 GiB** available RAM, below the unchanged **8 GiB** threshold; it expires as admission evidence. Supervisor validation and native integration remain incomplete. Do not copy the command below into an unmonitored shell or lower thresholds simply to launch it.
 
 ## What this experiment answers
 
@@ -54,7 +56,7 @@ Before a future run, the supervisor must:
 
 ## Supervision and owned-process cleanup
 
-The future supervisor must monitor from process creation through verified exit. It is currently **NOT_BUILT/NOT_TESTED**; the supplied Python helper is not that supervisor. Before any editor execution, independently exercise the proposed supervisor using a small synthetic child process for ownership, stop, timeout, sampling failure, output attribution and cleanup. Do not substitute the helper's 47 fake cases for supervisor tests.
+The future supervisor must monitor from process creation through verified exit. The separate [supervisor implementation and review](../research/OBSERVER_SUPERVISOR_IMPLEMENTATION.md) now cover synthetic processes, but the final **129/130** review leaves one cleanup failure unresolved and native desktop integration is unavailable. Before editor execution, resolve that failure and the explicitly listed native prerequisites. The supplied Python helper is not the supervisor, and its 47 fake cases are not supervisor validation.
 
 Use a **250 ms observation interval**, a **2-second maximum valid resource-sample age**, and a **300-second whole-process deadline**. The helper's 60-second budget begins only inside Python and is cooperative. Record a bounded timeline at most once per second; cap it at **1 MiB**. Stop if combined attempt-owned engine/stdout/stderr logs exceed **64 MiB**, if attempt-owned helper JSON exceeds its designed ceiling, or if a resource/deadline/manual-stop condition occurs. Polling thresholds are not hard allocation or disk caps; overrun between observations remains possible. Normal caches/shared logs are outside the owned-log cap but still consume disk and RAM.
 

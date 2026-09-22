@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T21:59:11.868Z",
+  "recordedAt": "2026-09-22T22:40:15.103Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 706,
-  "passed": 706,
+  "tests": 734,
+  "passed": 734,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -17,6 +17,8 @@
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
     "companion/tests/conversation-cache-diagnostic.test.mjs",
+    "companion/tests/conversation-identity-diagnostic.test.mjs",
+    "companion/tests/conversation-identity.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
     "companion/tests/grounding-diagnostic.test.mjs",
@@ -53,7 +55,7 @@
     },
     {
       "file": "companion/tests/browser-playback.test.mjs",
-      "sha256": "92470677cc69c4dd25a36e26587f62d9947870e769a6b9a740b67e4139a733ed"
+      "sha256": "3011940d9e3eadd2190b763f79e313a19497a9239d9b8cf8d7ba6b074561a07f"
     },
     {
       "file": "companion/tests/browser-ptt.test.mjs",
@@ -72,6 +74,14 @@
       "sha256": "e15b2d13a29c8519dfd46a20e9bf599fe9497ef1452725b0df800e911e83d71b"
     },
     {
+      "file": "companion/tests/conversation-identity-diagnostic.test.mjs",
+      "sha256": "6a0cb2927627a4cd59f06f2c7fda07c6d8d45ab94904c2a1e342b07eec21ad94"
+    },
+    {
+      "file": "companion/tests/conversation-identity.test.mjs",
+      "sha256": "b029cfdddf9e0932b1a02b014925e60572c7f6280e5d474c51435e7cf7ee6dae"
+    },
+    {
       "file": "companion/tests/conversation-review.test.mjs",
       "sha256": "0ef441e300e34afddedec71e7b6342c4f3ce3e124eea67f7301c486024b98659"
     },
@@ -85,7 +95,7 @@
     },
     {
       "file": "companion/tests/llm-review.test.mjs",
-      "sha256": "09b88e85d078ba9fcb86032c471c80ed6af55128fb0250954bbc203528c2db96"
+      "sha256": "a58fe27e4f27a9057308573ea9d1908c1f4c9cb9d82f1402a5672fb544018c20"
     },
     {
       "file": "companion/tests/local-language-model.test.mjs",
@@ -189,7 +199,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "005541d449d1cde7f1944e475bb19a86184cb4b399490e696aca7ce926986442"
+      "sha256": "08fcbc6c9f8e498f913cdd9c5a8fde0eb7180c7bb3db8063534044222377d744"
     },
     {
       "file": "companion/local-recognition.mjs",
@@ -237,11 +247,11 @@
     },
     {
       "file": "companion/public/app.js",
-      "sha256": "a9326de709dc8f428e320b5812e1742a122f57f5e14ed686f7f0e80bfbf29049"
+      "sha256": "4a318c674c15fe0ec6a305c1ca1fe77154b8d73e00c2b357163f1aa2a97df214"
     },
     {
       "file": "companion/public/index.html",
-      "sha256": "cf3ceebb2b0e3c2b6ed7f30e5145232a13b7c9ba107d3a99cf5b6a4ec01fa480"
+      "sha256": "025d4b0fe81e43ff41c99f8a9c47457a6f867b30c3558cccb7dd503ff0f87803"
     },
     {
       "file": "companion/public/microphone-worklet.js",
@@ -290,10 +300,23 @@
     {
       "file": "scripts/Exercise-ConversationCache.mjs",
       "sha256": "d4fff59d0463b535b5c7f648d8799a2f5a775635acb6bb51ea09942309bcbc99"
+    },
+    {
+      "file": "scripts/Exercise-ConversationIdentity.mjs",
+      "sha256": "de22abd67fd5bafe3055de6a9a341ee7472c5e3a9b71b730d5679941ae08e0d8"
+    },
+    {
+      "file": "synthetic/conversation-identity-cases.json",
+      "sha256": "4ffda0d912a22828bd34a3fbc91b616a60d9b1b510b89576b70bf2f1c01385b1"
     }
   ],
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
-  "visualBrowserCheck": "NOT_PERFORMED: prior browser automation and URL verification attempts were blocked; DOM mocks are not visual acceptance.",
+  "localFullTestLog": {
+    "file": "tmp/companion-verification-1790116815081.tap",
+    "sha256": "985e2b71341f36cc8eb12ad65c5ee48cf6baf4dc630a12d0997d645e7fe8e8ec",
+    "includedInSourceBackup": false
+  },
+  "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",
   "failures": []
 }

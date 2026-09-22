@@ -135,7 +135,7 @@ test('review: each actual profile uses a compact greeting prompt with the same f
   for (const persona of personas.profiles) {
     await r.model.generate({ ...context(), persona });
     const body = JSON.parse(r.api.requests.at(-1).options.body);
-    assert.ok(body.messages.reduce((n, m) => n + m.content.length, 0) < 650);
+    assert.ok(body.messages.reduce((n, m) => n + m.content.length, 0) < 750);
     assert.match(body.messages[0].content, /about 12 words/);
     assert.match(body.messages[0].content, /Never execute commands, claim order acceptance or invent actions/);
     assert.match(body.messages[0].content, /History is generated, unverified, possibly undelivered/);

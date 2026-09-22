@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T22:27:55.977Z",
+  "status": "PASS_BOUNDED_BROWSER_RECHECK_ONLY",
+  "classification": "OBSERVED_BROWSER_WITH_MOCK_ONLY_GAME_STATE",
+  "priorReceipt": "research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json",
+  "reason": "Independent review found global-last-response attribution race; displayed results now belong to their own completed command request.",
+  "browser": "Codex In-app Browser",
+  "origin": "http://127.0.0.1:51626",
+  "sessionCredential": "OMITTED",
+  "isolatedPreferences": true,
+  "hashes": [
+    {
+      "file": "companion/public/app.js",
+      "sha256": "4a318c674c15fe0ec6a305c1ca1fe77154b8d73e00c2b357163f1aa2a97df214"
+    },
+    {
+      "file": "companion/public/index.html",
+      "sha256": "025d4b0fe81e43ff41c99f8a9c47457a6f867b30c3558cccb7dd503ff0f87803"
+    },
+    {
+      "file": "companion/server.mjs",
+      "sha256": "f6c4230e8de0db06dc40e7b466e6fa287550092d70eff46c092ccbcb1d760a0f"
+    }
+  ],
+  "checks": [
+    {
+      "id": "fresh-disconnected",
+      "result": "PASS",
+      "observation": "Fresh page displayed DISCONNECTED with engines stopped and no automatically started microphone/audio."
+    },
+    {
+      "id": "first-recipient",
+      "result": "PASS",
+      "observation": "After starting only the synthetic mission, regroup slot 1 displayed Preview only: regroup for alpha. Nothing was sent."
+    },
+    {
+      "id": "edit-clears-result",
+      "result": "PASS",
+      "observation": "Changing input to regroup slot 2 immediately cleared Alpha result."
+    },
+    {
+      "id": "second-recipient",
+      "result": "PASS",
+      "observation": "Explicit Parse displayed regroup for bravo with Nothing was sent."
+    },
+    {
+      "id": "clarification",
+      "result": "PASS",
+      "observation": "attack the target displayed explicit supported-action/recipient guidance."
+    },
+    {
+      "id": "reset-clears-result",
+      "result": "PASS",
+      "observation": "Reset removed the command interpretation and left simulation dispatch disabled."
+    },
+    {
+      "id": "cleanup",
+      "result": "PASS",
+      "observation": "Exact temporary server STOP file caused LOCAL_MODELS_STOPPED and zero exit; temporary tab closed."
+    }
+  ],
+  "notPerformed": [
+    "Adversarial HTTP timing in real browser; covered separately by independent Node VM test.",
+    "Microphone, audio playback, native model inference, editor/game, any game command.",
+    "Earlier broad browser interactions were not all repeated; prior receipt retains its original source hashes."
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T22:22:05.680Z",
+  "status": "PASS_BOUNDED_BROWSER_UI_ONLY",
+  "classification": "OBSERVED_BROWSER_WITH_MOCK_ONLY_GAME_STATE",
+  "browser": "Codex In-app Browser",
+  "origin": "http://127.0.0.1:51111",
+  "sessionCredential": "OMITTED",
+  "preferenceStorage": "temporary isolated project directory; normal preferences untouched",
+  "nativeGame": "NOT_PERFORMED",
+  "modelInference": "NOT_PERFORMED",
+  "microphoneCapture": "NOT_PERFORMED",
+  "speakerPlayback": "NOT_PERFORMED",
+  "sourceHashes": [
+    {
+      "file": "companion/public/app.js",
+      "sha256": "b89065d9d3ed550dcca116cab5c462d05926af33e5307c3e603ac3e5b8dbf5ba"
+    },
+    {
+      "file": "companion/public/index.html",
+      "sha256": "025d4b0fe81e43ff41c99f8a9c47457a6f867b30c3558cccb7dd503ff0f87803"
+    },
+    {
+      "file": "companion/public/styles.css",
+      "sha256": "51cf6d1db05e9d458e294e52ba3021a3bcef396c2e18a7853fc008f18be468db"
+    },
+    {
+      "file": "companion/public/microphone.js",
+      "sha256": "5e15f36ab76869fc24227f193d7fb14498213f5df7f2a8745f4769f45f585f72"
+    },
+    {
+      "file": "companion/server.mjs",
+      "sha256": "f6c4230e8de0db06dc40e7b466e6fa287550092d70eff46c092ccbcb1d760a0f"
+    }
+  ],
+  "checks": [
+    {
+      "id": "initial-state",
+      "result": "PASS",
+      "observation": "Page opened DISCONNECTED with three cards, live modes disabled, speech engines stopped, no automatic microphone or playback."
+    },
+    {
+      "id": "mission-and-arm",
+      "result": "PASS",
+      "observation": "Synthetic mission displayed MOCK_ONLY. Explicit arming enabled Simulate recommendations."
+    },
+    {
+      "id": "submission-wording",
+      "result": "PASS",
+      "observation": "Alpha action status said its simulated regroup request was submitted and acceptance was unconfirmed; no accepted/movement claim."
+    },
+    {
+      "id": "human-precedence",
+      "result": "PASS",
+      "observation": "Alpha Human hold showed MAINTAIN / HUMAN_ORDER_ACTIVE while Bravo and Charlie retained focus. Explicit Release hold restored Alpha regroup."
+    },
+    {
+      "id": "possession",
+      "result": "PASS_CONSERVATIVE",
+      "observation": "Taking Alpha possession made all three recommendations DEFER / INACTIVE_OR_UNKNOWN_AUTHORITY. Recipient-independent continuing tactics were not demonstrated."
+    },
+    {
+      "id": "reset",
+      "result": "PASS",
+      "observation": "Reset restored initial synthetic recommendations and required rearming before simulation."
+    },
+    {
+      "id": "pause-resume",
+      "result": "PASS",
+      "observation": "Pause made all three recommendations DEFER; Resume restored advisory output."
+    },
+    {
+      "id": "parser-display-defect",
+      "result": "FIXED_AND_RECHECKED",
+      "observation": "Parser result was originally only in collapsed diagnostics. Added a visible live status below Parse. Reloaded changed client before verification."
+    },
+    {
+      "id": "parser-success",
+      "result": "PASS",
+      "observation": "regroup slot 1 displayed Preview only: regroup for alpha. Nothing was sent."
+    },
+    {
+      "id": "parser-edit",
+      "result": "PASS",
+      "observation": "Editing the transcript removed the old interpretation immediately."
+    },
+    {
+      "id": "parser-clarification",
+      "result": "PASS",
+      "observation": "attack the target displayed supported-action and explicit-recipient guidance with Nothing was sent."
+    },
+    {
+      "id": "visual-layout",
+      "result": "PASS_BOUNDED",
+      "observation": "Inspected initial three-card viewport and post-fix lower command/replay panel screenshots. Visible text/controls fit without overlap. Other viewport sizes and complete accessibility are not evaluated."
+    },
+    {
+      "id": "disarm",
+      "result": "PASS",
+      "observation": "Final Disarm left Simulate recommendations disabled and cleared the previous command preview."
+    },
+    {
+      "id": "cleanup",
+      "result": "PASS",
+      "observation": "Exact owned temporary server received its STOP file, reported LOCAL_MODELS_STOPPED and exited zero. Agent-created tab closed."
+    }
+  ],
+  "limitations": [
+    "Not game integration, native order acceptance, full browser coverage, audio quality, real microphone acceptance or release acceptance.",
+    "Raw browser snapshots contain an ephemeral session credential and were not copied into source.",
+    "The editor remained closed; no native model or audio worker started."
+  ]
+}

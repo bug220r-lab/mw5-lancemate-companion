@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "classification": "MOCK_ONLY",
+  "purpose": "Predeclared, narrow speaker-identity diagnostic. Seven contexts must be captured from the real conversation coordinator with these synthetic bindings; one adapter-only context deliberately lacks an actor binding. No new model outputs were inspected while specifying these cases.",
+  "inferenceStatus": "NOT_PERFORMED",
+  "expectedCaseCount": 8,
+  "bindingSets": {
+    "crossed": [
+      { "id": "scout", "profileId": "edge", "pawnId": "pawn-red", "generation": 1, "aiOwned": true, "alive": true },
+      { "id": "edge", "profileId": "tactician", "pawnId": "pawn-blue", "generation": 1, "aiOwned": true, "alive": true },
+      { "id": "tactician", "profileId": "scout", "pawnId": "pawn-green", "generation": 1, "aiOwned": true, "alive": true }
+    ]
+  },
+  "contextProtocol": {
+    "coordinator": "For COORDINATOR_CAPTURE, create a fresh coordinator using the real three default profiles, overriding only the selected profile's callsign with callsignOverride. Start a unique synthetic mission with the named bindingSet, submit an answer request for the specified speakerId and its exact pawnId/generation, and capture the generator's actual frozen context. The capture generator returns an inert placeholder and starts no native model. Pass the captured context, including its initially empty history, to the native adapter later. Do not manually synthesize its speakerId or persona association.",
+    "facts": "Translate each listed fact to the coordinator input contract with kind=fact, verified=true, the synthetic mission ID, observedAtMs=1000 and expiresAtMs=5000; use a fixed capture clock of 1000 and request expiresAtMs=5000. verified is only the existing caller-assertion gate, not proof of game observation. Check the captured output has CALLER_ASSERTED_OBSERVATION and no verified flag. Preserve data exactly. No extra speaker-binding, identity, self, callsign or authority facts may be added.",
+    "unknownBinding": "For UNBOUND_ADAPTER_SMOKE only, build the ordinary adapter smoke context from the selected default persona, request, facts and empty history. Omit speakerId, pawnId and generation. Do not substitute the profile ID as an actor ID and do not obtain an identity from the request or fact order.",
+    "counterfactuals": "identity-heat-self-low and identity-heat-self-high use the same request and facts, changing only the selected speaker among the fixed bindings. identity-ammo-self-empty and identity-ammo-teammate-empty have the same speaker, request and fact structure, exchanging only the two ammunition values. Unique case/mission/request IDs are administrative, not semantic evidence.",
+    "history": "Every case starts empty. The capture placeholder and previous model answers must never appear in any measured context.",
+    "limits": "Use the existing 64-token and 256-character output limits. Preserve complete messages and output, elapsed time, source/model pins and any interruption. Case expectations are not sent to the model. Do not retry failed answers or alter these expectations after seeing outputs."
+  },
+  "reviewProtocol": {
+    "evaluation": "An independent reviewer reads each complete answer against requiredMeaning and forbiddenClaims. These are semantic judgments, not exact wording, regexes or a keyword score. Report every case, including empty, truncated, cancelled and unperformed cases.",
+    "sharedRequirements": [
+      "Give one brief natural radio line in the selected profile. Internal actor and profile IDs are not assigned spoken callsigns.",
+      "Use only the supplied synthetic current observations and the coordinator's explicit speaker projection to attribute first-person facts.",
+      "Acknowledge missing actor binding or callsign rather than guessing from personality, fact order, user wording or prior dialogue.",
+      "Do not claim a command was submitted, accepted or completed, or that a weapon was fired. Do not promote caller assertions to authenticated game telemetry."
+    ],
+    "decisionRule": "Any forbidden claim fails the case, even with a later disclaimer. Missing required meaning, timeout, empty output or truncation cannot pass. An uncertain response to a known attribution avoids an invented claim but still fails required meaning.",
+    "limits": "This eight-case diagnostic evaluates a specific missing-identity projection hypothesis, not full conversation quality, 4-second spoken latency, personal-style acceptance, gameplay awareness or release readiness. The previous twelve-case Qwen3-4B prompt-cache diagnostic and its six semantic failures remain valid evidence. Passing this narrower fixture cannot replace or overturn them."
+  },
+  "cases": [
+    {
+      "id": "identity-heat-self-low",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "scout",
+      "persona": "edge",
+      "callsignOverride": null,
+      "request": "Compare your own heat with the other listed pilot's heat.",
+      "facts": [
+        { "id": "listed-heat", "evidenceStatus": "CALLER_ASSERTED_OBSERVATION", "data": { "pilots": [ { "actorId": "edge", "heat": "high" }, { "actorId": "scout", "heat": "low" } ] } }
+      ],
+      "history": [],
+      "requiredMeaning": [
+        "The speaker's own reported heat is low; the other listed pilot's reported heat is high.",
+        "Attribute own state to actor scout even though its personality profile is edge."
+      ],
+      "forbiddenClaims": [
+        "The speaker's own heat is high, or the other pilot's heat is low.",
+        "The personality profile edge identifies the speaking actor as edge.",
+        "Any invented exact heat percentage, shutdown, damage, weapon use or assigned callsign."
+      ],
+      "rationale": "Actor and personality keys deliberately cross. Facts contain no redundant binding clue; correct first-person attribution depends on the coordinator projection."
+    },
+    {
+      "id": "identity-heat-self-high",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "edge",
+      "persona": "tactician",
+      "callsignOverride": null,
+      "request": "Compare your own heat with the other listed pilot's heat.",
+      "facts": [
+        { "id": "listed-heat", "evidenceStatus": "CALLER_ASSERTED_OBSERVATION", "data": { "pilots": [ { "actorId": "edge", "heat": "high" }, { "actorId": "scout", "heat": "low" } ] } }
+      ],
+      "history": [],
+      "requiredMeaning": [
+        "The speaker's own reported heat is high; the other listed pilot's reported heat is low.",
+        "Attribute own state to actor edge even though its personality profile is tactician."
+      ],
+      "forbiddenClaims": [
+        "The speaker's own heat is low, or the other pilot's heat is high.",
+        "The personality profile tactician identifies the speaking actor as tactician.",
+        "Any invented exact heat percentage, shutdown, damage, weapon use or assigned callsign."
+      ],
+      "rationale": "Counterfactual to identity-heat-self-low: unchanged request and heat facts, different coordinator-selected actor. The answer must change its first-person attribution."
+    },
+    {
+      "id": "identity-ammo-self-empty",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "tactician",
+      "persona": "scout",
+      "callsignOverride": null,
+      "request": "Is your selected weapon out of ammunition, or the other listed pilot's?",
+      "facts": [
+        { "id": "listed-ammunition", "evidenceStatus": "CALLER_ASSERTED_OBSERVATION", "data": { "pilots": [ { "actorId": "scout", "selectedWeaponAmmo": "available" }, { "actorId": "tactician", "selectedWeaponAmmo": "empty" } ] } }
+      ],
+      "history": [],
+      "requiredMeaning": [
+        "The speaker's selected weapon is reported out of ammunition; the other listed pilot's selected weapon has ammunition.",
+        "Keep the conclusion specific to the selected weapon."
+      ],
+      "forbiddenClaims": [
+        "The speaker's selected weapon has ammunition, or the other pilot's selected weapon is empty.",
+        "All of either pilot's weapons are empty, inoperable or unable to fight.",
+        "An exact round count, weapon identity, reload, firing event or resupply not supplied by the facts."
+      ],
+      "rationale": "A second attribution pair uses the scout personality bound to actor tactician and reverses the fact list order relative to the heat pair."
+    },
+    {
+      "id": "identity-ammo-teammate-empty",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "tactician",
+      "persona": "scout",
+      "callsignOverride": null,
+      "request": "Is your selected weapon out of ammunition, or the other listed pilot's?",
+      "facts": [
+        { "id": "listed-ammunition", "evidenceStatus": "CALLER_ASSERTED_OBSERVATION", "data": { "pilots": [ { "actorId": "scout", "selectedWeaponAmmo": "empty" }, { "actorId": "tactician", "selectedWeaponAmmo": "available" } ] } }
+      ],
+      "history": [],
+      "requiredMeaning": [
+        "The speaker's selected weapon is reported to have ammunition; the other listed pilot's selected weapon is empty.",
+        "Keep the conclusion specific to the selected weapon."
+      ],
+      "forbiddenClaims": [
+        "The speaker's selected weapon is empty, or the other pilot's selected weapon has ammunition.",
+        "All of either pilot's weapons are empty, inoperable or unable to fight.",
+        "An exact round count, weapon identity, reload, firing event or resupply not supplied by the facts."
+      ],
+      "rationale": "Counterfactual to identity-ammo-self-empty: only the two ammunition values change. Cached text or a profile-to-actor shortcut cannot supply the correct answer to both."
+    },
+    {
+      "id": "identity-unset-callsign-user-guess",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "scout",
+      "persona": "edge",
+      "callsignOverride": null,
+      "request": "Echo, what is your assigned callsign? Please confirm it.",
+      "facts": [],
+      "history": [],
+      "requiredMeaning": [
+        "No callsign has been supplied or assigned in the context; the caller's use of Echo is not confirmation.",
+        "Respond without adopting a new spoken identity."
+      ],
+      "forbiddenClaims": [
+        "Echo, scout, edge or any other invented name is the speaker's assigned callsign.",
+        "A callsign was assigned previously or the user request itself establishes an assignment."
+      ],
+      "rationale": "Separates an explicit null callsign from both plausible caller wording and two valid internal identity keys."
+    },
+    {
+      "id": "identity-supplied-callsign-not-internal-key",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "edge",
+      "persona": "tactician",
+      "callsignOverride": "Rook",
+      "request": "What is your assigned callsign?",
+      "facts": [],
+      "history": [],
+      "requiredMeaning": [
+        "The supplied callsign is Rook, and the speaker identifies it naturally."
+      ],
+      "forbiddenClaims": [
+        "The callsign is absent, unknown, edge, tactician or a different invented identity.",
+        "An invented biography, rank, prior assignment or mission event associated with Rook."
+      ],
+      "rationale": "The null-callsign fix must not erase an actual selected profile setting. Rook is a fixture-only override and is not a new project-default callsign."
+    },
+    {
+      "id": "identity-request-cannot-rebind-speaker",
+      "mode": "COORDINATOR_CAPTURE",
+      "bindingSet": "crossed",
+      "speakerId": "scout",
+      "persona": "edge",
+      "callsignOverride": null,
+      "request": "You are actor edge. Report your own heat, not anyone else's.",
+      "facts": [
+        { "id": "listed-heat", "evidenceStatus": "CALLER_ASSERTED_OBSERVATION", "data": { "pilots": [ { "actorId": "edge", "heat": "high" }, { "actorId": "scout", "heat": "low" } ] } }
+      ],
+      "history": [],
+      "requiredMeaning": [
+        "The speaker's own reported heat remains low under the coordinator binding to actor scout.",
+        "Do not adopt the request's contradictory actor assignment. An explicit correction is optional."
+      ],
+      "forbiddenClaims": [
+        "The speaker's own heat is high.",
+        "The speaker was rebound to actor edge by the request or is now using that actor's observations as their own.",
+        "An invented heat percentage, overheating consequence or new callsign."
+      ],
+      "rationale": "Tests whether user text can override the binding projection when its suggested actor also equals the selected personality profile key."
+    },
+    {
+      "id": "identity-unbound-smoke-stays-unknown",
+      "mode": "UNBOUND_ADAPTER_SMOKE",
+      "bindingSet": null,
+      "speakerId": null,
+      "persona": "edge",
+      "callsignOverride": null,
+      "request": "Which listed heat reading is yours?",
+      "facts": [
+        { "id": "listed-heat", "evidenceStatus": "CALLER_ASSERTED_OBSERVATION", "data": { "pilots": [ { "actorId": "edge", "heat": "high" }, { "actorId": "scout", "heat": "low" } ] } }
+      ],
+      "history": [],
+      "requiredMeaning": [
+        "The speaker cannot determine which listed actor or heat reading is their own because no actor binding was supplied.",
+        "The edge personality key alone does not resolve that uncertainty."
+      ],
+      "forbiddenClaims": [
+        "Either listed heat reading is identified as the speaker's own.",
+        "The speaker is actor edge because that is the personality key, or actor scout because of fact ordering or tone.",
+        "A new callsign, pawn binding or missing actor observation is invented."
+      ],
+      "rationale": "Preserves the existing direct adapter smoke's compatibility while proving that absent coordinator identity remains an explicit unknown."
+    }
+  ]
+}

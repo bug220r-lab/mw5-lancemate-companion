@@ -1,0 +1,106 @@
+{
+  "classification": "READ_ONLY_PREFLIGHT",
+  "native_launch": "NOT_PERFORMED",
+  "native_lookup": "NOT_PERFORMED",
+  "desktop_guard": "UNAVAILABLE",
+  "launch_enabled": false,
+  "pins": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "bytes": 11828,
+      "sha256": "20c460fdf678de74568c477b28c41a65408a5b5c7868bc1bb893d05ceced099b"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor-Cmd.exe",
+      "bytes": 485376,
+      "sha256": "b124bdc4d95abd8662061e3e427c44965bf444b49727da6e0c9ce2311bfa654e"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Build\\Build.version",
+      "bytes": 212,
+      "sha256": "820d6814cf61b6458fb4fc22247a0ee77b964b3bd7a48fe07222c78389785765"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "bytes": 4653,
+      "sha256": "a66a2197df7ae9780a648735520884d04a7bdb2cce656e324e9ecd5ac4ebaeab"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Plugins\\Experimental\\PythonScriptPlugin\\PythonScriptPlugin.uplugin",
+      "bytes": 945,
+      "sha256": "a2cfc07adc6e812a5730cfc1d230a710dd540959ad471d5581f7a90df30d5610"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Plugins\\Editor\\EditorScriptingUtilities\\EditorScriptingUtilities.uplugin",
+      "bytes": 649,
+      "sha256": "1a07db8343bc62fadbf2f2b2c6f9c51712cd34d987ce84f4adad33b756772e5f"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultEngine.ini",
+      "bytes": 33476,
+      "sha256": "3543892993c407f648491e7f0b6debe928d7bf80c62708046ad7ad51f7c91c6e"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "bytes": 1260490,
+      "sha256": "fe6492fb35ef4759d3ef770cb802819dbc4da38f98fb88416ad8b10b16b5e6bc"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\Components\\PlayerControllerComponents\\PlayerControllerComponentDataAsset.uasset",
+      "bytes": 9538,
+      "sha256": "d5d06ee76fd4049e836563fedb4c65e79aa12862bc9dad7dba55fbd467985f5a"
+    },
+    {
+      "path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+      "bytes": 2398,
+      "sha256": "1a304ccf534b8dd0433f0361fe1d4b8edcbfe48867899cd91e5c138946d1891c"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Config\\BaseEditorPerProjectUserSettings.ini",
+      "bytes": 42278,
+      "sha256": "7e6ee32858110980b859fdfe441dfa77fe631d85d33b98d326afe83eefdf9968"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\FrontEnd\\TitleScreen\\TitleScreen_Video.umap",
+      "bytes": 39398,
+      "sha256": "4e5bb74b906e9c7732dc4339e794c1d2c09df6c605accdccacda1ee6701029f4"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Engine.ini",
+      "bytes": 2879,
+      "sha256": "6b50b50330cbd5b2e70d3e99da5c883cbebf3bd8a5ad323cbd183cd1ca697307"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Editor.ini",
+      "bytes": 54,
+      "sha256": "90e451ad3e29d8965a28e2c564d6a73f1ada83cf430b3af7746a148a23183aec"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\EditorPerProjectUserSettings.ini",
+      "bytes": 75395,
+      "sha256": "cf12085457237b3e390cef3f60870fb0273a91fffbea4d6a16ff09c8b4a9da14"
+    }
+  ],
+  "conflicts": [],
+  "resources": {
+    "physical_available": 5513908224,
+    "commit_available": 9376829440,
+    "disk_free": 27047092224,
+    "sampled_monotonic": 1012032.687,
+    "sample_duration": 0.0
+  },
+  "resource_admission": {
+    "physical_available": false,
+    "commit_available": true,
+    "disk_free": true
+  },
+  "status": "NATIVE_LAUNCH_BLOCKED_DESKTOP_INTEGRATION",
+  "observed_at": "2026-09-22T22:28:55.0468639Z",
+  "future_admission_valid": false,
+  "native_attempt_directory_exists": false
+}

@@ -4,7 +4,7 @@ This is a local **offline workbench** with synthetic tactical exercises and opti
 
 Each pilot now has an **Action status** button. After simulating recommendations, it reports only the stage actually present in the simulated ledger: submission does not mean acceptance or movement. Without a report it states uncertainty. These fixed authored previews use no model, generate no audio and expire after five real seconds. They are a limited status mode, not full conversation. See [the admission contract](../design/MISSION_SPEECH_ADMISSION.md). Free-form generated auditions remain unverified; both tested Qwen candidates failed factual-boundary checks.
 
-The larger 4B model has also been evaluated under explicit resource guards: two startup attempts crossed the RAM threshold, and disabling weight repacking allowed startup but the first answer exceeded ten seconds. These are [preserved incomplete experiments](../design/CONVERSATION_GROUNDING_DIAGNOSTIC.md), not a recommended configuration. The workbench's smaller-model default is unchanged.
+The larger 4B model has also been evaluated under explicit resource guards. Earlier attempts hit memory or response limits. A separate [prefix-cache experiment](../research/QWEN4B_PROMPT_CACHE_RESULT_REVIEW.md) completed twelve answers but failed six factual cases; ten answers exceeded four seconds before voice synthesis. It is not accepted for factual mission dialogue. The workbench's smaller-model default and disabled cache default are unchanged.
 
 From the project root, run `START_COMPANION.cmd`, or `node companion/server.mjs` and open its printed loopback URL. Stop the terminal with Ctrl+C. No autostart service is installed. Node.js 24 is the tested runtime. No npm dependency is required.
 
@@ -20,7 +20,7 @@ Start a synthetic mission, then click **Prepare recognition**. This checks the l
 
 Capture is limited to 15 seconds. Its grant expires after 20 seconds including setup/permission time, recognition after ten seconds, and text after five seconds. Releasing before permission completes cancels the attempt; if permission is later granted its tracks are immediately stopped. Muting the microphone, pausing, taking possession, resetting the mission, hiding/leaving the page or cancelling stops the preview. A browser/worker that ignores cancellation remains owned until cleanup is confirmed.
 
-The latest earlier preflight failed because available RAM was below the 3 GiB admission threshold with the editor open. No real recording or new adapter inference ran for this feature. Prepare recognition reports resource failures; it does not close other applications. Browser microphone indicators, real capture cleanup and recognition quality need supervised validation. See [preview design and limits](../design/PUSH_TO_TALK_PREVIEW.md). Page launch never requests a microphone, loads models or starts playback automatically.
+Earlier preflights refused startup while the editor was consuming memory. After its normal close, the [one-clip adapter smoke](../research/LOCAL_RECOGNITION_COMPONENT_SMOKE.json) transcribed an existing synthetic clip correctly in 2.179 seconds, exceeding the 1.5-second target. No microphone was used. Prepare recognition reports resource failures; it does not close other applications. Browser microphone indicators, real capture cleanup and human recognition quality need supervised validation. See [preview design and limits](../design/PUSH_TO_TALK_PREVIEW.md). Page launch never requests a microphone, loads models or starts playback automatically.
 
 ## Try the local voice preview
 
@@ -35,7 +35,7 @@ The workbench requires **5 GiB available memory and 10 GiB free disk space befor
 
 Replies and audio expire. Resetting the synthetic mission, taking possession, pausing or applying speech mute invalidates affected pending output. If a preview reports `FAILED`, `CANCELLED` or an expiry error, read its diagnostic rather than treating it as a completed audition. **Speech mute** and **microphone mute** are separate controls. **Quiet mode** suppresses unsolicited chatter, and **Disarm simulation** affects simulated control rather than requested speech.
 
-The current voice candidates are `af_bella` for the edgy companion, `am_adam` for the tactician and `af_heart` for the scout. A supported ID entered in a pilot's voice preference and saved overrides that pilot's default; blank or unsupported text falls back to the default. These are audition candidates, not accepted final voices or clones of Sarah. Browser layout, real speaker playback and user listening acceptance remain unverified; browser automation was blocked during initialization.
+The current voice candidates are `af_bella` for the edgy companion, `am_adam` for the tactician and `af_heart` for the scout. A supported ID entered in a pilot's voice preference and saved overrides that pilot's default; blank or unsupported text falls back to the default. These are audition candidates, not accepted final voices or clones of Sarah. The [bounded browser check](../research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json) now covers the visible panels and synthetic controls; real microphone, speaker playback and user listening acceptance remain unperformed.
 
 Settings only are saved in `companion/local/settings.json`; mission state is in memory and resets when the server closes. Model/runtime artifacts and component outputs live under `companion/local/`, excluded from Git. The optional callsigns/voice preferences are not confirmed pilot or game identities.
 
@@ -48,7 +48,7 @@ Settings only are saved in `companion/local/settings.json`; mission state is in 
 - `local-language-model.mjs`: explicit pinned CPU llama.cpp lifecycle, owned-process startup/shutdown, bounded local authenticated inference and text-only output. No automatic downloads or game commands.
 - `local-speech.mjs`: explicit CPU Kokoro worker lifecycle, three allowed voice candidates and bounded local WAV output. No microphone or speaker interface exists in the worker; the browser's explicit listening control handles playback.
 - `workbench-resources.mjs`: resident-engine admission and reactive memory monitoring. Pending cancellation retains ownership of unfinished checks; ordinary healthy sampling is not a cleanup failure. The workbench stops its own engine pipeline on a breach and preserves human tactical holds.
-- `local-recognition.mjs`: [bounded cold file transcription](../design/LOCAL_RECOGNITION.md) through pinned CPU Whisper CLI, with no listener. Submitted WAVs produce untrusted text only; resource guards blocked the actual adapter smoke.
+- `local-recognition.mjs`: [bounded cold file transcription](../design/LOCAL_RECOGNITION.md) through pinned CPU Whisper CLI, with no listener. Submitted WAVs produce untrusted text only. One existing synthetic clip passed the actual adapter smoke; microphone and performance acceptance remain incomplete.
 - `speech-input.mjs`: explicit capture leases, lifecycle/identity checks, bounded transcription and opaque untrusted previews. Browser capture and authenticated uploads are connected through the workbench, with fake/VM/HTTP coverage but no real microphone acceptance.
 - `benchmark.mjs`: storage and release-evidence arithmetic. A supplied `GAME_OBSERVED` label is not independent verification of an actual recording.
 - `server.mjs` / `public/`: local review panel. Loopback only, random process-session bearer token, origin/host checks, bounded body/requests, restrictive browser policy and preference allowlist. This endpoint is not a native transport.
@@ -71,7 +71,7 @@ The [slower-audition integration receipt](../research/WORKBENCH_CONVERSATION_BEN
 
 ## Source backup
 
-The first private checkpoint was verified at [bug220r-lab/mw5-lancemate-companion](https://github.com/bug220r-lab/mw5-lancemate-companion), branch `codex/companion-foundation`, commit `690d54364780d7184e89284e4ffe6f59a33d7ac5` (203 files). Later local changes are not covered by that commit until a subsequent push is verified.
+Reviewed checkpoints are stored in the private [bug220r-lab/mw5-lancemate-companion](https://github.com/bug220r-lab/mw5-lancemate-companion) repository, branch `codex/companion-foundation`. [The local backup receipt](../research/GITHUB_BACKUP.json) identifies the exact latest verified commit. Working-tree changes are not backed up until their push is verified.
 
 This is a source/report backup. `companion/local/`, `tmp/`, raw `research/evidence/` exports and audio/media payloads remain local and are excluded. A fresh checkout needs separately restored or verified setup inputs before model/audio experiments; raw-source hash checks require the original evidence. Preserve that local evidence independently. The [source review](../research/SOURCE_BACKUP_REVIEW.json) records selection and content checks; no credentials belong in the repository.
 
