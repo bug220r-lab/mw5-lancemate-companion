@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T20:17:05.4888192Z",
+  "classification": "OBSERVED_READ_ONLY_PREFLIGHT",
+  "exitCode": 1,
+  "result": {
+    "status": "FAILED_OR_BLOCKED",
+    "error": "RECOGNITION_RAM_RESERVE",
+    "nativeInference": "NOT_PERFORMED",
+    "disposal": {
+      "state": "DISPOSED",
+      "busy": false,
+      "mode": "COLD_FILE_TRANSCRIPTION_ONLY",
+      "classification": "LOCAL_ASR_UNVERIFIED_TEXT",
+      "transcriptTrust": "UNTRUSTED_RECOGNITION",
+      "verification": "NOT_PERFORMED",
+      "lastError": "RECOGNITION_RAM_RESERVE",
+      "ownsProcess": false,
+      "processStopConfirmed": true,
+      "cleanupPending": false,
+      "cleanupBlocked": false,
+      "resourceSnapshot": {
+        "availableDiskBytes": 27280998400,
+        "availableRamBytes": 1618386944,
+        "continuousReserveGuaranteed": false
+      },
+      "microphoneCapture": false,
+      "speakerPlayback": false,
+      "commandExecution": false,
+      "gameTests": "NOT_PERFORMED",
+      "settings": {
+        "modelId": "whisper-base-en",
+        "runtimeVersion": "b5130",
+        "cpuThreads": 4,
+        "gpu": false,
+        "requestTimeoutMs": 30000,
+        "stopTimeoutMs": 3000,
+        "maxAudioMs": 15000,
+        "maxTranscriptBytes": 4096
+      },
+      "stopped": true,
+      "ownedProcessStopped": true,
+      "pendingPreflight": false,
+      "cleanupComplete": true
+    },
+    "receipt": null
+  },
+  "sourceHashes": [
+    {
+      "file": ".\\companion\\local-recognition.mjs",
+      "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
+    },
+    {
+      "file": ".\\scripts\\Exercise-LocalRecognition.mjs",
+      "sha256": "f71659dcfe66a8bd83c1f49bc4b90c375cd127bc9d95b1ab2e0f1197e045c132"
+    },
+    {
+      "file": ".\\companion\\models.lock.json",
+      "sha256": "035aa0318e1c3f92de9ede3fbea5cdb8ad5750e5db289774545e86b35a325fc3"
+    },
+    {
+      "file": ".\\companion\\whisper-runtime-pins.json",
+      "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+    }
+  ],
+  "nativeInference": "NOT_PERFORMED",
+  "gameExecution": "NOT_PERFORMED",
+  "microphoneCapture": false,
+  "speakerPlayback": false
+}

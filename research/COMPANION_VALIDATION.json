@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-21T06:44:20.657Z",
+  "recordedAt": "2026-09-22T20:18:03.928Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 363,
-  "passed": 363,
+  "tests": 422,
+  "passed": 422,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -19,6 +19,8 @@
     "companion/tests/grounding-diagnostic.test.mjs",
     "companion/tests/llm-review.test.mjs",
     "companion/tests/local-language-model.test.mjs",
+    "companion/tests/local-recognition-review.test.mjs",
+    "companion/tests/local-recognition.test.mjs",
     "companion/tests/local-speech-review.test.mjs",
     "companion/tests/local-speech.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
@@ -66,6 +68,14 @@
     {
       "file": "companion/tests/local-language-model.test.mjs",
       "sha256": "469e3e422975c646c763ff925d22b99c5a56ad3cae971a748b1306cc77d30cac"
+    },
+    {
+      "file": "companion/tests/local-recognition-review.test.mjs",
+      "sha256": "af46632da6c4573e65decca2d9a46d6b7f31e7092779aa864b46a57a8219ec8b"
+    },
+    {
+      "file": "companion/tests/local-recognition.test.mjs",
+      "sha256": "a5c12e8b4b861156c54dc2ea0f1e43d8ad8c30d715354d6acb4d7428ec74f384"
     },
     {
       "file": "companion/tests/local-speech-review.test.mjs",
@@ -130,6 +140,10 @@
     {
       "file": "companion/local-language-model.mjs",
       "sha256": "0a6a9fd911e0a05328ce4d371dba55720b5ba0bc521d3fe7291d02b7224fda47"
+    },
+    {
+      "file": "companion/local-recognition.mjs",
+      "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
     },
     {
       "file": "companion/local-speech.mjs",
@@ -202,10 +216,14 @@
     {
       "file": "synthetic/conversation-grounding-cases.json",
       "sha256": "2139103acf90c3eab87eb2e1bf38d25de75e069e0f295b19ab23600962f331fb"
+    },
+    {
+      "file": "scripts/Exercise-LocalRecognition.mjs",
+      "sha256": "f71659dcfe66a8bd83c1f49bc4b90c375cd127bc9d95b1ab2e0f1197e045c132"
     }
   ],
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
-  "visualBrowserCheck": "NOT_PERFORMED: browser automation initialization failed; native browser URL verification also blocked this turn. DOM mocks are not visual acceptance.",
+  "visualBrowserCheck": "NOT_PERFORMED: prior browser automation and URL verification attempts were blocked; DOM mocks are not visual acceptance.",
   "failures": []
 }

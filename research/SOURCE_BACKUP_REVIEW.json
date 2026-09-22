@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-21T06:45:06.023Z",
+  "reviewedAt": "2026-09-22T20:18:40.705Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 251,
-    "includedBytesExcludingThisReceipt": 4894806,
+    "includedFiles": 260,
+    "includedBytesExcludingThisReceipt": 4993404,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -135,6 +135,7 @@
     "companion/kokoro.lock.json",
     "companion/llama-runtime-pins.json",
     "companion/local-language-model.mjs",
+    "companion/local-recognition.mjs",
     "companion/local-speech.mjs",
     "companion/mission-speech.mjs",
     "companion/models.lock.json",
@@ -154,6 +155,8 @@
     "companion/tests/grounding-diagnostic.test.mjs",
     "companion/tests/llm-review.test.mjs",
     "companion/tests/local-language-model.test.mjs",
+    "companion/tests/local-recognition-review.test.mjs",
+    "companion/tests/local-recognition.test.mjs",
     "companion/tests/local-speech-review.test.mjs",
     "companion/tests/local-speech.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
@@ -177,6 +180,7 @@
     "design/FULL_MOD_DELIVERY.md",
     "design/KOKORO_SETUP.md",
     "design/LOCAL_MODEL_BENCHMARK.md",
+    "design/LOCAL_RECOGNITION.md",
     "design/MISSION_REHEARSAL.md",
     "design/MISSION_SPEECH_ADMISSION.md",
     "design/OBSERVATION_POLICY_MAPPING.md",
@@ -247,16 +251,20 @@
     "research/KOKORO_COMPONENT_BENCHMARK.json",
     "research/LOCAL_CONVERSATION_COMPONENT_BENCHMARK.json",
     "research/LOCAL_CONVERSATION_FALLBACK_BENCHMARK.json",
+    "research/LOCAL_RECOGNITION_PREFLIGHT_2026-09-22.json",
+    "research/LOCAL_RECOGNITION_REVIEW.md",
     "research/OBSERVER_CALLER_EXECUTION_ATTEMPT.json",
     "research/OBSERVER_CALLER_NATIVE_RESULT.json",
     "research/OBSERVER_CALLER_NATIVE_RESULT.md",
     "research/OBSERVER_CALLER_NATIVE_REVIEW.md",
+    "research/OBSERVER_DESKTOP_RETRY_2026-09-22.json",
     "research/OBSERVER_REFERENCE_API_REVIEW.md",
     "research/OBSERVER_REFERENCE_COMMANDLET_REVIEW.md",
     "research/OBSERVER_REFERENCE_EXECUTION_ACCESS.json",
     "research/OBSERVER_REFERENCE_HELPER_REVIEW.json",
     "research/OBSERVER_REFERENCE_HELPER_REVIEW.md",
     "research/OBSERVER_REFERENCE_PREPARATION.json",
+    "research/OBSERVER_REMOTE_EXECUTION_REVIEW.md",
     "research/OFFLINE_COMMAND_REPORT.json",
     "research/OFFLINE_MEMORY_EXERCISE.md",
     "research/OFFLINE_MEMORY_REPORT.json",
@@ -318,6 +326,7 @@
     "scripts/Exercise-ConversationGrounding.mjs",
     "scripts/Exercise-Kokoro.py",
     "scripts/Exercise-LocalConversation.mjs",
+    "scripts/Exercise-LocalRecognition.mjs",
     "scripts/Exercise-MemoryContract.mjs",
     "scripts/Exercise-TacticalPolicy.mjs",
     "scripts/Exercise-WarmWhisper.mjs",
@@ -559,6 +568,16 @@
       "notes": []
     },
     {
+      "path": "companion/local-recognition.mjs",
+      "bytes": 21969,
+      "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7",
+      "lines": 355,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/local-speech.mjs",
       "bytes": 11833,
       "sha256": "665fa9af97d74a98db49e1ef5c657b8525abb938257aa9687b43d258d6e506a3",
@@ -650,9 +669,9 @@
     },
     {
       "path": "companion/README.md",
-      "bytes": 11901,
-      "sha256": "083ff6cadd9b38525e37222da5e882d1f62b6b212ca1f3c9dfd99d5a73e3a8f8",
-      "lines": 66,
+      "bytes": 12263,
+      "sha256": "55009136ed7c63679780b90dcebc60e05e30a3681c7a7d26d38610d8e664a442",
+      "lines": 67,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -755,6 +774,26 @@
       "bytes": 22326,
       "sha256": "469e3e422975c646c763ff925d22b99c5a56ad3cae971a748b1306cc77d30cac",
       "lines": 320,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/local-recognition-review.test.mjs",
+      "bytes": 23206,
+      "sha256": "af46632da6c4573e65decca2d9a46d6b7f31e7092779aa864b46a57a8219ec8b",
+      "lines": 333,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/local-recognition.test.mjs",
+      "bytes": 19565,
+      "sha256": "a5c12e8b4b861156c54dc2ea0f1e43d8ad8c30d715354d6acb4d7428ec74f384",
+      "lines": 266,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -992,6 +1031,16 @@
       "bytes": 10106,
       "sha256": "91aa5210d046caf1de0383c978b8e96d9da23f83920268ee96e662d4e023b408",
       "lines": 53,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/LOCAL_RECOGNITION.md",
+      "bytes": 5251,
+      "sha256": "c35f1e2bebff14ef6c8c8a80b5684a2402acc2e084b36c44a3ad5a2cae7f08fb",
+      "lines": 33,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1544,9 +1593,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 7885,
-      "sha256": "5bfa3aab4f1b3274f9feaef848a1a0f7d5abcbeb90dd831791447fab8e535c4a",
-      "lines": 212,
+      "bytes": 8578,
+      "sha256": "3a7875530be01aebcb79ed69175b6be8b59e3c4292a26205d2ba484b4c4a383b",
+      "lines": 230,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1891,7 +1940,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "1ee69bc9d292ccc00c154a2f5eafbc867f322047a5a791083013f95c01793d6c",
+      "sha256": "474d44dba25abb3802ca7036555b0da06fc97ea6ff01a72d9f7e721a3f89c731",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -1902,9 +1951,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 16197,
-      "sha256": "1fd706ef2cdd81a1ebdbeba73bc70c4952447d1d21f4a4d05aee153eefda5d6b",
-      "lines": 69,
+      "bytes": 19066,
+      "sha256": "68f0c91f30a6689df0580f5cfb18a639ddd8a5cb599b5e10a454cccd9fd04924",
+      "lines": 79,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1949,6 +1998,26 @@
         "Contains the local Windows username/path; personal project backup is intended to remain private.",
         "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
       ]
+    },
+    {
+      "path": "research/LOCAL_RECOGNITION_PREFLIGHT_2026-09-22.json",
+      "bytes": 2255,
+      "sha256": "afaf178454b882408c778349feddfad9566a04aa1d332645b05809a177acba80",
+      "lines": 70,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/LOCAL_RECOGNITION_REVIEW.md",
+      "bytes": 7366,
+      "sha256": "02aaeed2995bed22e3736886baa5c2cac20cd2c74bac759d9a3788ba212c016a",
+      "lines": 63,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
     },
     {
       "path": "research/OBSERVER_CALLER_EXECUTION_ATTEMPT.json",
@@ -1999,6 +2068,16 @@
       ]
     },
     {
+      "path": "research/OBSERVER_DESKTOP_RETRY_2026-09-22.json",
+      "bytes": 2066,
+      "sha256": "0d7831e70feefbd1bdb2dedb2645a33792e6b9b4c97cf9b9fb35c04dccd1f8df",
+      "lines": 44,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/OBSERVER_REFERENCE_API_REVIEW.md",
       "bytes": 9323,
       "sha256": "4f7a7207026320a34301bcbbcd849533548e3c9957746e0db7c8748d2175efc2",
@@ -2025,9 +2104,9 @@
     },
     {
       "path": "research/OBSERVER_REFERENCE_EXECUTION_ACCESS.json",
-      "bytes": 1826,
-      "sha256": "670d9e4f3250f38d8c9ac90954b8d38b2265f6b583da04202840f905b79fcdca",
-      "lines": 37,
+      "bytes": 3339,
+      "sha256": "31121e61087c25cd373b94fc69564c4429433d7bb4cf0be584d0de8b55a8685d",
+      "lines": 63,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2070,6 +2149,18 @@
       "notes": [
         "Contains the local Windows username/path; personal project backup is intended to remain private.",
         "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REMOTE_EXECUTION_REVIEW.md",
+      "bytes": 6407,
+      "sha256": "dbb099609754f7260fd605946abf6ad28069a2926a657c3596bc8b87a5c53924",
+      "lines": 51,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
       ]
     },
     {
@@ -2601,6 +2692,16 @@
       "notes": []
     },
     {
+      "path": "scripts/Exercise-LocalRecognition.mjs",
+      "bytes": 5062,
+      "sha256": "f71659dcfe66a8bd83c1f49bc4b90c375cd127bc9d95b1ab2e0f1197e045c132",
+      "lines": 88,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "scripts/Exercise-MemoryContract.mjs",
       "bytes": 39394,
       "sha256": "4b34eb329950622c7eec902058f3b2565551f38872f8cde199a1d1a65e9d65e5",
@@ -2965,9 +3066,9 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 2643,
-      "sha256": "9dd65c6bed04ca5e4a2ed6cc35112e5cec365b9bbd44365b4c8c22b3a47fda11",
-      "lines": 30,
+      "bytes": 2657,
+      "sha256": "1214beb9e9550d6b05b460ee7bf3a034072f668159c7addd746dcd64893dfbbf",
+      "lines": 31,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

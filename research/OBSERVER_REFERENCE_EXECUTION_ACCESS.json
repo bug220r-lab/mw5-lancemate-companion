@@ -30,6 +30,32 @@
     "prior_error": "EXCEPTION_ACCESS_VIOLATION reading address 0x0000000000000058 before Python report",
     "retry": "NOT_PERFORMED; no established correction to earlier startup failure"
   },
+  "followup": {
+    "recorded_at": "2026-09-21T06:54:36Z",
+    "status": "DEFAULT_PYTHON_REMOTE_TRANSPORT_NOT_OBSERVED",
+    "review": "research/OBSERVER_REMOTE_EXECUTION_REVIEW.md",
+    "editor_process_id": 18596,
+    "editor_process_count": 1,
+    "udp_endpoint_query": "Read-only Get-NetUDPEndpoint filtered to the one observed UE4Editor process; no packets sent",
+    "observed_udp_endpoints": [
+      {"local_address": "0.0.0.0", "local_port": 62929},
+      {"local_address": "0.0.0.0", "local_port": 24024}
+    ],
+    "documented_default_discovery_port": 6766,
+    "default_discovery_port_observed": false,
+    "effective_remote_execution_setting": "UNKNOWN",
+    "configuration_override_search": "No explicit remote enablement or endpoint override found in the narrowly inspected project, engine and saved configuration locations",
+    "fresh_accessibility_window_id": 593470,
+    "fresh_accessibility_controls_available": false,
+    "new_capture_attempts": 0,
+    "ui_input_actions": 0,
+    "remote_connections_or_discovery_packets": 0,
+    "configuration_changes": 0,
+    "new_commandlet_or_editor_processes": 0,
+    "native_lookup": "NOT_PERFORMED",
+    "interpretation": "No usable default transport was observed. This does not prove the effective setting is false or identify either other port as Python transport. Do not probe arbitrary endpoints.",
+    "user_assistance": "Requested the already authorized File > Execute Python Script action for the prepared helper; no new permission question"
+  },
   "native_output_directories": [],
   "writes_to_assets_settings_retail": false,
   "next": "Run prepared helper once through existing editor File > Execute Python Script when supported UI access or user assistance is available; preserve receipt and review exact direct candidates"

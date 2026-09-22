@@ -37,6 +37,7 @@ Settings only are saved in `companion/local/settings.json`; mission state is in 
 - `conversation.mjs`: one injected generator, three separately bounded persona histories, mission/binding/fact expiry, cooperative cancellation and unverified output. Unknown ownership/liveness revokes the affected speaker until a valid newer binding. An ignoring generator retains its sole slot until it settles.
 - `local-language-model.mjs`: explicit pinned CPU llama.cpp lifecycle, owned-process startup/shutdown, bounded local authenticated inference and text-only output. No automatic downloads or game commands.
 - `local-speech.mjs`: explicit CPU Kokoro worker lifecycle, three allowed voice candidates and bounded local WAV output. No microphone or speaker interface exists in the worker; the browser's explicit listening control handles playback.
+- `local-recognition.mjs`: [bounded cold file transcription](../design/LOCAL_RECOGNITION.md) through pinned CPU Whisper CLI, with no listener. It is not connected to this UI or a microphone. Submitted WAVs produce untrusted text only; resource guards currently block the actual adapter smoke.
 - `benchmark.mjs`: storage and release-evidence arithmetic. A supplied `GAME_OBSERVED` label is not independent verification of an actual recording.
 - `server.mjs` / `public/`: local review panel. Loopback only, random process-session bearer token, origin/host checks, bounded body/requests, restrictive browser policy and preference allowlist. This endpoint is not a native transport.
 
@@ -44,7 +45,7 @@ Run `node scripts/Verify-Companion.mjs` for the offline receipt. Existing tactic
 
 The independent conversation/server review initially added **32 passing injected-fake cases**, then four preview-timing cases. Another **25 Node VM cases** execute the actual client script against fake DOM/fetch/Audio APIs. They cover unverified text never becoming commands, cancellation/reset/possession/mute, asynchronous freshness, radio reservation ownership, failed shutdown reporting, disposed lifecycle, unknown actor state and safe client playback cleanup. They also verify that slower audition mode is explicit, keeps the four-second target unchanged and preserves control/identity gates.
 
-The current [complete offline receipt](../research/COMPANION_VALIDATION.json) records **363/363 passing tests**, including existing suites and wrappers preserving 48 tactical scenarios, 31 adversarial cases and three properties. Its hashes bind the result to exact files. Node VM checks are not browser layout, real audio or listening acceptance; no actual models or game ran in the independent fake/VM cases.
+The current [complete offline receipt](../research/COMPANION_VALIDATION.json) records the passing test count and exact file hashes, including existing suites and wrappers preserving 48 tactical scenarios, 31 adversarial cases and three properties. The file-transcription adapter adds 20 implementation cases and 39 independent review cases. Node VM checks are not browser layout, real audio or listening acceptance; no actual models or game ran in the independent fake/VM cases.
 
 ## Component experiments
 

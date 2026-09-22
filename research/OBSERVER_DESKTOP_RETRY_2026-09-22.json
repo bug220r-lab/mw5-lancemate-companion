@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T20:07:42Z",
+  "classification": "OBSERVED_ACCESS_DIAGNOSTIC",
+  "status": "BLOCKED_BEFORE_NATIVE_LOOKUP",
+  "userPermissionScope": "User explicitly requested another desktop attempt on 2026-09-22; bounded helper execution already authorized",
+  "editorProcessId": 18232,
+  "editorStartedAt": "2026-09-22T10:09:48.6843693-04:00",
+  "windows": [
+    {"id": 199096, "title": "Message Log"},
+    {"id": 132404, "title": "Create Mod"},
+    {"id": 199312, "title": "MW5Mercs - Unreal Editor"}
+  ],
+  "uiApi": "node_repl + @oai/sky, computer-use plugin 26.915.31945",
+  "captureAttempts": 1,
+  "captureError": "SetIsBorderRequired failed: No such interface supported (0x80004002)",
+  "recovery": "Refreshed window inventory; read Create Mod accessibility without screenshot",
+  "accessibilityTree": "Window: Create Mod, App: UE4Editor.exe. 0 window Create Mod Secondary Actions: Raise",
+  "controlElementsObserved": false,
+  "inputActions": 0,
+  "udpOwnershipQuery": {
+    "method": "Read-only Get-NetUDPEndpoint filtered to the single UE4Editor PID",
+    "endpoints": [
+      {"localAddress": "0.0.0.0", "localPort": 50177},
+      {"localAddress": "0.0.0.0", "localPort": 24024},
+      {"localAddress": "0.0.0.0", "localPort": 6666}
+    ],
+    "defaultPythonDiscoveryPort": 6766,
+    "defaultPythonDiscoveryPortObserved": false,
+    "otherEndpointPurposes": "NOT_DETERMINED; not probed",
+    "effectiveRemoteExecutionSetting": "UNKNOWN",
+    "networkPacketsSent": 0
+  },
+  "helper": {
+    "file": "scripts/Inspect-ObserverReferences.py",
+    "sha256": "20c460fdf678de74568c477b28c41a65408a5b5c7868bc1bb893d05ceced099b",
+    "execution": "NOT_PERFORMED"
+  },
+  "gameTests": "NOT_PERFORMED",
+  "settingsOrAssetsModified": false,
+  "newEditorProcessesStarted": 0,
+  "next": "Use File > Execute Python Script when usable desktop access or user assistance is available. Preserve the existing editor and its work; do not infer disabled settings from absent default endpoint or retry the prior crashed commandlet unchanged."
+}
