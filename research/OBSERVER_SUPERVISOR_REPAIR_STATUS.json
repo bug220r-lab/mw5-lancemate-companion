@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-09-22T23:07:00.4345039Z",
+  "status": "PASS_REPAIR_SYNTHETIC_ONLY_NATIVE_BLOCKED",
+  "scope": "Supervisor source/tests and M0 handoff only; no companion runtime, Git or native MW5 work",
+  "validation": {
+    "runtime": "3.7.7 (tags/v3.7.7:d7c567b08f, Mar 10 2020, 10:41:24) [MSC v.1900 64 bit (AMD64)]",
+    "final_passed": 171,
+    "final_failed": 0,
+    "categories": [
+      {
+        "classification": "ACTUAL_EVIDENCE_VALIDATOR_SYNTHETIC_FILES",
+        "total": 48,
+        "passed": 48
+      },
+      {
+        "classification": "MOCK_ONLY_ACTUAL_WINAPI_IDENTITY_BRANCH",
+        "total": 12,
+        "passed": 12
+      },
+      {
+        "classification": "MOCK_ONLY_CORE",
+        "total": 58,
+        "passed": 58
+      },
+      {
+        "classification": "MOCK_ONLY_DIAGNOSTIC_RETENTION",
+        "total": 9,
+        "passed": 9
+      },
+      {
+        "classification": "MOCK_ONLY_JOB_INVENTORY",
+        "total": 4,
+        "passed": 4
+      },
+      {
+        "classification": "MOCK_ONLY_POLICY",
+        "total": 10,
+        "passed": 10
+      },
+      {
+        "classification": "MOCK_ONLY_REFUSAL",
+        "total": 1,
+        "passed": 1
+      },
+      {
+        "classification": "MOCK_ONLY_RETAINED_HANDLE_RACE",
+        "total": 16,
+        "passed": 16
+      },
+      {
+        "classification": "MOCK_ONLY_WINDOWS_API_RACE",
+        "total": 2,
+        "passed": 2
+      },
+      {
+        "classification": "REAL_SYNTHETIC_PROCESS_WITH_MOCK_RESOURCES",
+        "total": 9,
+        "passed": 9
+      },
+      {
+        "classification": "STATIC_POLICY_ASSERTION",
+        "total": 2,
+        "passed": 2
+      }
+    ],
+    "targeted_changed_fixture": "research/evidence/editor-source/observer-supervisor-review-repair-20260922T230017Z-4e8b48bac1/repair-review-receipt.json",
+    "targeted_cleanup": "VERIFIED_NORMAL_STOP",
+    "immutable_full_receipt": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\repair-review-receipt.json",
+    "sources_stable_during_and_after": true,
+    "real_windows_modes": [
+      {
+        "name": "windows_success",
+        "passed": true,
+        "status": "SYNTHETIC_RUN_VALIDATED",
+        "cleanup": "VERIFIED_OWNED_JOB_EXIT",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-101-windows-success"
+      },
+      {
+        "name": "windows_wait_stop",
+        "passed": true,
+        "status": "ABORTED",
+        "cleanup": "VERIFIED_NORMAL_STOP",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-102-windows-wait_stop"
+      },
+      {
+        "name": "windows_ignore_stop",
+        "passed": true,
+        "status": "ABORTED",
+        "cleanup": "VERIFIED_FORCED_STOP",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-103-windows-ignore_stop"
+      },
+      {
+        "name": "windows_crash",
+        "passed": true,
+        "status": "ABORTED",
+        "cleanup": "VERIFIED_OWNED_JOB_EXIT",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-104-windows-crash"
+      },
+      {
+        "name": "windows_flood",
+        "passed": true,
+        "status": "ABORTED",
+        "cleanup": "VERIFIED_FORCED_STOP",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-105-windows-flood"
+      },
+      {
+        "name": "windows_ambiguous",
+        "passed": true,
+        "status": "ABORTED",
+        "cleanup": "VERIFIED_OWNED_JOB_EXIT",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-106-windows-ambiguous"
+      },
+      {
+        "name": "windows_loading",
+        "passed": true,
+        "status": "LOOKUP_PARTIAL",
+        "cleanup": "VERIFIED_OWNED_JOB_EXIT",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-107-windows-loading"
+      },
+      {
+        "name": "windows_partial",
+        "passed": true,
+        "status": "LOOKUP_PARTIAL",
+        "cleanup": "VERIFIED_OWNED_JOB_EXIT",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-108-windows-partial"
+      },
+      {
+        "name": "windows_child_hold",
+        "passed": true,
+        "status": "ABORTED",
+        "cleanup": "VERIFIED_NORMAL_STOP",
+        "lock_disposition": "OWNED_LOCK_REMOVED",
+        "fixture_parent": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\case-109-windows-child_hold"
+      }
+    ],
+    "supervisor_resource_injection": "MOCK_ONLY; real preflight separate"
+  },
+  "corrected_behavior": [
+    "Retain bounded backend error codes and sanitized identity observations without changing ownership decisions",
+    "Revalidate the same retained identity once on live-to-exit membership/root snapshot inconsistencies",
+    "Reject incomplete job PID lists",
+    "After an image-query failure only a previously matched retained identity may wait up to50ms on the same handle; confirmed exit and fresh PID/creation match are required for retained-path fallback"
+  ],
+  "preserved_gates": [
+    "Exact retained PID/creation/executable identity and descendant lineage",
+    "Live/unreadable/changed identity and unknown-child refusal",
+    "Final empty-job and post-termination exit checks",
+    "No process-name or job-wide termination sweeps",
+    "Human-work guard and unsupported native-desktop refusal",
+    "Unchanged250ms aggregate-overrun and300s/30s deadline/grace policy",
+    "Unchanged8/8/12GiB admission and2/2/10GiB floors"
+  ],
+  "timing_limit": "50ms is per eligible identity query, not a hard aggregate or stalled-OS-call guarantee",
+  "historical_failures": {
+    "original_review": "129/130 FAILED preserved",
+    "original_backend_cause": "UNKNOWN",
+    "first_repair_target": "FAILED with PROCESS_IMAGE_FAILED Win32 5 preserved",
+    "later_pid_absence": "Separate observed state only, never retrospective cleanup success",
+    "raw_results_timelines_locks_unchanged": true,
+    "bindings": [
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_REVIEW.json",
+        "bytes": 262294,
+        "sha256": "ED01C9AAB74AC1EFC7F477D45534A8761B096FA5CC97ED4DA4F3515F03C23159"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-20260922T223407Z-0708f1688e\\review-receipt.json",
+        "bytes": 262294,
+        "sha256": "ED01C9AAB74AC1EFC7F477D45534A8761B096FA5CC97ED4DA4F3515F03C23159"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-20260922T223407Z-0708f1688e\\case-109-windows-child_hold\\attempt\\process-result.json",
+        "bytes": 3361,
+        "sha256": "6B5FB4B10CD735EE500277A413088555CD15F8E83F65159B5D4B3B64D6BCAD70"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-20260922T223407Z-0708f1688e\\case-109-windows-child_hold\\attempt\\timeline.jsonl",
+        "bytes": 4626,
+        "sha256": "5F2F84021394918DCFE2DD03DC5E1E57EEF7868570AE573454BA5F2002E73284"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-20260922T223407Z-0708f1688e\\case-109-windows-child_hold\\.observer-supervisor.lock",
+        "bytes": 32,
+        "sha256": "F01B406149ED94C8B29D502233C1A9C27D8C3A6537AFCA2A1F5932CAE5DFC781"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-20260922T223407Z-0708f1688e\\windows-child-hold-readonly-assessment.json",
+        "bytes": 5005,
+        "sha256": "FC6BF558780950DE8E59144B1625C57F159FE3FAF52227CD131AB2E7FB09934C"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T225328Z-cf09460ee8\\repair-review-receipt.json",
+        "bytes": 16451,
+        "sha256": "5628B832FB7DBEC5B2C31259857216503B9AD9F0F897B87EA1045CB4FCEAC2BD"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T225328Z-cf09460ee8\\case-901-repair-windows-child_hold\\attempt\\process-result.json",
+        "bytes": 4269,
+        "sha256": "4527D1072D1256FF0E469A537B27941ABB29C014E98A514D11EA912912E67D85"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T225328Z-cf09460ee8\\case-901-repair-windows-child_hold\\attempt\\timeline.jsonl",
+        "bytes": 4669,
+        "sha256": "87DB2FF7A364BA621335FB68B477CFF531643AD943E741978FE997D7D183B08B"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T225328Z-cf09460ee8\\case-901-repair-windows-child_hold\\.observer-supervisor.lock",
+        "bytes": 32,
+        "sha256": "5D64AA3B390B3B9D26F28069DCACC67812C9D544E0A22AE2429D4AF6BE89CD5B"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T225328Z-cf09460ee8\\windows-child-hold-readonly-assessment.json",
+        "bytes": 5059,
+        "sha256": "947B8F9E61F68BEFBB12B22A625B84C6D758D87F4CE3EF0D88475A3CAD62E30A"
+      }
+    ]
+  },
+  "reviewed_sources": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\observer_supervisor.py",
+      "bytes": 35254,
+      "sha256": "B260EE2D2B952BF716807F2923605F4C3644C434791313B0B1AEADD21559D960"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\observer_supervisor_evidence.py",
+      "bytes": 24272,
+      "sha256": "4B751A16C96C4783C78E22CA1EA5474198E8675EB08C4A338D447CAE5EC30934"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\observer_supervisor_windows.py",
+      "bytes": 37407,
+      "sha256": "D80ABFE0CFE6FE80D010547101D5F8E41E3FB9BAA7B6436ED55767242104C402"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\fixtures\\observer-supervisor-child.py",
+      "bytes": 4898,
+      "sha256": "944AB677C8792BD9C2588ED14CAD1100EE151EB77D92926336656A42376BC616"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Review-ObserverSupervisor.py",
+      "bytes": 41802,
+      "sha256": "B1C9010711AAE82908CD46E662E86E736E02F53C04F82A26A9BA69A9E5FD934C"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Review-ObserverSupervisorRepair.py",
+      "bytes": 31867,
+      "sha256": "3530283A3D7A5D4411E7502DE5B4910113957D53C20FBA7A1BC5FE34427223E3"
+    }
+  ],
+  "native_preparation_pins": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "bytes": 11828,
+      "sha256": "20C460FDF678DE74568C477B28C41A65408A5B5C7868BC1BB893D05CECED099B"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor-Cmd.exe",
+      "bytes": 485376,
+      "sha256": "B124BDC4D95ABD8662061E3E427C44965BF444B49727DA6E0C9CE2311BFA654E"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Build\\Build.version",
+      "bytes": 212,
+      "sha256": "820D6814CF61B6458FB4FC22247A0EE77B964B3BD7A48FE07222C78389785765"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "bytes": 4653,
+      "sha256": "A66A2197DF7AE9780A648735520884D04A7BDB2CCE656E324E9ECD5AC4EBAEAB"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Plugins\\Experimental\\PythonScriptPlugin\\PythonScriptPlugin.uplugin",
+      "bytes": 945,
+      "sha256": "A2CFC07ADC6E812A5730CFC1D230A710DD540959AD471D5581F7A90DF30D5610"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Plugins\\Editor\\EditorScriptingUtilities\\EditorScriptingUtilities.uplugin",
+      "bytes": 649,
+      "sha256": "1A07DB8343BC62FADBF2F2B2C6F9C51712CD34D987CE84F4ADAD33B756772E5F"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultEngine.ini",
+      "bytes": 33476,
+      "sha256": "3543892993C407F648491E7F0B6DEBE928D7BF80C62708046AD7AD51F7C91C6E"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "bytes": 1260490,
+      "sha256": "FE6492FB35EF4759D3EF770CB802819DBC4DA38F98FB88416AD8B10B16B5E6BC"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\Components\\PlayerControllerComponents\\PlayerControllerComponentDataAsset.uasset",
+      "bytes": 9538,
+      "sha256": "D5D06EE76FD4049E836563FEDB4C65E79AA12862BC9DAD7DBA55FBD467985F5A"
+    },
+    {
+      "path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+      "bytes": 2398,
+      "sha256": "1A304CCF534B8DD0433F0361FE1D4B8EDCBFE48867899CD91E5C138946D1891C"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Config\\BaseEditorPerProjectUserSettings.ini",
+      "bytes": 42278,
+      "sha256": "7E6EE32858110980B859FDFE441DFA77FE631D85D33B98D326AFE83EEFDF9968"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\FrontEnd\\TitleScreen\\TitleScreen_Video.umap",
+      "bytes": 39398,
+      "sha256": "4E5BB74B906E9C7732DC4339E794C1D2C09DF6C605ACCDCCACDA1EE6701029F4"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Engine.ini",
+      "bytes": 2879,
+      "sha256": "6B50B50330CBD5B2E70D3E99DA5C883CBEBF3BD8A5AD323CBD183CD1CA697307"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Editor.ini",
+      "bytes": 54,
+      "sha256": "90E451AD3E29D8965A28E2C564D6A73F1ADA83CF430B3AF7746A148A23183AEC"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\EditorPerProjectUserSettings.ini",
+      "bytes": 75395,
+      "sha256": "CF12085457237B3E390CEF3F60870FB0273A91FFFBEA4D6A16FF09C8B4A9DA14"
+    }
+  ],
+  "native_execution": {
+    "editor": "NOT_PERFORMED",
+    "game": "NOT_PERFORMED",
+    "helper": "NOT_PERFORMED",
+    "helper_changed": false,
+    "old_helper_tests_rerun": false,
+    "reserved_attempt_exists": false,
+    "direct_native_reference_receipts": [],
+    "named_editor_game_processes": []
+  },
+  "actual_resource_snapshot": {
+    "classification": "READ_ONLY_REAL_PREFLIGHT_BEFORE_SYNTHETIC_FULL_REVIEW",
+    "observed_at_unix": 1790118049.0932436,
+    "conflicts": [],
+    "sample": {
+      "physical_available": 5507551232,
+      "commit_available": 9274912768,
+      "disk_free": 26967695360,
+      "sampled_monotonic": 1013946.781,
+      "sample_duration": 0.0
+    },
+    "native_admission": {
+      "physical_available": false,
+      "commit_available": true,
+      "disk_free": true
+    },
+    "running_floors": {
+      "physical_available": true,
+      "commit_available": true,
+      "disk_free": true
+    },
+    "synthetic_resource_injection": "MOCK_ONLY; not native admission evidence",
+    "target_cleanup": "VERIFIED_NORMAL_STOP"
+  },
+  "actual_resource_snapshot_valid_for_future_admission": false,
+  "remaining_native_blockers": [
+    "Supported native prompt and human-edit observation unavailable",
+    "Supported normal-close integration unavailable",
+    "Attributed native helper STOP bridge unimplemented",
+    "Real native RAM admission fails latest snapshot; all future admission must be fresh",
+    "Startup/script/plugin/configuration/lock/absent-baseline audit and resource-owner coordination required",
+    "Actual full-editor Python entry/exit and observer startup/cooking remain unverified"
+  ],
+  "ownership": "Coordinating task owns broader companion runtime, IMPLEMENTATION_STATUS and Git; untouched by this task",
+  "further_tests_or_launches_planned_this_turn": false,
+  "artifact_bindings": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_REPAIR.md",
+      "bytes": 8270,
+      "sha256": "6BB75048B84271D549AA00EE6104409B4F76D15041F35C937AD9085615C6E367"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_REPAIR_AUDIT.md",
+      "bytes": 16658,
+      "sha256": "2F30435BB47831F5ADEF21858D0D43F6310CAB7B410DD7755B89E75F7915B7E1"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_REPAIR_REVIEW.md",
+      "bytes": 9687,
+      "sha256": "30C80EB2D4B97366FADF2DA4E429ADAFDB7BD6440493DD5342D06A86C1CFB00D"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_REPAIR_REVIEW.json",
+      "bytes": 317130,
+      "sha256": "86CD04AFCD9047FCB4514C23AF5F78295EA8959F6BAA983EE559FEEA709C7EB1"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_REPAIR_PREFLIGHT_2026-09-22.json",
+      "bytes": 4627,
+      "sha256": "BA2FF13FDA60391095B7EFE3B3E15C7944979E4D4B9A2DEBE59D68035C9E8B6B"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_SUPERVISOR_STATUS.json",
+      "bytes": 11951,
+      "sha256": "81E792AE86A737856A13B207C96BB03FC79E233C9EA748AC5769C2F2211BAD3B"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_NORMAL_EDITOR_EXPERIMENT.json",
+      "bytes": 12157,
+      "sha256": "6464DE642108BE64384A7E78B7503428B7C8AB0FE35F4719F8C4113781604EF5"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_NORMAL_EDITOR_EXPERIMENT.md",
+      "bytes": 15585,
+      "sha256": "BFCECBD2921A620FA252D74F2125E087FE976D008DA6FF762BDC6D210284C9C9"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\README.md",
+      "bytes": 22061,
+      "sha256": "43EE30FFB7B433D68A5D0B3BDE22626535C8858E5B69DCB6CABF5CB0E2E2298D"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\NEXT_CODEX_PROMPT.md",
+      "bytes": 40125,
+      "sha256": "594D9D56C092AC80D38C63B5E172EA56DA2D6108AA236E082E07ABBCC3176B30"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230017Z-4e8b48bac1\\repair-review-receipt.json",
+      "bytes": 20981,
+      "sha256": "84E6AD22A86E5D35B3DD03A19CC818A3465D8D345223FB517F924F1AD2266077"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230017Z-4e8b48bac1\\full-validation-readonly-preflight.json",
+      "bytes": 698,
+      "sha256": "627A24E025F6336C6E1B6C44652F71A0ED8D4EF57D86C8F3907557E5807C38E6"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-supervisor-review-repair-20260922T230058Z-5d94758e09\\repair-review-receipt.json",
+      "bytes": 317130,
+      "sha256": "86CD04AFCD9047FCB4514C23AF5F78295EA8959F6BAA983EE559FEEA709C7EB1"
+    }
+  ]
+}

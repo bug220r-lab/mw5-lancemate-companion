@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-22T22:43:55.837Z",
+  "reviewedAt": "2026-09-22T23:10:07.910Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 328,
-    "includedBytesExcludingThisReceipt": 6246327,
+    "includedFiles": 341,
+    "includedBytesExcludingThisReceipt": 6848259,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -153,6 +153,7 @@
     "companion/tests/benchmark.test.mjs",
     "companion/tests/browser-playback.test.mjs",
     "companion/tests/browser-ptt.test.mjs",
+    "companion/tests/callsign-settings-review.test.mjs",
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
     "companion/tests/conversation-cache-diagnostic.test.mjs",
@@ -174,6 +175,7 @@
     "companion/tests/observation.test.mjs",
     "companion/tests/policy-regression.test.mjs",
     "companion/tests/radio.test.mjs",
+    "companion/tests/server-callsign.test.mjs",
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
     "companion/tests/server.test.mjs",
@@ -186,6 +188,7 @@
     "companion/workbench-resources.mjs",
     "design/AI_MAPPING_AND_EVALUATION.md",
     "design/ARCHITECTURE.md",
+    "design/CALLSIGN_SETTINGS_CONTEXT.md",
     "design/CAMPAIGN_MEMORY.md",
     "design/CHARACTER_OPTIONS.md",
     "design/COMMAND_CONTRACT.md",
@@ -240,6 +243,7 @@
     "research/BLUEPRINT_EXPORT_REVIEW_2026-09-20.md",
     "research/BRIDGE_ENVIRONMENT.json",
     "research/BRIDGE_INSPECTION.md",
+    "research/CALLSIGN_SETTINGS_REVIEW.md",
     "research/COLLECTION_RESULT_2026-09-20.md",
     "research/COLLECTOR_ASSET_SCOPE.json",
     "research/COMPANION_VALIDATION.json",
@@ -308,6 +312,12 @@
     "research/OBSERVER_REMOTE_EXECUTION_REVIEW.md",
     "research/OBSERVER_SUPERVISOR_IMPLEMENTATION.md",
     "research/OBSERVER_SUPERVISOR_PREFLIGHT_2026-09-22.json",
+    "research/OBSERVER_SUPERVISOR_REPAIR.md",
+    "research/OBSERVER_SUPERVISOR_REPAIR_AUDIT.md",
+    "research/OBSERVER_SUPERVISOR_REPAIR_PREFLIGHT_2026-09-22.json",
+    "research/OBSERVER_SUPERVISOR_REPAIR_REVIEW.json",
+    "research/OBSERVER_SUPERVISOR_REPAIR_REVIEW.md",
+    "research/OBSERVER_SUPERVISOR_REPAIR_STATUS.json",
     "research/OBSERVER_SUPERVISOR_REVIEW.json",
     "research/OBSERVER_SUPERVISOR_REVIEW.md",
     "research/OBSERVER_SUPERVISOR_STATUS.json",
@@ -339,6 +349,8 @@
     "research/QWEN4B_GROUNDING_EDITOR_CLOSED_DIAGNOSTIC.json",
     "research/QWEN4B_GROUNDING_NOREPACK_DIAGNOSTIC.json",
     "research/QWEN4B_GROUNDING_REVIEW.md",
+    "research/QWEN4B_IDENTITY_DIAGNOSTIC.json",
+    "research/QWEN4B_IDENTITY_RESULT_REVIEW.md",
     "research/QWEN4B_PROMPT_CACHE_DIAGNOSTIC.json",
     "research/QWEN4B_PROMPT_CACHE_RESULT_REVIEW.md",
     "research/QWEN_CONVERSATION_QUALITY_REVIEW.md",
@@ -412,6 +424,7 @@
     "scripts/Review-ObserverCaller.py",
     "scripts/Review-ObserverReferences.py",
     "scripts/Review-ObserverSupervisor.py",
+    "scripts/Review-ObserverSupervisorRepair.py",
     "scripts/Review-SourceBackup.mjs",
     "scripts/Review-TacticalPolicy.mjs",
     "scripts/Setup-Kokoro.mjs",
@@ -597,9 +610,9 @@
     },
     {
       "path": "companion/conversation.mjs",
-      "bytes": 17095,
-      "sha256": "796e9e618299cc5df1d9c107c62baadd6fa3809ed8c6304455e3d1229ec1a7ba",
-      "lines": 251,
+      "bytes": 18600,
+      "sha256": "19c1fd08a929d7f6c609e951a533f059475075592c8b04fbc2daa0e19d8494d0",
+      "lines": 272,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -697,9 +710,9 @@
     },
     {
       "path": "companion/public/app.js",
-      "bytes": 23825,
-      "sha256": "4a318c674c15fe0ec6a305c1ca1fe77154b8d73e00c2b357163f1aa2a97df214",
-      "lines": 313,
+      "bytes": 23978,
+      "sha256": "849efa859c9b358dd018253073b2555e03d3ee78c85fd86adb9945998148647b",
+      "lines": 314,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -757,9 +770,9 @@
     },
     {
       "path": "companion/README.md",
-      "bytes": 15338,
-      "sha256": "277b65338511d553ec3e3ada923fa1d86e3973806cbec449c7143af399e80b17",
-      "lines": 79,
+      "bytes": 15947,
+      "sha256": "50c1149a41cf4136494587a2a70860c7ca75490fe57967d19034d1bbf9720fd7",
+      "lines": 81,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -769,9 +782,9 @@
     },
     {
       "path": "companion/server.mjs",
-      "bytes": 34378,
-      "sha256": "f6c4230e8de0db06dc40e7b466e6fa287550092d70eff46c092ccbcb1d760a0f",
-      "lines": 490,
+      "bytes": 35508,
+      "sha256": "8b2c927e9505d7c94512983a557b04566dd2b3fb31b5750bdb9445ac06dba65a",
+      "lines": 509,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -809,9 +822,9 @@
     },
     {
       "path": "companion/tests/browser-playback.test.mjs",
-      "bytes": 19547,
-      "sha256": "3011940d9e3eadd2190b763f79e313a19497a9239d9b8cf8d7ba6b074561a07f",
-      "lines": 305,
+      "bytes": 21903,
+      "sha256": "2762081a42d64b7fc7f1abec97bee4aaa03cdd2eca061d1b574c3fc7eddc60a0",
+      "lines": 338,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -822,6 +835,16 @@
       "bytes": 15454,
       "sha256": "75b2ff159a2839abb605bd40552e9cd32e699777001aa6f9f773d046b2e0e4f9",
       "lines": 191,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/callsign-settings-review.test.mjs",
+      "bytes": 20543,
+      "sha256": "7dca9646308b558a1fca373f6cb994f8603e630c7f84654d4a0269ba64bb5ef9",
+      "lines": 313,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1038,6 +1061,16 @@
       "notes": []
     },
     {
+      "path": "companion/tests/server-callsign.test.mjs",
+      "bytes": 10784,
+      "sha256": "aa9078a358a0e3d90c2f569c16711a9d76df8b005e549654b7ac4559082e2dbb",
+      "lines": 150,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/server-conversation.test.mjs",
       "bytes": 19361,
       "sha256": "9ab7497670250c484e33efada2a2b3be62a055aec5bd8ff1a2a7bc7f9ec31ab7",
@@ -1152,6 +1185,16 @@
       "bytes": 17814,
       "sha256": "cdb58fa9e1353777c697767d821b38f4327ba5df79ca219cf191badba98541d3",
       "lines": 129,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/CALLSIGN_SETTINGS_CONTEXT.md",
+      "bytes": 3636,
+      "sha256": "0b37a19499c6430353d87a163526b1ffaeb46ca6561f9d3791886f39b21902f1",
+      "lines": 16,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1336,8 +1379,8 @@
     },
     {
       "path": "design/OBSERVER_NORMAL_EDITOR_EXPERIMENT.md",
-      "bytes": 15574,
-      "sha256": "31b3b22881fcce714833d594b0cb6718196d1cf67d96e5475e2a4fff1701f797",
+      "bytes": 15585,
+      "sha256": "bfcecbd2921a620fa252d74f2125e087fe976d008da6ff762bdc6d210284c9c9",
       "lines": 90,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
@@ -1535,8 +1578,8 @@
     },
     {
       "path": "NEXT_CODEX_PROMPT.md",
-      "bytes": 39853,
-      "sha256": "0e599ef2e4ed9eadb927daaf5b6058fb3233c6d1eccc778576ba1f418d68d261",
+      "bytes": 40125,
+      "sha256": "594d9d56c092ac80d38c63b5e172ea56da2d6108aa236e082e07abbcc3176b30",
       "lines": 130,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
@@ -1548,8 +1591,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 22002,
-      "sha256": "58accd5420b79e914714999966b930ff6cca56797b6bd7d219fb8286bd965be2",
+      "bytes": 22061,
+      "sha256": "43ee30ffb7b433d68a5d0b3bde22626535c8858e5b69dcb6cabf5cb0e2e2298d",
       "lines": 175,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
@@ -1859,6 +1902,16 @@
       ]
     },
     {
+      "path": "research/CALLSIGN_SETTINGS_REVIEW.md",
+      "bytes": 5456,
+      "sha256": "11178512078a064f6349010437da8517627f9ab0c609c40292e6550e9e37f285",
+      "lines": 44,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/COLLECTION_RESULT_2026-09-20.md",
       "bytes": 5180,
       "sha256": "b1dbd94522c25d89ebe73bdbcbe6db71948a60b823e567fdcfa5c1b32d298db7",
@@ -1916,9 +1969,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 12453,
-      "sha256": "b4cb9f7f63c019912deb2a87da6a8d685d6fd4ebd7af64ee6229acb78c61b341",
-      "lines": 323,
+      "bytes": 12875,
+      "sha256": "069d31d84a0b89beb96acffaebf801dc2f4a6506dd11c703a877f0bcec793ef1",
+      "lines": 333,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2361,7 +2414,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "8bfc6b2b58313f3dd5478b11a989418a94f20307c2f290fde9b09a83b3b61b85",
+      "sha256": "f33472a6676277c159e85a90c67c04ceec51333e355a9060d0fcace5dd53fc89",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -2372,9 +2425,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 39506,
-      "sha256": "fb4ed8b405733132e309db168cda32711543b734abb122aeb3b6faa5f7a9be45",
-      "lines": 153,
+      "bytes": 46481,
+      "sha256": "2c59f82a91b00bea2733de80d74516c1fe45b553f59aa5323958f5ebe1584dea",
+      "lines": 181,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2520,9 +2573,9 @@
     },
     {
       "path": "research/OBSERVER_NORMAL_EDITOR_EXPERIMENT.json",
-      "bytes": 11991,
-      "sha256": "d130f07d297eb1cdeaa7cf68e1fc53289c55567883b0e564bd5b9436d1307eac",
-      "lines": 255,
+      "bytes": 12157,
+      "sha256": "6464de642108be64384a7e78b7503428b7c8ab0fe35f4719f8c4113781604ef5",
+      "lines": 257,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2684,6 +2737,79 @@
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": [
         "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_SUPERVISOR_REPAIR_AUDIT.md",
+      "bytes": 16658,
+      "sha256": "2f30435bb47831f5adef21858d0d43f6310cab7b410dd7755b89e75f7915b7e1",
+      "lines": 92,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_SUPERVISOR_REPAIR_PREFLIGHT_2026-09-22.json",
+      "bytes": 4627,
+      "sha256": "ba2ff13fda60391095b7efe3b3e15c7944979e4d4b9a2debe59d68035c9e8b6b",
+      "lines": 106,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_SUPERVISOR_REPAIR_REVIEW.json",
+      "bytes": 317130,
+      "sha256": "86cd04afcd9047fcb4514c23af5f78295ea8959f6baa983ee559feea709c7eb1",
+      "lines": 6670,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_SUPERVISOR_REPAIR_REVIEW.md",
+      "bytes": 9687,
+      "sha256": "30c80eb2d4b97366fadf2da4e429adafdb7bd6440493dd5342d06a86c1cfb00d",
+      "lines": 69,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_SUPERVISOR_REPAIR_STATUS.json",
+      "bytes": 22665,
+      "sha256": "e5bf1d177c5d78925caf2104100b7eae5752c15e2e0e5cab293cbc3baf4aae84",
+      "lines": 454,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_SUPERVISOR_REPAIR.md",
+      "bytes": 8270,
+      "sha256": "6bb75048b84271d549aa00ee6104409b4f76d15041f35c937ad9085615c6e367",
+      "lines": 48,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
       ]
     },
     {
@@ -3056,6 +3182,29 @@
       "bytes": 9101,
       "sha256": "012b3bf4ec7056cac36a6f45402d6d51a8eef205ea7ece811257838f3cb9c89d",
       "lines": 76,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/QWEN4B_IDENTITY_DIAGNOSTIC.json",
+      "bytes": 118330,
+      "sha256": "48dc661b39d0db57d20bdac4be667b8892f0919273b78d352042b8c85586b827",
+      "lines": 1437,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
+      ]
+    },
+    {
+      "path": "research/QWEN4B_IDENTITY_RESULT_REVIEW.md",
+      "bytes": 13172,
+      "sha256": "b8bf3c00e7188d4ace7ada8b091f20f66f141638f0ac9c62dce6758217879d64",
+      "lines": 65,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3641,9 +3790,9 @@
     },
     {
       "path": "scripts/observer_supervisor_windows.py",
-      "bytes": 35176,
-      "sha256": "77a9e344a6a08576f63e77977ecd970c85609176f97eacaafb8123ad1060f726",
-      "lines": 665,
+      "bytes": 37407,
+      "sha256": "d80abfe0cfe6fe80d010547101d5f8e41e3fb9baa7b6436ed55767242104c402",
+      "lines": 702,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3651,9 +3800,9 @@
     },
     {
       "path": "scripts/observer_supervisor.py",
-      "bytes": 32036,
-      "sha256": "092f79309da6d751bfe2e11d1dee0d8acf3d917a37dc93faa03fbda822358094",
-      "lines": 598,
+      "bytes": 35254,
+      "sha256": "b260ee2d2b952bf716807f2923605f4c3644c434791313b0b1aeadd21559d960",
+      "lines": 652,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3720,6 +3869,18 @@
       "bytes": 41802,
       "sha256": "b1c9010711aae82908cd46e662e86e736e02f53c04f82a26a9ba69a9e5fd934c",
       "lines": 689,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "scripts/Review-ObserverSupervisorRepair.py",
+      "bytes": 31867,
+      "sha256": "3530283a3d7a5d4411e7502de5b4910113957d53c20fba7a1bc5fe34427223e3",
+      "lines": 520,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

@@ -29,7 +29,10 @@ LOCKS = (".observer-reference-lookup.lock", ".observer-caller-inspection.lock",
 
 
 class SupervisorError(Exception):
-    pass
+    def __init__(self, code, ownership_diagnostics=None):
+        Exception.__init__(self, code)
+        self.code = code
+        self.ownership_diagnostics = ownership_diagnostics
 
 
 class SystemClock:
@@ -224,10 +227,55 @@ class EvidenceWriter:
         self.metadata_bytes += len(raw)
 
 
+def bounded_ownership_diagnostics(state):
+    """Keep machine codes and bounded identity facts, never argv/path/error text.
+
+    This is a failed observation for diagnosis, not fresh ownership proof.
+    Malformed or oversized backend fields cannot expand the receipt without bound.
+    """
+    if type(state) is not dict:
+        return dict(schema_version=1, state_shape_valid=False, ownership_verified=False,
+                    backend_errors=[], root=None, descendants=[])
+
+    def identity_fields(value, child=False):
+        if type(value) is not dict:
+            return None
+        fields = ("pid", "parent_pid") if child else ("pid",)
+        result = {key: value.get(key) if type(value.get(key)) is int
+                  and 0 < value[key] <= 0xffffffff else None for key in fields}
+        created = value.get("created")
+        result["created"] = created if isinstance(created, str) and re.fullmatch(r"[0-9]{1,20}", created) else None
+        result["alive"] = value.get("alive") if type(value.get("alive")) is bool else None
+        code = value.get("exit_code")
+        result["exit_code"] = code if type(code) is int and 0 <= code <= 0xffffffff else None
+        return result
+
+    raw_errors = state.get("errors")
+    errors = []
+    if type(raw_errors) is list:
+        for value in raw_errors[:16]:
+            valid = type(value) is dict
+            code = value.get("code") if valid else None
+            winerror = value.get("winerror") if valid else None
+            code_ok = isinstance(code, str) and re.fullmatch(r"[A-Z][A-Z0-9_]{0,95}", code)
+            number_ok = winerror is None or (type(winerror) is int and 0 <= winerror <= 0xffffffff)
+            errors.append(dict(code=code if code_ok and number_ok else "MALFORMED_BACKEND_DIAGNOSTIC",
+                               winerror=winerror if code_ok and number_ok else None))
+    else:
+        errors.append(dict(code="MALFORMED_BACKEND_DIAGNOSTICS", winerror=None))
+    children = state.get("descendants")
+    return dict(schema_version=1, state_shape_valid=True, ownership_verified=state.get("ownership_verified") is True,
+                root=identity_fields(state), backend_errors=errors,
+                backend_errors_truncated=type(raw_errors) is list and len(raw_errors) > 16,
+                descendants=[identity_fields(value, child=True) for value in children[:32]] if type(children) is list else [],
+                descendants_shape_valid=type(children) is list,
+                descendants_truncated=type(children) is list and len(children) > 32)
+
+
 def inspect_owned(process, original=None):
     state = process.inspect()
     if not isinstance(state, dict) or state.get("ownership_verified") is not True:
-        raise SupervisorError("OWNERSHIP_UNVERIFIED")
+        raise SupervisorError("OWNERSHIP_UNVERIFIED", bounded_ownership_diagnostics(state))
     for key in ("pid", "created", "exe"):
         if not state.get(key) or (original is not None and state[key] != original[key]):
             raise SupervisorError("PROCESS_IDENTITY_CHANGED")
@@ -418,6 +466,9 @@ def supervise(spec, backend, guard, clock=None):
                 result["status"] = "LOOKUP_PARTIAL"
     except Exception as exc:
         result["errors"].append(getattr(exc, "code", None) or str(exc)[:240] or type(exc).__name__)
+        if getattr(exc, "ownership_diagnostics", None) is not None:
+            result.setdefault("ownership_failures", []).append(
+                dict(phase="monitor", observation=exc.ownership_diagnostics))
         if process is None and getattr(exc, "owned_process", None) is not None:
             process = exc.owned_process
             result["launched"] = True
@@ -465,6 +516,9 @@ def supervise(spec, backend, guard, clock=None):
                             result["cleanup"] = "VERIFIED_FORCED_STOP"
             except Exception as cleanup_exc:
                 result["errors"].append("CLEANUP: " + (getattr(cleanup_exc, "code", None) or str(cleanup_exc)[:200]))
+                if getattr(cleanup_exc, "ownership_diagnostics", None) is not None:
+                    result.setdefault("ownership_failures", []).append(
+                        dict(phase="cleanup", observation=cleanup_exc.ownership_diagnostics))
     finally:
         result["ended_utc"] = clock.time()
         # Retain partial helper evidence after verified aborted cleanup without

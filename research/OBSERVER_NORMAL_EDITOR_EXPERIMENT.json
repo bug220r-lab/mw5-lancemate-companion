@@ -8,9 +8,10 @@
     "editor_launch": "NOT_PERFORMED",
     "game_launch": "NOT_PERFORMED",
     "lookup": "NOT_PERFORMED",
-    "supervisor": "IMPLEMENTED_SYNTHETIC_REVIEW_FAILED_129_OF_130",
+    "supervisor": "REPAIR_VALIDATED_171_OF_171_SYNTHETIC_ONLY_NATIVE_BLOCKED",
     "supervisor_at_preparation": "NOT_BUILT_NOT_TESTED",
-    "supervisor_checkpoint": "research/OBSERVER_SUPERVISOR_STATUS.json",
+    "supervisor_checkpoint": "research/OBSERVER_SUPERVISOR_REPAIR_STATUS.json",
+    "prior_failed_supervisor_checkpoint": "research/OBSERVER_SUPERVISOR_STATUS.json",
     "helper_changed": false,
     "existing_tests_rerun": false
   },
@@ -181,7 +182,8 @@
   "reviews": [
     "research/OBSERVER_NORMAL_EDITOR_SOURCE_REVIEW.md",
     "research/OBSERVER_NORMAL_EDITOR_SAFETY_REVIEW.md",
-    "research/OBSERVER_SUPERVISOR_REVIEW.md"
+    "research/OBSERVER_SUPERVISOR_REVIEW.md",
+    "research/OBSERVER_SUPERVISOR_REPAIR_REVIEW.md"
   ],
   "official_source": {
     "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-the-editor-using-python?application_version=4.27",
@@ -192,7 +194,7 @@
   "open_gates": [
     "This continuation expressly forbids editor/game/native lookup execution",
     "Fresh availableRAM must meet8GiB threshold",
-    "Resolve the failed synthetic descendant cleanup review; current final review is129/130, not PASS",
+    "Synthetic repair validation171/171 is not native editor/UI readiness; preserve both prior failed attempts",
     "Native prompt/human-edit observation and supported normal close are unavailable; native helper STOP bridge is not implemented",
     "Fresh pins/process/startup/config/lock audit and private baseline required"
   ],

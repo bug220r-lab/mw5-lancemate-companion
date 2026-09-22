@@ -103,7 +103,8 @@ function cancelPlayback() {
 function invalidatesPlayback(action) {
   return action && (['demo','models_stop','interrupt','converse','synthesize_reply','radio_complete','preview_timing'].includes(action.type) ||
     (action.type === 'step' && ['pause','possession'].includes(action.event)) ||
-    (action.type === 'settings' && action.settings.speechMuted));
+    (action.type === 'settings' && (action.settings.speechMuted || action.settings.pilots?.some(p =>
+      (p.callsign?.trim() || null) !== (current?.settings.pilots.find(old => old.id === p.id)?.callsign ?? null)))));
 }
 async function api(action) {
   if (action && action.type !== 'command') clearCommandPreview();

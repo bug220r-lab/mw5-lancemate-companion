@@ -196,6 +196,27 @@ export function createConversationCoordinator({ generate, personas = defaultPers
     for (const job of [...pending.values()]) { const reason = gateReason(job.request); if (reason) cancelJob(job, reason); }
     return { status: 'UPDATED', gates: clone(gates) };
   }
+  function updateCallsigns(input) {
+    if (disposed) return rejected('DISPOSED');
+    let updates; try { updates = jsonCopy(input); } catch { return rejected('INVALID_CALLSIGNS'); }
+    if (!Array.isArray(updates) || updates.length < 1 || updates.length > 3 ||
+        new Set(updates.map(p => p?.profileId)).size !== updates.length || updates.some(p =>
+          !p || !profiles.has(p.profileId) || Object.keys(p).length !== 2 || !Object.hasOwn(p, 'callsign') ||
+          !(p.callsign === null || (typeof p.callsign === 'string' && p.callsign.length <= 64 &&
+            p.callsign.trim().length > 0 && !/[\x00-\x1f\x7f]/.test(p.callsign))))) return rejected('INVALID_CALLSIGNS');
+    const changes = updates.map(p => ({ profileId: p.profileId, callsign: p.callsign?.trim() ?? null }))
+      .filter(p => p.callsign !== (profiles.get(p.profileId).callsign ?? null));
+    // A preference edit is not a new mission or a new authority claim. Retain
+    // clocks, revocation floors, pawn owners, used IDs and the occupied slot.
+    for (const p of changes) {
+      profiles.set(p.profileId, freeze({ ...profiles.get(p.profileId), callsign: p.callsign }));
+      for (const b of bindings.values()) if (b.profileId === p.profileId) {
+        for (const job of [...pending.values()]) if (job.request.speakerId === b.id) cancelJob(job, 'CALLSIGN_CHANGED');
+        histories.set(b.id, []);
+      }
+    }
+    return { status: 'UPDATED', changedProfileIds: changes.map(p => p.profileId) };
+  }
   function request(input) {
     const t = time(); if (disposed || t === null) return Promise.resolve(rejected(disposed ? 'DISPOSED' : 'CLOCK_INVALID'));
     let r; try { r = jsonCopy(input); } catch { return Promise.resolve(rejected('INVALID_REQUEST')); }
@@ -246,5 +267,5 @@ export function createConversationCoordinator({ generate, personas = defaultPers
       generatorSlots: 1, nativeCalls: 0, audioGenerated: false, classification: 'PROJECT_ONLY' });
   }
   function dispose() { disposed = true; cancelAll('DISPOSED'); histories = new Map(); return { status: 'DISPOSED' }; }
-  return { startMission, updateBinding, setGates, request, cancel, cancelAll, getState, dispose };
+  return { startMission, updateBinding, updateCallsigns, setGates, request, cancel, cancelAll, getState, dispose };
 }

@@ -13,12 +13,19 @@ running; callers must preserve the uncertainty and seek human intervention.
 OS calls here are synchronous. Loops, buffers and waits are bounded, but Win32
 does not give these calls an overall timeout; an external watchdog is required
 to bound an OS call that itself stalls. No arbitrary thread cancellation is used.
+An unreadable retained image may wait once for exit, at most 50 ms per identity.
+Several identities can accumulate waits; the core still rejects an observation
+that exceeds its aggregate time limit. This is not a 250 ms OS-call guarantee.
 
 Primary API contracts reviewed 2026-09-22:
 https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessw
 https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute
 https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject
 https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess
+https://learn.microsoft.com/en-us/windows/win32/procthread/terminating-a-process
+https://learn.microsoft.com/en-us/windows/win32/api/jobapi/nf-jobapi-isprocessinjob
+https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-jobobject_basic_process_id_list
+https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitforsingleobject
 """
 
 import ctypes
@@ -41,6 +48,7 @@ CREATE_SUSPENDED, CREATE_NO_WINDOW = 0x4, 0x08000000
 EXTENDED_STARTUPINFO_PRESENT = 0x00080000
 STARTF_USESHOWWINDOW, STARTF_USESTDHANDLES = 0x1, 0x100
 PROC_THREAD_ATTRIBUTE_HANDLE_LIST = 0x00020002
+RETAINED_IMAGE_EXIT_WAIT_MS = 50
 SIZE_T = ctypes.c_size_t
 ULONG_PTR = ctypes.c_size_t
 
@@ -212,7 +220,7 @@ class _WinAPI(object):
         finally:
             self.close(handle)
 
-    def identity(self, handle, expected=None):
+    def _process_key(self, handle):
         pid = self.k.GetProcessId(handle)
         if not pid:
             raise _last_error("PROCESS_ID_FAILED")
@@ -221,6 +229,10 @@ class _WinAPI(object):
                                       ctypes.byref(kernel), ctypes.byref(user)):
             raise _last_error("PROCESS_TIMES_FAILED")
         creation = str((created.high << 32) | created.low)
+        return int(pid), creation
+
+    def identity(self, handle, expected=None):
+        pid, creation = self._process_key(handle)
         wait = self.k.WaitForSingleObject(handle, 0)
         if wait not in (WAIT_OBJECT_0, WAIT_TIMEOUT):
             raise _last_error("PROCESS_WAIT_FAILED")
@@ -229,13 +241,21 @@ class _WinAPI(object):
         image_source = "QUERIED"
         if not self.k.QueryFullProcessImageNameW(handle, 0, path, ctypes.byref(size)):
             error = _last_error("PROCESS_IMAGE_FAILED")
-            # Windows may no longer expose the image name after process exit.
-            # Only a previously queried path tied to this retained handle's
-            # identical PID and creation time can substitute after confirmed exit.
-            wait = self.k.WaitForSingleObject(handle, 0)
-            if (wait != WAIT_OBJECT_0 or expected is None or
-                    expected["pid"] != int(pid) or expected["created"] != creation):
+            # Image access can fail during shutdown before the retained process
+            # object is signaled. Only an already known matching identity gets
+            # one short wait on this same handle; no image retry or PID reopen.
+            if (expected is None or expected["pid"] != pid or
+                    expected["created"] != creation):
                 raise error
+            wait = self.k.WaitForSingleObject(
+                handle, RETAINED_IMAGE_EXIT_WAIT_MS if wait == WAIT_TIMEOUT else 0)
+            if wait != WAIT_OBJECT_0:
+                raise error
+            # A cached path is usable only after confirmed exit and fresh key
+            # validation. An unreadable live process never gains this fallback.
+            fresh_pid, fresh_creation = self._process_key(handle)
+            if fresh_pid != expected["pid"] or fresh_creation != expected["created"]:
+                raise BackendError("RETAINED_IDENTITY_CHANGED")
             executable = expected["exe"]
             image_source = "RETAINED_IDENTITY_AFTER_EXIT"
         else:
@@ -267,6 +287,8 @@ class _WinAPI(object):
             raise BackendError("JOB_QUERY_FAILED", code)
         if data.assigned > capacity or data.count > capacity:
             raise BackendError("JOB_PROCESS_LIMIT")
+        if data.count != data.assigned:
+            raise BackendError("JOB_INCOMPLETE_PID_LIST")
         result = [int(data.ids[index]) for index in range(data.count)]
         if len(set(result)) != len(result) or 0 in result:
             raise BackendError("JOB_INVALID_PID_LIST")
@@ -287,14 +309,24 @@ class OwnedProcess(object):
         self.argv = tuple(argv)
         self.pid = int(info.dwProcessId)
 
-    def _verify(self, handle, expected):
+    def _retained_identity(self, handle, expected):
         actual = self._api.identity(handle, expected)
         if (actual["pid"] != expected["pid"] or
                 actual["created"] != expected["created"] or
                 _canonical(actual["exe"]) != _canonical(expected["exe"])):
             raise BackendError("RETAINED_IDENTITY_CHANGED")
+        return actual
+
+    def _verify(self, handle, expected):
+        actual = self._retained_identity(handle, expected)
         if actual["alive"] and not self._api.member(handle, self._job):
-            raise BackendError("OWNED_PROCESS_LEFT_JOB")
+            # Exit may occur between the identity and membership calls. Re-read
+            # this same retained handle once; only an unchanged, signaled process
+            # can explain the valid false membership response. API errors are not
+            # retried, and a still-live process outside the job remains unknown.
+            actual = self._retained_identity(handle, expected)
+            if actual["alive"]:
+                raise BackendError("OWNED_PROCESS_LEFT_JOB")
         return actual
 
     def _error(self, error):
@@ -316,7 +348,12 @@ class OwnedProcess(object):
             root = self._verify(self._process, self._root)
             active = self._api.job_ids(self._job, self._max_descendants + 1)
             if root["alive"] and self.pid not in active:
-                raise BackendError("LIVE_ROOT_MISSING_FROM_JOB")
+                # The root can exit after its identity read but before this job
+                # query. Accept only the same retained identity now confirmed
+                # exited. Final empty-job and unknown-child checks still apply.
+                root = self._verify(self._process, self._root)
+                if root["alive"]:
+                    raise BackendError("LIVE_ROOT_MISSING_FROM_JOB")
             if len(set(active) - {self.pid} - set(self._children)) + len(self._children) > self._max_descendants:
                 raise BackendError("RETAINED_DESCENDANT_LIMIT")
             snapshot = self._api.snapshot()

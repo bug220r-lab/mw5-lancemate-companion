@@ -21,9 +21,9 @@ function state({ audioId = 'audio1', replyId = 'reply1', session = 'mission1', p
     last: null, integration: { game: 'NOT_BUILT' } };
 }
 
-async function fixture({ deferCommands = false } = {}) {
+async function fixture({ deferCommands = false, deferSettings = false } = {}) {
   const elements = new Map(), calls = [], actions = [], audioFetches = [], audios = [], urls = [], revoked = [], listeners = {};
-  const commandRequests = [];
+  const commandRequests = [], settingsRequests = [];
   const timers = new Map(); let nextTimer = 0;
   const stateQueue = []; let server = state(), clock = 10000, audioPlay = null;
   class Element {
@@ -43,6 +43,9 @@ async function fixture({ deferCommands = false } = {}) {
       const action = JSON.parse(options.body); actions.push(action);
       if (deferCommands && action.type === 'command') {
         const pending = deferred(); commandRequests.push({ action, ...pending }); return pending.promise;
+      }
+      if (deferSettings && action.type === 'settings') {
+        const pending = deferred(); settingsRequests.push({ action, ...pending }); return pending.promise;
       }
       return Promise.resolve(jsonResponse(server));
     }
@@ -70,7 +73,7 @@ async function fixture({ deferCommands = false } = {}) {
     server = structuredClone(data); job.request.resolve({ ok: true, blob: async () => ({ type: 'audio/wav', synthetic: true }) });
     await job.pending; await flush();
   };
-  return { get, calls, actions, commandRequests, audioFetches, audios, urls, revoked, listeners, timers, api, render, listen, begin, completeAudio,
+  return { get, calls, actions, commandRequests, settingsRequests, audioFetches, audios, urls, revoked, listeners, timers, api, render, listen, begin, completeAudio,
     setServer: value => { server = structuredClone(value); }, queueState: d => { stateQueue.push(d); },
     at: value => { clock = value; }, deferPlay: d => { audioPlay = d; }, jsonResponse };
 }
@@ -301,4 +304,34 @@ test('a poll carrying the prior parser result cannot impersonate a pending new c
   reset.resolve(r.jsonResponse(parsed('REGROUP', 'charlie'))); await flush();
   assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for charlie/);
   assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
+});
+
+for (const mode of ['fetch', 'playing']) {
+  test(`a callsign save stops ${mode} immediately before the settings response, even when that response fails`, async () => {
+    const r = await fixture({ deferSettings: true }), job = await r.begin();
+    if (mode === 'playing') await r.completeAudio(job);
+    const settings = state().settings; settings.pilots[1].callsign = 'Rook';
+    const saving = r.api({ type: 'settings', settings });
+    assert.equal(job.request.options.signal.aborted, true);
+    if (mode === 'playing') { assert.equal(r.audios[0].pauses, 1); assert.equal(r.revoked.length, 1); }
+    assert.equal(r.settingsRequests.length, 1);
+    r.settingsRequests[0].resolve({ ok: false, json: async () => ({ error: 'Synthetic save failure' }) });
+    await saving;
+    if (mode === 'fetch') { await r.completeAudio(job); assert.equal(r.audios.length, 0); }
+    assert.ok(r.actions.every(action => action.type === 'settings'), 'Identity cancellation never issues a game or broad interrupt action.');
+  });
+}
+
+test('unsetting a callsign stops playback while normalized same-name saves preserve it', async () => {
+  const r = await fixture({ deferSettings: true }), named = state(); named.settings.pilots[0].callsign = 'Rook';
+  r.setServer(named); r.render(named); const job = await r.begin();
+  const playing = structuredClone(named); playing.radio.playing = { lineId: 'audio1', speakerId: 'alpha' };
+  playing.localModels.audio.status = 'DELIVERED_FOR_USER_PLAYBACK'; await r.completeAudio(job, playing);
+  const same = structuredClone(playing.settings); same.pilots[0].callsign = '  Rook  ';
+  const noChange = r.api({ type: 'settings', settings: same }); assert.equal(r.audios[0].pauses, 0);
+  r.settingsRequests[0].resolve(r.jsonResponse(playing)); await noChange;
+  const unset = structuredClone(playing.settings); unset.pilots[0].callsign = '   ';
+  const clearing = r.api({ type: 'settings', settings: unset }); assert.equal(r.audios[0].pauses, 1);
+  r.settingsRequests[1].resolve(r.jsonResponse(playing)); await clearing;
+  assert.equal(r.audios[0].playCalls, 1); assert.equal(r.revoked.length, 1);
 });

@@ -58,8 +58,12 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   if (!['admit', 'startWatch', 'stopWatch', 'status'].every(k => typeof resources[k] === 'function'))
     throw new Error('INVALID_RESOURCE_POLICY');
   let previewDeadlineMs = 4000;
-  const newConversation = () => createConversationCoordinator({ generate: (context, options) => language.generate(context, options), now: realNow, timeoutMs: previewDeadlineMs });
+  const newConversation = () => createConversationCoordinator({
+    personas: profiles.profiles.map(profile => ({ ...profile,
+      callsign: settings.pilots.find(p => p.profile === profile.id).callsign })),
+    generate: (context, options) => language.generate(context, options), now: realNow, timeoutMs: previewDeadlineMs });
   let conversation = newConversation();
+  let settingsSaving = false, pendingCallsignActors = new Set();
   let modelError = null, modelStart = null, modelEpoch = 0, reply = null, audioJob = null, disposed = false;
   let modelStop = null, modelAbort = null, stopUnconfirmed = false;
   let missionSpeech = null;
@@ -174,7 +178,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   function audioCurrent() {
     speechInput.status();
     const actor = snapshot?.lancemates.find(a => a.id === reply?.speakerId);
-    return !disposed && !residentPending() && reply?.status === 'GENERATED' && reply.session === snapshot?.session && actor?.aiOwned === true &&
+    return !disposed && !residentPending() && !pendingCallsignActors.has(reply?.speakerId) && reply?.status === 'GENERATED' && reply.session === snapshot?.session && actor?.aiOwned === true &&
       actor.alive === true && actor.pawnId === reply.pawnId && actor.generation === reply.generation &&
       reply.expiresAtMs > realNow() && snapshot.phase === 'active' && !settings.speechMuted && !radio.getState().gates.ptt;
   }
@@ -195,6 +199,8 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   };
   function bindings() { return snapshot.lancemates.map((a, index) => ({ id: a.id, pawnId: a.pawnId,
     generation: a.generation, alive: a.alive, aiOwned: a.aiOwned, slot: index + 1 })); }
+  function conversationBindings() { return bindings().map(b => ({ ...b,
+    profileId: settings.pilots.find(p => p.id === b.id).profile })); }
   function ingest() {
     snapshot.sequence = ++sequence; snapshot.observedAtMs = clock; snapshot.nowMs = clock;
     snapshot.targets.forEach(t => { t.observedAtMs = clock; });
@@ -212,7 +218,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     snapshot.lancemates[0].distanceToLeaderM = 700;
     control = new ControlSession({ mode: 'MOCK_ONLY', now: () => clock });
     radio = createRadioDirector({ personas: radioProfiles, now: () => clock }); radio.startMission(snapshot.session, bindings());
-    conversation.startMission(snapshot.session, bindings().map((b, i) => ({ ...b, profileId: profiles.profiles[i].id })));
+    conversation.startMission(snapshot.session, conversationBindings());
     conversation.setGates({ paused: false, speechMuted: settings.speechMuted, quiet: settings.quiet });
     radio.setGates(radioGates(settings)); return ingest();
   }
@@ -239,7 +245,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       if (typeof input.allowSlow !== 'boolean') throw new Error('INVALID_PREVIEW_TIMING');
       cancelConversation('PREVIEW_TIMING_CHANGED'); conversation.dispose();
       previewDeadlineMs = input.allowSlow ? 10000 : 4000; conversation = newConversation();
-      if (snapshot) conversation.startMission(snapshot.session, bindings().map((b,i) => ({ ...b, profileId: profiles.profiles[i].id })));
+      if (snapshot) conversation.startMission(snapshot.session, conversationBindings());
       conversation.setGates({ paused: snapshot?.phase === 'paused', speechMuted: settings.speechMuted, quiet: settings.quiet });
       last = { status: input.allowSlow ? 'SLOW_OFFLINE_AUDITION' : 'STRICT_OFFLINE_PREVIEW',
         firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED', nativeCalls: 0 };
@@ -253,16 +259,28 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       cancelConversation('USER_INTERRUPTED'); last = { status: 'SPEECH_INTERRUPTED', nativeCalls: 0 };
     } else if (input.type === 'demo') last = newDemo();
     else if (input.type === 'settings') {
+      if (settingsSaving) throw new Error('SETTINGS_SAVE_PENDING');
       const next = validateSettings(input.settings);
-      if (next.micMuted) speechInput.invalidate('MICROPHONE_MUTED');
-      await mkdir(path.dirname(settingsPath), { recursive: true });
-      await writeFile(`${settingsPath}.tmp`, JSON.stringify(next, null, 2) + '\n', { mode: 0o600 });
-      await rename(`${settingsPath}.tmp`, settingsPath);
-      settings = next; settingsStatus = 'SAVED'; radio.setGates(radioGates(settings));
-      conversation.setGates({ speechMuted: settings.speechMuted, quiet: settings.quiet });
-      if (settings.speechMuted) cancelConversation('SPEECH_MUTED');
-      // Preferences never grant control. Changing modes requires explicit rearming of the mock.
-      control.disarm('SETTINGS_CHANGED'); last = { status: 'SETTINGS_SAVED', nativeCalls: 0 };
+      settingsSaving = true;
+      pendingCallsignActors = new Set(next.pilots.filter(p =>
+        p.callsign !== settings.pilots.find(old => old.id === p.id).callsign).map(p => p.id));
+      // Invalidate before any persistence await. Unsaved names never enter a
+      // prompt, and old speaker work cannot become eligible during the write.
+      if (pendingCallsignActors.has(reply?.speakerId)) {
+        conversation.cancel(reply.id); reply = null; stopAudio('CALLSIGN_CHANGED');
+      }
+      try {
+        if (next.micMuted) speechInput.invalidate('MICROPHONE_MUTED');
+        await mkdir(path.dirname(settingsPath), { recursive: true });
+        await writeFile(`${settingsPath}.tmp`, JSON.stringify(next, null, 2) + '\n', { mode: 0o600 });
+        await rename(`${settingsPath}.tmp`, settingsPath);
+        settings = next; settingsStatus = 'SAVED'; radio.setGates(radioGates(settings));
+        conversation.updateCallsigns(settings.pilots.map(p => ({ profileId: p.profile, callsign: p.callsign })));
+        conversation.setGates({ speechMuted: settings.speechMuted, quiet: settings.quiet });
+        if (settings.speechMuted) cancelConversation('SPEECH_MUTED');
+        // Preferences never grant control. Changing modes requires explicit rearming of the mock.
+        control.disarm('SETTINGS_CHANGED'); last = { status: 'SETTINGS_SAVED', nativeCalls: 0 };
+      } finally { settingsSaving = false; pendingCallsignActors = new Set(); }
     } else if (input.type === 'replay') {
       if (!Array.isArray(input.frames) || input.frames.length > 128) throw new Error('REPLAY_FRAME_LIMIT');
       last = replayFrames(input.frames, { allowSynthetic: input.allowSynthetic === true });
@@ -289,6 +307,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         if (radio.getState().gates.ptt) throw new Error('USER_SPEAKING');
         if (language.status().state !== 'READY') throw new Error('LOCAL_LANGUAGE_MODEL_NOT_READY');
         const b = bindings().find(b => b.id === input.actorId); if (!b) throw new Error('INVALID_RECIPIENT');
+        if (pendingCallsignActors.has(b.id)) throw new Error('CALLSIGN_UPDATE_PENDING');
         if (reply?.status === 'GENERATING') throw new Error('CONVERSATION_BUSY');
         stopAudio('NEW_REQUEST');
         const id = randomUUID(), request = { id, session: snapshot.session, speakerId: b.id, pawnId: b.pawnId,
@@ -327,7 +346,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         else if (input.event === 'possession') {
           speechInput.invalidate('POSSESSION');
           a.aiOwned = false; a.generation += 1;
-          conversation.updateBinding({ ...bindings().find(b => b.id === a.id), profileId: profiles.profiles[ids.indexOf(a.id)].id });
+          conversation.updateBinding(conversationBindings().find(b => b.id === a.id));
           if (reply?.speakerId === a.id) { reply = null; stopAudio('POSSESSION'); }
           radio.observe({ id: `possession_${sequence}`, session: snapshot.session, observedAtMs: clock,
             kind: 'binding', binding: bindings().find(b => b.id === a.id) });
