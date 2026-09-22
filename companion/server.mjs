@@ -62,7 +62,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     personas: profiles.profiles.map(profile => ({ ...profile,
       callsign: settings.pilots.find(p => p.profile === profile.id).callsign })),
     generate: (context, options) => language.generate(context, options), now: realNow, timeoutMs: previewDeadlineMs });
-  let conversation = newConversation();
+  const conversation = newConversation();
   let settingsSaving = false, pendingCallsignActors = new Set();
   let modelError = null, modelStart = null, modelEpoch = 0, reply = null, audioJob = null, disposed = false;
   let modelStop = null, modelAbort = null, stopUnconfirmed = false;
@@ -243,10 +243,9 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       last = { status: 'RECOGNITION_STOP_REQUESTED', dispatchable: false, nativeCalls: 0 };
     } else if (input.type === 'preview_timing') {
       if (typeof input.allowSlow !== 'boolean') throw new Error('INVALID_PREVIEW_TIMING');
-      cancelConversation('PREVIEW_TIMING_CHANGED'); conversation.dispose();
-      previewDeadlineMs = input.allowSlow ? 10000 : 4000; conversation = newConversation();
-      if (snapshot) conversation.startMission(snapshot.session, conversationBindings());
-      conversation.setGates({ paused: snapshot?.phase === 'paused', speechMuted: settings.speechMuted, quiet: settings.quiet });
+      const updated = conversation.setTimeoutMs(input.allowSlow ? 10000 : 4000);
+      if (updated.status !== 'UPDATED') throw new Error(updated.reason);
+      cancelConversation('PREVIEW_TIMING_CHANGED'); previewDeadlineMs = updated.timeoutMs;
       last = { status: input.allowSlow ? 'SLOW_OFFLINE_AUDITION' : 'STRICT_OFFLINE_PREVIEW',
         firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED', nativeCalls: 0 };
     } else if (input.type === 'models_start') {

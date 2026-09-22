@@ -217,6 +217,17 @@ export function createConversationCoordinator({ generate, personas = defaultPers
     }
     return { status: 'UPDATED', changedProfileIds: changes.map(p => p.profileId) };
   }
+  function setTimeoutMs(value) {
+    if (disposed) return rejected('DISPOSED');
+    if (!Number.isInteger(value) || value < 1 || value > CONVERSATION_LIMITS.maxTimeoutMs)
+      return rejected('INVALID_TIMEOUT');
+    // A deadline preference is not a mission/identity reset. Even an unchanged
+    // valid selection cancels pending previews, but their generator keeps its
+    // occupied slot until settlement. All history and authority floors survive.
+    timeoutMs = value;
+    cancelAll('PREVIEW_TIMING_CHANGED');
+    return { status: 'UPDATED', timeoutMs };
+  }
   function request(input) {
     const t = time(); if (disposed || t === null) return Promise.resolve(rejected(disposed ? 'DISPOSED' : 'CLOCK_INVALID'));
     let r; try { r = jsonCopy(input); } catch { return Promise.resolve(rejected('INVALID_REQUEST')); }
@@ -264,8 +275,8 @@ export function createConversationCoordinator({ generate, personas = defaultPers
       queue: queue.map(j => ({ id: j.request.id, speakerId: j.request.speakerId, priority: j.request.priority })),
       active: active ? { id: active.request.id, session: active.request.session, speakerId: active.request.speakerId,
         cancelled: active.settled } : null, rememberedRequestIds: ids.size, clockFault, disposed,
-      generatorSlots: 1, nativeCalls: 0, audioGenerated: false, classification: 'PROJECT_ONLY' });
+      timeoutMs, generatorSlots: 1, nativeCalls: 0, audioGenerated: false, classification: 'PROJECT_ONLY' });
   }
   function dispose() { disposed = true; cancelAll('DISPOSED'); histories = new Map(); return { status: 'DISPOSED' }; }
-  return { startMission, updateBinding, updateCallsigns, setGates, request, cancel, cancelAll, getState, dispose };
+  return { startMission, updateBinding, updateCallsigns, setTimeoutMs, setGates, request, cancel, cancelAll, getState, dispose };
 }

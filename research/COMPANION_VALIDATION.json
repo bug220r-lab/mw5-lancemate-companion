@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T23:31:46.639Z",
+  "recordedAt": "2026-09-22T23:42:11.559Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 834,
-  "passed": 834,
+  "tests": 852,
+  "passed": 852,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -36,6 +36,8 @@
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
     "companion/tests/policy-regression.test.mjs",
+    "companion/tests/preview-timing-review.test.mjs",
+    "companion/tests/preview-timing.test.mjs",
     "companion/tests/radio.test.mjs",
     "companion/tests/server-callsign.test.mjs",
     "companion/tests/server-conversation.test.mjs",
@@ -155,6 +157,14 @@
       "sha256": "1ae2b7c17926456b262c99063c98a162ba9966d8f38fbd20c1064d29d1ae5e5f"
     },
     {
+      "file": "companion/tests/preview-timing-review.test.mjs",
+      "sha256": "0134751a2f3f77dc39834154a52d3297762b5fd6c3e40be124750bdf5db33042"
+    },
+    {
+      "file": "companion/tests/preview-timing.test.mjs",
+      "sha256": "f8d1e8aebc6bb473de2f98a4bc33dfde75918b9a19b9c73e04b80dc27499f758"
+    },
+    {
       "file": "companion/tests/radio.test.mjs",
       "sha256": "8fba2f154dd29c41dee3c5c41ceb5ecd810b985c39ef22dbab481ed6d3d1277d"
     },
@@ -164,7 +174,7 @@
     },
     {
       "file": "companion/tests/server-conversation.test.mjs",
-      "sha256": "9ab7497670250c484e33efada2a2b3be62a055aec5bd8ff1a2a7bc7f9ec31ab7"
+      "sha256": "0250188f6d4a6f0b83332a5808307ba00d195128f41b3d60211b0a6713439041"
     },
     {
       "file": "companion/tests/server-mission-speech.test.mjs",
@@ -212,7 +222,7 @@
     },
     {
       "file": "companion/conversation.mjs",
-      "sha256": "19c1fd08a929d7f6c609e951a533f059475075592c8b04fbc2daa0e19d8494d0"
+      "sha256": "c661f2413a5323f59cd84617a566b83979580e1b24d16e9fa5ff8d8ff01e0c85"
     },
     {
       "file": "companion/kokoro.lock.json",
@@ -256,7 +266,7 @@
     },
     {
       "file": "companion/server.mjs",
-      "sha256": "8b2c927e9505d7c94512983a557b04566dd2b3fb31b5750bdb9445ac06dba65a"
+      "sha256": "768bfdadea0ed58fefab1ba48495b17ad9a9f151737520171cebeb5b751f4282"
     },
     {
       "file": "companion/speaker-observations.mjs",
@@ -350,8 +360,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790119906622.tap",
-    "sha256": "a4b1c30eb223cb5a47ae816b85a9cd07885ef60314805cb86be16f3cff3e722b",
+    "file": "tmp/companion-verification-1790120531540.tap",
+    "sha256": "403205dcd8e5adb10dfe1af7f054a00d15a8e1943da72a1bd54a482b7a0c32f2",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

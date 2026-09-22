@@ -276,14 +276,14 @@ test('preview timing rejects nonbooleans without changing mode or cancelling a v
   assert.equal(r.w.state().localModels.reply.status, 'GENERATED');
 });
 
-test('timing changes cancel old generation and synthesis and reset persona conversation history', async t => {
+test('timing changes cancel old generation and synthesis while preserving persona conversation history', async t => {
   const r = await fixture(t); await r.reply('alpha', 'Previous dialogue.');
   const old = await r.converse(); assert.equal(old.context.history.length, 1);
   const before = r.w.state().control; await r.w.act({ type: 'preview_timing', allowSlow: true });
   assert.equal(old.signal.aborted, true); assert.equal(r.w.state().localModels.reply, null);
   assert.deepEqual(r.w.state().control, before);
   old.resolve('Must never return.'); await flush(); assert.equal(r.w.state().localModels.reply, null);
-  const fresh = await r.converse(); assert.deepEqual(fresh.context.history, []);
+  const fresh = await r.converse(); assert.deepEqual(fresh.context.history, old.context.history);
   fresh.resolve('New dialogue.'); await flush(); await r.w.act({ type: 'synthesize_reply' });
   const synthesis = r.syntheses.at(-1);
   await r.w.act({ type: 'preview_timing', allowSlow: false }); assert.equal(synthesis.signal.aborted, true);
