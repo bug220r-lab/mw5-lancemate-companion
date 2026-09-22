@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-22T20:18:40.705Z",
+  "reviewedAt": "2026-09-22T20:19:52.204Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -25,7 +25,7 @@
   },
   "counts": {
     "includedFiles": 260,
-    "includedBytesExcludingThisReceipt": 4993404,
+    "includedBytesExcludingThisReceipt": 4993505,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -1940,7 +1940,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "474d44dba25abb3802ca7036555b0da06fc97ea6ff01a72d9f7e721a3f89c731",
+      "sha256": "00864110971585705d802e66ef1cd330564244b71e1feeff6c87c13e679dcbb5",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -1951,8 +1951,8 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 19066,
-      "sha256": "68f0c91f30a6689df0580f5cfb18a639ddd8a5cb599b5e10a454cccd9fd04924",
+      "bytes": 19167,
+      "sha256": "c54a8d9b16f47a5a50ed7af0ff74cd159cc4afca37878429c7db8cb2915e2fe9",
       "lines": 79,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
