@@ -12,7 +12,15 @@ The launcher locates the existing bundled Node executable without relying on Cod
 
 The workbench supports three independent mock recipients, human holds/releases, pause/resume, possession, damage, command-parser previews, radio scheduling, preference persistence and bounded JSON observation replay. Local conversation and voice previews now passed a three-pilot generation-and-WAV-delivery smoke using the explicitly slower audition mode. Complete WAV delivery took **5.87–6.84 seconds**, so the four-second spoken-response target has not passed. Microphone, actual listening and gameplay remain untested.
 
-**The microphone is not connected.** Typed commands are parser fixtures and never issue an order or release a real human hold. Authored preview text is fictional; generated replies remain unverified and currently receive no live mission facts. Generated speech is never used as command input.
+An explicit **hold-to-talk preview** is now implemented, with real microphone/browser testing still pending. It is separate from game control. Typed commands are parser fixtures and never issue an order or release a real human hold. Authored preview text is fictional; generated replies remain unverified and currently receive no live mission facts. Recognized speech is untrusted and is never automatically parsed or executed.
+
+## Try the microphone preview
+
+Start a synthetic mission, then click **Prepare recognition**. This checks the local pinned Whisper installation and resource reserve; it does not turn on the microphone. Hold **Hold to talk**, allow browser microphone access if requested, speak a short phrase, then release. Space/Enter also work while the talk button has focus. Recording stops before transcription begins. You may copy the result into the existing command field, review it and separately click **Parse**; this still cannot command the game.
+
+Capture is limited to 15 seconds. Its grant expires after 20 seconds including setup/permission time, recognition after ten seconds, and text after five seconds. Releasing before permission completes cancels the attempt; if permission is later granted its tracks are immediately stopped. Muting the microphone, pausing, taking possession, resetting the mission, hiding/leaving the page or cancelling stops the preview. A browser/worker that ignores cancellation remains owned until cleanup is confirmed.
+
+The latest earlier preflight failed because available RAM was below the 3 GiB admission threshold with the editor open. No real recording or new adapter inference ran for this feature. Prepare recognition reports resource failures; it does not close other applications. Browser microphone indicators, real capture cleanup and recognition quality need supervised validation. See [preview design and limits](../design/PUSH_TO_TALK_PREVIEW.md). Page launch never requests a microphone, loads models or starts playback automatically.
 
 ## Try the local voice preview
 
@@ -23,7 +31,7 @@ The workbench supports three independent mock recipients, human holds/releases, 
 5. Click **Generate voice preview**, then **Listen once** when the preview reports `READY`. Synthesis creates a local WAV; playback happens only after that separate listening click. There is no automatic playback.
 6. Use **Interrupt speech** to cancel current conversation/audio, **Stop engines** to stop the owned local workers, and Ctrl+C to close the workbench. Interrupting active synthesis stops its worker; use **Start local engines** to restart it before another voice preview.
 
-Replies and audio expire. Resetting the synthetic mission, taking possession, pausing or applying speech mute invalidates affected pending output. If a preview reports `FAILED`, `CANCELLED` or an expiry error, read its diagnostic rather than treating it as a completed audition. **Speech mute** and **microphone mute preference** are separate; the latter does not connect a microphone. **Quiet mode** suppresses unsolicited chatter, and **Disarm simulation** affects simulated control rather than requested speech.
+Replies and audio expire. Resetting the synthetic mission, taking possession, pausing or applying speech mute invalidates affected pending output. If a preview reports `FAILED`, `CANCELLED` or an expiry error, read its diagnostic rather than treating it as a completed audition. **Speech mute** and **microphone mute** are separate controls. **Quiet mode** suppresses unsolicited chatter, and **Disarm simulation** affects simulated control rather than requested speech.
 
 The current voice candidates are `af_bella` for the edgy companion, `am_adam` for the tactician and `af_heart` for the scout. A supported ID entered in a pilot's voice preference and saved overrides that pilot's default; blank or unsupported text falls back to the default. These are audition candidates, not accepted final voices or clones of Sarah. Browser layout, real speaker playback and user listening acceptance remain unverified; browser automation was blocked during initialization.
 
@@ -37,7 +45,8 @@ Settings only are saved in `companion/local/settings.json`; mission state is in 
 - `conversation.mjs`: one injected generator, three separately bounded persona histories, mission/binding/fact expiry, cooperative cancellation and unverified output. Unknown ownership/liveness revokes the affected speaker until a valid newer binding. An ignoring generator retains its sole slot until it settles.
 - `local-language-model.mjs`: explicit pinned CPU llama.cpp lifecycle, owned-process startup/shutdown, bounded local authenticated inference and text-only output. No automatic downloads or game commands.
 - `local-speech.mjs`: explicit CPU Kokoro worker lifecycle, three allowed voice candidates and bounded local WAV output. No microphone or speaker interface exists in the worker; the browser's explicit listening control handles playback.
-- `local-recognition.mjs`: [bounded cold file transcription](../design/LOCAL_RECOGNITION.md) through pinned CPU Whisper CLI, with no listener. It is not connected to this UI or a microphone. Submitted WAVs produce untrusted text only; resource guards currently block the actual adapter smoke.
+- `local-recognition.mjs`: [bounded cold file transcription](../design/LOCAL_RECOGNITION.md) through pinned CPU Whisper CLI, with no listener. Submitted WAVs produce untrusted text only; resource guards blocked the actual adapter smoke.
+- `speech-input.mjs`: explicit capture leases, lifecycle/identity checks, bounded transcription and opaque untrusted previews. Browser capture and authenticated uploads are connected through the workbench, with fake/VM/HTTP coverage but no real microphone acceptance.
 - `benchmark.mjs`: storage and release-evidence arithmetic. A supplied `GAME_OBSERVED` label is not independent verification of an actual recording.
 - `server.mjs` / `public/`: local review panel. Loopback only, random process-session bearer token, origin/host checks, bounded body/requests, restrictive browser policy and preference allowlist. This endpoint is not a native transport.
 

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T20:18:03.928Z",
+  "recordedAt": "2026-09-22T20:41:57.935Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 422,
-  "passed": 422,
+  "tests": 570,
+  "passed": 570,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -12,6 +12,7 @@
   "testFiles": [
     "companion/tests/benchmark.test.mjs",
     "companion/tests/browser-playback.test.mjs",
+    "companion/tests/browser-ptt.test.mjs",
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
     "companion/tests/conversation-review.test.mjs",
@@ -23,6 +24,8 @@
     "companion/tests/local-recognition.test.mjs",
     "companion/tests/local-speech-review.test.mjs",
     "companion/tests/local-speech.test.mjs",
+    "companion/tests/microphone-review.test.mjs",
+    "companion/tests/microphone.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
@@ -30,7 +33,10 @@
     "companion/tests/radio.test.mjs",
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
-    "companion/tests/server.test.mjs"
+    "companion/tests/server.test.mjs",
+    "companion/tests/speech-input-review.test.mjs",
+    "companion/tests/speech-input-server.test.mjs",
+    "companion/tests/speech-input.test.mjs"
   ],
   "hashes": [
     {
@@ -40,6 +46,10 @@
     {
       "file": "companion/tests/browser-playback.test.mjs",
       "sha256": "e38147d413224384f3a688c69d9e215a188684698d4435ca3b2ab724750f1248"
+    },
+    {
+      "file": "companion/tests/browser-ptt.test.mjs",
+      "sha256": "75b2ff159a2839abb605bd40552e9cd32e699777001aa6f9f773d046b2e0e4f9"
     },
     {
       "file": "companion/tests/control-review.test.mjs",
@@ -86,6 +96,14 @@
       "sha256": "07d56f35dfd4ec00f941bf150e4c3bd78d544a902cb4a93f73b60af25c6e360a"
     },
     {
+      "file": "companion/tests/microphone-review.test.mjs",
+      "sha256": "a334a9938fcff3672532a0bc325f5a0ed7f5b50fc752abfb9d74be31d186ba38"
+    },
+    {
+      "file": "companion/tests/microphone.test.mjs",
+      "sha256": "50309e3ee5cda10c279bb8fd5420dbac55bd86dbcaf65dd0d5bc974f8c6ff5cb"
+    },
+    {
       "file": "companion/tests/mission-speech-review.test.mjs",
       "sha256": "b326d1f47943e308f042e5a7a8f502877077369e01e91de9a814ac1a8f55ff80"
     },
@@ -116,6 +134,18 @@
     {
       "file": "companion/tests/server.test.mjs",
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102"
+    },
+    {
+      "file": "companion/tests/speech-input-review.test.mjs",
+      "sha256": "91796fa02b2f5f2462b2dbee88e0d734d7880ba08c8442390a12c255f22b16ab"
+    },
+    {
+      "file": "companion/tests/speech-input-server.test.mjs",
+      "sha256": "b7c7708df43c01df5a4e565096f659a89f48b921a76f184253637ca84f30d3d0"
+    },
+    {
+      "file": "companion/tests/speech-input.test.mjs",
+      "sha256": "9a20e8c47a8b91ed817880da91d73efafb3d9a7e95d4cd1a4d2c065f9a941e95"
     },
     {
       "file": "companion/benchmark.mjs",
@@ -171,7 +201,11 @@
     },
     {
       "file": "companion/server.mjs",
-      "sha256": "fcdb8c1e65732e0bd7b4526d8068c7d626ad10894fa9884f4b6695a9afe84ae6"
+      "sha256": "9611040a4d01d88d4ea0123e8d225a20720a83295bb940bc42284a0f90eecc90"
+    },
+    {
+      "file": "companion/speech-input.mjs",
+      "sha256": "355b7479f3adcd714f4431a3fbcedc4692ee17b341bc244f19d77ebcdbb8e21a"
     },
     {
       "file": "companion/whisper-runtime-pins.json",
@@ -179,15 +213,23 @@
     },
     {
       "file": "companion/public/app.js",
-      "sha256": "e0bb95cd0c1280badff2ff6c9841a3e3fabc9069cc437848ba4b97e09e10c61b"
+      "sha256": "eaa87862122196d03fabf57585199457fce745de8c6fb4b3274d7c3a316b395c"
     },
     {
       "file": "companion/public/index.html",
-      "sha256": "6490aeb06caa5b92ff4e23a3634ee4de26f0bfabd4ef785abc4816ead7a418e1"
+      "sha256": "cf3ceebb2b0e3c2b6ed7f30e5145232a13b7c9ba107d3a99cf5b6a4ec01fa480"
+    },
+    {
+      "file": "companion/public/microphone-worklet.js",
+      "sha256": "4114b11a26961504f65819393836721987c657e6900b3ef521594e17bbca1c3b"
+    },
+    {
+      "file": "companion/public/microphone.js",
+      "sha256": "5e15f36ab76869fc24227f193d7fb14498213f5df7f2a8745f4769f45f585f72"
     },
     {
       "file": "companion/public/styles.css",
-      "sha256": "600a5d717a095d07e13dd40fd111f3032ecff93af4cf687a7dd92035dc5fe1a0"
+      "sha256": "51cf6d1db05e9d458e294e52ba3021a3bcef396c2e18a7853fc008f18be468db"
     },
     {
       "file": "START_COMPANION.cmd",

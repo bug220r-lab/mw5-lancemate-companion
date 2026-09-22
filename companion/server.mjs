@@ -1,4 +1,4 @@
-// Local offline workbench. This process has no game/editor/native/audio adapter.
+// Local offline workbench. Explicit local speech previews never grant game control.
 import http from 'node:http';
 import { randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { readFile, writeFile, mkdir, rename } from 'node:fs/promises';
@@ -12,10 +12,13 @@ import { createConversationCoordinator } from './conversation.mjs';
 import { createLocalLanguageModel } from './local-language-model.mjs';
 import { createLocalSpeech, LOCAL_SPEECH_VOICES } from './local-speech.mjs';
 import { prepareMissionSpeech, revalidateMissionSpeech } from './mission-speech.mjs';
+import { createLocalRecognition } from './local-recognition.mjs';
+import { createSpeechInput } from './speech-input.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const profiles = JSON.parse(await readFile(path.join(directory, 'personas.json'), 'utf8'));
 const MAX_BODY = 256 * 1024;
+const MAX_WAV = 44 + 15000 * 32;
 const clone = x => structuredClone(x);
 const ids = ['alpha', 'bravo', 'charlie'];
 const radioProfiles = profiles.profiles.map((profile, index) => ({ ...profile, id: ids[index] }));
@@ -39,7 +42,8 @@ export function validateSettings(input) {
 }
 
 export async function createWorkbench({ settingsPath = path.join(directory, 'local', 'settings.json'),
-  languageModel = null, speechEngine = null, realNow = () => Date.now(), readAudioFile = readFile } = {}) {
+  languageModel = null, speechEngine = null, recognitionEngine = null,
+  realNow = () => Date.now(), readAudioFile = readFile } = {}) {
   let settings = defaults(), settingsStatus = 'DEFAULTS';
   try { settings = validateSettings(JSON.parse(await readFile(settingsPath, 'utf8'))); settingsStatus = 'LOADED'; }
   catch (error) { if (error.code !== 'ENOENT') settingsStatus = 'INVALID_SETTINGS_IGNORED'; }
@@ -83,21 +87,32 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     audioJob = null; radio.interrupt(reason);
   };
   function cancelConversation(reason) { conversation.cancelAll(reason); reply = null; stopAudio(reason); }
+  const speechInput = createSpeechInput({ recognizer: recognitionEngine ?? createLocalRecognition({ requestTimeoutMs: 10000 }),
+    getContext: () => disposed || !snapshot ? null : { session: snapshot.session, phase: snapshot.phase,
+      micMuted: settings.micMuted, bindings: bindings() }, now: realNow,
+    onInterrupt: reason => { missionSpeech = null; cancelConversation(reason); },
+    onPttChange: ptt => radio.setGates({ ptt }) });
   function audioCurrent() {
+    speechInput.status();
     const actor = snapshot?.lancemates.find(a => a.id === reply?.speakerId);
     return reply?.status === 'GENERATED' && reply.session === snapshot?.session && actor?.aiOwned === true &&
       actor.alive === true && actor.pawnId === reply.pawnId && actor.generation === reply.generation &&
-      reply.expiresAtMs > realNow() && snapshot.phase === 'active' && !settings.speechMuted;
+      reply.expiresAtMs > realNow() && snapshot.phase === 'active' && !settings.speechMuted && !radio.getState().gates.ptt;
   }
-  const state = () => ({ classification: snapshot ? 'MOCK_ONLY' : 'DISCONNECTED',
+  const state = () => {
+    // Validate the capture lease before taking the radio snapshot: validation can release PTT.
+    const inputState = speechInput.status();
+    return ({ classification: snapshot ? 'MOCK_ONLY' : 'DISCONNECTED',
     clockMs: clock, settings: clone(settings), settingsStatus, profiles: clone(profiles),
     control: control.getState(), radio: radio.getState(), last: clone(last), missionSpeech: statusPreview(),
     localModels: { language: language.status(), speech: speech.getState(), error: modelError,
       starting: !!modelStart, previewDeadlineMs, firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED',
       reply: clone(reply), audio: audioJob ? { id: audioJob.id, status: audioJob.status,
         voiceId: audioJob.voiceId, error: audioJob.error, classification: 'LOCAL_AUDIO_PREVIEW_NOT_GAMEPLAY' } : null },
-    integration: { game: 'NOT_BUILT', microphone: 'NOT_CONNECTED', synthesis: speech.getState().state,
+    speechInput: inputState,
+    integration: { game: 'NOT_BUILT', microphone: 'EXPLICIT_BROWSER_PREVIEW_ONLY', synthesis: speech.getState().state,
       conversation: language.status().state, directPiloting: 'NOT_BUILT', observedGameplayTests: 'NOT_PERFORMED' } });
+  };
   function bindings() { return snapshot.lancemates.map((a, index) => ({ id: a.id, pawnId: a.pawnId,
     generation: a.generation, alive: a.alive, aiOwned: a.aiOwned, slot: index + 1 })); }
   function ingest() {
@@ -107,6 +122,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       provenance: 'MOCK_ONLY', session: snapshot.session, sequence, observedAtMs: clock, snapshot: clone(snapshot) });
   }
   function newDemo() {
+    speechInput.invalidate('MISSION_CHANGED');
     missionSpeech = null;
     cancelConversation('MISSION_CHANGED');
     clock = 1000; sequence = 0; snapshot = baseline(); snapshot.session = `demo_${++epoch}`;
@@ -123,8 +139,23 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   async function act(input) {
     if (disposed) throw new Error('WORKBENCH_CLOSED');
     if (!input || typeof input.type !== 'string') throw new Error('INVALID_ACTION');
+    speechInput.status();
     if (['step','queue','arm','disarm','interrupt'].includes(input.type)) missionSpeech = null;
-    if (input.type === 'preview_timing') {
+    if (input.type === 'recognition_prepare') {
+      // Preflight is asynchronous; it must never prevent a cancellation action.
+      void speechInput.prepare().catch(() => {});
+      last = { status: 'RECOGNITION_PREFLIGHT_REQUESTED', dispatchable: false, nativeCalls: 0 };
+    } else if (input.type === 'ptt_begin') {
+      speechInput.begin();
+      last = { status: 'MICROPHONE_CAPTURE_GRANTED', dispatchable: false, nativeCalls: 0 };
+    } else if (input.type === 'ptt_cancel') {
+      if (typeof input.captureId !== 'string') throw new Error('CAPTURE_ID_REQUIRED');
+      speechInput.cancel(input.captureId, 'USER_CANCELLED');
+      last = { status: 'CAPTURE_CANCEL_REQUESTED', dispatchable: false, nativeCalls: 0 };
+    } else if (input.type === 'recognition_stop') {
+      speechInput.invalidate('USER_STOP');
+      last = { status: 'RECOGNITION_STOP_REQUESTED', dispatchable: false, nativeCalls: 0 };
+    } else if (input.type === 'preview_timing') {
       if (typeof input.allowSlow !== 'boolean') throw new Error('INVALID_PREVIEW_TIMING');
       cancelConversation('PREVIEW_TIMING_CHANGED'); conversation.dispose();
       previewDeadlineMs = input.allowSlow ? 10000 : 4000; conversation = newConversation();
@@ -148,6 +179,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       last = { status: 'STARTING_LOCAL_MODELS', gameConnected: false };
     } else if (input.type === 'models_stop') {
       ++modelEpoch;
+      speechInput.invalidate('MODELS_STOPPED');
       cancelConversation('MODELS_STOPPED');
       const stopped = await Promise.allSettled([Promise.resolve().then(() => language.stop()),
         Promise.resolve().then(() => speech.stop('USER_STOP'))]);
@@ -155,10 +187,12 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       modelError = failed.length ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
       last = { status: failed.length ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : 'LOCAL_MODELS_STOPPED', nativeCalls: 0 };
     } else if (input.type === 'interrupt') {
+      speechInput.invalidate('USER_INTERRUPTED');
       cancelConversation('USER_INTERRUPTED'); last = { status: 'SPEECH_INTERRUPTED', nativeCalls: 0 };
     } else if (input.type === 'demo') last = newDemo();
     else if (input.type === 'settings') {
       const next = validateSettings(input.settings);
+      if (next.micMuted) speechInput.invalidate('MICROPHONE_MUTED');
       await mkdir(path.dirname(settingsPath), { recursive: true });
       await writeFile(`${settingsPath}.tmp`, JSON.stringify(next, null, 2) + '\n', { mode: 0o600 });
       await rename(`${settingsPath}.tmp`, settingsPath);
@@ -189,6 +223,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         last = { status: 'AUTHORED_STATUS_PREVIEW', classification: line.classification, nativeCalls: 0,
           audioGenerated: false, conversationAcceptance: 'NOT_ESTABLISHED' };
       } else if (input.type === 'converse') {
+        if (radio.getState().gates.ptt) throw new Error('USER_SPEAKING');
         if (language.status().state !== 'READY') throw new Error('LOCAL_LANGUAGE_MODEL_NOT_READY');
         const b = bindings().find(b => b.id === input.actorId); if (!b) throw new Error('INVALID_RECIPIENT');
         if (reply?.status === 'GENERATING') throw new Error('CONVERSATION_BUSY');
@@ -226,12 +261,13 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
           orderId: `human_${a.id}_${sequence}`, status: 'active', persistent: true };
         else if (input.event === 'release') { a.manual = { ...a.manual, revision: a.manual.revision + 1, status: 'released' }; }
         else if (input.event === 'possession') {
+          speechInput.invalidate('POSSESSION');
           a.aiOwned = false; a.generation += 1;
           conversation.updateBinding({ ...bindings().find(b => b.id === a.id), profileId: profiles.profiles[ids.indexOf(a.id)].id });
           if (reply?.speakerId === a.id) { reply = null; stopAudio('POSSESSION'); }
           radio.observe({ id: `possession_${sequence}`, session: snapshot.session, observedAtMs: clock,
             kind: 'binding', binding: bindings().find(b => b.id === a.id) });
-        } else if (input.event === 'pause') { snapshot.phase = 'paused'; radio.setGates({ paused: true });
+        } else if (input.event === 'pause') { speechInput.invalidate('PAUSED'); snapshot.phase = 'paused'; radio.setGates({ paused: true });
           conversation.setGates({ paused: true }); cancelConversation('PAUSED'); }
         else if (input.event === 'resume') { snapshot.phase = 'active'; radio.setGates({ paused: false }); conversation.setGates({ paused: false }); }
         else if (input.event === 'damage') a.healthFraction = 0.2;
@@ -277,24 +313,34 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       throw error;
     }
   }
+  async function submitRecognition(id, bytes, options) {
+    if (disposed) throw new Error('WORKBENCH_CLOSED');
+    await speechInput.submit(id, bytes, options);
+    return state();
+  }
+  function cancelRecognition(id, reason) { speechInput.cancel(id, reason); }
   async function dispose() { disposed = true; ++modelEpoch; cancelConversation('WORKBENCH_CLOSED'); conversation.dispose();
     const stopped = await Promise.allSettled([Promise.resolve().then(() => language.stop()),
-      Promise.resolve().then(() => speech.stop('WORKBENCH_CLOSED'))]);
-    modelError = stopped.some(result => result.status === 'rejected') ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
+      Promise.resolve().then(() => speech.stop('WORKBENCH_CLOSED')), speechInput.dispose()]);
+    const recognitionStopped = speechInput.status().shutdownComplete === true;
+    modelError = stopped.some(result => result.status === 'rejected') || !recognitionStopped ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
     return { status: modelError || 'LOCAL_MODELS_STOPPED' }; }
-  return { state, act, readAudio, dispose };
+  return { state, act, readAudio, submitRecognition, cancelRecognition, dispose };
 }
 
-export async function startServer({ port = 0, settingsPath } = {}) {
-  const workbench = await createWorkbench({ settingsPath });
+export async function startServer({ port = 0, settingsPath, recognitionEngine = null, realNow = () => Date.now() } = {}) {
+  const workbench = await createWorkbench({ settingsPath, recognitionEngine, realNow });
   const token = randomBytes(32).toString('hex'); let origin = null;
   const files = new Map([['/', ['index.html', 'text/html']], ['/app.js', ['app.js', 'text/javascript']],
+    ['/microphone.js', ['microphone.js', 'text/javascript']], ['/microphone-worklet.js', ['microphone-worklet.js', 'text/javascript']],
     ['/styles.css', ['styles.css', 'text/css']]]);
   const headers = { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff',
+    'Permissions-Policy': 'camera=(), microphone=(self)',
     'Referrer-Policy': 'no-referrer', 'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'" };
-  let busy = false;
+  let busy = false, uploading = null;
   const server = http.createServer(async (req, res) => {
     function send(status, body, contentType = 'application/json') {
+      if (res.destroyed || res.writableEnded) return;
       res.writeHead(status, { ...headers, 'Content-Type': `${contentType}; charset=utf-8` });
       res.end(contentType === 'application/json' ? JSON.stringify(body) : body);
     }
@@ -306,12 +352,41 @@ export async function startServer({ port = 0, settingsPath } = {}) {
         const [file, mime] = files.get(url.pathname); return send(200, await readFile(path.join(directory, 'public', file), 'utf8'), mime);
       }
       const supplied = req.headers.authorization?.replace(/^Bearer /, '') || '';
-      if (supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token)))
+      if (Buffer.byteLength(supplied) !== Buffer.byteLength(token) || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token)))
         return send(401, { error: 'SESSION_TOKEN_REQUIRED' });
       if (req.method === 'GET' && url.pathname === '/api/state') return send(200, workbench.state());
       if (req.method === 'GET' && /^\/api\/audio\/[a-f0-9-]{36}$/.test(url.pathname)) {
         const bytes = await workbench.readAudio(url.pathname.split('/').at(-1));
         res.writeHead(200, { ...headers, 'Content-Type': 'audio/wav' }); return res.end(bytes);
+      }
+      if (req.method === 'POST' && /^\/api\/recognition\/[a-f0-9-]{36}$/.test(url.pathname)) {
+        if (req.headers['content-type'] !== 'audio/wav') return send(415, { error: 'WAV_REQUIRED' });
+        const id = url.pathname.split('/').at(-1), current = workbench.state().speechInput.current;
+        if (!current || current.id !== id || current.status !== 'CAPTURING') return send(409, { error: 'CAPTURE_NOT_CURRENT' });
+        if (uploading) return send(409, { error: 'RECOGNITION_UPLOAD_BUSY' });
+        if (req.headers['content-length'] && (!/^\d+$/.test(req.headers['content-length']) || Number(req.headers['content-length']) > MAX_WAV)) {
+          workbench.cancelRecognition(id, 'UPLOAD_LIMIT'); return send(413, { error: 'WAV_LIMIT' });
+        }
+        const owner = {}; uploading = owner;
+        const abort = new AbortController();
+        const cancelled = () => { abort.abort(); workbench.cancelRecognition(id, 'UPLOAD_DISCONNECTED'); };
+        const responseClosed = () => { if (!res.writableEnded) cancelled(); };
+        req.once('aborted', cancelled); res.once('close', responseClosed);
+        try {
+          const chunks = []; let size = 0;
+          for await (const chunk of req) {
+            size += chunk.length;
+            if (size > MAX_WAV) { workbench.cancelRecognition(id, 'UPLOAD_LIMIT'); return send(413, { error: 'WAV_LIMIT' }); }
+            chunks.push(chunk);
+          }
+          if (abort.signal.aborted) throw new Error('UPLOAD_DISCONNECTED');
+          return send(200, await workbench.submitRecognition(id, Buffer.concat(chunks), { signal: abort.signal }));
+        } catch (error) {
+          workbench.cancelRecognition(id, 'UPLOAD_FAILED'); throw error;
+        } finally {
+          req.off('aborted', cancelled); res.off('close', responseClosed);
+          if (uploading === owner) uploading = null;
+        }
       }
       if (req.method !== 'POST' || url.pathname !== '/api/action') return send(404, { error: 'NOT_FOUND' });
       if (req.headers['content-type'] !== 'application/json') return send(415, { error: 'JSON_REQUIRED' });
