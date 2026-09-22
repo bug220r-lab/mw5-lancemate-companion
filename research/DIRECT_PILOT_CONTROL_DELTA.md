@@ -1,0 +1,27 @@
+# Direct-pilot source checkpoint — 2026-09-22
+
+**The source now gives us better questions for a control experiment, not a working direct pilot.** This bounded review reuses the preserved collection; no game/editor execution, reflection import, new collection, adapter, deployment or input write occurred. M6 remains **UNKNOWN/BLOCKED** pending ownership/restoration evidence.
+
+Three independently inspected details affect the eventual implementation:
+
+| Finding | Practical consequence | Detailed evidence |
+|---|---|---|
+| The connected dropship helper writes the entire movement-input structure. Throttle comes from its argument; the other five fields receive explicit zero/false defaults. | Do not reuse it as a throttle-only operation. Steering, strafe and jump requests need deliberate treatment, with field ranges and physical response still unverified. | [Movement delta](DIRECT_PILOT_MOVEMENT_DELTA.md) |
+| The AI weapon component exposes a firing-suppression Boolean, separately from weapon trigger functions. Its description does not say what happens to ongoing fire or other writers. | Suppression, trigger release, native firing decisions and aiming ownership must be tested separately. The declared report payload includes failure values; its native emission conditions remain unobserved. | [Firing delta](DIRECT_PILOT_FIRE_DELTA.md) |
+| Pawn utility stop explicitly cannot be undone by its resume function. Worker stop and brain restart are different receiver contracts. | There is no justified generic stop/takeover/resume sequence. Restoring a brain flag or a previous input value is not proof that the right native job and human order resume. | [Restoration delta](DIRECT_PILOT_RESTORATION_DELTA.md) |
+
+Source hashes were recomputed. Registered Blueprint graph membership, execution links, data receivers and split-pin defaults were checked rather than inferred from node names. The reports distinguish captured declarations from implementation, and collected Blueprint occurrences from all possible native writers. They preserve the historical broad reports and add only these narrower details.
+
+## Work that can advance next
+
+1. **M0 execution access:** the observer task still owns the prepared three-query `Inspect-ObserverReferences.py` lookup. The successful earlier controller export does not need repeating. The last desktop retry could enumerate the editor but could neither capture its window nor expose usable controls. Its existing [access receipt](OBSERVER_REFERENCE_EXECUTION_ACCESS.json) remains the blocker; no input was sent. Permission to run the lookup already exists.
+2. **M1 passive evidence:** once initialization/packaging and identity are proven, observe actual control input, job changes and native firing during ordinary follow/turn, dropship and possession transitions. Do not add takeover writes to that observer. Reads that cannot be established remain unknown.
+3. **M6 later ownership experiment:** use those observations to build the writer inventory and restoration protocol. Only then prepare the concrete one-AI artifact manifest, disposable scenario, unaffected sentinel, baseline, measured stop conditions and rollback. The suppression/restoration outline in the firing report is a future experiment description, not a deployable artifact or enabled capability.
+
+The local speech work also needs an external condition to change: a subsequent read-only recognition preflight this turn sampled **1,346,375,680 bytes (1.25 GiB) available RAM**, below its 3 GiB admission gate. Disk was **27,264,294,912 bytes (25.39 GiB)**, above the 10 GiB reserve. It started no native child and confirmed disposal; it did not verify a working recognition run. These are historical samples, not promised future capacity. Do not lower the gate or terminate unrelated applications to manufacture a pass.
+
+The latest offline regression receipt remains **570/570 PASS, MOCK_ONLY**, with game/native-adapter/device acceptance still unperformed. This source-only increment changes reports, not runtime behavior; all **56** recorded source/config/test hashes were compared with that receipt and matched. Tests were not rerun. Neither these reports nor another mock can resolve the unavailable native implementation and observation contracts.
+
+## Independent static review
+
+A reviewer separate from the report authors checked the movement graph's registered nodes, reciprocal execution/data links and split inputs; the suppression/trigger declarations and flag/index distinction; the pawn, worker and brain contracts; the connected dropship and mech-swap receivers; and the player-controller weapon-report binding and forwarding paths. No substantive correctness findings remained. Two minor improvements were incorporated: explicit old/new pawn getter citations, and narrower wording that separates a failure-capable payload type from observed native emission. The reviewer did not repeat the 244-file exact-name search; the primary reviewer separately verified its count and movement match. Referenced source hashes matched. All 19 local Markdown links across the four reports resolved. These are static evidence checks, not native tests or release acceptance.

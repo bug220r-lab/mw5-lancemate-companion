@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-22T20:42:13.874Z",
+  "reviewedAt": "2026-09-22T20:57:25.609Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 272,
-    "includedBytesExcludingThisReceipt": 5145894,
+    "includedFiles": 276,
+    "includedBytesExcludingThisReceipt": 5180085,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -234,6 +234,10 @@
     "research/CONSOLIDATED_RESEARCH_COLLECTION.md",
     "research/CONTROL_SUPPORT_INDEPENDENT_REVIEW.md",
     "research/CONVERSATION_LATENCY_DIAGNOSTIC.json",
+    "research/DIRECT_PILOT_CONTROL_DELTA.md",
+    "research/DIRECT_PILOT_FIRE_DELTA.md",
+    "research/DIRECT_PILOT_MOVEMENT_DELTA.md",
+    "research/DIRECT_PILOT_RESTORATION_DELTA.md",
     "research/EDITOR_COMPLETION.json",
     "research/EDITOR_CONTRACT_GAP_MATRIX.md",
     "research/EDITOR_INSTALLATION.md",
@@ -1799,6 +1803,52 @@
       ]
     },
     {
+      "path": "research/DIRECT_PILOT_CONTROL_DELTA.md",
+      "bytes": 5192,
+      "sha256": "457e7c51923869dbcbf0132b3ca909b53a408afccbe98817a488590c79e29008",
+      "lines": 28,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/DIRECT_PILOT_FIRE_DELTA.md",
+      "bytes": 11708,
+      "sha256": "f4b3e133caa433405e8f756aa1de40be37edb0dc74cc729b45f06d6ad434b0a9",
+      "lines": 49,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/DIRECT_PILOT_MOVEMENT_DELTA.md",
+      "bytes": 7876,
+      "sha256": "f57e02d40c96f7f8b8c8a4a7a0b1294ee694103ba3bd7a89b3b2a9cf5c62bbc9",
+      "lines": 61,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/DIRECT_PILOT_RESTORATION_DELTA.md",
+      "bytes": 8196,
+      "sha256": "3bde6f0ddcee0e44444733a4c7fa65456d9d767d2387743af90ebea4036f8e28",
+      "lines": 47,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
       "path": "research/EDITOR_COMPLETION.json",
       "bytes": 2343,
       "sha256": "dd7c39891c152c02560fe057913f99e6e7d6a65c1dcdd00b2403531e75ebb6f3",
@@ -2052,7 +2102,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "0fad03a42a21d3c7a2cf7403d2daf4f8ca58f668a88ac428c5218c23fa9a4bce",
+      "sha256": "78bcf014b45af6d28414348fc1c4479831864d8e5940f98b6129742ba3cc6d4c",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -2063,9 +2113,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 22090,
-      "sha256": "76e6364bf9a7c46f214fadc1730a95af9d27fa7bdb4c2d139ff368a69353359c",
-      "lines": 91,
+      "bytes": 23309,
+      "sha256": "676e1eda79019724963b1a644fb508b4b95e0e574c104059f9f428df75bc3201",
+      "lines": 97,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
