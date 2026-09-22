@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-22T23:10:07.910Z",
+  "reviewedAt": "2026-09-22T23:32:48.074Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 341,
-    "includedBytesExcludingThisReceipt": 6848259,
+    "includedFiles": 351,
+    "includedBytesExcludingThisReceipt": 7024454,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -148,6 +148,7 @@
     "companion/public/styles.css",
     "companion/radio.mjs",
     "companion/server.mjs",
+    "companion/speaker-observations.mjs",
     "companion/speech-input.mjs",
     "companion/tests/benchmark-review.test.mjs",
     "companion/tests/benchmark.test.mjs",
@@ -159,6 +160,7 @@
     "companion/tests/conversation-cache-diagnostic.test.mjs",
     "companion/tests/conversation-identity-diagnostic.test.mjs",
     "companion/tests/conversation-identity.test.mjs",
+    "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
     "companion/tests/grounding-diagnostic.test.mjs",
@@ -179,6 +181,8 @@
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
     "companion/tests/server.test.mjs",
+    "companion/tests/speaker-observation-review.test.mjs",
+    "companion/tests/speaker-observations.test.mjs",
     "companion/tests/speech-input-review.test.mjs",
     "companion/tests/speech-input-server.test.mjs",
     "companion/tests/speech-input.test.mjs",
@@ -217,6 +221,7 @@
     "design/PROOF_OF_CONCEPT.md",
     "design/PUSH_TO_TALK_PREVIEW.md",
     "design/QWEN_REQUANTIZATION_PROPOSAL.md",
+    "design/SPEAKER_RELATIVE_OBSERVATIONS.md",
     "design/TACTICAL_CONTROL_READINESS.md",
     "design/TACTICAL_EVALUATION_PROTOCOL.md",
     "design/TACTICAL_PLAYBOOK.json",
@@ -256,6 +261,7 @@
     "research/CONVERSATION_IDENTITY_EVALUATION.md",
     "research/CONVERSATION_IDENTITY_HARNESS_REVIEW.md",
     "research/CONVERSATION_LATENCY_DIAGNOSTIC.json",
+    "research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md",
     "research/DIRECT_PILOT_AIM_DELTA.md",
     "research/DIRECT_PILOT_CONTROL_DELTA.md",
     "research/DIRECT_PILOT_FIRE_DELTA.md",
@@ -303,6 +309,7 @@
     "research/OBSERVER_NORMAL_EDITOR_PREPARATION_VALIDATION.json",
     "research/OBSERVER_NORMAL_EDITOR_SAFETY_REVIEW.md",
     "research/OBSERVER_NORMAL_EDITOR_SOURCE_REVIEW.md",
+    "research/OBSERVER_OFFLINE_REFERENCE_ASSESSMENT.md",
     "research/OBSERVER_REFERENCE_API_REVIEW.md",
     "research/OBSERVER_REFERENCE_COMMANDLET_REVIEW.md",
     "research/OBSERVER_REFERENCE_EXECUTION_ACCESS.json",
@@ -360,6 +367,7 @@
     "research/RELEASE_EVIDENCE_V2_REVIEW.md",
     "research/SOURCES.md",
     "research/SOURCE_BACKUP_REVIEW.json",
+    "research/SPEAKER_OBSERVATION_REVIEW.md",
     "research/SPEECH_INPUT_REVIEW.md",
     "research/TACTICAL_INDEPENDENT_REVIEW.md",
     "research/TACTICAL_INDEPENDENT_REVIEW_BEFORE_FIX.md",
@@ -396,6 +404,7 @@
     "scripts/Exercise-ConversationCache.mjs",
     "scripts/Exercise-ConversationGrounding.mjs",
     "scripts/Exercise-ConversationIdentity.mjs",
+    "scripts/Exercise-ConversationRelativeFacts.mjs",
     "scripts/Exercise-Kokoro.py",
     "scripts/Exercise-LocalConversation.mjs",
     "scripts/Exercise-LocalRecognition.mjs",
@@ -446,6 +455,7 @@
     "synthetic/command-cases.json",
     "synthetic/conversation-grounding-cases.json",
     "synthetic/conversation-identity-cases.json",
+    "synthetic/conversation-relative-facts-cases.json",
     "synthetic/memory-branch-cases.json",
     "synthetic/mission-rehearsal.json",
     "synthetic/personality-audition.json",
@@ -640,9 +650,9 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 23435,
-      "sha256": "08fcbc6c9f8e498f913cdd9c5a8fde0eb7180c7bb3db8063534044222377d744",
-      "lines": 328,
+      "bytes": 24840,
+      "sha256": "3e53dd4901270cb250af3fdfa363b924da65108ace452b57cc8fb9b05d92fd4d",
+      "lines": 340,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -791,6 +801,16 @@
       "notes": []
     },
     {
+      "path": "companion/speaker-observations.mjs",
+      "bytes": 6692,
+      "sha256": "4b402ff008389075df0cbe53d371de1b4dc9000a774e249682948c3be7725d6d",
+      "lines": 114,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/speech-input.mjs",
       "bytes": 16293,
       "sha256": "355b7479f3adcd714f4431a3fbcedc4692ee17b341bc244f19d77ebcdbb8e21a",
@@ -901,6 +921,16 @@
       "notes": []
     },
     {
+      "path": "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
+      "bytes": 20009,
+      "sha256": "d5c276b808a3f0b7161a76ae86785081dea4e7b09754a154f262fa6428761246",
+      "lines": 269,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/conversation-review.test.mjs",
       "bytes": 3300,
       "sha256": "0ef441e300e34afddedec71e7b6342c4f3ce3e124eea67f7301c486024b98659",
@@ -942,9 +972,9 @@
     },
     {
       "path": "companion/tests/local-language-model.test.mjs",
-      "bytes": 32977,
-      "sha256": "e17749a148ab3aa3c642573b3df78de78a3295ff4c265686fe261d114e9000c1",
-      "lines": 480,
+      "bytes": 34206,
+      "sha256": "0d6d7254c5d60f32af2481aa4905da2783f332fc0c2ff79a84058d842522cb44",
+      "lines": 495,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1095,6 +1125,26 @@
       "bytes": 15180,
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102",
       "lines": 223,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/speaker-observation-review.test.mjs",
+      "bytes": 25201,
+      "sha256": "da36969bb9e39d202b6dd62884b61e10df17b60d9fcfe1cdf481e3a7e763a8b0",
+      "lines": 354,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/speaker-observations.test.mjs",
+      "bytes": 12285,
+      "sha256": "3d216474eb61d67c5219ff15df166534e6bebfcbdbbe78d0ce03fc217d8857d6",
+      "lines": 151,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1491,6 +1541,16 @@
       "bytes": 5280,
       "sha256": "4f8bbf822db697c5b45dbd7bb9a0af8f5812b7b049c28a394fd43fd4b981d1c5",
       "lines": 42,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/SPEAKER_RELATIVE_OBSERVATIONS.md",
+      "bytes": 6673,
+      "sha256": "2420c0e5ac9456c7d492759419b0c6de0024730b206a38da41c48bd8eace2d61",
+      "lines": 34,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1969,9 +2029,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 12875,
-      "sha256": "069d31d84a0b89beb96acffaebf801dc2f4a6506dd11c703a877f0bcec793ef1",
-      "lines": 333,
+      "bytes": 14029,
+      "sha256": "d7c27de7c02062d6c6dc2686f28c6748b3997fde7d473ffb876ac52d67b9a5f8",
+      "lines": 360,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2043,6 +2103,16 @@
       "notes": [
         "Contains the local Windows username/path; personal project backup is intended to remain private."
       ]
+    },
+    {
+      "path": "research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md",
+      "bytes": 12219,
+      "sha256": "63aa636a9518fcba5b2b86a5bae63b3ee961f04ec577cc86cdcf9838956fda27",
+      "lines": 72,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
     },
     {
       "path": "research/coverage/combat.json",
@@ -2414,7 +2484,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "f33472a6676277c159e85a90c67c04ceec51333e355a9060d0fcace5dd53fc89",
+      "sha256": "b97a63b6962c973a596d53246bdc3dd725f5b9c6aa5b1f0debd9285e4d2f5c5a",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -2425,9 +2495,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 46481,
-      "sha256": "2c59f82a91b00bea2733de80d74516c1fe45b553f59aa5323958f5ebe1584dea",
-      "lines": 181,
+      "bytes": 50858,
+      "sha256": "0fc05bbe5946623c9d114b4c52aa12456bb1a16de7faaab181e90ff709d6144b",
+      "lines": 197,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2626,6 +2696,18 @@
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": [
         "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_OFFLINE_REFERENCE_ASSESSMENT.md",
+      "bytes": 6251,
+      "sha256": "8f976c6370eb0bf5763f3d9aea83c553651319b55cf564afb982235dab6cb241",
+      "lines": 42,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
         "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
       ]
     },
@@ -3267,6 +3349,16 @@
       ]
     },
     {
+      "path": "research/SPEAKER_OBSERVATION_REVIEW.md",
+      "bytes": 9146,
+      "sha256": "0df19895a03b72b6396bfaa6518dd7a038ec2a6bdac23724f6f87b5228c6059a",
+      "lines": 52,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/SPEECH_INPUT_REVIEW.md",
       "bytes": 8016,
       "sha256": "7d984048708c5fa418fa56d3e5de93a149eb944e2682f54574ee94af9bd32e51",
@@ -3520,6 +3612,16 @@
       "bytes": 16331,
       "sha256": "de22abd67fd5bafe3055de6a9a341ee7472c5e3a9b71b730d5679941ae08e0d8",
       "lines": 226,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "scripts/Exercise-ConversationRelativeFacts.mjs",
+      "bytes": 20090,
+      "sha256": "5d33c7fb4102207cf21b4539dff13391fed7c38ca7513fde3b5bcb09c48a5bf5",
+      "lines": 267,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4008,9 +4110,9 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 3647,
-      "sha256": "acab5a75567b88a51794403de88364e886b5677b05831af8e5c6833ad5a4437e",
-      "lines": 45,
+      "bytes": 3750,
+      "sha256": "38f7f86dd2d4e0929e6c7801c03dddc53cf13ab113cf5c1eae36f131ba4dce5b",
+      "lines": 46,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4061,6 +4163,16 @@
       "bytes": 13954,
       "sha256": "4ffda0d912a22828bd34a3fbc91b616a60d9b1b510b89576b70bf2f1c01385b1",
       "lines": 213,
+      "category": "PROJECT_SYNTHETIC_FIXTURE",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "synthetic/conversation-relative-facts-cases.json",
+      "bytes": 49361,
+      "sha256": "ec7106cd5a0518489cd46dcea24ef8f0ab6facfbff5c31f4f8b5716a889f9108",
+      "lines": 1059,
       "category": "PROJECT_SYNTHETIC_FIXTURE",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

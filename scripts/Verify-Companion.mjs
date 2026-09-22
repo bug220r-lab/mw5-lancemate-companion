@@ -27,7 +27,8 @@ const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter
   'START_COMPANION.cmd','scripts/Kokoro-Worker.py','scripts/tactical-policy.mjs','synthetic/tactical-cases.mjs','synthetic/release-benchmark.json',
   'scripts/Exercise-ConversationGrounding.mjs','synthetic/conversation-grounding-cases.json',
   'scripts/Exercise-LocalRecognition.mjs','scripts/Exercise-ConversationCache.mjs',
-  'scripts/Exercise-ConversationIdentity.mjs','synthetic/conversation-identity-cases.json'];
+  'scripts/Exercise-ConversationIdentity.mjs','synthetic/conversation-identity-cases.json',
+  'scripts/Exercise-ConversationRelativeFacts.mjs','synthetic/conversation-relative-facts-cases.json'];
 const hashes = [];
 for (const file of files) hashes.push({ file, sha256: createHash('sha256').update(await readFile(path.join(root, file))).digest('hex') });
 const receipt = { schemaVersion: 1, recordedAt: new Date().toISOString(), classification: 'MOCK_ONLY',

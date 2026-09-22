@@ -72,6 +72,21 @@ test('construction has no side effects and configuration cannot select arbitrary
   assert.throws(() => createLocalLanguageModel({ threads: 99 }), /UNSUPPORTED_MODEL_CONFIGURATION/);
 });
 
+test('explicit experimental fact projection reaches the mocked inference payload without enabling tools or changing budgets', async t => {
+  const r = rig(t, () => {}, { experimentalSpeakerRelativeFacts: true }); await r.model.start();
+  const c = { ...ctx(), classification: 'MOCK_ONLY', speakerId: 'alpha', facts: [{ id: 'heat',
+    evidenceStatus: 'CALLER_ASSERTED_OBSERVATION', data: { pilots: [{ actorId: 'alpha', heat: 'low' }] } }] };
+  await r.model.generate(c);
+  const payload = JSON.parse(r.fetches.at(-1).options.body), data = JSON.parse(payload.messages[1].content.replace(/ \/no_think$/, ''));
+  assert.equal(data.callerAssertedCurrentObservations.own[0].reports[0].value, 'low');
+  assert.equal(Object.hasOwn(data.speaker, 'profileId'), false);
+  assert.equal(payload.max_tokens, 64); assert.equal(payload.cache_prompt, false); assert.equal(Object.hasOwn(payload, 'tools'), false);
+  assert.equal(r.model.status().settings.experimentalSpeakerRelativeFacts, true);
+  const count = r.fetches.length;
+  await assert.rejects(r.model.generate({ ...c, classification: 'GAME_OBSERVED' }), /EXPERIMENTAL_MOCK_CONTEXT_REQUIRED/);
+  assert.equal(r.fetches.length, count); assert.equal(r.model.status().nativeCalls, 0);
+});
+
 test('start verifies pinned model/archive and every inventoried runtime file before one hidden CPU process', async t => {
   const r = rig(t); const [a, b] = await Promise.all([r.model.start(), r.model.start()]);
   assert.equal(a.state, 'READY'); assert.equal(b.state, 'READY'); assert.equal(r.calls.length, 1);

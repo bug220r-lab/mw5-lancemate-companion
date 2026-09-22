@@ -1,0 +1,33 @@
+# Experimental speaker-relative observations
+
+2026-09-22 — **EXPERIMENTAL / MOCK_ONLY**. This deterministic data projection has no game interface, model, I/O, authored reply or command authority. It is an opt-in hypothesis to reduce the model's actor-to-fact join burden. Factual generation quality and latency remain unverified for this change; prior failed native diagnostics remain valid evidence.
+
+## Contract and interpretation
+
+`projectSpeakerObservations({schemaVersion:1, classification:'MOCK_ONLY', speakerId, facts})` in `companion/speaker-observations.mjs` accepts up to eight caller-asserted fact objects. The speaker ID is an explicit binding or null/absent. The API rejects request/history/personality fields: none may choose the speaker. It returns frozen, detached `{schemaVersion, classification:'EXPERIMENTAL_MOCK_ONLY', prompt, audit}`.
+
+Supported rows are `fact.data = {actorId, heat?, selectedWeaponAmmo?}` and `fact.data.pilots[]` with the same row fields. `heat` accepts only the literal labels `low`, `high`, `normal`, `critical`; `selectedWeaponAmmo` only `empty`, `available`. No numeric heat, thresholds, units, weapon type, ammunition count, all-weapons state, consequence or action is derived. `heatState` and other aliases remain opaque raw data. At most 16 nested rows per fact are accepted.
+
+Only exact matching of a valid explicit actor ID to `speakerId` determines `own`. Distinct actor/profile strings cannot override that join. `other` means another listed actor; it does not establish team, visibility, life, possession, freshness or control authority. With no speaker binding, all rows are `unattributed`; a known speaker missing from the supplied rows has no own reading. Missing or invalid row actor IDs remain null and each source row remains separate, never merged into an invented unnamed pilot. No callsign is supplied by this module.
+
+The compact `prompt` has `binding`, `own`, `other`, `unattributed`, `missingOwnMetrics` and `unprojectedFacts`. Each metric includes `status` and all `reports` with a literal value and compact source references. Agreeing duplicates retain every reference. Distinct supported values become `CONFLICT`; order and timestamps select no winner. Any unsupported value for a recognized actor/metric makes that metric `UNSUPPORTED_EVIDENCE`, retaining valid alternatives and unsupported references without presenting a resolved answer. Coexisting root and nested rows are both projected, so a conflicting direct reading cannot be hidden by a list. This mixed-shape edge was found and corrected during independent source review.
+
+`missingOwnMetrics` means no supported-field row for that metric was attributed to the speaker. A present contradictory/unsupported metric is instead explicitly unresolved through its status. A whole original fact data object is retained in `unprojectedFacts` if any field/row is unsupported; this deliberately preserves partial mixed data even when it duplicates a supported reading. It never silently discards quoted instructions, unknown fields or contrary raw evidence.
+
+The verbose `audit` retains the exact copied source facts and speaker ID. Every metric reference resolves to source fact ID, fact index and exact JSON pointer such as `/data/pilots/1/heat`. Supplied observation/expiry timestamps are copied only when present. They are assertions, not independently established freshness; the module never refreshes them. Duplicate fact IDs reject the entire input. Plain-data copying rejects accessors without calling them, exotic prototypes, cycles, sparse arrays, excessive nesting, overlarge values and more than 4,000 nodes before producing output.
+
+## Explicit adapter path
+
+`messagesFor(context, {experimentalSpeakerRelativeFacts:true})` and the same code-only `createLocalLanguageModel` option enable the experiment. Both require an explicit boolean; the default is **false**. The experimental serializer additionally requires `context.classification === 'MOCK_ONLY'`. The diagnostic adds only that label to the actual captured context; it may not alter its binding, facts, profile or history.
+
+The experimental prompt includes compact projected observations, not the verbose audit. Profile choice still comes from the coordinator's selected persona/style; its internal profile key is omitted from the experimental speaker JSON. The explicit actor ID and optional callsign remain separate. Trust, generated/unverified/possibly-undelivered history, uncertainty and no-command/action-claim boundaries remain. The model must still generate free text; projection is not an authored answer, entailment checker or game verification. A harness must retain the original context, classification-only diagnostic context, full projection/audit and exact messages for review.
+
+The default eight frozen identity-case message arrays remain byte-equivalent, with SHA-256 `561f32c62726484598b46c4ff952c9f46ea3c3ba241512a758dd2a8ffef9f65d`. Workbench defaults are untouched. The 6,000-character prompt guard, 2,048-token context, 64-token/256-character output bounds, sampling settings, cancellation and deadlines are unchanged.
+
+## Preparation evidence and limitations
+
+The implementation-focused projection/adapter/identity suites pass **62/62 MOCK_ONLY** tests, including an actual fake inference-payload capture, explicit opt-in enforcement, true coordinator binding, duplicate/conflicting/unsupported sources, missing identity, immutability, bounded input and the existing default limits. Independent adversarial review belongs to `research/SPEAKER_OBSERVATION_REVIEW.md`; its tests are separately owned.
+
+Preparation of all 18 independently fixed cases used ten actual coordinator captures with inert generators and eight explicitly unbound contexts. The resulting experimental messages span **985–1,396 characters**, an increase of **238–431 characters** over each corresponding default input. The first low-own/high-other heat case is 1,203 characters; its own low reading references `s1`, and its other listed actor's high reading references `s0`. These are character counts, not tokens, speed measurements or native outputs. The larger prompt may increase latency; that remains a measurement question. No inference was run during implementation or this preparation.
+
+The frozen evaluation includes 14 known regressions and only four fresh holdouts; it must not be described as 18 unseen cases. A single diagnostic cannot establish reliability, live mission radio readiness, gameplay quality or completion of full conversation. Unsupported broader factual failures may remain. Existing fixtures, raw receipts and their historical source hashes are preserved.
