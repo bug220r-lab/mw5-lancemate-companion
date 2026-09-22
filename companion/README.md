@@ -24,6 +24,8 @@ The latest earlier preflight failed because available RAM was below the 3 GiB ad
 
 ## Try the local voice preview
 
+The workbench requires **5 GiB available memory and 10 GiB free disk space before each engine starts**. While engines run, memory falling below 2 GiB triggers cancellation and a request to stop its owned workers. A failed or unfinished check also blocks startup. The panel shows the reason; after freeing resources, retry explicitly. It does not close other applications or restart engines automatically. These conservative [resource checks](../design/WORKBENCH_RESOURCE_POLICY.md) do not prove sufficient capacity alongside MW5.
+
 1. Launch the workbench using the command above. Click **Start local engines** and wait for language and voice to report `READY`. This explicitly starts the installed, pinned CPU components; opening the page alone does not load them. The launcher does not download missing dependencies.
 2. Click **Start synthetic mission**. Simulation arming is unnecessary for conversation or speech.
 3. For a voice audition on this machine, explicitly check **Allow slower offline auditions**. This permits a ten-second text deadline; the default remains four seconds, and the performance acceptance target stays four seconds. Changing this setting cancels pending output and resets conversation history while preserving mission identity, pause, mute and human holds.
@@ -45,6 +47,7 @@ Settings only are saved in `companion/local/settings.json`; mission state is in 
 - `conversation.mjs`: one injected generator, three separately bounded persona histories, mission/binding/fact expiry, cooperative cancellation and unverified output. Unknown ownership/liveness revokes the affected speaker until a valid newer binding. An ignoring generator retains its sole slot until it settles.
 - `local-language-model.mjs`: explicit pinned CPU llama.cpp lifecycle, owned-process startup/shutdown, bounded local authenticated inference and text-only output. No automatic downloads or game commands.
 - `local-speech.mjs`: explicit CPU Kokoro worker lifecycle, three allowed voice candidates and bounded local WAV output. No microphone or speaker interface exists in the worker; the browser's explicit listening control handles playback.
+- `workbench-resources.mjs`: resident-engine admission and reactive memory monitoring. Pending cancellation retains ownership of unfinished checks; ordinary healthy sampling is not a cleanup failure. The workbench stops its own engine pipeline on a breach and preserves human tactical holds.
 - `local-recognition.mjs`: [bounded cold file transcription](../design/LOCAL_RECOGNITION.md) through pinned CPU Whisper CLI, with no listener. Submitted WAVs produce untrusted text only; resource guards blocked the actual adapter smoke.
 - `speech-input.mjs`: explicit capture leases, lifecycle/identity checks, bounded transcription and opaque untrusted previews. Browser capture and authenticated uploads are connected through the workbench, with fake/VM/HTTP coverage but no real microphone acceptance.
 - `benchmark.mjs`: storage and release-evidence arithmetic. A supplied `GAME_OBSERVED` label is not independent verification of an actual recording.

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T20:41:57.935Z",
+  "recordedAt": "2026-09-22T21:15:16.726Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 570,
-  "passed": 570,
+  "tests": 629,
+  "passed": 629,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -36,7 +36,9 @@
     "companion/tests/server.test.mjs",
     "companion/tests/speech-input-review.test.mjs",
     "companion/tests/speech-input-server.test.mjs",
-    "companion/tests/speech-input.test.mjs"
+    "companion/tests/speech-input.test.mjs",
+    "companion/tests/workbench-resources-review.test.mjs",
+    "companion/tests/workbench-resources.test.mjs"
   ],
   "hashes": [
     {
@@ -45,7 +47,7 @@
     },
     {
       "file": "companion/tests/browser-playback.test.mjs",
-      "sha256": "e38147d413224384f3a688c69d9e215a188684698d4435ca3b2ab724750f1248"
+      "sha256": "92470677cc69c4dd25a36e26587f62d9947870e769a6b9a740b67e4139a733ed"
     },
     {
       "file": "companion/tests/browser-ptt.test.mjs",
@@ -125,7 +127,7 @@
     },
     {
       "file": "companion/tests/server-conversation.test.mjs",
-      "sha256": "17cadf499137f99ebe8e308127a97dc49f73b0f6b5dc8e79cef835ca37af3046"
+      "sha256": "9ab7497670250c484e33efada2a2b3be62a055aec5bd8ff1a2a7bc7f9ec31ab7"
     },
     {
       "file": "companion/tests/server-mission-speech.test.mjs",
@@ -146,6 +148,14 @@
     {
       "file": "companion/tests/speech-input.test.mjs",
       "sha256": "9a20e8c47a8b91ed817880da91d73efafb3d9a7e95d4cd1a4d2c065f9a941e95"
+    },
+    {
+      "file": "companion/tests/workbench-resources-review.test.mjs",
+      "sha256": "56a72b12c8976fbcafea9838550af2eb6e7f118b7c8171dd513ed3de233a9bb0"
+    },
+    {
+      "file": "companion/tests/workbench-resources.test.mjs",
+      "sha256": "60c9c5f57130a411f1755eb7716ea70009f8f43fad2eed126f2bcf35021adbec"
     },
     {
       "file": "companion/benchmark.mjs",
@@ -201,7 +211,7 @@
     },
     {
       "file": "companion/server.mjs",
-      "sha256": "9611040a4d01d88d4ea0123e8d225a20720a83295bb940bc42284a0f90eecc90"
+      "sha256": "f6c4230e8de0db06dc40e7b466e6fa287550092d70eff46c092ccbcb1d760a0f"
     },
     {
       "file": "companion/speech-input.mjs",
@@ -212,8 +222,12 @@
       "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
     },
     {
+      "file": "companion/workbench-resources.mjs",
+      "sha256": "f912ddbb9a34c1ca6f7ffcfd122d4a6d3084f81b0155962ffe015cc7b8ea7289"
+    },
+    {
       "file": "companion/public/app.js",
-      "sha256": "eaa87862122196d03fabf57585199457fce745de8c6fb4b3274d7c3a316b395c"
+      "sha256": "a9326de709dc8f428e320b5812e1742a122f57f5e14ed686f7f0e80bfbf29049"
     },
     {
       "file": "companion/public/index.html",

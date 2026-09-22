@@ -23,6 +23,7 @@ function state({ audioId = 'audio1', replyId = 'reply1', session = 'mission1', p
 
 async function fixture() {
   const elements = new Map(), calls = [], actions = [], audioFetches = [], audios = [], urls = [], revoked = [], listeners = {};
+  const timers = new Map(); let nextTimer = 0;
   const stateQueue = []; let server = state(), clock = 10000, audioPlay = null;
   class Element {
     constructor(tag = 'div') { this.tagName = tag; this.children = []; this.value = ''; this.textContent = ''; this.checked = false; this.disabled = false; this.listeners = {}; }
@@ -51,7 +52,8 @@ async function fixture() {
     window: { addEventListener: (name, handler) => { listeners[name] = handler; } },
     location: { hash: '#synthetic-process-session' }, structuredClone, AbortController, fetch, Audio, Date: ClockDate,
     URL: { createObjectURL(blob) { const url = `blob:synthetic-${urls.length + 1}`; urls.push({ url, blob }); return url; }, revokeObjectURL(url) { revoked.push(url); } },
-    setTimeout: () => 1, clearTimeout: () => {} });
+    setTimeout: (callback, ms) => { const id = ++nextTimer; timers.set(id, { callback, ms }); return id; },
+    clearTimeout: id => timers.delete(id) });
   vm.runInContext(source, context, { filename: 'companion/public/app.js' }); await flush();
   const api = action => { context.reviewAction = action; return vm.runInContext('api(reviewAction)', context); };
   const render = data => { context.reviewState = data; return vm.runInContext('render(reviewState)', context); };
@@ -61,7 +63,7 @@ async function fixture() {
     server = structuredClone(data); job.request.resolve({ ok: true, blob: async () => ({ type: 'audio/wav', synthetic: true }) });
     await job.pending; await flush();
   };
-  return { get, calls, actions, audioFetches, audios, urls, revoked, listeners, api, render, listen, begin, completeAudio,
+  return { get, calls, actions, audioFetches, audios, urls, revoked, listeners, timers, api, render, listen, begin, completeAudio,
     setServer: value => { server = structuredClone(value); }, queueState: d => { stateQueue.push(d); },
     at: value => { clock = value; }, deferPlay: d => { audioPlay = d; }, jsonResponse };
 }
@@ -70,6 +72,50 @@ test('loading and rendering a generated reply never automatically requests or pl
   const r = await fixture(); r.render(state()); await flush();
   assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0); assert.equal(r.actions.length, 0);
   assert.match(r.get('reply').textContent, /facts unverified/);
+});
+
+test('a running resource watchdog keeps status refreshed without starting or playing anything', async () => {
+  const r = await fixture(), next = state(); next.localModels.resources = { monitoring: true, cleanupPending: false };
+  r.setServer(next); r.render(next);
+  const refresh = [...r.timers.values()].find(timer => timer.ms === 750);
+  assert.ok(refresh, 'Server-side watchdog changes must become visible even when the engines are idle.');
+  refresh.callback(); await flush();
+  assert.equal(r.calls.at(-1).url, '/api/state');
+  assert.equal(r.actions.length, 0); assert.equal(r.audios.length, 0);
+});
+
+for (const reason of ['starting', 'stopping', 'cleanupPending', 'resourceCleanup']) {
+  test(`resident ${reason} blocks new work and cancels current playback`, async () => {
+    const r = await fixture(), job = await r.begin(); await r.completeAudio(job);
+    const next = state({ playing: true });
+    if (reason === 'resourceCleanup') next.localModels.resources = { cleanupPending: true };
+    else next.localModels[reason] = true;
+    r.render(next);
+    for (const id of ['modelsStart', 'askPilot', 'synthesize', 'listen']) assert.equal(r.get(id).disabled, true);
+    assert.equal(r.audios[0].pauses, 1); assert.equal(r.revoked.length, 1);
+    const requests = r.audioFetches.length; await r.listen();
+    assert.equal(r.audioFetches.length, requests);
+  });
+}
+
+test('pending engine cleanup in the final state check prevents late audio playback', async () => {
+  const r = await fixture(), job = await r.begin(), next = state({ playing: true });
+  next.localModels.cleanupPending = true;
+  await r.completeAudio(job, next);
+  assert.equal(r.audios.length, 0); assert.equal(r.urls.length, 0);
+});
+
+test('a refused memory admission explains the requirement and permits a later explicit retry', async () => {
+  const r = await fixture(), next = state();
+  next.localModels.language.state = 'STOPPED'; next.localModels.speech.state = 'STOPPED';
+  next.localModels.reply = null; next.localModels.audio = null;
+  next.localModels.error = 'RESOURCE_ADMISSION_RAM';
+  next.localModels.resources = { monitoring: false, cleanupPending: false };
+  r.render(next);
+  assert.match(r.get('modelStatus').textContent, /5 GiB/);
+  assert.equal(r.get('modelsStart').disabled, false);
+  assert.equal(r.get('askPilot').disabled, true);
+  assert.equal(r.actions.length, 0);
 });
 
 test('an explicit listen fetches fresh state before one playback and releases on natural end', async () => {

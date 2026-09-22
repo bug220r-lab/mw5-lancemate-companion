@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T21:10:55.769Z",
+  "classification": "LOCAL_RESOURCE_PREFLIGHT_ONLY",
+  "nativeEnginesStarted": 0,
+  "microphoneOrAudio": "NOT_PERFORMED",
+  "gameOrEditor": "NOT_PERFORMED",
+  "status": "ADMISSION_BLOCKED",
+  "reason": "RESOURCE_ADMISSION_RAM",
+  "finalState": {
+    "policy": {
+      "admissionRamBytes": 5368709120,
+      "workingDiskBytes": 10737418240,
+      "runningRamBytes": 2147483648,
+      "sampleTimeoutMs": 2000,
+      "watchIntervalMs": 250,
+      "peakCapacityVerified": false
+    },
+    "classification": "LOCAL_RESOURCE_POLICY",
+    "monitoring": false,
+    "sampling": false,
+    "admissionPending": false,
+    "cleanupPending": false,
+    "lastError": "RESOURCE_ADMISSION_RAM",
+    "lastSample": {
+      "availableRamBytes": 1689968640,
+      "availableDiskBytes": 27201286144,
+      "sampledAtMs": 72.7043
+    },
+    "continuousReserveGuaranteed": false
+  },
+  "helperSha256": "f912ddbb9a34c1ca6f7ffcfd122d4a6d3084f81b0155962ffe015cc7b8ea7289"
+}

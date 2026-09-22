@@ -14,6 +14,7 @@ import { createLocalSpeech, LOCAL_SPEECH_VOICES } from './local-speech.mjs';
 import { prepareMissionSpeech, revalidateMissionSpeech } from './mission-speech.mjs';
 import { createLocalRecognition } from './local-recognition.mjs';
 import { createSpeechInput } from './speech-input.mjs';
+import { createWorkbenchResources } from './workbench-resources.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const profiles = JSON.parse(await readFile(path.join(directory, 'personas.json'), 'utf8'));
@@ -43,7 +44,9 @@ export function validateSettings(input) {
 
 export async function createWorkbench({ settingsPath = path.join(directory, 'local', 'settings.json'),
   languageModel = null, speechEngine = null, recognitionEngine = null,
-  realNow = () => Date.now(), readAudioFile = readFile } = {}) {
+  realNow = () => Date.now(), readAudioFile = readFile, resourcePolicy = null, residentStopTimeoutMs = 6000 } = {}) {
+  if (!Number.isInteger(residentStopTimeoutMs) || residentStopTimeoutMs < 1 || residentStopTimeoutMs > 10000)
+    throw new Error('INVALID_RESIDENT_STOP_TIMEOUT');
   let settings = defaults(), settingsStatus = 'DEFAULTS';
   try { settings = validateSettings(JSON.parse(await readFile(settingsPath, 'utf8'))); settingsStatus = 'LOADED'; }
   catch (error) { if (error.code !== 'ENOENT') settingsStatus = 'INVALID_SETTINGS_IGNORED'; }
@@ -51,10 +54,14 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   let control = new ControlSession(), radio = createRadioDirector({ personas: radioProfiles, now: () => clock });
   const language = languageModel ?? createLocalLanguageModel();
   const speech = speechEngine ?? createLocalSpeech();
+  const resources = resourcePolicy ?? createWorkbenchResources();
+  if (!['admit', 'startWatch', 'stopWatch', 'status'].every(k => typeof resources[k] === 'function'))
+    throw new Error('INVALID_RESOURCE_POLICY');
   let previewDeadlineMs = 4000;
   const newConversation = () => createConversationCoordinator({ generate: (context, options) => language.generate(context, options), now: realNow, timeoutMs: previewDeadlineMs });
   let conversation = newConversation();
   let modelError = null, modelStart = null, modelEpoch = 0, reply = null, audioJob = null, disposed = false;
+  let modelStop = null, modelAbort = null, stopUnconfirmed = false;
   let missionSpeech = null;
   function statusContext() {
     const entries = control.getState().ledger;
@@ -92,10 +99,82 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       micMuted: settings.micMuted, bindings: bindings() }, now: realNow,
     onInterrupt: reason => { missionSpeech = null; cancelConversation(reason); },
     onPttChange: ptt => radio.setGates({ ptt }) });
+  const resourcePending = () => resources.status().cleanupPending === true;
+  const residentPending = () => !!modelStart || !!modelStop || stopUnconfirmed || resourcePending();
+  function residentActive() {
+    const owned = value => value.ownedPid != null || !!value.ownedProcess || value.ownsProcess === true ||
+      value.ownedProcessStopped === false || value.processStopConfirmed === false ||
+      !['NEW', 'STOPPED', 'FAILED', 'DISPOSED'].includes(value.state);
+    return !!modelStart || owned(language.status()) || owned(speech.getState());
+  }
+  function stoppedResult() {
+    return { status: residentPending() ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : 'LOCAL_MODELS_STOPPED' };
+  }
+  function engineStopped(value) {
+    return value.state === 'STOPPED' && value.ownedProcessStopped !== false && value.processStopConfirmed !== false &&
+      value.ownsProcess !== true && !value.ownedProcess && value.ownedPid == null &&
+      value.activeGeneration !== true && value.busy !== true;
+  }
+  function stopResidents(reason, preserveError = false) {
+    ++modelEpoch; modelAbort?.abort(); resources.stopWatch();
+    speechInput.invalidate(reason); cancelConversation(reason);
+    if (modelStop) return modelStop.public;
+    const owned = {}; modelStop = owned;
+    const drained = Promise.allSettled([Promise.resolve().then(() => language.stop()),
+      Promise.resolve().then(() => speech.stop(reason))]).then(results => {
+      stopUnconfirmed = results.some(result => result.status === 'rejected') ||
+        !engineStopped(language.status()) || !engineStopped(speech.getState());
+      if (!preserveError) modelError = stopUnconfirmed ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
+    }).catch(() => { stopUnconfirmed = true; modelError = 'LOCAL_MODEL_STOP_UNCONFIRMED'; })
+      .finally(() => { if (modelStop === owned) modelStop = null; });
+    let deadline;
+    owned.public = Promise.race([drained, new Promise(resolve => {
+      deadline = setTimeout(resolve, residentStopTimeoutMs);
+    })]).then(() => stoppedResult()).finally(() => clearTimeout(deadline));
+    return owned.public;
+  }
+  function resourceBreach(epoch, code) {
+    if (epoch !== modelEpoch || disposed) return;
+    modelError = code;
+    void stopResidents(code, true);
+  }
+  function startResidents() {
+    if (modelStart && !modelStop && !stopUnconfirmed && !resourcePending() && modelAbort?.signal.aborted === false) return true;
+    if (modelStart || modelStop || stopUnconfirmed || resourcePending()) throw new Error('LOCAL_MODEL_CLEANUP_PENDING');
+    const policyState = resources.status();
+    if (language.status().state === 'READY' && speech.getState().state === 'READY' && policyState.monitoring === true) return false;
+    if (policyState.sampling || policyState.admissionPending) throw new Error('LOCAL_MODEL_CLEANUP_PENDING');
+    resources.stopWatch(); speechInput.invalidate('MODELS_STARTING'); cancelConversation('MODELS_STARTING');
+    modelError = null;
+    const epoch = ++modelEpoch, controller = new AbortController(); modelAbort = controller;
+    const owned = {}; modelStart = owned;
+    owned.done = (async () => {
+      try {
+        await resources.admit({ signal: controller.signal });
+        if (epoch !== modelEpoch || disposed) return;
+        resources.startWatch(code => resourceBreach(epoch, code), residentActive);
+        await language.start();
+        if (epoch !== modelEpoch || disposed) { await stopResidents('STALE_MODEL_START', true); return; }
+        await resources.admit({ signal: controller.signal });
+        if (epoch !== modelEpoch || disposed) return;
+        if (speech.getState().restartRequired) await speech.restart(); else await speech.start();
+        if (epoch !== modelEpoch || disposed) await stopResidents('STALE_MODEL_START', true);
+      } catch (error) {
+        if (epoch === modelEpoch && !disposed) {
+          modelError = /^[A-Z_]+$/.test(error?.code || error?.message || '') ? (error.code || error.message) : 'LOCAL_MODEL_START_FAILED';
+          await stopResidents(modelError, true);
+        }
+      } finally {
+        if (modelStart === owned) modelStart = null;
+        if (modelAbort === controller) modelAbort = null;
+      }
+    })();
+    return true;
+  }
   function audioCurrent() {
     speechInput.status();
     const actor = snapshot?.lancemates.find(a => a.id === reply?.speakerId);
-    return reply?.status === 'GENERATED' && reply.session === snapshot?.session && actor?.aiOwned === true &&
+    return !disposed && !residentPending() && reply?.status === 'GENERATED' && reply.session === snapshot?.session && actor?.aiOwned === true &&
       actor.alive === true && actor.pawnId === reply.pawnId && actor.generation === reply.generation &&
       reply.expiresAtMs > realNow() && snapshot.phase === 'active' && !settings.speechMuted && !radio.getState().gates.ptt;
   }
@@ -106,6 +185,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     clockMs: clock, settings: clone(settings), settingsStatus, profiles: clone(profiles),
     control: control.getState(), radio: radio.getState(), last: clone(last), missionSpeech: statusPreview(),
     localModels: { language: language.status(), speech: speech.getState(), error: modelError,
+      resources: resources.status(), stopping: !!modelStop, cleanupPending: !!modelStop || stopUnconfirmed || resourcePending() || (!!modelStart && modelAbort?.signal.aborted === true),
       starting: !!modelStart, previewDeadlineMs, firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED',
       reply: clone(reply), audio: audioJob ? { id: audioJob.id, status: audioJob.status,
         voiceId: audioJob.voiceId, error: audioJob.error, classification: 'LOCAL_AUDIO_PREVIEW_NOT_GAMEPLAY' } : null },
@@ -164,28 +244,10 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       last = { status: input.allowSlow ? 'SLOW_OFFLINE_AUDITION' : 'STRICT_OFFLINE_PREVIEW',
         firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED', nativeCalls: 0 };
     } else if (input.type === 'models_start') {
-      if (!modelStart) {
-        modelError = null;
-        const epoch = ++modelEpoch;
-        modelStart = (async () => {
-          try {
-            await language.start();
-            if (epoch !== modelEpoch) return;
-            if (speech.getState().restartRequired) await speech.restart(); else await speech.start();
-          } catch (error) { modelError = error.code || error.message; }
-          finally { modelStart = null; }
-        })();
-      }
-      last = { status: 'STARTING_LOCAL_MODELS', gameConnected: false };
+      const started = startResidents();
+      last = { status: started ? 'STARTING_LOCAL_MODELS' : 'LOCAL_MODELS_READY', gameConnected: false };
     } else if (input.type === 'models_stop') {
-      ++modelEpoch;
-      speechInput.invalidate('MODELS_STOPPED');
-      cancelConversation('MODELS_STOPPED');
-      const stopped = await Promise.allSettled([Promise.resolve().then(() => language.stop()),
-        Promise.resolve().then(() => speech.stop('USER_STOP'))]);
-      const failed = stopped.filter(result => result.status === 'rejected');
-      modelError = failed.length ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
-      last = { status: failed.length ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : 'LOCAL_MODELS_STOPPED', nativeCalls: 0 };
+      last = { ...await stopResidents('MODELS_STOPPED'), nativeCalls: 0 };
     } else if (input.type === 'interrupt') {
       speechInput.invalidate('USER_INTERRUPTED');
       cancelConversation('USER_INTERRUPTED'); last = { status: 'SPEECH_INTERRUPTED', nativeCalls: 0 };
@@ -223,6 +285,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         last = { status: 'AUTHORED_STATUS_PREVIEW', classification: line.classification, nativeCalls: 0,
           audioGenerated: false, conversationAcceptance: 'NOT_ESTABLISHED' };
       } else if (input.type === 'converse') {
+        if (residentPending()) throw new Error('LOCAL_MODEL_CLEANUP_PENDING');
         if (radio.getState().gates.ptt) throw new Error('USER_SPEAKING');
         if (language.status().state !== 'READY') throw new Error('LOCAL_LANGUAGE_MODEL_NOT_READY');
         const b = bindings().find(b => b.id === input.actorId); if (!b) throw new Error('INVALID_RECIPIENT');
@@ -235,6 +298,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
           .catch(() => { if (reply?.id === id) reply = { id, status: 'FAILED', reason: 'CONVERSATION_FAILED' }; });
         last = { status: 'GENERATING', id, factSource: 'NO_LIVE_MISSION_FACTS', nativeCalls: 0 };
       } else if (input.type === 'synthesize_reply') {
+        if (residentPending()) throw new Error('LOCAL_MODEL_CLEANUP_PENDING');
         if (!audioCurrent()) throw new Error('REPLY_STALE_OR_INELIGIBLE');
         if (speech.getState().state !== 'READY') throw new Error('LOCAL_SPEECH_NOT_READY');
         if (audioJob?.status === 'SYNTHESIZING') throw new Error('SPEECH_BUSY');
@@ -319,11 +383,10 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     return state();
   }
   function cancelRecognition(id, reason) { speechInput.cancel(id, reason); }
-  async function dispose() { disposed = true; ++modelEpoch; cancelConversation('WORKBENCH_CLOSED'); conversation.dispose();
-    const stopped = await Promise.allSettled([Promise.resolve().then(() => language.stop()),
-      Promise.resolve().then(() => speech.stop('WORKBENCH_CLOSED')), speechInput.dispose()]);
+  async function dispose() { disposed = true; conversation.dispose();
+    const stopped = await Promise.allSettled([stopResidents('WORKBENCH_CLOSED'), speechInput.dispose()]);
     const recognitionStopped = speechInput.status().shutdownComplete === true;
-    modelError = stopped.some(result => result.status === 'rejected') || !recognitionStopped ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
+    modelError = stopped.some(result => result.status === 'rejected') || residentPending() || !recognitionStopped ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
     return { status: modelError || 'LOCAL_MODELS_STOPPED' }; }
   return { state, act, readAudio, submitRecognition, cancelRecognition, dispose };
 }

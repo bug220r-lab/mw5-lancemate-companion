@@ -40,6 +40,8 @@ async function fixture(t, { languageStart = null, speechStart = null } = {}) {
     synthesize(input, { signal }) { const d = deferred(); syntheses.push({ ...d, input, signal }); return d.promise; } };
   const workbench = await createWorkbench({ settingsPath: path.join(temp, 'settings.json'),
     languageModel: language, speechEngine: speech, realNow: () => clock,
+    resourcePolicy: { async admit() {}, startWatch() {}, stopWatch() {},
+      status: () => ({ monitoring: false, sampling: false, admissionPending: false, cleanupPending: false }) },
     readAudioFile: file => { const d = deferred(); reads.push({ ...d, file }); return d.promise; } });
   t.after(async () => {
     for (const d of [...generations, ...syntheses]) d.resolve(d.input ? { wavPath: 'mock-wave-path' } : 'discarded');

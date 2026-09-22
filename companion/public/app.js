@@ -118,22 +118,35 @@ async function api(action) {
   } catch (error) { $('error').textContent = error.message; }
 }
 function node(tag, text, cls) { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; }
+function residentUnavailable(models) {
+  return !!(models?.starting || models?.stopping || models?.cleanupPending || models?.resources?.cleanupPending);
+}
+const modelMessages = {
+  RESOURCE_ADMISSION_RAM: 'Not enough free memory to start. At least 5 GiB is required.',
+  RESOURCE_ADMISSION_DISK: 'Not enough free disk space to start. At least 10 GiB is required.',
+  RESOURCE_RAM_RESERVE_LOST: 'Available memory fell below 2 GiB. Restart requires a fresh resource check.',
+  RESOURCE_READING_UNAVAILABLE: 'Available memory or disk space could not be checked.',
+  RESOURCE_SAMPLE_TIMEOUT: 'The resource check did not finish in time.',
+  RESOURCE_CLEANUP_PENDING: 'A previous resource check is still finishing.',
+  LOCAL_MODEL_CLEANUP_PENDING: 'Previous engine work is still finishing.',
+  LOCAL_MODEL_STOP_UNCONFIRMED: 'Engine shutdown is not yet confirmed.',
+};
 function render(data) {
   current = data; $('mode').textContent = data.classification;
   const models = data.localModels;
   $('slowPreview').checked = models.previewDeadlineMs === 10000;
-  $('modelStatus').textContent = `${models.language.state} · Voice: ${models.speech.state}${models.error ? ` · ${models.error}` : ''}`;
-  $('modelsStart').disabled = models.starting;
-  $('askPilot').disabled = data.classification !== 'MOCK_ONLY' || models.language.state !== 'READY' || models.reply?.status === 'GENERATING';
+  $('modelStatus').textContent = `${models.language.state} · Voice: ${models.speech.state}${models.error ? ` · ${modelMessages[models.error] || models.error}` : ''}`;
+  $('modelsStart').disabled = residentUnavailable(models);
+  $('askPilot').disabled = residentUnavailable(models) || data.classification !== 'MOCK_ONLY' || models.language.state !== 'READY' || models.reply?.status === 'GENERATING';
   $('reply').textContent = models.reply?.text ? `${models.reply.speakerId}: ${models.reply.text} (generated; facts unverified)` :
     models.reply ? `${models.reply.status}${models.reply.reason ? ` · ${models.reply.reason}` : ''}` : 'No generated reply.';
-  $('synthesize').disabled = models.reply?.status !== 'GENERATED' || models.speech.state !== 'READY' || models.audio?.status === 'SYNTHESIZING';
-  $('listen').disabled = models.audio?.status !== 'READY';
+  $('synthesize').disabled = residentUnavailable(models) || models.reply?.status !== 'GENERATED' || models.speech.state !== 'READY' || models.audio?.status === 'SYNTHESIZING';
+  $('listen').disabled = residentUnavailable(models) || models.audio?.status !== 'READY';
   $('voiceStatus').textContent = models.audio ? `${models.audio.status} · ${models.audio.voiceId}${models.audio.error ? ` · ${models.audio.error}` : ''}` : 'No voice preview.';
   clearTimeout(pollTimer);
-  if (models.starting || models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING' || data.missionSpeech?.status === 'PREPARED' ||
+  if (residentUnavailable(models) || models.resources?.monitoring || models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING' || data.missionSpeech?.status === 'PREPARED' ||
       data.speechInput?.preparing || ['CAPTURING', 'TRANSCRIBING', 'TRANSCRIBED'].includes(data.speechInput?.current?.status)) pollTimer = setTimeout(() => api(), 750);
-  if (playback && (models.audio?.id !== playback.id || models.reply?.id !== playback.replyId ||
+  if (playback && (residentUnavailable(models) || models.audio?.id !== playback.id || models.reply?.id !== playback.replyId ||
       models.reply?.session !== playback.session || data.settings.speechMuted ||
       (playback.audio && data.radio.playing?.lineId !== playback.id))) cancelPlayback();
   $('clock').textContent = `Recorded simulation time: ${(data.clockMs / 1000).toFixed(1)}s`;
@@ -230,7 +243,7 @@ $('interrupt').onclick = () => api({ type: 'interrupt' });
 $('conversation').onsubmit = event => { event.preventDefault(); api({ type: 'converse', actorId: $('speaker').value, text: $('utterance').value }); };
 $('synthesize').onclick = () => api({ type: 'synthesize_reply' });
 $('listen').onclick = async () => {
-  if (microphoneJob || recorder?.active) return;
+  if (microphoneJob || recorder?.active || residentUnavailable(current?.localModels)) return;
   const id = current?.localModels.audio?.id, reply = current?.localModels.reply;
   if (!id || !reply || current.localModels.audio.status !== 'READY') return;
   cancelPlayback();
@@ -246,7 +259,7 @@ $('listen').onclick = async () => {
     const data = await fresh.json(); if (!eligible() || sequence !== requestSequence) return;
     if (data.localModels.audio?.id !== id || data.localModels.reply?.id !== job.replyId ||
         data.localModels.reply?.session !== job.session || data.localModels.reply?.expiresAtMs <= Date.now() ||
-        data.settings.speechMuted || data.radio.playing?.lineId !== id) throw new Error('Voice preview expired or interrupted.');
+         residentUnavailable(data.localModels) || data.settings.speechMuted || data.radio.playing?.lineId !== id) throw new Error('Voice preview expired or interrupted.');
     render(data); if (!eligible()) return;
     job.url = URL.createObjectURL(blob); const audio = new Audio(job.url); job.audio = audio;
     audio.onended = () => { if (!eligible()) return; cancelPlayback(); api({ type: 'radio_complete', lineId: id }); };
