@@ -317,3 +317,163 @@ test('malformed contexts and accessor functions reject before any inference requ
   const huge = ctx(); huge.persona.traits = ['x'.repeat(6000)]; await assert.rejects(r.model.generate(huge), /PROMPT_TOO_LARGE/);
   assert.equal(r.fetches.length, before); assert.equal(r.model.status().state, 'READY');
 });
+
+const timingSample = () => ({ cache_n: 122, prompt_n: 34, prompt_ms: 1749.25, predicted_n: 5, predicted_ms: 321.5 });
+const timedPacket = (timings, { finish_reason = 'stop', delta = {}, choices } = {}) =>
+  `data: ${JSON.stringify({ choices: choices ?? [{ delta, finish_reason }], timings })}\n\n`;
+
+test('prompt caching is a strict code-only boolean and defaults remain disabled', async t => {
+  for (const promptCaching of ['false', 'true', 0, 1, null, {}, [], '--cache-prompt'])
+    assert.throws(() => createLocalLanguageModel({ promptCaching }), /UNSUPPORTED_MODEL_CONFIGURATION/);
+  const implicit = rig(t), explicit = rig(t, () => {}, { promptCaching: false });
+  for (const r of [implicit, explicit]) {
+    assert.equal(r.calls.length, 0); assert.equal(r.fetches.length, 0);
+    assert.equal(r.model.status().settings.promptCaching, false);
+    assert.equal(r.model.status().lastGenerationTimings, null);
+    await r.model.start(); await r.model.generate(ctx());
+    assert.equal(JSON.parse(r.fetches.at(-1).options.body).cache_prompt, false);
+  }
+  assert.deepEqual(implicit.calls, explicit.calls);
+  assert.equal(implicit.fetches.at(-1).options.body, explicit.fetches.at(-1).options.body);
+});
+
+test('enabling cache changes only the request flag and retains complete fresh facts without generated history', async t => {
+  const baseline = rig(t), cached = rig(t, () => {}, { promptCaching: true });
+  await baseline.model.start(); await cached.model.start();
+  assert.deepEqual(cached.calls, baseline.calls);
+  assert.deepEqual(cached.model.status().settings, { ...baseline.model.status().settings, promptCaching: true });
+  const first = ctx(), original = structuredClone(first);
+  const generated = await cached.model.generate(first); await baseline.model.generate(first);
+  const expected = JSON.parse(baseline.fetches.at(-1).options.body), actual = JSON.parse(cached.fetches.at(-1).options.body);
+  assert.deepEqual(actual, { ...expected, cache_prompt: true });
+  assert.deepEqual(first, original);
+  const second = { ...ctx(), request: { text: 'What is confirmed now?' },
+    facts: [{ id: 'current-contact', evidenceStatus: 'CALLER_ASSERTED_OBSERVATION', data: { routeSafety: 'blocked' } }], history: [] };
+  await cached.model.generate(second); await baseline.model.generate(second);
+  const fresh = JSON.parse(cached.fetches.at(-1).options.body);
+  assert.deepEqual(fresh, { ...JSON.parse(baseline.fetches.at(-1).options.body), cache_prompt: true });
+  const data = JSON.parse(fresh.messages[1].content.replace(/ \/no_think$/, ''));
+  assert.deepEqual(data.unverifiedUndeliveredHistory, []);
+  assert.deepEqual(data.callerAssertedCurrentObservations, [{ id: 'current-contact', data: { routeSafety: 'blocked' } }]);
+  assert.equal(JSON.stringify(fresh.messages).includes(generated), false);
+  assert.equal(cached.fetches.filter(r => !r.url.endsWith('/health')).length, 2, 'no automatic priming request');
+  assert.equal(cached.model.status().lastGenerationTimings, null, 'cache enablement alone proves no reuse');
+});
+
+test('successful terminal timing telemetry exposes only bounded native numeric fields and copies its state', async t => {
+  const native = { ...timingSample(), prompt_per_second: 20, extra: 'untrusted text', cache_success: true };
+  const r = rig(t, (io, a) => { a.generationResponse = () => sse([packet({ content: 'Current state is unknown.' }), timedPacket(native)]); }, { promptCaching: true });
+  await r.model.start(); assert.equal(await r.model.generate(ctx()), 'Current state is unknown.');
+  assert.deepEqual(r.model.status().lastGenerationTimings, timingSample());
+  r.model.status().lastGenerationTimings.cache_n = 2048;
+  assert.deepEqual(r.model.status().lastGenerationTimings, timingSample(), 'status callers cannot mutate recorded diagnostics');
+  assert.equal(r.model.status().classification, 'MOCK_ONLY'); assert.equal(r.model.status().nativeCalls, 0);
+});
+
+test('nonterminal, absent and unsupported usage-only timings remain unknown after a previous valid sample', async t => {
+  const r = rig(t); await r.model.start();
+  for (const tail of [packet({}, 'stop'), timedPacket(timingSample(), { finish_reason: null }),
+    timedPacket(timingSample(), { choices: [] })]) {
+    r.api.generationResponse = () => sse([packet({ content: 'Ready.' }), timedPacket(timingSample())]);
+    await r.model.generate(ctx()); assert.deepEqual(r.model.status().lastGenerationTimings, timingSample());
+    r.api.generationResponse = () => sse([packet({ content: 'Still unknown.' }), tail]);
+    assert.equal(await r.model.generate(ctx()), 'Still unknown.');
+    assert.equal(r.model.status().lastGenerationTimings, null);
+  }
+});
+
+test('malformed optional timings cannot fabricate reuse or fail otherwise valid generated text', async t => {
+  const r = rig(t); await r.model.start();
+  const missing = timingSample(); delete missing.prompt_n;
+  for (const timings of [null, [], {}, missing, { ...timingSample(), cache_n: '122' },
+    { ...timingSample(), cache_n: -1 }, { ...timingSample(), cache_n: .5 },
+    { ...timingSample(), cache_n: 2048 }, { ...timingSample(), prompt_n: 2049 },
+    { ...timingSample(), predicted_n: 65 }, { ...timingSample(), predicted_n: Number.MAX_SAFE_INTEGER + 1 },
+    { ...timingSample(), prompt_ms: -1 }, { ...timingSample(), prompt_ms: Infinity },
+    { ...timingSample(), predicted_ms: '321.5' }, { ...timingSample(), predicted_ms: 60001 }]) {
+    r.api.generationResponse = () => sse([packet({ content: 'No confirmed state.' }), timedPacket(timings)]);
+    assert.equal(await r.model.generate(ctx()), 'No confirmed state.');
+    assert.equal(r.model.status().lastGenerationTimings, null);
+  }
+  const zero = { cache_n: 0, prompt_n: 2048, prompt_ms: 60000, predicted_n: 0, predicted_ms: 0 };
+  r.api.generationResponse = () => sse([packet({ content: 'Unknown.' }), timedPacket(zero)]);
+  await r.model.generate(ctx()); assert.deepEqual(r.model.status().lastGenerationTimings, zero, 'explicit valid zero is not missing data');
+});
+
+test('admitted, cancelled and invalid generation attempts clear prior timing evidence', async t => {
+  const r = rig(t); await r.model.start();
+  const populate = async () => {
+    r.api.generationResponse = () => sse([packet({ content: 'Ready.' }), timedPacket(timingSample())]);
+    await r.model.generate(ctx()); assert.deepEqual(r.model.status().lastGenerationTimings, timingSample());
+  };
+  await populate();
+  r.api.generationResponse = () => new Promise(() => {});
+  const controller = new AbortController(), pending = r.model.generate(ctx(), { signal: controller.signal });
+  const rejected = assert.rejects(pending, /GENERATION_CANCELLED/); await flush();
+  assert.equal(r.model.status().lastGenerationTimings, null);
+  await assert.rejects(r.model.generate(ctx()), /MODEL_BUSY/);
+  controller.abort(); await rejected; assert.equal(r.model.status().lastGenerationTimings, null);
+  await populate();
+  await assert.rejects(r.model.generate(ctx(), { signal: AbortSignal.abort() }), /GENERATION_CANCELLED/);
+  assert.equal(r.model.status().lastGenerationTimings, null);
+  await populate();
+  await assert.rejects(r.model.generate({}), /INVALID_CONTEXT/);
+  assert.equal(r.model.status().lastGenerationTimings, null);
+});
+
+test('a terminal timing packet cannot survive incomplete output, cancellation or stream rejection', async t => {
+  let cancelled = false;
+  const r = rig(t); await r.model.start();
+  r.api.generationResponse = () => new Response(new ReadableStream({ start(controller) {
+    controller.enqueue(new TextEncoder().encode(packet({ content: 'Pending.' }) + timedPacket(timingSample())));
+  }, cancel() { cancelled = true; } }), { headers: { 'Content-Type': 'text/event-stream' } });
+  const controller = new AbortController(), pending = r.model.generate(ctx(), { signal: controller.signal });
+  const rejected = assert.rejects(pending, /GENERATION_CANCELLED/); await flush();
+  assert.equal(r.model.status().lastGenerationTimings, null);
+  controller.abort(); await rejected; assert.equal(cancelled, true);
+  assert.equal(r.model.status().lastGenerationTimings, null);
+  for (const response of [
+    () => sse([packet({ content: 'Missing done.' }), timedPacket(timingSample())], { done: false }),
+    () => sse([timedPacket(timingSample()), packet({ content: '<think>invalid</think>' })]),
+    () => sse([timedPacket(timingSample())])
+  ]) {
+    r.api.generationResponse = response; await assert.rejects(r.model.generate(ctx()));
+    assert.equal(r.model.status().lastGenerationTimings, null);
+  }
+});
+
+test('fresh owned process startup resets timing evidence while retaining explicit caching configuration', async t => {
+  const r = rig(t, (io, a) => { a.generationResponse = () => sse([packet({ content: 'Ready.' }), timedPacket(timingSample())]); }, { promptCaching: true });
+  await r.model.start(); await r.model.generate(ctx()); assert.deepEqual(r.model.status().lastGenerationTimings, timingSample());
+  await r.model.stop(); const starting = r.model.start();
+  assert.equal(r.model.status().lastGenerationTimings, null); await starting;
+  assert.equal(r.model.status().lastGenerationTimings, null);
+  assert.equal(r.model.status().settings.promptCaching, true); assert.equal(r.calls.length, 2);
+});
+
+test('cancellation during awaited response cleanup cannot expose completed timing evidence afterward', async t => {
+  let releaseCleanup, reachedCleanup;
+  const cleanupPending = new Promise(resolve => { releaseCleanup = resolve; });
+  const cleanupReached = new Promise(resolve => { reachedCleanup = resolve; });
+  const r = rig(t, (io, a) => {
+    const originalSleep = io.sleep;
+    io.sleep = ms => ms === 500 ? new Promise(() => {}) : originalSleep(ms);
+    a.generationResponse = () => new Response(new ReadableStream({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode(packet({ content: 'Completed text.' }) +
+          timedPacket(timingSample()) + 'data: [DONE]\n\n'));
+      },
+      cancel() { reachedCleanup(); return cleanupPending; }
+    }), { headers: { 'Content-Type': 'text/event-stream' } });
+  }, { promptCaching: true });
+  await r.model.start(); const controller = new AbortController();
+  const pending = r.model.generate(ctx(), { signal: controller.signal });
+  try {
+    await cleanupReached;
+    controller.abort(); releaseCleanup();
+    assert.equal(await pending, 'Completed text.', 'existing text return semantics remain unchanged');
+    assert.equal(r.model.status().lastGenerationTimings, null);
+    assert.equal(r.model.status().activeGeneration, false);
+    assert.equal(r.model.status().state, 'READY');
+  } finally { releaseCleanup(); await pending; }
+});

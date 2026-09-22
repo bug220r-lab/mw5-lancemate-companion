@@ -1,5 +1,7 @@
 # Three-package observer reference lookup
 
+**September 22 continuation:** the editor has since been closed normally to free RAM. The [normal-editor startup experiment](OBSERVER_NORMAL_EDITOR_EXPERIMENT.md) is the current preparation for a future run of this unchanged helper. Its proposed RAM admission currently fails and its outer supervisor is NOT_BUILT. No editor/game/lookup execution occurred in that preparation. Existing-session instructions below describe the previously prepared route, not a claim that an editor is still running.
+
 Prepared **2026-09-21 UTC**. **PROPOSED editor action; native lookup NOT_PERFORMED.** The user has now authorized running the editor or game when needed for continued implementation. This concrete step uses the existing editor to read three packages' direct reference metadata. It does not depend on another approval for editor execution. The completed [single-controller export](../research/OBSERVER_CALLER_NATIVE_RESULT.md) is preserved and must not be rerun.
 
 ## Question and scope

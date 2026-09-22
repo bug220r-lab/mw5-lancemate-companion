@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T21:37:13.744Z",
+  "recordedAt": "2026-09-22T21:59:11.868Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 695,
-  "passed": 695,
+  "tests": 706,
+  "passed": 706,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -16,6 +16,7 @@
     "companion/tests/browser-ptt.test.mjs",
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
+    "companion/tests/conversation-cache-diagnostic.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
     "companion/tests/grounding-diagnostic.test.mjs",
@@ -67,6 +68,10 @@
       "sha256": "ac09200386aaace64f079c84d15af6d91c41de2a75eb348ff89c076fc36be4a3"
     },
     {
+      "file": "companion/tests/conversation-cache-diagnostic.test.mjs",
+      "sha256": "e15b2d13a29c8519dfd46a20e9bf599fe9497ef1452725b0df800e911e83d71b"
+    },
+    {
       "file": "companion/tests/conversation-review.test.mjs",
       "sha256": "0ef441e300e34afddedec71e7b6342c4f3ce3e124eea67f7301c486024b98659"
     },
@@ -84,7 +89,7 @@
     },
     {
       "file": "companion/tests/local-language-model.test.mjs",
-      "sha256": "469e3e422975c646c763ff925d22b99c5a56ad3cae971a748b1306cc77d30cac"
+      "sha256": "e17749a148ab3aa3c642573b3df78de78a3295ff4c265686fe261d114e9000c1"
     },
     {
       "file": "companion/tests/local-recognition-review.test.mjs",
@@ -184,7 +189,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "0a6a9fd911e0a05328ce4d371dba55720b5ba0bc521d3fe7291d02b7224fda47"
+      "sha256": "005541d449d1cde7f1944e475bb19a86184cb4b399490e696aca7ce926986442"
     },
     {
       "file": "companion/local-recognition.mjs",
@@ -281,6 +286,10 @@
     {
       "file": "scripts/Exercise-LocalRecognition.mjs",
       "sha256": "f71659dcfe66a8bd83c1f49bc4b90c375cd127bc9d95b1ab2e0f1197e045c132"
+    },
+    {
+      "file": "scripts/Exercise-ConversationCache.mjs",
+      "sha256": "d4fff59d0463b535b5c7f648d8799a2f5a775635acb6bb51ea09942309bcbc99"
     }
   ],
   "gameTests": "NOT_PERFORMED",

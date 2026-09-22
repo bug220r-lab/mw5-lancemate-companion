@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-09-22T21:56:59.5603708Z",
+  "status": "PREPARED_EXECUTION_GATED",
+  "evidence_classification": "OBSERVED_INPUTS_PROPOSED_EXPERIMENT",
+  "scope_this_turn": "Preparation review only; do not launch editor/game or execute lookup",
+  "execution": {
+    "editor_launch": "NOT_PERFORMED",
+    "game_launch": "NOT_PERFORMED",
+    "lookup": "NOT_PERFORMED",
+    "supervisor": "NOT_BUILT_NOT_TESTED",
+    "helper_changed": false,
+    "existing_tests_rerun": false
+  },
+  "source_snapshot": "research/OBSERVER_NORMAL_EDITOR_PREFLIGHT_2026-09-22.json",
+  "snapshot_sha256": "B4BCD22817E355D3E9DC3F0A40C791A21BF98E6575841E2D8C5474FBDE454640",
+  "applicable_version": {
+    "installed_engine": "4.26.2",
+    "compatible_changelist": 14830424,
+    "documentation_engine": "4.27",
+    "full_editor_automatic_script_and_exit_verified": false,
+    "installed_package": "1.1.390.0e"
+  },
+  "proposed_command": {
+    "executable": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor-Cmd.exe",
+    "working_directory": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64",
+    "arguments": [
+      "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "-ExecutePythonScript=C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "-abslog=C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-normal-startup-20260922-01\\editor.log"
+    ],
+    "mode": "Full editor; no -run commandlet selector",
+    "start_process_window_style": "Hidden",
+    "automatic_prompt_acceptance": false,
+    "argument_changes_require_review": true
+  },
+  "attempt": {
+    "id": "observer-normal-startup-20260922-01",
+    "directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-normal-startup-20260922-01",
+    "directory_created": false,
+    "must_be_created_exclusively": true,
+    "maximum_editor_processes": 1,
+    "future_owned_artifacts": [
+      "baseline.json",
+      "baseline/ exact generated configuration copies",
+      "timeline.jsonl",
+      "editor.log",
+      "process-result.json",
+      "artifact-index.json"
+    ],
+    "helper_output_pattern": "research/evidence/editor-source/observer-references-YYYYMMDDTHHMMSSZ-12hex",
+    "helper_output_requires_unique_new_direct_child_and_process_log_binding": true,
+    "raw_logs_and_config": "Local evidence only pending content review; not automatically eligible for source backup"
+  },
+  "identities": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "bytes": 11828,
+      "sha256": "20C460FDF678DE74568C477B28C41A65408A5B5C7868BC1BB893D05CECED099B"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor-Cmd.exe",
+      "bytes": 485376,
+      "sha256": "B124BDC4D95ABD8662061E3E427C44965BF444B49727DA6E0C9CE2311BFA654E"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Build\\Build.version",
+      "bytes": 212,
+      "sha256": "820D6814CF61B6458FB4FC22247A0EE77B964B3BD7A48FE07222C78389785765"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\MW5Mercs.uproject",
+      "bytes": 4653,
+      "sha256": "A66A2197DF7AE9780A648735520884D04A7BDB2CCE656E324E9ECD5AC4EBAEAB"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Plugins\\Experimental\\PythonScriptPlugin\\PythonScriptPlugin.uplugin",
+      "bytes": 945,
+      "sha256": "A2CFC07ADC6E812A5730CFC1D230A710DD540959AD471D5581F7A90DF30D5610"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Plugins\\Editor\\EditorScriptingUtilities\\EditorScriptingUtilities.uplugin",
+      "bytes": 649,
+      "sha256": "1A07DB8343BC62FADBF2F2B2C6F9C51712CD34D987CE84F4ADAD33B756772E5F"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Config\\DefaultEngine.ini",
+      "bytes": 33476,
+      "sha256": "3543892993C407F648491E7F0B6DEBE928D7BF80C62708046AD7AD51F7C91C6E"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "bytes": 1260490,
+      "sha256": "FE6492FB35EF4759D3EF770CB802819DBC4DA38F98FB88416AD8B10B16B5E6BC"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745A8DE461275A7ACFA1F3FFC5BE9BCB7002682C37B7705AF5F00783E4F6"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\Components\\PlayerControllerComponents\\PlayerControllerComponentDataAsset.uasset",
+      "bytes": 9538,
+      "sha256": "D5D06EE76FD4049E836563FEDB4C65E79AA12862BC9DAD7DBA55FBD467985F5A"
+    }
+  ],
+  "admission": {
+    "available_ram_bytes": 8589934592,
+    "available_commit_bytes": 8589934592,
+    "free_disk_bytes": 12884901888,
+    "passing_samples_required": 2,
+    "sample_separation_ms": 1000,
+    "last_sample_maximum_age_ms": 2000,
+    "existing_editor_game_processes_allowed": 0,
+    "conflicting_lookup_or_stale_lock_allowed": false,
+    "coordinate_idle_window_with_benchmark_owner": true,
+    "current_sample_at": "2026-09-22T21:52:16.3321271Z",
+    "current_sample": {
+      "disk_free": 27127230464,
+      "physical_available": 6047584256,
+      "commit_available": 10073747456
+    },
+    "current_ram_pass": false,
+    "current_commit_pass": true,
+    "current_disk_pass": true,
+    "current_status": "BLOCKED_RAM",
+    "sample_valid_for_future_launch": false
+  },
+  "stops": {
+    "available_ram_floor_bytes": 2147483648,
+    "available_commit_floor_bytes": 2147483648,
+    "free_disk_floor_bytes": 10737418240,
+    "observation_interval_ms": 250,
+    "maximum_sample_age_ms": 2000,
+    "whole_process_deadline_seconds": 300,
+    "maximum_graceful_close_seconds": 30,
+    "helper_internal_cooperative_budget_seconds": 60,
+    "owned_logs_bytes": 67108864,
+    "outer_metadata_bytes": 4194304,
+    "timeline_bytes": 1048576,
+    "timeline_record_interval_ms": 1000,
+    "baseline_config_copy_bytes": 4194304,
+    "helper_designed_json_bytes": 1081344,
+    "helper_temporary_lock_bytes": 32,
+    "unexpected_prompt": "Stop without accepting, saving or discarding",
+    "resource_caps_are_hard_guarantees": false,
+    "autosave_note": "Nominal installed interval10min;300s+30s stays below it but does not guarantee absence of early/automatic writes"
+  },
+  "process_ownership": {
+    "required": [
+      "Retained process handle",
+      "PID",
+      "creation time",
+      "exact executable path",
+      "reviewed arguments",
+      "recorded descendant creation-time lineage"
+    ],
+    "normal_exit": "Verify documented automatic exit; never assume from exit code",
+    "stop": "Attributed STOP marker if possible, supported normal close of owned editor, at most30s grace",
+    "forced_termination": "Only exact still-owned process/verified descendants when no-human-editing condition holds; record ABORTED",
+    "identity_or_human_work_uncertain": "No broad termination; record CLEANUP_UNKNOWN",
+    "process_name_sweeps": false
+  },
+  "outputs": {
+    "helper_success_not_research_acceptance": true,
+    "zero_exit_code_insufficient": true,
+    "none_empty_loading_partial_distinct": true,
+    "no_automatic_retry_or_scan": true,
+    "native_raw_receipts_preserved": true
+  },
+  "rollback": {
+    "deployed_mod_or_asset": "None",
+    "compare_named_config_and_asset_hashes": true,
+    "restore_generated_config": "Only exact verified baseline with no newer user changes and recorded justification",
+    "delete_shared_cache_logs_or_saves": false,
+    "stale_lock": "Preserve unless exact owned token/process absence proven in separate recorded cleanup",
+    "require_owned_process_exit_verification": true
+  },
+  "reviews": [
+    "research/OBSERVER_NORMAL_EDITOR_SOURCE_REVIEW.md",
+    "research/OBSERVER_NORMAL_EDITOR_SAFETY_REVIEW.md"
+  ],
+  "official_source": {
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-the-editor-using-python?application_version=4.27",
+    "access_date": "2026-09-22",
+    "section": "The Command Line / Option1: Full Editor",
+    "limitation": "Adjacent engine version; installed MW5 behavior untested"
+  },
+  "open_gates": [
+    "This turn expressly permits preparation only",
+    "Fresh availableRAM must meet8GiB threshold",
+    "Outer supervisor must be implemented and independently exercised against synthetic child processes",
+    "Fresh pins/process/startup/config/lock audit and private baseline required"
+  ],
+  "additional_preparation_identities": {
+    "observed_at": "2026-09-22T21:58:01.0257725Z",
+    "files": [
+      {
+        "path": "C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests\\6F64B6344614FB850F6BC695B33FFA0F.item",
+        "bytes": 2398,
+        "sha256": "1A304CCF534B8DD0433F0361FE1D4B8EDCBFE48867899CD91E5C138946D1891C"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Config\\BaseEditorPerProjectUserSettings.ini",
+        "bytes": 42278,
+        "sha256": "7E6EE32858110980B859FDFE441DFA77FE631D85D33B98D326AFE83EEFDF9968"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\UI\\FrontEnd\\TitleScreen\\TitleScreen_Video.umap",
+        "bytes": 39398,
+        "sha256": "4E5BB74B906E9C7732DC4339E794C1D2C09DF6C605ACCDCCACDA1EE6701029F4"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Engine.ini",
+        "bytes": 2879,
+        "sha256": "6B50B50330CBD5B2E70D3E99DA5C883CBEBF3BD8A5AD323CBD183CD1CA697307"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Editor.ini",
+        "bytes": 54,
+        "sha256": "90E451AD3E29D8965A28E2C564D6A73F1ADA83CF430B3AF7746A148A23183AEC"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\EditorPerProjectUserSettings.ini",
+        "bytes": 75395,
+        "sha256": "CF12085457237B3E390CEF3F60870FB0273A91FFFBEA4D6A16FF09C8B4A9DA14"
+      }
+    ]
+  },
+  "proposed_baseline_copies": [
+    {
+      "source": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Engine.ini",
+      "proposed_copy": "baseline\\user-Engine.ini",
+      "copy_created": false,
+      "publication": "PRIVATE_LOCAL_PENDING_CONTENT_REVIEW"
+    },
+    {
+      "source": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\Editor.ini",
+      "proposed_copy": "baseline\\user-Editor.ini",
+      "copy_created": false,
+      "publication": "PRIVATE_LOCAL_PENDING_CONTENT_REVIEW"
+    },
+    {
+      "source": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Config\\Windows\\EditorPerProjectUserSettings.ini",
+      "proposed_copy": "baseline\\user-EditorPerProjectUserSettings.ini",
+      "copy_created": false,
+      "publication": "PRIVATE_LOCAL_PENDING_CONTENT_REVIEW"
+    }
+  ]
+}

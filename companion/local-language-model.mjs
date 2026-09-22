@@ -29,6 +29,15 @@ function abortable(promise, signal) {
   });
 }
 const bounded = (n, max) => Number.isSafeInteger(n) && n >= 0 && n <= max;
+// Pinned llama.cpp ce8caa6e server-task.cpp:438-490 attaches these optional
+// diagnostics to the terminal chat chunk. They are not authenticated game facts.
+function generationTimings(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) ||
+      !bounded(value.cache_n, 2048) || !bounded(value.prompt_n, 2048) ||
+      value.cache_n + value.prompt_n > 2048 || !bounded(value.predicted_n, 64) ||
+      ![value.prompt_ms, value.predicted_ms].every(n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 60000)) return null;
+  return Object.fromEntries(['cache_n', 'prompt_n', 'prompt_ms', 'predicted_n', 'predicted_ms'].map(key => [key, value[key]]));
+}
 const below = (file, directory) => { const rel = path.relative(directory, file); return rel !== '' && !rel.startsWith(`..${path.sep}`) && rel !== '..' && !path.isAbsolute(rel); };
 async function hashFile(file, signal) {
   const hash = createHash('sha256');
@@ -81,9 +90,10 @@ export function messagesFor(input) {
 }
 
 /** Test dependency overrides are code-only and mark status MOCK_ONLY. Never pass request data here. */
-export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, processingBatch = 'default', weightRepacking = true } = {}, testDependencies = null) {
+export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, processingBatch = 'default', weightRepacking = true, promptCaching = false } = {}, testDependencies = null) {
   if (!['qwen1_7b', 'qwen4b'].includes(modelId) || ![2, 4].includes(threads) ||
-      !['default','compact'].includes(processingBatch) || typeof weightRepacking !== 'boolean') fail('UNSUPPORTED_MODEL_CONFIGURATION');
+      !['default','compact'].includes(processingBatch) || typeof weightRepacking !== 'boolean' ||
+      typeof promptCaching !== 'boolean') fail('UNSUPPORTED_MODEL_CONFIGURATION');
   const defaults = { spawn, fetch: globalThis.fetch, readFile, lstat, realpath, readdir, hashFile, reservePort,
     sleep, now: () => performance.now(), randomBytes };
   if (testDependencies && Object.entries(testDependencies).some(([k, v]) => !Object.hasOwn(defaults, k) || typeof v !== 'function')) fail('INVALID_TEST_DEPENDENCIES');
@@ -91,6 +101,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   let state = 'STOPPED', child = null, childExited = true, childExitPromise = null, startPromise = null, termination = null;
   let startupAbort = null, generationAbort = null, generationPromise = null, activeGeneration = false, stopping = false;
   let token = '', origin = '', log = '', logTail = '', verification = 'NOT_PERFORMED', lastError = null, exitCode = null;
+  let lastGenerationTimings = null;
   const classification = testDependencies ? 'MOCK_ONLY' : 'LOCAL_COMPONENT_UNVALIDATED';
   const redact = text => token ? text.split(token).join('[SESSION_TOKEN]') : text;
   function appendLog(text, flush = false) {
@@ -166,6 +177,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     if (startPromise) return startPromise;
     if (stopping || (child && !childExited)) return Promise.reject(new Error('OWNED_PROCESS_STILL_RUNNING'));
     stopping = false; state = 'VERIFYING'; lastError = null; verification = 'NOT_PERFORMED'; log = ''; logTail = '';
+    lastGenerationTimings = null;
     startupAbort = new AbortController();
     startPromise = (async () => {
       try {
@@ -222,17 +234,20 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   }
   async function runGeneration(context, { signal } = {}) {
     if (state !== 'READY' || !child || childExited || stopping) fail(activeGeneration ? 'MODEL_BUSY' : 'MODEL_NOT_READY');
-    if (activeGeneration) fail('MODEL_BUSY'); if (signal?.aborted) fail('GENERATION_CANCELLED');
+    if (activeGeneration) fail('MODEL_BUSY');
+    lastGenerationTimings = null;
+    if (signal?.aborted) fail('GENERATION_CANCELLED');
     if (signal !== undefined && !(signal instanceof AbortSignal)) fail('INVALID_ABORT_SIGNAL');
     const messages = messagesFor(context); activeGeneration = true; state = 'GENERATING';
     generationAbort = new AbortController(); const ownAbort = generationAbort;
-    const combined = AbortSignal.any([ownAbort.signal, AbortSignal.timeout(60000), ...(signal ? [signal] : [])]);
-    let reader, buffer = '', output = '', totalBytes = 0, finished = false;
+    const deadlineSignal = AbortSignal.timeout(60000);
+    const combined = AbortSignal.any([ownAbort.signal, deadlineSignal, ...(signal ? [signal] : [])]);
+    let reader, buffer = '', output = '', totalBytes = 0, finished = false, finalTimings = null;
     try {
       const response = await abortable(io.fetch(`${origin}/v1/chat/completions`, { method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages, max_tokens: 64, temperature: 0.7, top_p: 0.8, top_k: 20, stream: true,
-          cache_prompt: false, chat_template_kwargs: { enable_thinking: false } }), signal: combined }), combined);
+          cache_prompt: promptCaching, chat_template_kwargs: { enable_thinking: false } }), signal: combined }), combined);
       if (!response.ok || !response.body || !response.headers.get('content-type')?.startsWith('text/event-stream')) fail('INFERENCE_PROTOCOL_ERROR');
       reader = response.body.getReader(); const decoder = new TextDecoder();
       while (!finished) {
@@ -252,6 +267,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
           if (!delta || typeof delta !== 'object' || delta.tool_calls || delta.function_call || delta.reasoning_content ||
               (delta.role !== undefined && delta.role !== 'assistant') ||
               (choice.finish_reason && !['stop', 'length'].includes(choice.finish_reason))) fail('UNSUPPORTED_GENERATED_PAYLOAD');
+          if (choice.finish_reason) finalTimings = generationTimings(packet.timings);
           if (delta.content !== undefined && delta.content !== null) {
             if (typeof delta.content !== 'string') fail('INFERENCE_PROTOCOL_ERROR'); output += delta.content;
             if (output.length > 256 || /<\/?think\b/i.test(output) || /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\u202a-\u202e\u2066-\u2069]/.test(output)) fail('INVALID_GENERATED_TEXT');
@@ -263,12 +279,16 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
       // Escaped UTF-16 surrogates can cross SSE chunks; validate only once the
       // full logical string exists so legitimate split pairs remain valid.
       if (!output.isWellFormed()) fail('INVALID_GENERATED_TEXT');
+      lastGenerationTimings = finalTimings;
       return output.trim().replace(/\s+/g, ' ');
     } catch (error) {
       if (combined.aborted || stopping || childExited) throw new Error('GENERATION_CANCELLED');
       throw new Error(/^[A-Z_]+$/.test(error.message) ? error.message : 'INFERENCE_FAILED');
     } finally {
       ownAbort.abort(); if (reader) { try { await Promise.race([reader.cancel(), io.sleep(500)]); } catch {} }
+      // Cleanup itself may cross a caller deadline or owned-process shutdown.
+      // ownAbort is deliberately aborted above, so inspect the external causes.
+      if (signal?.aborted || deadlineSignal.aborted || stopping || childExited) lastGenerationTimings = null;
       activeGeneration = false; if (generationAbort === ownAbort) generationAbort = null;
       if (!stopping && !childExited && state !== 'FAILED') state = 'READY';
     }
@@ -292,8 +312,9 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   function status() {
     return { state, modelId, threads, classification, verification, ownedPid: !childExited ? child?.pid ?? null : null,
       ownedProcessStopped: childExited, activeGeneration, lastError, exitCode, log,
+      lastGenerationTimings: lastGenerationTimings ? { ...lastGenerationTimings } : null,
       settings: { host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
-        processingBatch, weightRepacking, logicalBatchTokens: processingBatch === 'compact' ? 128 : 2048,
+        processingBatch, weightRepacking, promptCaching, logicalBatchTokens: processingBatch === 'compact' ? 128 : 2048,
         physicalBatchTokens: processingBatch === 'compact' ? 64 : 512,
         simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false },
       gameTests: 'NOT_PERFORMED', audioGenerated: false, nativeCalls: 0 };

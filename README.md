@@ -1,8 +1,10 @@
 # MW5 Lancemate Companion
 
-Research snapshot: **2026-09-21**. Updated goal: **three independently coordinating AI lancemates while the user plays**, followed by progressively proven direct piloting. The mission-only experience remains in scope and the callsign is undecided. The approved [full delivery plan](design/FULL_MOD_DELIVERY.md) now includes local voice/model component work. Shipping control and gameplay improvement are not yet demonstrated.
+Research snapshot: **2026-09-22**. Updated goal: **three independently coordinating AI lancemates while the user plays**, followed by progressively proven direct piloting. The mission-only experience remains in scope and the callsign is undecided. The approved [full delivery plan](design/FULL_MOD_DELIVERY.md) now includes local voice/model component work. Shipping control and gameplay improvement are not yet demonstrated.
 
 ## Current verdict
+
+**Editor status, September 22:** the coordinating task [closed the editor normally](research/EDITOR_CLOSE_RESOURCE_2026-09-22.json) to free RAM. This task prepared a [future full-editor startup experiment](design/OBSERVER_NORMAL_EDITOR_EXPERIMENT.md) using the unchanged reference helper. The normal startup route has local precedent, but `-ExecutePythonScript` execution/exit remain untested on MW5's UE4.26.2 build. Current preparation sample: **5.63 GiB available RAM versus an 8 GiB proposed admission gate**. A process supervisor is **NOT_BUILT**; editor launch and lookup remain **NOT_PERFORMED** in this preparation. Leave the editor closed until the future experiment's gates are met. The older instruction to use an already running editor is historical.
 
 **Current implementation:** the [implementation checkpoint](research/IMPLEMENTATION_STATUS.md) records local observation/arbitration/radio components, a browser workbench, validation and local model benchmarks. Those results have their own current receipts; the original overnight receipts remain historical. The user subsequently authorized running the editor or game when needed for continued implementation. That authorization permits the bounded editor lookup below; an actual game-affecting experiment still needs concrete artifacts, a disposable scenario, baseline, stop conditions and rollback. No shipping adapter or full-mod acceptance is claimed.
 
