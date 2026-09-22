@@ -1,6 +1,9 @@
 /** Pure project evidence checks. No telemetry capture, game access or authenticity proof. */
 export const GiB = 1024 ** 3;
 export const RELEASE_MODES = Object.freeze(['vanilla', 'tactical', 'direct']);
+export const ENDURANCE_EXERCISE_KINDS = Object.freeze([
+  'conversation', 'pause_resume', 'mech_swap', 'mission_transition', 'component_failure',
+]);
 export const SCENARIO_CELLS = Object.freeze([
   ['C01', 'assault', 'open', 'mixed ranges', 'balanced mech lance'],
   ['C02', 'assault', 'urban cover', 'short range', 'armored close assault'],
@@ -89,6 +92,42 @@ function unique(value, seen, label, issues) {
   else if (seen.has(value)) issues.push(`${label}: duplicate identifier ${value}`);
   else seen.add(value);
 }
+function enduranceSummary(row, currentConfigHash, label) {
+  const issues = [], failures = [];
+  common(row, currentConfigHash, label, issues);
+  if (!object(row)) return {issues, failures};
+  if (!hash(row.workloadHash)) issues.push(`${label}: predeclared workloadHash must be SHA-256 hex`);
+  if (!nonnegative(row.durationMs) || !Number.isInteger(row.controlledAiCount) || !bool(row.allThreeActiveThroughout) ||
+      !bool(row.noCrash) || !Number.isSafeInteger(row.humanOverrideFailures) || row.humanOverrideFailures < 0 ||
+      !Number.isSafeInteger(row.wrongRecipientCommands) || row.wrongRecipientCommands < 0)
+    issues.push(`${label}: invalid duration/coverage/failure evidence`);
+  const validResources = resourcesValid(row, label, issues);
+  if (nonnegative(row.durationMs) && row.durationMs < 60 * 60 * 1000) failures.push(`${label}: less than 60 uninterrupted minutes`);
+  if ((Number.isInteger(row.controlledAiCount) && row.controlledAiCount !== 3) ||
+      row.allThreeActiveThroughout === false || row.noCrash === false ||
+      (Number.isSafeInteger(row.humanOverrideFailures) && row.humanOverrideFailures > 0) ||
+      (Number.isSafeInteger(row.wrongRecipientCommands) && row.wrongRecipientCommands > 0))
+    failures.push(`${label}: three-AI stability or human precedence failed`);
+  if (validResources && (row.resources.minAvailableRamBytes < 2 * GiB || row.resources.minAvailableVramBytes < GiB))
+    failures.push(`${label}: resource reserve violated`);
+  if (!Array.isArray(row.exercises)) issues.push(`${label}: required exercise summaries are missing`);
+  else {
+    const seen = new Set();
+    for (const [i, exercise] of row.exercises.entries()) {
+      const name = `${label}.exercises[${i}]`;
+      if (!object(exercise)) { issues.push(`${name}: expected an exercise summary`); continue; }
+      if (!ENDURANCE_EXERCISE_KINDS.includes(exercise.kind)) issues.push(`${name}: unknown exercise kind`);
+      else if (seen.has(exercise.kind)) issues.push(`${name}: duplicate exercise kind ${exercise.kind}`);
+      else seen.add(exercise.kind);
+      if (!id(exercise.evidenceRef) || !id(exercise.description)) issues.push(`${name}: evidenceRef and event/recovery description are required`);
+      if (!['PASS', 'FAIL', 'NOT_PERFORMED'].includes(exercise.status)) issues.push(`${name}: unknown exercise status`);
+      else if (exercise.status === 'NOT_PERFORMED') issues.push(`${name}: exercise not performed`);
+      else if (exercise.status === 'FAIL') failures.push(`${name}: ${exercise.kind} exercise failed`);
+    }
+    for (const kind of ENDURANCE_EXERCISE_KINDS) if (!seen.has(kind)) issues.push(`${label}: missing ${kind} exercise`);
+  }
+  return {issues, failures};
+}
 function gate(items, minimum, issues, failures, metrics) {
   const observedCount = items.filter(x => x?.provenance === 'GAME_OBSERVED').length;
   const mockCount = items.filter(x => x?.provenance === 'MOCK_ONLY').length;
@@ -103,15 +142,16 @@ function gate(items, minimum, issues, failures, metrics) {
 }
 
 /**
- * Schema v1 is documented in design/TACTICAL_EVALUATION_PROTOCOL.md.
+ * Schema v2 is documented in design/TACTICAL_EVALUATION_PROTOCOL.md.
  * A PASS checks supplied evidence only; evidenceRef content is never fetched/authenticated.
  */
 export function evaluateReleaseEvidence(evidence) {
   const e = object(evidence) ? evidence : {};
   const schemaIssues = [];
-  if (e.version !== 1) schemaIssues.push('version: expected 1');
+  if (e.version !== 2) schemaIssues.push('version: expected 2; legacy evidence is not implicitly migrated');
   if (!hash(e.currentConfigHash)) schemaIssues.push('currentConfigHash: expected SHA-256 hex for the current evaluation configuration');
   const criticalReview = ['Evidence provenance, capture completeness and evidenceRef authenticity require independent human inspection.',
+    'Voice ambiguity annotations, exercise descriptions and predeclared workload hashes require independent review; labels alone prove none of them.',
     'Passing this checker neither installs nor authorizes a game adapter; it is not proof of native order acceptance.'];
   const gates = {};
 
@@ -209,14 +249,19 @@ export function evaluateReleaseEvidence(evidence) {
     common(r, e.currentConfigHash, `voiceRecordings[${i}]`, voiceIssues);
     if (!object(r)) continue;
     unique(r.recordingId, recordingIds, `voiceRecordings[${i}].recordingId`, voiceIssues);
+    if (!bool(r.ambiguous)) voiceIssues.push(`voiceRecordings[${i}]: independent ambiguity annotation is required`);
     if (!bool(r.intentCorrect) || !bool(r.recipientCorrect) || !nonnegative(r.finalTranscriptMs) || !bool(r.dispatchAttempted) || (r.dispatchAttempted && !bool(r.dispatchRecipientCorrect))) voiceIssues.push(`voiceRecordings[${i}]: invalid correctness/dispatch/latency evidence`);
     if (r.dispatchAttempted && r.dispatchRecipientCorrect === false) voiceFailures.push(`voiceRecordings[${i}]: wrong-recipient dispatch`);
+    if (r.ambiguous === true && r.dispatchAttempted === true) voiceFailures.push(`voiceRecordings[${i}]: ambiguous command was dispatched`);
   }
+  const annotatedAmbiguousCount = voice.filter(r => r?.ambiguous === true).length;
+  const ambiguousDispatchCount = voice.filter(r => r?.ambiguous === true && r?.dispatchAttempted === true).length;
+  if (voice.length && annotatedAmbiguousCount === 0) voiceIssues.push('annotated ambiguous recordings are required to evaluate withholding behavior');
   const correctRate = voice.length ? voice.filter(r => r?.intentCorrect === true && r?.recipientCorrect === true).length / voice.length : null;
   const sttP95Ms = percentile(voice.map(r => r?.finalTranscriptMs), .95);
   if (correctRate !== null && correctRate < .95) voiceFailures.push('joint intent/recipient accuracy is below 95%');
   if (sttP95Ms !== null && sttP95Ms > 1500) voiceFailures.push('p95 end-of-push-to-talk to final transcript exceeds 1500 ms');
-  gates.voiceCommands = gate(voice, 100, voiceIssues, voiceFailures, {correctRate, sttP95Ms});
+  gates.voiceCommands = gate(voice, 100, voiceIssues, voiceFailures, {correctRate, sttP95Ms, annotatedAmbiguousCount, ambiguousDispatchCount});
 
   const talkIssues = [], talkFailures = [], conversation = getArray(e, 'conversationSamples', talkIssues), sampleIds = new Set();
   for (const [i, r] of conversation.entries()) {
@@ -231,33 +276,47 @@ export function evaluateReleaseEvidence(evidence) {
   gates.conversation = gate(conversation, 1, talkIssues, talkFailures, {firstAudioP95Ms});
 
   const enduranceIssues = [], enduranceFailures = [], endurance = getArray(e, 'enduranceSessions', enduranceIssues), enduranceIds = new Set();
+  const enduranceBySession = new Map();
   for (const [i, r] of endurance.entries()) {
-    common(r, e.currentConfigHash, `enduranceSessions[${i}]`, enduranceIssues);
+    const result = enduranceSummary(r, e.currentConfigHash, `enduranceSessions[${i}]`);
+    enduranceIssues.push(...result.issues); enduranceFailures.push(...result.failures);
     if (!object(r)) continue;
     unique(r.sessionId, enduranceIds, `enduranceSessions[${i}].sessionId`, enduranceIssues);
-    if (!nonnegative(r.durationMs) || !Number.isInteger(r.controlledAiCount) || !bool(r.allThreeActiveThroughout) || !bool(r.noCrash) || !Number.isSafeInteger(r.humanOverrideFailures) || r.humanOverrideFailures < 0 || !Number.isSafeInteger(r.wrongRecipientCommands) || r.wrongRecipientCommands < 0) enduranceIssues.push(`enduranceSessions[${i}]: invalid duration/coverage/failure evidence`);
-    resourcesValid(r, `enduranceSessions[${i}]`, enduranceIssues);
-    if (nonnegative(r.durationMs) && r.durationMs < 60 * 60 * 1000) enduranceFailures.push(`enduranceSessions[${i}]: less than 60 uninterrupted minutes`);
-    if (r.controlledAiCount !== 3 || r.allThreeActiveThroughout !== true || r.noCrash !== true || r.humanOverrideFailures !== 0 || r.wrongRecipientCommands !== 0) enduranceFailures.push(`enduranceSessions[${i}]: three-AI stability or human precedence failed`);
-    if (object(r.resources) && (r.resources.minAvailableRamBytes < 2 * GiB || r.resources.minAvailableVramBytes < GiB)) enduranceFailures.push(`enduranceSessions[${i}]: resource reserve violated`);
+    if (id(r.sessionId)) {
+      const matches = enduranceBySession.get(r.sessionId) ?? [];
+      matches.push({row:r, ...result}); enduranceBySession.set(r.sessionId, matches);
+    }
   }
-  gates.endurance = gate(endurance, 1, enduranceIssues, enduranceFailures, {requiredDurationMs: 3600000});
+  gates.endurance = gate(endurance, 1, enduranceIssues, enduranceFailures,
+    {requiredDurationMs: 3600000, requiredExercises: ENDURANCE_EXERCISE_KINDS});
 
   const offlineIssues = [], offlineFailures = [], offline = getArray(e, 'offlineWorkloads', offlineIssues), offlineIds = new Set();
   for (const [i, r] of offline.entries()) {
-    common(r, e.currentConfigHash, `offlineWorkloads[${i}]`, offlineIssues);
+    const label = `offlineWorkloads[${i}]`, result = enduranceSummary(r, e.currentConfigHash, label);
+    offlineIssues.push(...result.issues); offlineFailures.push(...result.failures);
     if (!object(r)) continue;
     unique(r.sessionId, offlineIds, `offlineWorkloads[${i}].sessionId`, offlineIssues);
     if (!bool(r.networkDisconnected) || !bool(r.allComponentsLocal) || !bool(r.workloadCompleted) || !Number.isSafeInteger(r.paidApiCalls) || r.paidApiCalls < 0) offlineIssues.push(`offlineWorkloads[${i}]: invalid offline workload evidence`);
     if (r.networkDisconnected !== true || r.allComponentsLocal !== true || r.workloadCompleted !== true || r.paidApiCalls !== 0) offlineFailures.push(`offlineWorkloads[${i}]: disconnected zero-API workload not demonstrated`);
+    const matches = id(r.repeatsSessionId) ? enduranceBySession.get(r.repeatsSessionId) ?? [] : [];
+    if (matches.length !== 1) offlineIssues.push(`${label}: repeatsSessionId must identify one distinct endurance session`);
+    if (r.sessionId === r.repeatsSessionId || enduranceIds.has(r.sessionId)) offlineIssues.push(`${label}: offline repeat must use a distinct sessionId`);
+    if (matches.length === 1) {
+      const source = matches[0];
+      if (source.row.configHash !== r.configHash || source.row.provenance !== r.provenance || source.row.workloadHash !== r.workloadHash)
+        offlineIssues.push(`${label}: referenced endurance configuration/provenance/workload does not match`);
+      if (source.issues.length) offlineIssues.push(`${label}: referenced endurance session is incomplete`);
+      if (source.failures.length) offlineFailures.push(`${label}: referenced endurance session failed acceptance`);
+    }
   }
-  gates.offline = gate(offline, 1, offlineIssues, offlineFailures, {});
+  gates.offline = gate(offline, 1, offlineIssues, offlineFailures,
+    {requiredDurationMs: 3600000, requiredExercises: ENDURANCE_EXERCISE_KINDS});
 
   const results = Object.values(gates), accepted = !schemaIssues.length && results.every(g => g.accepted);
   let status = accepted ? 'PASS' : 'INCOMPLETE';
   if (!schemaIssues.length && results.every(g => g.status === 'NOT_PERFORMED')) status = 'NOT_PERFORMED';
   else if (!schemaIssues.length && results.every(g => ['MOCK_ONLY', 'NOT_PERFORMED'].includes(g.status)) && results.some(g => g.status === 'MOCK_ONLY')) status = 'MOCK_ONLY';
   else if (!schemaIssues.length && results.some(g => g.status === 'FAIL')) status = 'FAIL';
-  return {version: 1, status, accepted, scope: 'SUPPLIED_RELEASE_EVIDENCE_ONLY', currentConfigHash: hash(e.currentConfigHash) ? e.currentConfigHash : null,
+  return {version: 2, status, accepted, scope: 'SUPPLIED_RELEASE_EVIDENCE_ONLY', currentConfigHash: hash(e.currentConfigHash) ? e.currentConfigHash : null,
     schemaIssues, gates, criticalReview};
 }

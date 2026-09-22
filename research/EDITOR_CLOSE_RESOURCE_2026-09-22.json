@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T21:32:08.9076304Z",
+  "status": "EDITOR_CLOSED",
+  "userRequest": "User suggested closing the unused editor to improve RAM on 2026-09-22",
+  "method": "One normal Alt_L+F4 through supported sky.press_key to freshly observed MW5Mercs - Unreal Editor window 199312",
+  "priorWindows": [
+    199096,
+    132404,
+    199312
+  ],
+  "remainingEditorProcessCount": 0,
+  "subsequentSkyEditorWindows": 0,
+  "refreshDuringExit": "foreground window did not report a process id; subsequent window listing and process query confirmed no editor",
+  "forceTermination": false,
+  "saveOrDiscardPromptAction": false,
+  "resourceSample": {
+    "availableRamBytes": 6024306688,
+    "sampledAt": "2026-09-22T21:32:08.893Z"
+  },
+  "historicalResourceBefore": {
+    "receipt": "research/WORKBENCH_RESOURCE_PREFLIGHT_2026-09-22.json",
+    "availableRamBytes": 1689968640,
+    "sampledAt": "2026-09-22T21:10:55.769Z"
+  },
+  "gameExecution": "NOT_PERFORMED",
+  "limitation": "The earlier RAM sample is historical; background allocations also affect available memory. Normal editor exit is not evidence that the prepared reference lookup ran.",
+  "metadataCorrection": {
+    "from": "authorization",
+    "to": "userRequest",
+    "reason": "Descriptive user instruction, not an HTTP authorization credential. Observation values are unchanged.",
+    "originalSha256": "4bc80b731bc83fc03fe89085bf6876ce4917098e502117a460ac9e4e735b6b11",
+    "originalPreservedLocally": "tmp/editor-close-resource-original-2026-09-22.json"
+  }
+}

@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T21:15:16.726Z",
+  "recordedAt": "2026-09-22T21:37:13.744Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 629,
-  "passed": 629,
+  "tests": 695,
+  "passed": 695,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
   "nodeVersion": "v24.19.0",
   "testFiles": [
+    "companion/tests/benchmark-review.test.mjs",
     "companion/tests/benchmark.test.mjs",
     "companion/tests/browser-playback.test.mjs",
     "companion/tests/browser-ptt.test.mjs",
@@ -42,8 +43,12 @@
   ],
   "hashes": [
     {
+      "file": "companion/tests/benchmark-review.test.mjs",
+      "sha256": "037d134a0869917057212290f00613c405e499bf6935daf4e862bf4b86dffdbf"
+    },
+    {
       "file": "companion/tests/benchmark.test.mjs",
-      "sha256": "8e1442712dc0b6f9a222c3965f64e36693d5eb833526a635b01bb9e812ca0c88"
+      "sha256": "d3dda67c58e484636d1f3db6e812915a3682b6bdd78b4755d82a8baeacfbf496"
     },
     {
       "file": "companion/tests/browser-playback.test.mjs",
@@ -71,7 +76,7 @@
     },
     {
       "file": "companion/tests/grounding-diagnostic.test.mjs",
-      "sha256": "afe9c1683ba39d749c0fbc52dbeb46880ef81dea8cb775f6217547112fa0add6"
+      "sha256": "ce985d0967e35fb780552facc9d0aa642821c37f00387b258db1473e28acec14"
     },
     {
       "file": "companion/tests/llm-review.test.mjs",
@@ -159,7 +164,7 @@
     },
     {
       "file": "companion/benchmark.mjs",
-      "sha256": "9bd0ecab38361f9fa2fc05f5e186ecac0a287ed399b47439d5a6ab89e398192d"
+      "sha256": "fc4ccb3bd67a57e1358daddda026e63db3e13b80b22d01c0c2fa0a5e4461c05f"
     },
     {
       "file": "companion/control.mjs",
@@ -263,11 +268,11 @@
     },
     {
       "file": "synthetic/release-benchmark.json",
-      "sha256": "d9f350772924d9e087ff8c4377f747ce0d849da4039cb3f63fdc7aff44eba599"
+      "sha256": "b1198e0463fb3a73f21c39b3fedfb37cb2acf186214f9283814035b3ca5fe1be"
     },
     {
       "file": "scripts/Exercise-ConversationGrounding.mjs",
-      "sha256": "854a21929d8a4ed5238acf63b7cfd35961c9d65b11faecd53b1ee24246ca7deb"
+      "sha256": "50da99c88081092b27c5cfa4f800e3c462cf4aae53d1854fe349ab89232cc106"
     },
     {
       "file": "synthetic/conversation-grounding-cases.json",

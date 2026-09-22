@@ -2,7 +2,33 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { waitForStartup, validateGroundingCases } from '../../scripts/Exercise-ConversationGrounding.mjs';
+import { waitForStartup, validateGroundingCases, parseGroundingArgs } from '../../scripts/Exercise-ConversationGrounding.mjs';
+
+test('editor-closed context requires the unchanged compact/no-repack configuration and a separate fixed receipt', () => {
+  for (const action of ['--check','--run']) {
+    const baseline = parseGroundingArgs([action, '--compact-no-repack']);
+    const changed = parseGroundingArgs([action, '--compact-no-repack', '--editor-closed']);
+    assert.equal(changed.action, action);
+    assert.equal(changed.compact, baseline.compact); assert.equal(changed.weightRepacking, baseline.weightRepacking);
+    assert.equal(changed.compact, true); assert.equal(changed.weightRepacking, false);
+    assert.equal(changed.receiptFileName, 'QWEN4B_GROUNDING_EDITOR_CLOSED_DIAGNOSTIC.json');
+    assert.notEqual(changed.receiptFileName, baseline.receiptFileName);
+    assert.deepEqual(changed.environmentContext, { editorCondition: 'SUPERVISOR_REPORTED_EDITOR_CLOSED',
+      evidenceRef: 'research/EDITOR_CLOSE_RESOURCE_2026-09-22.json', editorStateCheckedByScript: false });
+    assert.equal(baseline.receiptFileName, 'QWEN4B_GROUNDING_NOREPACK_DIAGNOSTIC.json');
+    assert.equal(parseGroundingArgs([action, '--compact-batch']).receiptFileName, 'QWEN4B_GROUNDING_COMPACT_DIAGNOSTIC.json');
+    assert.equal(parseGroundingArgs([action]).receiptFileName, 'QWEN4B_GROUNDING_DIAGNOSTIC.json');
+  }
+});
+
+test('unsupported editor-closed combinations cannot select a runnable diagnostic or arbitrary receipt', () => {
+  for (const args of [[], null, ['--editor-closed'], ['--run','--editor-closed'], ['--check','--editor-closed'],
+    ['--run','--compact-batch','--editor-closed'], ['--check','--compact-batch','--editor-closed'],
+    ['--run','--editor-closed','--compact-no-repack'], ['--run','--compact-no-repack','--unknown'],
+    ['--run','--compact-no-repack','../../outside.json'], ['--run','--compact-no-repack','--editor-closed','--editor-closed']]) {
+    assert.equal(parseGroundingArgs(args), null);
+  }
+});
 
 test('independent diagnostic cases fit the actual adapter prompt contract before execution', async () => {
   const fixture = JSON.parse(await readFile(new URL('../../synthetic/conversation-grounding-cases.json', import.meta.url)));

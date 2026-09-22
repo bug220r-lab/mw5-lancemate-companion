@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {evaluateReleaseEvidence, storagePreflight, percentile, GiB, SCENARIO_CELLS} from '../benchmark.mjs';
+import {evaluateReleaseEvidence, storagePreflight, percentile, GiB, SCENARIO_CELLS, ENDURANCE_EXERCISE_KINDS} from '../benchmark.mjs';
 
 const fixture = JSON.parse(readFileSync(new URL('../../synthetic/release-benchmark.json', import.meta.url), 'utf8'));
 const fields = ['records', 'calibrationSessions', 'styleHeldOutDecisions', 'voiceRecordings', 'conversationSamples', 'enduranceSessions', 'offlineWorkloads'];
-const empty = () => Object.fromEntries([['version', 1], ['currentConfigHash', 'a'.repeat(64)], ...fields.map(f => [f, []])]);
+const empty = () => Object.fromEntries([['version', 2], ['currentConfigHash', 'a'.repeat(64)], ...fields.map(f => [f, []])]);
 // Deliberately fabricated, memory-only evidence exercises validation branches. It is NEVER a gameplay receipt.
 function suppliedObservedShape() {
   const x = structuredClone(fixture);
@@ -228,4 +228,89 @@ test('evaluation is deterministic and never mutates supplied evidence', () => {
   const input=structuredClone(fixture), before=structuredClone(input);
   assert.deepEqual(evaluateReleaseEvidence(input),evaluateReleaseEvidence(input));
   assert.deepEqual(input,before);
+});
+
+test('schema v1 cannot silently inherit v2 acceptance', () => {
+  const report=check(x=>{x.version=1;});
+  assert.equal(report.version,2);assert.equal(report.accepted,false);assert.equal(report.status,'INCOMPLETE');
+  assert.ok(report.schemaIssues.some(message=>message.includes('legacy')));
+});
+
+test('voice needs explicit ambiguity annotations and nonempty ambiguous coverage', () => {
+  assert.equal(check(x=>{delete x.voiceRecordings[0].ambiguous;}).gates.voiceCommands.status,'INCOMPLETE');
+  assert.equal(check(x=>{for(const row of x.voiceRecordings)row.ambiguous=false;}).gates.voiceCommands.status,'INCOMPLETE');
+  const report=check(()=>{}).gates.voiceCommands;
+  assert.equal(report.metrics.annotatedAmbiguousCount,1);assert.equal(report.metrics.ambiguousDispatchCount,0);
+  assert.equal(report.status,'PASS');
+});
+
+test('ambiguous dispatch fails even if intent and guessed recipient are both marked correct', () => {
+  const report=check(x=>{Object.assign(x.voiceRecordings[0],{ambiguous:true,intentCorrect:true,recipientCorrect:true,
+    dispatchAttempted:true,dispatchRecipientCorrect:true});}).gates.voiceCommands;
+  assert.equal(report.status,'FAIL');assert.equal(report.metrics.ambiguousDispatchCount,1);
+  assert.ok(report.failures.some(message=>message.includes('ambiguous command')));
+});
+
+test('known unsafe dispatch remains visible when other voice evidence is incomplete', () => {
+  const report=check(x=>{Object.assign(x.voiceRecordings[0],{ambiguous:true,dispatchAttempted:true,dispatchRecipientCorrect:true});
+    delete x.voiceRecordings[1].ambiguous;}).gates.voiceCommands;
+  assert.equal(report.status,'INCOMPLETE');assert.ok(report.failures.some(message=>message.includes('ambiguous command')));
+});
+
+test('every endurance exercise needs exactly one performed summary', () => {
+  for(const kind of ENDURANCE_EXERCISE_KINDS){
+    assert.equal(check(x=>{x.enduranceSessions[0].exercises=x.enduranceSessions[0].exercises.filter(row=>row.kind!==kind);}).gates.endurance.status,'INCOMPLETE');
+    assert.equal(check(x=>{x.enduranceSessions[0].exercises.find(row=>row.kind===kind).status='NOT_PERFORMED';}).gates.endurance.status,'INCOMPLETE');
+    assert.equal(check(x=>{x.enduranceSessions[0].exercises.find(row=>row.kind===kind).status='FAIL';}).gates.endurance.status,'FAIL');
+  }
+  assert.equal(check(x=>{x.enduranceSessions[0].exercises.push({...x.enduranceSessions[0].exercises[0]});}).gates.endurance.status,'INCOMPLETE');
+  assert.equal(check(x=>{x.enduranceSessions[0].exercises.push({kind:'unapproved',status:'PASS',description:'Extra',evidenceRef:'mock://extra'});}).gates.endurance.status,'INCOMPLETE');
+});
+
+test('exercise claims and workload references cannot substitute for missing descriptions/evidence', () => {
+  for(const field of ['description','evidenceRef','status','kind'])
+    assert.equal(check(x=>{delete x.enduranceSessions[0].exercises[0][field];}).gates.endurance.status,'INCOMPLETE');
+  for(const value of [undefined,'bad',null])
+    assert.equal(check(x=>{x.enduranceSessions[0].workloadHash=value;}).gates.endurance.status,'INCOMPLETE');
+  const report=check(x=>{x.enduranceSessions[0].exercises[0].status='FAIL';x.enduranceSessions[0].exercises.pop();});
+  assert.equal(report.gates.endurance.status,'INCOMPLETE');assert.ok(report.gates.endurance.failures.length>0);
+});
+
+test('offline flags alone no longer establish a full repeated endurance workload', () => {
+  const report=check(x=>{const r=x.offlineWorkloads[0];for(const key of ['durationMs','controlledAiCount','allThreeActiveThroughout',
+    'noCrash','humanOverrideFailures','wrongRecipientCommands','resources','exercises','workloadHash','repeatsSessionId'])delete r[key];});
+  assert.equal(report.gates.offline.status,'INCOMPLETE');assert.equal(report.accepted,false);
+});
+
+test('offline repeats preserve the same duration, three-AI and resource thresholds', () => {
+  for(const [key,value] of [['durationMs',3599999],['controlledAiCount',2],['allThreeActiveThroughout',false],['noCrash',false],['humanOverrideFailures',1],['wrongRecipientCommands',1]])
+    assert.equal(check(x=>{x.offlineWorkloads[0][key]=value;}).gates.offline.status,'FAIL');
+  for(const [key,value] of [['minAvailableRamBytes',2*GiB-1],['minAvailableVramBytes',GiB-1]])
+    assert.equal(check(x=>{x.offlineWorkloads[0].resources[key]=value;}).gates.offline.status,'FAIL');
+  for(const kind of ENDURANCE_EXERCISE_KINDS)
+    assert.equal(check(x=>{x.offlineWorkloads[0].exercises.find(row=>row.kind===kind).status='FAIL';}).gates.offline.status,'FAIL');
+});
+
+test('offline source linkage requires a distinct unique matching endurance session', () => {
+  for(const mutate of [
+    x=>{delete x.offlineWorkloads[0].repeatsSessionId;},
+    x=>{x.offlineWorkloads[0].repeatsSessionId='missing';},
+    x=>{x.offlineWorkloads[0].sessionId=x.enduranceSessions[0].sessionId;},
+    x=>{x.enduranceSessions.push(structuredClone(x.enduranceSessions[0]));},
+    x=>{x.offlineWorkloads[0].workloadHash='b'.repeat(64);},
+    x=>{x.enduranceSessions[0].provenance='MOCK_ONLY';},
+    x=>{x.enduranceSessions[0].configHash='b'.repeat(64);},
+  ]) assert.equal(check(mutate).gates.offline.status,'INCOMPLETE');
+});
+
+test('offline cannot repeat unknown, incomplete or failed source acceptance', () => {
+  assert.equal(check(x=>{delete x.enduranceSessions[0].noCrash;}).gates.offline.status,'INCOMPLETE');
+  assert.equal(check(x=>{x.enduranceSessions[0].exercises[0].status='NOT_PERFORMED';}).gates.offline.status,'INCOMPLETE');
+  assert.equal(check(x=>{x.enduranceSessions[0].noCrash=false;}).gates.offline.status,'FAIL');
+  assert.equal(check(x=>{x.enduranceSessions[0].exercises[0].status='FAIL';}).gates.offline.status,'FAIL');
+});
+
+test('offline linkage uses the referenced row qualification rather than unrelated aggregate failure', () => {
+  const report=check(x=>{x.enduranceSessions.push({...structuredClone(x.enduranceSessions[0]),sessionId:'other-endurance',noCrash:false});});
+  assert.equal(report.gates.endurance.status,'FAIL');assert.equal(report.gates.offline.status,'PASS');assert.equal(report.accepted,false);
 });

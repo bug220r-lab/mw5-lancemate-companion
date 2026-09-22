@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T21:25:08.388Z",
+  "classification": "MOCK_ONLY",
+  "baselineCommit": "f88df5ccf5e4a940b8e10651595c52d578b2afb0",
+  "baselineHashes": {
+    "benchmark": "9bd0ecab38361f9fa2fc05f5e186ecac0a287ed399b47439d5a6ab89e398192d",
+    "fixture": "d9f350772924d9e087ff8c4377f747ce0d849da4039cb3f63fdc7aff44eba599"
+  },
+  "method": "Executed the committed project v1 checker with synthetic fixture copies relabeled only in memory to test supplied-evidence validation. These labels do not represent observations. Added fields were ignored by schema v1, exposing missing approved acceptance requirements.",
+  "cases": [
+    {
+      "id": "MISSING_EXERCISES_AND_REPEAT_LINK",
+      "status": "PASS",
+      "accepted": true,
+      "voice": "PASS",
+      "endurance": "PASS",
+      "offline": "PASS"
+    },
+    {
+      "id": "AMBIGUOUS_DISPATCH",
+      "status": "PASS",
+      "accepted": true,
+      "voice": "PASS",
+      "endurance": "PASS",
+      "offline": "PASS"
+    },
+    {
+      "id": "FAILED_EXERCISE_IGNORED",
+      "status": "PASS",
+      "accepted": true,
+      "voice": "PASS",
+      "endurance": "PASS",
+      "offline": "PASS"
+    },
+    {
+      "id": "SHORT_UNLINKED_OFFLINE_RUN",
+      "status": "PASS",
+      "accepted": true,
+      "voice": "PASS",
+      "endurance": "PASS",
+      "offline": "PASS"
+    }
+  ],
+  "nativeModelsStarted": 0,
+  "gameOrEditor": "NOT_PERFORMED",
+  "fixtureChangedByThisCheck": false,
+  "limitation": "The checker did not claim authenticity; this reproduces a gap in the supplied-evidence requirements, not a gameplay success or a native dispatch."
+}

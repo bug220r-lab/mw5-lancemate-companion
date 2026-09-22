@@ -40,18 +40,37 @@ export function validateGroundingCases(fixture) {
   });
 }
 
+export function parseGroundingArgs(args) {
+  if (!Array.isArray(args) || !['--run','--check'].includes(args[0]) || args.length > 3 ||
+      (args.length >= 2 && !['--compact-batch','--compact-no-repack'].includes(args[1])) ||
+      (args.length === 3 && (args[1] !== '--compact-no-repack' || args[2] !== '--editor-closed'))) return null;
+  const compact = args.length >= 2, weightRepacking = args[1] !== '--compact-no-repack';
+  const editorClosed = args[2] === '--editor-closed';
+  return { action: args[0], compact, weightRepacking, editorClosed,
+    receiptFileName: editorClosed ? 'QWEN4B_GROUNDING_EDITOR_CLOSED_DIAGNOSTIC.json' :
+      !weightRepacking ? 'QWEN4B_GROUNDING_NOREPACK_DIAGNOSTIC.json' :
+      compact ? 'QWEN4B_GROUNDING_COMPACT_DIAGNOSTIC.json' : 'QWEN4B_GROUNDING_DIAGNOSTIC.json',
+    // This flag identifies the supervisor's changed environment, not an application-state probe.
+    environmentContext: { editorCondition: editorClosed ? 'SUPERVISOR_REPORTED_EDITOR_CLOSED' : 'NOT_ASSERTED',
+      evidenceRef: editorClosed ? 'research/EDITOR_CLOSE_RESOURCE_2026-09-22.json' : null,
+      editorStateCheckedByScript: false } };
+}
+
 async function main(args) {
-  if (!['--run','--check'].includes(args[0]) || args.length > 2 || (args.length === 2 && !['--compact-batch','--compact-no-repack'].includes(args[1]))) {
-    console.log('Use --check or --run, optionally with --compact-batch or --compact-no-repack. Nothing started.');
+  const selection = parseGroundingArgs(args);
+  if (!selection) {
+    console.log('Use --check or --run, optionally with --compact-batch or --compact-no-repack; --editor-closed is allowed only after --compact-no-repack. Nothing started.');
     return;
   }
   const fixtureBytes = await readFile(fixturePath);
   const cases = validateGroundingCases(JSON.parse(fixtureBytes));
-  if (args[0] === '--check') { console.log(JSON.stringify({ status: 'VALID_FIXTURE', cases: cases.length, workersStarted: 0 })); return; }
+  if (selection.action === '--check') {
+    console.log(JSON.stringify({ status: 'VALID_FIXTURE', cases: cases.length, workersStarted: 0,
+      receiptFileName: selection.receiptFileName, environmentContext: selection.environmentContext })); return;
+  }
   // Existing receipts are immutable experiments. Refusal occurs before engine construction/start.
-  const compact = args.length === 2, weightRepacking = args[1] !== '--compact-no-repack';
-  const receiptPath = path.join(root, 'research', !weightRepacking ? 'QWEN4B_GROUNDING_NOREPACK_DIAGNOSTIC.json' :
-    compact ? 'QWEN4B_GROUNDING_COMPACT_DIAGNOSTIC.json' : 'QWEN4B_GROUNDING_DIAGNOSTIC.json');
+  const { compact, weightRepacking } = selection;
+  const receiptPath = path.join(root, 'research', selection.receiptFileName);
   const ownedReceipt = await open(receiptPath, 'wx'); await ownedReceipt.close();
   const engine = createLocalLanguageModel({ modelId: 'qwen4b', threads: 4, processingBatch: compact ? 'compact' : 'default', weightRepacking });
   const abort = new AbortController(), began = performance.now();
@@ -59,6 +78,7 @@ async function main(args) {
   const report = { schemaVersion: 1, classification: 'LOCAL_CPU_DIAGNOSTIC_SYNTHETIC_PROMPTS',
     recordedAt: new Date().toISOString(), status: 'PREFLIGHT', fixtureSha256: sha(fixtureBytes),
     fixture: JSON.parse(fixtureBytes), sources: {}, modelId: 'qwen4b', samples: [],
+    environmentContext: selection.environmentContext,
     settings: { perCaseDeadlineMs: 10000, totalWorkBudgetMs: 233000, cleanupBudgetMs: 7000,
       minimumRamBytes: 2 * GiB, workingDiskReserveBytes: 10 * GiB, simultaneousModels: 1,
       processingBatch: compact ? 'compact' : 'default', weightRepacking, logicalBatchTokens: compact ? 128 : 2048, physicalBatchTokens: compact ? 64 : 512,

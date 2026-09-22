@@ -1,6 +1,8 @@
 # Tactical and direct-control evaluation protocol
 
-Version 1, 2026-09-21. **PROPOSED protocol; all actual gameplay, model, microphone and endurance tests remain NOT_PERFORMED.** The project-owned [benchmark module](../companion/benchmark.mjs) and its [tests](../companion/tests/benchmark.test.mjs) evaluate supplied records using Node built-ins. They do not run MW5, capture telemetry, authenticate evidence or confer deployment permission.
+Version 2, 2026-09-22. **PROPOSED release protocol; gameplay, microphone and endurance acceptance remain NOT_PERFORMED.** Existing component model benchmarks are separate, narrower evidence. The project-owned [benchmark module](../companion/benchmark.mjs) and its [tests](../companion/tests/benchmark.test.mjs) evaluate supplied records using Node built-ins. They do not run MW5, capture telemetry, authenticate evidence or confer deployment permission.
+
+Version 2 closes demonstrated omissions in the earlier supplied-evidence contract: ambiguity annotations, the required endurance exercises, and a linked offline repeat. The [preserved v1 reproduction](../research/RELEASE_EVIDENCE_V1_GAP.json) uses only fabricated in-memory observations; it is not a gameplay result. Historical v1 fixtures and receipts remain in Git history. The current checker does not silently upgrade v1 records or invent their missing evidence; a v1 envelope cannot pass the current contract. All numerical acceptance targets below are unchanged.
 
 The [synthetic fixture](../synthetic/release-benchmark.json) contains 108 stipulated game-run records plus stipulated voice/style/endurance records, all marked **MOCK_ONLY**. Its apparent numbers are chosen to exercise calculation boundaries. They are not measurements. The fixture must never be relabeled as a real receipt. Tests create fabricated observed-shaped copies only in memory to check the validator's branches.
 
@@ -29,7 +31,7 @@ Pair corresponding scenario/repetition runs across modes. Hold mech/pilot/loadou
 
 Predeclare the configuration and cell manifest before inspecting outcomes. `currentConfigHash` is the SHA-256 of that canonical evaluation manifest. The manifest identifies **all three variant artifact sets** and the invariant environment; `mode` records the enabled variant separately. The same hash across modes therefore does not assert identical executable artifacts. Updating game, adapter, model, graphics or protocol requires a new hash and new matching records. The checker compares the supplied hashes, but does not independently inspect the installed configuration or calculate that manifest hash.
 
-Do not discard crashes, losses or failed missions as inconvenient runs. Preserve the original capture, a unique session ID, outcome and failure reason. If a run is technically unmeasurable, preserve it as an excluded/incomplete record with the reason in the human report; do not silently replace it or claim the complete gate passed. The v1 accepted matrix permits exactly one valid record per required cell/repetition/mode. Extra, duplicate or malformed records prevent acceptance.
+Do not discard crashes, losses or failed missions as inconvenient runs. Preserve the original capture, a unique session ID, outcome and failure reason. If a run is technically unmeasurable, preserve it as an excluded/incomplete record with the reason in the human report; do not silently replace it or claim the complete gate passed. The accepted matrix still permits exactly one valid record per required cell/repetition/mode. Extra, duplicate or malformed records prevent acceptance.
 
 ## Required calculations and thresholds
 
@@ -39,14 +41,14 @@ Do not discard crashes, losses or failed missions as inconvenient runs. Preserve
 4. For every matched run, **candidate p95 frame time / vanilla p95 frame time <= 1.10**. All frame-time samples must be finite, positive and nonempty. Collect the same complete gameplay window and loading/pause inclusion policy for each pair. The checker uses the nearest-rank percentile: sort ascending and select `ceil(n * p) - 1`.
 5. During candidate runs and the endurance run, observed **minimum available RAM >= 2 GiB** and **minimum available VRAM >= 1 GiB**. These are the headroom values at worst resource pressure; a maximum available-memory reading or an average cannot substitute. Sample cadence and full capture duration remain review requirements.
 6. Personal-style fit: at least **40 distinct held-out decisions**, with the user's explicit `userReviewed: true` and boolean `acceptable` result. At least **80%** must be acceptable. Declare calibration session IDs separately and exclude every decision from those sessions from the held-out evaluation. Real claims require real calibration provenance as well. Preserve rejected decisions.
-7. Voice commands: at least **100 distinct recordings**, joint intent-and-recipient correctness **>=95%**, **zero wrong-recipient dispatches**, and **p95 push-to-talk release to final transcript <=1500 ms**. No-dispatch uncertainty is allowed and must be recorded honestly; it is not evidence that a dispatch path worked.
+7. Voice commands: at least **100 distinct recordings**, joint intent-and-recipient correctness **>=95%**, **zero wrong-recipient dispatches**, and **p95 push-to-talk release to final transcript <=1500 ms**. Each recording needs an independent `ambiguous` annotation; any dispatch of an ambiguous command fails, even if its guessed recipient happens to be correct. Include ambiguous cases to exercise the plan's required condition; zero such records is incomplete, without adding a quota or percentage. For an ambiguous recording, correctness means the annotated expected uncertainty/clarification outcome was recognized, not that a recipient was guessed. Report the ambiguous-record and ambiguous-dispatch counts. No-dispatch uncertainty is allowed and must be recorded honestly; it is not evidence that a dispatch path worked.
 8. Conversation: valid observed first-audio latency samples with **p95 input-completion to first audio <=4000 ms**. Grounding and speaker identity must be recorded; an invented state or wrong speaker is a failure. The approved plan supplies **no minimum conversation sample count**. The checker exposes the count; one sample can satisfy the numerical criterion but cannot establish a reliable tail-latency estimate. The human review should predeclare a representative workload and report this limitation.
-9. At least one **60-minute uninterrupted session with all three AI active throughout**, no crash, no human-override failures, no wrong-recipient commands, and the resource reserves above.
-10. At least one completed workload with network disconnected, all components local and **zero paid API calls**. A configuration flag alone is not the capture: retain the actual offline test evidence.
+9. At least one **60-minute uninterrupted session with all three companion roles active throughout**, no crash, no human-override failures, no wrong-recipient commands, and the resource reserves above. That same session must exercise conversation, pause/resume, mech swapping, mission transitions and component failures, with successful safeguard/recovery evidence. The three roles stay enabled/available subject to correct yielding during pause, human possession and planned faults; this does not require continuous control writes or an unpaused mission for the whole hour. Missing or unperformed exercises are incomplete; an explicitly failed exercise fails the gate.
+10. Repeat an individually qualifying endurance workload in a **distinct session** with network disconnected, all components local and **zero paid API calls**. The offline record must link its source session, match its configuration and predeclared workload hash/provenance, and supply its own complete duration, three-companion, resource and exercise evidence. The same 60-minute and resource requirements apply; a short unrelated local operation cannot substitute. A configuration flag or matching hash alone is not the capture: retain both actual runs' evidence.
 
 For diagnosis, the checker also reports an explicitly defined **1% low FPS = 1000 / mean(worst ceil(1% of frame-time samples))**, and the number of frames over 100 ms per 1,000 frames. They are advisory metrics, not added release blockers. It flags a greater-than-10% drop in that 1% low measure or additional normalized long stalls for review. These conventions should not be silently compared to a different overlay's similarly named FPS metric.
 
-## Project evidence interface, version 1
+## Project evidence interface, version 2
 
 `evaluateReleaseEvidence(evidence)` is pure and returns a report; it never reads `evidenceRef`, fetches a URL or modifies files. All names below are **project fields**, not claims about native MW5 telemetry/API names. Numbers require actual finite numeric values; strings such as `"1500"`, nulls, NaN, infinities, negative amounts and empty timing arrays are rejected. Byte counts must be nonnegative safe integers.
 
@@ -54,7 +56,7 @@ Top level:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "currentConfigHash": "<64 hexadecimal SHA-256 characters>",
   "records": [],
   "calibrationSessions": [],
@@ -73,12 +75,20 @@ Every entry in these arrays has `provenance` (`GAME_OBSERVED` or `MOCK_ONLY`), `
 | `records` | `scenarioId` C01-C12; integer `rep` 1-3; `mode` vanilla/tactical/direct; boolean `missionSuccess`; integer `lanceLosses` 0-3; nonnegative `damageDealt`, `damageTaken`; nonempty `frameTimesMs` array. Tactical/direct records additionally need `resources`. All 108 run session IDs must be distinct. |
 | `calibrationSessions` | Common fields; unique session IDs. These identify where the style profile was adjusted, not weight training. |
 | `styleHeldOutDecisions` | Unique `decisionId`; boolean `acceptable`; `userReviewed: true`; a session outside every calibration session. |
-| `voiceRecordings` | Unique `recordingId`; booleans `intentCorrect`, `recipientCorrect`, `dispatchAttempted`; nonnegative `finalTranscriptMs`. If dispatched, boolean `dispatchRecipientCorrect` is mandatory and must be true. |
+| `voiceRecordings` | Unique `recordingId`; booleans `ambiguous`, `intentCorrect`, `recipientCorrect`, `dispatchAttempted`; nonnegative `finalTranscriptMs`. If dispatched, boolean `dispatchRecipientCorrect` is mandatory and must be true. `ambiguous: true` forbids dispatch independently of the correctness score. |
 | `conversationSamples` | Unique `sampleId`; nonnegative `firstAudioMs`; booleans `grounded`, `speakerCorrect`, both true for acceptance. |
-| `enduranceSessions` | Nonnegative `durationMs`; integer `controlledAiCount: 3`; `allThreeActiveThroughout: true`; `noCrash: true`; integer `humanOverrideFailures: 0`, `wrongRecipientCommands: 0`; `resources`. |
-| `offlineWorkloads` | `networkDisconnected: true`; `allComponentsLocal: true`; `workloadCompleted: true`; integer `paidApiCalls: 0`. |
+| `enduranceSessions` | Nonnegative `durationMs`; integer `controlledAiCount: 3`; `allThreeActiveThroughout: true`; `noCrash: true`; integer `humanOverrideFailures: 0`, `wrongRecipientCommands: 0`; `resources`; SHA-256 `workloadHash`; complete `exercises` summaries as specified below. |
+| `offlineWorkloads` | All endurance fields above for this separate run, plus `networkDisconnected: true`, `allComponentsLocal: true`, `workloadCompleted: true`, integer `paidApiCalls: 0`, and `repeatsSessionId` linking a distinct individually qualifying endurance row with matching configuration, provenance and workload hash. |
 
 `resources` is `{minAvailableRamBytes, minAvailableVramBytes}` with observed byte minima. Keep raw resource traces and capture scope in `evidenceRef`; these two numbers do not prove the traces are complete.
+
+`workloadHash` identifies the predeclared runtime-workload manifest, separate from the three-mode comparison's `currentConfigHash`. The workload manifest identifies the actual companion modes and artifact set, human actions, exercise schedule, measurement windows and failure/recovery procedure. It must describe the intended complete release workload; hashing a smaller demonstration does not make it equivalent. This pure checker verifies supplied hash equality, not manifest content, installed artifacts, clock alignment or actual workload equivalence.
+
+`exercises` contains exactly one summary for each required project kind: `conversation`, `pause_resume`, `mech_swap`, `mission_transition`, and `component_failure`. Every entry requires `kind`, `status` (`PASS`, `FAIL`, or `NOT_PERFORMED`), a nonempty `description` of the event and observed safeguard/recovery, and its own nonempty `evidenceRef`. A summary may point to multiple actual trials in the same session's supporting evidence; duplicate kinds, unknown kinds, missing descriptions/references and malformed statuses are incomplete. Descriptions and references are claims to inspect, never proof by their presence. Do not combine five different sessions into one qualifying endurance run.
+
+An offline link must resolve to exactly one separately qualifying endurance row, not a duplicate identifier, missing row, failed row, self-reference or another offline-only row. The two rows need distinct session identities and the same supplied configuration, workload hash and provenance. An observed label on the offline row cannot promote a mock source run. A complete synthetic pair remains `MOCK_ONLY`. The reviewer must independently establish that the linked source met the full accepted workload and that the second trace is a real disconnected repetition, not reused evidence.
+
+One ambiguous case or one exercise summary establishes presence only. It does not establish representative robustness, sufficient fault diversity, physical-input provenance, correct actor identity, native recovery or statistical confidence. Those judgments still require review of the captures and the approved experiment manifest.
 
 Each gate returns `status`, `accepted`, `requiredCount`, `suppliedCount`, `observedCount`, `mockCount`, `issues`, `failures` and calculated `metrics`. The overall report has `schemaIssues` and `criticalReview` as well:
 
