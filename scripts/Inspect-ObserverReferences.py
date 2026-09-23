@@ -115,7 +115,14 @@ def main(api, root=PROJECT, content=CONTENT, targets=TARGETS,
             report["last_health"] = value
         if (value["disk_free"] < 2 * 1024**3 or value["physical_available"] < 768 * 1024**2
                 or value["commit_available"] < 1024**3):
-            raise RuntimeError("RESOURCE_STOP")
+            # The first check precedes report creation, so its traceback must
+            # retain the measured values without adding files or native calls.
+            minimum = {"disk_free": 2 * 1024**3, "physical_available": 768 * 1024**2,
+                       "commit_available": 1024**3}
+            observed = {key: value[key] for key in minimum}
+            detail = {"observed_bytes": observed, "minimum_bytes": minimum,
+                      "failed_fields": [key for key in minimum if observed[key] < minimum[key]]}
+            raise RuntimeError("RESOURCE_STOP " + json.dumps(detail, sort_keys=True, separators=(",", ":")))
         if clock() - started > MAX_SECONDS:
             raise RuntimeError("COOPERATIVE_TIME_STOP")
         if output is not None and (output / "STOP").exists():
