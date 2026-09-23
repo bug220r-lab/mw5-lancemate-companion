@@ -1,0 +1,1768 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-23T03:23:58.875Z",
+  "classification": "OFFLINE_WORKBENCH_ONLY",
+  "action": "--run",
+  "receipt": "research/WORKBENCH_RESTORE_VALIDATION.json",
+  "outputParent": "tmp/",
+  "packageCopies": 2,
+  "directoryPolicy": "Exclusive new run directory; no deletion or reuse",
+  "originalSettingsAccess": "HASH_ONLY_ON_RUN_NO_CONTENT_LOGGING",
+  "models": "NOT_PERFORMED",
+  "browser": "NOT_PERFORMED",
+  "http": "NOT_PERFORMED",
+  "nativeOrGame": "NOT_PERFORMED",
+  "sources": [
+    {
+      "file": "START_COMPANION.cmd",
+      "bytes": 998,
+      "sha256": "f6a824637ecf2bbd39ae91b1c57e59d5e726f5572d22bd429f5f6e34d25028ba"
+    },
+    {
+      "file": "companion/benchmark.mjs",
+      "bytes": 24601,
+      "sha256": "fc4ccb3bd67a57e1358daddda026e63db3e13b80b22d01c0c2fa0a5e4461c05f"
+    },
+    {
+      "file": "companion/callsigns.mjs",
+      "bytes": 2381,
+      "sha256": "10a4cb0e2389263fb47538793d5039d73e1aa16dcd5a07558437682e9876132d"
+    },
+    {
+      "file": "companion/control.mjs",
+      "bytes": 12432,
+      "sha256": "9f28d25cdfe381cd2ae4c7269e69d3831ebcc040b298768ab0271969c16de22e"
+    },
+    {
+      "file": "companion/conversation.mjs",
+      "bytes": 19191,
+      "sha256": "c661f2413a5323f59cd84617a566b83979580e1b24d16e9fa5ff8d8ff01e0c85"
+    },
+    {
+      "file": "companion/kokoro.lock.json",
+      "bytes": 42161,
+      "sha256": "30a10bc4ba92f8487cd226586aa086ae578f7edcbb8c786b7b4def06829400ac"
+    },
+    {
+      "file": "companion/llama-runtime-pins.json",
+      "bytes": 8625,
+      "sha256": "4044968e1b0bef2dade94d3911533df03d225a1cd57761e2dd1eab2e86d47a93"
+    },
+    {
+      "file": "companion/local-language-model.mjs",
+      "bytes": 37235,
+      "sha256": "0643cf8b1cd76c7e31d3b2384a661aa29152ba284b282e70c20dfec2e6217622"
+    },
+    {
+      "file": "companion/local-recognition.mjs",
+      "bytes": 21969,
+      "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
+    },
+    {
+      "file": "companion/local-speech.mjs",
+      "bytes": 11833,
+      "sha256": "665fa9af97d74a98db49e1ef5c657b8525abb938257aa9687b43d258d6e506a3"
+    },
+    {
+      "file": "companion/mission-speech.mjs",
+      "bytes": 7616,
+      "sha256": "ccd9592e626a289d3c941b1681d9836e94cac63b96f709b272f566be7d805944"
+    },
+    {
+      "file": "companion/models.lock.json",
+      "bytes": 2964,
+      "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29"
+    },
+    {
+      "file": "companion/observation.mjs",
+      "bytes": 16356,
+      "sha256": "107f6ecb9eeaf65b075735a012c5ffa100d10f490a880951f44d2106c2d22af9"
+    },
+    {
+      "file": "companion/personas.json",
+      "bytes": 1262,
+      "sha256": "1f66276cc3db94dd8dc824d069440c24eb5e2bfb005960b02d9e1ab4b690d0ee"
+    },
+    {
+      "file": "companion/public/app.js",
+      "bytes": 25780,
+      "sha256": "405867eb750d7a2862ed52aeea40c73dadd03b6d7b2b87ea3a6fd73be94efdeb"
+    },
+    {
+      "file": "companion/public/index.html",
+      "bytes": 6215,
+      "sha256": "ac0ae14ecf6a062fe019c63098808dbdd15b6c7554ae45aecb535731a8f4113a"
+    },
+    {
+      "file": "companion/public/microphone-worklet.js",
+      "bytes": 2705,
+      "sha256": "4114b11a26961504f65819393836721987c657e6900b3ef521594e17bbca1c3b"
+    },
+    {
+      "file": "companion/public/microphone.js",
+      "bytes": 8020,
+      "sha256": "5e15f36ab76869fc24227f193d7fb14498213f5df7f2a8745f4769f45f585f72"
+    },
+    {
+      "file": "companion/public/styles.css",
+      "bytes": 3697,
+      "sha256": "51cf6d1db05e9d458e294e52ba3021a3bcef396c2e18a7853fc008f18be468db"
+    },
+    {
+      "file": "companion/radio.mjs",
+      "bytes": 25483,
+      "sha256": "c8d630eafa6eabea0e219da0372401bd7ad6be13e5aa76b7c4a4a5416c62e825"
+    },
+    {
+      "file": "companion/server.mjs",
+      "bytes": 36650,
+      "sha256": "5b5582726582feba25fa9fc0396360ff1868a8a284d72efc457a62dd977a5024"
+    },
+    {
+      "file": "companion/speaker-observations.mjs",
+      "bytes": 6692,
+      "sha256": "4b402ff008389075df0cbe53d371de1b4dc9000a774e249682948c3be7725d6d"
+    },
+    {
+      "file": "companion/speech-input.mjs",
+      "bytes": 16293,
+      "sha256": "355b7479f3adcd714f4431a3fbcedc4692ee17b341bc244f19d77ebcdbb8e21a"
+    },
+    {
+      "file": "companion/whisper-runtime-pins.json",
+      "bytes": 8990,
+      "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+    },
+    {
+      "file": "companion/workbench-resources.mjs",
+      "bytes": 6951,
+      "sha256": "f912ddbb9a34c1ca6f7ffcfd122d4a6d3084f81b0155962ffe015cc7b8ea7289"
+    },
+    {
+      "file": "design/WORKBENCH_PACKAGE_README.md",
+      "bytes": 2738,
+      "sha256": "b91bcebb192c7d6e95213e0e0cb9cc123e36793dad0244a89acdb90f3944fcf2"
+    },
+    {
+      "file": "scripts/Kokoro-Worker.py",
+      "bytes": 7400,
+      "sha256": "66bf096f8bdd740d782b18971052ac5d2b7fd6e7486dae40349ada3e6fc48859"
+    },
+    {
+      "file": "scripts/Package-Workbench.mjs",
+      "bytes": 12917,
+      "sha256": "8a04552e4cccd9616a8e823b53bfc5f142dba03249ffaa25fd705fc27f207ccf"
+    },
+    {
+      "file": "scripts/Verify-WorkbenchRestore.mjs",
+      "bytes": 25345,
+      "sha256": "c5790b0b74090634a68118f9129fd875530c5ba2c95916ba62ee979784cffd8d"
+    },
+    {
+      "file": "scripts/tactical-policy.mjs",
+      "bytes": 12150,
+      "sha256": "4b6712af3804f4a6613d1a36cbb1be3d00801b143aae7bcc1981339aec19784e"
+    },
+    {
+      "file": "synthetic/tactical-cases.mjs",
+      "bytes": 9658,
+      "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+    }
+  ],
+  "status": "PASS_OFFLINE_WORKBENCH_RESTORE_ONLY",
+  "runtime": {
+    "nodeVersion": "v24.19.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "executable": "C:\\Users\\jlewi\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
+  },
+  "packages": [
+    {
+      "path": "tmp/workbench-restore-3fa8bbb9-05b1-4bfe-922d-b439eed96c35/package-a",
+      "manifestSha256": "3f835b7c84d7ac9130331ef0de8e5cd8ee7a6b395ab4a560ad3351b2c888847a",
+      "fileCount": 29,
+      "totalBytes": 389046,
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 2738,
+          "sha256": "b91bcebb192c7d6e95213e0e0cb9cc123e36793dad0244a89acdb90f3944fcf2"
+        },
+        {
+          "path": "START_COMPANION.cmd",
+          "bytes": 998,
+          "sha256": "f6a824637ecf2bbd39ae91b1c57e59d5e726f5572d22bd429f5f6e34d25028ba"
+        },
+        {
+          "path": "companion/benchmark.mjs",
+          "bytes": 24601,
+          "sha256": "fc4ccb3bd67a57e1358daddda026e63db3e13b80b22d01c0c2fa0a5e4461c05f"
+        },
+        {
+          "path": "companion/callsigns.mjs",
+          "bytes": 2381,
+          "sha256": "10a4cb0e2389263fb47538793d5039d73e1aa16dcd5a07558437682e9876132d"
+        },
+        {
+          "path": "companion/control.mjs",
+          "bytes": 12432,
+          "sha256": "9f28d25cdfe381cd2ae4c7269e69d3831ebcc040b298768ab0271969c16de22e"
+        },
+        {
+          "path": "companion/conversation.mjs",
+          "bytes": 19191,
+          "sha256": "c661f2413a5323f59cd84617a566b83979580e1b24d16e9fa5ff8d8ff01e0c85"
+        },
+        {
+          "path": "companion/kokoro.lock.json",
+          "bytes": 42161,
+          "sha256": "30a10bc4ba92f8487cd226586aa086ae578f7edcbb8c786b7b4def06829400ac"
+        },
+        {
+          "path": "companion/llama-runtime-pins.json",
+          "bytes": 8625,
+          "sha256": "4044968e1b0bef2dade94d3911533df03d225a1cd57761e2dd1eab2e86d47a93"
+        },
+        {
+          "path": "companion/local-language-model.mjs",
+          "bytes": 37235,
+          "sha256": "0643cf8b1cd76c7e31d3b2384a661aa29152ba284b282e70c20dfec2e6217622"
+        },
+        {
+          "path": "companion/local-recognition.mjs",
+          "bytes": 21969,
+          "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
+        },
+        {
+          "path": "companion/local-speech.mjs",
+          "bytes": 11833,
+          "sha256": "665fa9af97d74a98db49e1ef5c657b8525abb938257aa9687b43d258d6e506a3"
+        },
+        {
+          "path": "companion/mission-speech.mjs",
+          "bytes": 7616,
+          "sha256": "ccd9592e626a289d3c941b1681d9836e94cac63b96f709b272f566be7d805944"
+        },
+        {
+          "path": "companion/models.lock.json",
+          "bytes": 2964,
+          "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29"
+        },
+        {
+          "path": "companion/observation.mjs",
+          "bytes": 16356,
+          "sha256": "107f6ecb9eeaf65b075735a012c5ffa100d10f490a880951f44d2106c2d22af9"
+        },
+        {
+          "path": "companion/personas.json",
+          "bytes": 1262,
+          "sha256": "1f66276cc3db94dd8dc824d069440c24eb5e2bfb005960b02d9e1ab4b690d0ee"
+        },
+        {
+          "path": "companion/public/app.js",
+          "bytes": 25780,
+          "sha256": "405867eb750d7a2862ed52aeea40c73dadd03b6d7b2b87ea3a6fd73be94efdeb"
+        },
+        {
+          "path": "companion/public/index.html",
+          "bytes": 6215,
+          "sha256": "ac0ae14ecf6a062fe019c63098808dbdd15b6c7554ae45aecb535731a8f4113a"
+        },
+        {
+          "path": "companion/public/microphone-worklet.js",
+          "bytes": 2705,
+          "sha256": "4114b11a26961504f65819393836721987c657e6900b3ef521594e17bbca1c3b"
+        },
+        {
+          "path": "companion/public/microphone.js",
+          "bytes": 8020,
+          "sha256": "5e15f36ab76869fc24227f193d7fb14498213f5df7f2a8745f4769f45f585f72"
+        },
+        {
+          "path": "companion/public/styles.css",
+          "bytes": 3697,
+          "sha256": "51cf6d1db05e9d458e294e52ba3021a3bcef396c2e18a7853fc008f18be468db"
+        },
+        {
+          "path": "companion/radio.mjs",
+          "bytes": 25483,
+          "sha256": "c8d630eafa6eabea0e219da0372401bd7ad6be13e5aa76b7c4a4a5416c62e825"
+        },
+        {
+          "path": "companion/server.mjs",
+          "bytes": 36650,
+          "sha256": "5b5582726582feba25fa9fc0396360ff1868a8a284d72efc457a62dd977a5024"
+        },
+        {
+          "path": "companion/speaker-observations.mjs",
+          "bytes": 6692,
+          "sha256": "4b402ff008389075df0cbe53d371de1b4dc9000a774e249682948c3be7725d6d"
+        },
+        {
+          "path": "companion/speech-input.mjs",
+          "bytes": 16293,
+          "sha256": "355b7479f3adcd714f4431a3fbcedc4692ee17b341bc244f19d77ebcdbb8e21a"
+        },
+        {
+          "path": "companion/whisper-runtime-pins.json",
+          "bytes": 8990,
+          "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+        },
+        {
+          "path": "companion/workbench-resources.mjs",
+          "bytes": 6951,
+          "sha256": "f912ddbb9a34c1ca6f7ffcfd122d4a6d3084f81b0155962ffe015cc7b8ea7289"
+        },
+        {
+          "path": "scripts/Kokoro-Worker.py",
+          "bytes": 7400,
+          "sha256": "66bf096f8bdd740d782b18971052ac5d2b7fd6e7486dae40349ada3e6fc48859"
+        },
+        {
+          "path": "scripts/tactical-policy.mjs",
+          "bytes": 12150,
+          "sha256": "4b6712af3804f4a6613d1a36cbb1be3d00801b143aae7bcc1981339aec19784e"
+        },
+        {
+          "path": "synthetic/tactical-cases.mjs",
+          "bytes": 9658,
+          "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+        }
+      ],
+      "dependencyClosure": {
+        "status": "PASS_LITERAL_IMPORT_CLOSURE",
+        "references": [
+          {
+            "from": "companion/control.mjs",
+            "target": "scripts/tactical-policy.mjs"
+          },
+          {
+            "from": "companion/control.mjs",
+            "target": "companion/observation.mjs"
+          },
+          {
+            "from": "companion/conversation.mjs",
+            "target": "companion/personas.json"
+          },
+          {
+            "from": "companion/local-language-model.mjs",
+            "target": "companion/llama-runtime-pins.json"
+          },
+          {
+            "from": "companion/local-language-model.mjs",
+            "target": "companion/speaker-observations.mjs"
+          },
+          {
+            "from": "companion/observation.mjs",
+            "target": "scripts/tactical-policy.mjs"
+          },
+          {
+            "from": "companion/radio.mjs",
+            "target": "companion/personas.json"
+          },
+          {
+            "from": "companion/radio.mjs",
+            "target": "companion/callsigns.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/control.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/observation.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/radio.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "synthetic/tactical-cases.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/conversation.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/local-language-model.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/local-speech.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/mission-speech.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/local-recognition.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/speech-input.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/workbench-resources.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/callsigns.mjs"
+          }
+        ],
+        "limitation": "Literal module references and known public assets only; actual source restoration is exercised separately."
+      }
+    },
+    {
+      "path": "tmp/workbench-restore-3fa8bbb9-05b1-4bfe-922d-b439eed96c35/package-b",
+      "manifestSha256": "3f835b7c84d7ac9130331ef0de8e5cd8ee7a6b395ab4a560ad3351b2c888847a",
+      "fileCount": 29,
+      "totalBytes": 389046,
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 2738,
+          "sha256": "b91bcebb192c7d6e95213e0e0cb9cc123e36793dad0244a89acdb90f3944fcf2"
+        },
+        {
+          "path": "START_COMPANION.cmd",
+          "bytes": 998,
+          "sha256": "f6a824637ecf2bbd39ae91b1c57e59d5e726f5572d22bd429f5f6e34d25028ba"
+        },
+        {
+          "path": "companion/benchmark.mjs",
+          "bytes": 24601,
+          "sha256": "fc4ccb3bd67a57e1358daddda026e63db3e13b80b22d01c0c2fa0a5e4461c05f"
+        },
+        {
+          "path": "companion/callsigns.mjs",
+          "bytes": 2381,
+          "sha256": "10a4cb0e2389263fb47538793d5039d73e1aa16dcd5a07558437682e9876132d"
+        },
+        {
+          "path": "companion/control.mjs",
+          "bytes": 12432,
+          "sha256": "9f28d25cdfe381cd2ae4c7269e69d3831ebcc040b298768ab0271969c16de22e"
+        },
+        {
+          "path": "companion/conversation.mjs",
+          "bytes": 19191,
+          "sha256": "c661f2413a5323f59cd84617a566b83979580e1b24d16e9fa5ff8d8ff01e0c85"
+        },
+        {
+          "path": "companion/kokoro.lock.json",
+          "bytes": 42161,
+          "sha256": "30a10bc4ba92f8487cd226586aa086ae578f7edcbb8c786b7b4def06829400ac"
+        },
+        {
+          "path": "companion/llama-runtime-pins.json",
+          "bytes": 8625,
+          "sha256": "4044968e1b0bef2dade94d3911533df03d225a1cd57761e2dd1eab2e86d47a93"
+        },
+        {
+          "path": "companion/local-language-model.mjs",
+          "bytes": 37235,
+          "sha256": "0643cf8b1cd76c7e31d3b2384a661aa29152ba284b282e70c20dfec2e6217622"
+        },
+        {
+          "path": "companion/local-recognition.mjs",
+          "bytes": 21969,
+          "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
+        },
+        {
+          "path": "companion/local-speech.mjs",
+          "bytes": 11833,
+          "sha256": "665fa9af97d74a98db49e1ef5c657b8525abb938257aa9687b43d258d6e506a3"
+        },
+        {
+          "path": "companion/mission-speech.mjs",
+          "bytes": 7616,
+          "sha256": "ccd9592e626a289d3c941b1681d9836e94cac63b96f709b272f566be7d805944"
+        },
+        {
+          "path": "companion/models.lock.json",
+          "bytes": 2964,
+          "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29"
+        },
+        {
+          "path": "companion/observation.mjs",
+          "bytes": 16356,
+          "sha256": "107f6ecb9eeaf65b075735a012c5ffa100d10f490a880951f44d2106c2d22af9"
+        },
+        {
+          "path": "companion/personas.json",
+          "bytes": 1262,
+          "sha256": "1f66276cc3db94dd8dc824d069440c24eb5e2bfb005960b02d9e1ab4b690d0ee"
+        },
+        {
+          "path": "companion/public/app.js",
+          "bytes": 25780,
+          "sha256": "405867eb750d7a2862ed52aeea40c73dadd03b6d7b2b87ea3a6fd73be94efdeb"
+        },
+        {
+          "path": "companion/public/index.html",
+          "bytes": 6215,
+          "sha256": "ac0ae14ecf6a062fe019c63098808dbdd15b6c7554ae45aecb535731a8f4113a"
+        },
+        {
+          "path": "companion/public/microphone-worklet.js",
+          "bytes": 2705,
+          "sha256": "4114b11a26961504f65819393836721987c657e6900b3ef521594e17bbca1c3b"
+        },
+        {
+          "path": "companion/public/microphone.js",
+          "bytes": 8020,
+          "sha256": "5e15f36ab76869fc24227f193d7fb14498213f5df7f2a8745f4769f45f585f72"
+        },
+        {
+          "path": "companion/public/styles.css",
+          "bytes": 3697,
+          "sha256": "51cf6d1db05e9d458e294e52ba3021a3bcef396c2e18a7853fc008f18be468db"
+        },
+        {
+          "path": "companion/radio.mjs",
+          "bytes": 25483,
+          "sha256": "c8d630eafa6eabea0e219da0372401bd7ad6be13e5aa76b7c4a4a5416c62e825"
+        },
+        {
+          "path": "companion/server.mjs",
+          "bytes": 36650,
+          "sha256": "5b5582726582feba25fa9fc0396360ff1868a8a284d72efc457a62dd977a5024"
+        },
+        {
+          "path": "companion/speaker-observations.mjs",
+          "bytes": 6692,
+          "sha256": "4b402ff008389075df0cbe53d371de1b4dc9000a774e249682948c3be7725d6d"
+        },
+        {
+          "path": "companion/speech-input.mjs",
+          "bytes": 16293,
+          "sha256": "355b7479f3adcd714f4431a3fbcedc4692ee17b341bc244f19d77ebcdbb8e21a"
+        },
+        {
+          "path": "companion/whisper-runtime-pins.json",
+          "bytes": 8990,
+          "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+        },
+        {
+          "path": "companion/workbench-resources.mjs",
+          "bytes": 6951,
+          "sha256": "f912ddbb9a34c1ca6f7ffcfd122d4a6d3084f81b0155962ffe015cc7b8ea7289"
+        },
+        {
+          "path": "scripts/Kokoro-Worker.py",
+          "bytes": 7400,
+          "sha256": "66bf096f8bdd740d782b18971052ac5d2b7fd6e7486dae40349ada3e6fc48859"
+        },
+        {
+          "path": "scripts/tactical-policy.mjs",
+          "bytes": 12150,
+          "sha256": "4b6712af3804f4a6613d1a36cbb1be3d00801b143aae7bcc1981339aec19784e"
+        },
+        {
+          "path": "synthetic/tactical-cases.mjs",
+          "bytes": 9658,
+          "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+        }
+      ],
+      "dependencyClosure": {
+        "status": "PASS_LITERAL_IMPORT_CLOSURE",
+        "references": [
+          {
+            "from": "companion/control.mjs",
+            "target": "scripts/tactical-policy.mjs"
+          },
+          {
+            "from": "companion/control.mjs",
+            "target": "companion/observation.mjs"
+          },
+          {
+            "from": "companion/conversation.mjs",
+            "target": "companion/personas.json"
+          },
+          {
+            "from": "companion/local-language-model.mjs",
+            "target": "companion/llama-runtime-pins.json"
+          },
+          {
+            "from": "companion/local-language-model.mjs",
+            "target": "companion/speaker-observations.mjs"
+          },
+          {
+            "from": "companion/observation.mjs",
+            "target": "scripts/tactical-policy.mjs"
+          },
+          {
+            "from": "companion/radio.mjs",
+            "target": "companion/personas.json"
+          },
+          {
+            "from": "companion/radio.mjs",
+            "target": "companion/callsigns.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/control.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/observation.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/radio.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "synthetic/tactical-cases.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/conversation.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/local-language-model.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/local-speech.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/mission-speech.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/local-recognition.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/speech-input.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/workbench-resources.mjs"
+          },
+          {
+            "from": "companion/server.mjs",
+            "target": "companion/callsigns.mjs"
+          }
+        ],
+        "limitation": "Literal module references and known public assets only; actual source restoration is exercised separately."
+      }
+    }
+  ],
+  "smoke": {
+    "status": "PASS_ACTUAL_RESTORED_SOURCE_MOCK_ONLY",
+    "guards": {
+      "scope": "Known reviewed process/network entrypoints, including ESM named imports; not an OS sandbox or comprehensive monitor.",
+      "attempts": [],
+      "restored": true
+    },
+    "steps": [
+      {
+        "name": "pristine disconnected defaults",
+        "status": "PASS",
+        "state": {
+          "classification": "DISCONNECTED",
+          "mode": "DISCONNECTED",
+          "armed": false,
+          "session": null,
+          "settingsStatus": "DEFAULTS",
+          "bindings": [],
+          "recommendations": [],
+          "ledger": [],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "synthetic mission, distinct actor bindings",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_1",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            }
+          ],
+          "ledger": [],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "unarmed recommendations cannot submit",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_1",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            }
+          ],
+          "ledger": [],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "explicit simulation arming",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": true,
+          "session": "demo_1",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            }
+          ],
+          "ledger": [],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "mock submissions retain submission-only evidence",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": true,
+          "session": "demo_1",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "KNOWN_USEFUL_FIRING_OPPORTUNITY"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "alpha",
+              "binding": "controller1:pawn1:1",
+              "action": "REGROUP",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1000,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1000,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1000,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "persistent human hold affects selected actor",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": true,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            }
+          ],
+          "ledger": [],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "held actor excluded from mock submissions",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": true,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "pause disarms and preserves human hold",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "bravo",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "resume does not release human hold",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "MAINTAIN",
+              "reason": "HUMAN_ORDER_ACTIVE"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "explicit release clears matching hold",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "released recipient becomes mock eligible",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": true,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "REGROUP",
+              "reason": "RESTORE_LANCE_COHESION"
+            },
+            {
+              "actorId": "bravo",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            },
+            {
+              "actorId": "charlie",
+              "action": "FOCUS",
+              "reason": "RETAIN_USEFUL_TARGET"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "alpha",
+              "binding": "controller1:pawn1:1",
+              "action": "REGROUP",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1400,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "possession revokes control",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 2,
+              "aiOwned": false,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "bravo",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "alpha",
+              "binding": "controller1:pawn1:1",
+              "action": "REGROUP",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1400,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "possessed mission cannot add mock submissions",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_2",
+          "settingsStatus": "DEFAULTS",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 2,
+              "aiOwned": false,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "bravo",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "alpha",
+              "binding": "controller1:pawn1:1",
+              "action": "REGROUP",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1400,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "preferences saved only inside restored copy",
+        "status": "PASS",
+        "state": {
+          "classification": "MOCK_ONLY",
+          "mode": "MOCK_ONLY",
+          "armed": false,
+          "session": "demo_2",
+          "settingsStatus": "SAVED",
+          "bindings": [
+            {
+              "id": "alpha",
+              "pawnId": "pawn1",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            },
+            {
+              "id": "bravo",
+              "pawnId": "pawn2",
+              "generation": 2,
+              "aiOwned": false,
+              "alive": true
+            },
+            {
+              "id": "charlie",
+              "pawnId": "pawn3",
+              "generation": 1,
+              "aiOwned": true,
+              "alive": true
+            }
+          ],
+          "recommendations": [
+            {
+              "actorId": "alpha",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "bravo",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            },
+            {
+              "actorId": "charlie",
+              "action": "DEFER",
+              "reason": "INACTIVE_OR_UNKNOWN_AUTHORITY"
+            }
+          ],
+          "ledger": [
+            {
+              "actorId": "bravo",
+              "binding": "controller2:pawn2:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "charlie",
+              "binding": "controller3:pawn3:1",
+              "action": "FOCUS",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1100,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            },
+            {
+              "actorId": "alpha",
+              "binding": "controller1:pawn1:1",
+              "action": "REGROUP",
+              "stages": [
+                {
+                  "stage": "SUBMITTED",
+                  "observedAtMs": 1400,
+                  "evidence": "SIMULATED_SINK_ONLY"
+                }
+              ]
+            }
+          ],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      },
+      {
+        "name": "preferences reload while mission resets",
+        "status": "PASS",
+        "state": {
+          "classification": "DISCONNECTED",
+          "mode": "DISCONNECTED",
+          "armed": false,
+          "session": null,
+          "settingsStatus": "LOADED",
+          "bindings": [],
+          "recommendations": [],
+          "ledger": [],
+          "languageState": "STOPPED",
+          "speechState": "NEW",
+          "recognitionState": "STOPPED",
+          "nativeCalls": 0
+        }
+      }
+    ],
+    "disposals": [
+      {
+        "status": "LOCAL_MODELS_STOPPED"
+      },
+      {
+        "status": "LOCAL_MODELS_STOPPED"
+      }
+    ],
+    "settings": {
+      "relativePath": "companion/local/settings.json",
+      "bytes": 503,
+      "sha256": "05a640ca575c792b90b8647d1807b835040338ea2a63dcf63498db13f6cd3f5d",
+      "originalSettingsWritten": false
+    }
+  },
+  "failure": null,
+  "limitations": [
+    "This is a source-only offline workbench restore, not a mod, native adapter or final release.",
+    "No browser/HTTP/Explorer, model, recognition, speech or gameplay acceptance was performed.",
+    "Operation guards instrument known reviewed entrypoints, not an OS sandbox or comprehensive network monitor.",
+    "The two copies share the same filesystem and are not independent disaster-recovery backups.",
+    "Package payloads are deterministic; the evidence receipt intentionally records local paths and times."
+  ],
+  "originalSettings": {
+    "verification": "UNCHANGED_HASH_OR_ABSENCE",
+    "before": {
+      "exists": false
+    },
+    "after": {
+      "exists": false
+    }
+  },
+  "freeDiskBytes": 22877876224,
+  "outputDirectory": "tmp/workbench-restore-3fa8bbb9-05b1-4bfe-922d-b439eed96c35",
+  "reproducibility": {
+    "status": "PASS_BYTE_IDENTICAL_PAYLOADS_AND_MANIFESTS",
+    "independentBuilds": 2
+  },
+  "payloadAfterSmoke": {
+    "status": "PASS",
+    "payloadFilesUnchanged": 29,
+    "onlyAddedFiles": [
+      "companion/local/settings.json"
+    ]
+  },
+  "pristineCopyAfterSmoke": {
+    "status": "PASS",
+    "payloadFilesUnchanged": 29,
+    "onlyAddedFiles": []
+  },
+  "completedAt": "2026-09-23T03:24:01.652Z"
+}

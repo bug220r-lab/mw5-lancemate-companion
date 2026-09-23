@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T03:02:18.440Z",
+  "reviewedAt": "2026-09-23T03:30:01.550Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 455,
-    "includedBytesExcludingThisReceipt": 10511662,
+    "includedFiles": 464,
+    "includedBytesExcludingThisReceipt": 10646892,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -217,8 +217,11 @@
     "companion/tests/speech-input-review.test.mjs",
     "companion/tests/speech-input-server.test.mjs",
     "companion/tests/speech-input.test.mjs",
+    "companion/tests/workbench-package-review.test.mjs",
+    "companion/tests/workbench-package.test.mjs",
     "companion/tests/workbench-resources-review.test.mjs",
     "companion/tests/workbench-resources.test.mjs",
+    "companion/tests/workbench-restore.test.mjs",
     "companion/whisper-runtime-pins.json",
     "companion/workbench-resources.mjs",
     "design/AI_MAPPING_AND_EVALUATION.md",
@@ -269,6 +272,8 @@
     "design/THREE_PILOT_RADIO.md",
     "design/WAITING_WINDOW_PLAN.md",
     "design/WARM_WHISPER_BENCHMARK.md",
+    "design/WORKBENCH_PACKAGE.md",
+    "design/WORKBENCH_PACKAGE_README.md",
     "design/WORKBENCH_RESOURCE_POLICY.md",
     "research/AI_ASSIGNMENT_TRACE.md",
     "research/AI_BEHAVIOR_MAP_FIRST_PASS.md",
@@ -480,8 +485,10 @@
     "research/WORKBENCH_CONVERSATION_ATTEMPT_001.json",
     "research/WORKBENCH_CONVERSATION_ATTEMPT_002.json",
     "research/WORKBENCH_CONVERSATION_BENCHMARK.json",
+    "research/WORKBENCH_PACKAGE_REVIEW.md",
     "research/WORKBENCH_RESOURCE_PREFLIGHT_2026-09-22.json",
     "research/WORKBENCH_RESOURCE_REVIEW.md",
+    "research/WORKBENCH_RESTORE_VALIDATION.json",
     "research/_bridge_memo.md",
     "research/_dispatcher_export_review.md",
     "research/_editor_followup.md",
@@ -529,6 +536,7 @@
     "scripts/Invoke-EditorReflection.ps1",
     "scripts/Kokoro-Worker.py",
     "scripts/New-ZiraAudition.ps1",
+    "scripts/Package-Workbench.mjs",
     "scripts/Prepare-GitHubBackup.mjs",
     "scripts/Requantize-QwenCandidate.mjs",
     "scripts/Review-MemoryContract.mjs",
@@ -549,6 +557,7 @@
     "scripts/Validate-ReflectionCollectorOffline.py",
     "scripts/Verify-Companion.mjs",
     "scripts/Verify-OvernightPackage.mjs",
+    "scripts/Verify-WorkbenchRestore.mjs",
     "scripts/fixtures/observer-supervisor-child.py",
     "scripts/observer_supervisor.py",
     "scripts/observer_supervisor_evidence.py",
@@ -1599,6 +1608,26 @@
       "notes": []
     },
     {
+      "path": "companion/tests/workbench-package-review.test.mjs",
+      "bytes": 9905,
+      "sha256": "d2f7077dfcfc9b815db6450fdb77cc8b0e8f2e4e5701e4d8f7c0cc8eaf802f90",
+      "lines": 151,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/workbench-package.test.mjs",
+      "bytes": 10305,
+      "sha256": "5b2f99c9f9e927c931fc7cb0417166a664b5965699c276bc7ae39756e2aa4b2f",
+      "lines": 146,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/workbench-resources-review.test.mjs",
       "bytes": 21858,
       "sha256": "56a72b12c8976fbcafea9838550af2eb6e7f118b7c8171dd513ed3de233a9bb0",
@@ -1613,6 +1642,16 @@
       "bytes": 11016,
       "sha256": "60c9c5f57130a411f1755eb7716ea70009f8f43fad2eed126f2bcf35021adbec",
       "lines": 160,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/workbench-restore.test.mjs",
+      "bytes": 6361,
+      "sha256": "a77c8bcb90311fec87ccc7539c9179e64a7d1851e7a1939924eff85d78103566",
+      "lines": 104,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2135,6 +2174,26 @@
       "notes": []
     },
     {
+      "path": "design/WORKBENCH_PACKAGE_README.md",
+      "bytes": 2738,
+      "sha256": "b91bcebb192c7d6e95213e0e0cb9cc123e36793dad0244a89acdb90f3944fcf2",
+      "lines": 31,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/WORKBENCH_PACKAGE.md",
+      "bytes": 4240,
+      "sha256": "88bb83079e0a25fc1b4051271949c33d54ca85ccc02130449cf876a4fd579f95",
+      "lines": 30,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "design/WORKBENCH_RESOURCE_POLICY.md",
       "bytes": 4243,
       "sha256": "0186b613fa45e347a35a6d74efdffedc804f16ef40c370e12f3b0167b902637c",
@@ -2567,9 +2626,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 21335,
-      "sha256": "478e5ce1800d65655bde4cbcdfc8a873a34e293f6221abc451599365cd39956f",
-      "lines": 531,
+      "bytes": 22549,
+      "sha256": "eb3cbb47409dfffed64e5e82b622bbeb9d0a91ad2f1191b314424b0d8e6ea7f5",
+      "lines": 562,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3094,7 +3153,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6514,
-      "sha256": "b01e26cabfb51253da74e6b7fa2cf87d471a6b3d52752c004fc9106cb4992b1c",
+      "sha256": "c7af0a9d12ecc3dba9f19491402086673807b015771757f5500b1a1d58d9d717",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -3105,9 +3164,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 103277,
-      "sha256": "7ff6b40a535b273689c388729342ec06a790f54a8b57d2ed6afd52552ea36da6",
-      "lines": 383,
+      "bytes": 105837,
+      "sha256": "033dd68b9d994ef4583cbdd766ca103b979c402f4005c4afcaaba0171b6ff027",
+      "lines": 393,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4632,6 +4691,16 @@
       ]
     },
     {
+      "path": "research/WORKBENCH_PACKAGE_REVIEW.md",
+      "bytes": 5986,
+      "sha256": "f19e6f4ee32a6e3a160b20c83a9f46052a97eec59c2576379a183f34986b2d24",
+      "lines": 40,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/WORKBENCH_RESOURCE_PREFLIGHT_2026-09-22.json",
       "bytes": 1016,
       "sha256": "cc94e8b4dbaffc071db60cf9e76aaddbc9d7a9a854e0b737cb2d4e239e073eee",
@@ -4650,6 +4719,18 @@
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": []
+    },
+    {
+      "path": "research/WORKBENCH_RESTORE_VALIDATION.json",
+      "bytes": 53515,
+      "sha256": "232d85bf4f383d04efeafb4008af0eebed0840ad4632c6666d1ea8790e6dea74",
+      "lines": 1769,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
     },
     {
       "path": "scripts/Benchmark-QwenQuantizations.mjs",
@@ -5075,6 +5156,16 @@
       ]
     },
     {
+      "path": "scripts/Package-Workbench.mjs",
+      "bytes": 12917,
+      "sha256": "8a04552e4cccd9616a8e823b53bfc5f142dba03249ffaa25fd705fc27f207ccf",
+      "lines": 203,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "scripts/Prepare-GitHubBackup.mjs",
       "bytes": 2717,
       "sha256": "1a93d84f9ac398e22deba2010d7ee18bbf9f1d558c27a4cc6bd7d6e0daf50968",
@@ -5284,9 +5375,9 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 4522,
-      "sha256": "bf9ff3f255e876a40bbb64ee7a87cb6e0991933625533f133036962c538ac559",
-      "lines": 55,
+      "bytes": 4666,
+      "sha256": "2fcf57fef91191923d7cbe232341a096034e499debad58b9d0907c546263058f",
+      "lines": 57,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -5297,6 +5388,16 @@
       "bytes": 8024,
       "sha256": "b3a4b6ba439f2ed5372932745e18a3e7bd751862c916e99ff25f3a52b57568b0",
       "lines": 103,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "scripts/Verify-WorkbenchRestore.mjs",
+      "bytes": 25345,
+      "sha256": "c5790b0b74090634a68118f9129fd875530c5ba2c95916ba62ee979784cffd8d",
+      "lines": 391,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
