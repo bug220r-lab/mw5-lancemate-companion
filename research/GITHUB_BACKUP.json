@@ -1,14 +1,14 @@
 {
-  "recordedAt": "2026-09-23T02:32:54.146Z",
+  "recordedAt": "2026-09-23T02:50:32.147Z",
   "status": "PRIVATE_SOURCE_BACKUP_VERIFIED",
   "repository": "https://github.com/bug220r-lab/mw5-lancemate-companion",
   "owner": "bug220r-lab",
   "visibility": "private",
   "branch": "codex/companion-foundation",
-  "commit": "38632b780db134a4435de13e1d14aeb214234c5f",
-  "remoteCommit": "38632b780db134a4435de13e1d14aeb214234c5f",
-  "files": 446,
-  "reviewedBytes": 10292681,
+  "commit": "e91ae91644e79fc92f2a468ea056e5a53dc51ae7",
+  "remoteCommit": "e91ae91644e79fc92f2a468ea056e5a53dc51ae7",
+  "files": 452,
+  "reviewedBytes": 10481571,
   "scope": "Original source, design/research reports, synthetic fixtures and bounded authored receipts; not a whole-machine or complete raw-evidence backup.",
   "excluded": [
     {

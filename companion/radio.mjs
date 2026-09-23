@@ -51,7 +51,7 @@ export function createRadioDirector({ personas = defaultPersonas, now = () => pe
   if (!Array.isArray(profiles) || profiles.length !== 3 || profiles.some(p => !idOk(p.id)) ||
       new Set(profiles.map(p => p.id)).size !== 3 || typeof now !== 'function') throw new TypeError('Three unique persona IDs and a clock are required.');
   const profileIds = new Set(profiles.map(p => p.id));
-  let session = null, bindings = new Map(), bindingTimes = new Map(), facts = new Map(), factDigests = new Map(), queue = [], playing = null;
+  let session = null, bindings = new Map(), bindingTimes = new Map(), revokedGenerations = new Map(), facts = new Map(), factDigests = new Map(), queue = [], playing = null;
   let lineIds = new Set(), conflicts = new Set(), exchanges = new Map(), usedSessions = new Set();
   let lastUnsolicitedAt = -Infinity, lastNow = -Infinity, clockFault = false, ordinal = 0;
   let gates = { paused: false, micMuted: false, speechMuted: false, quiet: false, nativeDialogue: false, ptt: false, armed: false };
@@ -102,6 +102,20 @@ export function createRadioDirector({ personas = defaultPersonas, now = () => pe
     queue = queue.filter(l => !current(l, t) && !exchanges.get(l.exchangeId)?.cancelled);
     if (playing && current(playing, t)) stopPlaying('PLAYBACK_CONTEXT_INVALIDATED');
   }
+  function cancelActorSpeech(speakerId) {
+    const linked = new Set([...exchanges].filter(([, e]) => !e.finished && e.firstSpeaker === speakerId).map(([id]) => id));
+    for (const line of [...queue, ...(playing ? [playing] : [])])
+      if (line.speakerId === speakerId && line.exchangeId) linked.add(line.exchangeId);
+    for (const id of linked) exchanges.get(id).cancelled = true;
+    if (playing && (playing.speakerId === speakerId || linked.has(playing.exchangeId))) stopPlaying('PLAYBACK_CONTEXT_INVALIDATED');
+    queue = queue.filter(line => line.speakerId !== speakerId && !linked.has(line.exchangeId));
+  }
+  function revokeBinding(binding, generation, observedAtMs) {
+    // Denial preserves the last verified identity; it never installs rejected data.
+    binding.invalidated = true;
+    revokedGenerations.set(binding.id, Math.max(binding.generation, revokedGenerations.get(binding.id) ?? 0, generation));
+    bindingTimes.set(binding.id, observedAtMs); cancelActorSpeech(binding.id);
+  }
   function startMission(nextSession, nextBindings) {
     if (!idOk(nextSession) || usedSessions.has(nextSession)) return reject('NEW_SESSION_REQUIRED');
     if (!bindingsValid(nextBindings) || nextBindings.some(b => !profileIds.has(b.id))) return reject('INVALID_BINDINGS');
@@ -111,7 +125,7 @@ export function createRadioDirector({ personas = defaultPersonas, now = () => pe
     if (!finite(t)) return reject('CLOCK_INVALID');
     interrupt('MISSION_CHANGED');
     session = nextSession; usedSessions.add(session); bindings = new Map(nextBindings.map(b => [b.id, copyBinding(b)]));
-    bindingTimes = new Map(nextBindings.map(b => [b.id, t]));
+    bindingTimes = new Map(nextBindings.map(b => [b.id, t])); revokedGenerations = new Map();
     facts = new Map(); factDigests = new Map(); queue = []; playing = null; lineIds = new Set(); conflicts = new Set(); exchanges = new Map();
     lastNow = t; clockFault = false; lastUnsolicitedAt = -Infinity; ordinal = 0;
     return { status: 'STARTED', session };
@@ -131,18 +145,34 @@ export function createRadioDirector({ personas = defaultPersonas, now = () => pe
     if (!finite(event.observedAtMs) || event.observedAtMs > t || t - event.observedAtMs > RADIO_LIMITS.maxAgeMs) return reject('EVENT_STALE');
     if (event.kind === 'bindinginvalidated' || event.kind === 'bindingInvalidated') {
       const data = event.data ?? event, b = bindings.get(data.speakerId);
-      if (!b || b.pawnId !== data.pawnId || b.generation !== data.generation) return reject('BINDING_MISMATCH');
-      b.invalidated = true; prune(t); return { status: 'INVALIDATED', speakerId: b.id };
+      if (!b || b.pawnId !== data.pawnId || b.generation !== data.generation || data.generation < (revokedGenerations.get(b.id) ?? 0)) return reject('BINDING_MISMATCH');
+      if (event.observedAtMs < bindingTimes.get(b.id)) return reject('STALE_BINDING_UPDATE');
+      revokeBinding(b, data.generation, event.observedAtMs); prune(t); return { status: 'INVALIDATED', speakerId: b.id };
     }
     if (event.kind === 'binding') {
-      const next = event.binding, old = bindings.get(next?.id);
-      if (!validBinding(next) || !old || next.generation < old.generation) return reject('INVALID_BINDING_UPDATE');
+      // Read ordinary data once: a getter must not change identity during denial.
+      let next;
+      try { [next] = parserBindings([parserField(event, 'binding')]); } catch { return reject('INVALID_BINDING_UPDATE'); }
+      const old = bindings.get(next.id);
+      if (!old || !Number.isSafeInteger(next.generation) || next.generation < Math.max(old.generation, revokedGenerations.get(next.id) ?? 0)) return reject('INVALID_BINDING_UPDATE');
       if (event.observedAtMs < bindingTimes.get(next.id)) return reject('STALE_BINDING_UPDATE');
+      const denies = next.alive !== true || next.aiOwned !== true || (next.invalidated !== undefined && next.invalidated !== false);
+      const revokeRejected = () => {
+        // Only a coherent current-pawn denial can revoke. Other invalid input
+        // still needs caller-level context invalidation; no identity is guessed.
+        if (next.pawnId === old.pawnId && denies) revokeBinding(old, next.generation, event.observedAtMs);
+      };
+      if (!validBinding(next)) { revokeRejected(); return reject('INVALID_BINDING_UPDATE'); }
       const changed = old.invalidated || next.pawnId !== old.pawnId || next.alive !== old.alive || next.aiOwned !== old.aiOwned || next.slot !== old.slot;
-      if (changed && next.generation <= old.generation) return reject('GENERATION_MUST_ADVANCE');
+      if (changed && next.generation <= Math.max(old.generation, revokedGenerations.get(next.id) ?? 0)) {
+        revokeRejected(); return reject('GENERATION_MUST_ADVANCE');
+      }
       const all = [...bindings.values()].filter(b => b.id !== next.id).concat(next);
-      if (!bindingsValid(all)) return reject('DUPLICATE_BINDING');
+      if (!bindingsValid(all)) { revokeRejected(); return reject('DUPLICATE_BINDING'); }
       bindings.set(next.id, copyBinding(next)); bindingTimes.set(next.id, event.observedAtMs);
+      if (changed || next.generation !== old.generation) cancelActorSpeech(next.id);
+      if (denies) revokeBinding(bindings.get(next.id), next.generation, event.observedAtMs);
+      else revokedGenerations.delete(next.id);
       prune(t); return { status: 'OBSERVED' };
     }
     if (event.kind !== 'fact' || event.verified !== true || event.data === undefined) return reject('UNVERIFIED_FACT');

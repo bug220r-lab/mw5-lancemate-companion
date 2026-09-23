@@ -6,7 +6,13 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const tests = (await readdir(path.join(root, 'companion/tests'))).filter(f => f.endsWith('.test.mjs')).sort()
   .map(f => `companion/tests/${f}`);
-const run = spawnSync(process.execPath, ['--test', '--test-reporter=tap', ...tests],
+// Permit a small test-worker budget while the user's editor occupies memory.
+// The default remains Node's default; this changes scheduling, not test selection.
+const requestedConcurrency = process.env.MW5_TEST_CONCURRENCY;
+if (requestedConcurrency !== undefined && !/^[1-4]$/.test(requestedConcurrency))
+  throw new Error('MW5_TEST_CONCURRENCY_MUST_BE_1_TO_4');
+const scheduling = requestedConcurrency === undefined ? [] : [`--test-concurrency=${requestedConcurrency}`];
+const run = spawnSync(process.execPath, ['--test', ...scheduling, '--test-reporter=tap', ...tests],
   { cwd: root, encoding: 'utf8', windowsHide: true, timeout: 120000, maxBuffer: 4 * 1024 ** 2 });
 const text = (run.stdout || '') + (run.stderr || '');
 const logFile = `tmp/companion-verification-${Date.now()}.tap`;
@@ -37,7 +43,8 @@ const receipt = { schemaVersion: 1, recordedAt: new Date().toISOString(), classi
   status: run.status === 0 && count('tests') > 0 && count('fail') === 0 ? 'PASS' : 'FAIL',
   tests: count('tests'), passed: count('pass'), failed: count('fail'), skipped: count('skipped'),
   legacyAssertions: '48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged',
-  nodeVersion: process.version, testFiles: tests, hashes, gameTests: 'NOT_PERFORMED', nativeAdapter: 'NOT_BUILT',
+  nodeVersion: process.version, testConcurrency: requestedConcurrency === undefined ? 'NODE_DEFAULT' : Number(requestedConcurrency),
+  testFiles: tests, hashes, gameTests: 'NOT_PERFORMED', nativeAdapter: 'NOT_BUILT',
   localFullTestLog: { file: logFile, sha256: createHash('sha256').update(text).digest('hex'), includedInSourceBackup: false },
   visualBrowserCheck: 'SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.',
   failures: run.status === 0 ? [] : [...(failureBlocks.length ? failureBlocks : [text.slice(-16000)]), run.error?.message ?? null] };

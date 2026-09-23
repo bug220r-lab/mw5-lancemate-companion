@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T02:29:58.282Z",
+  "recordedAt": "2026-09-23T03:00:00.043Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1180,
-  "passed": 1180,
+  "tests": 1205,
+  "passed": 1205,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
   "nodeVersion": "v24.19.0",
+  "testConcurrency": 1,
   "testFiles": [
     "companion/tests/benchmark-review.test.mjs",
     "companion/tests/benchmark.test.mjs",
@@ -50,6 +51,8 @@
     "companion/tests/policy-regression.test.mjs",
     "companion/tests/preview-timing-review.test.mjs",
     "companion/tests/preview-timing.test.mjs",
+    "companion/tests/radio-binding-invalidation.test.mjs",
+    "companion/tests/radio-binding-review.test.mjs",
     "companion/tests/radio.test.mjs",
     "companion/tests/relative-facts-attempt-review.test.mjs",
     "companion/tests/relative-facts-fallback-review.test.mjs",
@@ -239,6 +242,14 @@
       "sha256": "f8d1e8aebc6bb473de2f98a4bc33dfde75918b9a19b9c73e04b80dc27499f758"
     },
     {
+      "file": "companion/tests/radio-binding-invalidation.test.mjs",
+      "sha256": "ec5d5620ae1df66aeee97409eb15d2b76242d54fdcc700c53428447ebddfe9c7"
+    },
+    {
+      "file": "companion/tests/radio-binding-review.test.mjs",
+      "sha256": "53d6894fa736113f3a1d108f672494a404cb77178395ef288bd4f467a7444455"
+    },
+    {
       "file": "companion/tests/radio.test.mjs",
       "sha256": "8fba2f154dd29c41dee3c5c41ceb5ecd810b985c39ef22dbab481ed6d3d1277d"
     },
@@ -396,7 +407,7 @@
     },
     {
       "file": "companion/radio.mjs",
-      "sha256": "def9b360ad28b62f6115cd64b140a1e05eefa9e7ee944c4ad0003e956428e95d"
+      "sha256": "c8d630eafa6eabea0e219da0372401bd7ad6be13e5aa76b7c4a4a5416c62e825"
     },
     {
       "file": "companion/server.mjs",
@@ -510,8 +521,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790130598245.tap",
-    "sha256": "9eec72f471c69e8a5faca4e0ca4f347c83901ba306bbe1cc374e109716e55d62",
+    "file": "tmp/companion-verification-1790132399996.tap",
+    "sha256": "fa66fc87404573c159455b299169a7a5d601096ba7cdee4aa85c5f1119d4cca3",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",
