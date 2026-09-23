@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T01:51:21.999Z",
+  "recordedAt": "2026-09-23T02:07:34.505Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1134,
-  "passed": 1134,
+  "tests": 1153,
+  "passed": 1153,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -41,6 +41,7 @@
     "companion/tests/microphone.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
     "companion/tests/model-transfer-review.test.mjs",
+    "companion/tests/model-transfer-static-prefix.test.mjs",
     "companion/tests/model-transfer-warmup-review.test.mjs",
     "companion/tests/model-transfer-warmup.test.mjs",
     "companion/tests/observation-review.test.mjs",
@@ -61,6 +62,8 @@
     "companion/tests/smollm-metadata.test.mjs",
     "companion/tests/smollm-model.test.mjs",
     "companion/tests/smollm-setup.test.mjs",
+    "companion/tests/smollm-static-prefix-review.test.mjs",
+    "companion/tests/smollm-static-prefix.test.mjs",
     "companion/tests/speaker-briefing-review.test.mjs",
     "companion/tests/speaker-briefing.test.mjs",
     "companion/tests/speaker-observation-review.test.mjs",
@@ -197,6 +200,10 @@
       "sha256": "ff6ffbbfa711d7fd05aa651d839472b957e7f51a432d05de89e412dfc6ef3ec5"
     },
     {
+      "file": "companion/tests/model-transfer-static-prefix.test.mjs",
+      "sha256": "cf664a20dbcb9f45ef8e24f8712e3ebf9b40bf84a8dac0d5aac210312f0dd43a"
+    },
+    {
       "file": "companion/tests/model-transfer-warmup-review.test.mjs",
       "sha256": "7a1da8d64f90738aeb374db3271ea582110919237c0e5bb374e830e8fcdfd8e8"
     },
@@ -277,6 +284,14 @@
       "sha256": "3a4342d3ff7724f77cdc069dd24ae9ef0ca2322d5f90b13c050ae1121e83bc72"
     },
     {
+      "file": "companion/tests/smollm-static-prefix-review.test.mjs",
+      "sha256": "5a60dbe1a7f586b5fbb6560599be20682bbb0af9b54473c3a6cf841fdf4bade2"
+    },
+    {
+      "file": "companion/tests/smollm-static-prefix.test.mjs",
+      "sha256": "46135aaa9a99d146c03a074aac42e6d5b37874f119d1be38ccee2a517a4a0a9c"
+    },
+    {
       "file": "companion/tests/speaker-briefing-review.test.mjs",
       "sha256": "a0360473c9e815109c501553f12afdad3d6e6f3f5468e56c9f91ec0ecdbb3970"
     },
@@ -338,7 +353,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "5cd1f9ec9a872cf3c1d6a45344d6f73de295c94c0a2e0822fb9d28ffe6965902"
+      "sha256": "840e38296555cbda077b9e3290b308dbf7acc055e4c7b2b422e3119b3b2015d3"
     },
     {
       "file": "companion/local-recognition.mjs",
@@ -470,7 +485,7 @@
     },
     {
       "file": "scripts/Exercise-ConversationModelTransfer.mjs",
-      "sha256": "30adddbdbb62692faeb7dd568ce5b0dd312ecfa76a6aba65235993e25602b72c"
+      "sha256": "e4a66ff4881e06450c2fa7a65722f541157cd12f757a422b4c3366fcd25d1320"
     },
     {
       "file": "synthetic/conversation-model-transfer-cases.json",
@@ -480,8 +495,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790128281972.tap",
-    "sha256": "76de4d6f42ae4b3d546dcdee9ece3e8bd898d90aa3d1b5da851dbeb5914cfed2",
+    "file": "tmp/companion-verification-1790129254481.tap",
+    "sha256": "1733a39fbaa412632b5baba17802538c7c8ec1f4798c4dc87301334b927c34ae",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

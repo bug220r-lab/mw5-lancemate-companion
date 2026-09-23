@@ -20,6 +20,8 @@ export const MODEL_TRANSFER_PREDECESSOR = 'research/QWEN17B_SEPARATED_REQUEST_DI
 export const MODEL_TRANSFER_PREDECESSOR_SHA256 = 'b76aee167224bcd9cfd199ece83bd2a07ef02ec71cd60445c2df41a1712ec5ea';
 export const MODEL_TRANSFER_WARMUP_RECEIPT = 'research/SMOLLM3_WARMUP_DIAGNOSTIC.json';
 export const MODEL_TRANSFER_WARMUP_PREDECESSOR_SHA256 = 'ffd7341cf63f55d4994c3ddecc06eba5421f1c19e014c2365d0236928f5959ff';
+export const MODEL_TRANSFER_STATIC_PREFIX_RECEIPT = 'research/SMOLLM3_STATIC_PREFIX_DIAGNOSTIC.json';
+export const MODEL_TRANSFER_STATIC_PREFIX_PREDECESSOR_SHA256 = 'ce3a0cd8238b4081433a4837782587bf35fc671e81f04251fc6d56e8dc392327';
 const oldRunnerSha256 = 'fd3ae7557d85ee733244c6759a178c2595791283ae4ce55e73e36103592de663';
 const oldRunnerCommit = 'afb5c7c1cc5f9552622e8f3770363098f39d71cd';
 const setupPath = 'research/SMOLLM3_SETUP.json', metadataPath = 'research/SMOLLM3_METADATA.json';
@@ -33,9 +35,12 @@ const budgets = Object.freeze({ operationMs: 10000, workMs: 233000, cleanupMs: 7
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const freeze = x => { if (x && typeof x === 'object') { Object.values(x).forEach(freeze); Object.freeze(x); } return x; };
 const isWarmup = action => action === '--run-warmup-002' || action === '--check-warmup-002';
+const isStaticPrefix = action => action === '--run-static-prefix-003' || action === '--check-static-prefix-003';
+const separatePrimerBudget = action => isWarmup(action) || isStaticPrefix(action);
 function receiptPathFor(action) {
   if (action === '--run') return MODEL_TRANSFER_RECEIPT;
   if (action === '--run-warmup-002') return MODEL_TRANSFER_WARMUP_RECEIPT;
+  if (action === '--run-static-prefix-003') return MODEL_TRANSFER_STATIC_PREFIX_RECEIPT;
   throw Error('INVALID_RUN_SELECTOR');
 }
 
@@ -66,6 +71,23 @@ export function readModelTransferWarmupPredecessor(bytes) {
     throw Error('WARMUP_PREDECESSOR_NOT_ELIGIBLE');
   return prior;
 }
+export function readModelTransferStaticPrefixPredecessor(bytes) {
+  if (hash(bytes) !== MODEL_TRANSFER_STATIC_PREFIX_PREDECESSOR_SHA256) throw Error('STATIC_PREFIX_PREDECESSOR_CHANGED');
+  const prior = JSON.parse(bytes.toString('utf8'));
+  if (prior.status !== 'INCOMPLETE' || prior.settings.modelId !== options.modelId || prior.runtime.state !== 'READY' ||
+      prior.runtime.verification !== 'PINNED_FILES_VERIFIED' || prior.primer.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' ||
+      prior.primer.finishReason !== 'stop' || prior.primer.configuredBudgetMs !== 20000 || prior.haltReason !== 'RESPONSE_DEADLINE' ||
+      prior.samples.length !== 26 || prior.samples[0].status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' || prior.samples[0].finishReason !== 'stop' ||
+      prior.samples[1].status !== 'FAILED' || prior.samples[1].output !== null || prior.samples[1].finishReason !== null ||
+      prior.samples.some(s => s.configuredBudgetMs !== 10000) ||
+      prior.samples.slice(2).some(s => s.status !== 'NOT_PERFORMED' || s.output !== null || s.finishReason !== null) ||
+      !isDeepStrictEqual(prior.notPerformed, prior.samples.slice(2).map(s => s.id)) || !prior.ownedProcessStopped ||
+      prior.finalRuntime.state !== 'STOPPED' || prior.finalRuntime.ownedPid !== null || prior.finalRuntime.activeGeneration !== false ||
+      prior.sources['scripts/Exercise-ConversationModelTransfer.mjs'] !== '30adddbdbb62692faeb7dd568ce5b0dd312ecfa76a6aba65235993e25602b72c' ||
+      prior.sources['companion/local-language-model.mjs'] !== '5cd1f9ec9a872cf3c1d6a45344d6f73de295c94c0a2e0822fb9d28ffe6965902')
+    throw Error('STATIC_PREFIX_PREDECESSOR_NOT_ELIGIBLE');
+  return prior;
+}
 export function readModelTransferInstallation(setupBytes, metadataBytes) {
   const setup = JSON.parse(setupBytes.toString('utf8')), metadata = JSON.parse(metadataBytes.toString('utf8'));
   const matches = value => Object.entries(candidate).every(([key, expected]) => value?.[key] === expected);
@@ -94,7 +116,8 @@ function inputRecord(originalContext, context) {
 }
 
 export async function prepareModelTransferDiagnostic(args, fixture) {
-  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', '--check-warmup-002', '--run-warmup-002'].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', '--check-warmup-002', '--run-warmup-002',
+    '--check-static-prefix-003', '--run-static-prefix-003'].includes(args[0])) throw Error('INVALID_ARGUMENTS');
   const frozen = readFrozenModelTransferFixture(await readFile(path.join(root, MODEL_TRANSFER_FIXTURE)));
   if (!isDeepStrictEqual(fixture, frozen)) throw Error('FROZEN_TRANSFER_FIXTURE_CHANGED');
   const prior = readModelTransferPredecessor(await readFile(path.join(root, MODEL_TRANSFER_PREDECESSOR)));
@@ -140,6 +163,40 @@ export async function prepareModelTransferDiagnostic(args, fixture) {
     plan.treatment = { ...plan.treatment, id: 'SMOLLM3_WARMUP_002', receiptPath: MODEL_TRANSFER_WARMUP_RECEIPT,
       changes: 'PRIMER_DEADLINE_ONLY_10000_TO_20000', primerMs: 20000, responseMs: 10000 };
   }
+  if (isStaticPrefix(args[0])) {
+    const previous = readModelTransferStaticPrefixPredecessor(await readFile(path.join(root, MODEL_TRANSFER_WARMUP_RECEIPT)));
+    for (const key of ['fixture', 'regressionFixture'])
+      if (!isDeepStrictEqual(plan[key], previous[key])) throw Error('STATIC_PREFIX_BASELINE_CHANGED');
+    for (const key of ['originalContext', 'context', 'projection', 'messages', 'messageCharacters'])
+      if (!isDeepStrictEqual(plan.primer[key], previous.primer[key])) throw Error('STATIC_PREFIX_BASELINE_CHANGED');
+    for (const [i, c] of cases.entries()) {
+      if (c.specification.id !== previous.samples[i].id) throw Error('STATIC_PREFIX_BASELINE_CHANGED');
+      for (const key of ['suite', 'originalContext', 'context', 'projection', 'capture', 'provenance', 'messages', 'messageCharacters'])
+        if (!isDeepStrictEqual(c[key], previous.samples[i][key])) throw Error('STATIC_PREFIX_BASELINE_CHANGED');
+    }
+    for (const record of [plan.primer, ...cases]) {
+      const messages = smollmMessagesFor(record.context, { experimentalStaticPrefix: true });
+      if (!isDeepStrictEqual(messages.slice(1), record.messages.slice(1)) || messages[0]?.role !== 'system')
+        throw Error('STATIC_PREFIX_USER_MESSAGES_CHANGED');
+      record.messages = messages;
+      record.messageCharacters = messages.reduce((n, m) => n + m.content.length, 0);
+    }
+    for (const [i, c] of cases.slice(0, 8).entries()) {
+      c.suite = i < 2 ? 'EXPOSED_TRANSFER' : 'UNINVOKED_TRANSFER';
+      c.provenance = { ...c.provenance, originalKind: c.provenance.kind,
+        kind: i < 2 ? 'PREVIOUSLY_INVOKED_TRANSFER' : 'UNINVOKED_AT_BASELINE' };
+    }
+    plan.predecessor = { path: MODEL_TRANSFER_WARMUP_RECEIPT, sha256: MODEL_TRANSFER_STATIC_PREFIX_PREDECESSOR_SHA256,
+      gitCommit: '682e142854d64661bd93459f99635e9c39d9e1cf',
+      runnerSha256: previous.sources['scripts/Exercise-ConversationModelTransfer.mjs'],
+      adapterSha256: previous.sources['companion/local-language-model.mjs'] };
+    plan.treatment = { id: 'SMOLLM3_STATIC_PREFIX_003', modelId: options.modelId,
+      changes: 'SAME_ROLE_STATIC_INSTRUCTIONS_BEFORE_PERSONALITY_DATA', receiptPath: MODEL_TRANSFER_STATIC_PREFIX_RECEIPT,
+      initiallyUninvokedCount: 6, previouslyInvokedTransferCount: 2, historicalRegressionCount: 18,
+      order: 'EXPOSED_TRANSFER_2_THEN_UNINVOKED_TRANSFER_6_THEN_EXPOSED_REGRESSION_18',
+      exposure: 'Two transfer cases already invoked; six uninvoked at baseline. Historical fixture labels do not imply current freshness.',
+      primerMs: 20000, responseMs: 10000 };
+  }
   return freeze(plan);
 }
 
@@ -157,7 +214,7 @@ export async function reserveModelTransferReceipt(openFile = open, action = '--r
 
 // Code-only test dependencies produce MOCK_ONLY receipts, never native evidence.
 export async function executeModelTransferDiagnostic(plan, evidence, testDependencies = null) {
-  if (!['--run', '--run-warmup-002'].includes(plan?.action) || evidence?.fixtureSha256 !== MODEL_TRANSFER_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
+  if (!['--run', '--run-warmup-002', '--run-static-prefix-003'].includes(plan?.action) || evidence?.fixtureSha256 !== MODEL_TRANSFER_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
   // Repeat immutable predecessor/fixture checks and all context construction before reservation.
   const expected = await prepareModelTransferDiagnostic([plan.action], plan.fixture);
   if (!isDeepStrictEqual(plan, expected)) throw Error('INVALID_EXECUTION_PLAN');
@@ -167,10 +224,11 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
   const io = { reserveReceipt: () => reserveModelTransferReceipt(open, plan.action), createEngine: createLocalLanguageModel,
     availableRam: () => os.freemem(), availableDisk: async () => { const s = await statfs(root); return s.bavail * s.bsize; },
     now: () => performance.now(), ...(testDependencies ?? {}) };
-  const caps = { ...budgets, primerMs: isWarmup(plan.action) ? 20000 : budgets.operationMs };
+  const engineOptions = { ...options, ...(isStaticPrefix(plan.action) ? { experimentalStaticPrefix: true } : {}) };
+  const caps = { ...budgets, primerMs: separatePrimerBudget(plan.action) ? 20000 : budgets.operationMs };
   const limits = { ...caps, ...(testDependencies?.budgets ?? {}) };
   // Existing default-run tests shorten operationMs for both phases; native defaults stay 10s each.
-  if (!isWarmup(plan.action) && !Object.hasOwn(testDependencies?.budgets ?? {}, 'primerMs')) limits.primerMs = limits.operationMs;
+  if (!separatePrimerBudget(plan.action) && !Object.hasOwn(testDependencies?.budgets ?? {}, 'primerMs')) limits.primerMs = limits.operationMs;
   if (Object.entries(limits).some(([key, value]) => !Object.hasOwn(caps, key) || !Number.isInteger(value) || value < 1 || value > caps[key])) throw Error('INVALID_TEST_BUDGET');
   const receipt = await io.reserveReceipt(); // Exclusive reservation always precedes engine construction.
   const began = io.now(), abort = new AbortController();
@@ -180,7 +238,7 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
     treatment: plan.treatment, predecessor: plan.predecessor, fixtureSha256: evidence.fixtureSha256,
     fixture: plan.fixture, regressionFixture: plan.regressionFixture, sources: evidence.sources,
     modelPins: evidence.modelPins, runtimePins: evidence.runtimePins, installation: evidence.installation ?? null,
-    settings: { ...options, ...limits,
+    settings: { ...engineOptions, ...limits,
       contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, logicalBatchTokens: 128, physicalBatchTokens: 64,
       temperature: .7, topP: .8, topK: 20, fixedSeed: false, nativeSlots: 1,
       initialRamRequirementBytes: 5 * GiB, minimumRamBytes: 2 * GiB, workingDiskReserveBytes: 10 * GiB },
@@ -193,7 +251,8 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
     minimumAvailableRamBytes: null, independentSemanticReview: 'NOT_PERFORMED', gameAcceptance: 'NOT_PERFORMED',
     downloads: false, gameExecution: false, editorExecution: false, audioGenerated: false, microphoneCapture: false,
     speakerPlayback: false, defaultModelChanged: false, defaultCachingChanged: false, defaultProjectionChanged: false,
-    limitations: ['Eight new direct synthetic contexts precede eighteen exposed regressions; never call the combined suite a fresh holdout.',
+    limitations: [isStaticPrefix(plan.action) ? 'Two previously invoked transfer contexts, six uninvoked transfer contexts and eighteen exposed regressions; no fresh 26-case holdout.' :
+      'Eight new direct synthetic contexts precede eighteen exposed regressions; never call the combined suite a fresh holdout.',
       'Fresh context bindings are supplied synthetic inputs. Ten old contexts use inert coordinator capture; neither proves native identity or freshness.',
       'Each context is independent. No actual response or inert capture placeholder enters a later prompt. Supplied unverified histories remain.',
       'Case criteria remain in receipt fixtures, never model inputs. No automatic semantic pass is assigned.',
@@ -235,7 +294,7 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
       sample.output = null; sample.status = 'FAILED'; sample.error = error.message;
       sample.finishReason = null; sample.nativeTimings = null;
       if (!signal.aborted && error.message === 'GENERATED_TEXT_TRUNCATED') captureCompletion('length');
-      const phaseDeadline = isWarmup(plan.action) ? sample === report.primer ? 'PRIMER_DEADLINE' : 'RESPONSE_DEADLINE' : 'OPERATION_DEADLINE';
+      const phaseDeadline = separatePrimerBudget(plan.action) ? sample === report.primer ? 'PRIMER_DEADLINE' : 'RESPONSE_DEADLINE' : 'OPERATION_DEADLINE';
       halt(timeout.aborted ? phaseDeadline : haltReason ?? 'OPERATION_FAILED'); throw error;
     } finally { sample.elapsedMs = io.now() - beganOperation; sample.runtimeLog = engine.status().log; await save(); }
   }
@@ -245,7 +304,7 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
     if (!Number.isFinite(report.initialFreeDiskBytes) || report.initialFreeDiskBytes < 10 * GiB) throw Error('DISK_RESERVE_INSUFFICIENT');
     if (!Number.isFinite(report.initialAvailableRamBytes) || report.initialAvailableRamBytes < 5 * GiB) throw Error('INITIAL_RAM_INSUFFICIENT');
     sampleMemory(); if (haltReason) throw Error(haltReason);
-    engine = io.createEngine(options); resourceTimer = setInterval(sampleMemory, limits.sampleMs);
+    engine = io.createEngine(engineOptions); resourceTimer = setInterval(sampleMemory, limits.sampleMs);
     const startAt = io.now(); await waitForStartup(engine.start(), abort.signal);
     report.startupMs = io.now() - startAt; if (haltReason) throw Error(haltReason);
     report.runtime = engine.status();
@@ -254,6 +313,7 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
         Object.entries({ host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
           processingBatch: 'compact', weightRepacking: false, promptCaching: true, experimentalSpeakerRelativeFacts: true,
           experimentalSpeakerBriefing: true, experimentalSeparateRequest: true,
+          ...(isStaticPrefix(plan.action) ? { experimentalStaticPrefix: true } : {}),
           logicalBatchTokens: 128, physicalBatchTokens: 64, simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false })
           .some(([key, value]) => report.runtime.settings?.[key] !== value)) throw Error('CONFIGURATION_NOT_CONFIRMED');
     report.status = 'PRIMING'; await perform(report.primer); report.status = 'RUNNING';
@@ -283,11 +343,12 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
 async function main(args) {
   const fixtureBytes = await readFile(path.join(root, MODEL_TRANSFER_FIXTURE));
   const plan = await prepareModelTransferDiagnostic(args, readFrozenModelTransferFixture(fixtureBytes));
-  if (plan.action === '--check' || plan.action === '--check-warmup-002') {
-    console.log(JSON.stringify({ status: 'PREPARED_NOT_EXECUTED', fresh: 8, exposed: 18, total: plan.cases.length,
+  if (plan.action.startsWith('--check')) {
+    console.log(JSON.stringify({ status: 'PREPARED_NOT_EXECUTED',
+      ...(isStaticPrefix(plan.action) ? { initiallyUninvoked: 6, exposed: 20 } : { fresh: 8, exposed: 18 }), total: plan.cases.length,
       order: plan.treatment.order, fixtureSha256: hash(fixtureBytes), predecessor: plan.predecessor,
       workersStarted: 0, receiptReserved: false, receipt: plan.treatment.receiptPath, resourceAdmission: 'NOT_CHECKED',
-      primerBudgetMs: isWarmup(plan.action) ? 20000 : 10000, responseBudgetMs: 10000,
+      primerBudgetMs: separatePrimerBudget(plan.action) ? 20000 : 10000, responseBudgetMs: 10000,
       primerMessageCharacters: plan.primer.messageCharacters,
       messageCharacters: plan.cases.map(c => ({ id: c.specification.id, suite: c.suite, characters: c.messageCharacters })) })); return;
   }
@@ -307,6 +368,11 @@ async function main(args) {
     'research/SMOLLM3_WARMUP_RUNNER_REVIEW.md', 'companion/tests/model-transfer-warmup.test.mjs',
     'companion/tests/model-transfer-warmup-review.test.mjs'])
     sources[rel] = hash(await readFile(path.join(root, rel)));
+  if (isStaticPrefix(plan.action)) for (const rel of [MODEL_TRANSFER_WARMUP_RECEIPT,
+    'design/SMOLLM3_STATIC_PREFIX_EXPERIMENT.md', 'research/SMOLLM3_PREFILL_FINDING.md',
+    'research/SMOLLM3_STATIC_PREFIX_RUNNER_REVIEW.md', 'companion/tests/smollm-static-prefix.test.mjs',
+    'companion/tests/smollm-static-prefix-review.test.mjs', 'companion/tests/model-transfer-static-prefix.test.mjs'])
+    sources[rel] = hash(await readFile(path.join(root, rel)));
   const installation = await readInstallation();
   if (sources[setupPath] !== installation.setup.sha256 || sources[metadataPath] !== installation.metadata.sha256)
     throw Error('INSTALLATION_EVIDENCE_CHANGED');
@@ -318,9 +384,14 @@ async function main(args) {
     runtimePins: JSON.parse(await readFile(path.join(root, 'companion/llama-runtime-pins.json'))) };
   const report = await executeModelTransferDiagnostic(plan, evidence);
   console.log(JSON.stringify({ status: report.status,
-    freshCompleted: report.samples.filter(s => s.suite === 'FRESH_PREDECLARED_TRANSFER' && s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
-    exposedCompleted: report.samples.filter(s => s.suite === 'EXPOSED_REGRESSION' && s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
-    expectedFresh: 8, expectedExposed: 18, haltReason: report.haltReason, ownedProcessStopped: report.ownedProcessStopped, receipt: plan.treatment.receiptPath }));
+    ...(isStaticPrefix(plan.action) ? {
+      transferCompleted: report.samples.filter(s => s.suite !== 'EXPOSED_REGRESSION' && s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
+      regressionCompleted: report.samples.filter(s => s.suite === 'EXPOSED_REGRESSION' && s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
+      initiallyUninvoked: 6, previouslyExposed: 20 } : {
+      freshCompleted: report.samples.filter(s => s.suite === 'FRESH_PREDECLARED_TRANSFER' && s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
+      exposedCompleted: report.samples.filter(s => s.suite === 'EXPOSED_REGRESSION' && s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
+      expectedFresh: 8, expectedExposed: 18 }),
+    haltReason: report.haltReason, ownedProcessStopped: report.ownedProcessStopped, receipt: plan.treatment.receiptPath }));
   if (report.status !== 'COMPLETE_PENDING_SEMANTIC_REVIEW') process.exitCode = 1;
 }
 if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url)
