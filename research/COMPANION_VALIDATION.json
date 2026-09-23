@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-22T23:42:11.559Z",
+  "recordedAt": "2026-09-22T23:59:45.007Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 852,
-  "passed": 852,
+  "tests": 918,
+  "passed": 918,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -14,6 +14,9 @@
     "companion/tests/benchmark.test.mjs",
     "companion/tests/browser-playback.test.mjs",
     "companion/tests/browser-ptt.test.mjs",
+    "companion/tests/callsign-command-review.test.mjs",
+    "companion/tests/callsign-parser.test.mjs",
+    "companion/tests/callsign-preview-server-review.test.mjs",
     "companion/tests/callsign-settings-review.test.mjs",
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
@@ -62,11 +65,23 @@
     },
     {
       "file": "companion/tests/browser-playback.test.mjs",
-      "sha256": "2762081a42d64b7fc7f1abec97bee4aaa03cdd2eca061d1b574c3fc7eddc60a0"
+      "sha256": "9a44e8143f9da369b0ae186f61e50ee8e8115bd99f25c614dd75cea4310437bc"
     },
     {
       "file": "companion/tests/browser-ptt.test.mjs",
       "sha256": "75b2ff159a2839abb605bd40552e9cd32e699777001aa6f9f773d046b2e0e4f9"
+    },
+    {
+      "file": "companion/tests/callsign-command-review.test.mjs",
+      "sha256": "fc083361d76a227e64aa8521d6fa492b72f0ff47f1c994b882fedf7bc38ecd4d"
+    },
+    {
+      "file": "companion/tests/callsign-parser.test.mjs",
+      "sha256": "8f5c6ec9b79520724b75b9b525390cf05a1e2975baaaea267cb76285c2ca8281"
+    },
+    {
+      "file": "companion/tests/callsign-preview-server-review.test.mjs",
+      "sha256": "ce6954bdcb76227a9aec05cd2fcaf9a679f3029433c9e7fab0f30f72f0dbed32"
     },
     {
       "file": "companion/tests/callsign-settings-review.test.mjs",
@@ -217,6 +232,10 @@
       "sha256": "fc4ccb3bd67a57e1358daddda026e63db3e13b80b22d01c0c2fa0a5e4461c05f"
     },
     {
+      "file": "companion/callsigns.mjs",
+      "sha256": "10a4cb0e2389263fb47538793d5039d73e1aa16dcd5a07558437682e9876132d"
+    },
+    {
       "file": "companion/control.mjs",
       "sha256": "9f28d25cdfe381cd2ae4c7269e69d3831ebcc040b298768ab0271969c16de22e"
     },
@@ -262,11 +281,11 @@
     },
     {
       "file": "companion/radio.mjs",
-      "sha256": "3964516e729a974dd4375698597e4d4efc0daf6da6544c960971494a7b652279"
+      "sha256": "def9b360ad28b62f6115cd64b140a1e05eefa9e7ee944c4ad0003e956428e95d"
     },
     {
       "file": "companion/server.mjs",
-      "sha256": "768bfdadea0ed58fefab1ba48495b17ad9a9f151737520171cebeb5b751f4282"
+      "sha256": "5b5582726582feba25fa9fc0396360ff1868a8a284d72efc457a62dd977a5024"
     },
     {
       "file": "companion/speaker-observations.mjs",
@@ -286,11 +305,11 @@
     },
     {
       "file": "companion/public/app.js",
-      "sha256": "849efa859c9b358dd018253073b2555e03d3ee78c85fd86adb9945998148647b"
+      "sha256": "405867eb750d7a2862ed52aeea40c73dadd03b6d7b2b87ea3a6fd73be94efdeb"
     },
     {
       "file": "companion/public/index.html",
-      "sha256": "025d4b0fe81e43ff41c99f8a9c47457a6f867b30c3558cccb7dd503ff0f87803"
+      "sha256": "ac0ae14ecf6a062fe019c63098808dbdd15b6c7554ae45aecb535731a8f4113a"
     },
     {
       "file": "companion/public/microphone-worklet.js",
@@ -360,8 +379,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790120531540.tap",
-    "sha256": "403205dcd8e5adb10dfe1af7f054a00d15a8e1943da72a1bd54a482b7a0c32f2",
+    "file": "tmp/companion-verification-1790121584988.tap",
+    "sha256": "d2cc495d309c67dbb0289f1b39d58ec9ac2e4f8f93e437c8cffc37cddbead1be",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

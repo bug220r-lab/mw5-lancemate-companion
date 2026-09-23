@@ -1,5 +1,6 @@
 import defaultPersonas from './personas.json' with { type: 'json' };
 import { createHash } from 'node:crypto';
+import { callsignRoutability, normalizeCallsign } from './callsigns.mjs';
 
 // Project-only state machine. No audio, commands, model calls or game access.
 export const RADIO_LIMITS = Object.freeze({ factTtlMs: 5000, maxAgeMs: 30000,
@@ -241,18 +242,97 @@ export function createRadioDirector({ personas = defaultPersonas, now = () => pe
   return { startMission, setGates, observe, enqueue, next, complete, interrupt, getState };
 }
 
+function parserRecord(value) {
+  if (!value || typeof value !== 'object' || ![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw new TypeError('PLAIN_DATA_REQUIRED');
+  return value;
+}
+function parserField(value, key) {
+  const descriptor = Object.getOwnPropertyDescriptor(parserRecord(value), key);
+  if (!descriptor) return undefined;
+  if (!Object.hasOwn(descriptor, 'value')) throw new TypeError('PLAIN_DATA_REQUIRED');
+  return descriptor.value;
+}
+function parserArray(value, maxLength, copy) {
+  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype || value.length > maxLength) throw new TypeError('BOUNDED_ARRAY_REQUIRED');
+  const result = [];
+  for (let i = 0; i < value.length; i++) {
+    const descriptor = Object.getOwnPropertyDescriptor(value, String(i));
+    if (!descriptor || !Object.hasOwn(descriptor, 'value')) throw new TypeError('PLAIN_DATA_REQUIRED');
+    result.push(copy(descriptor.value));
+  }
+  return result;
+}
+function parserBindings(value) {
+  return parserArray(value, 3, item => {
+    const result = {};
+    for (const key of ['id', 'pawnId', 'generation', 'alive', 'aiOwned', 'slot', 'invalidated']) {
+      const field = parserField(item, key);
+      if (field !== undefined) result[key] = field;
+    }
+    return result;
+  });
+}
+function parserCallsigns(value, bindings) {
+  const seen = new Set(), actorIds = bindings.map(b => b.id);
+  return parserArray(value, 3, row => {
+    parserRecord(row);
+    const keys = Reflect.ownKeys(row);
+    if (keys.length !== 2 || !keys.includes('actorId') || !keys.includes('callsign')) throw new TypeError('INVALID_CALLSIGNS');
+    const actorId = parserField(row, 'actorId'), callsign = parserField(row, 'callsign');
+    if (!idOk(actorId) || !actorIds.includes(actorId) || seen.has(actorId)) throw new TypeError('INVALID_CALLSIGNS');
+    seen.add(actorId);
+    // Invalid value types/controls fail the map atomically; display-only spellings remain describable.
+    normalizeCallsign(callsign);
+    return { actorId, ...callsignRoutability(callsign, { actorIds }) };
+  });
+}
+
 export function parseSpokenCommand(input = {}) {
-  if (!input || typeof input !== 'object') return reject('INVALID_CONTEXT');
-  const { text, origin, final, session, bindings, selectedTargetId, locations = [] } = input;
+  let text, origin, final, session;
+  try { text = parserField(input, 'text'); origin = parserField(input, 'origin'); final = parserField(input, 'final'); session = parserField(input, 'session'); }
+  catch { return reject('INVALID_CONTEXT'); }
   if (origin !== 'human_ptt' || final !== true) return reject('TRUSTED_FINAL_HUMAN_PTT_REQUIRED');
   if (!idOk(session)) return reject('INVALID_CONTEXT');
   if (typeof text !== 'string' || text.length > 300) return reject('INVALID_TEXT');
-  const spoken = text.trim().toLowerCase().replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
+  let spoken = text.trim().toLowerCase().replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
   const clarify = reason => ({ status: 'CLARIFICATION', reason });
   const intent = (action, recipients, extra = {}) => ({ status: 'INTENT', classification: 'PROJECT_INTENT',
     dispatchable: false, session, origin, action, recipientIds: recipients.map(b => b.id), bindings: recipients.map(copyBinding), ...extra });
   if (spoken === 'disarm') return intent('DISARM', [], { scope: 'ALL_COMPANION_CONTROL' });
+  let bindings, selectedTargetId, callsigns;
+  try { bindings = parserBindings(parserField(input, 'bindings')); selectedTargetId = parserField(input, 'selectedTargetId'); }
+  catch { return reject('INVALID_CONTEXT'); }
   if (!bindingsValid(bindings) || !bindings.length) return reject('INVALID_CONTEXT');
+  try {
+    const map = parserField(input, 'callsigns');
+    if (map !== undefined) {
+      callsigns = parserCallsigns(map, bindings);
+      // Names use ASCII case matching only, without Unicode case/compatibility folding.
+      spoken = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
+    }
+  } catch { return reject('INVALID_CALLSIGNS'); }
+  const named = part => callsigns?.filter(c => c.normalized !== null && c.normalized === part.replace(/^callsign /, '')) ?? [];
+  const explicit = part => /^(?:slot [1-3]|actor [a-z0-9_.:-]+)$/.test(part);
+  if (callsigns !== undefined) {
+    // Sentence punctuation must not erase a configured display-only name and pick
+    // a different pilot. Inspect its bounded suffix truncations before routing.
+    let candidate = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/\s+/g, ' ');
+    while (/[.!?]$/.test(candidate)) {
+      const rawFront = candidate.match(/^(?:regroup|focus|release(?: human hold)?|disarm) (.+)$/);
+      if (rawFront) {
+        const rawParts = rawFront[1].split(/\s+and\s+|,\s*/);
+        const strippedExplicit = part => explicit(part.replace(/[.!?]+$/, ''));
+        const selectors = !rawParts.every(strippedExplicit) && named(rawFront[1]).length ? [rawFront[1]] : rawParts;
+        for (const selector of selectors) {
+          if (strippedExplicit(selector)) continue;
+          const aliases = named(selector);
+          if (aliases.length > 1) return clarify('AMBIGUOUS_CALLSIGN');
+          if (aliases.length === 1 && !aliases[0].routable) return clarify(aliases[0].reason);
+        }
+      }
+      candidate = candidate.slice(0, -1);
+    }
+  }
   let action, spec, locationId;
   const move = spoken.match(/^reposition (.+) to location ([a-z0-9_.:-]+)$/);
   const front = spoken.match(/^(regroup|focus|release(?: human hold)?|disarm) (.+)$/);
@@ -263,10 +343,22 @@ export function parseSpokenCommand(input = {}) {
     action = verb.startsWith('release') ? 'RELEASE_HUMAN_HOLD' : verb.toUpperCase();
   } else return clarify('USE_EXPLICIT_SLOT_OR_ACTOR_AND_SUPPORTED_VERB');
   const recipients = [];
-  for (const part of spec.split(/\s+and\s+|,\s*/)) {
+  const parts = spec.split(/\s+and\s+|,\s*/);
+  // A configured compound name is one selector, never an inferred list of other names.
+  const explicitParts = parts.every(explicit);
+  if (!explicitParts && named(spec).length) parts.splice(0, parts.length, spec);
+  for (const part of parts) {
     const slot = part.match(/^slot ([1-3])$/), actor = part.match(/^actor ([a-z0-9_.:-]+)$/);
-    if (!slot && !actor) return clarify('AMBIGUOUS_RECIPIENT');
-    const matches = bindings.filter(b => slot ? b.slot === Number(slot[1]) : b.id.toLowerCase() === actor[1]);
+    let matches;
+    if (slot || actor) matches = bindings.filter(b => slot ? b.slot === Number(slot[1]) : b.id.toLowerCase() === actor[1]);
+    else {
+      if (callsigns === undefined) return clarify('AMBIGUOUS_RECIPIENT');
+      const aliases = named(part);
+      if (!aliases.length) return clarify('UNKNOWN_CALLSIGN');
+      if (aliases.length !== 1) return clarify('AMBIGUOUS_CALLSIGN');
+      if (!aliases[0].routable) return clarify(aliases[0].reason);
+      matches = bindings.filter(b => b.id === aliases[0].actorId);
+    }
     if (matches.length !== 1 || recipients.some(b => b.id === matches[0]?.id)) return clarify('UNKNOWN_OR_DUPLICATE_RECIPIENT');
     const b = matches[0];
     if (action !== 'DISARM' && (!b.alive || !b.aiOwned || b.invalidated)) return reject('INELIGIBLE_RECIPIENT');
@@ -274,8 +366,10 @@ export function parseSpokenCommand(input = {}) {
   }
   if (action === 'FOCUS' && !idOk(selectedTargetId)) return clarify('KNOWN_SELECTED_TARGET_REQUIRED');
   if (action === 'REPOSITION') {
-    if (!Array.isArray(locations)) return reject('INVALID_LOCATIONS');
-    const matches = locations.map(l => typeof l === 'string' ? l : l?.id).filter(id => idOk(id) && id.toLowerCase() === locationId);
+    let locations;
+    try { locations = parserArray(parserField(input, 'locations') ?? [], 128, l => typeof l === 'string' ? l : parserField(l, 'id')); }
+    catch { return reject('INVALID_LOCATIONS'); }
+    const matches = locations.filter(id => idOk(id) && id.toLowerCase() === locationId);
     if (matches.length !== 1) return clarify('KNOWN_NAMED_LOCATION_REQUIRED');
     return intent(action, recipients, { locationId: matches[0] });
   }

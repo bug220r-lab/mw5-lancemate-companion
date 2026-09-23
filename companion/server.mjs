@@ -15,6 +15,7 @@ import { prepareMissionSpeech, revalidateMissionSpeech } from './mission-speech.
 import { createLocalRecognition } from './local-recognition.mjs';
 import { createSpeechInput } from './speech-input.mjs';
 import { createWorkbenchResources } from './workbench-resources.mjs';
+import { callsignRoutability } from './callsigns.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const profiles = JSON.parse(await readFile(path.join(directory, 'personas.json'), 'utf8'));
@@ -188,6 +189,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     return ({ classification: snapshot ? 'MOCK_ONLY' : 'DISCONNECTED',
     clockMs: clock, settings: clone(settings), settingsStatus, profiles: clone(profiles),
     control: control.getState(), radio: radio.getState(), last: clone(last), missionSpeech: statusPreview(),
+    commandPreviewContext: commandContext(), commandCallsigns: commandNameStatus(),
     localModels: { language: language.status(), speech: speech.getState(), error: modelError,
       resources: resources.status(), stopping: !!modelStop, cleanupPending: !!modelStop || stopUnconfirmed || resourcePending() || (!!modelStart && modelAbort?.signal.aborted === true),
       starting: !!modelStart, previewDeadlineMs, firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED',
@@ -201,6 +203,18 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     generation: a.generation, alive: a.alive, aiOwned: a.aiOwned, slot: index + 1 })); }
   function conversationBindings() { return bindings().map(b => ({ ...b,
     profileId: settings.pilots.find(p => p.id === b.id).profile })); }
+  function commandNames() { return settings.pilots.map(p => ({ actorId: p.id, callsign: p.callsign })); }
+  function commandContext() {
+    // Project-only comparison token, not authentication or a game observation.
+    return JSON.stringify({ session: snapshot?.session ?? null, phase: snapshot?.phase ?? null,
+      bindings: snapshot ? bindings() : [], callsigns: commandNames(), pendingRename: pendingCallsignActors.size > 0 });
+  }
+  function commandNameStatus() {
+    const actorIds = settings.pilots.map(p => p.id);
+    const names = commandNames().map(p => ({ actorId: p.actorId, ...callsignRoutability(p.callsign, { actorIds }) }));
+    return names.map(p => p.routable && names.filter(other => other.normalized === p.normalized).length > 1
+      ? { ...p, routable: false, reason: 'AMBIGUOUS_CALLSIGN' } : p);
+  }
   function ingest() {
     snapshot.sequence = ++sequence; snapshot.observedAtMs = clock; snapshot.nowMs = clock;
     snapshot.targets.forEach(t => { t.observedAtMs = clock; });
@@ -224,6 +238,8 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   }
   async function act(input) {
     if (disposed) throw new Error('WORKBENCH_CLOSED');
+    if (pendingCallsignActors.size > 0 && ['command', 'recognition_prepare', 'ptt_begin'].includes(input?.type))
+      throw new Error('CALLSIGN_UPDATE_PENDING');
     if (!input || typeof input.type !== 'string') throw new Error('INVALID_ACTION');
     speechInput.status();
     if (['step','queue','arm','disarm','interrupt'].includes(input.type)) missionSpeech = null;
@@ -263,6 +279,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       settingsSaving = true;
       pendingCallsignActors = new Set(next.pilots.filter(p =>
         p.callsign !== settings.pilots.find(old => old.id === p.id).callsign).map(p => p.id));
+      if (pendingCallsignActors.size > 0) speechInput.invalidate('CALLSIGN_CHANGED');
       // Invalidate before any persistence await. Unsaved names never enter a
       // prompt, and old speaker work cannot become eligible during the write.
       if (pendingCallsignActors.has(reply?.speakerId)) {
@@ -334,7 +351,8 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       else if (input.type === 'queue') last = { queue: control.queueRecommendations(), results: control.drainSimulation() };
       else if (input.type === 'command') last = { ...parseSpokenCommand({ text: input.text,
         origin: 'human_ptt', final: true, session: snapshot.session, bindings: bindings(),
-        selectedTargetId: 'enemy1' }), classification: 'MOCK_ONLY', inputSource: 'TYPED_TRANSCRIPT_FIXTURE',
+        callsigns: commandNames(), selectedTargetId: 'enemy1' }), previewContext: commandContext(),
+        classification: 'MOCK_ONLY', inputSource: 'TYPED_TRANSCRIPT_FIXTURE',
         dispatchable: false, note: 'Parser preview only. No microphone, human order or game action was produced.' };
       else if (input.type === 'step') {
         const a = snapshot.lancemates.find(actor => actor.id === input.actorId);

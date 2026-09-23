@@ -2,6 +2,7 @@
 const token = location.hash.slice(1); let current = null, pollTimer = null, settingsDirty = false;
 let playback = null, playbackEpoch = 0, requestSequence = 0;
 let commandEpoch = 0, parsedCommand = null;
+let suppressedTranscriptId = null;
 const $ = id => document.getElementById(id);
 let microphoneJob = null, microphoneEpoch = 0, microphoneStatus = 'Microphone idle.', holdSource = null;
 const recorder = typeof MW5Microphone === 'undefined' ? null : MW5Microphone.createRecorder({
@@ -19,7 +20,11 @@ const recorder = typeof MW5Microphone === 'undefined' ? null : MW5Microphone.cre
 function invalidatesMicrophone(action) {
   return action && (['demo', 'models_stop', 'recognition_stop', 'interrupt'].includes(action.type) ||
     (action.type === 'step' && ['pause', 'possession'].includes(action.event)) ||
-    (action.type === 'settings' && action.settings.micMuted));
+    (action.type === 'settings' && (action.settings.micMuted || changesCallsigns(action))));
+}
+function changesCallsigns(action) {
+  return action?.type === 'settings' && action.settings.pilots?.some(p =>
+    (p.callsign?.trim() || null) !== (current?.settings.pilots.find(old => old.id === p.id)?.callsign ?? null));
 }
 function cancelMicrophone(reason = 'Recording cancelled.') {
   const job = microphoneJob; microphoneJob = null; ++microphoneEpoch; holdSource = null;
@@ -49,7 +54,8 @@ function renderMicrophone(data) {
     recorder.cleanupPending ? 'Microphone tracks stopped. Waiting for the previous audio context to close before another capture.' :
     input.preparing ? 'Preparing local recognition; microphone remains off.' :
       `${input.engine?.state || 'Unavailable'} · ${microphoneStatus}${input.lastError || input.engine?.lastError || capture?.error ? ` · ${input.lastError || input.engine?.lastError || capture.error}` : ''}`;
-  const hasText = capture?.status === 'TRANSCRIBED' && capture.expiresAtMs > Date.now() && typeof capture.text === 'string';
+  const hasText = capture?.id !== suppressedTranscriptId && capture?.status === 'TRANSCRIBED' &&
+    capture.expiresAtMs > Date.now() && typeof capture.text === 'string';
   $('recognizedText').textContent = hasText ? capture.text : 'No current transcript.';
   $('copyTranscript').disabled = !hasText;
 }
@@ -108,6 +114,7 @@ function invalidatesPlayback(action) {
 }
 async function api(action) {
   if (action && action.type !== 'command') clearCommandPreview();
+  if (changesCallsigns(action)) suppressedTranscriptId = current?.speechInput?.current?.id ?? null;
   if (invalidatesPlayback(action)) cancelPlayback();
   if (invalidatesMicrophone(action)) cancelMicrophone('Recording interrupted.');
   const sequence = ++requestSequence;
@@ -131,7 +138,12 @@ function commandPreview(result) {
   }
   const explanations = {
     USE_EXPLICIT_SLOT_OR_ACTOR_AND_SUPPORTED_VERB: 'Use a supported action and an explicit recipient, for example “regroup slot 1”.',
-    AMBIGUOUS_RECIPIENT: 'Specify each recipient as “slot 1”, “slot 2”, “slot 3” or an explicit actor.',
+    AMBIGUOUS_RECIPIENT: 'Use a unique saved callsign, a slot or an explicit actor.',
+    AMBIGUOUS_CALLSIGN: 'More than one pilot has that name. Use a slot or save unique callsigns.',
+    UNKNOWN_CALLSIGN: 'That callsign is not available. Check saved names or use a slot.',
+    UNSUPPORTED_CALLSIGN_CHARACTERS: 'That name cannot be used in command previews. Use a slot.',
+    RESERVED_CALLSIGN: 'That name conflicts with command wording. Use a slot or another callsign.',
+    ACTOR_ID_CALLSIGN_COLLISION: 'That name conflicts with an actor identifier. Use an explicit slot.',
     UNKNOWN_OR_DUPLICATE_RECIPIENT: 'A recipient is unknown or listed twice. Check the pilot slots.',
     KNOWN_SELECTED_TARGET_REQUIRED: 'No confirmed selected target is available.',
     KNOWN_NAMED_LOCATION_REQUIRED: 'That location is not available in this preview.',
@@ -156,6 +168,7 @@ const modelMessages = {
   LOCAL_MODEL_STOP_UNCONFIRMED: 'Engine shutdown is not yet confirmed.',
 };
 function render(data) {
+  if (current && current.commandPreviewContext !== data.commandPreviewContext) clearCommandPreview();
   current = data; $('mode').textContent = data.classification;
   const models = data.localModels;
   $('slowPreview').checked = models.previewDeadlineMs === 10000;
@@ -194,7 +207,12 @@ function render(data) {
     select.value = p.mode; modeLabel.append(select);
     const label = node('label', 'Callsign (optional)'), input = node('input'); input.id = `callsign-${p.id}`; input.maxLength = 64; input.value = p.callsign || ''; input.placeholder = 'Unset'; label.append(input);
     const voiceLabel = node('label', 'Local voice ID (optional)'), voice = node('input'); voice.id = `voice-${p.id}`; voice.maxLength = 64; voice.value = p.voice || ''; voice.placeholder = 'Unset'; voiceLabel.append(voice);
-    body.append(modeLabel, label, voiceLabel);
+    const nameStatus = data.commandCallsigns?.find(n => n.actorId === p.id);
+    const nameHint = !p.callsign ? 'Save a unique callsign to use it in command previews.' :
+      nameStatus?.routable ? 'Saved name available for command previews.' :
+      nameStatus?.reason === 'AMBIGUOUS_CALLSIGN' ? 'Duplicate name: use a slot or save a unique callsign.' :
+      'This name cannot route commands. Use a slot, or a unique English name without command words.';
+    body.append(modeLabel, label, node('p', nameHint, 'subtle'), voiceLabel);
     const events = node('div', undefined, 'events');
     for (const [event, label] of [['hold','Human hold'],['release','Release hold'],['damage','Damage'],['possession','Take possession'],['pause','Pause'],['resume','Resume']]) {
       const b = node('button', label); b.disabled = data.classification !== 'MOCK_ONLY'; b.onclick = () => api({ type: 'step', event, actorId: p.id }); events.append(b);
@@ -208,7 +226,8 @@ function render(data) {
     data.missionSpeech?.status === 'PREPARED' ? `${data.missionSpeech.request.speakerId}: ${data.missionSpeech.text} (authored status; text only)` : 'No speaker.';
   $('complete').disabled = !data.radio.playing;
   // Polls cannot attach an older global "last action" to a newer typed request.
-  $('commandPreview').textContent = commandPreview($('transcript').value === parsedCommand?.text ? parsedCommand.result : null);
+  $('commandPreview').textContent = commandPreview($('transcript').value === parsedCommand?.text &&
+    parsedCommand?.context === data.commandPreviewContext ? parsedCommand.result : null);
   $('result').textContent = JSON.stringify({ last: data.last, capabilities: data.control.capabilities, pending: data.control.pending,
     actionEvidence: data.control.ledger, missionSpeech: data.missionSpeech, speechInput: data.speechInput, integration: data.integration }, null, 2);
   renderMicrophone(data);
@@ -221,7 +240,9 @@ $('command').onsubmit = async event => {
   const epoch = commandEpoch, text = $('transcript').value;
   const data = await api({ type: 'command', text });
   if (epoch !== commandEpoch || $('transcript').value !== text) return;
-  parsedCommand = { text, result: data?.last };
+  const context = data?.commandPreviewContext;
+  if (typeof context !== 'string' || !context || context !== current?.commandPreviewContext || data?.last?.previewContext !== context) return;
+  parsedCommand = { text, result: data.last, context };
   $('commandPreview').textContent = commandPreview(parsedCommand.result);
 };
 $('transcript').addEventListener('input', clearCommandPreview);
@@ -261,6 +282,7 @@ if (recorder) {
   $('ptt').addEventListener('blur', () => { if (microphoneJob?.holding) cancelMicrophone('Hold control lost focus.'); });
   $('copyTranscript').onclick = () => {
     const capture = current?.speechInput?.current;
+    if (capture?.id === suppressedTranscriptId) return;
     if (capture?.status !== 'TRANSCRIBED' || capture.expiresAtMs <= Date.now() || typeof capture.text !== 'string') return;
     $('transcript').value = capture.text.slice(0, 300); clearCommandPreview(); $('transcript').focus();
     microphoneStatus = capture.text.length > 300 ? 'First 300 characters copied. Review them, then click Parse.' : 'Copied. Review the command field, then click Parse.';

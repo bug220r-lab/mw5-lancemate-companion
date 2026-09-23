@@ -9,7 +9,7 @@ import { setImmediate as flush } from 'node:timers/promises';
 const source = await readFile(new URL('../public/app.js', import.meta.url), 'utf8');
 function deferred() { let resolve, reject; const promise = new Promise((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject }; }
 function state({ audioId = 'audio1', replyId = 'reply1', session = 'mission1', playing = false } = {}) {
-  return { classification: 'MOCK_ONLY', clockMs: 1000,
+  return { classification: 'MOCK_ONLY', clockMs: 1000, commandPreviewContext: `preview-${session}`,
     settings: { version: 1, micMuted: false, speechMuted: false, quiet: false,
       pilots: ['alpha', 'bravo', 'charlie'].map((id, i) => ({ id, profile: ['edge', 'tactician', 'scout'][i], mode: 'ADVISORY', callsign: null, voice: null })) },
     control: { recommendations: [], armed: false, capabilities: [], pending: [], ledger: [], nativeCalls: 0 },
@@ -277,7 +277,8 @@ test('a fresh expired or absent status response removes the authored status on t
 test('a poll carrying the prior parser result cannot impersonate a pending new command and invalidation rejects late results', async () => {
   const r = await fixture({ deferCommands: true });
   const parsed = (action, recipient) => ({ ...state(), last: { status: 'INTENT', action, recipientIds: [recipient],
-    inputSource: 'TYPED_TRANSCRIPT_FIXTURE', classification: 'MOCK_ONLY', dispatchable: false } });
+    inputSource: 'TYPED_TRANSCRIPT_FIXTURE', classification: 'MOCK_ONLY', dispatchable: false,
+    previewContext: state().commandPreviewContext } });
   const submit = async text => {
     r.get('transcript').value = text; r.get('transcript').listeners.input();
     r.get('command').onsubmit({ preventDefault() {} }); await flush();
@@ -304,6 +305,58 @@ test('a poll carrying the prior parser result cannot impersonate a pending new c
   reset.resolve(r.jsonResponse(parsed('REGROUP', 'charlie'))); await flush();
   assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for charlie/);
   assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
+});
+
+test('renaming a pilot clears a shown result and rejects a delayed result under the previous names', async () => {
+  const r = await fixture({ deferCommands: true });
+  const parsed = state(); parsed.last = { status: 'INTENT', action: 'REGROUP', recipientIds: ['alpha'],
+    inputSource: 'TYPED_TRANSCRIPT_FIXTURE', classification: 'MOCK_ONLY', dispatchable: false,
+    previewContext: parsed.commandPreviewContext };
+  r.get('transcript').value = 'Rook regroup';
+  const first = r.get('command').onsubmit({ preventDefault() {} }); await flush();
+  r.commandRequests[0].resolve(r.jsonResponse(parsed)); await first;
+  assert.match(r.get('commandPreview').textContent, /regroup for alpha/);
+  const pending = r.get('command').onsubmit({ preventDefault() {} }); await flush();
+  const renamed = state(); renamed.commandPreviewContext = 'preview-renamed';
+  renamed.settings.pilots[1].callsign = 'Rook';
+  r.setServer(renamed); await r.api();
+  assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for/);
+  r.commandRequests[1].resolve(r.jsonResponse(parsed)); await pending;
+  assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for/);
+  assert.equal(r.audioFetches.length, 0); assert.equal(r.audios.length, 0);
+});
+
+for (const invalidContext of ['missing', 'mismatched']) {
+  test(`a ${invalidContext} result context cannot display a successful command preview`, async () => {
+    const r = await fixture({ deferCommands: true }), parsed = state();
+    parsed.last = { status: 'INTENT', action: 'REGROUP', recipientIds: ['alpha'],
+      inputSource: 'TYPED_TRANSCRIPT_FIXTURE', classification: 'MOCK_ONLY', dispatchable: false };
+    if (invalidContext === 'mismatched') parsed.last.previewContext = 'old-name-context';
+    r.get('transcript').value = 'Rook regroup';
+    const pending = r.get('command').onsubmit({ preventDefault() {} }); await flush();
+    r.commandRequests[0].resolve(r.jsonResponse(parsed)); await pending;
+    assert.doesNotMatch(r.get('commandPreview').textContent, /regroup for/);
+    assert.match(r.get('commandPreview').textContent, /Nothing has been sent/);
+    assert.ok(r.actions.every(action => action.type === 'command'));
+  });
+}
+
+test('pilot cards explain duplicate and unsupported callsigns without treating display names as markup', async () => {
+  const r = await fixture(), named = state();
+  named.settings.pilots[0].callsign = 'Rook'; named.settings.pilots[1].callsign = 'ROOK';
+  named.settings.pilots[2].callsign = '<img src=x onerror=evil()>';
+  named.commandCallsigns = [{ actorId: 'alpha', routable: false, reason: 'AMBIGUOUS_CALLSIGN' },
+    { actorId: 'bravo', routable: false, reason: 'AMBIGUOUS_CALLSIGN' },
+    { actorId: 'charlie', routable: false, reason: 'UNSUPPORTED_CALLSIGN_CHARACTERS' }];
+  r.render(named);
+  const descendants = n => [n, ...n.children.flatMap(descendants)];
+  for (const card of r.get('pilots').children.slice(0, 2))
+    assert.ok(descendants(card).some(n => /Duplicate name: use a slot/.test(n.textContent)));
+  const third = descendants(r.get('pilots').children[2]);
+  assert.ok(third.some(n => /This name cannot route commands/.test(n.textContent)));
+  assert.ok(third.some(n => n.value === '<img src=x onerror=evil()>'));
+  assert.ok(third.every(n => n.tagName !== 'img'));
+  assert.equal(r.actions.length, 0);
 });
 
 for (const mode of ['fetch', 'playing']) {
