@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-23T05:56:03.644Z",
+  "status": "PASS_SOURCE_MAPPING_REVIEW_NOT_RUNTIME",
+  "classification": "OBSERVED_LOCAL_DECLARATIONS_AND_PROPOSED_CAPTURE_MAPPING",
+  "map": {
+    "file": "design/PASSIVE_CAPTURE_FIELD_MAP.json",
+    "sha256": "d3522e9b2a4822dbabf5ee02e58931508fa7157bef061b16880af22f72ac165f"
+  },
+  "source": {
+    "path": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/unreal-api-reference.txt",
+    "sha256": "ac4c46761bc54099302155bc0a908ae3f64b161ca77eb9afd0cc6c1f1b826480",
+    "version": "Epic MW5 editor 1.1.390.0e; UE4.26.2; compatible CL14830424",
+    "interpretation": "Generated declarations only. Placeholder return values are not native behavior. Retail availability is unverified."
+  },
+  "checks": [
+    {
+      "key": "playerSquad",
+      "reader": "MWPlayerController.squad",
+      "lines": [
+        357851,
+        357856
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "currentAiControllers",
+      "reader": "MWSquad.get_ai_members",
+      "lines": [
+        366214,
+        366222
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "membership",
+      "reader": "MWSquad.is_member",
+      "lines": [
+        366152,
+        366163
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "controlledPawn",
+      "reader": "Controller.get_controlled_pawn",
+      "lines": [
+        132879,
+        132887
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "pawnController",
+      "reader": "Pawn.get_controller",
+      "lines": [
+        190612,
+        190620
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "humanPossession",
+      "reader": "Pawn.is_player_controlled",
+      "lines": [
+        190485,
+        190493
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "actorDestroying",
+      "reader": "Actor.is_actor_being_destroyed",
+      "lines": [
+        117343,
+        117351
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "actorAuthority",
+      "reader": "Actor.has_authority",
+      "lines": [
+        117352,
+        117360
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "positionNative",
+      "reader": "Actor.get_actor_location",
+      "lines": [
+        117089,
+        117097
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "worker",
+      "reader": "MWAIController.worker_component",
+      "lines": [
+        295311,
+        295315
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "workerActor",
+      "reader": "MWWorkerComponent.get_actor",
+      "lines": [
+        381307,
+        381315
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "currentJob",
+      "reader": "MWWorkerComponent.get_job",
+      "lines": [
+        381298,
+        381306
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "jobCommandType",
+      "reader": "MWJob.get_command_type",
+      "lines": [
+        334891,
+        334899
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "jobRunningState",
+      "reader": "MWJob.get_running_state",
+      "lines": [
+        334855,
+        334863
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "jobFinishReason",
+      "reader": "MWJob.get_finish_reason",
+      "lines": [
+        334873,
+        334881
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "paused",
+      "reader": "GameplayStatics.is_game_paused",
+      "lines": [
+        201271,
+        201282
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "currentArea",
+      "reader": "MWBlueprintUtils.get_current_area",
+      "lines": [
+        308166,
+        308177
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "areaLoading",
+      "reader": "MWArea.is_loading",
+      "lines": [
+        301899,
+        301907
+      ],
+      "identifierPresent": true
+    },
+    {
+      "key": "areaIsHub",
+      "reader": "MWArea.is_mission_hub",
+      "lines": [
+        301890,
+        301898
+      ],
+      "identifierPresent": true
+    }
+  ],
+  "independentReview": {
+    "agent": "recording_audit_review",
+    "result": "Existing tactical trace names/ranges match narrow API and connected-source checks; no substantive mismatch. Native array order/count/atomicity, position units, full phase predicate and durable identity remain unknown.",
+    "rootAdditionalReview": "Read Actor.is_actor_being_destroyed/has_authority declarations; no control authority inferred. Corrected a copied hash typo before passing this check."
+  },
+  "gameExecution": "NOT_PERFORMED",
+  "collector": "NOT_BUILT",
+  "realRecording": "NOT_PERFORMED"
+}

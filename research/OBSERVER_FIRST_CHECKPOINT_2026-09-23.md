@@ -22,6 +22,12 @@ The existing observer task owns its research plus README/NEXT updates; the coord
 
 Next, preserve reviewed source in the existing private GitHub branch. Continue useful source-backed observation mappings or recording preparation only where an actual gap remains. Return to observer authoring immediately when a working UI session becomes available. Only after the authorized independent observer work and backup may the paused, narrowly diagnosed speech repair resume.
 
+## Follow-up source mapping
+
+The next goal work unit completed `design/PASSIVE_CAPTURE_FIELD_MAP.json`: nineteen narrowly scoped declaration-backed reads for the player, current AI roster, reciprocal pawn/controller bindings, native position, worker/job state and pause/current area. The full existing API hash and every named range were checked; a focused independent reviewer checked the associated identity/position/job/lifecycle meanings. `research/PASSIVE_CAPTURE_FIELD_REVIEW.json` records the result. No export was repeated and no runtime mapping was activated. Clock selection, object identity serialization, enum/vector serialization, native timing and export remain producer obligations.
+
+Private backup `59216bb2d7ed146df280d9475198ee79479a682b` preserved the preceding observer/recording checkpoint and paused speech source on `codex/companion-foundation`. The latest allowance check after mapping still has more than the 12% checkpoint floor; use the live tool rather than this historical note before more work.
+
 ## Paused speech preserved
 
 The failed first resident-recognition attempt and its 16-file historical source archive remain unchanged. The worker timestamp repair and parent first-error repair are present but not jointly accepted: independent final worker review is pending, and the parent intentionally pins the older worker. No repaired inference trial occurred. See [the goal's frozen speech checkpoint](../design/OBSERVER_FIRST_GOAL.md). Preserve this pending status in source backups; do not describe the prior full-suite receipt as validating these newer repairs.

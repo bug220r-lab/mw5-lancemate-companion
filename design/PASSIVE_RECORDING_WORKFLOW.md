@@ -36,6 +36,8 @@ Before a real test, the concrete package must supply its actual asset/cooked has
 
 The current tool supplies no in-game Start, Stop or Export control. Those instructions cannot be completed until the executable assets and export mechanism are built and proven. Do not install the source-only workbench or the minimal overlay as though it were a mission recorder.
 
+The [passive-capture field map](PASSIVE_CAPTURE_FIELD_MAP.json) pins nineteen read candidates to the existing API export and distinguishes raw player/AI/worker/job observations from control-policy fields. Its declaration checks and independent source review are recorded in `research/PASSIVE_CAPTURE_FIELD_REVIEW.json`. No row is a verified shipping-game read; clock, object identity and serialization still require an actual producer.
+
 ## First isolated recording checklist
 
 Use this only after the above package and test are ready and deployment is authorized. Record independent visible evidence alongside the observer data, with a documented way to align their clocks. The observer's own readout cannot independently validate its own identities.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T05:50:37.465Z",
+  "reviewedAt": "2026-09-23T05:57:36.297Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 542,
-    "includedBytesExcludingThisReceipt": 12119330,
+    "includedFiles": 544,
+    "includedBytesExcludingThisReceipt": 12135463,
     "excludedEntries": 31,
     "unresolved": 0
   },
@@ -266,6 +266,7 @@
     "design/OBSERVER_NORMAL_EDITOR_EXPERIMENT.md",
     "design/OFFLINE_TACTICAL_PROTOTYPE.md",
     "design/OVERNIGHT_PROGRESS.md",
+    "design/PASSIVE_CAPTURE_FIELD_MAP.json",
     "design/PASSIVE_OBSERVER_HANDOFF.md",
     "design/PASSIVE_OBSERVER_REFERENCE_LOOKUP.md",
     "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
@@ -447,6 +448,7 @@
     "research/OVERNIGHT_HANDOFF.md",
     "research/OVERNIGHT_SOURCE_INDEPENDENT_REVIEW.md",
     "research/OVERNIGHT_VALIDATION.json",
+    "research/PASSIVE_CAPTURE_FIELD_REVIEW.json",
     "research/PASSIVE_OBSERVER_CALLER_ASSET.json",
     "research/PASSIVE_OBSERVER_FACTORY_TRACE.md",
     "research/PASSIVE_OBSERVER_HELPER_REVIEW.json",
@@ -2183,6 +2185,18 @@
       "notes": []
     },
     {
+      "path": "design/PASSIVE_CAPTURE_FIELD_MAP.json",
+      "bytes": 9798,
+      "sha256": "d3522e9b2a4822dbabf5ee02e58931508fa7157bef061b16880af22f72ac165f",
+      "lines": 66,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
       "path": "design/PASSIVE_OBSERVER_HANDOFF.md",
       "bytes": 9611,
       "sha256": "161d829a2bf573d6eb8682d937bc2b22b5c16e821e469d5aad21e0b4195cb054",
@@ -2220,9 +2234,9 @@
     },
     {
       "path": "design/PASSIVE_RECORDING_WORKFLOW.md",
-      "bytes": 7590,
-      "sha256": "6f075ce6ef652ecd378e9bfa5e49c2af132c23bbacf327a9f5658bff9e529a01",
-      "lines": 62,
+      "bytes": 8027,
+      "sha256": "4c1725a96bcbf7f03ca7b1b23ba1cfe631c40bd75616ff5681584eac1d0f1b32",
+      "lines": 64,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3409,9 +3423,9 @@
     },
     {
       "path": "research/GITHUB_BACKUP.json",
-      "bytes": 6514,
-      "sha256": "3822c30cc428f9bbfe423f40e42d1003d9777117f087ede70a69f1009f6f9ae8",
-      "lines": 137,
+      "bytes": 6653,
+      "sha256": "895dd05f474d710a96bf17dd6df338a5c72b8dbeba9549b030b9fbdeb1433dda",
+      "lines": 141,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3743,9 +3757,9 @@
     },
     {
       "path": "research/OBSERVER_FIRST_CHECKPOINT_2026-09-23.md",
-      "bytes": 4249,
-      "sha256": "d7c67b2c3b869e59a654954d3a2eb3f3de766723121eed33658302485d844020",
-      "lines": 28,
+      "bytes": 5275,
+      "sha256": "1af6d4c1140dce8117f74036b4579d81905eec93d471d60210e5a1298a0f332a",
+      "lines": 34,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4378,6 +4392,18 @@
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": []
+    },
+    {
+      "path": "research/PASSIVE_CAPTURE_FIELD_REVIEW.json",
+      "bytes": 4733,
+      "sha256": "f3be2ac23279ebeacab0c09c6941f4b01d243e12ff0c4ec44f42c1ab1773653e",
+      "lines": 198,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
     },
     {
       "path": "research/PASSIVE_OBSERVER_CALLER_ASSET.json",

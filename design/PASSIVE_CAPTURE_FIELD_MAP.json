@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "kind": "proposed-passive-capture-field-map",
+  "classification": "SOURCE_SUPPORTED_CANDIDATES_NOT_NATIVE_IMPLEMENTATION",
+  "runtimeVerified": false,
+  "collectorImplemented": false,
+  "scope": "Player and current player-squad AI only; no enemy actor traversal, order submission or direct control.",
+  "source": {
+    "path": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/unreal-api-reference.txt",
+    "sha256": "ac4c46761bc54099302155bc0a908ae3f64b161ca77eb9afd0cc6c1f1b826480",
+    "version": "Epic MW5 editor 1.1.390.0e; UE4.26.2; compatible CL14830424",
+    "interpretation": "Generated declarations only. Placeholder return values are not native behavior. Retail availability is unverified."
+  },
+  "existingEnvelope": {
+    "module": "companion/observation.mjs",
+    "kind": "observation",
+    "schemaVersion": 1,
+    "recorderMustNotInvent": ["snapshot.authority", "snapshot.phase", "lancemates[].generation", "lancemates[].aiOwned", "manual.observable", "manual.status"],
+    "captureOnlyValues": "Raw position, native worker/job state and independent player binding need capture-only storage; no existing policy field directly represents all of them. Unknown extra fields survive original files but are not semantically validated by the recording auditor.",
+    "readFailure": "Retain the sample with explicit unknowns and a separate proposed acquisition-failure reason. A tactical rejection is not a reason to delete a capture sample."
+  },
+  "projectMetadata": [
+    {"field": "session", "source": "Observer-owned world/mission epoch", "proofNeeded": "Creation and teardown binding; no mission-name or level-name reuse as identity."},
+    {"field": "sequence", "source": "Observer-owned monotonically increasing sample-attempt sequence", "proofNeeded": "Increment on each scheduled attempt; record failed attempts or gaps. Do not invent a missing attempt count from elapsed time."},
+    {"field": "observedAtMs", "source": "Observer-owned calibrated clock", "proofNeeded": "Exact native clock/read route, units, pause behavior, monotonicity and alignment to independent evidence remain unresolved."},
+    {"field": "objectBindingId", "source": "Observer-owned session-scoped object identity registry", "proofNeeded": "Distinct live objects, destruction/reuse and possession behavior; raw pointers, names, display slots and pilot labels are not trusted durable IDs."},
+    {"field": "acquisitionStatus", "source": "Proposed recorder metadata", "proofNeeded": "Distinguish obtained value, obtained null relationship, invalid object, unsupported read, failed read, not attempted and truncated inventory. These are project statuses, not MW5 enums."}
+  ],
+  "nativeCandidates": [
+    {"key": "playerSquad", "reader": "MWPlayerController.squad", "lines": [357851,357856], "valueType": "MWSquad", "captureUse": "Bind only to the observed local player controller's current squad.", "unresolved": "Actual owner/world and source-supported local-controller acquisition must be verified."},
+    {"key": "currentAiControllers", "reader": "MWSquad.get_ai_members", "lines": [366214,366222], "valueType": "Array(MWAIController)", "captureUse": "Obtain current player-squad AI roster; bound traversal to three AI.", "unresolved": "Ordering, exact count, durable slot identity, atomicity and membership/update timing are undocumented. If more than three are returned, retain count/truncation status; do not silently call the first three a complete roster."},
+    {"key": "membership", "reader": "MWSquad.is_member", "lines": [366152,366163], "valueType": "bool", "captureUse": "Check an observed controller against the current squad.", "unresolved": "Not an authority guarantee; sample on the supported game thread."},
+    {"key": "controlledPawn", "reader": "Controller.get_controlled_pawn", "lines": [132879,132887], "valueType": "Pawn", "captureUse": "Read the current pawn for the player and each observed AI controller.", "unresolved": "A null relationship is distinct from a failed acquisition; cached values cannot survive a switch unchecked."},
+    {"key": "pawnController", "reader": "Pawn.get_controller", "lines": [190612,190620], "valueType": "Controller", "captureUse": "Record reciprocal binding using fresh reads.", "unresolved": "Two reads are not proven atomic; ambiguous transitions stay uncertain."},
+    {"key": "humanPossession", "reader": "Pawn.is_player_controlled", "lines": [190485,190493], "valueType": "bool", "captureUse": "Record human possession for each observed pawn.", "unresolved": "False does not prove AI ownership. A valid AI controller and reciprocal membership are separate observations."},
+    {"key": "actorDestroying", "reader": "Actor.is_actor_being_destroyed", "lines": [117343,117351], "valueType": "bool", "captureUse": "Record destruction state before using a binding.", "unresolved": "Not a lifetime lock or a replacement for native validity checks."},
+    {"key": "actorAuthority", "reader": "Actor.has_authority", "lines": [117352,117360], "valueType": "bool", "captureUse": "Record per-actor authority as a raw observation.", "unresolved": "Never automatically promote this to snapshot control authority or an enabled command capability."},
+    {"key": "positionNative", "reader": "Actor.get_actor_location", "lines": [117089,117097], "valueType": "Vector", "captureUse": "Preserve player and AI pawn RootComponent positions in their original coordinate domain.", "unresolved": "Record units/frame as unknown until calibrated. Do not divide by 100, infer meters, velocity, navigation success or stopped motion without supporting evidence."},
+    {"key": "worker", "reader": "MWAIController.worker_component", "lines": [295311,295315], "valueType": "MWWorkerComponent", "captureUse": "Read only for the currently bound, validated AI controller.", "unresolved": "A missing worker does not imply an idle AI. Do not apply this getter to the player controller."},
+    {"key": "workerActor", "reader": "MWWorkerComponent.get_actor", "lines": [381307,381315], "valueType": "Actor", "captureUse": "Compare returned controlled pawn against the current AI pawn.", "unresolved": "Mismatch is explicit evidence of an unresolved binding; do not keep stale worker/job state attached to a new pawn."},
+    {"key": "currentJob", "reader": "MWWorkerComponent.get_job", "lines": [381298,381306], "valueType": "MWJob", "captureUse": "Retain current job object identity or an obtained null relationship.", "unresolved": "Job existence/change is not proof that a human issued an order or that movement occurred."},
+    {"key": "jobCommandType", "reader": "MWJob.get_command_type", "lines": [334891,334899], "valueType": "MWCommandType", "captureUse": "Preserve the source enum and separately proved serialization.", "unresolved": "No invented numeric/string mapping; an observed FOLLOW classification alone does not identify its instigator, target or completion."},
+    {"key": "jobRunningState", "reader": "MWJob.get_running_state", "lines": [334855,334863], "valueType": "MWJobRunningState", "captureUse": "Preserve raw state alongside job and worker bindings.", "unresolved": "State transitions must match independent observations and actual native lifetime."},
+    {"key": "jobFinishReason", "reader": "MWJob.get_finish_reason", "lines": [334873,334881], "valueType": "MWJobFinishReason", "captureUse": "Only interpret when the current verified job state is FINISHED.", "unresolved": "Otherwise mark not applicable/unknown rather than reading a default as completion. Not proof of completed human intent."},
+    {"key": "paused", "reader": "GameplayStatics.is_game_paused", "lines": [201271,201282], "valueType": "bool", "captureUse": "Preserve pause separately from menu/loading/mission phase.", "unresolved": "Actual world context must be validated; false does not establish an active mission."},
+    {"key": "currentArea", "reader": "MWBlueprintUtils.get_current_area", "lines": [308166,308177], "valueType": "MWArea", "captureUse": "Candidate current-area binding for lifecycle analysis.", "unresolved": "Acquisition/callback/lifetime and allowed game-thread context are not proven."},
+    {"key": "areaLoading", "reader": "MWArea.is_loading", "lines": [301899,301907], "valueType": "bool", "captureUse": "Capture only from a valid current area.", "unresolved": "False is not mission readiness; missing area remains unknown."},
+    {"key": "areaIsHub", "reader": "MWArea.is_mission_hub", "lines": [301890,301898], "valueType": "bool", "captureUse": "Preserve hub distinction independently of loading/pause.", "unresolved": "Client-safe declaration does not prove complete mission lifecycle boundaries."}
+  ],
+  "excludedFromInitialReads": [
+    "Enemy enumeration, hidden targets, global actor scans and combat-target dereferencing.",
+    "Order resolver/posting, job creation, worker cancellation, behavior-tree changes and low-level input.",
+    "Physical human-order provenance inferred from job type, job change, player_issued or UI completion.",
+    "Health/range/heat normalization or position unit conversion before calibration.",
+    "Recipient squad_member_id without verified server-side access; UI slot/display label as a substitute.",
+    "Campaign identity, save access or persistent pilot memory."
+  ],
+  "remainingProducerWork": [
+    "Supported executable asset authoring and native startup/duplicate/lifecycle proof.",
+    "Supported timestamp, object-ID, enum/vector serialization and acquisition-status storage.",
+    "Bounded buffering, explicit overflow/missed-attempt records, stopping/export and crash behavior.",
+    "Real source-field readback and independent identity/position/lifecycle validation.",
+    "No mapping here enables control or certifies a real recording."
+  ]
+}
