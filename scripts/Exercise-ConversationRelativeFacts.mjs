@@ -15,6 +15,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GiB = 1024 ** 3;
 export const RELATIVE_FACTS_FIXTURE_SHA256 = 'ec7106cd5a0518489cd46dcea24ef8f0ab6facfbff5c31f4f8b5716a889f9108';
 export const RELATIVE_FACTS_RECEIPT = 'research/QWEN4B_RELATIVE_FACTS_DIAGNOSTIC.json';
+export const RELATIVE_FACTS_ATTEMPT_002_RECEIPT = 'research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002.json';
+export const RELATIVE_FACTS_PREDECESSOR_SHA256 = 'a4970f273317987ec2ab807dc4a23c3c362cadc6cea81a10b375094b84902771';
+const secondAttemptAction = '--run-attempt-002';
 const fixtureRelative = 'synthetic/conversation-relative-facts-cases.json';
 const options = Object.freeze({ modelId: 'qwen4b', threads: 4, processingBatch: 'compact', weightRepacking: false,
   promptCaching: true, experimentalSpeakerRelativeFacts: true });
@@ -27,10 +30,33 @@ export function readFrozenRelativeFactsFixture(bytes) {
   return JSON.parse(bytes.toString('utf8'));
 }
 
+export function readRelativeFactsPredecessor(bytes) {
+  if (hash(bytes) !== RELATIVE_FACTS_PREDECESSOR_SHA256) throw Error('PREDECESSOR_EVIDENCE_CHANGED');
+  const prior = JSON.parse(bytes.toString('utf8'));
+  if (prior.status !== 'INCOMPLETE' || prior.error !== 'INITIAL_RAM_INSUFFICIENT' ||
+      prior.primer.status !== 'NOT_PERFORMED' || prior.primer.output !== null || prior.samples.length !== 18 ||
+      prior.samples.some(s => s.status !== 'NOT_PERFORMED' || s.output !== null) || prior.notPerformed.length !== 18 ||
+      prior.finalRuntime.state !== 'NOT_STARTED' || prior.finalRuntime.ownedPid !== null || !prior.finalRuntime.ownedProcessStopped)
+    throw Error('PREDECESSOR_NOT_ADMISSION_REFUSAL');
+  return { path: RELATIVE_FACTS_RECEIPT, sha256: RELATIVE_FACTS_PREDECESSOR_SHA256 };
+}
+
+async function secondAttempt() {
+  return { id: '002', receiptPath: RELATIVE_FACTS_ATTEMPT_002_RECEIPT,
+    predecessor: readRelativeFactsPredecessor(await readFile(path.join(root, RELATIVE_FACTS_RECEIPT))) };
+}
+
+function receiptFor(action) {
+  if (action === '--run') return RELATIVE_FACTS_RECEIPT;
+  if (action === secondAttemptAction) return RELATIVE_FACTS_ATTEMPT_002_RECEIPT;
+  throw Error('INVALID_ATTEMPT');
+}
+
 // Re-read the immutable source fixture before accepting an in-memory plan. This
 // validates the exact case copies without granting metadata any model authority.
 export async function prepareRelativeFactsDiagnostic(args, fixture) {
-  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run'].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+  const attempt = args[0] === secondAttemptAction ? await secondAttempt() : null;
   const frozen = readFrozenRelativeFactsFixture(await readFile(path.join(root, fixtureRelative)));
   if (!isDeepStrictEqual(fixture, frozen)) throw Error('FROZEN_FIXTURE_CHANGED');
   const f = structuredClone(fixture), sourceFixtures = {};
@@ -86,7 +112,7 @@ export async function prepareRelativeFactsDiagnostic(args, fixture) {
   if (cases.length !== 18 || cases.filter(c => c.capture.coordinatorCalls === 1).length !== 10 ||
       cases.filter(c => c.provenance.kind === 'NEW_PREDECLARED_HOLDOUT').length !== 4) throw Error('INVALID_CAPTURE_COUNTS');
   const primer = prepareProjection({ persona: { id: 'calibration', callsign: null }, request: { text: 'Say OK.' }, facts: [], history: [] });
-  return freeze({ action: args[0], fixture: f, primer, cases });
+  return freeze({ action: args[0], ...(attempt ? { attempt } : {}), fixture: f, primer, cases });
 }
 
 function prepareProjection(originalContext) {
@@ -102,9 +128,9 @@ function prepareProjection(originalContext) {
   return { originalContext, context, projection, messages, messageCharacters: messages.reduce((n, m) => n + m.content.length, 0) };
 }
 
-export async function reserveRelativeFactsReceipt(openFile = open) {
+export async function reserveRelativeFactsReceipt(openFile = open, action = '--run') {
   // One owner keeps the exclusively created handle; refused reruns never open for writing.
-  const handle = await openFile(path.join(root, RELATIVE_FACTS_RECEIPT), 'wx');
+  const handle = await openFile(path.join(root, receiptFor(action)), 'wx');
   return {
     async save(report) {
       const bytes = Buffer.from(JSON.stringify(report, null, 2) + '\n');
@@ -121,16 +147,19 @@ export async function reserveRelativeFactsReceipt(openFile = open) {
 
 // Test substitutions are code-only, never CLI/request data; resulting receipts say MOCK_ONLY.
 export async function executeRelativeFactsDiagnostic(plan, evidence, testDependencies = null) {
-  if (plan?.action !== '--run' || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
-  const io = { reserveReceipt: reserveRelativeFactsReceipt, createEngine: createLocalLanguageModel, availableRam: () => os.freemem(),
+  if (!['--run', secondAttemptAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
+  const attempt = plan.action === secondAttemptAction ? await secondAttempt() : null;
+  if (attempt ? !isDeepStrictEqual(plan.attempt, attempt) : Object.hasOwn(plan, 'attempt')) throw Error('INVALID_EXECUTION_PLAN');
+  const io = { reserveReceipt: action => reserveRelativeFactsReceipt(open, action), createEngine: createLocalLanguageModel, availableRam: () => os.freemem(),
     availableDisk: async () => { const s = await statfs(root); return s.bavail * s.bsize; }, now: () => performance.now(),
     ...(testDependencies ?? {}) };
   const limits = { ...budgets, ...(testDependencies?.budgets ?? {}) };
   if (Object.entries(limits).some(([key, value]) => !Object.hasOwn(budgets, key) || !Number.isInteger(value) || value < 1 || value > budgets[key])) throw Error('INVALID_TEST_BUDGET');
-  const receipt = await io.reserveReceipt(); // No engine is constructed if a receipt already exists.
+  const receipt = await io.reserveReceipt(plan.action); // No engine is constructed if a receipt already exists.
   const began = io.now(), abort = new AbortController();
   let engine = null, stopPromise = null, resourceTimer, deadlineTimer, haltReason = null;
   const report = { schemaVersion: 1, recordedAt: new Date().toISOString(), status: 'PREFLIGHT',
+    ...(attempt ? { attempt } : {}),
     classification: testDependencies ? 'MOCK_ONLY' : 'LOCAL_CPU_RELATIVE_FACTS_DIAGNOSTIC_SYNTHETIC_CONTEXTS',
     fixtureSha256: evidence.fixtureSha256, fixture: plan.fixture, sources: evidence.sources,
     modelPins: evidence.modelPins, runtimePins: evidence.runtimePins, settings: { ...options, ...limits,
@@ -248,7 +277,9 @@ async function main(args) {
     'synthetic/conversation-identity-cases.json', 'synthetic/conversation-grounding-cases.json',
     'design/SPEAKER_RELATIVE_OBSERVATIONS.md', 'research/SPEAKER_OBSERVATION_REVIEW.md',
     'research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md', 'research/CONVERSATION_IDENTITY_EVALUATION.md',
-    'research/QWEN4B_IDENTITY_RESULT_REVIEW.md', 'research/QWEN4B_PROMPT_CACHE_RESULT_REVIEW.md'])
+    'research/QWEN4B_IDENTITY_RESULT_REVIEW.md', 'research/QWEN4B_PROMPT_CACHE_RESULT_REVIEW.md',
+    ...(plan.action === secondAttemptAction ? ['companion/tests/relative-facts-attempt-review.test.mjs',
+      'research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md'] : [])])
     sources[rel] = hash(await readFile(path.join(root, rel)));
   const lock = JSON.parse(await readFile(path.join(root, 'companion/models.lock.json')));
   const evidence = { fixtureSha256: hash(fixtureBytes), sources,
@@ -256,7 +287,7 @@ async function main(args) {
     runtimePins: JSON.parse(await readFile(path.join(root, 'companion/llama-runtime-pins.json'))) };
   const report = await executeRelativeFactsDiagnostic(plan, evidence);
   console.log(JSON.stringify({ status: report.status, completed: report.samples.filter(s => s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,
-    expected: plan.cases.length, haltReason: report.haltReason, ownedProcessStopped: report.ownedProcessStopped, receipt: RELATIVE_FACTS_RECEIPT }));
+    expected: plan.cases.length, haltReason: report.haltReason, ownedProcessStopped: report.ownedProcessStopped, receipt: receiptFor(plan.action) }));
   if (report.status !== 'COMPLETE_PENDING_SEMANTIC_REVIEW') process.exitCode = 1;
 }
 if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url)

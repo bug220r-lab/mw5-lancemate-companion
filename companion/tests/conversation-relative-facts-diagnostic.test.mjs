@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { RELATIVE_FACTS_FIXTURE_SHA256, RELATIVE_FACTS_RECEIPT, readFrozenRelativeFactsFixture,
+  RELATIVE_FACTS_ATTEMPT_002_RECEIPT, RELATIVE_FACTS_PREDECESSOR_SHA256, readRelativeFactsPredecessor,
   prepareRelativeFactsDiagnostic, executeRelativeFactsDiagnostic, reserveRelativeFactsReceipt }
   from '../../scripts/Exercise-ConversationRelativeFacts.mjs';
 import { messagesFor } from '../local-language-model.mjs';
@@ -106,8 +107,56 @@ test('the fresh cases preserve both shuffled metrics, missing own reading, absen
 });
 
 test('fixed CLI selectors reject model, path, retry or tuning arguments', async () => {
-  for(const args of [[],['--run','--retry'],['--check','--run'],['--output','elsewhere'],['--model','other']])
+  for(const args of [[],['--run','--retry'],['--check','--run'],['--output','elsewhere'],['--model','other'],
+    ['--run-attempt-001'],['--run-attempt-003'],['--run-attempt-2'],['--run-attempt-002','--output','elsewhere']])
     await assert.rejects(prepareRelativeFactsDiagnostic(args,fixture),/INVALID_ARGUMENTS/);
+});
+
+test('attempt 002 pins the exact immutable admission refusal and changes no case or model input', async () => {
+  const prior = await readFile(new URL('../../research/QWEN4B_RELATIVE_FACTS_DIAGNOSTIC.json', import.meta.url));
+  assert.deepEqual(readRelativeFactsPredecessor(prior), { path: RELATIVE_FACTS_RECEIPT, sha256: RELATIVE_FACTS_PREDECESSOR_SHA256 });
+  assert.throws(() => readRelativeFactsPredecessor(Buffer.concat([prior, Buffer.from('\n')])), /PREDECESSOR_EVIDENCE_CHANGED/);
+  const altered = JSON.parse(prior); altered.status = 'COMPLETE_PENDING_SEMANTIC_REVIEW';
+  assert.throws(() => readRelativeFactsPredecessor(Buffer.from(JSON.stringify(altered))), /PREDECESSOR_EVIDENCE_CHANGED/);
+  const second = await prepareRelativeFactsDiagnostic(['--run-attempt-002'], fixture);
+  assert.deepEqual(second.attempt, { id: '002', receiptPath: RELATIVE_FACTS_ATTEMPT_002_RECEIPT,
+    predecessor: { path: RELATIVE_FACTS_RECEIPT, sha256: RELATIVE_FACTS_PREDECESSOR_SHA256 } });
+  assert.deepEqual(second.cases, plan.cases); assert.deepEqual(second.primer, plan.primer); assert.deepEqual(second.fixture, plan.fixture);
+  assert.equal(Object.hasOwn(plan, 'attempt'), false);
+});
+
+test('attempt 002 reservation has one fixed wx destination and cannot overwrite either receipt', async () => {
+  const files = new Map([[RELATIVE_FACTS_RECEIPT, 'original refusal']]); let opens = 0;
+  const fakeOpen = async (file, flags) => {
+    opens++; assert.equal(flags, 'wx');
+    assert.ok(file.replaceAll('\\', '/').endsWith('/' + RELATIVE_FACTS_ATTEMPT_002_RECEIPT));
+    if (files.has(RELATIVE_FACTS_ATTEMPT_002_RECEIPT)) throw Object.assign(Error('exists'), { code: 'EEXIST' });
+    files.set(RELATIVE_FACTS_ATTEMPT_002_RECEIPT, 'reserved');
+    return { async close() {} };
+  };
+  await assert.rejects(reserveRelativeFactsReceipt(fakeOpen, '--run-attempt-003'), /INVALID_ATTEMPT/);
+  await assert.rejects(reserveRelativeFactsReceipt(fakeOpen, 'research/elsewhere.json'), /INVALID_ATTEMPT/);
+  assert.equal(opens, 0);
+  await (await reserveRelativeFactsReceipt(fakeOpen, '--run-attempt-002')).close();
+  await assert.rejects(reserveRelativeFactsReceipt(fakeOpen, '--run-attempt-002'), { code: 'EEXIST' });
+  assert.equal(files.get(RELATIVE_FACTS_RECEIPT), 'original refusal');
+  assert.equal(files.get(RELATIVE_FACTS_ATTEMPT_002_RECEIPT), 'reserved');
+});
+
+test('attempt metadata cannot be forged at execution and mock second receipts retain the predecessor', async () => {
+  const second = await prepareRelativeFactsDiagnostic(['--run-attempt-002'], fixture), r = rig({ availableRam: () => 4 * GiB });
+  for (const modify of [p => { p.attempt.id = '003'; }, p => { p.attempt.receiptPath = 'research/elsewhere.json'; },
+    p => { p.attempt.predecessor.sha256 = '0'.repeat(64); }, p => { delete p.attempt; }]) {
+    const forged = structuredClone(second); modify(forged);
+    await assert.rejects(executeRelativeFactsDiagnostic(forged, evidence, r.dependencies), /INVALID_EXECUTION_PLAN/);
+  }
+  assert.equal(r.calls.reserve, 0); assert.equal(r.calls.creates, 0);
+  const reserve = r.dependencies.reserveReceipt;
+  r.dependencies.reserveReceipt = async action => { assert.equal(action, '--run-attempt-002'); return reserve(); };
+  const report = await executeRelativeFactsDiagnostic(second, evidence, r.dependencies);
+  assert.equal(report.classification, 'MOCK_ONLY'); assert.equal(report.error, 'INITIAL_RAM_INSUFFICIENT');
+  assert.deepEqual(report.attempt, second.attempt); assert.equal(report.notPerformed.length, 18); assert.equal(r.calls.creates, 0);
+  assert.deepEqual(report.settings, (await executeRelativeFactsDiagnostic(plan, evidence, rig({ availableRam: () => 4 * GiB }).dependencies)).settings);
 });
 
 test('production receipt reservation requests the fixed wx path and preserves bytes on a second open', async () => {

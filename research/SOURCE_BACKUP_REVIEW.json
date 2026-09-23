@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T00:00:46.415Z",
+  "reviewedAt": "2026-09-23T00:12:10.225Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 364,
-    "includedBytesExcludingThisReceipt": 7347367,
+    "includedFiles": 369,
+    "includedBytesExcludingThisReceipt": 7610094,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -183,6 +183,7 @@
     "companion/tests/preview-timing-review.test.mjs",
     "companion/tests/preview-timing.test.mjs",
     "companion/tests/radio.test.mjs",
+    "companion/tests/relative-facts-attempt-review.test.mjs",
     "companion/tests/server-callsign.test.mjs",
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
@@ -371,11 +372,15 @@
     "research/QWEN4B_IDENTITY_RESULT_REVIEW.md",
     "research/QWEN4B_PROMPT_CACHE_DIAGNOSTIC.json",
     "research/QWEN4B_PROMPT_CACHE_RESULT_REVIEW.md",
+    "research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002.json",
+    "research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002_REVIEW.md",
     "research/QWEN4B_RELATIVE_FACTS_DIAGNOSTIC.json",
     "research/QWEN4B_RELATIVE_FACTS_RESULT_REVIEW.md",
     "research/QWEN_CONVERSATION_QUALITY_REVIEW.md",
     "research/QWEN_QUANTIZATION_COMPARISON.json",
     "research/QWEN_REQUANTIZATION_RECEIPT.json",
+    "research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md",
+    "research/RELATIVE_FACTS_ATTEMPT_002_RECEIPT_AUDIT.md",
     "research/RELEASE_EVIDENCE_V1_GAP.json",
     "research/RELEASE_EVIDENCE_V2_REVIEW.md",
     "research/SOURCES.md",
@@ -975,9 +980,9 @@
     },
     {
       "path": "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
-      "bytes": 20009,
-      "sha256": "d5c276b808a3f0b7161a76ae86785081dea4e7b09754a154f262fa6428761246",
-      "lines": 269,
+      "bytes": 23935,
+      "sha256": "90518aa8a096131d2cfe06fd9368da53e1cea390fe3688e4a0b2665ab7138f59",
+      "lines": 318,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1158,6 +1163,16 @@
       "bytes": 20449,
       "sha256": "8fba2f154dd29c41dee3c5c41ceb5ecd810b985c39ef22dbab481ed6d3d1277d",
       "lines": 334,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/relative-facts-attempt-review.test.mjs",
+      "bytes": 11959,
+      "sha256": "cf5f003d149d15c45ce92322fe6cb38650443aa8343572a48f4a4a19012c6865",
+      "lines": 158,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2142,9 +2157,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 15232,
-      "sha256": "8c20a5e7025f21aa475245b6034c8fd72908fd9f794e0887bf6dd45bd19aa762",
-      "lines": 389,
+      "bytes": 15462,
+      "sha256": "7f7b68e4987d4db91f3366cf257486b329ad81f84afde3d033d3525db58f5145",
+      "lines": 394,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2597,7 +2612,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "a75cc4ac45629b6baf8226c34705461527fe5838ab6093e82595bb700a313bb3",
+      "sha256": "41538829a64d0ae3911b5c5e5cb6ff837f8b876be9ff19f54f082a0abdcc5d61",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -2608,9 +2623,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 58300,
-      "sha256": "95be64b43d999c2ec2b25c40aa5d182c3371ef1878ab4e561cbd6b11a0f12aff",
-      "lines": 227,
+      "bytes": 61708,
+      "sha256": "c1cc6e473fa5e5e250448c4ee8163f0035c2d92160d3bfdcadee8ccccefd031d",
+      "lines": 239,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3439,6 +3454,29 @@
       "notes": []
     },
     {
+      "path": "research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002_REVIEW.md",
+      "bytes": 18116,
+      "sha256": "529b2b19a3a2226e522559c278a07ea39f7684b81fbfee7fec828f89c0893c33",
+      "lines": 118,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002.json",
+      "bytes": 212651,
+      "sha256": "e227f94995bab1c44a3296c50202c995e36c9b25d2302f0cd1d05bd6266fb67b",
+      "lines": 5079,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
+      ]
+    },
+    {
       "path": "research/QWEN4B_RELATIVE_FACTS_DIAGNOSTIC.json",
       "bytes": 202343,
       "sha256": "a4970f273317987ec2ab807dc4a23c3c362cadc6cea81a10b375094b84902771",
@@ -3453,6 +3491,26 @@
       "bytes": 5138,
       "sha256": "2c98d4d9f0c849cb714d4f14f2fdf771a195e3a7e0818d30a384d7fc43abf3d8",
       "lines": 29,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md",
+      "bytes": 5337,
+      "sha256": "0cea03dc7e6dc72b78b14bfb27b07769558ad9e9a26c493a056bb70b9b14a6a5",
+      "lines": 34,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/RELATIVE_FACTS_ATTEMPT_002_RECEIPT_AUDIT.md",
+      "bytes": 4972,
+      "sha256": "4e1a01f981d624807bb898e0bad2f2b5aca1358dc4602f03a9bb62c3928ad7fe",
+      "lines": 28,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3762,9 +3820,9 @@
     },
     {
       "path": "scripts/Exercise-ConversationRelativeFacts.mjs",
-      "bytes": 20090,
-      "sha256": "5d33c7fb4102207cf21b4539dff13391fed7c38ca7513fde3b5bcb09c48a5bf5",
-      "lines": 267,
+      "bytes": 22218,
+      "sha256": "60dfd55c6eb942b1ccd49f3cbc3f45939b93b6b1c79837e4a70fd890ae9a394d",
+      "lines": 298,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
