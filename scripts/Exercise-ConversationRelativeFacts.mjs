@@ -17,7 +17,10 @@ export const RELATIVE_FACTS_FIXTURE_SHA256 = 'ec7106cd5a0518489cd46dcea24ef8f0ab
 export const RELATIVE_FACTS_RECEIPT = 'research/QWEN4B_RELATIVE_FACTS_DIAGNOSTIC.json';
 export const RELATIVE_FACTS_ATTEMPT_002_RECEIPT = 'research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002.json';
 export const RELATIVE_FACTS_PREDECESSOR_SHA256 = 'a4970f273317987ec2ab807dc4a23c3c362cadc6cea81a10b375094b84902771';
+export const RELATIVE_FACTS_QWEN17B_RECEIPT = 'research/QWEN17B_RELATIVE_FACTS_DIAGNOSTIC.json';
+export const RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256 = 'e227f94995bab1c44a3296c50202c995e36c9b25d2302f0cd1d05bd6266fb67b';
 const secondAttemptAction = '--run-attempt-002';
+const qwen17bAction = '--run-qwen17b';
 const fixtureRelative = 'synthetic/conversation-relative-facts-cases.json';
 const options = Object.freeze({ modelId: 'qwen4b', threads: 4, processingBatch: 'compact', weightRepacking: false,
   promptCaching: true, experimentalSpeakerRelativeFacts: true });
@@ -46,17 +49,36 @@ async function secondAttempt() {
     predecessor: readRelativeFactsPredecessor(await readFile(path.join(root, RELATIVE_FACTS_RECEIPT))) };
 }
 
+export function readRelativeFactsQwen17bPredecessor(bytes) {
+  if (hash(bytes) !== RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256) throw Error('QWEN17B_PREDECESSOR_EVIDENCE_CHANGED');
+  const prior = JSON.parse(bytes.toString('utf8'));
+  if (prior.status !== 'INCOMPLETE' || prior.haltReason !== 'OPERATION_DEADLINE' ||
+      prior.primer.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' || prior.samples.length !== 18 ||
+      prior.samples[0].status !== 'FAILED' || prior.samples.slice(1).some(s => s.status !== 'NOT_PERFORMED') ||
+      prior.notPerformed.length !== 17 || !prior.ownedProcessStopped || prior.finalRuntime.ownedPid !== null)
+    throw Error('QWEN17B_PREDECESSOR_NOT_STOPPED_DIAGNOSTIC');
+  return { path: RELATIVE_FACTS_ATTEMPT_002_RECEIPT, sha256: RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256 };
+}
+
+async function qwen17bSubstitution() {
+  return { id: 'QWEN17B_OFFICIAL_Q8', receiptPath: RELATIVE_FACTS_QWEN17B_RECEIPT,
+    referenceModelId: 'qwen4b', modelId: 'qwen1_7b',
+    predecessor: readRelativeFactsQwen17bPredecessor(await readFile(path.join(root, RELATIVE_FACTS_ATTEMPT_002_RECEIPT))) };
+}
+
 function receiptFor(action) {
   if (action === '--run') return RELATIVE_FACTS_RECEIPT;
   if (action === secondAttemptAction) return RELATIVE_FACTS_ATTEMPT_002_RECEIPT;
+  if (action === qwen17bAction) return RELATIVE_FACTS_QWEN17B_RECEIPT;
   throw Error('INVALID_ATTEMPT');
 }
 
 // Re-read the immutable source fixture before accepting an in-memory plan. This
 // validates the exact case copies without granting metadata any model authority.
 export async function prepareRelativeFactsDiagnostic(args, fixture) {
-  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction, qwen17bAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
   const attempt = args[0] === secondAttemptAction ? await secondAttempt() : null;
+  const modelSubstitution = args[0] === qwen17bAction ? await qwen17bSubstitution() : null;
   const frozen = readFrozenRelativeFactsFixture(await readFile(path.join(root, fixtureRelative)));
   if (!isDeepStrictEqual(fixture, frozen)) throw Error('FROZEN_FIXTURE_CHANGED');
   const f = structuredClone(fixture), sourceFixtures = {};
@@ -112,7 +134,7 @@ export async function prepareRelativeFactsDiagnostic(args, fixture) {
   if (cases.length !== 18 || cases.filter(c => c.capture.coordinatorCalls === 1).length !== 10 ||
       cases.filter(c => c.provenance.kind === 'NEW_PREDECLARED_HOLDOUT').length !== 4) throw Error('INVALID_CAPTURE_COUNTS');
   const primer = prepareProjection({ persona: { id: 'calibration', callsign: null }, request: { text: 'Say OK.' }, facts: [], history: [] });
-  return freeze({ action: args[0], ...(attempt ? { attempt } : {}), fixture: f, primer, cases });
+  return freeze({ action: args[0], ...(attempt ? { attempt } : {}), ...(modelSubstitution ? { modelSubstitution } : {}), fixture: f, primer, cases });
 }
 
 function prepareProjection(originalContext) {
@@ -147,9 +169,12 @@ export async function reserveRelativeFactsReceipt(openFile = open, action = '--r
 
 // Test substitutions are code-only, never CLI/request data; resulting receipts say MOCK_ONLY.
 export async function executeRelativeFactsDiagnostic(plan, evidence, testDependencies = null) {
-  if (!['--run', secondAttemptAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
+  if (!['--run', secondAttemptAction, qwen17bAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
   const attempt = plan.action === secondAttemptAction ? await secondAttempt() : null;
   if (attempt ? !isDeepStrictEqual(plan.attempt, attempt) : Object.hasOwn(plan, 'attempt')) throw Error('INVALID_EXECUTION_PLAN');
+  const modelSubstitution = plan.action === qwen17bAction ? await qwen17bSubstitution() : null;
+  if (modelSubstitution ? !isDeepStrictEqual(plan.modelSubstitution, modelSubstitution) : Object.hasOwn(plan, 'modelSubstitution')) throw Error('INVALID_EXECUTION_PLAN');
+  const engineOptions = modelSubstitution ? Object.freeze({ ...options, modelId: 'qwen1_7b' }) : options;
   const io = { reserveReceipt: action => reserveRelativeFactsReceipt(open, action), createEngine: createLocalLanguageModel, availableRam: () => os.freemem(),
     availableDisk: async () => { const s = await statfs(root); return s.bavail * s.bsize; }, now: () => performance.now(),
     ...(testDependencies ?? {}) };
@@ -160,9 +185,10 @@ export async function executeRelativeFactsDiagnostic(plan, evidence, testDepende
   let engine = null, stopPromise = null, resourceTimer, deadlineTimer, haltReason = null;
   const report = { schemaVersion: 1, recordedAt: new Date().toISOString(), status: 'PREFLIGHT',
     ...(attempt ? { attempt } : {}),
+    ...(modelSubstitution ? { modelSubstitution } : {}),
     classification: testDependencies ? 'MOCK_ONLY' : 'LOCAL_CPU_RELATIVE_FACTS_DIAGNOSTIC_SYNTHETIC_CONTEXTS',
     fixtureSha256: evidence.fixtureSha256, fixture: plan.fixture, sources: evidence.sources,
-    modelPins: evidence.modelPins, runtimePins: evidence.runtimePins, settings: { ...options, ...limits,
+    modelPins: evidence.modelPins, runtimePins: evidence.runtimePins, settings: { ...engineOptions, ...limits,
       contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, logicalBatchTokens: 128, physicalBatchTokens: 64,
       temperature: .7, topP: .8, topK: 20, fixedSeed: false, nativeSlots: 1,
       initialRamRequirementBytes: 5 * GiB, minimumRamBytes: 2 * GiB, workingDiskReserveBytes: 10 * GiB },
@@ -222,12 +248,12 @@ export async function executeRelativeFactsDiagnostic(plan, evidence, testDepende
     if (!Number.isFinite(report.initialFreeDiskBytes) || report.initialFreeDiskBytes < 10 * GiB) throw Error('DISK_RESERVE_INSUFFICIENT');
     if (!Number.isFinite(report.initialAvailableRamBytes) || report.initialAvailableRamBytes < 5 * GiB) throw Error('INITIAL_RAM_INSUFFICIENT');
     sampleMemory(); if (haltReason) throw Error(haltReason);
-    engine = io.createEngine(options); resourceTimer = setInterval(sampleMemory, limits.sampleMs);
+    engine = io.createEngine(engineOptions); resourceTimer = setInterval(sampleMemory, limits.sampleMs);
     const startAt = io.now(); await waitForStartup(engine.start(), abort.signal);
     report.startupMs = io.now() - startAt; if (haltReason) throw Error(haltReason);
     report.runtime = engine.status();
     if (report.runtime.verification !== 'PINNED_FILES_VERIFIED') throw Error('PINS_NOT_VERIFIED');
-    if (report.runtime.modelId !== options.modelId || report.runtime.threads !== options.threads ||
+    if (report.runtime.modelId !== engineOptions.modelId || report.runtime.threads !== engineOptions.threads ||
         Object.entries({ host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
           processingBatch: 'compact', weightRepacking: false, promptCaching: true, experimentalSpeakerRelativeFacts: true,
           logicalBatchTokens: 128, physicalBatchTokens: 64, simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false })
@@ -279,11 +305,13 @@ async function main(args) {
     'research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md', 'research/CONVERSATION_IDENTITY_EVALUATION.md',
     'research/QWEN4B_IDENTITY_RESULT_REVIEW.md', 'research/QWEN4B_PROMPT_CACHE_RESULT_REVIEW.md',
     ...(plan.action === secondAttemptAction ? ['companion/tests/relative-facts-attempt-review.test.mjs',
-      'research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md'] : [])])
+      'research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md'] : []),
+    ...(plan.action === qwen17bAction ? ['companion/tests/relative-facts-fallback-review.test.mjs',
+      'research/RELATIVE_FACTS_FALLBACK_PREPARATION.md'] : [])])
     sources[rel] = hash(await readFile(path.join(root, rel)));
   const lock = JSON.parse(await readFile(path.join(root, 'companion/models.lock.json')));
   const evidence = { fixtureSha256: hash(fixtureBytes), sources,
-    modelPins: lock.artifacts.filter(a => ['qwen4b', 'llama-cpu'].includes(a.id)),
+    modelPins: lock.artifacts.filter(a => [plan.action === qwen17bAction ? 'qwen1_7b' : 'qwen4b', 'llama-cpu'].includes(a.id)),
     runtimePins: JSON.parse(await readFile(path.join(root, 'companion/llama-runtime-pins.json'))) };
   const report = await executeRelativeFactsDiagnostic(plan, evidence);
   console.log(JSON.stringify({ status: report.status, completed: report.samples.filter(s => s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,

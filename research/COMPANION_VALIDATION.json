@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T00:07:27.602Z",
+  "recordedAt": "2026-09-23T00:22:51.665Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 930,
-  "passed": 930,
+  "tests": 940,
+  "passed": 940,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -43,6 +43,7 @@
     "companion/tests/preview-timing.test.mjs",
     "companion/tests/radio.test.mjs",
     "companion/tests/relative-facts-attempt-review.test.mjs",
+    "companion/tests/relative-facts-fallback-review.test.mjs",
     "companion/tests/server-callsign.test.mjs",
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
@@ -110,7 +111,7 @@
     },
     {
       "file": "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
-      "sha256": "90518aa8a096131d2cfe06fd9368da53e1cea390fe3688e4a0b2665ab7138f59"
+      "sha256": "b9ccaa586877fbb1e3d4c3c2f08948bbbb08ac737944453f7077072e97c8e469"
     },
     {
       "file": "companion/tests/conversation-review.test.mjs",
@@ -187,6 +188,10 @@
     {
       "file": "companion/tests/relative-facts-attempt-review.test.mjs",
       "sha256": "cf5f003d149d15c45ce92322fe6cb38650443aa8343572a48f4a4a19012c6865"
+    },
+    {
+      "file": "companion/tests/relative-facts-fallback-review.test.mjs",
+      "sha256": "dadec5dc506b0b35b57191459103eef213ee831f75d5e6fe02211a2369451a8b"
     },
     {
       "file": "companion/tests/server-callsign.test.mjs",
@@ -374,7 +379,7 @@
     },
     {
       "file": "scripts/Exercise-ConversationRelativeFacts.mjs",
-      "sha256": "60dfd55c6eb942b1ccd49f3cbc3f45939b93b6b1c79837e4a70fd890ae9a394d"
+      "sha256": "0c8bea654707867b7563f7329c114baa65f44c7730a11596ab1fa859a4966922"
     },
     {
       "file": "synthetic/conversation-relative-facts-cases.json",
@@ -384,8 +389,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790122047581.tap",
-    "sha256": "aef09243077c79d487b0f0327ee8fc77ce3c12033f6011f1ff3be39c0b4361ad",
+    "file": "tmp/companion-verification-1790122971644.tap",
+    "sha256": "d2ae3b1ade649ef128e288c1c071506bcdf335e292bc00a3f159520ecbfe3f16",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

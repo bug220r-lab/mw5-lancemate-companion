@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { RELATIVE_FACTS_FIXTURE_SHA256, RELATIVE_FACTS_RECEIPT, readFrozenRelativeFactsFixture,
   RELATIVE_FACTS_ATTEMPT_002_RECEIPT, RELATIVE_FACTS_PREDECESSOR_SHA256, readRelativeFactsPredecessor,
+  RELATIVE_FACTS_QWEN17B_RECEIPT, RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256, readRelativeFactsQwen17bPredecessor,
   prepareRelativeFactsDiagnostic, executeRelativeFactsDiagnostic, reserveRelativeFactsReceipt }
   from '../../scripts/Exercise-ConversationRelativeFacts.mjs';
 import { messagesFor } from '../local-language-model.mjs';
@@ -108,7 +109,8 @@ test('the fresh cases preserve both shuffled metrics, missing own reading, absen
 
 test('fixed CLI selectors reject model, path, retry or tuning arguments', async () => {
   for(const args of [[],['--run','--retry'],['--check','--run'],['--output','elsewhere'],['--model','other'],
-    ['--run-attempt-001'],['--run-attempt-003'],['--run-attempt-2'],['--run-attempt-002','--output','elsewhere']])
+    ['--run-attempt-001'],['--run-attempt-003'],['--run-attempt-2'],['--run-attempt-002','--output','elsewhere'],
+    ['--run-qwen17b','--model','qwen4b'],['--run-qwen17b','--threads','8'],['--run-qwen17b','--output','elsewhere'],['--run-qwen17b-q4']])
     await assert.rejects(prepareRelativeFactsDiagnostic(args,fixture),/INVALID_ARGUMENTS/);
 });
 
@@ -157,6 +159,61 @@ test('attempt metadata cannot be forged at execution and mock second receipts re
   assert.equal(report.classification, 'MOCK_ONLY'); assert.equal(report.error, 'INITIAL_RAM_INSUFFICIENT');
   assert.deepEqual(report.attempt, second.attempt); assert.equal(report.notPerformed.length, 18); assert.equal(r.calls.creates, 0);
   assert.deepEqual(report.settings, (await executeRelativeFactsDiagnostic(plan, evidence, rig({ availableRam: () => 4 * GiB }).dependencies)).settings);
+});
+
+test('fixed Qwen1.7B selection pins the stopped 4B attempt without changing any prompt or criterion', async () => {
+  const prior = await readFile(new URL('../../research/QWEN4B_RELATIVE_FACTS_ATTEMPT_002.json', import.meta.url));
+  assert.deepEqual(readRelativeFactsQwen17bPredecessor(prior), { path: RELATIVE_FACTS_ATTEMPT_002_RECEIPT, sha256: RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256 });
+  assert.throws(() => readRelativeFactsQwen17bPredecessor(Buffer.concat([prior, Buffer.from('\n')])), /QWEN17B_PREDECESSOR_EVIDENCE_CHANGED/);
+  const selected = await prepareRelativeFactsDiagnostic(['--run-qwen17b'], fixture);
+  assert.deepEqual(selected.modelSubstitution, { id: 'QWEN17B_OFFICIAL_Q8', receiptPath: RELATIVE_FACTS_QWEN17B_RECEIPT,
+    referenceModelId: 'qwen4b', modelId: 'qwen1_7b',
+    predecessor: { path: RELATIVE_FACTS_ATTEMPT_002_RECEIPT, sha256: RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256 } });
+  assert.deepEqual(selected.cases, plan.cases); assert.deepEqual(selected.primer, plan.primer); assert.deepEqual(selected.fixture, plan.fixture);
+  assert.equal(Object.hasOwn(selected, 'attempt'), false); assert.equal(Object.hasOwn(plan, 'modelSubstitution'), false);
+});
+
+test('Qwen1.7B reservation uses only its fixed exclusive path and preserves an existing receipt', async () => {
+  let exists = false, opens = 0;
+  const fakeOpen = async (file, flags) => {
+    opens++; assert.equal(flags, 'wx'); assert.ok(file.replaceAll('\\', '/').endsWith('/' + RELATIVE_FACTS_QWEN17B_RECEIPT));
+    if (exists) throw Object.assign(Error('exists'), { code: 'EEXIST' }); exists = true;
+    return { async close() {} };
+  };
+  await assert.rejects(reserveRelativeFactsReceipt(fakeOpen, '--run-qwen17b-q4'), /INVALID_ATTEMPT/); assert.equal(opens, 0);
+  await (await reserveRelativeFactsReceipt(fakeOpen, '--run-qwen17b')).close();
+  await assert.rejects(reserveRelativeFactsReceipt(fakeOpen, '--run-qwen17b'), { code: 'EEXIST' });
+});
+
+test('Qwen1.7B reaches the actual engine factory and effective report with otherwise identical settings', async () => {
+  const selected = await prepareRelativeFactsDiagnostic(['--run-qwen17b'], fixture), r = rig();
+  const originalStatus = r.engine.status; r.engine.status = () => ({ ...originalStatus(), modelId: 'qwen1_7b' });
+  let receivedOptions;
+  r.dependencies.createEngine = options => { r.calls.creates++; receivedOptions = structuredClone(options); return r.engine; };
+  const report = await executeRelativeFactsDiagnostic(selected, evidence, r.dependencies);
+  assert.deepEqual(receivedOptions, { modelId: 'qwen1_7b', threads: 4, processingBatch: 'compact', weightRepacking: false,
+    promptCaching: true, experimentalSpeakerRelativeFacts: true });
+  assert.equal(report.status, 'COMPLETE_PENDING_SEMANTIC_REVIEW'); assert.equal(report.classification, 'MOCK_ONLY');
+  assert.deepEqual(r.calls.generates, [plan.primer.context, ...plan.cases.map(c => c.context)]);
+  assert.deepEqual(report.modelSubstitution, selected.modelSubstitution);
+  const baseline = await executeRelativeFactsDiagnostic(plan, evidence, rig().dependencies);
+  assert.deepEqual({ ...report.settings, modelId: 'qwen4b' }, baseline.settings);
+  await assert.rejects(executeRelativeFactsDiagnostic(selected, evidence, r.dependencies), { code: 'EEXIST' });
+  assert.equal(r.calls.creates, 1);
+});
+
+test('a mislabeled 4B runtime or forged substitution cannot execute the 1.7B cases', async () => {
+  const selected = await prepareRelativeFactsDiagnostic(['--run-qwen17b'], fixture), r = rig();
+  r.dependencies.createEngine = () => { r.calls.creates++; return r.engine; };
+  for (const modify of [p => { p.modelSubstitution.modelId = 'qwen4b'; }, p => { p.modelSubstitution.receiptPath = 'research/elsewhere.json'; },
+    p => { p.modelSubstitution.predecessor.sha256 = '0'.repeat(64); }, p => { delete p.modelSubstitution; }]) {
+    const forged = structuredClone(selected); modify(forged);
+    await assert.rejects(executeRelativeFactsDiagnostic(forged, evidence, r.dependencies), /INVALID_EXECUTION_PLAN/);
+  }
+  assert.equal(r.calls.reserve, 0); assert.equal(r.calls.creates, 0);
+  const report = await executeRelativeFactsDiagnostic(selected, evidence, r.dependencies);
+  assert.equal(report.error, 'CONFIGURATION_NOT_CONFIRMED'); assert.equal(r.calls.generates.length, 0);
+  assert.equal(report.notPerformed.length, 18); assert.equal(r.calls.stops, 1);
 });
 
 test('production receipt reservation requests the fixed wx path and preserves bytes on a second open', async () => {
