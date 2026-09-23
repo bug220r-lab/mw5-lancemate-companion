@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T02:15:03.083Z",
+  "reviewedAt": "2026-09-23T02:32:21.668Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 437,
-    "includedBytesExcludingThisReceipt": 10205495,
+    "includedFiles": 446,
+    "includedBytesExcludingThisReceipt": 10292681,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -181,6 +181,7 @@
     "companion/tests/microphone-review.test.mjs",
     "companion/tests/microphone.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
+    "companion/tests/model-transfer-large-batch.test.mjs",
     "companion/tests/model-transfer-review.test.mjs",
     "companion/tests/model-transfer-static-prefix.test.mjs",
     "companion/tests/model-transfer-warmup-review.test.mjs",
@@ -200,6 +201,8 @@
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
     "companion/tests/server.test.mjs",
+    "companion/tests/smollm-large-batch-review.test.mjs",
+    "companion/tests/smollm-large-batch.test.mjs",
     "companion/tests/smollm-metadata.test.mjs",
     "companion/tests/smollm-model.test.mjs",
     "companion/tests/smollm-setup.test.mjs",
@@ -252,6 +255,7 @@
     "design/PUSH_TO_TALK_PREVIEW.md",
     "design/QWEN_REQUANTIZATION_PROPOSAL.md",
     "design/SEPARATED_REQUEST_EXPERIMENT.md",
+    "design/SMOLLM3_LARGE_BATCH_EXPERIMENT.md",
     "design/SMOLLM3_STATIC_PREFIX_EXPERIMENT.md",
     "design/SMOLLM3_WARMUP_EXPERIMENT.md",
     "design/SPEAKER_FACT_BRIEFING.md",
@@ -429,6 +433,9 @@
     "research/RELEASE_EVIDENCE_V2_REVIEW.md",
     "research/SEPARATED_REQUEST_PREPARATION.md",
     "research/SEPARATED_REQUEST_RECEIPT_AUDIT.md",
+    "research/SMOLLM3_BATCH_OBSERVATION_SOURCE.md",
+    "research/SMOLLM3_LARGE_BATCH_RESULT_REVIEW.md",
+    "research/SMOLLM3_LARGE_BATCH_RUNNER_REVIEW.md",
     "research/SMOLLM3_METADATA.json",
     "research/SMOLLM3_METADATA_ASSESSMENT.md",
     "research/SMOLLM3_MODEL_TRANSFER_DIAGNOSTIC.json",
@@ -453,6 +460,8 @@
     "research/SPEECH_INPUT_REVIEW.md",
     "research/TACTICAL_INDEPENDENT_REVIEW.md",
     "research/TACTICAL_INDEPENDENT_REVIEW_BEFORE_FIX.md",
+    "research/TACTICAL_POLICY_TIMING.json",
+    "research/TACTICAL_POLICY_TIMING.md",
     "research/TACTICAL_STATE_TRACE.md",
     "research/WARM_WHISPER_COMPONENT_BENCHMARK.json",
     "research/WARM_WHISPER_RUNTIME_PROVENANCE.json",
@@ -746,9 +755,9 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 33531,
-      "sha256": "840e38296555cbda077b9e3290b308dbf7acc055e4c7b2b422e3119b3b2015d3",
-      "lines": 445,
+      "bytes": 37235,
+      "sha256": "0643cf8b1cd76c7e31d3b2384a661aa29152ba284b282e70c20dfec2e6217622",
+      "lines": 509,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1217,6 +1226,16 @@
       "notes": []
     },
     {
+      "path": "companion/tests/model-transfer-large-batch.test.mjs",
+      "bytes": 9286,
+      "sha256": "3967c87fd16418aca963b06cad5dcb649d145bcfe5f15f78fe5d812125718d1b",
+      "lines": 125,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/model-transfer-review.test.mjs",
       "bytes": 12549,
       "sha256": "ff6ffbbfa711d7fd05aa651d839472b957e7f51a432d05de89e412dfc6ef3ec5",
@@ -1401,6 +1420,26 @@
       "bytes": 15180,
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102",
       "lines": 223,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/smollm-large-batch-review.test.mjs",
+      "bytes": 16072,
+      "sha256": "c20c9f7382ab94a9bf6b7b2e10950525130d4965ca06bb79ee03f9bf60d3a620",
+      "lines": 224,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/smollm-large-batch.test.mjs",
+      "bytes": 11681,
+      "sha256": "f1242e8761f5cef896ea483e0e4227393b9f1181dd066113fa3f2e8a1945dbf1",
+      "lines": 170,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1941,6 +1980,16 @@
       "bytes": 7320,
       "sha256": "ca8fc71a31bb8ba4627bdb140ea51d31d552e9c8e21c4df6bd8821fc37d42cac",
       "lines": 40,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/SMOLLM3_LARGE_BATCH_EXPERIMENT.md",
+      "bytes": 5827,
+      "sha256": "0fc45af6c2854d3ef22b761aed5817f47bb1634ab5ffc30a98232298bf547ff8",
+      "lines": 34,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2489,9 +2538,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 20221,
-      "sha256": "fc2e3bd93f6e0aa1583f2d95f1a3897fa5cd20b2d6045f0aee3bce0abf20a58d",
-      "lines": 505,
+      "bytes": 20875,
+      "sha256": "42e9fa654b8f7c9fb1c08fcba2cf5692e1bb1f2cd45210ca5ef204319c1ca1d3",
+      "lines": 520,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3015,8 +3064,8 @@
     },
     {
       "path": "research/GITHUB_BACKUP.json",
-      "bytes": 6513,
-      "sha256": "49e91659fa0fe39fde3dafd26b56d602b6c9889bfead99883c7d9da9086dc710",
+      "bytes": 6514,
+      "sha256": "a8eff8ad8ba4d6e5e288ef6b435e9393be6b5db141fe8e786849e3cd47773233",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -3027,9 +3076,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 94335,
-      "sha256": "d6fdd862498ea38faf350755f6f6efb6a08c4f074ce7e296f77fd599b34664f1",
-      "lines": 349,
+      "bytes": 98693,
+      "sha256": "f394ec7385f9fa02c18e8697c00f6c9c888d477076b324ff98e5b3fcdad0db21",
+      "lines": 365,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4080,6 +4129,36 @@
       "notes": []
     },
     {
+      "path": "research/SMOLLM3_BATCH_OBSERVATION_SOURCE.md",
+      "bytes": 7100,
+      "sha256": "3490db4fd59d683d8eb493835d369fe35d5976266ce6bf8f767e6f1d0b1f5e3a",
+      "lines": 53,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_LARGE_BATCH_RESULT_REVIEW.md",
+      "bytes": 8031,
+      "sha256": "0f0448d32b3f4cb7f154addecd49b1931b4021e5555958fcc15d73c63563ec59",
+      "lines": 56,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_LARGE_BATCH_RUNNER_REVIEW.md",
+      "bytes": 5492,
+      "sha256": "fe82fabe781f1ddbb2df11c7a9c379176d41cbc25bee17ec51770342de6866e3",
+      "lines": 39,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/SMOLLM3_METADATA_ASSESSMENT.md",
       "bytes": 2643,
       "sha256": "7f3a168378f3c6c299ef98d39e671fdd3ecca34f05e00631d805a1c7d8b7560d",
@@ -4322,6 +4401,26 @@
       "notes": []
     },
     {
+      "path": "research/TACTICAL_POLICY_TIMING.json",
+      "bytes": 3889,
+      "sha256": "edddbd3bc88cf18522af178a7cca7c77ef8ed68bc80b83d32582e7470d9fb5b8",
+      "lines": 102,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/TACTICAL_POLICY_TIMING.md",
+      "bytes": 5525,
+      "sha256": "83e3307608072037ce8b1c41253f4041e32e02354f9bd247bd364ac5546c6cd1",
+      "lines": 41,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/TACTICAL_STATE_TRACE.md",
       "bytes": 22592,
       "sha256": "8c1faab23a2862220446d03aff764d81328e21a3d083e224db113fd795c79f3f",
@@ -4552,9 +4651,9 @@
     },
     {
       "path": "scripts/Exercise-ConversationModelTransfer.mjs",
-      "bytes": 33144,
-      "sha256": "e4a66ff4881e06450c2fa7a65722f541157cd12f757a422b4c3366fcd25d1320",
-      "lines": 401,
+      "bytes": 38710,
+      "sha256": "df5b0dd1f39c5e336c0cb5ac5ef224f1f45c08e2996e855004543221ba6b3224",
+      "lines": 463,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

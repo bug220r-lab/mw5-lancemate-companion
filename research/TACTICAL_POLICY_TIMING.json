@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "classification": "MOCK_ONLY_IN_MEMORY_POLICY_TIMING",
+  "recordedAt": "2026-09-23T02:27:55.203Z",
+  "status": "COMPLETE_BOUNDED_SAMPLE",
+  "policyVersion": "1.0.1",
+  "nodeVersion": "v24.19.0",
+  "hardware": {
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
+    "logicalCpuCount": 12,
+    "totalRamBytes": 16988229632,
+    "freeRamBytesBefore": 5158187008
+  },
+  "protocol": {
+    "scenarioCount": 48,
+    "stepsPerPass": 59,
+    "warmupPasses": 1,
+    "warmupCalls": 59,
+    "predeclaredMeasuredRepetitions": 50,
+    "completedRepetitions": 50,
+    "cooperativeWorkGuardMs": 2000,
+    "guardStopped": false,
+    "resetState": "null at each scenario; feed returned state through its own ordered steps; never cross scenarios or repetitions",
+    "measurement": "process.hrtime.bigint around decideSquad only; no assertion/input-generation/filesystem time inside each sample; elapsed duration includes scheduling interruptions",
+    "quantile": "nearest-rank ceil(p*n)-1, no outlier removal"
+  },
+  "measuredFunctionCalls": {
+    "count": 2950,
+    "p50Ms": 0.0043,
+    "p95Ms": 0.0225,
+    "maxMs": 0.3798,
+    "sumMs": 22.73240000000001
+  },
+  "bySnapshotMemberCount": {
+    "1": {
+      "count": 2750,
+      "p50Ms": 0.0042,
+      "p95Ms": 0.0196,
+      "maxMs": 0.3798,
+      "sumMs": 19.44710000000006
+    },
+    "2": {
+      "count": 50,
+      "p50Ms": 0.0016,
+      "p95Ms": 0.0039,
+      "maxMs": 0.0041,
+      "sumMs": 0.09940000000000003
+    },
+    "3": {
+      "count": 150,
+      "p50Ms": 0.0126,
+      "p95Ms": 0.0381,
+      "maxMs": 0.2096,
+      "sumMs": 3.185900000000001
+    }
+  },
+  "recommendationActionCounts": {
+    "FOCUS": 800,
+    "REPOSITION": 200,
+    "REGROUP": 100,
+    "MAINTAIN": 1150,
+    "DEFER": 1050
+  },
+  "workWallMs": 43.3849,
+  "harnessCpuUsageIncludingWarmupAssertions": {
+    "userMs": 32,
+    "systemMs": 0
+  },
+  "verification": {
+    "existingActionAndOptionalTargetExpectationsMatched": true,
+    "allOutputsMockOnlyAndNondispatchable": true,
+    "fixtureObjectsUnchanged": true,
+    "historicalReceiptHashesUnchanged": {
+      "research/OFFLINE_TACTICAL_RESULTS.json": "9417696379c146bfd10a8ed7f4554fa8552a60faa82edeff00c8b2456aa5fefc",
+      "research/TACTICAL_INDEPENDENT_REVIEW.md": "f9f18c7aaccec71aab439a6d47f4c883b2b3dc825c0834c9c5211192fae9a4af"
+    },
+    "fullRegressionWrapperRerun": false
+  },
+  "sources": {
+    "scripts/tactical-policy.mjs": "4b6712af3804f4a6613d1a36cbb1be3d00801b143aae7bcc1981339aec19784e",
+    "synthetic/tactical-cases.mjs": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685",
+    "companion/tests/policy-regression.test.mjs": "1ae2b7c17926456b262c99063c98a162ba9966d8f38fbd20c1064d29d1ae5e5f",
+    "scripts/Exercise-TacticalPolicy.mjs": "998694b387856d036f953efde27fea56474d2acfbd9fd00f0f7179c89109de1b",
+    "scripts/Review-TacticalPolicy.mjs": "e96031c98a3c54f8978dc3b54e9380f25f03b6b56522fa018cbad487457b16b7"
+  },
+  "nativeCalls": 0,
+  "modelCalls": 0,
+  "gameExecution": false,
+  "editorExecution": false,
+  "network": false,
+  "endToEndGamePerformance": "NOT_PERFORMED",
+  "limitations": [
+    "One process and one run; warm repeated tiny synthetic fixtures, uncontrolled host load/power/thermal/scheduler/JIT/GC; no process affinity or game load.",
+    "Pooled fixture mixture includes early rejection and one-to-three recipients; not representative live target inventory scaling or sustained mission performance.",
+    "Per-call elapsed time is not isolated CPU cycles; harness CPU usage includes warmup, assertions and loops.",
+    "No perception, actor binding acquisition, native dispatch/acceptance, actual behavior, transport, speech recognition/generation/synthesis or audio latency measured.",
+    "Recommendations remain project intentions, not proven native commands or direct piloting."
+  ]
+}

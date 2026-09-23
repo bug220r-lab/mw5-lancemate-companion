@@ -22,6 +22,8 @@ export const MODEL_TRANSFER_WARMUP_RECEIPT = 'research/SMOLLM3_WARMUP_DIAGNOSTIC
 export const MODEL_TRANSFER_WARMUP_PREDECESSOR_SHA256 = 'ffd7341cf63f55d4994c3ddecc06eba5421f1c19e014c2365d0236928f5959ff';
 export const MODEL_TRANSFER_STATIC_PREFIX_RECEIPT = 'research/SMOLLM3_STATIC_PREFIX_DIAGNOSTIC.json';
 export const MODEL_TRANSFER_STATIC_PREFIX_PREDECESSOR_SHA256 = 'ce3a0cd8238b4081433a4837782587bf35fc671e81f04251fc6d56e8dc392327';
+export const MODEL_TRANSFER_LARGE_BATCH_RECEIPT = 'research/SMOLLM3_LARGE_BATCH_DIAGNOSTIC.json';
+export const MODEL_TRANSFER_LARGE_BATCH_PREDECESSOR_SHA256 = 'e0f5c52fd4be5c5d1d9baa91b93145bea567438969fc7791a394472f0d3bacb7';
 const oldRunnerSha256 = 'fd3ae7557d85ee733244c6759a178c2595791283ae4ce55e73e36103592de663';
 const oldRunnerCommit = 'afb5c7c1cc5f9552622e8f3770363098f39d71cd';
 const setupPath = 'research/SMOLLM3_SETUP.json', metadataPath = 'research/SMOLLM3_METADATA.json';
@@ -35,12 +37,14 @@ const budgets = Object.freeze({ operationMs: 10000, workMs: 233000, cleanupMs: 7
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const freeze = x => { if (x && typeof x === 'object') { Object.values(x).forEach(freeze); Object.freeze(x); } return x; };
 const isWarmup = action => action === '--run-warmup-002' || action === '--check-warmup-002';
-const isStaticPrefix = action => action === '--run-static-prefix-003' || action === '--check-static-prefix-003';
+const isLargeBatch = action => action === '--run-large-batch-004' || action === '--check-large-batch-004';
+const isStaticPrefix = action => action === '--run-static-prefix-003' || action === '--check-static-prefix-003' || isLargeBatch(action);
 const separatePrimerBudget = action => isWarmup(action) || isStaticPrefix(action);
 function receiptPathFor(action) {
   if (action === '--run') return MODEL_TRANSFER_RECEIPT;
   if (action === '--run-warmup-002') return MODEL_TRANSFER_WARMUP_RECEIPT;
   if (action === '--run-static-prefix-003') return MODEL_TRANSFER_STATIC_PREFIX_RECEIPT;
+  if (action === '--run-large-batch-004') return MODEL_TRANSFER_LARGE_BATCH_RECEIPT;
   throw Error('INVALID_RUN_SELECTOR');
 }
 
@@ -88,6 +92,25 @@ export function readModelTransferStaticPrefixPredecessor(bytes) {
     throw Error('STATIC_PREFIX_PREDECESSOR_NOT_ELIGIBLE');
   return prior;
 }
+export function readModelTransferLargeBatchPredecessor(bytes) {
+  if (hash(bytes) !== MODEL_TRANSFER_LARGE_BATCH_PREDECESSOR_SHA256) throw Error('LARGE_BATCH_PREDECESSOR_CHANGED');
+  const prior = JSON.parse(bytes.toString('utf8'));
+  if (prior.status !== 'INCOMPLETE' || prior.settings.modelId !== options.modelId || prior.settings.processingBatch !== 'compact' ||
+      prior.settings.weightRepacking !== false || prior.settings.experimentalStaticPrefix !== true ||
+      prior.runtime.state !== 'READY' || prior.runtime.verification !== 'PINNED_FILES_VERIFIED' ||
+      prior.primer.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' || prior.primer.finishReason !== 'stop' ||
+      prior.primer.configuredBudgetMs !== 20000 || prior.haltReason !== 'RESPONSE_DEADLINE' ||
+      prior.samples.length !== 26 || prior.samples[0].status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' || prior.samples[0].finishReason !== 'stop' ||
+      prior.samples[1].status !== 'FAILED' || prior.samples[1].output !== null || prior.samples[1].finishReason !== null ||
+      prior.samples.some(s => s.configuredBudgetMs !== 10000) ||
+      prior.samples.slice(2).some(s => s.status !== 'NOT_PERFORMED' || s.output !== null || s.finishReason !== null) ||
+      !isDeepStrictEqual(prior.notPerformed, prior.samples.slice(2).map(s => s.id)) || !prior.ownedProcessStopped ||
+      prior.finalRuntime.state !== 'STOPPED' || prior.finalRuntime.ownedPid !== null || prior.finalRuntime.activeGeneration !== false ||
+      prior.sources['scripts/Exercise-ConversationModelTransfer.mjs'] !== 'e4a66ff4881e06450c2fa7a65722f541157cd12f757a422b4c3366fcd25d1320' ||
+      prior.sources['companion/local-language-model.mjs'] !== '840e38296555cbda077b9e3290b308dbf7acc055e4c7b2b422e3119b3b2015d3')
+    throw Error('LARGE_BATCH_PREDECESSOR_NOT_ELIGIBLE');
+  return prior;
+}
 export function readModelTransferInstallation(setupBytes, metadataBytes) {
   const setup = JSON.parse(setupBytes.toString('utf8')), metadata = JSON.parse(metadataBytes.toString('utf8'));
   const matches = value => Object.entries(candidate).every(([key, expected]) => value?.[key] === expected);
@@ -117,7 +140,7 @@ function inputRecord(originalContext, context) {
 
 export async function prepareModelTransferDiagnostic(args, fixture) {
   if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', '--check-warmup-002', '--run-warmup-002',
-    '--check-static-prefix-003', '--run-static-prefix-003'].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+    '--check-static-prefix-003', '--run-static-prefix-003', '--check-large-batch-004', '--run-large-batch-004'].includes(args[0])) throw Error('INVALID_ARGUMENTS');
   const frozen = readFrozenModelTransferFixture(await readFile(path.join(root, MODEL_TRANSFER_FIXTURE)));
   if (!isDeepStrictEqual(fixture, frozen)) throw Error('FROZEN_TRANSFER_FIXTURE_CHANGED');
   const prior = readModelTransferPredecessor(await readFile(path.join(root, MODEL_TRANSFER_PREDECESSOR)));
@@ -197,6 +220,26 @@ export async function prepareModelTransferDiagnostic(args, fixture) {
       exposure: 'Two transfer cases already invoked; six uninvoked at baseline. Historical fixture labels do not imply current freshness.',
       primerMs: 20000, responseMs: 10000 };
   }
+  if (isLargeBatch(args[0])) {
+    const previous = readModelTransferLargeBatchPredecessor(await readFile(path.join(root, MODEL_TRANSFER_STATIC_PREFIX_RECEIPT)));
+    for (const key of ['fixture', 'regressionFixture'])
+      if (!isDeepStrictEqual(plan[key], previous[key])) throw Error('LARGE_BATCH_INPUT_CHANGED');
+    for (const key of ['originalContext', 'context', 'projection', 'messages', 'messageCharacters'])
+      if (!isDeepStrictEqual(plan.primer[key], previous.primer[key])) throw Error('LARGE_BATCH_INPUT_CHANGED');
+    for (const [i, c] of cases.entries()) {
+      if (c.specification.id !== previous.samples[i].id) throw Error('LARGE_BATCH_INPUT_CHANGED');
+      for (const key of ['suite', 'originalContext', 'context', 'projection', 'capture', 'provenance', 'messages', 'messageCharacters'])
+        if (!isDeepStrictEqual(c[key], previous.samples[i][key])) throw Error('LARGE_BATCH_INPUT_CHANGED');
+    }
+    plan.predecessor = { path: MODEL_TRANSFER_STATIC_PREFIX_RECEIPT, sha256: MODEL_TRANSFER_LARGE_BATCH_PREDECESSOR_SHA256,
+      gitCommit: '7d44b06154ad602bf207e947240ff3e7bcc6b21d',
+      runnerSha256: previous.sources['scripts/Exercise-ConversationModelTransfer.mjs'],
+      adapterSha256: previous.sources['companion/local-language-model.mjs'] };
+    plan.treatment = { ...plan.treatment, id: 'SMOLLM3_LARGE_BATCH_004',
+      changes: 'EXPLICIT_LOGICAL_PHYSICAL_BATCH_2048_512_NO_REPACK', receiptPath: MODEL_TRANSFER_LARGE_BATCH_RECEIPT,
+      logicalBatchTokens: 2048, physicalBatchTokens: 512, nativeBatchConfirmationRequired: true,
+      observationChange: 'LARGE_MODE_NATIVE_LOG_VERBOSITY_4_FOR_BATCH_CONFIRMATION', isolatedTimingComparison: false };
+  }
   return freeze(plan);
 }
 
@@ -214,7 +257,7 @@ export async function reserveModelTransferReceipt(openFile = open, action = '--r
 
 // Code-only test dependencies produce MOCK_ONLY receipts, never native evidence.
 export async function executeModelTransferDiagnostic(plan, evidence, testDependencies = null) {
-  if (!['--run', '--run-warmup-002', '--run-static-prefix-003'].includes(plan?.action) || evidence?.fixtureSha256 !== MODEL_TRANSFER_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
+  if (!['--run', '--run-warmup-002', '--run-static-prefix-003', '--run-large-batch-004'].includes(plan?.action) || evidence?.fixtureSha256 !== MODEL_TRANSFER_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
   // Repeat immutable predecessor/fixture checks and all context construction before reservation.
   const expected = await prepareModelTransferDiagnostic([plan.action], plan.fixture);
   if (!isDeepStrictEqual(plan, expected)) throw Error('INVALID_EXECUTION_PLAN');
@@ -224,7 +267,8 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
   const io = { reserveReceipt: () => reserveModelTransferReceipt(open, plan.action), createEngine: createLocalLanguageModel,
     availableRam: () => os.freemem(), availableDisk: async () => { const s = await statfs(root); return s.bavail * s.bsize; },
     now: () => performance.now(), ...(testDependencies ?? {}) };
-  const engineOptions = { ...options, ...(isStaticPrefix(plan.action) ? { experimentalStaticPrefix: true } : {}) };
+  const engineOptions = { ...options, ...(isStaticPrefix(plan.action) ? { experimentalStaticPrefix: true } : {}),
+    ...(isLargeBatch(plan.action) ? { processingBatch: 'large' } : {}) };
   const caps = { ...budgets, primerMs: separatePrimerBudget(plan.action) ? 20000 : budgets.operationMs };
   const limits = { ...caps, ...(testDependencies?.budgets ?? {}) };
   // Existing default-run tests shorten operationMs for both phases; native defaults stay 10s each.
@@ -239,7 +283,9 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
     fixture: plan.fixture, regressionFixture: plan.regressionFixture, sources: evidence.sources,
     modelPins: evidence.modelPins, runtimePins: evidence.runtimePins, installation: evidence.installation ?? null,
     settings: { ...engineOptions, ...limits,
-      contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, logicalBatchTokens: 128, physicalBatchTokens: 64,
+      contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256,
+      logicalBatchTokens: isLargeBatch(plan.action) ? 2048 : 128, physicalBatchTokens: isLargeBatch(plan.action) ? 512 : 64,
+      ...(isLargeBatch(plan.action) ? { nativeLogVerbosity: 4 } : {}),
       temperature: .7, topP: .8, topK: 20, fixedSeed: false, nativeSlots: 1,
       initialRamRequirementBytes: 5 * GiB, minimumRamBytes: 2 * GiB, workingDiskReserveBytes: 10 * GiB },
     primer: { ...plan.primer, configuredBudgetMs: limits.primerMs, status: 'NOT_PERFORMED', output: null, finishReason: null, nativeTimings: null,
@@ -259,7 +305,8 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
       'One stochastic response per case is not reliability, causal improvement, gameplay evidence or full conversation acceptance.',
       'Startup and discarded primer are separate costs; completed text is not first spoken audio.',
       'Finish reason is retained only when adapter-confirmed: stop for returned text; length for a rejected complete stream. Failed output stays null.',
-      'Resource sampling and cleanup deadlines are reactive, not OS-enforced memory or process guarantees.'] };
+      'Resource sampling and cleanup deadlines are reactive, not OS-enforced memory or process guarantees.',
+      ...(isLargeBatch(plan.action) ? ['Native log verbosity 4 enables independent batch adoption evidence; logging also differs from the baseline, so timing is not isolated to batch size.'] : [])] };
   const save = () => receipt.save(report);
   const stopOnce = () => engine ? stopPromise ??= Promise.resolve().then(() => engine.stop()) : Promise.resolve();
   const halt = reason => { if (haltReason) return; haltReason = reason; abort.abort(reason); void stopOnce().catch(() => {}); };
@@ -311,11 +358,20 @@ export async function executeModelTransferDiagnostic(plan, evidence, testDepende
     if (report.runtime.verification !== 'PINNED_FILES_VERIFIED') throw Error('PINS_NOT_VERIFIED');
     if (report.runtime.modelId !== options.modelId || report.runtime.threads !== options.threads ||
         Object.entries({ host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
-          processingBatch: 'compact', weightRepacking: false, promptCaching: true, experimentalSpeakerRelativeFacts: true,
+          processingBatch: isLargeBatch(plan.action) ? 'large' : 'compact', weightRepacking: false, promptCaching: true, experimentalSpeakerRelativeFacts: true,
           experimentalSpeakerBriefing: true, experimentalSeparateRequest: true,
           ...(isStaticPrefix(plan.action) ? { experimentalStaticPrefix: true } : {}),
-          logicalBatchTokens: 128, physicalBatchTokens: 64, simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false })
+          ...(isLargeBatch(plan.action) ? { nativeLogVerbosity: 4 } : {}),
+          logicalBatchTokens: isLargeBatch(plan.action) ? 2048 : 128, physicalBatchTokens: isLargeBatch(plan.action) ? 512 : 64,
+          simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false })
           .some(([key, value]) => report.runtime.settings?.[key] !== value)) throw Error('CONFIGURATION_NOT_CONFIRMED');
+    if (isLargeBatch(plan.action)) {
+      const observed = report.runtime.nativeBatchObservation;
+      if (!observed || observed.status !== 'CONFIRMED' || observed.source !== 'OWNED_PROCESS_STARTUP_LOG' ||
+          observed.logicalBatchTokens !== 2048 || observed.physicalBatchTokens !== 512 ||
+          observed.logVerbosity !== 4 || observed.error !== null)
+        throw Error('NATIVE_BATCH_NOT_CONFIRMED');
+    }
     report.status = 'PRIMING'; await perform(report.primer); report.status = 'RUNNING';
     for (const sample of report.samples) await perform(sample);
     report.status = 'COMPLETE_PENDING_SEMANTIC_REVIEW';
@@ -372,6 +428,12 @@ async function main(args) {
     'design/SMOLLM3_STATIC_PREFIX_EXPERIMENT.md', 'research/SMOLLM3_PREFILL_FINDING.md',
     'research/SMOLLM3_STATIC_PREFIX_RUNNER_REVIEW.md', 'companion/tests/smollm-static-prefix.test.mjs',
     'companion/tests/smollm-static-prefix-review.test.mjs', 'companion/tests/model-transfer-static-prefix.test.mjs'])
+    sources[rel] = hash(await readFile(path.join(root, rel)));
+  if (isLargeBatch(plan.action)) for (const rel of [MODEL_TRANSFER_STATIC_PREFIX_RECEIPT,
+    'design/SMOLLM3_LARGE_BATCH_EXPERIMENT.md', 'research/LOCAL_CPU_NEXT_DECISION.md',
+    'research/SMOLLM3_BATCH_OBSERVATION_SOURCE.md', 'research/SMOLLM3_LARGE_BATCH_RUNNER_REVIEW.md',
+    'companion/tests/smollm-large-batch.test.mjs', 'companion/tests/smollm-large-batch-review.test.mjs',
+    'companion/tests/model-transfer-large-batch.test.mjs'])
     sources[rel] = hash(await readFile(path.join(root, rel)));
   const installation = await readInstallation();
   if (sources[setupPath] !== installation.setup.sha256 || sources[metadataPath] !== installation.metadata.sha256)

@@ -186,10 +186,11 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   experimentalSpeakerRelativeFacts = false, experimentalSpeakerBriefing = false, experimentalSeparateRequest = false,
   experimentalStaticPrefix = false } = {}, testDependencies = null) {
   if (!['qwen1_7b', 'qwen4b', 'smollm3_3b'].includes(modelId) || ![2, 4].includes(threads) ||
-      !['default','compact'].includes(processingBatch) || typeof weightRepacking !== 'boolean' ||
+      !['default','compact','large'].includes(processingBatch) || typeof weightRepacking !== 'boolean' ||
       typeof promptCaching !== 'boolean' || typeof experimentalSpeakerRelativeFacts !== 'boolean' ||
       typeof experimentalSpeakerBriefing !== 'boolean' || typeof experimentalSeparateRequest !== 'boolean' ||
       typeof experimentalStaticPrefix !== 'boolean' || (experimentalStaticPrefix && modelId !== 'smollm3_3b') ||
+      (processingBatch === 'large' && (modelId !== 'smollm3_3b' || !experimentalStaticPrefix)) ||
       (experimentalSeparateRequest && !experimentalSpeakerBriefing) || (experimentalSpeakerBriefing && !experimentalSpeakerRelativeFacts) ||
       (modelId === 'smollm3_3b' && !(experimentalSpeakerRelativeFacts && experimentalSpeakerBriefing && experimentalSeparateRequest))) fail('UNSUPPORTED_MODEL_CONFIGURATION');
   const defaults = { spawn, fetch: globalThis.fetch, readFile, lstat, realpath, readdir, hashFile, reservePort,
@@ -200,6 +201,55 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   let startupAbort = null, generationAbort = null, generationPromise = null, activeGeneration = false, stopping = false;
   let token = '', origin = '', log = '', logTail = '', verification = 'NOT_PERFORMED', lastError = null, exitCode = null;
   let lastGenerationTimings = null, lastGenerationFinishReason = null;
+  const observeNativeBatch = processingBatch === 'large';
+  const emptyBatchObservation = () => ({ status: 'PENDING', source: 'OWNED_PROCESS_STARTUP_LOG',
+    logicalBatchTokens: null, physicalBatchTokens: null, logVerbosity: 4, lines: [], error: null });
+  let nativeBatchObservation = observeNativeBatch ? emptyBatchObservation() : null;
+  function rejectBatchObservation(error) {
+    if (nativeBatchObservation.status !== 'REJECTED') {
+      nativeBatchObservation.status = 'REJECTED'; nativeBatchObservation.error = error;
+    }
+  }
+  // Pinned ce8caa6e llama-context.cpp:309-310 logs post-clamping capacities.
+  // common/log.cpp:138-160 optionally adds this exact timestamp/info wrapper.
+  // Each stream has its own bounded line decoder; no generation log can qualify.
+  function batchLogReader(ownedChild) {
+    let pending = '', discarding = false;
+    return text => {
+      if (child !== ownedChild || childExited || state !== 'STARTING' || nativeBatchObservation.status === 'REJECTED') return;
+      let offset = 0;
+      while (offset < text.length) {
+        const newline = text.indexOf('\n', offset), end = newline < 0 ? text.length : newline;
+        const piece = text.slice(offset, end);
+        if (!discarding) {
+          if (pending.length + piece.length > 4096) { pending = ''; discarding = true; }
+          else pending += piece;
+        }
+        if (newline < 0) return;
+        if (!discarding) {
+          const match = /^(?:(?:[0-9]{1,8}\.[0-9]{2}\.[0-9]{3}\.[0-9]{3} )?I )?llama_context: (n_batch|n_ubatch) += ([0-9]{1,10})\r?$/.exec(pending);
+          if (match) {
+            const key = match[1] === 'n_batch' ? 'logicalBatchTokens' : 'physicalBatchTokens';
+            if (nativeBatchObservation[key] !== null) rejectBatchObservation('NATIVE_BATCH_OBSERVATION_CONFLICT');
+            else {
+              nativeBatchObservation[key] = Number(match[2]); nativeBatchObservation.lines.push(pending.replace(/\r$/, ''));
+              if (nativeBatchObservation[key] !== (key === 'logicalBatchTokens' ? 2048 : 512))
+                rejectBatchObservation('NATIVE_BATCH_OBSERVATION_MISMATCH');
+            }
+          }
+        }
+        pending = ''; discarding = false; offset = newline + 1;
+        if (nativeBatchObservation.status === 'REJECTED') return;
+      }
+    };
+  }
+  function confirmBatchObservation() {
+    if (nativeBatchObservation.status === 'REJECTED') fail(nativeBatchObservation.error);
+    if (nativeBatchObservation.logicalBatchTokens !== 2048 || nativeBatchObservation.physicalBatchTokens !== 512) {
+      rejectBatchObservation('NATIVE_BATCH_OBSERVATION_MISSING'); fail(nativeBatchObservation.error);
+    }
+    nativeBatchObservation.status = 'CONFIRMED';
+  }
   const classification = testDependencies ? 'MOCK_ONLY' : 'LOCAL_COMPONENT_UNVALIDATED';
   const redact = text => token ? text.split(token).join('[SESSION_TOKEN]') : text;
   function appendLog(text, flush = false) {
@@ -276,6 +326,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     if (stopping || (child && !childExited)) return Promise.reject(new Error('OWNED_PROCESS_STILL_RUNNING'));
     stopping = false; state = 'VERIFYING'; lastError = null; verification = 'NOT_PERFORMED'; log = ''; logTail = '';
     lastGenerationTimings = null; lastGenerationFinishReason = null;
+    if (observeNativeBatch) nativeBatchObservation = emptyBatchObservation();
     startupAbort = new AbortController();
     startPromise = (async () => {
       try {
@@ -290,6 +341,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
           '--api-key', token, '--offline', '--no-webui', '--no-webui-mcp-proxy', '-ngl', '0', '-t', String(threads), '-tb', String(threads),
           '-c', '2048', '-np', '1', '-n', '64', '--jinja', '--chat-template-kwargs', '{"enable_thinking":false}', '--reasoning-budget', '0'];
         if (processingBatch === 'compact') args.push('-b', '128', '-ub', '64');
+        if (observeNativeBatch) args.push('-b', '2048', '-ub', '512', '--log-verbosity', '4');
         if (!weightRepacking) args.push('--no-repack');
         try { child = io.spawn(executable, args, { cwd: runtimeDirectory, windowsHide: true, shell: false, env, stdio: ['ignore', 'pipe', 'pipe'] }); }
         catch { childExited = true; resolveExit(); fail('LOCAL_PROCESS_START_FAILED'); }
@@ -304,19 +356,27 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
           startupAbort?.abort(); generationAbort?.abort();
         };
         child.once('exit', exited); child.once('error', () => exited(-1));
-        for (const stream of [ownedChild.stdout, ownedChild.stderr]) stream?.on('data', chunk => {
-          if (child === ownedChild && !ownedExited) appendLog(chunk.toString());
-        });
+        for (const stream of [ownedChild.stdout, ownedChild.stderr]) {
+          const observe = observeNativeBatch ? batchLogReader(ownedChild) : null;
+          stream?.on('data', chunk => {
+            if (child === ownedChild && !ownedExited) { const text = chunk.toString(); appendLog(text); observe?.(text); }
+          });
+        }
         const deadline = io.now() + 60000;
         while (io.now() < deadline) {
           checkAbort(startupAbort.signal); if (childExited) fail('LOCAL_SERVER_EXITED');
+          let healthy = false;
           try {
             const healthSignal = AbortSignal.any([startupAbort.signal, AbortSignal.timeout(Math.max(1, Math.ceil(Math.min(750, deadline - io.now()))))]);
             const response = await abortable(io.fetch(`${origin}/health`, { headers: { Authorization: `Bearer ${token}` },
               signal: healthSignal }), healthSignal);
-            if (response.ok) { await abortable(response.body?.cancel(), healthSignal); checkAbort(startupAbort.signal); if (childExited) fail('LOCAL_SERVER_EXITED'); state = 'READY'; return status(); }
-            await abortable(response.body?.cancel(), healthSignal);
+            const responseOK = response.ok; await abortable(response.body?.cancel(), healthSignal); healthy = responseOK;
           } catch { checkAbort(startupAbort.signal); }
+          if (healthy) {
+            checkAbort(startupAbort.signal); if (childExited) fail('LOCAL_SERVER_EXITED');
+            if (observeNativeBatch) confirmBatchObservation();
+            state = 'READY'; return status();
+          }
           await io.sleep(Math.min(500, Math.max(1, deadline - io.now())));
         }
         fail('LOCAL_SERVER_READY_TIMEOUT');
@@ -333,6 +393,8 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   async function runGeneration(context, { signal } = {}) {
     if (state !== 'READY' || !child || childExited || stopping) fail(activeGeneration ? 'MODEL_BUSY' : 'MODEL_NOT_READY');
     if (activeGeneration) fail('MODEL_BUSY');
+    if (observeNativeBatch && (nativeBatchObservation.status !== 'CONFIRMED' ||
+        nativeBatchObservation.logicalBatchTokens !== 2048 || nativeBatchObservation.physicalBatchTokens !== 512)) fail('NATIVE_BATCH_OBSERVATION_MISSING');
     lastGenerationTimings = null; lastGenerationFinishReason = null;
     if (signal?.aborted) fail('GENERATION_CANCELLED');
     if (signal !== undefined && !(signal instanceof AbortSignal)) fail('INVALID_ABORT_SIGNAL');
@@ -430,8 +492,10 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
       ownedProcessStopped: childExited, activeGeneration, lastError, exitCode, log,
       lastGenerationTimings: lastGenerationTimings ? { ...lastGenerationTimings } : null,
       lastGenerationFinishReason,
+      ...(observeNativeBatch ? { nativeBatchObservation: { ...nativeBatchObservation, lines: [...nativeBatchObservation.lines] } } : {}),
       settings: { host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
         processingBatch, weightRepacking, promptCaching, experimentalSpeakerRelativeFacts,
+        ...(observeNativeBatch ? { nativeLogVerbosity: 4 } : {}),
         ...(experimentalSpeakerBriefing ? { experimentalSpeakerBriefing: true } : {}),
         ...(experimentalSeparateRequest ? { experimentalSeparateRequest: true } : {}),
         ...(experimentalStaticPrefix ? { experimentalStaticPrefix: true } : {}),
