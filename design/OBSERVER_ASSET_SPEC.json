@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "prepared_date_utc": "2026-09-23",
+  "classification": "PROPOSED_NON_EXECUTABLE_AUTHORING_AND_MEASUREMENT_SPECIFICATION",
+  "owner": "Review overnight package handoff observer task",
+  "execution_ready": false,
+  "native_calls_performed": false,
+  "assets_created": false,
+  "mod_identifier_proposal": "LanceObserverProbe",
+  "verified_content_mount": null,
+  "mount_status": "UNKNOWN_REQUIRES_ACTUAL_OFFICIAL_MOD_PROJECT",
+  "artifacts": [
+    {
+      "proposed_name": "BP_LanceObserverProbeComponent",
+      "kind": "Blueprint subclass",
+      "parent_class_observed": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponent.PlayerControllerComponent_C",
+      "candidate_editor_factory": "BlueprintFactory.parent_class with AssetTools.create_asset",
+      "factory_status": "OBSERVED_DECLARATIONS_NOT_EXECUTED",
+      "graph_authoring_status": "UNKNOWN_BLOCKED_NO_SUPPORTED_NODE_PIN_OVERRIDE_AUTHORING_SURFACE_ESTABLISHED",
+      "runtime_behavior_proposal": "Observe creation/configuration/lifetime and actual owner components; never invoke the stock factory or submit orders",
+      "tick_or_polling": "NONE_IN_THIS_MINIMAL_SPEC",
+      "base_default_constraints": {
+        "bCanEverTick": false,
+        "bAutoActivate": false,
+        "bReplicates": false,
+        "bIsEditorOnly": false
+      },
+      "default_limit": "Recorded stock base defaults, not a verified result for an unbuilt subclass"
+    },
+    {
+      "proposed_name": "DA_LanceObserverProbeRegistration",
+      "kind": "Configured data asset instance, not another Blueprint definition",
+      "instance_class_observed": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset.PlayerControllerComponentDataAsset_C",
+      "candidate_editor_factory": "DataAssetFactory.data_asset_class with AssetTools.create_asset",
+      "factory_status": "OBSERVED_DECLARATIONS_NOT_EXECUTED",
+      "serialized_properties_proposal": {
+        "ActorComponent": "Generated class of the new BP_LanceObserverProbeComponent, after compile and identity validation",
+        "bAddAtRuntime": true
+      },
+      "property_name_limit": "Names are observed serialized Blueprint properties; verify their actual editor-visible property identity before any future assignment",
+      "stock_class_default_object_mutation": "FORBIDDEN",
+      "cooked_inclusion_and_registry_visibility": "UNKNOWN_NOT_PERFORMED",
+      "startup_guarantee": "NONE_FACTORY_CALLER_REMAINS_UNKNOWN"
+    },
+    {
+      "proposed_name": "WBP_LanceObserverProbeReadout",
+      "kind": "Diagnostic Widget Blueprint",
+      "parent_class_proposal": "UserWidget",
+      "purpose": "Noninteractive local owner/count/configuration snapshots",
+      "widget_tree_and_graph_authoring": "UNKNOWN_BLOCKED",
+      "runtime_creation_and_viewport_route": "CANDIDATE_UMG_REQUIRES_ACTUAL_AUTHORED_GRAPH_AND_SHIPPING_TEST",
+      "must_not_change_input_mode_or_capture_input": true,
+      "if_created_only_by_probe": "POSITIVE_ONLY_OBSERVATION_NO_INDEPENDENT_ZERO_OR_TEARDOWN_PROOF",
+      "independent_readout_bootstrap": "UNKNOWN_BLOCKED"
+    }
+  ],
+  "candidate_observation_recipe": [
+    {
+      "trigger": "ActorComponent.ReceiveBeginPlay",
+      "status": "OBSERVED_NATIVE_BLUEPRINT_EVENT_DECLARATION_NOT_AUTHORED_OR_EXECUTED",
+      "read_operations": [
+        "ActorComponent.get_owner",
+        "Actor.get_components_by_class for the generated probe class",
+        "Object identity/path and current controller identity where separately validated"
+      ],
+      "interpretation": "Fresh uniquely attributable actual component observation may establish at least one creation. Reliable complete enumeration plus verified owner/controller identity is required for an exactly-one snapshot. Callback/request counts are not component counts."
+    },
+    {
+      "trigger": "Inherited ControllerConfigured custom event",
+      "observed_arguments": [
+        "Controller",
+        "OldPawn",
+        "NewPawn"
+      ],
+      "status": "OBSERVED_SOURCE_CALLBACK_OVERRIDE_AUTHORING_NOT_ESTABLISHED",
+      "proposal": "Record callback separately; compare supplied Controller with actual owner; do not assume stored pawn arguments are fresh",
+      "invalid_or_missing_binding": "UNKNOWN_OR_MISMATCH_NOT_ZERO_OR_SUCCESS"
+    },
+    {
+      "trigger": "ActorComponent.ReceiveEndPlay",
+      "status": "OBSERVED_NATIVE_BLUEPRINT_EVENT_DECLARATION_NOT_AUTHORED_OR_EXECUTED",
+      "proposal": "Release only probe-owned UI/references; independently record lifetime evidence if a supported channel is established",
+      "interpretation": "Widget disappearance alone cannot prove EndPlay delivery, component destruction or zero remaining instances"
+    }
+  ],
+  "measurement_fields_proposed_not_native_properties": [
+    "probe build identity",
+    "sample trigger and sample identity",
+    "actual owner identity",
+    "actual matching component identities and count",
+    "configured Controller identity and owner comparison",
+    "old/new pawn identities with validity status",
+    "registration cooked-inclusion evidence",
+    "registry visibility evidence and scope",
+    "readout health and bootstrap provenance",
+    "observed transition and end-play reason if independently available",
+    "separate component/controller/pawn/world identity and liveness at predeclared observation points"
+  ],
+  "interpretation_rules": {
+    "visible_valid_positive_snapshot": "May establish creation of at least one real component; state unknown fields. Separate reliable enumeration and verified intended owner establish an exactly-one snapshot.",
+    "no_widget_or_no_message": "INCONCLUSIVE_NOT_ZERO_COMPONENTS",
+    "callback_count": "NOT_INSTANCE_COUNT",
+    "class_recorded_by_factory": "NOT_SUCCESSFUL_COMPONENT_CREATION",
+    "asset_cooked": "NOT_REGISTRY_VISIBLE_OR_AUTO_STARTED",
+    "widget_removed": "NOT_INDEPENDENT_TEARDOWN_PROOF",
+    "full_creation_lifetime_pass": "Positive-path final acceptance requires fresh attributable creation, reliable actual count on verified intended owner, declared controller/pawn/world transition and liveness evidence, unchanged baseline behavior and verified rollback. It does not require explaining registry discovery or identifying the factory caller. Independent registry/load/cast/readout evidence is required for negative diagnoses; unmeasured mechanisms stay UNKNOWN.",
+    "negative_zero_interpretation": "Requires independently live readout, relevant cooked registry inclusion/visibility, successful load/cast, verified controller selection, complete component enumeration and a bounded observation window"
+  },
+  "prohibited_substitutions": [
+    "Manual AddPlayerControllerComponents invocation",
+    "Stock controller or factory replacement",
+    "Editor Python as packaged gameplay runtime",
+    "Sole reliance on PrintString or PrintText without verified shipping behavior",
+    "Text export edited into an unverified executable asset",
+    "New plugin, loader or native injection",
+    "Observer log files or UI messages treated as accepted game commands"
+  ],
+  "current_blockers": [
+    "Supported graph/event/pin and widget-tree authoring route on the installed editor is not established for unattended construction",
+    "New assets, actual mod mount, compilation and cooked registry visibility have not been produced or verified",
+    "No independent shipping readout/bootstrap proves zero components or teardown when the probe itself does not run"
+  ],
+  "next_action": "Resolve supported graph/widget authoring and actual measurement artifacts, or perform a later bounded manual authoring step. Positive-only attempt and full M0 acceptance remain distinct; do not create empty placeholders tonight.",
+  "positive_attempt_gate": "Actual supported measurement design and artifacts, reviewed manifest, disposable baseline, deployment authorization and rollback are required. Prior successful runtime visibility or initialization is not required; these may be test outcomes.",
+  "lifetime_rules": {
+    "same_live_controller_new_pawn": "Controller-owned component may validly persist; recheck owner/binding/count",
+    "replaced_or_destroyed_controller_or_world": "Requires separate component/controller/world identity and liveness evidence before declaring invalid retention",
+    "missing_teardown_or_disappearing_widget": "UNKNOWN without independent live evidence",
+    "observation_points": [
+      "Initial mission/controller establishment",
+      "Before and after one possession change",
+      "Before mission exit",
+      "After new world/controller establishment on re-entry"
+    ]
+  }
+}

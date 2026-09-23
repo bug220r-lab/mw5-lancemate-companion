@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T04:29:44.230Z",
+  "reviewedAt": "2026-09-23T04:44:35.723Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 493,
-    "includedBytesExcludingThisReceipt": 11551310,
+    "includedFiles": 496,
+    "includedBytesExcludingThisReceipt": 11599545,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -247,6 +247,7 @@
     "design/MISSION_REHEARSAL.md",
     "design/MISSION_SPEECH_ADMISSION.md",
     "design/OBSERVATION_POLICY_MAPPING.md",
+    "design/OBSERVER_ASSET_SPEC.json",
     "design/OBSERVER_BASE_MODE_SOURCE_LOOKUP.md",
     "design/OBSERVER_CREATION_ONLY_PROBE.md",
     "design/OBSERVER_MODE_SOURCE_LOOKUP.md",
@@ -360,6 +361,8 @@
     "research/LOCAL_RECOGNITION_PREFLIGHT_2026-09-22.json",
     "research/LOCAL_RECOGNITION_REVIEW.md",
     "research/MICROPHONE_REVIEW.md",
+    "research/OBSERVER_AUTHORING_READOUT_REVIEW.md",
+    "research/OBSERVER_AUTHORING_READOUT_STATUS.json",
     "research/OBSERVER_BASE_MODE_ASSET.json",
     "research/OBSERVER_BASE_MODE_HELPER_REVIEW.json",
     "research/OBSERVER_BASE_MODE_HELPER_REVIEW.md",
@@ -1944,6 +1947,16 @@
       "notes": []
     },
     {
+      "path": "design/OBSERVER_ASSET_SPEC.json",
+      "bytes": 8791,
+      "sha256": "1175f18a894a01c5dc32945584b64dc7a4fcbe1f70f1fa303fe490212593fda1",
+      "lines": 137,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "design/OBSERVER_BASE_MODE_SOURCE_LOOKUP.md",
       "bytes": 5977,
       "sha256": "08f1772f93506304dde81f6493b12ee4af793558eb9653b819a413a815df9136",
@@ -1958,9 +1971,9 @@
     },
     {
       "path": "design/OBSERVER_CREATION_ONLY_PROBE.md",
-      "bytes": 6072,
-      "sha256": "37b7d37b8465bcec6b73762f64263e057f284b0f92635873b76e2f170948c1b6",
-      "lines": 48,
+      "bytes": 8801,
+      "sha256": "28d8826dd10db3837558e1338de5bbba1943d5141dc6b679a533141dbb4d427a",
+      "lines": 55,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2014,9 +2027,9 @@
     },
     {
       "path": "design/PASSIVE_OBSERVER_HANDOFF.md",
-      "bytes": 8953,
-      "sha256": "a298f308ad71556a0d732c99e8586fc6eac7da4d306f5778bb8ddd4bedb0b3da",
-      "lines": 58,
+      "bytes": 9611,
+      "sha256": "161d829a2bf573d6eb8682d937bc2b22b5c16e821e469d5aad21e0b4195cb054",
+      "lines": 60,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2270,9 +2283,9 @@
     },
     {
       "path": "NEXT_CODEX_PROMPT.md",
-      "bytes": 48589,
-      "sha256": "1d777afc2415920eb6008ee3df13631e66f8e05f700f4109f347660cbabad89f",
-      "lines": 160,
+      "bytes": 49363,
+      "sha256": "3c39671aa92cdc108607f212edc22758b075c134ce57cabccc6ce98a5d58ff05",
+      "lines": 162,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2283,9 +2296,9 @@
     },
     {
       "path": "README.md",
-      "bytes": 24201,
-      "sha256": "9e1244a61d148415e38d220e9de7d82affd240b237f1ee8ee4f8e77121609948",
-      "lines": 183,
+      "bytes": 25008,
+      "sha256": "39c9039167d7efdfe7e172a5c35edf05a9a39486ba7813a54c94ea58e5b327f5",
+      "lines": 185,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3218,7 +3231,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6514,
-      "sha256": "09163b9379090b863446fc77df0c998c0e2e6e4c4b0d23d2bcc3d18d2a646466",
+      "sha256": "0cad17f1ba8aa73c1e7fc5550afff2b773db5c8a6bbb90c284a50a9df33be2f1",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -3229,9 +3242,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 123993,
-      "sha256": "a00402713ded28176fc29dbf023d1109e77257b19e09a36cfed1072efe6cf953",
-      "lines": 457,
+      "bytes": 127185,
+      "sha256": "f2f12de8c36367f5a75472fbf9f1c8fa7efff352417445f9f5ef27ea16538f12",
+      "lines": 467,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3348,6 +3361,30 @@
       "notes": []
     },
     {
+      "path": "research/OBSERVER_AUTHORING_READOUT_REVIEW.md",
+      "bytes": 11883,
+      "sha256": "9361a3518ebc921adc09718a4dca619f74132f58c876db6c92dd5ba30089621e",
+      "lines": 62,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_AUTHORING_READOUT_STATUS.json",
+      "bytes": 18223,
+      "sha256": "892331aae4ae8ac420e63a32c5f77ad68f67b85e5257f376d43f76a190047b4a",
+      "lines": 299,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
       "path": "research/OBSERVER_BASE_MODE_ASSET.json",
       "bytes": 966,
       "sha256": "3700f6e82d93e55519727e97a22098cfea51f804ab4214c46d9f82e19822f517",
@@ -3386,8 +3423,8 @@
     },
     {
       "path": "research/OBSERVER_BASE_MODE_NATIVE_RESULT.md",
-      "bytes": 6549,
-      "sha256": "1c023da5e783b0d4988eaf326a26fe6a29134586c91c300bc0c22b932c0392c9",
+      "bytes": 6768,
+      "sha256": "8282d30b8011b227f6db3a33f9c5ff39bae9773ffeee62fb7b66b5e7c5dba626",
       "lines": 46,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -4093,9 +4130,9 @@
     },
     {
       "path": "research/OVERNIGHT_CHECKPOINT_2026-09-23.md",
-      "bytes": 2853,
-      "sha256": "8c7c8d919e0d71e0d8a08688d8d1b9802b1637bc8cf329724cbeac7b81ec192a",
-      "lines": 14,
+      "bytes": 3812,
+      "sha256": "12c69fba7a3cccb5d08fef9a8e33679ee8a22eff85e8484f7c58574e62b0697e",
+      "lines": 16,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

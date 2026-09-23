@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "frozen_at_utc": "2026-09-23T04:42:21.3912254Z",
+  "status": "REVIEWED_OFFLINE_AUTHORING_SPEC_GRAPH_AND_READOUT_IMPLEMENTATION_PENDING",
+  "classification": "SOURCE_SUPPORTED_PREPARATION_NOT_EXECUTABLE_OR_NATIVE_ACCEPTANCE",
+  "owner": "Review overnight package handoff observer task",
+  "findings": {
+    "empty_asset_factory_route": "OBSERVED_INSTALLED_DECLARATIONS_NOT_EXECUTED",
+    "exact_component_registration_types": "OBSERVED_SOURCE",
+    "graph_event_pin_authoring": "UNKNOWN_BLOCKED_IN_INSPECTED_REFLECTED_SURFACE",
+    "widget_tree_authoring": "UNKNOWN_BLOCKED",
+    "umg_runtime_readout": "DOCUMENTED_AND_OBSERVED_STOCK_CANDIDATE_NOT_NEW_PROBE_PROOF",
+    "independent_negative_teardown_readout": "UNKNOWN_BLOCKED",
+    "automatic_factory_caller": "UNKNOWN_EXPERIMENT_OUTCOME_NOT_POSITIVE_ATTEMPT_PRECONDITION",
+    "assets": "NOT_BUILT",
+    "native_asset_creation": "NOT_PERFORMED",
+    "cook_deploy_gameplay": "NOT_PERFORMED"
+  },
+  "current_artifacts": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\README.md",
+      "bytes": 25008,
+      "sha256": "39C9039167D7EFDFE7E172A5C35EDF05A9A39486BA7813A54C94EA58E5B327F5"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\NEXT_CODEX_PROMPT.md",
+      "bytes": 49363,
+      "sha256": "3C39671AA92CDC108607F212EDC22758B075C134CE57CABCCC6CE98A5D58FF05"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_AUTHORING_READOUT_REVIEW.md",
+      "bytes": 11883,
+      "sha256": "9361A3518EBC921ADC09718A4DCA619F74132F58C876DB6C92DD5BA30089621E"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_NATIVE_RESULT.md",
+      "bytes": 6768,
+      "sha256": "8282D30B8011B227F6DB3A33F9C5FF39BAE9773FFEEE62FB7B66B5E7C5DBA626"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_ASSET_SPEC.json",
+      "bytes": 8791,
+      "sha256": "1175F18A894A01C5DC32945584B64DC7A4FCBE1F70F1FA303FE490212593FDA1"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_CREATION_ONLY_PROBE.md",
+      "bytes": 8801,
+      "sha256": "28D8826DD10DB3837558E1338DE5BBBA1943D5141DC6B679A533141DBB4D427A"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\PASSIVE_OBSERVER_HANDOFF.md",
+      "bytes": 9611,
+      "sha256": "161D829A2BF573D6EB8682D937BC2B22B5C16E821E469D5AAD21E0B4195CB054"
+    }
+  ],
+  "collected_source_bindings": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\mod-research-collection-20260921T023909Z-5eeaf52a\\unreal-api-reference.txt",
+      "bytes": 21026350,
+      "sha256": "AC4C46761BC54099302155BC0A908AE3F64B161CA77EB9AFD0CC6C1F1B826480"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\010-MW5PlayerController-source.COPY",
+      "bytes": 1678058,
+      "sha256": "6FAAA7CF5D925123441F8022BDA01D7B3475C71849FFF94758E7D2C6BAA4B530"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\008-LanceStatusWidget-source.COPY",
+      "bytes": 1406838,
+      "sha256": "842F0D858E7A1468A8F27DD41E51A82A47B93143497E9B1C6243C124C170F2AF"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\238-PlayerControllerComponent-source.COPY",
+      "bytes": 20799,
+      "sha256": "58C8040403CDC5DDA9C855AD0BED6B47E8889CDC0A0DAC533288D4E9EDCF67A3"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\238-PlayerControllerComponent-defaults.COPY",
+      "bytes": 756,
+      "sha256": "8AA6E1641674CE68239150D982629F9AF855D197D5B39C7EBF8E530DB2F228FB"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\239-PlayerControllerComponentDataAsset-source.COPY",
+      "bytes": 1859,
+      "sha256": "970ACA5BE3E266DD6F429FCE14EC5B236F1B7C3D1200C722DE209CD1D28E4111"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\239-PlayerControllerComponentDataAsset-defaults.COPY",
+      "bytes": 353,
+      "sha256": "38A66B2BA190300407BA6971F3C68DBF2A95F33F77ECBADC2362A5EC6F485B99"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\PASSIVE_OBSERVER_FACTORY_TRACE.md",
+      "bytes": 18142,
+      "sha256": "0C86E343B1A14F15FF9E714AB46FA5F98BED5681AE2565DDDBE11BC3FE002443"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\EDITOR_POSTINSTALL.json",
+      "bytes": 5233,
+      "sha256": "990582D6A49B680FA0716FA1BAA95E6E78893C3F313FEA615A6F01F0941513EC"
+    }
+  ],
+  "preserved_checkpoint_helper_review_bindings": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_NATIVE_STATUS.json",
+      "bytes": 23577,
+      "sha256": "1929AC9E5E2654D737ED7439CA0764A816519A955ADB404493DFCB49CFF94D9B"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_PREPARATION.json",
+      "bytes": 6712,
+      "sha256": "023351AAFBA1B886D0EF6AC06E25B25E3A612D1186876E3D4B2EA82A673850F3"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_NATIVE_REVIEW.json",
+      "bytes": 12420,
+      "sha256": "9223414E5A2A6DC8905CB5FDC566FA43C9C3CC087D92FF0B5A3EAFCA85B19ED7"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_NATIVE_REVIEW.md",
+      "bytes": 4483,
+      "sha256": "E957E5E717C644C855F710B75CF94F121F804CD6DEE9B345D9B12D97959B0E95"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_HELPER_REVIEW.json",
+      "bytes": 129310,
+      "sha256": "78ADF49314DC296055128E8B0DBD357C982DE7212FEE998CE006A7B1F3BDBD77"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverBaseMode.py",
+      "bytes": 14913,
+      "sha256": "D339DF11DBA3A9FD752B0EBBE417BA415C54A883C5374F8090FE0F88EBF14BD7"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_REFERENCE_NATIVE_STATUS.json",
+      "bytes": 9836,
+      "sha256": "341E33D73BCEC70242CA0F53A89C29701E7C80834CE76624BF039D972F40168A"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+      "bytes": 14884,
+      "sha256": "AD0EEB1E1FA73E55CEE24F679C27CA3C5AA52C0ABFFC48F4F8D0E88B0F44ED29"
+    }
+  ],
+  "preserved_native_raw_bindings": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\checkpoint-00.json",
+      "bytes": 1458,
+      "sha256": "A9C9EB56BF050D16F1A75384C80956A9F1C45CE7FA7C373EB069933FDC2A7CC5"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\checkpoint-01.json",
+      "bytes": 1862,
+      "sha256": "BF4A4352EC08AC9F0D9E091AC62CAC1B1359C37CEE775589CDC4A9A06DFF5914"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\checkpoint-02.json",
+      "bytes": 2178,
+      "sha256": "7E87BF217EC0D19F70E1DB01F1C736F0095DB9FC4958D7D03E87500889BE22A7"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\checkpoint-03.json",
+      "bytes": 2498,
+      "sha256": "FD9212D3A742BC24A3462B6A26D03647DAB2BE958E3A60F97D19B2FA2E44BAC6"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\defaults.COPY",
+      "bytes": 8885,
+      "sha256": "FB31627725783FF7E950952039732B5053C288EC5850E374FCD7277804A844D0"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\report.json",
+      "bytes": 2719,
+      "sha256": "966F19638290FBD3DBFB8AF1E134FC8AE5331430EB6F17E09B15FF9ED1B824E6"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-20260923T041436Z-7a4f6d0899d6\\source.COPY",
+      "bytes": 3099,
+      "sha256": "C8AD84B384428010190DB4A6A5A639D41561E4A1506FF675A1DD072C256F899D"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\checkpoint-00.json",
+      "bytes": 1500,
+      "sha256": "90ceea587ca240c61d60ec4d8a6d69f914076f910cbfc1af49b40b72b9a92cf7"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\checkpoint-01.json",
+      "bytes": 1657,
+      "sha256": "55ffc70bd8d243dbc10495afde81942e8990b6898c98521e6fdf704d90e533ad"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\checkpoint-02.json",
+      "bytes": 1926,
+      "sha256": "dd665700352e2a6a465d6a196dff0d8aa00d878d436b1dd139b0cc95fe426fc8"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\checkpoint-03.json",
+      "bytes": 2271,
+      "sha256": "b61ccddc8a63d818eec1b6d57d19d6e25c3436a2d22e1516bb05bb2031d5a065"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\checkpoint-04.json",
+      "bytes": 2638,
+      "sha256": "821a30ff02bb423e7a1138f529d297b72cb2a99437b84e4d79e00a3a0c19f16d"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\defaults.COPY",
+      "bytes": 9362,
+      "sha256": "be04eec660121621a7497a65edf6f72578c9cca28ebaf02076c71fd886a9e9ce"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\report.json",
+      "bytes": 2858,
+      "sha256": "40833043ec712ae8a03e13041577602636bfc646c8f48b83c0de108983c765cb"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\source.COPY",
+      "bytes": 617929,
+      "sha256": "b95a06b61aeead0cfe27fd2012e50e7d4be07353c3e5e4e3dafbaccaee5dd551"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-00.json",
+      "bytes": 130,
+      "sha256": "8D1DEC18CDE4A5C88750658EFA4B95784CA8ED5DC1537253FDDA835371027374"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-01.json",
+      "bytes": 158,
+      "sha256": "F05D209C436BB35F935932A2593C08216713A06A3D0053A526E263CABAEDF3E0"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-02.json",
+      "bytes": 172,
+      "sha256": "6234DB7E3A38A4D92FBD64D4E33F981C6C9B5837E3A9308B880EE00E3E62AF4E"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-03.json",
+      "bytes": 211,
+      "sha256": "A37432131C5CB06943F1ADF16D3DE1FDE91AD4E473CCF6089721024FFCBFA4CB"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\report.json",
+      "bytes": 6895,
+      "sha256": "55CA5794BBDB2F84A7F28A5B8EEF56B8CCEA1664BF24E21B5C91D020856CAF0A"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\started.json",
+      "bytes": 2412,
+      "sha256": "D8ABE3D515ABC593C7AA048D0949767DD28A319EA03A05133F94FF1996018ACF"
+    }
+  ],
+  "official_sources": {
+    "accessed_date_utc": "2026-09-23",
+    "epic_version_limit": "Stock UE4.27 adjacent to recorded PGI UE4.26.2; not exact fork verification",
+    "urls": [
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/AssetTools?application_version=4.27",
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/BlueprintFactory?application_version=4.27",
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/DataAssetFactory?application_version=4.27",
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/WidgetBlueprintFactory?application_version=4.27",
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/ActorComponent?application_version=4.27",
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/umg-ui-designer-quick-start-guide?application_version=4.27",
+      "https://dev.epicgames.com/documentation/unreal-engine/scripting-the-editor-using-python?application_version=4.27",
+      "https://www.unrealengine.com/blog/unreal-engine-4-11-released?lang=en-US",
+      "https://static.mw5mercs.com/docs/MW5Mercs_Mod_Editor_Guide_%28v2.3%29.pdf"
+    ]
+  },
+  "corrected_measurement_contract": {
+    "before_deployment": "Actual supported artifacts/measurement design, reviewed manifest, isolated baseline, authorization and rollback",
+    "runtime_visibility_and_initialization": "May be outcomes of authorized positive attempt; not required to pass before that attempt",
+    "positive_creation": "Fresh uniquely attributable actual component observation proves at least one; unknown fields explicit",
+    "exactly_one": "Separate reliable complete enumeration on verified intended controller",
+    "silent_output": "INCONCLUSIVE_NOT_ZERO",
+    "negative_diagnosis": "Requires independent readout liveness, relevant registry inclusion/visibility, successful load/cast, controller selection and reliable enumeration in bounded window",
+    "lifetime": "Same live controller may retain component across pawn change; replaced controller/world requires separate identity/liveness evidence",
+    "missing_teardown": "UNKNOWN_WITHOUT_INDEPENDENT_LIVE_EVIDENCE",
+    "final_positive_acceptance": "Creation, exact owner/count, declared transitions/liveness, unchanged baseline and verified rollback; does not require explaining factory caller or registry discovery"
+  },
+  "validation": {
+    "independent_source_authoring_review": "COMPLETED_NO_SUBSTANTIVE_ISSUES_AFTER_FINAL_SPEC_CORRECTION",
+    "independent_readout_review": "COMPLETED_EXISTING_SOURCE_ONLY",
+    "official_primary_source_review": "COMPLETED_VERSION_LIMITS_RETAINED",
+    "local_document_link_checks": 6,
+    "missing_local_links": 0,
+    "json_specification_parsed": true,
+    "new_behavior_implemented": false,
+    "new_helpers": 0,
+    "tests_run": 0,
+    "mock_results_created": 0,
+    "native_calls": 0,
+    "editor_game_launches": 0,
+    "source_files_changed": 0,
+    "preserved_native_raw_records": 21
+  },
+  "historical_checkpoint_policy": "Previous native status/preparation/review/helper/raw bytes preserved. Seven current preparation/handoff files have new versions; their older hashes in the prior checkpoint are historical, not rewritten.",
+  "next": "Resolve supported installed-editor event/pin/widget-tree authoring or use a later bounded manual authoring session; create and review actual measurement artifacts before any deployment decision. No unattended native builder or another source export is justified by this review.",
+  "coordinator_ownership": "Broader runtime, resource decisions, IMPLEMENTATION_STATUS, Git/content review/private backup",
+  "stop": "Bounded unattended preparation complete; no user/native action queued tonight"
+}

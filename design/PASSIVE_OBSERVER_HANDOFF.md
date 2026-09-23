@@ -2,6 +2,8 @@
 
 **September 23 source checkpoint:** controller/reference/mode/base-mode lookups are complete. The [last export](../research/OBSERVER_BASE_MODE_NATIVE_RESULT.md) reaches native `/Script/MechWarrior.MWGameMode` through an empty Blueprint body; it does not expose the factory caller. Do not repeat these lookups. The smaller [creation-only probe contract](OBSERVER_CREATION_ONLY_PROBE.md) must be made concrete before the broader observation experiment below. No observer assets, registry/readout mechanism or cooked startup have been proven.
 
+**Unattended preparation complete:** the [authoring/readout review](../research/OBSERVER_AUTHORING_READOUT_REVIEW.md) provides a non-executable asset recipe and exact supported-interface gaps. A later bounded positive attempt need not assume successful initialization or prior runtime registry visibility; those may be measured outcomes. Absence requires independent live measurement, while positive creation, reliable exactly-one enumeration and full lifecycle/rollback acceptance are separate. Same-controller pawn changes may validly retain the component. The corrected smaller contract governs those distinctions before this broader telemetry proposal.
+
 Prepared 2026-09-21 UTC. PROPOSED, NOT_BUILT and NOT_PERFORMED. This is the handoff after the offline package, not permission to deploy. Read [control support](../research/AI_CONTROL_SUPPORT_ANALYSIS.md), [tactical state](../research/TACTICAL_STATE_TRACE.md) and [order lifecycle](../research/ORDER_LIFECYCLE_TRACE.md) with their cited RUN sources.
 
 ## Smallest credible first route
