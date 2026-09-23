@@ -162,7 +162,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   let state = 'STOPPED', child = null, childExited = true, childExitPromise = null, startPromise = null, termination = null;
   let startupAbort = null, generationAbort = null, generationPromise = null, activeGeneration = false, stopping = false;
   let token = '', origin = '', log = '', logTail = '', verification = 'NOT_PERFORMED', lastError = null, exitCode = null;
-  let lastGenerationTimings = null;
+  let lastGenerationTimings = null, lastGenerationFinishReason = null;
   const classification = testDependencies ? 'MOCK_ONLY' : 'LOCAL_COMPONENT_UNVALIDATED';
   const redact = text => token ? text.split(token).join('[SESSION_TOKEN]') : text;
   function appendLog(text, flush = false) {
@@ -238,7 +238,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     if (startPromise) return startPromise;
     if (stopping || (child && !childExited)) return Promise.reject(new Error('OWNED_PROCESS_STILL_RUNNING'));
     stopping = false; state = 'VERIFYING'; lastError = null; verification = 'NOT_PERFORMED'; log = ''; logTail = '';
-    lastGenerationTimings = null;
+    lastGenerationTimings = null; lastGenerationFinishReason = null;
     startupAbort = new AbortController();
     startPromise = (async () => {
       try {
@@ -296,7 +296,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
   async function runGeneration(context, { signal } = {}) {
     if (state !== 'READY' || !child || childExited || stopping) fail(activeGeneration ? 'MODEL_BUSY' : 'MODEL_NOT_READY');
     if (activeGeneration) fail('MODEL_BUSY');
-    lastGenerationTimings = null;
+    lastGenerationTimings = null; lastGenerationFinishReason = null;
     if (signal?.aborted) fail('GENERATION_CANCELLED');
     if (signal !== undefined && !(signal instanceof AbortSignal)) fail('INVALID_ABORT_SIGNAL');
     const messages = messagesFor(context, { experimentalSpeakerRelativeFacts, experimentalSpeakerBriefing }); activeGeneration = true; state = 'GENERATING';
@@ -304,6 +304,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     const deadlineSignal = AbortSignal.timeout(60000);
     const combined = AbortSignal.any([ownAbort.signal, deadlineSignal, ...(signal ? [signal] : [])]);
     let reader, buffer = '', output = '', totalBytes = 0, finished = false, finalTimings = null;
+    let finishReason = null, completionValidated = false;
     try {
       const response = await abortable(io.fetch(`${origin}/v1/chat/completions`, { method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -322,13 +323,23 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
           if (!line || line.startsWith(':')) continue;
           if (!line.startsWith('data:')) fail('INFERENCE_PROTOCOL_ERROR');
           const data = line.slice(5).trim(); if (data === '[DONE]') { finished = true; break; }
-          const packet = JSON.parse(data); if (packet.error || !Array.isArray(packet.choices) || packet.choices.length > 1) fail('INFERENCE_PROTOCOL_ERROR');
+          const packet = JSON.parse(data);
+          if (!packet || typeof packet !== 'object' || Array.isArray(packet) || packet.error ||
+              !Array.isArray(packet.choices) || packet.choices.length > 1) fail('INFERENCE_PROTOCOL_ERROR');
           if (!packet.choices.length) continue;
-          const choice = packet.choices[0], delta = choice.delta;
-          if (!delta || typeof delta !== 'object' || delta.tool_calls || delta.function_call || delta.reasoning_content ||
+          // Usage-only packets may follow termination, but another choice may
+          // not change the result, its finish reason, or its diagnostic timing.
+          if (finishReason !== null) fail('INFERENCE_PROTOCOL_ERROR');
+          const choice = packet.choices[0];
+          if (!choice || typeof choice !== 'object' || Array.isArray(choice)) fail('INFERENCE_PROTOCOL_ERROR');
+          const delta = choice.delta;
+          if (!delta || typeof delta !== 'object' || Array.isArray(delta)) fail('INFERENCE_PROTOCOL_ERROR');
+          if (delta.tool_calls || delta.function_call || delta.reasoning_content ||
               (delta.role !== undefined && delta.role !== 'assistant') ||
-              (choice.finish_reason && !['stop', 'length'].includes(choice.finish_reason))) fail('UNSUPPORTED_GENERATED_PAYLOAD');
-          if (choice.finish_reason) finalTimings = generationTimings(packet.timings);
+              (choice.finish_reason != null && !['stop', 'length'].includes(choice.finish_reason))) fail('UNSUPPORTED_GENERATED_PAYLOAD');
+          if (choice.finish_reason != null) {
+            finishReason = choice.finish_reason; finalTimings = generationTimings(packet.timings);
+          }
           if (delta.content !== undefined && delta.content !== null) {
             if (typeof delta.content !== 'string') fail('INFERENCE_PROTOCOL_ERROR'); output += delta.content;
             if (output.length > 256 || /<\/?think\b/i.test(output) || /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\u202a-\u202e\u2066-\u2069]/.test(output)) fail('INVALID_GENERATED_TEXT');
@@ -336,11 +347,14 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
         }
       }
       if (combined.aborted || childExited || stopping) fail('GENERATION_CANCELLED');
-      if (!finished || !output.trim()) fail('INCOMPLETE_GENERATED_TEXT');
+      if (!finished || finishReason === null || !output.trim()) fail('INCOMPLETE_GENERATED_TEXT');
       // Escaped UTF-16 surrogates can cross SSE chunks; validate only once the
       // full logical string exists so legitimate split pairs remain valid.
       if (!output.isWellFormed()) fail('INVALID_GENERATED_TEXT');
-      lastGenerationTimings = finalTimings;
+      completionValidated = true;
+      // A complete transport stream can still contain token-truncated text.
+      // Keep its terminal diagnostics, but never return it as a usable reply.
+      if (finishReason === 'length') fail('GENERATED_TEXT_TRUNCATED');
       return output.trim().replace(/\s+/g, ' ');
     } catch (error) {
       if (combined.aborted || stopping || childExited) throw new Error('GENERATION_CANCELLED');
@@ -349,9 +363,12 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
       ownAbort.abort(); if (reader) { try { await Promise.race([reader.cancel(), io.sleep(500)]); } catch {} }
       // Cleanup itself may cross a caller deadline or owned-process shutdown.
       // ownAbort is deliberately aborted above, so inspect the external causes.
-      if (signal?.aborted || deadlineSignal.aborted || stopping || childExited) lastGenerationTimings = null;
+      const cancelled = signal?.aborted || deadlineSignal.aborted || stopping || childExited;
+      lastGenerationTimings = !cancelled && completionValidated ? finalTimings : null;
+      lastGenerationFinishReason = !cancelled && completionValidated ? finishReason : null;
       activeGeneration = false; if (generationAbort === ownAbort) generationAbort = null;
       if (!stopping && !childExited && state !== 'FAILED') state = 'READY';
+      if (cancelled) fail('GENERATION_CANCELLED');
     }
   }
   function generate(context, options) {
@@ -374,6 +391,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     return { state, modelId, threads, classification, verification, ownedPid: !childExited ? child?.pid ?? null : null,
       ownedProcessStopped: childExited, activeGeneration, lastError, exitCode, log,
       lastGenerationTimings: lastGenerationTimings ? { ...lastGenerationTimings } : null,
+      lastGenerationFinishReason,
       settings: { host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
         processingBatch, weightRepacking, promptCaching, experimentalSpeakerRelativeFacts,
         ...(experimentalSpeakerBriefing ? { experimentalSpeakerBriefing: true } : {}),

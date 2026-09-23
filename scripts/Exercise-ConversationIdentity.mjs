@@ -109,10 +109,10 @@ export async function executeIdentityDiagnostic(plan, evidence, testDependencies
       contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, logicalBatchTokens: 128, physicalBatchTokens: 64,
       temperature: .7, topP: .8, topK: 20, fixedSeed: false, nativeSlots: 1,
       initialRamRequirementBytes: 5 * GiB, minimumRamBytes: 2 * GiB, workingDiskReserveBytes: 10 * GiB },
-    primer: { status: 'NOT_PERFORMED', context: plan.primer, messages: plan.primerMessages, output: null,
+    primer: { status: 'NOT_PERFORMED', context: plan.primer, messages: plan.primerMessages, output: null, finishReason: null, nativeTimings: null,
       purpose: 'DISCARDED_CALIBRATION_ONLY', semanticReview: 'NOT_APPLICABLE', dispatched: false, played: false },
     samples: plan.cases.map(c => ({ id: c.specification.id, capture: c.capture, context: c.context,
-      messages: c.messages, status: 'NOT_PERFORMED', output: null, semanticReview: 'NOT_PERFORMED', dispatched: false, played: false })),
+      messages: c.messages, status: 'NOT_PERFORMED', output: null, finishReason: null, nativeTimings: null, semanticReview: 'NOT_PERFORMED', dispatched: false, played: false })),
     minimumAvailableRamBytes: null, independentSemanticReview: 'NOT_PERFORMED', gameAcceptance: 'NOT_PERFORMED',
     downloads: false, gameExecution: false, editorExecution: false, audioGenerated: false, microphoneCapture: false,
     speakerPlayback: false, defaultModelChanged: false, defaultCachingChanged: false,
@@ -121,7 +121,7 @@ export async function executeIdentityDiagnostic(plan, evidence, testDependencies
       'Expectations remain in the receipt fixture, never in model contexts/messages.',
       'A single stochastic response per case is not reliability, causal improvement or full conversation acceptance.',
       'Startup and primer are separate costs; complete text is not first spoken audio.',
-      'The adapter does not expose finish_reason; TEXT_COMPLETE does not prove the answer was not token-truncated. Preserve predicted_n for conservative semantic review.',
+      'finishReason records only the adapter-confirmed terminal finish_reason: stop for returned text or length for a rejected complete stream. Missing, invalid or cancelled completion metadata remains null; stop is not semantic acceptance.',
       'Resource sampling and shutdown deadlines are reactive, not OS-level memory or termination guarantees.'] };
   const save = () => receipt.save(report);
   const stopOnce = () => engine ? stopPromise ??= Promise.resolve().then(() => engine.stop()) : Promise.resolve();
@@ -142,18 +142,25 @@ export async function executeIdentityDiagnostic(plan, evidence, testDependencies
     const beganOperation = io.now(), timeout = AbortSignal.timeout(limits.operationMs);
     const signal = AbortSignal.any([abort.signal, timeout]);
     if (signal.aborted) throw Error('DIAGNOSTIC_CANCELLED');
+    const captureCompletion = expectedReason => {
+      const state = engine.status();
+      if (state.lastGenerationFinishReason !== expectedReason) return;
+      sample.finishReason = expectedReason;
+      sample.nativeTimings = state.lastGenerationTimings ? { ...state.lastGenerationTimings } : null;
+    };
     try {
       sample.status = 'RUNNING'; // No asynchronous gap before the actual invocation.
       sample.output = await waitForStartup(engine.generate(sample.context, { signal }), signal);
       if (signal.aborted) throw Error('DIAGNOSTIC_CANCELLED');
+      captureCompletion('stop');
       sample.status = 'TEXT_COMPLETE_DIAGNOSTIC_ONLY';
     } catch (error) {
       sample.output = null; sample.status = 'FAILED'; sample.error = error.message;
+      if (!signal.aborted && error.message === 'GENERATED_TEXT_TRUNCATED') captureCompletion('length');
       halt(timeout.aborted ? 'OPERATION_DEADLINE' : haltReason ?? 'OPERATION_FAILED'); throw error;
     } finally {
       sample.elapsedMs = io.now() - beganOperation;
       const state = engine.status(); sample.runtimeLog = state.log;
-      sample.nativeTimings = sample.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' ? state.lastGenerationTimings ?? null : null;
       await save();
     }
   }

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T00:42:54.943Z",
+  "recordedAt": "2026-09-23T00:58:29.479Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 973,
-  "passed": 973,
+  "tests": 1032,
+  "passed": 1032,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -22,12 +22,14 @@
     "companion/tests/control-review.test.mjs",
     "companion/tests/control.test.mjs",
     "companion/tests/conversation-cache-diagnostic.test.mjs",
+    "companion/tests/conversation-completion-integration.test.mjs",
     "companion/tests/conversation-identity-diagnostic.test.mjs",
     "companion/tests/conversation-identity.test.mjs",
     "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
     "companion/tests/grounding-diagnostic.test.mjs",
+    "companion/tests/llm-completion-review.test.mjs",
     "companion/tests/llm-review.test.mjs",
     "companion/tests/local-language-model.test.mjs",
     "companion/tests/local-recognition-review.test.mjs",
@@ -109,8 +111,12 @@
       "sha256": "e15b2d13a29c8519dfd46a20e9bf599fe9497ef1452725b0df800e911e83d71b"
     },
     {
+      "file": "companion/tests/conversation-completion-integration.test.mjs",
+      "sha256": "8a5bcc47eaea4fd694a31d707701dafa9fddeee4912534b3fd40d39385c3f48e"
+    },
+    {
       "file": "companion/tests/conversation-identity-diagnostic.test.mjs",
-      "sha256": "6a0cb2927627a4cd59f06f2c7fda07c6d8d45ab94904c2a1e342b07eec21ad94"
+      "sha256": "c1c3b9386943a6faf14ac36b9470f3c3c5ee14eee94eb63cadd1c24fa2954a6e"
     },
     {
       "file": "companion/tests/conversation-identity.test.mjs",
@@ -118,7 +124,7 @@
     },
     {
       "file": "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
-      "sha256": "b9ccaa586877fbb1e3d4c3c2f08948bbbb08ac737944453f7077072e97c8e469"
+      "sha256": "07c380a3dfbea9f174c04aa61e7a553d04e41280097d4448719107e739c92c2f"
     },
     {
       "file": "companion/tests/conversation-review.test.mjs",
@@ -133,12 +139,16 @@
       "sha256": "ce985d0967e35fb780552facc9d0aa642821c37f00387b258db1473e28acec14"
     },
     {
+      "file": "companion/tests/llm-completion-review.test.mjs",
+      "sha256": "1aaf2f7a450fb5541afe9ff5d49bd480baaf9c72ebc3eb6673e142a184e091f3"
+    },
+    {
       "file": "companion/tests/llm-review.test.mjs",
-      "sha256": "a58fe27e4f27a9057308573ea9d1908c1f4c9cb9d82f1402a5672fb544018c20"
+      "sha256": "51c6359c10d0d136143ba4e4148f09a76852693ad417267215513dca95613c57"
     },
     {
       "file": "companion/tests/local-language-model.test.mjs",
-      "sha256": "b17242dc60a845f6bb0316fd835c886eb3d500fc6e9c67760b88cf0dc9141a5c"
+      "sha256": "70d63b87ab001c061a935f02977540eeef9d8d92a9e74293ee7f96ce3e2dd213"
     },
     {
       "file": "companion/tests/local-recognition-review.test.mjs",
@@ -278,7 +288,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "4a40f247c804136ea49b04af33fc1c1b9f638b3a03bea3931ff00017094cb127"
+      "sha256": "5dd6712ffdcfc17fc53d4ebba3903e414862ace20aa3bc9fb5542d3f73f5032f"
     },
     {
       "file": "companion/local-recognition.mjs",
@@ -386,7 +396,7 @@
     },
     {
       "file": "scripts/Exercise-ConversationIdentity.mjs",
-      "sha256": "de22abd67fd5bafe3055de6a9a341ee7472c5e3a9b71b730d5679941ae08e0d8"
+      "sha256": "087dbd5afed5a69a9774f6541482c2e4d0f2efaadc0cfedba397d8551a785ae5"
     },
     {
       "file": "synthetic/conversation-identity-cases.json",
@@ -394,7 +404,7 @@
     },
     {
       "file": "scripts/Exercise-ConversationRelativeFacts.mjs",
-      "sha256": "1b7962da1de164ba15b021f10b1171b3f6395abd29386c3863c117dc972a2320"
+      "sha256": "852c3c1414971a1269e05ca88395e75d23a25223471ec919dd0f779fbf8ec6ad"
     },
     {
       "file": "synthetic/conversation-relative-facts-cases.json",
@@ -404,8 +414,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790124174922.tap",
-    "sha256": "b0a9600e541df37832793f15e7f346dc06bc0cd2e339b7cdcb50f5d5a8e247e1",
+    "file": "tmp/companion-verification-1790125109457.tap",
+    "sha256": "e952f13c8594c53f24905b63927085e837a7151a2acf7da447f47697c85deae3",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

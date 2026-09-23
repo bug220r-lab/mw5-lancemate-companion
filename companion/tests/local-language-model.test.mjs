@@ -296,7 +296,7 @@ test('streamed generation is authenticated loopback only with fixed text budget 
 });
 
 test('chunk boundaries cannot corrupt SSE packets or bypass hard output cap', async t => {
-  const source = packet({ content: 'Short line.' }) + 'data: [DONE]\n\n';
+  const source = packet({ content: 'Short line.' }) + packet({}, 'stop') + 'data: [DONE]\n\n';
   const r = rig(t, (io, a) => { a.generationResponse = () => sse([source.slice(0, 7), source.slice(7, 31), source.slice(31)], { done: false }); });
   await r.model.start(); assert.equal(await r.model.generate(ctx()), 'Short line.');
   r.api.generationResponse = () => sse([packet({ content: 'x'.repeat(256) }), packet({ content: 'x' })]);
@@ -407,8 +407,8 @@ test('successful terminal timing telemetry exposes only bounded native numeric f
 
 test('nonterminal, absent and unsupported usage-only timings remain unknown after a previous valid sample', async t => {
   const r = rig(t); await r.model.start();
-  for (const tail of [packet({}, 'stop'), timedPacket(timingSample(), { finish_reason: null }),
-    timedPacket(timingSample(), { choices: [] })]) {
+  for (const tail of [packet({}, 'stop'), timedPacket(timingSample(), { finish_reason: null }) + packet({}, 'stop'),
+    packet({}, 'stop') + timedPacket(timingSample(), { choices: [] })]) {
     r.api.generationResponse = () => sse([packet({ content: 'Ready.' }), timedPacket(timingSample())]);
     await r.model.generate(ctx()); assert.deepEqual(r.model.status().lastGenerationTimings, timingSample());
     r.api.generationResponse = () => sse([packet({ content: 'Still unknown.' }), tail]);
@@ -486,7 +486,7 @@ test('fresh owned process startup resets timing evidence while retaining explici
   assert.equal(r.model.status().settings.promptCaching, true); assert.equal(r.calls.length, 2);
 });
 
-test('cancellation during awaited response cleanup cannot expose completed timing evidence afterward', async t => {
+test('cancellation during awaited response cleanup rejects text and clears terminal evidence', async t => {
   let releaseCleanup, reachedCleanup;
   const cleanupPending = new Promise(resolve => { releaseCleanup = resolve; });
   const cleanupReached = new Promise(resolve => { reachedCleanup = resolve; });
@@ -503,12 +503,64 @@ test('cancellation during awaited response cleanup cannot expose completed timin
   }, { promptCaching: true });
   await r.model.start(); const controller = new AbortController();
   const pending = r.model.generate(ctx(), { signal: controller.signal });
+  const rejected = assert.rejects(pending, /GENERATION_CANCELLED/);
   try {
     await cleanupReached;
+    assert.equal(r.model.status().lastGenerationFinishReason, null, 'completion is not published while cleanup is pending');
     controller.abort(); releaseCleanup();
-    assert.equal(await pending, 'Completed text.', 'existing text return semantics remain unchanged');
+    await rejected;
     assert.equal(r.model.status().lastGenerationTimings, null);
+    assert.equal(r.model.status().lastGenerationFinishReason, null);
     assert.equal(r.model.status().activeGeneration, false);
     assert.equal(r.model.status().state, 'READY');
-  } finally { releaseCleanup(); await pending; }
+  } finally { releaseCleanup(); await pending.catch(() => {}); }
+});
+
+test('token truncation rejects text but retains only validated terminal diagnostics', async t => {
+  const r = rig(t); await r.model.start();
+  r.api.generationResponse = () => sse([packet({ content: 'Next mission,' }), timedPacket(timingSample(), { finish_reason: 'length' })]);
+  await assert.rejects(r.model.generate(ctx()), /GENERATED_TEXT_TRUNCATED/);
+  assert.equal(r.model.status().lastGenerationFinishReason, 'length');
+  assert.deepEqual(r.model.status().lastGenerationTimings, timingSample());
+  assert.equal(r.model.status().state, 'READY');
+  r.api.generationResponse = () => sse([packet({ content: 'Complete transport.' }), packet({}, 'stop')]);
+  assert.equal(await r.model.generate(ctx()), 'Complete transport.');
+  assert.equal(r.model.status().lastGenerationFinishReason, 'stop');
+  assert.equal(r.model.status().lastGenerationTimings, null);
+  await assert.rejects(r.model.generate({}), /INVALID_CONTEXT/);
+  assert.equal(r.model.status().lastGenerationFinishReason, null);
+});
+
+test('missing, repeated and contradictory terminal choices do not leave finish diagnostics', async t => {
+  const r = rig(t); await r.model.start();
+  for (const tail of [[], [packet({}, null)], [packet({}, 'stop'), packet({}, 'stop')],
+    [packet({}, 'stop'), packet({}, 'length')], [packet({}, 'length'), packet({}, 'stop')],
+    [packet({}, 'stop'), packet({ content: 'unaccepted suffix' })], [packet({}, '')], [packet({}, false)]]) {
+    r.api.generationResponse = () => sse([packet({ content: 'Missing or ambiguous completion.' }), ...tail]);
+    await assert.rejects(r.model.generate(ctx()));
+    assert.equal(r.model.status().lastGenerationFinishReason, null);
+    assert.equal(r.model.status().lastGenerationTimings, null);
+  }
+});
+
+test('combined content and terminal stop supports trailing usage without trusting its timing', async t => {
+  const r = rig(t); await r.model.start();
+  r.api.generationResponse = () => sse([packet({ role: 'assistant', content: 'Unknown.' }, 'stop'),
+    timedPacket(timingSample(), { choices: [] })]);
+  assert.equal(await r.model.generate(ctx()), 'Unknown.');
+  assert.equal(r.model.status().lastGenerationFinishReason, 'stop');
+  assert.equal(r.model.status().lastGenerationTimings, null);
+});
+
+test('a fresh process and invalid or pre-cancelled attempts cannot expose an older finish reason', async t => {
+  const r = rig(t); await r.model.start();
+  for (const options of [{ signal: AbortSignal.abort() }, { signal: {} }]) {
+    await r.model.generate(ctx()); assert.equal(r.model.status().lastGenerationFinishReason, 'stop');
+    await assert.rejects(r.model.generate(ctx(), options));
+    assert.equal(r.model.status().lastGenerationFinishReason, null);
+  }
+  await r.model.generate(ctx()); await r.model.stop();
+  const starting = r.model.start();
+  assert.equal(r.model.status().lastGenerationFinishReason, null); await starting;
+  assert.equal(r.model.status().lastGenerationFinishReason, null);
 });

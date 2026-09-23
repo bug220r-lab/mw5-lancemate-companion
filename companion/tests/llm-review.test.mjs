@@ -17,8 +17,8 @@ const directory = path.join(root, 'companion/local/runtimes/llama-cpu-b11065');
 const context = () => ({ persona: { id: 'edge', style: 'dry wit' }, request: { text: 'Are we ready?' },
   facts: [], history: [] });
 const tick = () => new Promise(resolve => setTimeout(resolve, 20));
-const packet = delta => `data: ${JSON.stringify({ choices: [{ delta }] })}\n\n`;
-const response = text => new Response(packet({ content: text }) + 'data: [DONE]\n\n',
+const packet = (delta, finish_reason = null) => `data: ${JSON.stringify({ choices: [{ delta, finish_reason }] })}\n\n`;
+const response = text => new Response(packet({ content: text }) + packet({}, 'stop') + 'data: [DONE]\n\n',
   { headers: { 'Content-Type': 'text/event-stream' } });
 
 function rig(t, customize = () => {}) {

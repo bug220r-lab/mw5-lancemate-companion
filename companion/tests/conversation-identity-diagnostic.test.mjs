@@ -20,6 +20,7 @@ function rig(overrides = {}) {
     status: () => ({ state: stopped ? 'STOPPED' : 'READY', ownedPid: stopped ? null : 1234,
       ownedProcessStopped: stopped, activeGeneration: false, verification: 'PINNED_FILES_VERIFIED', log: '',
       settings: { processingBatch: 'compact', weightRepacking: false, promptCaching: true },
+      lastGenerationFinishReason: 'stop',
       lastGenerationTimings: { cache_n: 20, prompt_n: 30, predicted_n: 5, prompt_ms: 10, predicted_ms: 10 } })
   };
   const dependencies = {
@@ -102,6 +103,8 @@ test('successful synthetic run preserves measured contexts, eight outcomes, pins
   assert.deepEqual(report.sources, evidence.sources); assert.equal(report.fixtureSha256, IDENTITY_FIXTURE_SHA256);
   assert.deepEqual(report.notPerformed, []); assert.equal(r.calls.stops, 1); assert.equal(r.calls.closes, 1);
   assert.match(report.limitations.join(' '), /finish_reason/);
+  assert.equal(report.primer.finishReason, 'stop');
+  assert.ok(report.samples.every(s => s.finishReason === 'stop' && s.nativeTimings.predicted_n === 5));
 });
 
 for (const [label, overrides, reason] of [
@@ -113,6 +116,8 @@ for (const [label, overrides, reason] of [
   assert.equal(report.status, 'INCOMPLETE'); assert.equal(report.error, reason);
   assert.equal(r.calls.creates, 0); assert.equal(r.calls.stops, 0); assert.equal(r.calls.closes, 1);
   assert.equal(report.notPerformed.length, 8); assert.equal(report.finalRuntime.state, 'NOT_STARTED');
+  assert.equal(report.primer.finishReason, null); assert.equal(report.primer.nativeTimings, null);
+  assert.ok(report.samples.every(s => s.finishReason === null && s.nativeTimings === null));
 });
 
 test('a native case failure keeps earlier evidence and stops without retrying remaining cases', async () => {
@@ -131,6 +136,7 @@ test('generation that ignores cancellation is bounded and cannot dispatch a late
   const report = await executeIdentityDiagnostic(plan, evidence, r.dependencies);
   assert.equal(report.haltReason, 'OPERATION_DEADLINE'); assert.equal(report.samples[0].status, 'FAILED');
   assert.equal(report.samples[0].output, null); assert.equal(report.notPerformed.length, 7);
+  assert.equal(report.samples[0].finishReason, null); assert.equal(report.samples[0].nativeTimings, null);
   assert.equal(r.calls.generates.length, 2); assert.equal(r.calls.stops, 1);
 });
 
@@ -192,4 +198,74 @@ for (const guard of ['RAM', 'GLOBAL', 'IO_FAILURE']) test(`${guard} while saving
   if (guard === 'IO_FAILURE') assert.equal(report.error, 'SYNTHETIC_WRITE_FAILURE');
   else assert.equal(report.haltReason, guard === 'RAM' ? 'RAM_RESERVE_LOST' : 'GLOBAL_TIME_LIMIT');
   assert.equal(r.calls.stops, 1); assert.equal(r.calls.closes, 1);
+});
+
+for (const stage of ['primer', 'first case']) test(`${stage} length rejection keeps terminal diagnostics without admitting output or retrying`, async () => {
+  const r = rig(), generate = r.engine.generate, status = r.engine.status, stop = r.engine.stop;
+  let completion = 'stop', timings = { cache_n: 10, prompt_n: 40, predicted_n: 64, prompt_ms: 11, predicted_ms: 22 };
+  r.engine.status = () => ({ ...status(), lastGenerationFinishReason: completion, lastGenerationTimings: timings });
+  r.engine.generate = async context => {
+    if (stage === 'primer' || r.calls.generates.length === 1) {
+      r.calls.generates.push(context); completion = 'length'; throw Error('GENERATED_TEXT_TRUNCATED');
+    }
+    return generate(context);
+  };
+  r.engine.stop = async () => { completion = null; timings = null; return stop(); };
+  const report = await executeIdentityDiagnostic(plan, evidence, r.dependencies), failed = stage === 'primer' ? report.primer : report.samples[0];
+  assert.equal(report.status, 'INCOMPLETE'); assert.equal(report.haltReason, 'OPERATION_FAILED');
+  assert.equal(failed.status, 'FAILED'); assert.equal(failed.error, 'GENERATED_TEXT_TRUNCATED');
+  assert.equal(failed.output, null); assert.equal(failed.finishReason, 'length');
+  assert.deepEqual(failed.nativeTimings, { cache_n: 10, prompt_n: 40, predicted_n: 64, prompt_ms: 11, predicted_ms: 22 });
+  const later = report.samples.slice(stage === 'primer' ? 0 : 1);
+  assert.ok(later.every(s => s.status === 'NOT_PERFORMED' && s.output === null && s.finishReason === null && s.nativeTimings === null));
+  assert.equal(r.calls.generates.length, stage === 'primer' ? 1 : 2);
+  assert.equal(report.notPerformed.length, stage === 'primer' ? 8 : 7);
+  assert.equal(r.calls.stops, 1); assert.equal(report.ownedProcessStopped, true);
+});
+
+for (const reason of [undefined, 'tool_calls']) test(`missing or unsupported finish metadata (${reason}) is never inferred from returned text or timings`, async () => {
+  const r = rig(), status = r.engine.status;
+  r.engine.status = () => ({ ...status(), lastGenerationFinishReason: reason });
+  const report = await executeIdentityDiagnostic(plan, evidence, r.dependencies);
+  assert.equal(report.status, 'COMPLETE_PENDING_SEMANTIC_REVIEW');
+  assert.equal(report.independentSemanticReview, 'NOT_PERFORMED');
+  assert.ok([report.primer, ...report.samples].every(s => s.finishReason === null && s.nativeTimings === null));
+});
+
+for (const [error, reason] of [
+  ['GENERATED_TEXT_TRUNCATED', 'stop'],
+  ['GENERATED_TEXT_TRUNCATED', null],
+  ['INCOMPLETE_GENERATED_TEXT', 'length'],
+  ['INFERENCE_PROTOCOL_ERROR', 'stop']
+]) test(`${error} with stale or mismatched ${reason} metadata leaves the failed sample diagnostics null`, async () => {
+  const r = rig(), generate = r.engine.generate, status = r.engine.status;
+  r.engine.status = () => ({ ...status(), lastGenerationFinishReason: reason });
+  r.engine.generate = async context => {
+    if (r.calls.generates.length === 1) { r.calls.generates.push(context); throw Error(error); }
+    return generate(context);
+  };
+  const report = await executeIdentityDiagnostic(plan, evidence, r.dependencies);
+  assert.equal(report.samples[0].status, 'FAILED'); assert.equal(report.samples[0].error, error);
+  assert.equal(report.samples[0].output, null); assert.equal(report.samples[0].finishReason, null);
+  assert.equal(report.samples[0].nativeTimings, null); assert.equal(report.notPerformed.length, 7);
+});
+
+test('confirmed stop remains recorded when optional native timings are unavailable', async () => {
+  const r = rig(), status = r.engine.status;
+  r.engine.status = () => ({ ...status(), lastGenerationTimings: null });
+  const report = await executeIdentityDiagnostic(plan, evidence, r.dependencies);
+  assert.ok([report.primer, ...report.samples].every(s => s.finishReason === 'stop' && s.nativeTimings === null));
+});
+
+test('deadline cancellation cannot preserve a length status left by an abort-ignoring fake', async () => {
+  const r = rig(), generate = r.engine.generate, status = r.engine.status;
+  r.engine.status = () => ({ ...status(), lastGenerationFinishReason: 'length' });
+  r.engine.generate = async context => {
+    if (r.calls.generates.length === 1) { r.calls.generates.push(context); return new Promise(() => {}); }
+    return generate(context);
+  };
+  const report = await executeIdentityDiagnostic(plan, evidence, r.dependencies);
+  assert.equal(report.haltReason, 'OPERATION_DEADLINE'); assert.equal(report.samples[0].status, 'FAILED');
+  assert.equal(report.samples[0].output, null); assert.equal(report.samples[0].finishReason, null);
+  assert.equal(report.samples[0].nativeTimings, null); assert.equal(report.notPerformed.length, 7);
 });
