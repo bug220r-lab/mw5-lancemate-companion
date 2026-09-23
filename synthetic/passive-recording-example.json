@@ -1,0 +1,362 @@
+[
+  {
+    "schemaVersion": 1,
+    "kind": "observation",
+    "provenance": "MOCK_ONLY",
+    "adapterId": "synthetic-passive-example",
+    "session": "mock-mission-1",
+    "sequence": 1,
+    "observedAtMs": 1000,
+    "snapshot": {
+      "schemaVersion": 1,
+      "session": "mock-mission-1",
+      "sequence": 1,
+      "observedAtMs": 1000,
+      "phase": "active",
+      "authority": null,
+      "leader": {
+        "pawnId": "mock-player",
+        "matchesNativeSquadLeader": null
+      },
+      "targets": null,
+      "lancemates": [
+        {
+          "id": "alpha",
+          "pawnId": "mock-pawn-0",
+          "controllerId": "mock-controller-0",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "bravo",
+          "pawnId": "mock-pawn-1",
+          "controllerId": "mock-controller-1",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "charlie",
+          "pawnId": "mock-pawn-2",
+          "controllerId": "mock-controller-2",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "kind": "observation",
+    "provenance": "MOCK_ONLY",
+    "adapterId": "synthetic-passive-example",
+    "session": "mock-mission-1",
+    "sequence": 2,
+    "observedAtMs": 1500,
+    "snapshot": {
+      "schemaVersion": 1,
+      "session": "mock-mission-1",
+      "sequence": 2,
+      "observedAtMs": 1500,
+      "phase": "paused",
+      "authority": null,
+      "leader": {
+        "pawnId": "mock-player",
+        "matchesNativeSquadLeader": null
+      },
+      "targets": null,
+      "lancemates": [
+        {
+          "id": "alpha",
+          "pawnId": "mock-pawn-0",
+          "controllerId": "mock-controller-0",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "bravo",
+          "pawnId": "mock-pawn-1",
+          "controllerId": "mock-controller-1",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "charlie",
+          "pawnId": "mock-pawn-2",
+          "controllerId": "mock-controller-2",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "kind": "observation",
+    "provenance": "MOCK_ONLY",
+    "adapterId": "synthetic-passive-example",
+    "session": "mock-mission-1",
+    "sequence": 5,
+    "observedAtMs": 4000,
+    "snapshot": {
+      "schemaVersion": 1,
+      "session": "mock-mission-1",
+      "sequence": 5,
+      "observedAtMs": 4000,
+      "phase": "active",
+      "authority": null,
+      "leader": {
+        "pawnId": "mock-player",
+        "matchesNativeSquadLeader": null
+      },
+      "targets": null,
+      "lancemates": [
+        {
+          "id": "alpha",
+          "pawnId": "mock-pawn-0",
+          "controllerId": "mock-controller-0",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "bravo",
+          "pawnId": "mock-pawn-1",
+          "controllerId": "mock-controller-1",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "charlie",
+          "pawnId": "mock-pawn-2",
+          "controllerId": "mock-controller-2",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "kind": "observation",
+    "provenance": "MOCK_ONLY",
+    "adapterId": "synthetic-passive-example",
+    "session": "mock-mission-1",
+    "sequence": 6,
+    "observedAtMs": 4500,
+    "snapshot": {
+      "schemaVersion": 1,
+      "session": "mock-mission-1",
+      "sequence": 6,
+      "observedAtMs": 4500,
+      "phase": "active",
+      "authority": null,
+      "leader": {
+        "pawnId": "mock-player",
+        "matchesNativeSquadLeader": null
+      },
+      "targets": null,
+      "lancemates": [
+        {
+          "id": "alpha",
+          "pawnId": "mock-pawn-0",
+          "controllerId": "mock-controller-0",
+          "generation": 2,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": false,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "bravo",
+          "pawnId": "mock-pawn-1",
+          "controllerId": "mock-controller-1",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "charlie",
+          "pawnId": "mock-pawn-2",
+          "controllerId": "mock-controller-2",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "kind": "observation",
+    "provenance": "MOCK_ONLY",
+    "adapterId": "synthetic-passive-example",
+    "session": "mock-mission-2",
+    "sequence": 1,
+    "observedAtMs": 0,
+    "snapshot": {
+      "schemaVersion": 1,
+      "session": "mock-mission-2",
+      "sequence": 1,
+      "observedAtMs": 0,
+      "phase": "loading",
+      "authority": null,
+      "leader": {
+        "pawnId": "mock-player",
+        "matchesNativeSquadLeader": null
+      },
+      "targets": null,
+      "lancemates": [
+        {
+          "id": "alpha",
+          "pawnId": "mock-pawn-0",
+          "controllerId": "mock-controller-0",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "bravo",
+          "pawnId": "mock-pawn-1",
+          "controllerId": "mock-controller-1",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        },
+        {
+          "id": "charlie",
+          "pawnId": "mock-pawn-2",
+          "controllerId": "mock-controller-2",
+          "generation": 1,
+          "member": null,
+          "reciprocalBinding": null,
+          "aiOwned": null,
+          "alive": null,
+          "configured": null,
+          "authority": null,
+          "manual": null,
+          "capabilities": [],
+          "healthFraction": null,
+          "heatFraction": null
+        }
+      ]
+    }
+  }
+]

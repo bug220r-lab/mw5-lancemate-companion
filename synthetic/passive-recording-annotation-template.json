@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "project-passive-recording-annotation-template",
+  "classification": "BLANK_TEMPLATE_NOT_GAME_EVIDENCE",
+  "validationStatus": "NOT_PERFORMED",
+  "recordingSha256": null,
+  "observerBuildSha256": null,
+  "gameBuild": null,
+  "configurationReference": null,
+  "isolatedScenarioReference": null,
+  "independentEvidenceReference": null,
+  "clockAlignment": { "method": null, "uncertaintyMs": null, "limitations": null },
+  "reviewer": null,
+  "checks": [
+    { "check": "player_and_three_distinct_ai_bindings", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "source_supported_positions_and_units", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "available_worker_job_state_and_explicit_unknowns", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "single_observer_creation_and_ownership", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "human_order_provenance_separate_from_job_change", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "pause_resume_and_sample_gaps", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "possession_and_binding_changes", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "mission_exit_restart_and_teardown", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "sample_timing_and_overhead", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "no_commands_or_hidden_enemy_observations", "status": "NOT_PERFORMED", "findings": [] },
+    { "check": "manifest_removal_and_restored_baseline", "status": "NOT_PERFORMED", "findings": [] }
+  ],
+  "findingTemplate": {
+    "frameIndex": null,
+    "session": null,
+    "sequence": null,
+    "independentEvidenceTimeOrImage": null,
+    "expected": null,
+    "observed": null,
+    "uncertainty": null,
+    "status": "NOT_PERFORMED"
+  }
+}

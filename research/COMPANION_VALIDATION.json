@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T03:25:28.878Z",
+  "recordedAt": "2026-09-23T05:21:58.321Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1230,
-  "passed": 1230,
+  "tests": 1310,
+  "passed": 1310,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
   "nodeVersion": "v24.19.0",
-  "testConcurrency": 1,
+  "testConcurrency": 2,
   "testFiles": [
     "companion/tests/benchmark-review.test.mjs",
     "companion/tests/benchmark.test.mjs",
@@ -56,6 +56,10 @@
     "companion/tests/radio.test.mjs",
     "companion/tests/relative-facts-attempt-review.test.mjs",
     "companion/tests/relative-facts-fallback-review.test.mjs",
+    "companion/tests/resident-recognition-experiment.test.mjs",
+    "companion/tests/resident-recognition-review.test.mjs",
+    "companion/tests/resident-recognition-worker.test.mjs",
+    "companion/tests/resident-recognition.test.mjs",
     "companion/tests/separated-request-diagnostic.test.mjs",
     "companion/tests/separated-request-review.test.mjs",
     "companion/tests/separated-request.test.mjs",
@@ -265,6 +269,22 @@
       "sha256": "dadec5dc506b0b35b57191459103eef213ee831f75d5e6fe02211a2369451a8b"
     },
     {
+      "file": "companion/tests/resident-recognition-experiment.test.mjs",
+      "sha256": "5bd7018fd7027d6201bb05418bc39396c71d14e05b0f1fa8a21752fff110f310"
+    },
+    {
+      "file": "companion/tests/resident-recognition-review.test.mjs",
+      "sha256": "e1e50897408a4da19017fbfa55bda8996404e0587dd66a47f0675ae1ea1917dc"
+    },
+    {
+      "file": "companion/tests/resident-recognition-worker.test.mjs",
+      "sha256": "7c2a8ebf2cc3f7929551e255f18bbbf0cb647d69a0420998287b919f1bcc9d37"
+    },
+    {
+      "file": "companion/tests/resident-recognition.test.mjs",
+      "sha256": "ef0006a966e984872fe57e2de38ed3a2ae66fc719e333c2261f914ffd2bc5522"
+    },
+    {
       "file": "companion/tests/separated-request-diagnostic.test.mjs",
       "sha256": "56c4d107afd53650201f136b76fa8396b937805f3d406d10db28d851b4273c93"
     },
@@ -425,6 +445,14 @@
       "sha256": "c8d630eafa6eabea0e219da0372401bd7ad6be13e5aa76b7c4a4a5416c62e825"
     },
     {
+      "file": "companion/resident-recognition.mjs",
+      "sha256": "12a98fb7b3a9d37eead52486ef83e77296822943e7b478193ea8001d131e1d7a"
+    },
+    {
+      "file": "companion/resident_recognition_worker.py",
+      "sha256": "908fa18c7504f405af435f45ad499239ff8b9827b7f107dfac41633e18d6f80c"
+    },
+    {
       "file": "companion/server.mjs",
       "sha256": "5b5582726582feba25fa9fc0396360ff1868a8a284d72efc457a62dd977a5024"
     },
@@ -501,6 +529,14 @@
       "sha256": "d4fff59d0463b535b5c7f648d8799a2f5a775635acb6bb51ea09942309bcbc99"
     },
     {
+      "file": "scripts/Test-ResidentRecognitionWorker.py",
+      "sha256": "e169ab89072387182d01959466d68945ce2d80aeb015837b440a1bfca6e2eca6"
+    },
+    {
+      "file": "scripts/Exercise-ResidentRecognition.mjs",
+      "sha256": "8c7c2906ccd5766e0747c3b2bc2236b61e2cc481dd5a85ae6b7037aea09852a3"
+    },
+    {
       "file": "scripts/Exercise-ConversationIdentity.mjs",
       "sha256": "087dbd5afed5a69a9774f6541482c2e4d0f2efaadc0cfedba397d8551a785ae5"
     },
@@ -542,7 +578,7 @@
     },
     {
       "file": "scripts/Verify-Companion.mjs",
-      "sha256": "2fcf57fef91191923d7cbe232341a096034e499debad58b9d0907c546263058f"
+      "sha256": "546d9c7cde5fdd06baa3bc8557f67e5cde69df4526b1bf1b1081c8e76c3c7490"
     },
     {
       "file": "design/WORKBENCH_PACKAGE_README.md",
@@ -552,8 +588,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790133928837.tap",
-    "sha256": "642ce22648b3b7f7a582a6d2ecfc002c8efce23e35f85708539af0bbf4fa9dd8",
+    "file": "tmp/companion-verification-1790140918274.tap",
+    "sha256": "0fc54cce4fc525fc4fc7f3a3ed2ccc38487d1d40630b653925306a9bbe83fb22",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

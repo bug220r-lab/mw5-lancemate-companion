@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-23T01:01:22.850037-04:00",
+  "classification": "STATIC_SOURCE_AND_PE_INSPECTION_ONLY",
+  "tag": "b5130",
+  "resolvedCommit": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+  "headersAndLicense": [
+    {
+      "file": "tmp/resident-whisper-source-b5130/whisper.h",
+      "bytes": 37439,
+      "sha256": "a7d19f7feb5be52426628ff07e0602de28a30dc4312d0d0603e1e536753f76dd",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/include/whisper.h"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/ggml.h",
+      "bytes": 113310,
+      "sha256": "34192eac913444df9dc1d23025a618448cdee1ee7d78597af4979d8edc77b695",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/ggml/include/ggml.h"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/ggml-cpu.h",
+      "bytes": 7753,
+      "sha256": "316279e004cdeb8e6ef78599acb602bf79a8abdf897fed9fd1914808c1518c6e",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/ggml/include/ggml-cpu.h"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/LICENSE",
+      "bytes": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/LICENSE"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/ggml-backend.h",
+      "bytes": 25374,
+      "sha256": "46d84cb998105f871240864fd0f55446939a2fe86c5c281afa63a010fb1f65a2",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/ggml/include/ggml-backend.h"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/ggml-backend-reg.cpp",
+      "bytes": 18555,
+      "sha256": "0f63c69ad083e0744872f57d59d049b069283303f5bbc646222907d779afe4d1",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/ggml/src/ggml-backend-reg.cpp"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/cli.cpp",
+      "bytes": 64027,
+      "sha256": "840f331f80a98c41fc21eb4cf109c4c6a5496b8f248e9bbce58dd733dece76b2",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/examples/cli/cli.cpp"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/ggml-backend-dl.h",
+      "bytes": 791,
+      "sha256": "225bd83a197c4e8b5f985717176824d1144e2b74a79f04838f51b84115c14dc5",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/ggml/src/ggml-backend-dl.h"
+    },
+    {
+      "file": "tmp/resident-whisper-source-b5130/ggml-backend-dl.cpp",
+      "bytes": 1051,
+      "sha256": "acd76df8b83bcdef6807bc7b0520f57b379d61b4ff1027c04aa4d140d16ad07f",
+      "source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/927cfce34f31707e17f2bff35c349632fb9e2c3a/ggml/src/ggml-backend-dl.cpp"
+    }
+  ],
+  "dll": {
+    "file": "companion/local/runtimes/whisper-cpu-b5130/Release/whisper.dll",
+    "bytes": 1368576,
+    "sha256": "b7bb4ba92bd36b8afe0c00059ca6a0f69c6767193bfb5f0761e9ed27b1087803",
+    "machine": "AMD64_0x8664",
+    "namedExports": 5069,
+    "requiredNonForwardedExports": [
+      "whisper_version",
+      "whisper_context_default_params_by_ref",
+      "whisper_init_from_file_with_params",
+      "whisper_full_default_params_by_ref",
+      "whisper_full",
+      "whisper_full_n_segments",
+      "whisper_full_get_segment_text",
+      "whisper_free",
+      "whisper_free_params",
+      "whisper_free_context_params",
+      "whisper_log_set"
+    ]
+  },
+  "staticInspectionLimitation": "PE export names do not prove native ABI, function behavior, successful context creation, latency or acceptance. First parser used a 256-byte name limit and stopped on a longer decorated export; bounded 16384-byte parsing completed without executing the DLL.",
+  "nativeLibraryLoaded": false,
+  "modelInference": "NOT_PERFORMED",
+  "noNativeCompilerFoundInPath": true,
+  "compilerLimit": "PATH lookup only, not a machine-wide compiler inventory or native compiler layout proof.",
+  "sourceHeaderTagEqualsCommit": true,
+  "backendLibrary": {
+    "file": "companion/local/runtimes/whisper-cpu-b5130/Release/ggml.dll",
+    "bytes": 62464,
+    "sha256": "c6e88687d6aa0238f2e834a87958f38d2dc96075a6a7bf6fb8b9cd728a0faed2",
+    "machine": "AMD64_0x8664",
+    "namedExports": 16,
+    "requiredNonForwardedExports": [
+      "ggml_backend_load_all_from_path",
+      "ggml_backend_dev_by_type"
+    ]
+  },
+  "backendStartupSource": {
+    "cli": "cli.cpp:971 calls ggml_backend_load_all before context init at1081",
+    "declarations": "ggml-backend.h:244 and260; CPU enum is0 at136",
+    "boundedLoader": "ggml-backend-reg.cpp:480-603: supplied path limits search; loader still honors GGML_BACKEND_PATH so child must remove that override before any DLL load",
+    "nativeInvocation": "NOT_PERFORMED"
+  },
+  "windowsDependencySearch": "ggml-backend-dl.cpp:10 uses LoadLibraryW. Child must first successfully restrict its process default dependency search using SetDefaultDllDirectories(SYSTEM32|USER_DIRS), then add only the pinned runtime directory. Microsoft function documentation accessed2026-09-23: https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-setdefaultdlldirectories"
+}

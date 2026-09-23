@@ -1,4 +1,10 @@
-# Next bounded work: resolve supported graph and readout authoring
+# Next bounded work: manual observer authoring dependency and independent recording preparation
+
+**LATEST OBSERVER-FIRST ROUTE DECISION:** direct observer-first work is authorized. The [bounded two-approach decision](research/OBSERVER_AUTHORING_ROUTE_DECISION.md) selects the [minimal manual Blueprint/UMG recipe](design/OBSERVER_MINIMAL_AUTHORING_RECIPE.md). Reflected APIs have not established executable graph/widget authoring; coordinator desktop checks have not established a usable unattended native UI. Do not repeat that unchanged search or attempt blind UI input. One person with a working editor UI, or a newly demonstrated supported desktop surface, must author the three new assets in a coordinator-confirmed session. No request to perform that session is queued here.
+
+The recipe is deliberately a one-time positive BeginPlay snapshot with direct owner/cast/local check, stored actual-component enumeration, static noninteractive text and owned-widget EndPlay cleanup. It does not override ControllerConfigured, poll, record or export. Initial count, overlapping widgets and missing output cannot establish full lifecycle or a complete recorder. Compile and review actual new assets before preparing a concrete deployment experiment. The coordinator owns independent passive archive/replay work and must preserve paused/unknown/gap samples separately from tactical validation. Current usage/resource/goal-state monitoring and backup stay with the coordinator.
+
+## Completed source and authoring evidence
 
 **CURRENT SEPTEMBER 23 UTC RESULT:** the user-assisted controller, reference, mode and MW5GameMode parent lookups are complete. **Do not rerun any of those helpers or queue another editor step.** The user has gone to bed and asked the coordinator to continue unattended. This observer source review needs no further editor-native activity.
 

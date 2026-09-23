@@ -16,6 +16,7 @@ const SKIP_TREES = new Map([
   ['.git', 'Git administration and credentials are outside source review; directory was not opened.'],
   ['companion/local', 'Downloaded models, native runtimes, virtual environments, generated media and local runtime logs.'],
   ['tmp', 'Scratch work, downloaded third-party source/media and intermediate inspection material.'],
+  ['output', 'Generated presentation/document exports; excluded from the original-source backup.'],
   ['research/evidence', 'Raw proprietary game/editor exports, generated native declarations, screenshots and downloaded third-party source.'],
 ]);
 const MEDIA = new Set(['.wav', '.mp3', '.mp4', '.webm', '.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico', '.pdf']);

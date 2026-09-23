@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "frozen_at_utc": "2026-09-23T05:43:46.1540985Z",
+  "status": "BOUNDED_ROUTE_DECISION_MANUAL_AUTHORING_DEPENDENCY",
+  "owner": "Review overnight package handoff observer task",
+  "classification": "DOCUMENTED_AND_SOURCE_SUPPORTED_RECIPE_NATIVE_EXECUTION_NOT_PERFORMED",
+  "decision": {
+    "approaches_considered": 2,
+    "approach_one": "Reuse existing reflected editor API finding: empty assets/properties supported, executable graph/pin/widget-tree authoring unestablished; no new broad negative scan",
+    "approach_two": "Ordinary visual Blueprint/UMG authoring of exact three proposed assets and minimal native BeginPlay snapshot plus owned-widget EndPlay cleanup",
+    "selected": "MANUAL_BLUEPRINT_UMG_AUTHORING_RECIPE",
+    "unattended_supported_route": "NOT_ESTABLISHED",
+    "reason": "Reflected authoring gap and coordinator-reported unusable native desktop surface",
+    "smallest_dependency": "One working-UI authoring session with coordinator-confirmed resources/destination/owner, or a newly demonstrated supported desktop surface",
+    "native_authoring_readiness": "NOT_VALIDATED",
+    "recorder_completion": "NOT_ESTABLISHED"
+  },
+  "recipe": {
+    "proposed_assets": [
+      "WBP_LanceObserverProbeReadout",
+      "BP_LanceObserverProbeComponent",
+      "DA_LanceObserverProbeRegistration"
+    ],
+    "snapshot": "Native component BeginPlay, valid captured owner, observed MWPlayerController cast, IsLocalController, one stored attached-component enumeration, typed UMG widget, direct static text, checked AddToPlayerScreen",
+    "cleanup": "Only this instance retained widget and own references at native EndPlay",
+    "not_included": [
+      "ControllerConfigured override",
+      "Tick/timer/polling",
+      "Recording/export",
+      "Manual factory invocation",
+      "Stock replacement",
+      "Independent negative or teardown readout"
+    ],
+    "limits": [
+      "Actual node eligibility/compiler world context pending",
+      "BeginPlay count may precede later instances",
+      "Widget overlap can conceal duplicates",
+      "No display inconclusive",
+      "UI disappearance not independent teardown",
+      "Not a full lifecycle/M0 or recorder pass"
+    ]
+  },
+  "current_artifacts": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\README.md",
+      "bytes": 25742,
+      "sha256": "BE2F19C20A73855ED4A27B01B684AF96AF3758F10A138F5777A73605B7132695"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\NEXT_CODEX_PROMPT.md",
+      "bytes": 50813,
+      "sha256": "B68C69C9392EA9ADE61CFF36AD732144C3F1E1522453D4FD0DE1F59951382D42"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_MINIMAL_AUTHORING_RECIPE.md",
+      "bytes": 13472,
+      "sha256": "A2793207EB8EB11059DDDDD975FB226945F1B9CF0C7AEBA883F77B472687CAE2"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_AUTHORING_ROUTE_DECISION.md",
+      "bytes": 5491,
+      "sha256": "2877B32E9DBBD7AEA5E77D88F15E677A25032E04DFBD3F9D2FABEC4A5CFE5E10"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\mod-research-collection-20260921T023909Z-5eeaf52a\\unreal-api-reference.txt",
+      "bytes": 21026350,
+      "sha256": "AC4C46761BC54099302155BC0A908AE3F64B161CA77EB9AFD0CC6C1F1B826480"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\010-MW5PlayerController-source.COPY",
+      "bytes": 1678058,
+      "sha256": "6FAAA7CF5D925123441F8022BDA01D7B3475C71849FFF94758E7D2C6BAA4B530"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\008-LanceStatusWidget-source.COPY",
+      "bytes": 1406838,
+      "sha256": "842F0D858E7A1468A8F27DD41E51A82A47B93143497E9B1C6243C124C170F2AF"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\238-PlayerControllerComponent-source.COPY",
+      "bytes": 20799,
+      "sha256": "58C8040403CDC5DDA9C855AD0BED6B47E8889CDC0A0DAC533288D4E9EDCF67A3"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\238-PlayerControllerComponent-defaults.COPY",
+      "bytes": 756,
+      "sha256": "8AA6E1641674CE68239150D982629F9AF855D197D5B39C7EBF8E530DB2F228FB"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\239-PlayerControllerComponentDataAsset-source.COPY",
+      "bytes": 1859,
+      "sha256": "970ACA5BE3E266DD6F429FCE14EC5B236F1B7C3D1200C722DE209CD1D28E4111"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\239-PlayerControllerComponentDataAsset-defaults.COPY",
+      "bytes": 353,
+      "sha256": "38A66B2BA190300407BA6971F3C68DBF2A95F33F77ECBADC2362A5EC6F485B99"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\ai-research-collection-20260921T030437Z-f7d8e930\\240-PlayerControllerSwitchMech-source.COPY",
+      "bytes": 1028928,
+      "sha256": "4365C7382EC90F6491036FD0392D046BA2D71B8F53FAFB7C9ACC4A3AB3C42CF1"
+    }
+  ],
+  "preserved_previous_artifacts": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_AUTHORING_READOUT_STATUS.json",
+      "bytes": 18223,
+      "sha256": "892331AAE4AE8AC420E63A32C5F77AD68F67B85E5257F376D43F76A190047B4A"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_AUTHORING_READOUT_REVIEW.md",
+      "bytes": 11883,
+      "sha256": "9361A3518EBC921ADC09718A4DCA619F74132F58C876DB6C92DD5BA30089621E"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_ASSET_SPEC.json",
+      "bytes": 8791,
+      "sha256": "1175F18A894A01C5DC32945584B64DC7A4FCBE1F70F1FA303FE490212593FDA1"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_CREATION_ONLY_PROBE.md",
+      "bytes": 8801,
+      "sha256": "28D8826DD10DB3837558E1338DE5BBBA1943D5141DC6B679A533141DBB4D427A"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_NATIVE_STATUS.json",
+      "bytes": 23577,
+      "sha256": "1929AC9E5E2654D737ED7439CA0764A816519A955ADB404493DFCB49CFF94D9B"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_PREPARATION.json",
+      "bytes": 6712,
+      "sha256": "023351AAFBA1B886D0EF6AC06E25B25E3A612D1186876E3D4B2EA82A673850F3"
+    }
+  ],
+  "source_mapping": {
+    "events_owner": "API118693-118713,118755-118763",
+    "cast_local": "RUN240:4422-4433,1422-1432;API357510,132924-132932",
+    "enumeration_length": "RUN010:1536-1545;RUN008:1559-1567;API117066-117079",
+    "widget_create_store": "RUN010:3271-3280,4283-4292",
+    "validity_path": "API217557-217568,217961-217972",
+    "formatting": "API215785-215796,215879-215891,219789-219800",
+    "text_display_remove": "API158125-158134,139437-139449,138057-138063",
+    "visibility_focus": "API3866-3881,138360",
+    "registration": "RUN239:13,16-17;defaults2-3"
+  },
+  "official_sources": {
+    "accessed_date": "2026-09-23",
+    "version_limit": "Stock UE4.27 documentation, adjacent to recorded installed PGI UE4.26.2; not actual native authoring proof",
+    "urls": [
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/umg-ui-designer-quick-start-guide?application_version=4.27",
+      "https://dev.epicgames.com/documentation/unreal-engine/functions?application_version=4.27",
+      "https://dev.epicgames.com/documentation/en-us/unreal-engine/blueprint-variables?application_version=4.27",
+      "https://dev.epicgames.com/documentation/unreal-engine/array-nodes?application_version=4.27",
+      "https://static.mw5mercs.com/docs/MW5Mercs_Mod_Editor_Guide_%28v2.3%29.pdf"
+    ]
+  },
+  "desktop_evidence": "Coordinator-reported current enumeration/launcher accessibility-null plus prior exact-version capture/root-only editor receipt; no desktop action or repeated capture by this observer task",
+  "usage_observations": [
+    {
+      "time_utc": "2026-09-23T05:35:46Z",
+      "weekly_remaining_percent": 30
+    },
+    {
+      "time_utc": "2026-09-23T05:42:53Z",
+      "weekly_remaining_percent": 29
+    }
+  ],
+  "validation": {
+    "one_focused_reviewer": "Completed source check and final two-document wiring/scope review; no substantive issue remains",
+    "local_links_checked_documents": 4,
+    "missing_local_links": 0,
+    "tests_run": 0,
+    "native_calls": 0,
+    "editor_game_launches": 0,
+    "assets_created": 0,
+    "runtime_speech_files_changed": 0,
+    "new_helpers": 0
+  },
+  "preserved_status_policy": "Previous native and authoring status/spec/contract bytes unchanged. README/NEXT have new current versions; prior bound document hashes remain historical.",
+  "next": "Stop route investigation. Coordinator continues independent passive archive/replay/capture work; actual asset authoring waits for a working supported UI session and resource/route confirmation. No third approach, native experiment or editor action queued."
+}

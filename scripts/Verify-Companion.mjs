@@ -28,11 +28,14 @@ for (let i = 0; i < lines.length; i++) {
   failureBlocks.push(block.join('\n').slice(0, 8000));
 }
 const count = key => Number(text.match(new RegExp(`^# ${key} (\\d+)`, 'm'))?.[1] ?? 0);
-const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter(f => /\.(mjs|json)$/.test(f)).map(f => `companion/${f}`),
+const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter(f => /\.(mjs|json|py)$/.test(f)).map(f => `companion/${f}`),
   ...(await readdir(path.join(root, 'companion/public'))).filter(f => /\.(js|html|css)$/.test(f)).map(f => `companion/public/${f}`),
   'START_COMPANION.cmd','scripts/Kokoro-Worker.py','scripts/tactical-policy.mjs','synthetic/tactical-cases.mjs','synthetic/release-benchmark.json',
   'scripts/Exercise-ConversationGrounding.mjs','synthetic/conversation-grounding-cases.json',
   'scripts/Exercise-LocalRecognition.mjs','scripts/Exercise-ConversationCache.mjs',
+  'scripts/Test-ResidentRecognitionWorker.py','scripts/Exercise-ResidentRecognition.mjs',
+  'scripts/Inspect-MissionRecording.mjs','synthetic/passive-recording-example.json',
+  'synthetic/passive-recording-annotation-template.json','design/PASSIVE_RECORDING_WORKFLOW.md',
   'scripts/Exercise-ConversationIdentity.mjs','synthetic/conversation-identity-cases.json',
   'scripts/Exercise-ConversationRelativeFacts.mjs','synthetic/conversation-relative-facts-cases.json',
   'scripts/Install-SmollmCandidate.mjs','scripts/Inspect-SmollmMetadata.mjs',

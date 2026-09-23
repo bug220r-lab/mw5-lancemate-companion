@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-23T05:49:31.338Z",
+  "classification": "MOCK_ONLY",
+  "status": "PASS_FOCUSED_OFFLINE",
+  "tests": 62,
+  "passed": 62,
+  "failed": 0,
+  "sourceOfCounts": "Completed Node test execution in this task: recording-audit, recording-audit-review, observation, observation-review; not a full companion-suite run.",
+  "independentFindingsResolved": [
+    "Unique missing sequence numbers no longer double counted after reordering.",
+    "Synthetic opt-in requires boolean true."
+  ],
+  "nativeCollector": "NOT_BUILT",
+  "gameRecording": "NOT_PERFORMED",
+  "runtimeAcceptance": "NOT_PERFORMED",
+  "files": [
+    {
+      "file": "companion/recording-audit.mjs",
+      "sha256": "bfab1eab1377d3e81c4dfcec6cf28a2b331c55c12c599209a7768854ba37be54"
+    },
+    {
+      "file": "scripts/Inspect-MissionRecording.mjs",
+      "sha256": "ab210fa898aa0bb8f35ee3495902ccb88e3344362d89ae9f84f67c4c2049d2d9"
+    },
+    {
+      "file": "companion/tests/recording-audit.test.mjs",
+      "sha256": "84b8b644685079165065668610efda99c8b4d067666c9e4b0d423477224db8cf"
+    },
+    {
+      "file": "companion/tests/recording-audit-review.test.mjs",
+      "sha256": "a5637a5e686ea724c8a6bbf5a479fb9b4f497be71918686a7d0cbf470d098904"
+    },
+    {
+      "file": "companion/observation.mjs",
+      "sha256": "107f6ecb9eeaf65b075735a012c5ffa100d10f490a880951f44d2106c2d22af9"
+    },
+    {
+      "file": "companion/tests/observation.test.mjs",
+      "sha256": "00a130a64b16af939e8305467f715a6d2a8bc3d922f7bb7c89cf4f0babd2892d"
+    },
+    {
+      "file": "companion/tests/observation-review.test.mjs",
+      "sha256": "982b7c6336ae62541a4b97a879b09fba63b0fc552058c5a24892302d487081bc"
+    },
+    {
+      "file": "scripts/tactical-policy.mjs",
+      "sha256": "4b6712af3804f4a6613d1a36cbb1be3d00801b143aae7bcc1981339aec19784e"
+    },
+    {
+      "file": "synthetic/tactical-cases.mjs",
+      "sha256": "157853194cdf0ac76a3193c2bac2887f12e0b824fd0fd843735cffa61496e685"
+    },
+    {
+      "file": "synthetic/passive-recording-example.json",
+      "sha256": "97d311e98a5b7e06f82cbe7e07c5eb7cd68976137b58c136d67072fe924a4d0d"
+    },
+    {
+      "file": "synthetic/passive-recording-annotation-template.json",
+      "sha256": "b01a5af5ad726a01d03c5e428e17d0c93b64a51849478f45f0138ba48da8fe98"
+    },
+    {
+      "file": "design/PASSIVE_RECORDING_WORKFLOW.md",
+      "sha256": "6f075ce6ef652ecd378e9bfa5e49c2af132c23bbacf327a9f5658bff9e529a01"
+    }
+  ],
+  "exampleAudit": {
+    "schemaVersion": 1,
+    "kind": "passive-recording-audit",
+    "classification": "MOCK_ONLY",
+    "formatStatus": "VALID_PROJECT_ENVELOPES",
+    "sourceBytes": 9519,
+    "sourceSha256": "97d311e98a5b7e06f82cbe7e07c5eb7cd68976137b58c136d67072fe924a4d0d",
+    "frameCount": 5,
+    "runtimeAcceptance": "NOT_PERFORMED",
+    "nativeIdentityValidation": "NOT_PERFORMED",
+    "commandsIssued": 0,
+    "sourceModified": false,
+    "findings": [],
+    "findingCount": 0,
+    "findingsTruncated": false,
+    "streams": [
+      {
+        "session": "mock-mission-1",
+        "adapterId": "synthetic-passive-example",
+        "provenance": "MOCK_ONLY",
+        "sampleCount": 4,
+        "firstObservedAtMs": 1000,
+        "lastObservedAtMs": 4500,
+        "sequenceGaps": 1,
+        "unaccountedSequenceNumbers": "2",
+        "nonIncreasingSequences": 0,
+        "clockRegressions": 0,
+        "longIntervals": 1,
+        "nominalIntervalMs": 500,
+        "framesWithThreeDistinctMemberIds": 4,
+        "framesWithLeaderPawnId": 4,
+        "inactiveOrUnknownPhaseFrames": 1,
+        "missingMemberInventoryFrames": 0,
+        "measuredIntervalCount": 3,
+        "minIntervalMs": 500,
+        "p50IntervalMs": 500,
+        "p95IntervalMs": 2500,
+        "maxIntervalMs": 2500
+      },
+      {
+        "session": "mock-mission-2",
+        "adapterId": "synthetic-passive-example",
+        "provenance": "MOCK_ONLY",
+        "sampleCount": 1,
+        "firstObservedAtMs": 0,
+        "lastObservedAtMs": 0,
+        "sequenceGaps": 0,
+        "unaccountedSequenceNumbers": "0",
+        "nonIncreasingSequences": 0,
+        "clockRegressions": 0,
+        "longIntervals": 0,
+        "nominalIntervalMs": 500,
+        "framesWithThreeDistinctMemberIds": 1,
+        "framesWithLeaderPawnId": 1,
+        "inactiveOrUnknownPhaseFrames": 1,
+        "missingMemberInventoryFrames": 0,
+        "measuredIntervalCount": 0,
+        "minIntervalMs": null,
+        "p50IntervalMs": null,
+        "p95IntervalMs": null,
+        "maxIntervalMs": null
+      }
+    ],
+    "replay": {
+      "classification": "MOCK_ONLY",
+      "framesSubmitted": 5,
+      "accepted": 0,
+      "rejected": 5,
+      "errors": [
+        {
+          "index": 0,
+          "errors": [
+            "UNKNOWN_OR_MISSING_AUTHORITY",
+            "INVALID_MEMBER_BINDING:alpha",
+            "INVALID_MEMBER_BINDING:bravo",
+            "INVALID_MEMBER_BINDING:charlie"
+          ]
+        },
+        {
+          "index": 1,
+          "errors": [
+            "INACTIVE_OR_UNKNOWN_PHASE",
+            "UNKNOWN_OR_MISSING_AUTHORITY",
+            "INVALID_MEMBER_BINDING:alpha",
+            "INVALID_MEMBER_BINDING:bravo",
+            "INVALID_MEMBER_BINDING:charlie"
+          ]
+        },
+        {
+          "index": 2,
+          "errors": [
+            "UNKNOWN_OR_MISSING_AUTHORITY",
+            "INVALID_MEMBER_BINDING:alpha",
+            "INVALID_MEMBER_BINDING:bravo",
+            "INVALID_MEMBER_BINDING:charlie"
+          ]
+        },
+        {
+          "index": 3,
+          "errors": [
+            "UNKNOWN_OR_MISSING_AUTHORITY",
+            "INVALID_MEMBER_BINDING:alpha",
+            "INVALID_MEMBER_BINDING:bravo",
+            "INVALID_MEMBER_BINDING:charlie"
+          ]
+        },
+        {
+          "index": 4,
+          "errors": [
+            "INACTIVE_OR_UNKNOWN_PHASE",
+            "UNKNOWN_OR_MISSING_AUTHORITY",
+            "INVALID_MEMBER_BINDING:alpha",
+            "INVALID_MEMBER_BINDING:bravo",
+            "INVALID_MEMBER_BINDING:charlie"
+          ]
+        }
+      ],
+      "errorsTruncated": false,
+      "recommendationsDispatchable": false
+    },
+    "limitations": [
+      "Project observation-envelope JSON array; not an MW5 API or installed collector.",
+      "Nominal interval is a proposed setting, not a measured guarantee.",
+      "Long intervals and sequence gaps do not establish why data is missing.",
+      "Source labels and replay acceptance do not verify gameplay or authorize dispatch.",
+      "Original bytes are retained by the caller; unknown/native extension fields are not rewritten or semantically certified."
+    ]
+  }
+}

@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 1,
+  "classification": "LOCAL_COMPONENT_SMOKE_SYNTHETIC_INPUT",
+  "mode": "RESIDENT_PIPE_TRANSCRIPTION_ONLY",
+  "status": "FAILED_OR_BLOCKED",
+  "startedAt": "2026-09-23T05:22:49.665Z",
+  "completedAt": "2026-09-23T05:22:51.803Z",
+  "receipt": "research/RESIDENT_RECOGNITION_COMPONENT_SMOKE.json",
+  "nativeInference": "NOT_PERFORMED",
+  "microphoneCapture": false,
+  "speakerPlayback": false,
+  "listenerStarted": false,
+  "commandExecution": false,
+  "gameTests": "NOT_PERFORMED",
+  "uiIntegration": "NOT_PERFORMED",
+  "humanRecognitionAcceptance": "NOT_PERFORMED",
+  "releaseAcceptance": "NOT_PERFORMED",
+  "networkCalls": 0,
+  "paidApiCalls": 0,
+  "settings": {
+    "startupTimeoutMs": 30000,
+    "requestTimeoutMs": 10000,
+    "stopTimeoutMs": 3000,
+    "resourceIntervalMs": 250,
+    "cpuThreads": 4,
+    "gpu": false,
+    "language": "en"
+  },
+  "limits": {
+    "startupMs": 30000,
+    "requestMs": 10000,
+    "stopMs": 3000,
+    "workMs": 65000,
+    "sampleMs": 250,
+    "initialRamBytes": 3221225472,
+    "runningRamBytes": 2147483648,
+    "diskBytes": 10737418240
+  },
+  "preparation": {
+    "sources": [
+      {
+        "file": "scripts/Exercise-ResidentRecognition.mjs",
+        "bytes": 21907,
+        "sha256": "8c7c2906ccd5766e0747c3b2bc2236b61e2cc481dd5a85ae6b7037aea09852a3"
+      },
+      {
+        "file": "companion/tests/resident-recognition-experiment.test.mjs",
+        "bytes": 15948,
+        "sha256": "5bd7018fd7027d6201bb05418bc39396c71d14e05b0f1fa8a21752fff110f310"
+      },
+      {
+        "file": "companion/resident-recognition.mjs",
+        "bytes": 14907,
+        "sha256": "12a98fb7b3a9d37eead52486ef83e77296822943e7b478193ea8001d131e1d7a"
+      },
+      {
+        "file": "companion/resident_recognition_worker.py",
+        "bytes": 27324,
+        "sha256": "908fa18c7504f405af435f45ad499239ff8b9827b7f107dfac41633e18d6f80c"
+      },
+      {
+        "file": "companion/tests/resident-recognition.test.mjs",
+        "bytes": 8122,
+        "sha256": "ef0006a966e984872fe57e2de38ed3a2ae66fc719e333c2261f914ffd2bc5522"
+      },
+      {
+        "file": "companion/tests/resident-recognition-review.test.mjs",
+        "bytes": 21676,
+        "sha256": "e1e50897408a4da19017fbfa55bda8996404e0587dd66a47f0675ae1ea1917dc"
+      },
+      {
+        "file": "companion/tests/resident-recognition-worker.test.mjs",
+        "bytes": 1109,
+        "sha256": "7c2a8ebf2cc3f7929551e255f18bbbf0cb647d69a0420998287b919f1bcc9d37"
+      },
+      {
+        "file": "scripts/Test-ResidentRecognitionWorker.py",
+        "bytes": 22330,
+        "sha256": "e169ab89072387182d01959466d68945ce2d80aeb015837b440a1bfca6e2eca6"
+      },
+      {
+        "file": "companion/local-recognition.mjs",
+        "bytes": 21969,
+        "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
+      },
+      {
+        "file": "companion/models.lock.json",
+        "bytes": 2964,
+        "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29"
+      },
+      {
+        "file": "companion/whisper-runtime-pins.json",
+        "bytes": 8990,
+        "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+      },
+      {
+        "file": "design/RESIDENT_RECOGNITION.md",
+        "bytes": 7661,
+        "sha256": "3854c005aeb891fd4cd150f267f1673d9b2d60160aa467724c9d33caaa550e12"
+      },
+      {
+        "file": "research/RESIDENT_RECOGNITION_SOURCE.json",
+        "bytes": 5626,
+        "sha256": "d60ac00c40b5877053440cc154052832203d9454c8235057f3663cb90d8f29cd"
+      },
+      {
+        "file": "research/RESIDENT_RECOGNITION_PARENT_REVIEW.md",
+        "bytes": 6265,
+        "sha256": "4a78ac2b747811643bb63df31ce567a823002835d9ffd4428e473dd6dc576ca6"
+      },
+      {
+        "file": "research/RESIDENT_RECOGNITION_WORKER_REVIEW.md",
+        "bytes": 6696,
+        "sha256": "66e6f76add208c88dda87bef69ee28fe672b98320d8290ecd0be3705a5509678"
+      },
+      {
+        "file": "research/RESIDENT_RECOGNITION_EXPERIMENT_REVIEW.md",
+        "bytes": 5355,
+        "sha256": "f11a5da927425264a815c9d12f23439ae73ccc757d6e2064d5dff5d4acdf0959"
+      }
+    ],
+    "parentPreparation": {
+      "status": "PREFLIGHT_PASS_NO_INFERENCE",
+      "workerSourcePinned": true,
+      "nativeInference": "NOT_PERFORMED"
+    },
+    "runtimeVerification": {
+      "state": "READY",
+      "busy": false,
+      "mode": "COLD_FILE_TRANSCRIPTION_ONLY",
+      "classification": "LOCAL_ASR_UNVERIFIED_TEXT",
+      "transcriptTrust": "UNTRUSTED_RECOGNITION",
+      "verification": "PINNED_FILES_VERIFIED",
+      "lastError": null,
+      "ownsProcess": false,
+      "processStopConfirmed": true,
+      "cleanupPending": false,
+      "cleanupBlocked": false,
+      "resourceSnapshot": {
+        "availableDiskBytes": 20497965056,
+        "availableRamBytes": 6607106048,
+        "continuousReserveGuaranteed": false
+      },
+      "microphoneCapture": false,
+      "speakerPlayback": false,
+      "commandExecution": false,
+      "gameTests": "NOT_PERFORMED",
+      "settings": {
+        "modelId": "whisper-base-en",
+        "runtimeVersion": "b5130",
+        "cpuThreads": 4,
+        "gpu": false,
+        "requestTimeoutMs": 30000,
+        "stopTimeoutMs": 3000,
+        "maxAudioMs": 15000,
+        "maxTranscriptBytes": 4096
+      }
+    },
+    "verifierDisposal": {
+      "state": "DISPOSED",
+      "busy": false,
+      "mode": "COLD_FILE_TRANSCRIPTION_ONLY",
+      "classification": "LOCAL_ASR_UNVERIFIED_TEXT",
+      "transcriptTrust": "UNTRUSTED_RECOGNITION",
+      "verification": "PINNED_FILES_VERIFIED",
+      "lastError": null,
+      "ownsProcess": false,
+      "processStopConfirmed": true,
+      "cleanupPending": false,
+      "cleanupBlocked": false,
+      "resourceSnapshot": {
+        "availableDiskBytes": 20497965056,
+        "availableRamBytes": 6607106048,
+        "continuousReserveGuaranteed": false
+      },
+      "microphoneCapture": false,
+      "speakerPlayback": false,
+      "commandExecution": false,
+      "gameTests": "NOT_PERFORMED",
+      "settings": {
+        "modelId": "whisper-base-en",
+        "runtimeVersion": "b5130",
+        "cpuThreads": 4,
+        "gpu": false,
+        "requestTimeoutMs": 30000,
+        "stopTimeoutMs": 3000,
+        "maxAudioMs": 15000,
+        "maxTranscriptBytes": 4096
+      },
+      "stopped": true,
+      "ownedProcessStopped": true,
+      "pendingPreflight": false,
+      "cleanupComplete": true
+    },
+    "modelPins": [
+      {
+        "id": "whisper-cpu",
+        "version": "b5130",
+        "name": "whisper-bin-x64.zip",
+        "bytes": 8573270,
+        "sha256": "f9ec6c52a2e949b62ab51fa21d0d497958f9e41c3010c157c4e42932d5316f3c",
+        "url": "https://github.com/ggml-org/whisper.cpp/releases/download/b5130/whisper-bin-x64.zip",
+        "license": "MIT",
+        "licenseUrl": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/b5130/LICENSE"
+      },
+      {
+        "id": "whisper-base-en",
+        "version": "5359861c739e955e79d9a303bcbc70fb988958b1",
+        "name": "ggml-base.en.bin",
+        "bytes": 147964211,
+        "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en.bin",
+        "license": "MIT",
+        "licenseUrl": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/b5130/LICENSE"
+      }
+    ],
+    "runtimePins": {
+      "schemaVersion": 1,
+      "artifact": "whisper-cpu",
+      "version": "b5130",
+      "archiveSha256": "f9ec6c52a2e949b62ab51fa21d0d497958f9e41c3010c157c4e42932d5316f3c",
+      "archiveBytes": 8573270,
+      "source": "https://github.com/ggml-org/whisper.cpp/releases/download/b5130/whisper-bin-x64.zip",
+      "derivation": "Read-only Python zipfile entry bytes after pinned archive verification; every installed file matched; no archive executable or script invoked.",
+      "files": [
+        {
+          "name": "bench.exe",
+          "archiveEntry": "Release/bench.exe",
+          "bytes": 27648,
+          "sha256": "9dd2fb885ad4db106e32de8b5a629141369cc467630d7628919a63da1336dac0"
+        },
+        {
+          "name": "command.exe",
+          "archiveEntry": "Release/command.exe",
+          "bytes": 27648,
+          "sha256": "aef0debd3bcd54752b52476a18f6caf9c161b7eeaa9dbeec64e2be789ba3eefd"
+        },
+        {
+          "name": "ggml-base.dll",
+          "archiveEntry": "Release/ggml-base.dll",
+          "bytes": 689664,
+          "sha256": "a5241b52206f61c9dfd6f0f53a8ef19076f9528ead2db1e039a66d7e03817bfc"
+        },
+        {
+          "name": "ggml-cpu-alderlake.dll",
+          "archiveEntry": "Release/ggml-cpu-alderlake.dll",
+          "bytes": 864256,
+          "sha256": "5a5b11dcd38e321b13f85c95414940db9eab1132be3da6342f03dfb1d8e51bd5"
+        },
+        {
+          "name": "ggml-cpu-cannonlake.dll",
+          "archiveEntry": "Release/ggml-cpu-cannonlake.dll",
+          "bytes": 908288,
+          "sha256": "2c858781450b52eda95c381232cc65c9e19cbf621cc7b254d8c44fdbab77791e"
+        },
+        {
+          "name": "ggml-cpu-cascadelake.dll",
+          "archiveEntry": "Release/ggml-cpu-cascadelake.dll",
+          "bytes": 904704,
+          "sha256": "ddf49bb749b34800afcb3d6224544966a05c5d00f1d0b6565bee9f3b010dd53c"
+        },
+        {
+          "name": "ggml-cpu-haswell.dll",
+          "archiveEntry": "Release/ggml-cpu-haswell.dll",
+          "bytes": 866304,
+          "sha256": "6b772e094b8976e22b4c043be86a1a8deda4b50511dc803a693b652c51b24944"
+        },
+        {
+          "name": "ggml-cpu-icelake.dll",
+          "archiveEntry": "Release/ggml-cpu-icelake.dll",
+          "bytes": 904704,
+          "sha256": "bbd87ea5920edc401054848071ad2ef8c96bbf8007c4e4cd0ea82ba9b9e3bd10"
+        },
+        {
+          "name": "ggml-cpu-sandybridge.dll",
+          "archiveEntry": "Release/ggml-cpu-sandybridge.dll",
+          "bytes": 860672,
+          "sha256": "de2ad5f84c7dfa557d515b3678d6452ce0216590268b2ca79cc537fe87cf239d"
+        },
+        {
+          "name": "ggml-cpu-skylakex.dll",
+          "archiveEntry": "Release/ggml-cpu-skylakex.dll",
+          "bytes": 908288,
+          "sha256": "9fa3f9d984ca42d568181dd345072299db2978b328800343218c2c7f000b7152"
+        },
+        {
+          "name": "ggml-cpu-sse42.dll",
+          "archiveEntry": "Release/ggml-cpu-sse42.dll",
+          "bytes": 846848,
+          "sha256": "740fc769ef433985dfdb24a609a42d5acf188abda52287a4d89b89b567507c19"
+        },
+        {
+          "name": "ggml-cpu-x64.dll",
+          "archiveEntry": "Release/ggml-cpu-x64.dll",
+          "bytes": 850432,
+          "sha256": "43ccf32b9b70aa4c47d0a12ac2ed3c241e0045571acdad565ecd9d1f99ffc08b"
+        },
+        {
+          "name": "ggml.dll",
+          "archiveEntry": "Release/ggml.dll",
+          "bytes": 62464,
+          "sha256": "c6e88687d6aa0238f2e834a87958f38d2dc96075a6a7bf6fb8b9cd728a0faed2"
+        },
+        {
+          "name": "llama.dll",
+          "archiveEntry": "Release/llama.dll",
+          "bytes": 2501120,
+          "sha256": "8a889862463eb4bf2f9e44041960b0e438be95158d8f6648e0faf151705fba09"
+        },
+        {
+          "name": "main.exe",
+          "archiveEntry": "Release/main.exe",
+          "bytes": 27648,
+          "sha256": "990ae383c63935723f52d8802e5c1bfe4798cf008a1199818381ace279e460d1"
+        },
+        {
+          "name": "parakeet-cli.exe",
+          "archiveEntry": "Release/parakeet-cli.exe",
+          "bytes": 372224,
+          "sha256": "8de0c0805272b17d779aa2a0a12d4e6e99b076d3843e12da54ee5ae7fe00c829"
+        },
+        {
+          "name": "parakeet-quantize.exe",
+          "archiveEntry": "Release/parakeet-quantize.exe",
+          "bytes": 102912,
+          "sha256": "b5f10392261645bc3bbb897a2834b7d9769b556c6144310ffadbffb2ea5e44fa"
+        },
+        {
+          "name": "parakeet.dll",
+          "archiveEntry": "Release/parakeet.dll",
+          "bytes": 582144,
+          "sha256": "fac30f11a9ed424e7897ed02c7186377ff7201bc9bc59bc5e025c84d296cd367"
+        },
+        {
+          "name": "SDL2.dll",
+          "archiveEntry": "Release/SDL2.dll",
+          "bytes": 2500096,
+          "sha256": "de23db1694a3c7a4a735e7ecd3d214b2023cc2267922c6c35d30c7fc7370d677"
+        },
+        {
+          "name": "stream.exe",
+          "archiveEntry": "Release/stream.exe",
+          "bytes": 27648,
+          "sha256": "eec7e5ff8c4b1bea5d1583a8f0c3a14bac8988330bfdb655acd3e6ecb086f5d5"
+        },
+        {
+          "name": "test-common-utf8.exe",
+          "archiveEntry": "Release/test-common-utf8.exe",
+          "bytes": 324608,
+          "sha256": "09a313f4975a9e9c151ef6c6e0fdf0f1834bd7045415e9dd759fb99fed412818"
+        },
+        {
+          "name": "test-parakeet-full-diffusion.exe",
+          "archiveEntry": "Release/test-parakeet-full-diffusion.exe",
+          "bytes": 369664,
+          "sha256": "9cb52fb13d7fbad41b45916f655531cba50403c81eaf31620442c2ca41a91f23"
+        },
+        {
+          "name": "test-parakeet-full-gb1.exe",
+          "archiveEntry": "Release/test-parakeet-full-gb1.exe",
+          "bytes": 366080,
+          "sha256": "0c054fa20e93636d037c8f0e9fe286f4f91bc83c4f34a4148dd9fe30a099d5bf"
+        },
+        {
+          "name": "test-parakeet-full-jfk.exe",
+          "archiveEntry": "Release/test-parakeet-full-jfk.exe",
+          "bytes": 366080,
+          "sha256": "d749e726bba060a06f400eab71e9a85e4158b2bb657717638c6cdf0c362714e0"
+        },
+        {
+          "name": "test-parakeet.exe",
+          "archiveEntry": "Release/test-parakeet.exe",
+          "bytes": 354816,
+          "sha256": "726a9e8cbb3b723cdeef27ee51a555459f962b3fe26d29cf65f9db7c415a152a"
+        },
+        {
+          "name": "test-vad-full.exe",
+          "archiveEntry": "Release/test-vad-full.exe",
+          "bytes": 355840,
+          "sha256": "a0fd466a70ef8f9a9226e5da6f3acbb099951b1206700765978d1ac58e6daaae"
+        },
+        {
+          "name": "test-vad.exe",
+          "archiveEntry": "Release/test-vad.exe",
+          "bytes": 354304,
+          "sha256": "8e592a50c9acd9242a859d8c824d41bd634a34a83bd029297f25be9c9729b25c"
+        },
+        {
+          "name": "test-whisper-buffer-loader.exe",
+          "archiveEntry": "Release/test-whisper-buffer-loader.exe",
+          "bytes": 11264,
+          "sha256": "7dfcd43dbb0a25c4fc1a9c1e4e4a53d80e40e19a3e69fa1802700c86dea1b5ce"
+        },
+        {
+          "name": "test-whisper-zero-samples.exe",
+          "archiveEntry": "Release/test-whisper-zero-samples.exe",
+          "bytes": 11776,
+          "sha256": "0fb67a45ec596d2c9975ca31997eb87d08eae5fa420c9b7ca4bbaf527c952239"
+        },
+        {
+          "name": "wchess.exe",
+          "archiveEntry": "Release/wchess.exe",
+          "bytes": 178688,
+          "sha256": "83870b0f3a317260c5b8cfd7ceb376c3284b64b5e38d6863a84a005e812ac450"
+        },
+        {
+          "name": "whisper-bench.exe",
+          "archiveEntry": "Release/whisper-bench.exe",
+          "bytes": 20480,
+          "sha256": "6978d6bc5f6f85105bc62711ba9a6a03af917a41588d811254c99bed5b109702"
+        },
+        {
+          "name": "whisper-cli.exe",
+          "archiveEntry": "Release/whisper-cli.exe",
+          "bytes": 479232,
+          "sha256": "19b976e037c02c0de712fa26096842d4ebafca03c976b12e8e6123215e7aab58"
+        },
+        {
+          "name": "whisper-command.exe",
+          "archiveEntry": "Release/whisper-command.exe",
+          "bytes": 176640,
+          "sha256": "475e70e1f27adaef0c856eaba151c7205e0269fe46059f26be06810c2f00a6d2"
+        },
+        {
+          "name": "whisper-lsp.exe",
+          "archiveEntry": "Release/whisper-lsp.exe",
+          "bytes": 180736,
+          "sha256": "9fe20b0c5b424656015993e5d25c769cadcc2408b4a6b19621642b08616c09ef"
+        },
+        {
+          "name": "whisper-quantize.exe",
+          "archiveEntry": "Release/whisper-quantize.exe",
+          "bytes": 111616,
+          "sha256": "282a6e5e30ea10b0b63624ec32193ffdb6f3cd0f6a2fbc7d9099e1ec4d972466"
+        },
+        {
+          "name": "whisper-server.exe",
+          "archiveEntry": "Release/whisper-server.exe",
+          "bytes": 726016,
+          "sha256": "74c13bcb83b944412b971886d37893611fb31846780c3a78db3847b3132306bc"
+        },
+        {
+          "name": "whisper-stream.exe",
+          "archiveEntry": "Release/whisper-stream.exe",
+          "bytes": 378368,
+          "sha256": "1b63fa6439d7ceed8afb85e7b59fc6322a8db173024bd45610b952faa8c6e77c"
+        },
+        {
+          "name": "whisper-talk-llama.exe",
+          "archiveEntry": "Release/whisper-talk-llama.exe",
+          "bytes": 457216,
+          "sha256": "a4261b4f72310826fb003319c1d273e4e071bafabb9c470cb718acd200fe09fc"
+        },
+        {
+          "name": "whisper-vad-speech-segments.exe",
+          "archiveEntry": "Release/whisper-vad-speech-segments.exe",
+          "bytes": 362496,
+          "sha256": "8c2670227cdf8dc1d94dab611ce5fa81c8ee1325ae7337cad52d77a9825de853"
+        },
+        {
+          "name": "whisper.dll",
+          "archiveEntry": "Release/whisper.dll",
+          "bytes": 1368576,
+          "sha256": "b7bb4ba92bd36b8afe0c00059ca6a0f69c6767193bfb5f0761e9ed27b1087803"
+        }
+      ]
+    }
+  },
+  "preflightInventory": {
+    "observedAt": "2026-09-23T05:22:50.943Z",
+    "scope": "LOCAL_GAME_MODEL_AND_PROJECT_PYTHON",
+    "processes": []
+  },
+  "postflightInventory": {
+    "observedAt": "2026-09-23T05:22:51.791Z",
+    "scope": "LOCAL_GAME_MODEL_AND_PROJECT_PYTHON",
+    "processes": []
+  },
+  "admission": {
+    "availableRamBytes": 6611562496,
+    "availableDiskBytes": 20497965056
+  },
+  "memorySamples": [
+    {
+      "at": "2026-09-23T05:22:49.668Z",
+      "availableRamBytes": 6611562496
+    },
+    {
+      "at": "2026-09-23T05:22:50.949Z",
+      "availableRamBytes": 6588739584
+    },
+    {
+      "at": "2026-09-23T05:22:50.951Z",
+      "availableRamBytes": 6588674048
+    },
+    {
+      "at": "2026-09-23T05:22:50.953Z",
+      "availableRamBytes": 6588669952
+    }
+  ],
+  "minSampledAvailableRam": 6588669952,
+  "observedOwnedPids": [],
+  "startup": {
+    "status": "FAILED",
+    "requestInvoked": true,
+    "elapsedMs": 260.76319999999987,
+    "runtime": null
+  },
+  "samples": [
+    {
+      "id": "VA-001",
+      "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001-16k.wav",
+      "sha256": "2107ecb69e0dedd465f4fc478430693fff78a8b59d2918e176d32d127a7856d4",
+      "referenceText": "Heard you.",
+      "ordinal": 1,
+      "status": "NOT_PERFORMED",
+      "requestInvoked": false,
+      "startedAt": null,
+      "elapsedMs": null,
+      "pidBefore": null,
+      "pidAfter": null,
+      "result": null,
+      "referenceMatched": null,
+      "normalizedActual": null,
+      "error": null
+    },
+    {
+      "id": "VA-006",
+      "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-006-16k.wav",
+      "sha256": "a357610e09d61c3f44dfe2cc877c6b935ad2ec4532d90232d07230c09397ac44",
+      "referenceText": "Withdrawal understood. No more target suggestions.",
+      "ordinal": 2,
+      "status": "NOT_PERFORMED",
+      "requestInvoked": false,
+      "startedAt": null,
+      "elapsedMs": null,
+      "pidBefore": null,
+      "pidAfter": null,
+      "result": null,
+      "referenceMatched": null,
+      "normalizedActual": null,
+      "error": null
+    },
+    {
+      "id": "VA-001",
+      "file": "companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z/VA-001-16k.wav",
+      "sha256": "2107ecb69e0dedd465f4fc478430693fff78a8b59d2918e176d32d127a7856d4",
+      "referenceText": "Heard you.",
+      "ordinal": 3,
+      "status": "NOT_PERFORMED",
+      "requestInvoked": false,
+      "startedAt": null,
+      "elapsedMs": null,
+      "pidBefore": null,
+      "pidAfter": null,
+      "result": null,
+      "referenceMatched": null,
+      "normalizedActual": null,
+      "error": null
+    }
+  ],
+  "haltReason": "RESIDENT_WORKER_INSTALLATION_REJECTED",
+  "error": "RESIDENT_WORKER_INSTALLATION_REJECTED",
+  "disposal": {
+    "state": "DISPOSED",
+    "mode": "RESIDENT_PIPE_TRANSCRIPTION_ONLY",
+    "classification": "LOCAL_ASR_UNVERIFIED_TEXT",
+    "transcriptTrust": "UNTRUSTED_RECOGNITION",
+    "busy": false,
+    "ownsProcess": false,
+    "pid": null,
+    "processStopConfirmed": true,
+    "pendingPreflight": false,
+    "nativeVersion": null,
+    "minSampledAvailableRam": 6587785216,
+    "lastError": "RESIDENT_PIPE_FAILED",
+    "microphoneCapture": false,
+    "speakerPlayback": false,
+    "listenerStarted": false,
+    "commandExecution": false,
+    "gameTests": "NOT_PERFORMED",
+    "stopped": true,
+    "ownedProcessStopped": true,
+    "cleanupComplete": true
+  },
+  "finalState": {
+    "state": "DISPOSED",
+    "mode": "RESIDENT_PIPE_TRANSCRIPTION_ONLY",
+    "classification": "LOCAL_ASR_UNVERIFIED_TEXT",
+    "transcriptTrust": "UNTRUSTED_RECOGNITION",
+    "busy": false,
+    "ownsProcess": false,
+    "pid": null,
+    "processStopConfirmed": true,
+    "pendingPreflight": false,
+    "nativeVersion": null,
+    "minSampledAvailableRam": 6587785216,
+    "lastError": "RESIDENT_PIPE_FAILED",
+    "microphoneCapture": false,
+    "speakerPlayback": false,
+    "listenerStarted": false,
+    "commandExecution": false,
+    "gameTests": "NOT_PERFORMED"
+  },
+  "ownedProcessStopped": true,
+  "sourceSnapshotUnchanged": true,
+  "limitations": [
+    "Three existing synthetic requests do not establish human accuracy, a latency percentile or game-loaded acceptance.",
+    "Different decoding defaults and uncontrolled background load prevent a causal speedup claim against older CLI/server results.",
+    "Startup and per-request wall times are reported separately; no microphone, command parsing or game-control latency is measured.",
+    "Sampled RAM is reactive, not a hard reservation; process inventories are point-in-time observations.",
+    "A repeated clip checks this one sequence only, not all possible context leakage."
+  ],
+  "admissionBeforeStart": {
+    "availableRamBytes": 6588739584,
+    "availableDiskBytes": 20497960960
+  },
+  "completedCount": 0,
+  "referenceMatchedCount": 0,
+  "notPerformed": [
+    {
+      "ordinal": 1,
+      "id": "VA-001"
+    },
+    {
+      "ordinal": 2,
+      "id": "VA-006"
+    },
+    {
+      "ordinal": 3,
+      "id": "VA-001"
+    }
+  ]
+}

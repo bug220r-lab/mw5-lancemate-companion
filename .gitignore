@@ -1,5 +1,6 @@
 /companion/local/
 /tmp/
+/output/
 /research/evidence/
 __pycache__/
 *.pyc

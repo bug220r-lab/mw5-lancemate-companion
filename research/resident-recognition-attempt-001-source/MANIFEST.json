@@ -1,0 +1,104 @@
+{
+  "classification": "HISTORICAL_SOURCE_ONLY_NOT_RUNNABLE_PACKAGE",
+  "originalReceipt": "research/RESIDENT_RECOGNITION_COMPONENT_SMOKE.json",
+  "receiptSha256": "3a51114ad1044ccb0f605cee5bdd87a02f251f6a8b47877d12b8077d204fdb26",
+  "purpose": "Preserve the exact source used by the first failed installation-check attempt before correcting it. No native model inference was performed.",
+  "files": [
+    {
+      "original": "scripts/Exercise-ResidentRecognition.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/Exercise-ResidentRecognition.mjs",
+      "bytes": 21907,
+      "sha256": "8c7c2906ccd5766e0747c3b2bc2236b61e2cc481dd5a85ae6b7037aea09852a3"
+    },
+    {
+      "original": "companion/tests/resident-recognition-experiment.test.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/resident-recognition-experiment.test.mjs",
+      "bytes": 15948,
+      "sha256": "5bd7018fd7027d6201bb05418bc39396c71d14e05b0f1fa8a21752fff110f310"
+    },
+    {
+      "original": "companion/resident-recognition.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/resident-recognition.mjs",
+      "bytes": 14907,
+      "sha256": "12a98fb7b3a9d37eead52486ef83e77296822943e7b478193ea8001d131e1d7a"
+    },
+    {
+      "original": "companion/resident_recognition_worker.py",
+      "archive": "research/resident-recognition-attempt-001-source/resident_recognition_worker.py",
+      "bytes": 27324,
+      "sha256": "908fa18c7504f405af435f45ad499239ff8b9827b7f107dfac41633e18d6f80c"
+    },
+    {
+      "original": "companion/tests/resident-recognition.test.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/resident-recognition.test.mjs",
+      "bytes": 8122,
+      "sha256": "ef0006a966e984872fe57e2de38ed3a2ae66fc719e333c2261f914ffd2bc5522"
+    },
+    {
+      "original": "companion/tests/resident-recognition-review.test.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/resident-recognition-review.test.mjs",
+      "bytes": 21676,
+      "sha256": "e1e50897408a4da19017fbfa55bda8996404e0587dd66a47f0675ae1ea1917dc"
+    },
+    {
+      "original": "companion/tests/resident-recognition-worker.test.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/resident-recognition-worker.test.mjs",
+      "bytes": 1109,
+      "sha256": "7c2a8ebf2cc3f7929551e255f18bbbf0cb647d69a0420998287b919f1bcc9d37"
+    },
+    {
+      "original": "scripts/Test-ResidentRecognitionWorker.py",
+      "archive": "research/resident-recognition-attempt-001-source/Test-ResidentRecognitionWorker.py",
+      "bytes": 22330,
+      "sha256": "e169ab89072387182d01959466d68945ce2d80aeb015837b440a1bfca6e2eca6"
+    },
+    {
+      "original": "companion/local-recognition.mjs",
+      "archive": "research/resident-recognition-attempt-001-source/local-recognition.mjs",
+      "bytes": 21969,
+      "sha256": "c349f5ff1ed94f008cc337320aaf103616e1a9f233dd7eb4d87d570eb9a483b7"
+    },
+    {
+      "original": "companion/models.lock.json",
+      "archive": "research/resident-recognition-attempt-001-source/models.lock.json",
+      "bytes": 2964,
+      "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29"
+    },
+    {
+      "original": "companion/whisper-runtime-pins.json",
+      "archive": "research/resident-recognition-attempt-001-source/whisper-runtime-pins.json",
+      "bytes": 8990,
+      "sha256": "7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a"
+    },
+    {
+      "original": "design/RESIDENT_RECOGNITION.md",
+      "archive": "research/resident-recognition-attempt-001-source/RESIDENT_RECOGNITION.md",
+      "bytes": 7661,
+      "sha256": "3854c005aeb891fd4cd150f267f1673d9b2d60160aa467724c9d33caaa550e12"
+    },
+    {
+      "original": "research/RESIDENT_RECOGNITION_SOURCE.json",
+      "archive": "research/resident-recognition-attempt-001-source/RESIDENT_RECOGNITION_SOURCE.json",
+      "bytes": 5626,
+      "sha256": "d60ac00c40b5877053440cc154052832203d9454c8235057f3663cb90d8f29cd"
+    },
+    {
+      "original": "research/RESIDENT_RECOGNITION_PARENT_REVIEW.md",
+      "archive": "research/resident-recognition-attempt-001-source/RESIDENT_RECOGNITION_PARENT_REVIEW.md",
+      "bytes": 6265,
+      "sha256": "4a78ac2b747811643bb63df31ce567a823002835d9ffd4428e473dd6dc576ca6"
+    },
+    {
+      "original": "research/RESIDENT_RECOGNITION_WORKER_REVIEW.md",
+      "archive": "research/resident-recognition-attempt-001-source/RESIDENT_RECOGNITION_WORKER_REVIEW.md",
+      "bytes": 6696,
+      "sha256": "66e6f76add208c88dda87bef69ee28fe672b98320d8290ecd0be3705a5509678"
+    },
+    {
+      "original": "research/RESIDENT_RECOGNITION_EXPERIMENT_REVIEW.md",
+      "archive": "research/resident-recognition-attempt-001-source/RESIDENT_RECOGNITION_EXPERIMENT_REVIEW.md",
+      "bytes": 5355,
+      "sha256": "f11a5da927425264a815c9d12f23439ae73ccc757d6e2064d5dff5d4acdf0959"
+    }
+  ]
+}
