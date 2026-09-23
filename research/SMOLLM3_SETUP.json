@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "classification": "LOCAL_COMPONENT_SETUP",
+  "startedAt": "2026-09-23T01:30:16.882Z",
+  "status": "VERIFIED_DOWNLOAD",
+  "initialFreeBytes": 26556518400,
+  "preflight": {
+    "status": "PASS",
+    "ok": true,
+    "requiredBytes": 14569077440,
+    "remainingBytes": 22724859200,
+    "reserveBytes": 10737418240,
+    "issues": []
+  },
+  "artifact": {
+    "id": "smollm3_3b",
+    "version": "4965cb60b150737b68a0408c36aeefb65078f894",
+    "name": "SmolLM3-Q4_K_M.gguf",
+    "bytes": 1915305312,
+    "sha256": "8334b850b7bd46238c16b0c550df2138f0889bf433809008cc17a8b05761863e",
+    "url": "https://huggingface.co/ggml-org/SmolLM3-3B-GGUF/resolve/4965cb60b150737b68a0408c36aeefb65078f894/SmolLM3-Q4_K_M.gguf",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+    "licenseDeclarationUrl": "https://huggingface.co/ggml-org/SmolLM3-3B-GGUF/raw/4965cb60b150737b68a0408c36aeefb65078f894/README.md"
+  },
+  "lockSha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29",
+  "licensePin": {
+    "bytes": 11358,
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "downloads": true,
+  "licenseDownloadAttempted": true,
+  "modelDownloadAttempted": true,
+  "execution": "NOT_PERFORMED",
+  "defaultModelChanged": false,
+  "gameExecution": false,
+  "editorExecution": false,
+  "priorReceiptsChanged": false,
+  "license": {
+    "path": "companion\\local\\models\\smollm3_3b-LICENSE.txt",
+    "bytes": 11358,
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "file": "companion\\local\\models\\SmolLM3-Q4_K_M.gguf",
+  "stagingPath": "companion\\local\\models\\SmolLM3-Q4_K_M.gguf.candidate-partial",
+  "stagingSharesSameFileData": true,
+  "finalFreeBytes": 24615149568,
+  "completedAt": "2026-09-23T01:33:08.985Z"
+}

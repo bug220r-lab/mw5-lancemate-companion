@@ -28,7 +28,9 @@ const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter
   'scripts/Exercise-ConversationGrounding.mjs','synthetic/conversation-grounding-cases.json',
   'scripts/Exercise-LocalRecognition.mjs','scripts/Exercise-ConversationCache.mjs',
   'scripts/Exercise-ConversationIdentity.mjs','synthetic/conversation-identity-cases.json',
-  'scripts/Exercise-ConversationRelativeFacts.mjs','synthetic/conversation-relative-facts-cases.json'];
+  'scripts/Exercise-ConversationRelativeFacts.mjs','synthetic/conversation-relative-facts-cases.json',
+  'scripts/Install-SmollmCandidate.mjs','scripts/Inspect-SmollmMetadata.mjs',
+  'scripts/Exercise-ConversationModelTransfer.mjs','synthetic/conversation-model-transfer-cases.json'];
 const hashes = [];
 for (const file of files) hashes.push({ file, sha256: createHash('sha256').update(await readFile(path.join(root, file))).digest('hex') });
 const receipt = { schemaVersion: 1, recordedAt: new Date().toISOString(), classification: 'MOCK_ONLY',

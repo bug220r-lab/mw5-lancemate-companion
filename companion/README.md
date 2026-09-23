@@ -71,6 +71,8 @@ The separate 1.7B smoke completed; it is the current workbench language-model de
 
 The [slower-audition integration receipt](../research/WORKBENCH_CONVERSATION_BENCHMARK.json) records **PASS_LOCAL_GENERATION_AND_WAV_DELIVERY_ONLY** for all three pilots: text took 3.84–4.56 seconds, synthesis 2.02–2.39 seconds, and complete WAV delivery 5.87–6.84 seconds. All three complete deliveries exceeded four seconds. No WAV was played, no microphone/game ran, and all owned workers were confirmed stopped. The 2.45 GiB minimum available RAM was measured without an MW5 test workload. This proves local generation and file delivery, not accepted voices, first-audible-response latency or performance alongside MW5.
 
+The separate [SmolLM3 candidate experiment](../design/LOCAL_MODEL_TRANSFER_EXPERIMENT.md) preserves the default and earlier results. Its fixed installer reserves a new setup receipt, verifies the model/license and maintains the disk reserve. The model selector requires explicit synthetic diagnostic settings; it is not enabled in the workbench. Eight independently specified cases precede eighteen exposed regressions, with whole-answer review and resource/cleanup guards. Consult the [implementation checkpoint](../research/IMPLEMENTATION_STATUS.md) for the actual run outcome; preparation alone is not accepted conversation.
+
 ## Source backup
 
 Reviewed checkpoints are stored in the private [bug220r-lab/mw5-lancemate-companion](https://github.com/bug220r-lab/mw5-lancemate-companion) repository, branch `codex/companion-foundation`. [The local backup receipt](../research/GITHUB_BACKUP.json) identifies the exact latest verified commit. Working-tree changes are not backed up until their push is verified.

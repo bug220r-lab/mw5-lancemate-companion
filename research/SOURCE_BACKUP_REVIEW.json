@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T01:16:48.337Z",
+  "reviewedAt": "2026-09-23T01:42:08.477Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 400,
-    "includedBytesExcludingThisReceipt": 8907540,
+    "includedFiles": 420,
+    "includedBytesExcludingThisReceipt": 9405487,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -166,6 +166,7 @@
     "companion/tests/conversation-completion-integration.test.mjs",
     "companion/tests/conversation-identity-diagnostic.test.mjs",
     "companion/tests/conversation-identity.test.mjs",
+    "companion/tests/conversation-model-transfer-diagnostic.test.mjs",
     "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
@@ -180,6 +181,7 @@
     "companion/tests/microphone-review.test.mjs",
     "companion/tests/microphone.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
+    "companion/tests/model-transfer-review.test.mjs",
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
     "companion/tests/policy-regression.test.mjs",
@@ -195,6 +197,9 @@
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
     "companion/tests/server.test.mjs",
+    "companion/tests/smollm-metadata.test.mjs",
+    "companion/tests/smollm-model.test.mjs",
+    "companion/tests/smollm-setup.test.mjs",
     "companion/tests/speaker-briefing-review.test.mjs",
     "companion/tests/speaker-briefing.test.mjs",
     "companion/tests/speaker-observation-review.test.mjs",
@@ -224,6 +229,7 @@
     "design/GENERATION_COMPLETION.md",
     "design/KOKORO_SETUP.md",
     "design/LOCAL_MODEL_BENCHMARK.md",
+    "design/LOCAL_MODEL_TRANSFER_EXPERIMENT.md",
     "design/LOCAL_RECOGNITION.md",
     "design/MISSION_REHEARSAL.md",
     "design/MISSION_SPEECH_ADMISSION.md",
@@ -287,6 +293,7 @@
     "research/CONVERSATION_IDENTITY_EVALUATION.md",
     "research/CONVERSATION_IDENTITY_HARNESS_REVIEW.md",
     "research/CONVERSATION_LATENCY_DIAGNOSTIC.json",
+    "research/CONVERSATION_MODEL_TRANSFER_EVALUATION.md",
     "research/CONVERSATION_NEXT_EXPERIMENT_REVIEW.md",
     "research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md",
     "research/CONVERSATION_REQUEST_SEPARATION_REVIEW.md",
@@ -326,6 +333,7 @@
     "research/LLM_COMPLETION_REVIEW.md",
     "research/LOCAL_CONVERSATION_COMPONENT_BENCHMARK.json",
     "research/LOCAL_CONVERSATION_FALLBACK_BENCHMARK.json",
+    "research/LOCAL_CONVERSATION_MODEL_CANDIDATE.md",
     "research/LOCAL_RECOGNITION_COMPONENT_SMOKE.json",
     "research/LOCAL_RECOGNITION_PREFLIGHT_2026-09-22.json",
     "research/LOCAL_RECOGNITION_REVIEW.md",
@@ -413,6 +421,14 @@
     "research/RELEASE_EVIDENCE_V2_REVIEW.md",
     "research/SEPARATED_REQUEST_PREPARATION.md",
     "research/SEPARATED_REQUEST_RECEIPT_AUDIT.md",
+    "research/SMOLLM3_METADATA.json",
+    "research/SMOLLM3_METADATA_ASSESSMENT.md",
+    "research/SMOLLM3_MODEL_TRANSFER_DIAGNOSTIC.json",
+    "research/SMOLLM3_MODEL_TRANSFER_REVIEW.md",
+    "research/SMOLLM3_SETUP.json",
+    "research/SMOLLM3_SETUP_REVIEW.md",
+    "research/SMOLLM3_TRANSFER_RECEIPT_AUDIT.md",
+    "research/SMOLLM3_TRANSFER_RUNNER_REVIEW.md",
     "research/SOURCES.md",
     "research/SOURCE_BACKUP_REVIEW.json",
     "research/SPEAKER_BRIEFING_REVIEW.md",
@@ -453,6 +469,7 @@
     "scripts/Exercise-ConversationCache.mjs",
     "scripts/Exercise-ConversationGrounding.mjs",
     "scripts/Exercise-ConversationIdentity.mjs",
+    "scripts/Exercise-ConversationModelTransfer.mjs",
     "scripts/Exercise-ConversationRelativeFacts.mjs",
     "scripts/Exercise-Kokoro.py",
     "scripts/Exercise-LocalConversation.mjs",
@@ -472,7 +489,9 @@
     "scripts/Inspect-EditorReflection.py",
     "scripts/Inspect-ObserverCaller.py",
     "scripts/Inspect-ObserverReferences.py",
+    "scripts/Inspect-SmollmMetadata.mjs",
     "scripts/Install-LocalModels.mjs",
+    "scripts/Install-SmollmCandidate.mjs",
     "scripts/Invoke-EditorReflection.ps1",
     "scripts/Kokoro-Worker.py",
     "scripts/New-ZiraAudition.ps1",
@@ -504,6 +523,7 @@
     "synthetic/command-cases.json",
     "synthetic/conversation-grounding-cases.json",
     "synthetic/conversation-identity-cases.json",
+    "synthetic/conversation-model-transfer-cases.json",
     "synthetic/conversation-relative-facts-cases.json",
     "synthetic/memory-branch-cases.json",
     "synthetic/mission-rehearsal.json",
@@ -709,9 +729,9 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 31357,
-      "sha256": "71e4b7195caa3e903d4b6beb223543265ca28e0db6cfc444126c7f13b622f815",
-      "lines": 414,
+      "bytes": 32208,
+      "sha256": "5cd1f9ec9a872cf3c1d6a45344d6f73de295c94c0a2e0822fb9d28ffe6965902",
+      "lines": 427,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -749,9 +769,9 @@
     },
     {
       "path": "companion/models.lock.json",
-      "bytes": 2345,
-      "sha256": "035aa0318e1c3f92de9ede3fbea5cdb8ad5750e5db289774545e86b35a325fc3",
-      "lines": 15,
+      "bytes": 2964,
+      "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29",
+      "lines": 16,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -839,9 +859,9 @@
     },
     {
       "path": "companion/README.md",
-      "bytes": 16164,
-      "sha256": "157168a03cb5c5be64401d6292203b54a9acb0e74b5082bf7d51fc3d7adc6a28",
-      "lines": 81,
+      "bytes": 16793,
+      "sha256": "76df0e6bcd7e01ff9c85728357f3f018439d30c3bbc5866be016677cb257b117",
+      "lines": 83,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1030,6 +1050,16 @@
       "notes": []
     },
     {
+      "path": "companion/tests/conversation-model-transfer-diagnostic.test.mjs",
+      "bytes": 18794,
+      "sha256": "fc9e9581c3ffa17df0b8300c78fe5d0dafa3c306f33a1eefb0f62a7cb6a9f453",
+      "lines": 250,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
       "bytes": 33814,
       "sha256": "07c380a3dfbea9f174c04aa61e7a553d04e41280097d4448719107e739c92c2f",
@@ -1164,6 +1194,16 @@
       "bytes": 14273,
       "sha256": "b326d1f47943e308f042e5a7a8f502877077369e01e91de9a814ac1a8f55ff80",
       "lines": 218,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/model-transfer-review.test.mjs",
+      "bytes": 12549,
+      "sha256": "ff6ffbbfa711d7fd05aa651d839472b957e7f51a432d05de89e412dfc6ef3ec5",
+      "lines": 191,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1314,6 +1354,36 @@
       "bytes": 15180,
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102",
       "lines": 223,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/smollm-metadata.test.mjs",
+      "bytes": 2104,
+      "sha256": "7d5e85fef2d4635f3e333449a0e0d0268823475cb523796b5451f0478471efb9",
+      "lines": 29,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/smollm-model.test.mjs",
+      "bytes": 12414,
+      "sha256": "5a8c5493f136ad4d722f1b1c0c55755df588b96d03e76a34d3f4045d4a6b46f9",
+      "lines": 162,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/smollm-setup.test.mjs",
+      "bytes": 6065,
+      "sha256": "3a4342d3ff7724f77cdc069dd24ae9ef0ca2322d5f90b13c050ae1121e83bc72",
+      "lines": 99,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1615,6 +1685,16 @@
       "bytes": 10106,
       "sha256": "91aa5210d046caf1de0383c978b8e96d9da23f83920268ee96e662d4e023b408",
       "lines": 53,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/LOCAL_MODEL_TRANSFER_EXPERIMENT.md",
+      "bytes": 5686,
+      "sha256": "a9c319fdfff90363c8fe305e401695ff11574d8a0eb6a9f57de0d2088cb59745",
+      "lines": 34,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2322,9 +2402,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 17438,
-      "sha256": "3baff28e116f6eeba9dbf419c477c4ecd7a2a0bf0bbd4778f18a0abf4b2aea41",
-      "lines": 439,
+      "bytes": 19113,
+      "sha256": "01d2f96bcc22f42d9b4485b6b34a88046fd687fe6c7a3e7b8a62053d611030c0",
+      "lines": 480,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2416,6 +2496,16 @@
       "notes": [
         "Contains the local Windows username/path; personal project backup is intended to remain private."
       ]
+    },
+    {
+      "path": "research/CONVERSATION_MODEL_TRANSFER_EVALUATION.md",
+      "bytes": 8839,
+      "sha256": "ac35f68df99e5b174ac4eeb3763a59a45ba4d035687a62e416e2edb62c33944d",
+      "lines": 55,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
     },
     {
       "path": "research/CONVERSATION_NEXT_EXPERIMENT_REVIEW.md",
@@ -2839,7 +2929,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "12305739e412b9c77e52c4fcfbae562f7cc49929bbd39d6e121715da04cf3a60",
+      "sha256": "3cea7235fa21be0056cd7c020cbc2a341ec8e2e47aa951052ba82ffa26a31937",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -2850,9 +2940,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 81077,
-      "sha256": "908145174603533befdc2a4a1b832fb8a2f1a5b549a4f80621ffe49a5c51a401",
-      "lines": 303,
+      "bytes": 85009,
+      "sha256": "b27aec95e7e1864f331952b3a4dd441364db0b245500b3c65e42e61819a5f7e1",
+      "lines": 317,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2907,6 +2997,16 @@
         "Contains the local Windows username/path; personal project backup is intended to remain private.",
         "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
       ]
+    },
+    {
+      "path": "research/LOCAL_CONVERSATION_MODEL_CANDIDATE.md",
+      "bytes": 7290,
+      "sha256": "a8729b43c8dbf2a0540fe8dc8857c06a37582a2ad0c424663b637e04d9bf9857",
+      "lines": 49,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
     },
     {
       "path": "research/LOCAL_RECOGNITION_COMPONENT_SMOKE.json",
@@ -3883,6 +3983,89 @@
       "notes": []
     },
     {
+      "path": "research/SMOLLM3_METADATA_ASSESSMENT.md",
+      "bytes": 2643,
+      "sha256": "7f3a168378f3c6c299ef98d39e671fdd3ecca34f05e00631d805a1c7d8b7560d",
+      "lines": 14,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_METADATA.json",
+      "bytes": 6877,
+      "sha256": "664081abc411d183f43b51bd0599b999f25d068b26190df6c3320e17d99641a7",
+      "lines": 27,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_MODEL_TRANSFER_DIAGNOSTIC.json",
+      "bytes": 315867,
+      "sha256": "ffd7341cf63f55d4994c3ddecc06eba5421f1c19e014c2365d0236928f5959ff",
+      "lines": 7592,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
+      ]
+    },
+    {
+      "path": "research/SMOLLM3_MODEL_TRANSFER_REVIEW.md",
+      "bytes": 14276,
+      "sha256": "afe53a38b19a65a82fca81b0dff2395fe94e596bdaaf26633d9dcccdedb83047",
+      "lines": 106,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_SETUP_REVIEW.md",
+      "bytes": 4777,
+      "sha256": "7f031a18a02d253a1000680c5901763f65f0e8621c9aada969a57876482d9348",
+      "lines": 37,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_SETUP.json",
+      "bytes": 1862,
+      "sha256": "df497b311c276ba0f28878829ca6283d3de6c9b780941e9f0ab142c7cfd45a67",
+      "lines": 50,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_TRANSFER_RECEIPT_AUDIT.md",
+      "bytes": 5092,
+      "sha256": "39bdae282f2b3a8bd4d7d0d5a1266eb7db69ae8ba871d35d67cf07199f8627b8",
+      "lines": 36,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SMOLLM3_TRANSFER_RUNNER_REVIEW.md",
+      "bytes": 4867,
+      "sha256": "dfbf0442f9ac6bc96e819ba6cda44163fefd057947efa83d8b2939239fba6570",
+      "lines": 27,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/SOURCES.md",
       "bytes": 36674,
       "sha256": "91befbfe2d3e292b970686ee28aad1ed59b7c9413e6c38a621e533abe845c392",
@@ -4175,6 +4358,16 @@
       "notes": []
     },
     {
+      "path": "scripts/Exercise-ConversationModelTransfer.mjs",
+      "bytes": 22674,
+      "sha256": "fd3ae7557d85ee733244c6759a178c2595791283ae4ce55e73e36103592de663",
+      "lines": 281,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "scripts/Exercise-ConversationRelativeFacts.mjs",
       "bytes": 31087,
       "sha256": "4be2f6f5f3c6c05ffa577d14054597325022dd0c01b85693ba355c6bf7604b72",
@@ -4386,10 +4579,30 @@
       ]
     },
     {
+      "path": "scripts/Inspect-SmollmMetadata.mjs",
+      "bytes": 3890,
+      "sha256": "a4930005ce05df3d6c380cd8de5d6b7c8b810740b027472255fa480470bb11f5",
+      "lines": 53,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "scripts/Install-LocalModels.mjs",
       "bytes": 4866,
       "sha256": "d0c5f3501209853dbba055d75816e52c72cb8e0aa097ccfd0b30671b9e59b1b2",
       "lines": 68,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "scripts/Install-SmollmCandidate.mjs",
+      "bytes": 8025,
+      "sha256": "4e70824a09de481b81be1d5020d2788d1f23a24dc80aa3a9c60ba6d29cfd9b12",
+      "lines": 118,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4667,9 +4880,9 @@
     },
     {
       "path": "scripts/Verify-Companion.mjs",
-      "bytes": 3750,
-      "sha256": "38f7f86dd2d4e0929e6c7801c03dddc53cf13ab113cf5c1eae36f131ba4dce5b",
-      "lines": 46,
+      "bytes": 3931,
+      "sha256": "e4e35e7970995cefc8f7cde26711f0d76cc1ae987cfd2dfcc639ac359b947c5d",
+      "lines": 48,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4720,6 +4933,16 @@
       "bytes": 13954,
       "sha256": "4ffda0d912a22828bd34a3fbc91b616a60d9b1b510b89576b70bf2f1c01385b1",
       "lines": 213,
+      "category": "PROJECT_SYNTHETIC_FIXTURE",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "synthetic/conversation-model-transfer-cases.json",
+      "bytes": 25469,
+      "sha256": "4f042b99c4ea8690425c7476347088cb31e5aca3fe45a4ba5ef1b966ebd5e0dd",
+      "lines": 559,
       "category": "PROJECT_SYNTHETIC_FIXTURE",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

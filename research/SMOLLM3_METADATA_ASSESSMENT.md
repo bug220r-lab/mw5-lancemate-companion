@@ -1,0 +1,13 @@
+# Installed candidate and template assessment
+
+September 23, 2026 UTC / September 22 local. **OBSERVED file contents; native inference NOT_PERFORMED at this checkpoint.**
+
+The exclusive [setup receipt](SMOLLM3_SETUP.json) records VERIFIED_DOWNLOAD for SmolLM3 Q4_K_M, exactly 1,915,305,312 bytes, SHA-256 `8334b850b7bd46238c16b0c550df2138f0889bf433809008cc17a8b05761863e`. The public Apache 2.0 text was separately pinned and saved. The download process ended with exit code zero; no model binary ran. It began with 26,556,518,400 free bytes and ended with 24,615,149,568 bytes, above the unchanged 10-GiB reserve. The small difference beyond model size includes other changing local disk allocations; it is not attributed entirely to this download.
+
+The read-only inspector independently rehashed the whole model, then bounded its metadata read to 32 MiB. [The metadata receipt](SMOLLM3_METADATA.json) reports GGUF version 3, 326 tensors, 26 metadata keys, metadata ending at byte 7,823,775 and architecture `smollm3`. Its full embedded template hash is `b9b66f04c64fbb8695cf5b35c37780efd0b8e0829fbfe3e30fafb9f469b7d30e`.
+
+Root read the full template. The reasoning-mode section chooses the disabled mode with `enable_thinking:false`. The system-message section explicitly gives a `/no_think` substring precedence over `/think`, removing those markers from custom instruction text. The main loop emits each user message in order and has no alternating-role check, supporting this candidate's consecutive reference/question messages at the source level. Its disabled-mode generation prompt inserts an empty closed thinking section before generated answer text. No tools are supplied, and the project provides no tool execution path.
+
+One literal template detail is preserved rather than silently repaired: in the ordinary custom-system/no-tools branch, an explicit system-end marker is not emitted before the first user-start marker. The other override/tools branches have one. This report does not infer that the layout is correct or broken, nor substitute a custom template or `/system_override`. The diagnostic evaluates the exact pinned publisher artifact and its existing runtime handling. Successful native loading/formatting, reliable answer termination and semantic quality still require the actual run.
+
+No captured native rendered prompt, tokenization trace, instruction-injection proof or game result is claimed. `scripts/Inspect-SmollmMetadata.mjs` and its four synthetic metadata checks test bounded parsing only. The unchanged native adapter must reverify the model/runtime hashes again before starting its single owned process.

@@ -16,6 +16,7 @@ const executable = path.join(runtimeDirectory, 'llama-server.exe');
 const pins = Object.freeze({
   qwen1_7b: { name: 'Qwen3-1.7B-Q8_0.gguf', bytes: 1834426016, sha256: '061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a' },
   qwen4b: { name: 'Qwen3-4B-Q4_K_M.gguf', bytes: 2497280256, sha256: '7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5' },
+  smollm3_3b: { name: 'SmolLM3-Q4_K_M.gguf', bytes: 1915305312, sha256: '8334b850b7bd46238c16b0c550df2138f0889bf433809008cc17a8b05761863e' },
   'llama-cpu': { name: 'llama-b11065-bin-win-cpu-x64.zip', bytes: 18466663,
     sha256: '33f941a74b8db38e92690f5f151a770ef5a66481c07dabfe2e505b57e3546807' }
 });
@@ -155,14 +156,25 @@ export function messagesFor(input, { experimentalSpeakerRelativeFacts = false, e
   return [{ role: 'system', content: system }, { role: 'user', content: user + ' /no_think' }];
 }
 
+// Fixed synthetic diagnostic format. SmolLM3 gives the system thinking-mode
+// directive priority; keep the actual user request unchanged as untrusted data.
+export function smollmMessagesFor(input) {
+  const messages = messagesFor(input, { experimentalSpeakerRelativeFacts: true,
+    experimentalSpeakerBriefing: true, experimentalSeparateRequest: true });
+  messages[0].content += '\n/no_think';
+  messages[2].content = messages[2].content.slice(0, -' /no_think'.length);
+  return messages;
+}
+
 /** Test dependency overrides are code-only and mark status MOCK_ONLY. Never pass request data here. */
 export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, processingBatch = 'default', weightRepacking = true, promptCaching = false,
   experimentalSpeakerRelativeFacts = false, experimentalSpeakerBriefing = false, experimentalSeparateRequest = false } = {}, testDependencies = null) {
-  if (!['qwen1_7b', 'qwen4b'].includes(modelId) || ![2, 4].includes(threads) ||
+  if (!['qwen1_7b', 'qwen4b', 'smollm3_3b'].includes(modelId) || ![2, 4].includes(threads) ||
       !['default','compact'].includes(processingBatch) || typeof weightRepacking !== 'boolean' ||
       typeof promptCaching !== 'boolean' || typeof experimentalSpeakerRelativeFacts !== 'boolean' ||
       typeof experimentalSpeakerBriefing !== 'boolean' || typeof experimentalSeparateRequest !== 'boolean' ||
-      (experimentalSeparateRequest && !experimentalSpeakerBriefing) || (experimentalSpeakerBriefing && !experimentalSpeakerRelativeFacts)) fail('UNSUPPORTED_MODEL_CONFIGURATION');
+      (experimentalSeparateRequest && !experimentalSpeakerBriefing) || (experimentalSpeakerBriefing && !experimentalSpeakerRelativeFacts) ||
+      (modelId === 'smollm3_3b' && !(experimentalSpeakerRelativeFacts && experimentalSpeakerBriefing && experimentalSeparateRequest))) fail('UNSUPPORTED_MODEL_CONFIGURATION');
   const defaults = { spawn, fetch: globalThis.fetch, readFile, lstat, realpath, readdir, hashFile, reservePort,
     sleep, now: () => performance.now(), randomBytes };
   if (testDependencies && Object.entries(testDependencies).some(([k, v]) => !Object.hasOwn(defaults, k) || typeof v !== 'function')) fail('INVALID_TEST_DEPENDENCIES');
@@ -307,7 +319,8 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     lastGenerationTimings = null; lastGenerationFinishReason = null;
     if (signal?.aborted) fail('GENERATION_CANCELLED');
     if (signal !== undefined && !(signal instanceof AbortSignal)) fail('INVALID_ABORT_SIGNAL');
-    const messages = messagesFor(context, { experimentalSpeakerRelativeFacts, experimentalSpeakerBriefing, experimentalSeparateRequest }); activeGeneration = true; state = 'GENERATING';
+    const messages = modelId === 'smollm3_3b' ? smollmMessagesFor(context) :
+      messagesFor(context, { experimentalSpeakerRelativeFacts, experimentalSpeakerBriefing, experimentalSeparateRequest }); activeGeneration = true; state = 'GENERATING';
     generationAbort = new AbortController(); const ownAbort = generationAbort;
     const deadlineSignal = AbortSignal.timeout(60000);
     const combined = AbortSignal.any([ownAbort.signal, deadlineSignal, ...(signal ? [signal] : [])]);

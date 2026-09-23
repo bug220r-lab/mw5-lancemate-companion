@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T01:10:49.641Z",
+  "recordedAt": "2026-09-23T01:36:19.933Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1067,
-  "passed": 1067,
+  "tests": 1121,
+  "passed": 1121,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -25,6 +25,7 @@
     "companion/tests/conversation-completion-integration.test.mjs",
     "companion/tests/conversation-identity-diagnostic.test.mjs",
     "companion/tests/conversation-identity.test.mjs",
+    "companion/tests/conversation-model-transfer-diagnostic.test.mjs",
     "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
     "companion/tests/conversation-review.test.mjs",
     "companion/tests/conversation.test.mjs",
@@ -39,6 +40,7 @@
     "companion/tests/microphone-review.test.mjs",
     "companion/tests/microphone.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
+    "companion/tests/model-transfer-review.test.mjs",
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
     "companion/tests/policy-regression.test.mjs",
@@ -54,6 +56,9 @@
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
     "companion/tests/server.test.mjs",
+    "companion/tests/smollm-metadata.test.mjs",
+    "companion/tests/smollm-model.test.mjs",
+    "companion/tests/smollm-setup.test.mjs",
     "companion/tests/speaker-briefing-review.test.mjs",
     "companion/tests/speaker-briefing.test.mjs",
     "companion/tests/speaker-observation-review.test.mjs",
@@ -126,6 +131,10 @@
       "sha256": "b029cfdddf9e0932b1a02b014925e60572c7f6280e5d474c51435e7cf7ee6dae"
     },
     {
+      "file": "companion/tests/conversation-model-transfer-diagnostic.test.mjs",
+      "sha256": "fc9e9581c3ffa17df0b8300c78fe5d0dafa3c306f33a1eefb0f62a7cb6a9f453"
+    },
+    {
       "file": "companion/tests/conversation-relative-facts-diagnostic.test.mjs",
       "sha256": "07c380a3dfbea9f174c04aa61e7a553d04e41280097d4448719107e739c92c2f"
     },
@@ -180,6 +189,10 @@
     {
       "file": "companion/tests/mission-speech-review.test.mjs",
       "sha256": "b326d1f47943e308f042e5a7a8f502877077369e01e91de9a814ac1a8f55ff80"
+    },
+    {
+      "file": "companion/tests/model-transfer-review.test.mjs",
+      "sha256": "ff6ffbbfa711d7fd05aa651d839472b957e7f51a432d05de89e412dfc6ef3ec5"
     },
     {
       "file": "companion/tests/observation-review.test.mjs",
@@ -240,6 +253,18 @@
     {
       "file": "companion/tests/server.test.mjs",
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102"
+    },
+    {
+      "file": "companion/tests/smollm-metadata.test.mjs",
+      "sha256": "7d5e85fef2d4635f3e333449a0e0d0268823475cb523796b5451f0478471efb9"
+    },
+    {
+      "file": "companion/tests/smollm-model.test.mjs",
+      "sha256": "5a8c5493f136ad4d722f1b1c0c55755df588b96d03e76a34d3f4045d4a6b46f9"
+    },
+    {
+      "file": "companion/tests/smollm-setup.test.mjs",
+      "sha256": "3a4342d3ff7724f77cdc069dd24ae9ef0ca2322d5f90b13c050ae1121e83bc72"
     },
     {
       "file": "companion/tests/speaker-briefing-review.test.mjs",
@@ -303,7 +328,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "71e4b7195caa3e903d4b6beb223543265ca28e0db6cfc444126c7f13b622f815"
+      "sha256": "5cd1f9ec9a872cf3c1d6a45344d6f73de295c94c0a2e0822fb9d28ffe6965902"
     },
     {
       "file": "companion/local-recognition.mjs",
@@ -319,7 +344,7 @@
     },
     {
       "file": "companion/models.lock.json",
-      "sha256": "035aa0318e1c3f92de9ede3fbea5cdb8ad5750e5db289774545e86b35a325fc3"
+      "sha256": "747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29"
     },
     {
       "file": "companion/observation.mjs",
@@ -424,13 +449,29 @@
     {
       "file": "synthetic/conversation-relative-facts-cases.json",
       "sha256": "ec7106cd5a0518489cd46dcea24ef8f0ab6facfbff5c31f4f8b5716a889f9108"
+    },
+    {
+      "file": "scripts/Install-SmollmCandidate.mjs",
+      "sha256": "4e70824a09de481b81be1d5020d2788d1f23a24dc80aa3a9c60ba6d29cfd9b12"
+    },
+    {
+      "file": "scripts/Inspect-SmollmMetadata.mjs",
+      "sha256": "a4930005ce05df3d6c380cd8de5d6b7c8b810740b027472255fa480470bb11f5"
+    },
+    {
+      "file": "scripts/Exercise-ConversationModelTransfer.mjs",
+      "sha256": "fd3ae7557d85ee733244c6759a178c2595791283ae4ce55e73e36103592de663"
+    },
+    {
+      "file": "synthetic/conversation-model-transfer-cases.json",
+      "sha256": "4f042b99c4ea8690425c7476347088cb31e5aca3fe45a4ba5ef1b966ebd5e0dd"
     }
   ],
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790125849621.tap",
-    "sha256": "89b6c3c6324ce62fc71e05bf771bdf073d061342063dfb9f3ade151d753df247",
+    "file": "tmp/companion-verification-1790127379909.tap",
+    "sha256": "7446843b889134f2f15c9596ef98c4fabda0c501f9e78fc63c22aba02e1ae304",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",
