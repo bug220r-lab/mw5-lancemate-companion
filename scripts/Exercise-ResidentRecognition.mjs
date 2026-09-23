@@ -19,6 +19,13 @@ const ownFunctions = (x, names) => x && Object.getPrototypeOf(x) === Object.prot
   Reflect.ownKeys(x).length === names.length && names.every(k => Object.hasOwn(x,k) &&
     Object.hasOwn(Object.getOwnPropertyDescriptor(x,k),'value') && typeof x[k] === 'function');
 export const RESIDENT_RECOGNITION_RECEIPT = 'research/RESIDENT_RECOGNITION_COMPONENT_SMOKE.json';
+export const RESIDENT_RECOGNITION_REPAIR_RECEIPT = 'research/RESIDENT_RECOGNITION_REPAIR_SMOKE.json';
+export const RESIDENT_REPAIR_PREDECESSOR = Object.freeze({
+  receipt: RESIDENT_RECOGNITION_RECEIPT,
+  receiptSha256: '3a51114ad1044ccb0f605cee5bdd87a02f251f6a8b47877d12b8077d204fdb26',
+  manifest: 'research/resident-recognition-attempt-001-source/MANIFEST.json',
+  manifestSha256: 'a06c90bd481297d989fa2eace667aad8c0b0d4fb8c0de09b9cee1c11133c7216',
+});
 export const RESIDENT_EXPERIMENT_LIMITS = Object.freeze({ startupMs:30000, requestMs:10000, stopMs:3000,
   workMs:65000, sampleMs:250, initialRamBytes:3*GiB, runningRamBytes:2*GiB, diskBytes:10*GiB });
 const BASE = 'companion/local/whisper-benchmark/2026-09-21T05-14-05-115Z';
@@ -36,12 +43,33 @@ const SOURCE_FILES = Object.freeze([
   'design/RESIDENT_RECOGNITION.md','research/RESIDENT_RECOGNITION_SOURCE.json',
   'research/RESIDENT_RECOGNITION_PARENT_REVIEW.md','research/RESIDENT_RECOGNITION_WORKER_REVIEW.md',
   'research/RESIDENT_RECOGNITION_EXPERIMENT_REVIEW.md',
+  'research/RESIDENT_RECOGNITION_REPAIR_PLAN.md',
 ]);
 const engineOptions = Object.freeze({startupTimeoutMs:30000,requestTimeoutMs:10000,stopTimeoutMs:3000,resourceIntervalMs:250});
 export const normalizeResidentTranscript = text => text.toLowerCase().replaceAll('’',"'").replace(/[^a-z0-9'\s]/g,' ').trim().replace(/\s+/g,' ');
 export function parseResidentExperimentArguments(args) {
-  if (!Array.isArray(args) || args.length>1 || args.some(x=>!['--check','--run'].includes(x))) fail('INVALID_ARGUMENTS');
+  if (!Array.isArray(args) || args.length>1 || args.some(x=>!['--check','--run','--check-repair','--run-repair'].includes(x))) fail('INVALID_ARGUMENTS');
   return args[0] ?? 'INERT';
+}
+export async function verifyResidentRepairPredecessor() {
+  async function pinned(relative, expected, expectedBytes) {
+    const absolute=path.join(ROOT,relative),real=await fs.realpath(absolute),info=await fs.lstat(absolute);
+    if(real.toLowerCase()!==absolute.toLowerCase()||info.isSymbolicLink()||!info.isFile()||info.size>1024*1024)
+      fail('REPAIR_PREDECESSOR_REJECTED');
+    const bytes=await fs.readFile(absolute);
+    if(bytes.length!==info.size||(expectedBytes!==undefined&&bytes.length!==expectedBytes)||hash(bytes)!==expected)
+      fail('REPAIR_PREDECESSOR_CHANGED');
+    return bytes;
+  }
+  await pinned(RESIDENT_REPAIR_PREDECESSOR.receipt,RESIDENT_REPAIR_PREDECESSOR.receiptSha256);
+  const manifest=JSON.parse((await pinned(RESIDENT_REPAIR_PREDECESSOR.manifest,RESIDENT_REPAIR_PREDECESSOR.manifestSha256)).toString('utf8'));
+  if(manifest.receiptSha256!==RESIDENT_REPAIR_PREDECESSOR.receiptSha256||!Array.isArray(manifest.files)||manifest.files.length!==16)
+    fail('REPAIR_PREDECESSOR_REJECTED');
+  for(const item of manifest.files) {
+    if(!/^research\/resident-recognition-attempt-001-source\/[A-Za-z0-9_.-]+$/.test(item.archive))fail('REPAIR_PREDECESSOR_REJECTED');
+    await pinned(item.archive,item.sha256,item.bytes);
+  }
+  return {...RESIDENT_REPAIR_PREDECESSOR,archivedSourcesVerified:16,status:'EXACT_FAILED_ATTEMPT_PRESERVED'};
 }
 async function checkedFile(relative, maxBytes=1024*1024) {
   if (!SOURCE_FILES.includes(relative) && !RESIDENT_EXPERIMENT_CLIPS.some(c=>c.file===relative)) fail('UNDECLARED_INPUT_PATH');
@@ -93,11 +121,15 @@ async function conflicts(){
 }
 async function receiptDirectory(){const absolute=path.join(ROOT,'research'),actual=await fs.realpath(absolute),info=await fs.lstat(absolute);
   if(actual.toLowerCase()!==absolute.toLowerCase()||info.isSymbolicLink()||!info.isDirectory())fail('RECEIPT_DIRECTORY_REJECTED');}
-async function receiptAvailable(){await receiptDirectory();try{await fs.lstat(path.join(ROOT,RESIDENT_RECOGNITION_RECEIPT));return false;}
+function allowedReceipt(receipt) {
+  if(![RESIDENT_RECOGNITION_RECEIPT,RESIDENT_RECOGNITION_REPAIR_RECEIPT].includes(receipt))fail('UNDECLARED_RECEIPT_PATH');
+}
+async function receiptAvailable(receipt=RESIDENT_RECOGNITION_RECEIPT){allowedReceipt(receipt);await receiptDirectory();try{await fs.lstat(path.join(ROOT,receipt));return false;}
   catch(error){if(error.code==='ENOENT')return true;throw error;}}
-export async function reserveResidentRecognitionReceipt(openFile=fs.open){
+export async function reserveResidentRecognitionReceipt(openFile=fs.open,receipt=RESIDENT_RECOGNITION_RECEIPT){
+  allowedReceipt(receipt);
   if(openFile===fs.open)await receiptDirectory();
-  let handle;try{handle=await openFile(path.join(ROOT,RESIDENT_RECOGNITION_RECEIPT),'wx');}
+  let handle;try{handle=await openFile(path.join(ROOT,receipt),'wx');}
   catch(error){if(error.code==='EEXIST')fail('RECEIPT_ALREADY_EXISTS');throw error;}
   return {
     async save(report){const bytes=Buffer.from(JSON.stringify(report,null,2)+'\n');if(bytes.length>1024*1024)fail('RECEIPT_TOO_LARGE');
@@ -110,7 +142,8 @@ export async function reserveResidentRecognitionReceipt(openFile=fs.open){
 }
 const defaultIo={prepare:readResidentExperimentPreparation,checkSources:checkSourceSnapshot,resources,freemem:os.freemem,conflicts,
   createEngine:options=>createResidentRecognition(options),now:()=>performance.now(),wallNow:()=>new Date().toISOString(),
-  reserveReceipt:()=>reserveResidentRecognitionReceipt(),receiptAvailable};
+  reserveReceipt:receipt=>reserveResidentRecognitionReceipt(fs.open,receipt),receiptAvailable,
+  verifyPredecessor:verifyResidentRepairPredecessor};
 const safeError = error => /^[A-Z][A-Z0-9_]{1,95}$/.test(error?.code??'') ? error.code : 'RESIDENT_EXPERIMENT_FAILED';
 
 export async function runResidentRecognitionExperiment(args=[],testIo={}){
@@ -118,12 +151,17 @@ export async function runResidentRecognitionExperiment(args=[],testIo={}){
   if(action==='INERT')return {status:'INERT',nativeInference:'NOT_PERFORMED',receipt:null};
   const mock=Reflect.ownKeys(testIo).length>0;
   if(mock&&!ownFunctions(testIo,Object.keys(defaultIo)))fail('INCOMPLETE_TEST_DEPENDENCIES');
-  const io=mock?testIo:defaultIo,run=action==='--run';
+  const io=mock?testIo:defaultIo,repair=action.endsWith('-repair'),run=action==='--run'||action==='--run-repair';
+  const receipt=repair?RESIDENT_RECOGNITION_REPAIR_RECEIPT:RESIDENT_RECOGNITION_RECEIPT;
+  // A repaired trial must preserve the exact failed receipt and all archived
+  // sources before reserving a separate output or constructing any worker.
+  const predecessor=repair?await io.verifyPredecessor():null;
   let writer=null;
-  // Reservation precedes inspection and every possible worker construction/start.
-  if(run)writer=await io.reserveReceipt();
+  // Reservation precedes runtime inspection and every worker construction/start.
+  if(run)writer=await io.reserveReceipt(receipt);
   const report={schemaVersion:1,classification:mock?'MOCK_ONLY':'LOCAL_COMPONENT_SMOKE_SYNTHETIC_INPUT',mode:MODE,
-    status:'PREFLIGHT',startedAt:io.wallNow(),completedAt:null,receipt:run?RESIDENT_RECOGNITION_RECEIPT:null,
+    status:'PREFLIGHT',startedAt:io.wallNow(),completedAt:null,receipt:run?receipt:null,
+    attempt:repair?'TIMESTAMP_REPAIR_TRIAL':'ORIGINAL_TRIAL',predecessor,
     nativeInference:'NOT_PERFORMED',microphoneCapture:false,speakerPlayback:false,listenerStarted:false,
     commandExecution:false,gameTests:'NOT_PERFORMED',uiIntegration:'NOT_PERFORMED',humanRecognitionAcceptance:'NOT_PERFORMED',
     releaseAcceptance:'NOT_PERFORMED',networkCalls:0,paidApiCalls:0,settings:{...engineOptions,cpuThreads:4,gpu:false,language:'en'},
@@ -168,7 +206,7 @@ export async function runResidentRecognitionExperiment(args=[],testIo={}){
       !Number.isSafeInteger(state.pid)||state.pid<=0||(pid!==undefined&&state.pid!==pid))fail('EXPERIMENT_WORKER_IDENTITY');return state;}
   try{
     await save();
-    if(!run){report.receiptAvailable=await io.receiptAvailable();if(!report.receiptAvailable)fail('RECEIPT_ALREADY_EXISTS');}
+    if(!run){report.receiptAvailable=await io.receiptAvailable(receipt);if(!report.receiptAvailable)fail('RECEIPT_ALREADY_EXISTS');}
     report.admission=await admission(true);sampleRam();
     const prepared=await io.prepare();report.preparation=prepared.evidence;
     if(!Array.isArray(prepared.clips)||prepared.clips.length!==2||prepared.clips.some((c,i)=>c.id!==RESIDENT_EXPERIMENT_CLIPS[i].id||
@@ -230,7 +268,7 @@ export async function runResidentRecognitionExperiment(args=[],testIo={}){
         if(!Array.isArray(report.postflightInventory.processes)||report.postflightInventory.processes.length)fail('EXPERIMENT_POSTFLIGHT_CONFLICT');}
       catch(error){report.postflightError=safeError(error);report.status='FAILED_OR_BLOCKED';}
     }else report.ownedProcessStopped=true;
-    if(report.preparation){try{await io.checkSources(report.preparation.sources);}catch(error){report.sourceSnapshotUnchanged=false;report.error??=safeError(error);report.status='FAILED_OR_BLOCKED';}}
+    if(report.preparation){try{await io.checkSources(report.preparation.sources);if(repair)await io.verifyPredecessor();}catch(error){report.sourceSnapshotUnchanged=false;report.error??=safeError(error);report.status='FAILED_OR_BLOCKED';}}
     if(report.startup.requestInvoked===null){report.startup.requestInvoked=false;report.startup.status='NOT_PERFORMED';}
     for(const sample of report.samples)if(sample.requestInvoked===null){sample.requestInvoked=false;sample.status='NOT_PERFORMED';}
     if(report.samples.every(sample=>sample.requestInvoked===false))report.nativeInference='NOT_PERFORMED';

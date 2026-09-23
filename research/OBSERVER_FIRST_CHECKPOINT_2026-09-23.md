@@ -1,6 +1,6 @@
 # Observer-first checkpoint
 
-September 23, 2026. The user replaced the old goal and resumed the observer-first goal; the app reports it **active**. The most recent account check for this checkpoint showed **29% weekly allowance remaining**. Begin final checkpointing at 12%; stop substantive work and pause at 10% or if usage cannot be verified.
+September 23, 2026. **Final status: BLOCKED on manual editor authoring; observer incomplete.** The user replaced the old goal and resumed the observer-first goal, which completed the independent work below before the app status was set to blocked. The latest live account check showed **27% weekly allowance remaining**. The earlier sections preserve their own historical snapshots. Begin final checkpointing at 12%; stop substantive work and pause at 10% or if usage cannot be verified.
 
 ## Completed this work unit
 
@@ -28,6 +28,18 @@ The next goal work unit completed `design/PASSIVE_CAPTURE_FIELD_MAP.json`: ninet
 
 Private backup `59216bb2d7ed146df280d9475198ee79479a682b` preserved the preceding observer/recording checkpoint and paused speech source on `codex/companion-foundation`. The latest allowance check after mapping still has more than the 12% checkpoint floor; use the live tool rather than this historical note before more work.
 
-## Paused speech preserved
+## Historical paused speech preserved
 
 The failed first resident-recognition attempt and its 16-file historical source archive remain unchanged. The worker timestamp repair and parent first-error repair are present but not jointly accepted: independent final worker review is pending, and the parent intentionally pins the older worker. No repaired inference trial occurred. See [the goal's frozen speech checkpoint](../design/OBSERVER_FIRST_GOAL.md). Preserve this pending status in source backups; do not describe the prior full-suite receipt as validating these newer repairs.
+
+## Follow-up repair and current handoff — 06:12 UTC
+
+The preceding paragraph is the earlier checkpoint, superseded for current repair status by this section. Observer-independent work was privately backed up at `d3454ecde90b3cd5ddc0df91a26c73e664138a15` before the fallback repair continued. Final independent worker and runner reviews passed. The runner now protects the exact failed receipt and all sixteen historical source files before and after a separate fixed repair trial; the old receipt cannot be overwritten. The full offline regression passed 1,343/1,343 checks.
+
+The initial read-only repair preflight failed because the restricted process inventory received Windows `Get-CimInstance` access denied (`0x80041003`). Direct installation verification passed. With the required process-read permission, the same reviewed preflight passed without inference; no code or safety gate was weakened. A single subsequently authorized repair trial passed all three prerecorded requests, used one owned worker and stopped it. Independent operating-system inventory at 06:12:09 UTC found the trial PID absent and no scoped project/game/model workers. See [the separate result](RESIDENT_RECOGNITION_REPAIR_RESULT.md). No microphone, speakers, game/editor, command channel or workbench integration was used.
+
+Latest live account check for this follow-up: 27% weekly allowance remaining. This is a historical snapshot, not a substitute for the next live check. The active goal is still the observer, and it is incomplete. Its exact remaining dependency is unchanged: a working manual editor authoring session for the three prepared assets. No further lookup/export, unchanged failed desktop capture, or broad speech tuning is indicated. Return immediately to the observer when that session is available. All remaining creation, packaging, real recording, independent identity/lifecycle validation and removal gates still apply.
+
+## Final blocked disposition
+
+The goal tool now reports **blocked**, not complete or usage-limited. The same authoring dependency remained unresolved across goal turns; permitted independent recording work and the narrow speech repair are now finished. The user has an availability question pending for a guided manual editor session. The recipe specifies three new assets and their wiring; no repeat source export or blind input is needed. No game/editor/model worker is active in the final verified scope, and all reviewers have finished. Preserve the allowance until that external dependency changes. The source backup receipt records the final verified private branch/commit; proprietary raw exports, downloaded models/runtimes and generated media remain local and excluded.

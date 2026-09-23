@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T05:21:58.321Z",
+  "recordedAt": "2026-09-23T06:04:32.486Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1310,
-  "passed": 1310,
+  "tests": 1343,
+  "passed": 1343,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -54,6 +54,8 @@
     "companion/tests/radio-binding-invalidation.test.mjs",
     "companion/tests/radio-binding-review.test.mjs",
     "companion/tests/radio.test.mjs",
+    "companion/tests/recording-audit-review.test.mjs",
+    "companion/tests/recording-audit.test.mjs",
     "companion/tests/relative-facts-attempt-review.test.mjs",
     "companion/tests/relative-facts-fallback-review.test.mjs",
     "companion/tests/resident-recognition-experiment.test.mjs",
@@ -261,6 +263,14 @@
       "sha256": "8fba2f154dd29c41dee3c5c41ceb5ecd810b985c39ef22dbab481ed6d3d1277d"
     },
     {
+      "file": "companion/tests/recording-audit-review.test.mjs",
+      "sha256": "a5637a5e686ea724c8a6bbf5a479fb9b4f497be71918686a7d0cbf470d098904"
+    },
+    {
+      "file": "companion/tests/recording-audit.test.mjs",
+      "sha256": "84b8b644685079165065668610efda99c8b4d067666c9e4b0d423477224db8cf"
+    },
+    {
       "file": "companion/tests/relative-facts-attempt-review.test.mjs",
       "sha256": "cf5f003d149d15c45ce92322fe6cb38650443aa8343572a48f4a4a19012c6865"
     },
@@ -270,11 +280,11 @@
     },
     {
       "file": "companion/tests/resident-recognition-experiment.test.mjs",
-      "sha256": "5bd7018fd7027d6201bb05418bc39396c71d14e05b0f1fa8a21752fff110f310"
+      "sha256": "3d69ff618b18a32f36aa80ecf64e28f64763393d5f11d4e3d9453c6ae021cc55"
     },
     {
       "file": "companion/tests/resident-recognition-review.test.mjs",
-      "sha256": "e1e50897408a4da19017fbfa55bda8996404e0587dd66a47f0675ae1ea1917dc"
+      "sha256": "74a5132f45521b81e09555d2fad3b0eafd95117362d5d10edd0cc2b05c54e8fa"
     },
     {
       "file": "companion/tests/resident-recognition-worker.test.mjs",
@@ -445,12 +455,16 @@
       "sha256": "c8d630eafa6eabea0e219da0372401bd7ad6be13e5aa76b7c4a4a5416c62e825"
     },
     {
+      "file": "companion/recording-audit.mjs",
+      "sha256": "bfab1eab1377d3e81c4dfcec6cf28a2b331c55c12c599209a7768854ba37be54"
+    },
+    {
       "file": "companion/resident-recognition.mjs",
-      "sha256": "12a98fb7b3a9d37eead52486ef83e77296822943e7b478193ea8001d131e1d7a"
+      "sha256": "4830bd2a45d9a656cb80adc3f515f12d01527d0f241c8300e2109a6b37176fca"
     },
     {
       "file": "companion/resident_recognition_worker.py",
-      "sha256": "908fa18c7504f405af435f45ad499239ff8b9827b7f107dfac41633e18d6f80c"
+      "sha256": "5c041fa4db196d65b12ae7650536532cc9a8b7d0e51d9a3cc303f95a7df44bad"
     },
     {
       "file": "companion/server.mjs",
@@ -530,11 +544,31 @@
     },
     {
       "file": "scripts/Test-ResidentRecognitionWorker.py",
-      "sha256": "e169ab89072387182d01959466d68945ce2d80aeb015837b440a1bfca6e2eca6"
+      "sha256": "51e3378a0628e9c0a890729a9016f9949905e5ae52b8ea5c85273826e746ab33"
     },
     {
       "file": "scripts/Exercise-ResidentRecognition.mjs",
-      "sha256": "8c7c2906ccd5766e0747c3b2bc2236b61e2cc481dd5a85ae6b7037aea09852a3"
+      "sha256": "5672128aea67dab3baf5b42a8be46afff2176374e867a1f0d3c0f5316085832e"
+    },
+    {
+      "file": "research/RESIDENT_RECOGNITION_REPAIR_PLAN.md",
+      "sha256": "5a548bf95f4790aafda7829a5785ee9d87872dc246a33c37776f1cc94a10cfcf"
+    },
+    {
+      "file": "scripts/Inspect-MissionRecording.mjs",
+      "sha256": "ab210fa898aa0bb8f35ee3495902ccb88e3344362d89ae9f84f67c4c2049d2d9"
+    },
+    {
+      "file": "synthetic/passive-recording-example.json",
+      "sha256": "97d311e98a5b7e06f82cbe7e07c5eb7cd68976137b58c136d67072fe924a4d0d"
+    },
+    {
+      "file": "synthetic/passive-recording-annotation-template.json",
+      "sha256": "b01a5af5ad726a01d03c5e428e17d0c93b64a51849478f45f0138ba48da8fe98"
+    },
+    {
+      "file": "design/PASSIVE_RECORDING_WORKFLOW.md",
+      "sha256": "4c1725a96bcbf7f03ca7b1b23ba1cfe631c40bd75616ff5681584eac1d0f1b32"
     },
     {
       "file": "scripts/Exercise-ConversationIdentity.mjs",
@@ -578,7 +612,7 @@
     },
     {
       "file": "scripts/Verify-Companion.mjs",
-      "sha256": "546d9c7cde5fdd06baa3bc8557f67e5cde69df4526b1bf1b1081c8e76c3c7490"
+      "sha256": "a6f0506e386a654fa4a17c41f37462ca3c100ba496c2bbbb25f1277fc0566dfa"
     },
     {
       "file": "design/WORKBENCH_PACKAGE_README.md",
@@ -588,8 +622,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790140918274.tap",
-    "sha256": "0fc54cce4fc525fc4fc7f3a3ed2ccc38487d1d40630b653925306a9bbe83fb22",
+    "file": "tmp/companion-verification-1790143472433.tap",
+    "sha256": "39f53968bbede72391870b4e48f20e288941675343f81b8231a42b5ba4ba91e2",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

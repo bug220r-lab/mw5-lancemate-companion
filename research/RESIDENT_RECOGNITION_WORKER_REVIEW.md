@@ -57,3 +57,30 @@ The fixed runtime inventory pins Whisper DLL `b7bb4ba92bd36b8afe0c00059ca6a0f69c
 The worker explicitly uses GREEDY, four threads, English, no context carry and no timestamps. Cold CLI strategy parity is **not established**: CLI **1210–1213** conditionally selects beam search. A future comparison must record that configuration difference rather than attribute every change to residency.
 
 Protocol limits, canonical WAV checks, monotone request IDs, bounded output and fatal fixed-code errors are source-supported and covered by the author's mocked cases. Actual CPU registration, DLL compatibility, model loading, transcription quality/latency, live cancellation and process cleanup require separate recorded native evidence. No microphone, game, editor, listener or paid service was exercised here.
+
+## Timestamp verification repair — independent follow-up
+
+Reviewed **2026-09-23 UTC**. **REPAIR_SOURCE_REVIEW_PASS; 25/25 FOCUSED_CHECKS_PASS; NATIVE_RETRY_NOT_PERFORMED.** This section is separate from the original review above. The original 6,696-byte review is preserved verbatim and archived under `research/resident-recognition-attempt-001-source/RESIDENT_RECOGNITION_WORKER_REVIEW.md`, SHA256 `66e6f76add208c88dda87bef69ee28fe672b98320d8290ecd0be3705a5509678`.
+
+The first native trial remains recorded as `FAILED_OR_BLOCKED` / `RESIDENT_WORKER_INSTALLATION_REJECTED` in `research/RESIDENT_RECOGNITION_COMPONENT_SMOKE.json` (22,208 bytes; SHA256 `3a51114ad1044ccb0f605cee5bdd87a02f251f6a8b47877d12b8077d204fdb26`). Its installation verification failed before target-library loading. This repair does not rewrite that result.
+
+### Observed cause and bounded change
+
+A preceding independent read-only probe on this Windows installation, using Python 3.12.14, found individually stable but different timestamps for the unchanged `companion/models.lock.json`: pathname `stat` reported `st_ctime_ns=1789966968426475900`; the same open handle's before/after `fstat` reported `1790139995734834500`. Both APIs agreed on device, inode, size (2,964 bytes), modification time and birth time. Its full SHA256 was `747c32233ab73ebdb144617781de9483a0c419e0be60d697edf9c8a39c5edc29`. This is an observed discrepancy on the recorded environment, not a general claim about every Windows/Python version.
+
+Compared with the archived failed-attempt worker, the only implementation change is `_read_verified` at lines 235–241: device, inode, size and modification time must still match handle-before, handle-after and pathname metadata; creation/change time must still match **before/after on the same handle**, but is no longer compared between those APIs. Complete expected SHA256, byte-count, path, file-type and size checks remain. No ABI, loader, inference or protocol code changed. A separate before/after pathname-ctime check is not claimed.
+
+| Artifact | SHA256 |
+| --- | --- |
+| Repaired worker | `5c041fa4db196d65b12ae7650536532cc9a8b7d0e51d9a3cc303f95a7df44bad` |
+| Repaired focused tests | `51e3378a0628e9c0a890729a9016f9949905e5ae52b8ea5c85273826e746ab33` |
+| Archived failed-attempt worker | `908fa18c7504f405af435f45ad499239ff8b9827b7f107dfac41633e18d6f80c` |
+| Archived failed-attempt tests | `e169ab89072387182d01959466d68945ce2d80aeb015837b440a1bfca6e2eca6` |
+
+### Independent verification and disposition
+
+The resumed review first checked live usage: 28% of the weekly allowance remained. The independent focused run used bundled Python with bytecode writes disabled and outer rejecting guards for both `ctypes.CDLL` and `ctypes.WinDLL`. It ran from **05:59:48.432917Z to 05:59:49.198978Z** on September 23: **25/25 passed, no skips, exit 0, zero outer forbidden-loader attempts**. The test runner reported 0.736 seconds; this is test duration, not recognition latency.
+
+Twenty-four checks use synthetic inputs or mocked functions. One additional check performs **actual read-only installation verification**: all 44 expected reads (lock, inventory, 40 runtime files, model and archive) are accounted for, with both target-library loaders forbidden and asserted unused. Added cases admit only the reproduced cross-API ctime difference and reject same-handle metadata drift, pathname identity/size/modification-time drift and incorrect expected hashes.
+
+No substantive blocker was found in this narrow repair. The parent adapter still intentionally pins the old worker; updating that pin and preparing a separate trial are parent-owned follow-ups. Native DLL compatibility, backend registration, model execution, transcription, cancellation, latency and cleanup after inference remain **unverified by this repair review**. No DLL/model load, native WinAPI execution, game/editor/UI operation, network access or implementation edit occurred in these checks.

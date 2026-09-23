@@ -12,7 +12,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const WORKER = path.join(ROOT, 'companion', 'resident_recognition_worker.py');
 const PYTHON_ROOT = path.join(os.homedir(), '.cache', 'codex-runtimes', 'codex-primary-runtime', 'dependencies', 'python');
 // Independent source/ABI review: research/RESIDENT_RECOGNITION_WORKER_REVIEW.md.
-const WORKER_SHA256 = '908fa18c7504f405af435f45ad499239ff8b9827b7f107dfac41633e18d6f80c';
+const WORKER_SHA256 = '5c041fa4db196d65b12ae7650536532cc9a8b7d0e51d9a3cc303f95a7df44bad';
 const PYTHON_PINS = [
   ['python.exe', 107312, '372c2eae555b344520bf147be0096e009069aeca4e7f78d6aecea6d53158056a'],
   ['python3.dll', 71984, 'c57bc21e131857f26db78d1512fbfcf67cac3273ee8b1cd704ed5645ec250884'],

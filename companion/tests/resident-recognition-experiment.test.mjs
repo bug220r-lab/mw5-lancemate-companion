@@ -4,7 +4,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { runResidentRecognitionExperiment, parseResidentExperimentArguments, reserveResidentRecognitionReceipt,
-  RESIDENT_EXPERIMENT_LIMITS, RESIDENT_EXPERIMENT_CLIPS, RESIDENT_RECOGNITION_RECEIPT } from '../../scripts/Exercise-ResidentRecognition.mjs';
+  RESIDENT_EXPERIMENT_LIMITS, RESIDENT_EXPERIMENT_CLIPS, RESIDENT_RECOGNITION_RECEIPT,
+  RESIDENT_RECOGNITION_REPAIR_RECEIPT } from '../../scripts/Exercise-ResidentRecognition.mjs';
 const GiB=1024**3, MODE='RESIDENT_PIPE_TRANSCRIPTION_ONLY';
 const error=code=>Object.assign(Error(code),{code});
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -42,10 +43,11 @@ function rig(configure=()=>{}){
     createEngine(options){state.ops.push('factory');state.factories++;state.options=options;return engine;},
     now:()=>state.clock,
     wallNow:()=>new Date(Date.UTC(2026,8,23)+state.wall++).toISOString(),
-    async reserveReceipt(){state.ops.push('reserve');if(state.reserved)throw error('RECEIPT_ALREADY_EXISTS');state.reserved=true;
+    async reserveReceipt(receipt){state.receiptPath=receipt;state.ops.push('reserve');if(state.reserved)throw error('RECEIPT_ALREADY_EXISTS');state.reserved=true;
       return {async save(report){state.ops.push('save');state.receipts.push(structuredClone(report));if(state.onSave)await state.onSave(report);},
         async close(){state.closed++;state.ops.push('close');}};},
-    async receiptAvailable(){state.ops.push('receipt-check');return !state.reserved;}
+    async receiptAvailable(receipt){state.receiptPath=receipt;state.ops.push('receipt-check');return !state.reserved;},
+    async verifyPredecessor(){state.ops.push('predecessor');return {status:'EXACT_FAILED_ATTEMPT_PRESERVED',classification:'MOCK_ONLY'};}
   };
   configure(state,io,clips);return {state,io,clips,engine};
 }
@@ -189,4 +191,42 @@ test('resident experiment: fixed exclusive receipt handles partial writes and re
   const stalled=await reserveResidentRecognitionReceipt(async()=>({async truncate(){},async write(){return {bytesWritten:0};},async sync(){throw Error('not reached');},async close(){}}));
   await assert.rejects(stalled.save({}),/RECEIPT_WRITE_FAILED/);await stalled.close();
   await assert.rejects(reserveResidentRecognitionReceipt(async()=>{throw error('EEXIST');}),/RECEIPT_ALREADY_EXISTS/);
+});
+
+test('resident repair: predecessor gate and separate exclusive output preserve original attempt',async()=>{
+  const h=rig(),r=await runResidentRecognitionExperiment(['--run-repair'],h.io);
+  assert.equal(r.status,'PASS_RESIDENT_COMPONENT_SMOKE_ONLY');
+  assert.equal(r.receipt,RESIDENT_RECOGNITION_REPAIR_RECEIPT);
+  assert.notEqual(r.receipt,RESIDENT_RECOGNITION_RECEIPT);
+  assert.equal(h.state.receiptPath,r.receipt);
+  assert.equal(r.attempt,'TIMESTAMP_REPAIR_TRIAL');
+  assert.deepEqual(h.state.ops.slice(0,2),['predecessor','reserve']);
+  assert.equal(h.state.ops.filter(x=>x==='predecessor').length,2);
+  assert.equal(h.state.starts,1);assert.equal(h.state.requests.length,3);
+});
+
+test('resident repair: check stays read-only and selects only the new receipt',async()=>{
+  const h=rig(),r=await runResidentRecognitionExperiment(['--check-repair'],h.io);
+  assert.equal(r.status,'PREFLIGHT_PASS_NO_INFERENCE');assert.equal(h.state.starts,0);
+  assert.equal(h.state.receiptPath,RESIDENT_RECOGNITION_REPAIR_RECEIPT);
+  assert.equal(h.state.reserved,false);assert.equal(r.receipt,null);
+});
+
+test('resident repair: changed historical evidence prevents reservation and worker construction',async()=>{
+  const h=rig((s,io)=>{io.verifyPredecessor=async()=>{throw error('REPAIR_PREDECESSOR_CHANGED');};});
+  await assert.rejects(runResidentRecognitionExperiment(['--run-repair'],h.io),/REPAIR_PREDECESSOR_CHANGED/);
+  assert.equal(h.state.reserved,false);assert.equal(h.state.prepared,0);assert.equal(h.state.factories,0);
+});
+
+test('resident repair: historical drift during run prevents success after cleanup',async()=>{
+  const h=rig((s,io)=>{let checks=0;io.verifyPredecessor=async()=>{if(++checks>1)throw error('REPAIR_PREDECESSOR_CHANGED');return {};};});
+  const r=await runResidentRecognitionExperiment(['--run-repair'],h.io);
+  assert.equal(r.status,'FAILED_OR_BLOCKED');assert.equal(r.error,'REPAIR_PREDECESSOR_CHANGED');
+  assert.equal(r.ownedProcessStopped,true);assert.equal(r.sourceSnapshotUnchanged,false);
+});
+
+test('resident repair: receipt reservation rejects arbitrary paths before file I/O',async()=>{
+  let opens=0;
+  await assert.rejects(reserveResidentRecognitionReceipt(async()=>{opens++;},'research/anything.json'),/UNDECLARED_RECEIPT_PATH/);
+  assert.equal(opens,0);
 });
