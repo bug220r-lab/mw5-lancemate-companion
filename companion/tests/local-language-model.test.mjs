@@ -87,6 +87,26 @@ test('explicit experimental fact projection reaches the mocked inference payload
   assert.equal(r.fetches.length, count); assert.equal(r.model.status().nativeCalls, 0);
 });
 
+test('explicit experimental briefing reaches actual request construction and preserves inference limits', async t => {
+  const r = rig(t, () => {}, { experimentalSpeakerRelativeFacts: true, experimentalSpeakerBriefing: true });
+  await r.model.start();
+  const c = { ...ctx(), classification: 'MOCK_ONLY', speakerId: 'alpha', facts: [{ id: 'heat',
+    evidenceStatus: 'CALLER_ASSERTED_OBSERVATION', data: { actorId: 'alpha', heat: 'low' } }] };
+  await r.model.generate(c);
+  const payload = JSON.parse(r.fetches.at(-1).options.body);
+  assert.deepEqual(payload.messages.map(m => m.role), ['system', 'user']);
+  assert.match(payload.messages[1].content, /Your heat: reported low/);
+  assert.match(payload.messages[0].content, /Never claim order acceptance/);
+  assert.equal(payload.max_tokens, 64); assert.equal(payload.cache_prompt, false);
+  assert.deepEqual(payload.chat_template_kwargs, { enable_thinking: false });
+  assert.equal(Object.hasOwn(payload, 'tools'), false);
+  assert.equal(r.model.status().settings.experimentalSpeakerBriefing, true);
+  const count = r.fetches.length;
+  await assert.rejects(r.model.generate({ ...c, classification: 'GAME_OBSERVED' }), /EXPERIMENTAL_MOCK_CONTEXT_REQUIRED/);
+  assert.equal(r.fetches.length, count);
+  assert.equal(r.model.status().nativeCalls, 0);
+});
+
 test('start verifies pinned model/archive and every inventoried runtime file before one hidden CPU process', async t => {
   const r = rig(t); const [a, b] = await Promise.all([r.model.start(), r.model.start()]);
   assert.equal(a.state, 'READY'); assert.equal(b.state, 'READY'); assert.equal(r.calls.length, 1);

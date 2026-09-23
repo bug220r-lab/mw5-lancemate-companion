@@ -19,8 +19,11 @@ export const RELATIVE_FACTS_ATTEMPT_002_RECEIPT = 'research/QWEN4B_RELATIVE_FACT
 export const RELATIVE_FACTS_PREDECESSOR_SHA256 = 'a4970f273317987ec2ab807dc4a23c3c362cadc6cea81a10b375094b84902771';
 export const RELATIVE_FACTS_QWEN17B_RECEIPT = 'research/QWEN17B_RELATIVE_FACTS_DIAGNOSTIC.json';
 export const RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256 = 'e227f94995bab1c44a3296c50202c995e36c9b25d2302f0cd1d05bd6266fb67b';
+export const BRIEFING_RECEIPT = 'research/QWEN17B_BRIEFING_DIAGNOSTIC.json';
+export const BRIEFING_PREDECESSOR_SHA256 = '456ae004e7497fe9d90a574b218a1da2c47d26b4546c87d21c5133f9d26137a3';
 const secondAttemptAction = '--run-attempt-002';
 const qwen17bAction = '--run-qwen17b';
+const briefingAction = '--run-briefing-qwen17b';
 const fixtureRelative = 'synthetic/conversation-relative-facts-cases.json';
 const options = Object.freeze({ modelId: 'qwen4b', threads: 4, processingBatch: 'compact', weightRepacking: false,
   promptCaching: true, experimentalSpeakerRelativeFacts: true });
@@ -66,19 +69,38 @@ async function qwen17bSubstitution() {
     predecessor: readRelativeFactsQwen17bPredecessor(await readFile(path.join(root, RELATIVE_FACTS_ATTEMPT_002_RECEIPT))) };
 }
 
+export function readBriefingPredecessor(bytes) {
+  if (hash(bytes) !== BRIEFING_PREDECESSOR_SHA256) throw Error('BRIEFING_PREDECESSOR_EVIDENCE_CHANGED');
+  const prior = JSON.parse(bytes.toString('utf8'));
+  if (prior.status !== 'COMPLETE_PENDING_SEMANTIC_REVIEW' || prior.samples.length !== 18 ||
+      prior.primer.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' || prior.samples.some(s => s.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY') ||
+      prior.notPerformed.length !== 0 || !prior.ownedProcessStopped || prior.finalRuntime.ownedPid !== null)
+    throw Error('BRIEFING_PREDECESSOR_NOT_STOPPED_DIAGNOSTIC');
+  return { path: RELATIVE_FACTS_QWEN17B_RECEIPT, sha256: BRIEFING_PREDECESSOR_SHA256 };
+}
+
+async function briefingPromptTreatment() {
+  return { id: 'SPEAKER_FACT_BRIEFING_V1', revision: 1, receiptPath: BRIEFING_RECEIPT, modelId: 'qwen1_7b',
+    changes: 'SYSTEM_INSTRUCTION_AND_FACT_REPRESENTATION',
+    predecessor: readBriefingPredecessor(await readFile(path.join(root, RELATIVE_FACTS_QWEN17B_RECEIPT))),
+    exposure: { regressionCount: 18, freshHoldoutCount: 0, originalHoldoutCount: 4, originalProvenanceRetained: true } };
+}
+
 function receiptFor(action) {
   if (action === '--run') return RELATIVE_FACTS_RECEIPT;
   if (action === secondAttemptAction) return RELATIVE_FACTS_ATTEMPT_002_RECEIPT;
   if (action === qwen17bAction) return RELATIVE_FACTS_QWEN17B_RECEIPT;
+  if (action === briefingAction) return BRIEFING_RECEIPT;
   throw Error('INVALID_ATTEMPT');
 }
 
 // Re-read the immutable source fixture before accepting an in-memory plan. This
 // validates the exact case copies without granting metadata any model authority.
 export async function prepareRelativeFactsDiagnostic(args, fixture) {
-  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction, qwen17bAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction, qwen17bAction, briefingAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
   const attempt = args[0] === secondAttemptAction ? await secondAttempt() : null;
   const modelSubstitution = args[0] === qwen17bAction ? await qwen17bSubstitution() : null;
+  const promptTreatment = args[0] === briefingAction ? await briefingPromptTreatment() : null;
   const frozen = readFrozenRelativeFactsFixture(await readFile(path.join(root, fixtureRelative)));
   if (!isDeepStrictEqual(fixture, frozen)) throw Error('FROZEN_FIXTURE_CHANGED');
   const f = structuredClone(fixture), sourceFixtures = {};
@@ -126,27 +148,29 @@ export async function prepareRelativeFactsDiagnostic(args, fixture) {
       originalContext = { persona: profiles.profiles.find(p => p.id === input.persona),
         request: { text: c.request }, facts: c.facts, history: c.history };
     }
-    const prepared = prepareProjection(originalContext);
+    const prepared = prepareProjection(originalContext, Boolean(promptTreatment));
     cases.push({ provenance: origin, specification: c, capture: { mode: input.mode, coordinatorCalls: captures,
       syntheticClockMs: input.mode === 'COORDINATOR_CAPTURE' ? 1000 : null, placeholderInMeasuredHistory: false,
       addedContextFields: ['classification'], otherContextFieldsUnchanged: true }, ...prepared });
   }
   if (cases.length !== 18 || cases.filter(c => c.capture.coordinatorCalls === 1).length !== 10 ||
       cases.filter(c => c.provenance.kind === 'NEW_PREDECLARED_HOLDOUT').length !== 4) throw Error('INVALID_CAPTURE_COUNTS');
-  const primer = prepareProjection({ persona: { id: 'calibration', callsign: null }, request: { text: 'Say OK.' }, facts: [], history: [] });
-  return freeze({ action: args[0], ...(attempt ? { attempt } : {}), ...(modelSubstitution ? { modelSubstitution } : {}), fixture: f, primer, cases });
+  const primer = prepareProjection({ persona: { id: 'calibration', callsign: null }, request: { text: 'Say OK.' }, facts: [], history: [] }, Boolean(promptTreatment));
+  return freeze({ action: args[0], ...(attempt ? { attempt } : {}), ...(modelSubstitution ? { modelSubstitution } : {}),
+    ...(promptTreatment ? { promptTreatment } : {}), fixture: f, primer, cases });
 }
 
-function prepareProjection(originalContext) {
+function prepareProjection(originalContext, briefing = false) {
   if (Object.hasOwn(originalContext, 'classification')) throw Error('CAPTURE_ALREADY_CLASSIFIED');
   const context = { ...structuredClone(originalContext), classification: 'MOCK_ONLY' };
   const { classification, ...rest } = context;
   if (classification !== 'MOCK_ONLY' || !isDeepStrictEqual(rest, originalContext)) throw Error('CAPTURE_FIELDS_CHANGED');
   const projection = projectSpeakerObservations({ schemaVersion: 1, classification,
     speakerId: context.speakerId ?? null, facts: context.facts });
-  const messages = messagesFor(context, { experimentalSpeakerRelativeFacts: true });
-  const user = JSON.parse(messages[1].content.slice(0, -' /no_think'.length));
+  const projectedMessages = messagesFor(context, { experimentalSpeakerRelativeFacts: true });
+  const user = JSON.parse(projectedMessages[1].content.slice(0, -' /no_think'.length));
   if (!isDeepStrictEqual(user.callerAssertedCurrentObservations, projection.prompt)) throw Error('SERIALIZED_PROJECTION_MISMATCH');
+  const messages = briefing ? messagesFor(context, { experimentalSpeakerRelativeFacts: true, experimentalSpeakerBriefing: true }) : projectedMessages;
   return { originalContext, context, projection, messages, messageCharacters: messages.reduce((n, m) => n + m.content.length, 0) };
 }
 
@@ -169,12 +193,15 @@ export async function reserveRelativeFactsReceipt(openFile = open, action = '--r
 
 // Test substitutions are code-only, never CLI/request data; resulting receipts say MOCK_ONLY.
 export async function executeRelativeFactsDiagnostic(plan, evidence, testDependencies = null) {
-  if (!['--run', secondAttemptAction, qwen17bAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
+  if (!['--run', secondAttemptAction, qwen17bAction, briefingAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
   const attempt = plan.action === secondAttemptAction ? await secondAttempt() : null;
   if (attempt ? !isDeepStrictEqual(plan.attempt, attempt) : Object.hasOwn(plan, 'attempt')) throw Error('INVALID_EXECUTION_PLAN');
   const modelSubstitution = plan.action === qwen17bAction ? await qwen17bSubstitution() : null;
   if (modelSubstitution ? !isDeepStrictEqual(plan.modelSubstitution, modelSubstitution) : Object.hasOwn(plan, 'modelSubstitution')) throw Error('INVALID_EXECUTION_PLAN');
-  const engineOptions = modelSubstitution ? Object.freeze({ ...options, modelId: 'qwen1_7b' }) : options;
+  const promptTreatment = plan.action === briefingAction ? await briefingPromptTreatment() : null;
+  if (promptTreatment ? !isDeepStrictEqual(plan.promptTreatment, promptTreatment) : Object.hasOwn(plan, 'promptTreatment')) throw Error('INVALID_EXECUTION_PLAN');
+  const engineOptions = promptTreatment ? Object.freeze({ ...options, modelId: 'qwen1_7b', experimentalSpeakerBriefing: true }) :
+    modelSubstitution ? Object.freeze({ ...options, modelId: 'qwen1_7b' }) : options;
   const io = { reserveReceipt: action => reserveRelativeFactsReceipt(open, action), createEngine: createLocalLanguageModel, availableRam: () => os.freemem(),
     availableDisk: async () => { const s = await statfs(root); return s.bavail * s.bsize; }, now: () => performance.now(),
     ...(testDependencies ?? {}) };
@@ -186,6 +213,7 @@ export async function executeRelativeFactsDiagnostic(plan, evidence, testDepende
   const report = { schemaVersion: 1, recordedAt: new Date().toISOString(), status: 'PREFLIGHT',
     ...(attempt ? { attempt } : {}),
     ...(modelSubstitution ? { modelSubstitution } : {}),
+    ...(promptTreatment ? { promptTreatment } : {}),
     classification: testDependencies ? 'MOCK_ONLY' : 'LOCAL_CPU_RELATIVE_FACTS_DIAGNOSTIC_SYNTHETIC_CONTEXTS',
     fixtureSha256: evidence.fixtureSha256, fixture: plan.fixture, sources: evidence.sources,
     modelPins: evidence.modelPins, runtimePins: evidence.runtimePins, settings: { ...engineOptions, ...limits,
@@ -201,7 +229,8 @@ export async function executeRelativeFactsDiagnostic(plan, evidence, testDepende
     speakerPlayback: false, defaultModelChanged: false, defaultCachingChanged: false, defaultProjectionChanged: false,
     limitations: ['Synthetic capture clock is fixed; this is not live freshness or actor verification.',
       'Coordinator capture uses an inert placeholder; it and actual diagnostic answers never enter other contexts. Two older regressions retain their supplied unverified histories.',
-      'Fourteen cases are known regressions; only four are newly specified holdouts, not a statistical acceptance set.',
+      promptTreatment ? 'All eighteen cases are previously exposed regressions. The four original holdout provenance records are preserved, but no case is a fresh holdout in this prompt treatment.' :
+        'Fourteen cases are known regressions; only four are newly specified holdouts, not a statistical acceptance set.',
       'The experimental projection is enabled only for explicit MOCK_ONLY contexts; it does not authenticate facts or enable a workbench capability.',
       'Expectations remain in the receipt fixture, never in model contexts/messages.',
       'A single stochastic response per case is not reliability, causal improvement or full conversation acceptance.',
@@ -256,6 +285,7 @@ export async function executeRelativeFactsDiagnostic(plan, evidence, testDepende
     if (report.runtime.modelId !== engineOptions.modelId || report.runtime.threads !== engineOptions.threads ||
         Object.entries({ host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
           processingBatch: 'compact', weightRepacking: false, promptCaching: true, experimentalSpeakerRelativeFacts: true,
+          ...(promptTreatment ? { experimentalSpeakerBriefing: true } : {}),
           logicalBatchTokens: 128, physicalBatchTokens: 64, simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false })
           .some(([key, value]) => report.runtime.settings?.[key] !== value)) throw Error('CONFIGURATION_NOT_CONFIRMED');
     report.status = 'PRIMING'; await perform(report.primer);
@@ -307,11 +337,16 @@ async function main(args) {
     ...(plan.action === secondAttemptAction ? ['companion/tests/relative-facts-attempt-review.test.mjs',
       'research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md'] : []),
     ...(plan.action === qwen17bAction ? ['companion/tests/relative-facts-fallback-review.test.mjs',
-      'research/RELATIVE_FACTS_FALLBACK_PREPARATION.md'] : [])])
+      'research/RELATIVE_FACTS_FALLBACK_PREPARATION.md'] : []),
+    ...(plan.action === briefingAction ? ['companion/tests/briefing-diagnostic.test.mjs',
+      'companion/tests/speaker-briefing.test.mjs', 'companion/tests/local-language-model.test.mjs',
+      'companion/tests/speaker-briefing-review.test.mjs',
+      'design/SPEAKER_FACT_BRIEFING.md', 'research/SPEAKER_BRIEFING_REVIEW.md',
+      'research/CONVERSATION_BRIEFING_EVALUATION.md'] : [])])
     sources[rel] = hash(await readFile(path.join(root, rel)));
   const lock = JSON.parse(await readFile(path.join(root, 'companion/models.lock.json')));
   const evidence = { fixtureSha256: hash(fixtureBytes), sources,
-    modelPins: lock.artifacts.filter(a => [plan.action === qwen17bAction ? 'qwen1_7b' : 'qwen4b', 'llama-cpu'].includes(a.id)),
+    modelPins: lock.artifacts.filter(a => [[qwen17bAction, briefingAction].includes(plan.action) ? 'qwen1_7b' : 'qwen4b', 'llama-cpu'].includes(a.id)),
     runtimePins: JSON.parse(await readFile(path.join(root, 'companion/llama-runtime-pins.json'))) };
   const report = await executeRelativeFactsDiagnostic(plan, evidence);
   console.log(JSON.stringify({ status: report.status, completed: report.samples.filter(s => s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T00:22:51.665Z",
+  "recordedAt": "2026-09-23T00:42:54.943Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 940,
-  "passed": 940,
+  "tests": 973,
+  "passed": 973,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -12,6 +12,7 @@
   "testFiles": [
     "companion/tests/benchmark-review.test.mjs",
     "companion/tests/benchmark.test.mjs",
+    "companion/tests/briefing-diagnostic.test.mjs",
     "companion/tests/browser-playback.test.mjs",
     "companion/tests/browser-ptt.test.mjs",
     "companion/tests/callsign-command-review.test.mjs",
@@ -48,6 +49,8 @@
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
     "companion/tests/server.test.mjs",
+    "companion/tests/speaker-briefing-review.test.mjs",
+    "companion/tests/speaker-briefing.test.mjs",
     "companion/tests/speaker-observation-review.test.mjs",
     "companion/tests/speaker-observations.test.mjs",
     "companion/tests/speech-input-review.test.mjs",
@@ -64,6 +67,10 @@
     {
       "file": "companion/tests/benchmark.test.mjs",
       "sha256": "d3dda67c58e484636d1f3db6e812915a3682b6bdd78b4755d82a8baeacfbf496"
+    },
+    {
+      "file": "companion/tests/briefing-diagnostic.test.mjs",
+      "sha256": "edcfb2bf3308629321d62ab65076e8cd3c80fecc9e5f20f20236104d2a5ba96e"
     },
     {
       "file": "companion/tests/browser-playback.test.mjs",
@@ -131,7 +138,7 @@
     },
     {
       "file": "companion/tests/local-language-model.test.mjs",
-      "sha256": "0d6d7254c5d60f32af2481aa4905da2783f332fc0c2ff79a84058d842522cb44"
+      "sha256": "b17242dc60a845f6bb0316fd835c886eb3d500fc6e9c67760b88cf0dc9141a5c"
     },
     {
       "file": "companion/tests/local-recognition-review.test.mjs",
@@ -210,6 +217,14 @@
       "sha256": "14de0a7f2a1291d4aea66b1441eb1ccc2f0e183e5d79de82e83fa91e73b64102"
     },
     {
+      "file": "companion/tests/speaker-briefing-review.test.mjs",
+      "sha256": "a0360473c9e815109c501553f12afdad3d6e6f3f5468e56c9f91ec0ecdbb3970"
+    },
+    {
+      "file": "companion/tests/speaker-briefing.test.mjs",
+      "sha256": "a4a4e69c5d72125c86b569eba2cc7d000530e49266c97851724c95b9d88d54a3"
+    },
+    {
       "file": "companion/tests/speaker-observation-review.test.mjs",
       "sha256": "da36969bb9e39d202b6dd62884b61e10df17b60d9fcfe1cdf481e3a7e763a8b0"
     },
@@ -263,7 +278,7 @@
     },
     {
       "file": "companion/local-language-model.mjs",
-      "sha256": "3e53dd4901270cb250af3fdfa363b924da65108ace452b57cc8fb9b05d92fd4d"
+      "sha256": "4a40f247c804136ea49b04af33fc1c1b9f638b3a03bea3931ff00017094cb127"
     },
     {
       "file": "companion/local-recognition.mjs",
@@ -379,7 +394,7 @@
     },
     {
       "file": "scripts/Exercise-ConversationRelativeFacts.mjs",
-      "sha256": "0c8bea654707867b7563f7329c114baa65f44c7730a11596ab1fa859a4966922"
+      "sha256": "1b7962da1de164ba15b021f10b1171b3f6395abd29386c3863c117dc972a2320"
     },
     {
       "file": "synthetic/conversation-relative-facts-cases.json",
@@ -389,8 +404,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790122971644.tap",
-    "sha256": "d2ae3b1ade649ef128e288c1c071506bcdf335e292bc00a3f159520ecbfe3f16",
+    "file": "tmp/companion-verification-1790124174922.tap",
+    "sha256": "b0a9600e541df37832793f15e7f346dc06bc0cd2e339b7cdcb50f5d5a8e247e1",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",
