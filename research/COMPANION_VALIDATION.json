@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T01:36:19.933Z",
+  "recordedAt": "2026-09-23T01:51:21.999Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1121,
-  "passed": 1121,
+  "tests": 1134,
+  "passed": 1134,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -41,6 +41,8 @@
     "companion/tests/microphone.test.mjs",
     "companion/tests/mission-speech-review.test.mjs",
     "companion/tests/model-transfer-review.test.mjs",
+    "companion/tests/model-transfer-warmup-review.test.mjs",
+    "companion/tests/model-transfer-warmup.test.mjs",
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
     "companion/tests/policy-regression.test.mjs",
@@ -193,6 +195,14 @@
     {
       "file": "companion/tests/model-transfer-review.test.mjs",
       "sha256": "ff6ffbbfa711d7fd05aa651d839472b957e7f51a432d05de89e412dfc6ef3ec5"
+    },
+    {
+      "file": "companion/tests/model-transfer-warmup-review.test.mjs",
+      "sha256": "7a1da8d64f90738aeb374db3271ea582110919237c0e5bb374e830e8fcdfd8e8"
+    },
+    {
+      "file": "companion/tests/model-transfer-warmup.test.mjs",
+      "sha256": "e68a562b24119c7a0d3430be112ac68770cb59167ddc5a33cb40155e762e817b"
     },
     {
       "file": "companion/tests/observation-review.test.mjs",
@@ -460,7 +470,7 @@
     },
     {
       "file": "scripts/Exercise-ConversationModelTransfer.mjs",
-      "sha256": "fd3ae7557d85ee733244c6759a178c2595791283ae4ce55e73e36103592de663"
+      "sha256": "30adddbdbb62692faeb7dd568ce5b0dd312ecfa76a6aba65235993e25602b72c"
     },
     {
       "file": "synthetic/conversation-model-transfer-cases.json",
@@ -470,8 +480,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790127379909.tap",
-    "sha256": "7446843b889134f2f15c9596ef98c4fabda0c501f9e78fc63c22aba02e1ae304",
+    "file": "tmp/companion-verification-1790128281972.tap",
+    "sha256": "76de4d6f42ae4b3d546dcdee9ece3e8bd898d90aa3d1b5da851dbeb5914cfed2",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",
