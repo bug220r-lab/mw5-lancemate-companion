@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "status": "VERIFIED_NATIVE_EDITOR_METADATA_ONLY",
+  "reviewed_at_utc": "2026-09-23T03:42:01.232096+00:00",
+  "review_actions": "READ_ONLY_ARTIFACT_VALIDATION; no tests, helper import/invocation, editor action or additional collection",
+  "reviewer_native_execution": "NOT_PERFORMED",
+  "observed_invocation": "USER_ASSISTED_NATIVE_EDITOR_LOOKUP",
+  "output_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4",
+  "manifest": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_REFERENCE_DIAGNOSTIC_PREPARATION.json",
+    "bytes": 5866,
+    "sha256": "08bbc6e32ea51b4852041c5c4fd7bdb302a5eb58cb47f8422d22efc16361d5a5"
+  },
+  "raw_files_before": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-00.json",
+      "bytes": 130,
+      "sha256": "8d1dec18cde4a5c88750658efa4b95784ca8ed5dc1537253fdda835371027374"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-01.json",
+      "bytes": 158,
+      "sha256": "f05d209c436bb35f935932a2593c08216713a06a3d0053a526e263cabaedf3e0"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-02.json",
+      "bytes": 172,
+      "sha256": "6234db7e3a38a4d92fbd64d4e33f981c6c9b5837e3a9308b880ee00e3e62af4e"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-03.json",
+      "bytes": 211,
+      "sha256": "a37432131c5cb06943f1adf16d3de1fde91ad4e473ccf6089721024ffcbfa4cb"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\report.json",
+      "bytes": 6895,
+      "sha256": "55ca5794bbdb2f84a7f28a5b8eef56b8ccea1664bf24e21b5c91d020856caf0a"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\started.json",
+      "bytes": 2412,
+      "sha256": "d8abe3d515abc593c7aa048d0949767dd28a319ea03a05133f94ff1996018acf"
+    }
+  ],
+  "raw_files_after": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-00.json",
+      "bytes": 130,
+      "sha256": "8d1dec18cde4a5c88750658efa4b95784ca8ed5dc1537253fdda835371027374"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-01.json",
+      "bytes": 158,
+      "sha256": "f05d209c436bb35f935932a2593c08216713a06a3d0053a526e263cabaedf3e0"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-02.json",
+      "bytes": 172,
+      "sha256": "6234db7e3a38a4d92fbd64d4e33f981c6c9b5837e3a9308b880ee00e3e62af4e"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\checkpoint-03.json",
+      "bytes": 211,
+      "sha256": "a37432131c5cb06943f1adf16d3de1fde91ad4e473ccf6089721024ffcbfa4cb"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\report.json",
+      "bytes": 6895,
+      "sha256": "55ca5794bbdb2f84a7f28a5b8eef56b8ccea1664bf24e21b5c91d020856caf0a"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\started.json",
+      "bytes": 2412,
+      "sha256": "d8abe3d515abc593c7aa048d0949767dd28a319ea03a05133f94ff1996018acf"
+    }
+  ],
+  "raw_unchanged": true,
+  "total_raw_json_bytes": 9978,
+  "helper_and_current_installed_source_pins": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "bytes": 12417,
+      "sha256": "adc2da144e2648c8fcbe7df42667a76bf7bd258ace455d0105b27a3fea717a63",
+      "package": null
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\MW5PlayerController.uasset",
+      "bytes": 1260490,
+      "sha256": "fe6492fb35ef4759d3ef770cb802819dbc4da38f98fb88416ad8b10b16b5e6bc",
+      "package": "/Game/Objects/_common/MW5PlayerController"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6",
+      "package": "/Game/Modes/InstantAction/InstantActionPlayerController"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Objects\\_common\\Components\\PlayerControllerComponents\\PlayerControllerComponentDataAsset.uasset",
+      "bytes": 9538,
+      "sha256": "d5d06ee76fd4049e836563fedb4c65e79aa12862bc9dad7dba55fbd467985f5a",
+      "package": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset"
+    }
+  ],
+  "source_before_equals_after": true,
+  "source_pins_match_manifest_and_current_files": true,
+  "query_options": {
+    "include_soft_package_references": true,
+    "include_hard_package_references": true,
+    "include_searchable_names": false,
+    "include_soft_management_references": false,
+    "include_hard_management_references": false
+  },
+  "queries": [
+    {
+      "package": "/Game/Objects/_common/MW5PlayerController",
+      "returned_count": 31,
+      "retained_count": 31,
+      "unique_count": 31,
+      "duplicates_within_query": {},
+      "self_reference_present": true,
+      "registry_loading_after": false
+    },
+    {
+      "package": "/Game/Modes/InstantAction/InstantActionPlayerController",
+      "returned_count": 2,
+      "retained_count": 2,
+      "unique_count": 2,
+      "duplicates_within_query": {},
+      "self_reference_present": true,
+      "registry_loading_after": false
+    },
+    {
+      "package": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset",
+      "returned_count": 4,
+      "retained_count": 4,
+      "unique_count": 4,
+      "duplicates_within_query": {},
+      "self_reference_present": true,
+      "registry_loading_after": false
+    }
+  ],
+  "query_count": 3,
+  "total_retained_entries": 37,
+  "unique_package_names": 35,
+  "unique_casefolded_package_names": 35,
+  "cross_query_repeated_names": {
+    "/Game/Objects/_common/MW5PlayerController": 2,
+    "/Game/Modes/InstantAction/InstantActionPlayerController": 2
+  },
+  "self_reference_entry_count": 3,
+  "unique_non_target_package_names": 32,
+  "unique_package_list": [
+    "/Game/DLC1/CareerMode/StartConditions/CareerModePlayerController",
+    "/Game/Demo/MechCon2018/MechConDemoPlayerController",
+    "/Game/Levels/TileElements/Leopard/_common/LeopardDropshipStartEncounter",
+    "/Game/Modes/InstantAction/InstantActionMode",
+    "/Game/Modes/InstantAction/InstantActionPlayerController",
+    "/Game/Modes/MW5GameMode",
+    "/Game/Objects/Airstrike/Airstrike",
+    "/Game/Objects/Airstrike/HUD_AirstrikeDebuggerTemp",
+    "/Game/Objects/Humans/_common/NPC",
+    "/Game/Objects/Projectiles/TAG/Ray_TAG",
+    "/Game/Objects/Targets/Markers/SalvageMarker",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/ControllerFeedbackComponent",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerAirStrikeComponent",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerAirStrikeDataAsset",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponent",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerFeedbackDataAsset",
+    "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerSwitchMech",
+    "/Game/Objects/_common/MW5PlayerController",
+    "/Game/Objects/_common/MW5PlayerControllerDerived",
+    "/Game/Objects/_common/MWPlayerCameraManager",
+    "/Game/UI/DebugScreen/DebugScreenWidget",
+    "/Game/UI/FrontEnd/Components/Buttons/MainScreenCloseButton",
+    "/Game/UI/FrontEnd/CutsceneWidget/CutsceneWidget",
+    "/Game/UI/FrontEnd/Mechlab/CustomizationWidget",
+    "/Game/UI/FrontEnd/Mechlab/MechlabWidget",
+    "/Game/UI/Mech/Components/HUD_ActionPanel_Direction",
+    "/Game/UI/Mech/DPad/DpadActionLogic/Dpad_ToggleAirstrikeLogic",
+    "/Game/UI/Mech/DPad/Dpad_MainPanel",
+    "/Game/UI/Mech/HUD",
+    "/Game/UI/Mech/HUD_AirStrikeScope",
+    "/Game/UI/Mech/HUD_AirstrikeIndicator",
+    "/Game/UI/Mech/HUD_PoweringUp",
+    "/Game/UI/NPC/InteractableDotIndicatorWidget",
+    "/Game/UI/Player/SpectatorHUD"
+  ],
+  "checkpoints": [
+    {
+      "file": "checkpoint-00.json",
+      "stage": "GET_EXISTING_REGISTRY",
+      "elapsed_seconds": 0.0,
+      "completed_query_count": 0,
+      "native_execution": "ATTEMPTED"
+    },
+    {
+      "file": "checkpoint-01.json",
+      "stage": "QUERY /Game/Objects/_common/MW5PlayerController",
+      "elapsed_seconds": 0.015,
+      "completed_query_count": 0,
+      "native_execution": "ATTEMPTED"
+    },
+    {
+      "file": "checkpoint-02.json",
+      "stage": "QUERY /Game/Modes/InstantAction/InstantActionPlayerController",
+      "elapsed_seconds": 0.015,
+      "completed_query_count": 1,
+      "native_execution": "ATTEMPTED"
+    },
+    {
+      "file": "checkpoint-03.json",
+      "stage": "QUERY /Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset",
+      "elapsed_seconds": 0.015,
+      "completed_query_count": 2,
+      "native_execution": "ATTEMPTED"
+    }
+  ],
+  "registry_loading_before": false,
+  "errors": [],
+  "limits": {
+    "queries": 3,
+    "per_target": 512,
+    "total_entries": 1024,
+    "name_characters": 512,
+    "encoded_name_bytes": 768,
+    "report_bytes": 1048576,
+    "cooperative_seconds": 60
+  },
+  "elapsed_seconds": 0.031,
+  "last_health": {
+    "disk_free": 22850129920,
+    "physical_available": 1546854400,
+    "commit_available": 4884299776
+  },
+  "last_health_passes_helper_thresholds": true,
+  "log_evidence": {
+    "path": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Logs\\MW5Mercs.log",
+    "line_start": 1130,
+    "line_end": 1131,
+    "excerpt": [
+      "[2026.09.23-03.38.12:240][531]Cmd: py \"../../../../../../Users/jlewi/OneDrive/Documents/ChatGPT/MW5 LANCEMATE COMPANION/scripts/Inspect-ObserverReferences.py\"",
+      "[2026.09.23-03.38.12:322][531]LogPython: Observer reference lookup: COLLECTED_REQUIRES_REVIEW | C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4"
+    ],
+    "normalized_excerpt_sha256": "9949dd42ba3622ebe0326a6a0c6224042cce3f7ebe4b42f07ba5d025f7bdb857",
+    "invocation_utc": "2026-09-23T03:38:12.240Z",
+    "completion_utc": "2026-09-23T03:38:12.322Z",
+    "scope": "Relevant lines1130-1131 matched in current log and independently hash-verified coordinator-preserved snapshot; full snapshot preservation performed by coordinator.",
+    "preserved_snapshot": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-native-evidence-20260923T034135Z-e88436f813fc\\editor-log-snapshot.log",
+      "bytes": 124043,
+      "sha256": "7608e3291615073bf2facecfd0b10b256106853af143f0a3d992e3cb7795f770"
+    },
+    "capture_receipt": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-reference-native-evidence-20260923T034135Z-e88436f813fc\\capture.json",
+      "bytes": 832,
+      "sha256": "4c37107829334b8bbb9e56562332fb652453292b97f2d9730faf526810f0c20f"
+    }
+  },
+  "evidence_limits": [
+    "Package reference candidates only, not function-call or initialization proof.",
+    "Not proof of registry completeness, cooked visibility, runtime observer startup, game behavior or compatibility.",
+    "Helper health is the recorded last check, not a future resource reservation or automated supervisor admission.",
+    "Raw status remains COLLECTED_REQUIRES_REVIEW; no asset load/export/save/compile/cook or gameplay occurred in this helper invocation.",
+    "Current on-disk source hashes corroborate the pinned bytes, not unseen changes elsewhere."
+  ]
+}

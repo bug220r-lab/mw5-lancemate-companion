@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T03:30:01.550Z",
+  "reviewedAt": "2026-09-23T03:53:12.633Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 464,
-    "includedBytesExcludingThisReceipt": 10646892,
+    "includedFiles": 475,
+    "includedBytesExcludingThisReceipt": 10876495,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -247,6 +247,7 @@
     "design/MISSION_REHEARSAL.md",
     "design/MISSION_SPEECH_ADMISSION.md",
     "design/OBSERVATION_POLICY_MAPPING.md",
+    "design/OBSERVER_MODE_SOURCE_LOOKUP.md",
     "design/OBSERVER_NORMAL_EDITOR_EXPERIMENT.md",
     "design/OFFLINE_TACTICAL_PROTOTYPE.md",
     "design/OVERNIGHT_PROGRESS.md",
@@ -362,6 +363,10 @@
     "research/OBSERVER_CALLER_NATIVE_RESULT.md",
     "research/OBSERVER_CALLER_NATIVE_REVIEW.md",
     "research/OBSERVER_DESKTOP_RETRY_2026-09-22.json",
+    "research/OBSERVER_MODE_ASSET.json",
+    "research/OBSERVER_MODE_HELPER_REVIEW.json",
+    "research/OBSERVER_MODE_HELPER_REVIEW.md",
+    "research/OBSERVER_MODE_PREPARATION.json",
     "research/OBSERVER_NORMAL_EDITOR_EXPERIMENT.json",
     "research/OBSERVER_NORMAL_EDITOR_PREFLIGHT_2026-09-22.json",
     "research/OBSERVER_NORMAL_EDITOR_PREPARATION_VALIDATION.json",
@@ -378,6 +383,10 @@
     "research/OBSERVER_REFERENCE_HELPER_REVIEW.json",
     "research/OBSERVER_REFERENCE_HELPER_REVIEW.md",
     "research/OBSERVER_REFERENCE_NATIVE_ATTEMPT.md",
+    "research/OBSERVER_REFERENCE_NATIVE_RESULT.md",
+    "research/OBSERVER_REFERENCE_NATIVE_REVIEW.json",
+    "research/OBSERVER_REFERENCE_NATIVE_REVIEW.md",
+    "research/OBSERVER_REFERENCE_NATIVE_STATUS.json",
     "research/OBSERVER_REFERENCE_PREPARATION.json",
     "research/OBSERVER_REMOTE_EXECUTION_REVIEW.md",
     "research/OBSERVER_SUPERVISOR_IMPLEMENTATION.md",
@@ -529,6 +538,7 @@
     "scripts/Inspect-EditorPythonStub.py",
     "scripts/Inspect-EditorReflection.py",
     "scripts/Inspect-ObserverCaller.py",
+    "scripts/Inspect-ObserverMode.py",
     "scripts/Inspect-ObserverReferences.py",
     "scripts/Inspect-SmollmMetadata.mjs",
     "scripts/Install-LocalModels.mjs",
@@ -541,6 +551,7 @@
     "scripts/Requantize-QwenCandidate.mjs",
     "scripts/Review-MemoryContract.mjs",
     "scripts/Review-ObserverCaller.py",
+    "scripts/Review-ObserverMode.py",
     "scripts/Review-ObserverReferenceDiagnostics.py",
     "scripts/Review-ObserverReferences.py",
     "scripts/Review-ObserverSupervisor.py",
@@ -1915,6 +1926,19 @@
       "notes": []
     },
     {
+      "path": "design/OBSERVER_MODE_SOURCE_LOOKUP.md",
+      "bytes": 6234,
+      "sha256": "c6568cb3e4796bc89dc85c30d17f972ef86fdd5024d327c34dbf1abe4c89572c",
+      "lines": 44,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
       "path": "design/OBSERVER_NORMAL_EDITOR_EXPERIMENT.md",
       "bytes": 15585,
       "sha256": "bfcecbd2921a620fa252d74f2125e087fe976d008da6ff762bdc6d210284c9c9",
@@ -1959,9 +1983,9 @@
     },
     {
       "path": "design/PASSIVE_OBSERVER_REFERENCE_LOOKUP.md",
-      "bytes": 8807,
-      "sha256": "fc32324748ae8cf7b01e0ccd1a2ba53190afe3e47e2c939d2ecc6c5ecfd18a68",
-      "lines": 50,
+      "bytes": 9348,
+      "sha256": "f2fea6e3f8dc2430c46b5d35270fc834942a39796b06a88e81c25f979f46dbc9",
+      "lines": 52,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1972,9 +1996,9 @@
     },
     {
       "path": "design/PASSIVE_OBSERVER_SOURCE_LOOKUP.md",
-      "bytes": 8014,
-      "sha256": "ac9cc07d0128618a917aed7a94fa1aa7f4928a42cb52bfe6e73b3466c32e92fa",
-      "lines": 48,
+      "bytes": 8536,
+      "sha256": "326477261216edef7c58df27bb2d56ef5b5d2e53ff7818964857093e057a78cd",
+      "lines": 50,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2205,9 +2229,9 @@
     },
     {
       "path": "NEXT_CODEX_PROMPT.md",
-      "bytes": 42322,
-      "sha256": "ac93b652519e315f79adc07f1b904bc716237e5aaa654b52d3048aeeb78b91e6",
-      "lines": 138,
+      "bytes": 44806,
+      "sha256": "94ed3d005dc535efd2a14c5536e7f67617c5719b95ef32ec81e2477f03c3cd19",
+      "lines": 146,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2218,9 +2242,9 @@
     },
     {
       "path": "README.md",
-      "bytes": 23082,
-      "sha256": "be4c63747a35fa48c0edbce7400b344f0de35a27ed25459c1b7b7821d67c42fb",
-      "lines": 177,
+      "bytes": 23328,
+      "sha256": "068091b8cf0f5e60a8bc72e6111b43107571279e7fb1668ba183a286afcad328",
+      "lines": 179,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3153,7 +3177,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6514,
-      "sha256": "c7af0a9d12ecc3dba9f19491402086673807b015771757f5500b1a1d58d9d717",
+      "sha256": "f2345938b2c258485fd6b35dfa5decc33d5cc91835c2c36880a37cec44adaefd",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -3164,9 +3188,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 105837,
-      "sha256": "033dd68b9d994ef4583cbdd766ca103b979c402f4005c4afcaaba0171b6ff027",
-      "lines": 393,
+      "bytes": 110129,
+      "sha256": "076e2d9adc89f2a1fb2a7590cffd034b86f649d3d472a2ba3c1e7ad46c91b51f",
+      "lines": 409,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3339,6 +3363,55 @@
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": []
+    },
+    {
+      "path": "research/OBSERVER_MODE_ASSET.json",
+      "bytes": 912,
+      "sha256": "78f1cad778dcfbfbc1276bbe1a202b37bd8078fa96e13a63baf3280ecb68d737",
+      "lines": 16,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_MODE_HELPER_REVIEW.json",
+      "bytes": 118962,
+      "sha256": "6ae866ff21861100aa4ca94bac331dba2028aa19087c9028b37d878c220fc04f",
+      "lines": 2581,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_MODE_HELPER_REVIEW.md",
+      "bytes": 2170,
+      "sha256": "a07ece2a4e3bd26deb2d680ec29284d122f510acca9d7947ccfca00616b61abd",
+      "lines": 22,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_MODE_PREPARATION.json",
+      "bytes": 5458,
+      "sha256": "1b61bcc544f3ac39a8c6c4c20fdcc7387d8280930f272106f36d5eb4279bcea4",
+      "lines": 110,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
     },
     {
       "path": "research/OBSERVER_NORMAL_EDITOR_EXPERIMENT.json",
@@ -3530,6 +3603,54 @@
       "credentialScan": "NO_PATTERN_MATCHES",
       "notes": [
         "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_NATIVE_RESULT.md",
+      "bytes": 6434,
+      "sha256": "4371dd7d1db242ff0bc4b2204f1f9860fed022fd8055325b1f30a031d4693aa1",
+      "lines": 44,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_NATIVE_REVIEW.json",
+      "bytes": 13703,
+      "sha256": "9a20408aa46b960a719bac2da3e975ba5614ce47718691f73c240d40caf66c09",
+      "lines": 270,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_NATIVE_REVIEW.md",
+      "bytes": 6047,
+      "sha256": "7b63dd384c4ab0e0205449f0aa9e4bd319f696234facbf23a52e0fb711c38a86",
+      "lines": 53,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "research/OBSERVER_REFERENCE_NATIVE_STATUS.json",
+      "bytes": 9836,
+      "sha256": "341e33d73bcec70242ca0f53a89c29701e7c80834ce76624bf039d972f40168a",
+      "lines": 186,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private."
       ]
     },
     {
@@ -5039,6 +5160,19 @@
       ]
     },
     {
+      "path": "scripts/Inspect-ObserverMode.py",
+      "bytes": 14884,
+      "sha256": "ad0eeb1e1fa73e55cee24f679c27ca3c5aa52c0abffc48f4f8d0e88b0f44ed29",
+      "lines": 283,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
       "path": "scripts/Inspect-ObserverReferences.py",
       "bytes": 12417,
       "sha256": "adc2da144e2648c8fcbe7df42667a76bf7bd258ace455d0105b27a3fea717a63",
@@ -5200,6 +5334,18 @@
       "bytes": 18496,
       "sha256": "0953515fca50def0de0411821a4c87cd0ea432f7c57133c6720d1bfe7ea0b83d",
       "lines": 355,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
+      "path": "scripts/Review-ObserverMode.py",
+      "bytes": 36878,
+      "sha256": "9f201b51608d42be274b083d41613f91ad4e1b342720ced0a7fbcb1a4728e359",
+      "lines": 648,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

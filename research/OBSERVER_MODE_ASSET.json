@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-09-23T03:42:24.1416730Z",
+  "classification": "OBSERVED_NAMED_FILE_METADATA_NOT_ASSET_EXECUTION",
+  "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionMode.uasset",
+  "bytes": 229443,
+  "sha256": "1C841BF1C5198B57499F2F872CBABCF3F1F38508054AB8695FCD2F6C41E4F17B",
+  "package": "/Game/Modes/InstantAction/InstantActionMode",
+  "object_path": "/Game/Modes/InstantAction/InstantActionMode.InstantActionMode",
+  "candidate_source": "research/evidence/editor-source/observer-references-20260923T033812Z-a2542db9f0e4/report.json",
+  "candidate_relationship": "Only non-self returned referencer of InstantActionPlayerController",
+  "source_text_existing": "NOT_COLLECTED_IN_REVIEWED_PRIOR_EXPORTS",
+  "native_export": "NOT_PERFORMED",
+  "no_runtime_or_controller_assignment_claim": true
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-23T03:50:33.8289971Z",
+  "status": "PREPARED_67_OF_67_MOCK_ONLY_NATIVE_NOT_PERFORMED",
+  "scope": "Exactly one observed InstantActionMode source/default export; parent identity from exported text only",
+  "helper": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+    "bytes": 14884,
+    "sha256": "AD0EEB1E1FA73E55CEE24F679C27CA3C5AA52C0ABFFC48F4F8D0E88B0F44ED29"
+  },
+  "asset": {
+    "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionMode.uasset",
+    "bytes": 229443,
+    "sha256": "1C841BF1C5198B57499F2F872CBABCF3F1F38508054AB8695FCD2F6C41E4F17B"
+  },
+  "asset_pin": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_MODE_ASSET.json",
+    "bytes": 912,
+    "sha256": "78F1CAD778DCFBFBC1276BBE1A202B37BD8078FA96E13A63BAF3280ECB68D737"
+  },
+  "package": "/Game/Modes/InstantAction/InstantActionMode",
+  "expected_identities_are_not_yet_observed": true,
+  "expected_object": "/Game/Modes/InstantAction/InstantActionMode.InstantActionMode",
+  "expected_class": "/Game/Modes/InstantAction/InstantActionMode.InstantActionMode_C",
+  "expected_default": "/Game/Modes/InstantAction/InstantActionMode.Default__InstantActionMode_C",
+  "candidate_evidence": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-references-20260923T033812Z-a2542db9f0e4\\report.json",
+    "bytes": 6895,
+    "sha256": "55CA5794BBDB2F84A7F28A5B8EEF56B8CCEA1664BF24E21B5C91D020856CAF0A"
+  },
+  "candidate_evidence_line": 105,
+  "review": {
+    "classification": "MOCK_ONLY",
+    "passed": 67,
+    "failed": 0,
+    "historical_cases": 29,
+    "added_cases": 38,
+    "runtime": "3.7.7 (tags/v3.7.7:d7c567b08f, Mar 10 2020, 10:41:24) [MSC v.1900 64 bit (AMD64)]",
+    "receipt": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_MODE_HELPER_REVIEW.json",
+      "bytes": 118962,
+      "sha256": "6AE866FF21861100AA4CA94BAC331DBA2028AA19087C9028B37D878C220FC04F"
+    },
+    "summary": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_MODE_HELPER_REVIEW.md",
+      "bytes": 2170,
+      "sha256": "A07ECE2A4E3BD26DEB2D680EC29284D122F510ACCA9D7947CCFCA00616B61ABD"
+    },
+    "script": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Review-ObserverMode.py",
+      "bytes": 36878,
+      "sha256": "9F201B51608D42BE274B083D41613F91AD4E1B342720CED0A7FBCB1A4728E359"
+    },
+    "immutable_receipt": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\independent-review-receipt.json",
+      "bytes": 118962,
+      "sha256": "6AE866FF21861100AA4CA94BAC331DBA2028AA19087C9028B37D878C220FC04F"
+    }
+  },
+  "limits": {
+    "source_file_bytes": 1048576,
+    "per_export_bytes": 8388608,
+    "accumulated_output_stop_budget_bytes": 17825792,
+    "per_json_bytes": 65536,
+    "cooperative_seconds": 120,
+    "disk_free_minimum_bytes": 2147483648,
+    "physical_available_minimum_bytes": 805306368,
+    "commit_available_minimum_bytes": 1073741824,
+    "native_calls_interruptible": false,
+    "native_initial_allocation_and_output_hard_capped": false,
+    "small_final_receipt_permitted_after_output_stop": true
+  },
+  "entry": "User-controlled existing editor File > Execute Python Script",
+  "output_directory_pattern": "observer-mode-YYYYMMDDTHHMMSSZ-12hex",
+  "expected_output": [
+    "source.COPY or source.T3D",
+    "defaults.COPY or defaults.T3D",
+    "checkpoint-NN.json",
+    "report.json"
+  ],
+  "temporary_lock": ".observer-mode-inspection.lock",
+  "baseline": {
+    "checked_at_utc": "2026-09-23T03:50:33.7808790Z",
+    "native_directory_regex": "^observer-mode-[0-9]{8}T[0-9]{6}Z-[0-9a-f]{12}$",
+    "native_output_directories": [],
+    "mode_lock_exists": false,
+    "caller_lock_exists": false,
+    "reference_lock_exists": false,
+    "helper_review_directories_are_mock": true
+  },
+  "later_coordinator_health": {
+    "observed_at_utc": "2026-09-23T03:47:31.705519Z",
+    "classification": "COORDINATOR_REPORTED_OS_ONLY_SNAPSHOT_NOT_RESERVATION",
+    "disk_free": 22833049600,
+    "physical_available": 2034499584,
+    "commit_available": 4697219072,
+    "automated_supervisor_admission": false
+  },
+  "execution": "NOT_PERFORMED",
+  "prohibited_expansion": [
+    "No parent export or explicit parent load",
+    "No other candidate lookup or broad collection",
+    "No registry scan or reference-helper rerun",
+    "No explicit asset save/compile, Play, cook, install, deployment, game control or campaign persistence"
+  ],
+  "interpretation": "Inspect real controller assignment/default and connected initialization; package reference and filenames are not proof",
+  "rollback": "Preserve output; exact-owned-token lock cleanup only; no automatic asset/config/cache restoration/deletion",
+  "coordination": "Fresh resources/pins and one user-assisted run arranged by Research MW5 Lancemate AI; no autonomous native execution by this preparation"
+}

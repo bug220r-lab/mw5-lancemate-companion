@@ -1,0 +1,2580 @@
+{
+  "reviewed_at": "2026-09-23T03:47:25.472781+00:00",
+  "classification": "INDEPENDENT_STATIC_AND_MOCK_ONLY_REVIEW",
+  "native_editor_execution": "NOT_PERFORMED",
+  "gameplay": "NOT_PERFORMED",
+  "helper_path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+  "helper_sha256": "ad0eeb1e1fa73e55cee24f679c27ca3c5aa52c0abffc48f4f8d0e88b0f44ed29",
+  "review_script_sha256": "9f201b51608d42be274b083d41613f91ad4e1b342720ced0a7fbcb1a4728e359",
+  "python_executable": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\ThirdParty\\Python3\\Win64\\python.exe",
+  "python_version": "3.7.7 (tags/v3.7.7:d7c567b08f, Mar 10 2020, 10:41:24) [MSC v.1900 64 bit (AMD64)]",
+  "fixtures": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7",
+  "cases": [
+    {
+      "case": "uppercase_crlf_loaded",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": null,
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "helper_status": "MOCK_ONLY_COMPLETED",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\uppercase_crlf_loaded"
+    },
+    {
+      "case": "named_load",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": null,
+      "api_calls": [
+        "find_asset",
+        "load_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "helper_status": "MOCK_ONLY_COMPLETED",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\named_load"
+    },
+    {
+      "case": "changed_source_hash",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_HASH_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\changed_source_hash"
+    },
+    {
+      "case": "source_size_limit",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "FILE_SIZE_LIMIT",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\source_size_limit"
+    },
+    {
+      "case": "native_wrong_root",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_SCOPE_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\native_wrong_root"
+    },
+    {
+      "case": "native_wrong_source",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_SCOPE_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\native_wrong_source"
+    },
+    {
+      "case": "native_wrong_hash",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_SCOPE_MISMATCH",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\native_wrong_hash"
+    },
+    {
+      "case": "real_api_in_mock_mode",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "REAL_UNREAL_API_FORBIDDEN_IN_MOCK_MODE",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\real_api_in_mock_mode"
+    },
+    {
+      "case": "wrong_found_type",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\wrong_found_type"
+    },
+    {
+      "case": "wrong_found_path",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\wrong_found_path"
+    },
+    {
+      "case": "wrong_loaded_type",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "load_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\wrong_loaded_type"
+    },
+    {
+      "case": "missing_loaded_asset",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "LOADED_ASSET_IDENTITY_OR_TYPE_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "load_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\missing_loaded_asset"
+    },
+    {
+      "case": "wrong_generated_class",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "GENERATED_CLASS_IDENTITY_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\wrong_generated_class"
+    },
+    {
+      "case": "wrong_default_class",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "DEFAULT_OBJECT_IDENTITY_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\wrong_default_class"
+    },
+    {
+      "case": "wrong_default_path",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "DEFAULT_OBJECT_IDENTITY_MISMATCH",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\wrong_default_path"
+    },
+    {
+      "case": "export_false",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_FAILURE_OR_ERRORS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\export_false"
+    },
+    {
+      "case": "export_errors",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_FAILURE_OR_ERRORS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\export_errors"
+    },
+    {
+      "case": "export_exception",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_FAILURE_OR_ERRORS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\export_exception"
+    },
+    {
+      "case": "export_no_file",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPORT_PRODUCED_NO_FILE",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\export_no_file"
+    },
+    {
+      "case": "export_empty",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_OUTPUT_LIMIT",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\export_empty"
+    },
+    {
+      "case": "export_oversized",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "NATIVE_OUTPUT_LIMIT",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\export_oversized"
+    },
+    {
+      "case": "nontext_exporter",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "EXPECTED_TEXT_EXPORTER_UNAVAILABLE",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\nontext_exporter"
+    },
+    {
+      "case": "mutation_before_load",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_CHANGED_DURING_INSPECTION",
+      "api_calls": [
+        "find_asset"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\mutation_before_load"
+    },
+    {
+      "case": "mutation_after_source",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_CHANGED_DURING_INSPECTION",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\mutation_after_source"
+    },
+    {
+      "case": "mutation_after_defaults",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "SOURCE_CHANGED_DURING_INSPECTION",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "helper_status": "STOPPED_PARTIAL",
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\mutation_after_defaults"
+    },
+    {
+      "case": "low_resources",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "RESOURCE_STOP",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\low_resources"
+    },
+    {
+      "case": "time_budget",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "COOPERATIVE_BUDGET_STOP",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\time_budget"
+    },
+    {
+      "case": "active_other_collection",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "ANOTHER_RESEARCH_INSPECTION_ACTIVE",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_other_collection"
+    },
+    {
+      "case": "stale_lock",
+      "result": "PASS",
+      "classification": "MOCK_ONLY",
+      "expected_rejection": "FileExistsError",
+      "api_calls": [],
+      "helper_status": null,
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\stale_lock"
+    },
+    {
+      "case": "initial_disk_free",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 2147483647,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_disk_free\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_disk_free",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"disk_free\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":4294967296,\"disk_free\":2147483647,\"physical_available\":4294967296}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 4294967296,
+          "disk_free": 2147483647,
+          "physical_available": 4294967296
+        }
+      }
+    },
+    {
+      "case": "equal_disk_free",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-83d36daf9596\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-83d36daf9596\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-83d36daf9596\\report.json",
+        "bytes": 3177,
+        "sha256": "0d5aa22ec35c2bda38d0d32db557588d4fa6fb895180068d147574cd2887e677"
+      }
+    },
+    {
+      "case": "above_disk_free",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483649,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-ff9d33b7dcae\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-ff9d33b7dcae\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-ff9d33b7dcae\\report.json",
+        "bytes": 3177,
+        "sha256": "82f96392577ebb2fa20ed69ce413ff653e56fd61b3199e8ba03b2c6704cc6053"
+      }
+    },
+    {
+      "case": "after_source_export_disk_free",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "export_count": 1,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483647,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_disk_free\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-1d1a7f17e045\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_disk_free\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_disk_free",
+      "caught": null,
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 4294967296,
+          "disk_free": 2147483647,
+          "physical_available": 4294967296
+        }
+      },
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_disk_free\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-1d1a7f17e045\\report.json",
+        "bytes": 2732,
+        "sha256": "b1f3f1e247c49058b17fcce9bde48c42624eaaf0b28ac7ff9051f592cc828013"
+      }
+    },
+    {
+      "case": "initial_physical_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306367,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_physical_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_physical_available",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"physical_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":4294967296,\"disk_free\":8589934592,\"physical_available\":805306367}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "physical_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 4294967296,
+          "disk_free": 8589934592,
+          "physical_available": 805306367
+        }
+      }
+    },
+    {
+      "case": "equal_physical_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306368,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-99d5b5033f3c\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-99d5b5033f3c\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-99d5b5033f3c\\report.json",
+        "bytes": 3212,
+        "sha256": "e0ca4dac3678f4bf584bd878e813d39f650242c7dfe9534f2d477827e20bff0c"
+      }
+    },
+    {
+      "case": "above_physical_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306369,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-474eff855ac3\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-474eff855ac3\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-474eff855ac3\\report.json",
+        "bytes": 3212,
+        "sha256": "2630fb534c52cb3763d552494426808b24e4ebbad3c6ce3b28064ede1320ad80"
+      }
+    },
+    {
+      "case": "after_source_export_physical_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "export_count": 1,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306367,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_physical_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-a2f862c5d9c9\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_physical_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_physical_available",
+      "caught": null,
+      "diagnostic": {
+        "failed_fields": [
+          "physical_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 4294967296,
+          "disk_free": 8589934592,
+          "physical_available": 805306367
+        }
+      },
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_physical_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-a2f862c5d9c9\\report.json",
+        "bytes": 2766,
+        "sha256": "10840ecd558535b2562a880fcaa86150106e3e7545c51a26e82e838195f7bf9f"
+      }
+    },
+    {
+      "case": "initial_commit_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_commit_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_commit_available",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"commit_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":1073741823,\"disk_free\":8589934592,\"physical_available\":4294967296}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 8589934592,
+          "physical_available": 4294967296
+        }
+      }
+    },
+    {
+      "case": "equal_commit_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741824
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-a4d201383a70\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-a4d201383a70\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\equal_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-a4d201383a70\\report.json",
+        "bytes": 3205,
+        "sha256": "6c180c39eab711f443ec1f274ba74f88017c5de6d60e81d73dcf38992d382fb8"
+      }
+    },
+    {
+      "case": "above_commit_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741825
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-fcfb458c96d4\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-fcfb458c96d4\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\above_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-fcfb458c96d4\\report.json",
+        "bytes": 3205,
+        "sha256": "d70985a921c7452204b074c4646a5e969263fb5ec3b1d2f592fba2a03e43af0c"
+      }
+    },
+    {
+      "case": "after_source_export_commit_available",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "export_count": 1,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_commit_available\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-26b6ab90c918\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_commit_available\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_commit_available",
+      "caught": null,
+      "diagnostic": {
+        "failed_fields": [
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 8589934592,
+          "physical_available": 4294967296
+        }
+      },
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_commit_available\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-26b6ab90c918\\report.json",
+        "bytes": 2760,
+        "sha256": "b45cc1f214100d198cfa3c3f0c22a57a25a23d307374e2a5d9eec0c823b08c1b"
+      }
+    },
+    {
+      "case": "initial_pair_01",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 2147483647,
+          "physical_available": 805306367,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_pair_01\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_pair_01",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"disk_free\",\"physical_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":4294967296,\"disk_free\":2147483647,\"physical_available\":805306367}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "physical_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 4294967296,
+          "disk_free": 2147483647,
+          "physical_available": 805306367
+        }
+      }
+    },
+    {
+      "case": "initial_pair_02",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 2147483647,
+          "physical_available": 4294967296,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_pair_02\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_pair_02",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"disk_free\",\"commit_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":1073741823,\"disk_free\":2147483647,\"physical_available\":4294967296}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 2147483647,
+          "physical_available": 4294967296
+        }
+      }
+    },
+    {
+      "case": "initial_pair_12",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 805306367,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_pair_12\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_pair_12",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"physical_available\",\"commit_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":1073741823,\"disk_free\":8589934592,\"physical_available\":805306367}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "physical_available",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 8589934592,
+          "physical_available": 805306367
+        }
+      }
+    },
+    {
+      "case": "initial_all_low",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 2147483647,
+          "physical_available": 805306367,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_all_low\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\initial_all_low",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"disk_free\",\"physical_available\",\"commit_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":1073741823,\"disk_free\":2147483647,\"physical_available\":805306367}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "physical_available",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 2147483647,
+          "physical_available": 805306367
+        }
+      }
+    },
+    {
+      "case": "after_source_export_all_low",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "export_count": 1,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483647,
+          "physical_available": 805306367,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_all_low\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_all_low\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-559491b3e801\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_all_low\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_all_low",
+      "caught": null,
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "physical_available",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 2147483647,
+          "physical_available": 805306367
+        }
+      },
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\after_source_export_all_low\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-559491b3e801\\report.json",
+        "bytes": 2768,
+        "sha256": "bedd66d92bde02a0da48fa7374aa1b217252379817757d156c593ccdd09c357a"
+      }
+    },
+    {
+      "case": "all_exact_boundaries",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        },
+        {
+          "disk_free": 2147483648,
+          "physical_available": 805306368,
+          "commit_available": 1073741824
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-59260d3c34de\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-59260d3c34de\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\all_exact_boundaries\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-59260d3c34de\\report.json",
+        "bytes": 3196,
+        "sha256": "12fc41e401178b000067919d93d0b0c6a16a69e93dea54204a986e76b263933d"
+      }
+    },
+    {
+      "case": "diagnostic_excludes_extra_health_field",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 2147483647,
+          "physical_available": 805306367,
+          "commit_available": 1073741823,
+          "untrusted_text": "DO_NOT_COPY_THIS_FIELD"
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\diagnostic_excludes_extra_health_field\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\diagnostic_excludes_extra_health_field",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"disk_free\",\"physical_available\",\"commit_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":1073741823,\"disk_free\":2147483647,\"physical_available\":805306367}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "physical_available",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 2147483647,
+          "physical_available": 805306367
+        }
+      }
+    },
+    {
+      "case": "health_unavailable_before_api",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\health_unavailable_before_api\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\health_unavailable_before_api",
+      "caught": {
+        "type": "OSError",
+        "message": "SYNTHETIC_HEALTH_UNAVAILABLE"
+      }
+    },
+    {
+      "case": "active_guard_0",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_0\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_0",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "ANOTHER_RESEARCH_INSPECTION_ACTIVE"
+      }
+    },
+    {
+      "case": "completed_marker_0",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-155613cadfff\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-155613cadfff\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_0\\research\\evidence\\editor-source\\observer-mode-20260923T034726Z-155613cadfff\\report.json",
+        "bytes": 3189,
+        "sha256": "4a05d7b543fd2955aa87da74360643114ea5f5936a3cca4bcf650de6aa531107"
+      }
+    },
+    {
+      "case": "active_guard_1",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_1\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_1",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "ANOTHER_RESEARCH_INSPECTION_ACTIVE"
+      }
+    },
+    {
+      "case": "completed_marker_1",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-3e236abb3982\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-3e236abb3982\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_1\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-3e236abb3982\\report.json",
+        "bytes": 3189,
+        "sha256": "0fd574be96378b6273c3ead76987c7bb0ff23dc5dd9e0c51a0a51da8a60f987a"
+      }
+    },
+    {
+      "case": "active_guard_2",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_2\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_2",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "ANOTHER_RESEARCH_INSPECTION_ACTIVE"
+      }
+    },
+    {
+      "case": "completed_marker_2",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-c6b269f3a793\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-c6b269f3a793\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_2\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-c6b269f3a793\\report.json",
+        "bytes": 3189,
+        "sha256": "c66634d9a537cdb6527cb11226b8de3f3db39455bb0cc34103093a59dc196239"
+      }
+    },
+    {
+      "case": "active_guard_3",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_3\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_3",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "ANOTHER_RESEARCH_INSPECTION_ACTIVE"
+      }
+    },
+    {
+      "case": "completed_marker_3",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-fafb36f9672f\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-fafb36f9672f\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_3\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-fafb36f9672f\\report.json",
+        "bytes": 3189,
+        "sha256": "7e3b5561b2ddb1bb44f8b1d6f778a7e1d06f85c6b069841a9beb7ad6d98f7d73"
+      }
+    },
+    {
+      "case": "active_guard_4",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_4\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\active_guard_4",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "ANOTHER_RESEARCH_INSPECTION_ACTIVE"
+      }
+    },
+    {
+      "case": "completed_marker_4",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-5f92a81b3452\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-5f92a81b3452\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\completed_marker_4\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-5f92a81b3452\\report.json",
+        "bytes": 3189,
+        "sha256": "e3aceb47f3512776e09c752662c0af0fa530d55a51d15b4d52d6aa394a81d5ee"
+      }
+    },
+    {
+      "case": "cross_lock_0",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\cross_lock_0\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\cross_lock_0",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "OTHER_INSPECTION_LOCK_PRESENT"
+      }
+    },
+    {
+      "case": "cross_lock_1",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\cross_lock_1\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\cross_lock_1",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "OTHER_INSPECTION_LOCK_PRESENT"
+      }
+    },
+    {
+      "case": "foreign_lock_nonascii",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-573fe36ec28a\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-573fe36ec28a\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_nonascii\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-573fe36ec28a\\report.json",
+        "bytes": 3201,
+        "sha256": "ed60954372fe1bfbdc9e1b30db282a16ffceff0eb6b96dbd1f7a224b0e856b76"
+      }
+    },
+    {
+      "case": "foreign_lock_large",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-72f57540b022\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-72f57540b022\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_large\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-72f57540b022\\report.json",
+        "bytes": 3189,
+        "sha256": "92fabb3cb39955f2a9edcf223c225fc13f96b2f39f3ae310f948c71af9e83195"
+      }
+    },
+    {
+      "case": "foreign_lock_owned_prefix",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-f29d436370ff\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-f29d436370ff\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_lock_owned_prefix\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-f29d436370ff\\report.json",
+        "bytes": 3217,
+        "sha256": "2d24a5ebdbe36d1d0c6254dadcb86e0e9f3d9cb6ffc1f6a7eb5e6ca61aae2ecf"
+      }
+    },
+    {
+      "case": "foreign_nonascii_initial_resource",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [],
+      "export_count": 0,
+      "health_observations": [
+        {
+          "disk_free": 2147483647,
+          "physical_available": 805306367,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_initial_resource\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_initial_resource",
+      "caught": {
+        "type": "RuntimeError",
+        "message": "RESOURCE_STOP {\"failed_fields\":[\"disk_free\",\"physical_available\",\"commit_available\"],\"minimum_bytes\":{\"commit_available\":1073741824,\"disk_free\":2147483648,\"physical_available\":805306368},\"observed_bytes\":{\"commit_available\":1073741823,\"disk_free\":2147483647,\"physical_available\":805306367}}"
+      },
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "physical_available",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 2147483647,
+          "physical_available": 805306367
+        }
+      }
+    },
+    {
+      "case": "foreign_nonascii_late_resource",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1"
+      ],
+      "export_count": 1,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 2147483647,
+          "physical_available": 805306367,
+          "commit_available": 1073741823
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_late_resource\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_late_resource\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-e5d02c439014\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_late_resource\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_late_resource",
+      "caught": null,
+      "diagnostic": {
+        "failed_fields": [
+          "disk_free",
+          "physical_available",
+          "commit_available"
+        ],
+        "minimum_bytes": {
+          "commit_available": 1073741824,
+          "disk_free": 2147483648,
+          "physical_available": 805306368
+        },
+        "observed_bytes": {
+          "commit_available": 1073741823,
+          "disk_free": 2147483647,
+          "physical_available": 805306367
+        }
+      },
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_nonascii_late_resource\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-e5d02c439014\\report.json",
+        "bytes": 2777,
+        "sha256": "f28e8e1e15da1a2a6fd43af693214c9f48fba4ccc809ff43d4f2d31d9ff16e01"
+      }
+    },
+    {
+      "case": "foreign_ascii_after_source",
+      "classification": "MOCK_ONLY",
+      "result": "PASS",
+      "api_calls": [
+        "find_asset",
+        "ObjectExporterT3D",
+        "export_1",
+        "generated_class",
+        "get_default_object",
+        "export_2"
+      ],
+      "export_count": 2,
+      "health_observations": [
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        },
+        {
+          "disk_free": 8589934592,
+          "physical_available": 4294967296,
+          "commit_available": 4294967296
+        }
+      ],
+      "source_digest_paths": [
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverMode.py",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-84975209ba52\\source.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source\\synthetic-source.bin",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-84975209ba52\\defaults.COPY",
+        "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source\\synthetic-source.bin"
+      ],
+      "foreign_lock_read_sizes": [
+        33
+      ],
+      "fixture_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source",
+      "caught": null,
+      "saved_report": {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-helper-review-20260923T034725Z-14c83be7\\foreign_ascii_after_source\\research\\evidence\\editor-source\\observer-mode-20260923T034727Z-84975209ba52\\report.json",
+        "bytes": 3221,
+        "sha256": "1f140e3180a07c863a0a9cb4ccf9472f83f4100c62c002445639bdb481aabbf4"
+      }
+    }
+  ],
+  "historical_before": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverCaller.py",
+      "bytes": 14058,
+      "sha256": "b99b1b05375be98af1160c9c2ccb3474af80eb97aa673ea492130d83386d0fa0"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Review-ObserverCaller.py",
+      "bytes": 18496,
+      "sha256": "0953515fca50def0de0411821a4c87cd0ea432f7c57133c6720d1bfe7ea0b83d"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\PASSIVE_OBSERVER_HELPER_REVIEW.json",
+      "bytes": 17480,
+      "sha256": "1e99d29d0d47568e54c1d36501e4940d9fcd08312d88b0576d62db7bf22e277b"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "bytes": 12417,
+      "sha256": "adc2da144e2648c8fcbe7df42667a76bf7bd258ace455d0105b27a3fea717a63"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_REFERENCE_HELPER_REVIEW.json",
+      "bytes": 61034,
+      "sha256": "c9ee8adb3a4ef14de7c0dec200b34a16ee0a7e15bec9e5fd0103f93f7033ad20"
+    }
+  ],
+  "mode_asset_pin": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_MODE_ASSET.json",
+    "bytes": 912,
+    "sha256": "78f1cad778dcfbfbc1276bbe1a202b37bd8078fa96e13a63baf3280ecb68d737"
+  },
+  "scope_limits": [
+    "Fake API has no Unreal module or editor connection.",
+    "Synthetic sources are not game assets; no installed asset was loaded/read by tests.",
+    "No native exporter, source body, inheritance, runtime creation or cooking proof.",
+    "Native output/time/resource limits remain cooperative, not preemptive.",
+    "Retained fixtures contain synthetic data only."
+  ],
+  "static_review": {
+    "classification": "STATIC_SOURCE_REVIEW",
+    "api_call_surface": [
+      "api.AssetExportTask",
+      "api.EditorAssetLibrary.load_blueprint_class",
+      "api.Exporter.run_asset_export_task",
+      "api.ObjectExporterT3D",
+      "api.find_asset",
+      "api.get_default_object",
+      "api.load_asset"
+    ],
+    "native_path_hash_match_observed_pin": true,
+    "verified_exporter_api_reference": "scripts/Collect-AIResearch.py:213-221,288-400",
+    "observed_uppercase_formats_reference": "research/evidence/editor-source/ai-research-collection-20260921T030437Z-f7d8e930/report.json:12904-12907",
+    "no_save_compile_play_cook_install_recursive_scan_api_call": true
+  },
+  "original_regression": {
+    "total": 29,
+    "passed": 29
+  },
+  "passed": 67,
+  "failed": 0,
+  "independent_boundary_guard_cases": {
+    "total": 38,
+    "passed": 38
+  },
+  "helper_unchanged_during_review": true,
+  "historical_after": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverCaller.py",
+      "bytes": 14058,
+      "sha256": "b99b1b05375be98af1160c9c2ccb3474af80eb97aa673ea492130d83386d0fa0"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Review-ObserverCaller.py",
+      "bytes": 18496,
+      "sha256": "0953515fca50def0de0411821a4c87cd0ea432f7c57133c6720d1bfe7ea0b83d"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\PASSIVE_OBSERVER_HELPER_REVIEW.json",
+      "bytes": 17480,
+      "sha256": "1e99d29d0d47568e54c1d36501e4940d9fcd08312d88b0576d62db7bf22e277b"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverReferences.py",
+      "bytes": 12417,
+      "sha256": "adc2da144e2648c8fcbe7df42667a76bf7bd258ace455d0105b27a3fea717a63"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_REFERENCE_HELPER_REVIEW.json",
+      "bytes": 61034,
+      "sha256": "c9ee8adb3a4ef14de7c0dec200b34a16ee0a7e15bec9e5fd0103f93f7033ad20"
+    }
+  ],
+  "historical_unchanged": true,
+  "mode_pin_unchanged": true,
+  "status": "PASS_MOCK_ONLY"
+}
