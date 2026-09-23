@@ -1,5 +1,7 @@
 # One-asset observer follow-up: Instant Action mode
 
+**COMPLETED, September 23 UTC:** the [verified native mode export](../research/OBSERVER_MODE_NATIVE_RESULT.md) establishes the controller class default and connected construction call to exact parent `MW5GameMode`. The [subsequent parent export](../research/OBSERVER_BASE_MODE_NATIVE_RESULT.md) also completed and reaches an empty Blueprint body/native boundary. Do not run either helper again. Earlier preparation below remains historical.
+
 Prepared **2026-09-23 UTC**. **PROPOSED source/default export; native execution NOT_PERFORMED.** The [completed three-query lookup](../research/OBSERVER_REFERENCE_NATIVE_RESULT.md) returned `/Game/Modes/InstantAction/InstantActionMode` as the only non-self referencer of the known Instant Action controller. Prior collected source does not contain this mode. The reference helper and earlier controller exporters are complete and must not be rerun.
 
 The [independent helper review](../research/OBSERVER_MODE_HELPER_REVIEW.md) passed **67/67 synthetic cases, MOCK_ONLY**, under Python 3.7.7. Current helper: **14,884 bytes / SHA256 `AD0EEB1E1FA73E55CEE24F679C27CA3C5AA52C0ABFFC48F4F8D0E88B0F44ED29`**. The [preparation manifest](../research/OBSERVER_MODE_PREPARATION.json) binds this source, exact target and review. Native export remains unrun; fresh resource/pin checks and a coordinated user-assisted invocation are the next step.

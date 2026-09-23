@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-23T04:14:30.5333925Z",
+  "status": "PREPARED_70_OF_70_MOCK_ONLY_NATIVE_NOT_CONFIRMED",
+  "scope": "Exactly one connected MW5GameMode Blueprint source/default export; own parent identity from text only",
+  "helper": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-ObserverBaseMode.py",
+    "bytes": 14913,
+    "sha256": "D339DF11DBA3A9FD752B0EBBE417BA415C54A883C5374F8090FE0F88EBF14BD7"
+  },
+  "asset": {
+    "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MW5GameMode.uasset",
+    "bytes": 18329,
+    "sha256": "83C3FCE0632F3F92F0594A9534E77A8FA02A523BB5688D015922374E7A296279"
+  },
+  "asset_pin": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_ASSET.json",
+    "bytes": 966,
+    "sha256": "3700F6E82D93E55519727E97A22098CFEA51F804AB4214C46D9F82E19822F517"
+  },
+  "package": "/Game/Modes/MW5GameMode",
+  "observed_parent_class_path": "/Game/Modes/MW5GameMode.MW5GameMode_C",
+  "expected_object": "/Game/Modes/MW5GameMode.MW5GameMode",
+  "expected_class": "/Game/Modes/MW5GameMode.MW5GameMode_C",
+  "expected_default": "/Game/Modes/MW5GameMode.Default__MW5GameMode_C",
+  "expected_native_identities_checked_fail_closed": true,
+  "candidate_evidence": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-mode-20260923T035542Z-8fe04811300f\\source.COPY",
+    "bytes": 617929,
+    "sha256": "B95A06B61AEEAD0CFE27FD2012E50E7D4BE07353C3E5E4E3DAFBACCAEE5DD551"
+  },
+  "candidate_evidence_lines": [
+    3341,
+    3348,
+    3393
+  ],
+  "review": {
+    "classification": "MOCK_ONLY",
+    "passed": 70,
+    "failed": 0,
+    "adapted_prior_mode_cases": 67,
+    "new_mode_cross_guard_cases": 3,
+    "runtime": "3.7.7 (tags/v3.7.7:d7c567b08f, Mar 10 2020, 10:41:24) [MSC v.1900 64 bit (AMD64)]",
+    "receipt": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_HELPER_REVIEW.json",
+      "bytes": 129310,
+      "sha256": "78ADF49314DC296055128E8B0DBD357C982DE7212FEE998CE006A7B1F3BDBD77"
+    },
+    "summary": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_BASE_MODE_HELPER_REVIEW.md",
+      "bytes": 2635,
+      "sha256": "6FCD6039CBC1A61DC84008FCBEAA052337C2246DA0D3CD914B792AAA282DA324"
+    },
+    "script": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Review-ObserverBaseMode.py",
+      "bytes": 41062,
+      "sha256": "003908669BB2B635251BBE25BAC56002EF72E6E1D71AA11164EBDFEA2C188874"
+    },
+    "immutable_receipt": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-base-mode-helper-review-20260923T040747Z-049c0b52\\independent-review-receipt.json",
+      "bytes": 129310,
+      "sha256": "78ADF49314DC296055128E8B0DBD357C982DE7212FEE998CE006A7B1F3BDBD77"
+    }
+  },
+  "limits": {
+    "source_file_bytes": 1048576,
+    "per_export_bytes": 8388608,
+    "accumulated_output_stop_budget_bytes": 17825792,
+    "per_json_bytes": 65536,
+    "cooperative_seconds": 120,
+    "disk_free_minimum_bytes": 2147483648,
+    "physical_available_minimum_bytes": 805306368,
+    "commit_available_minimum_bytes": 1073741824,
+    "native_calls_interruptible": false,
+    "native_initial_allocation_and_output_hard_capped": false,
+    "small_final_receipt_permitted_after_output_stop": true
+  },
+  "worksheet": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\design\\OBSERVER_BASE_MODE_SOURCE_LOOKUP.md",
+    "bytes": 5334,
+    "sha256": "FD41734233C6DFE841ED6D9499A2EE0D6015B2E5AC0994188CB109F1CE42D759"
+  },
+  "entry": "User-controlled existing editor File > Execute Python Script",
+  "output_directory_pattern": "observer-base-mode-YYYYMMDDTHHMMSSZ-12hex",
+  "expected_output": [
+    "source.COPY or source.T3D",
+    "defaults.COPY or defaults.T3D",
+    "checkpoint-NN.json",
+    "report.json"
+  ],
+  "temporary_lock": ".observer-base-mode-inspection.lock",
+  "temporary_lock_location": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source",
+  "baseline": {
+    "checked_at_utc": "2026-09-23T04:14:30.5333925Z",
+    "native_directory_regex": "^observer-base-mode-[0-9]{8}T[0-9]{6}Z-[0-9a-f]{12}$",
+    "native_output_directories": [],
+    "locks": [
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\.observer-base-mode-inspection.lock",
+        "present": false
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\.observer-mode-inspection.lock",
+        "present": false
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\.observer-caller-inspection.lock",
+        "present": false
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\.observer-reference-lookup.lock",
+        "present": false
+      }
+    ],
+    "resource_admission": "Coordinator owns fresh resource checks; prior mode health is historical only",
+    "editor_in_memory_active_flags": "Checked by helper during native invocation; not observable through this offline manifest"
+  },
+  "native_parent_lookup": "NOT_CONFIRMED_BY_THIS_PREPARATION",
+  "native_at_preparation": "NOT_PERFORMED_NO_ATTRIBUTABLE_OUTPUT",
+  "coordinator_handoff": "Coordinator reported fresh pin/resource/lock checks and one user-assisted request; wait for new attributable receipt and confirmation. This task did not invoke the helper.",
+  "stop_after": "Review exact parent construction, connected initialization, defaults and next boundary; no automatic ancestor lookup",
+  "prohibited_follow_on": [
+    "Additional export without source assessment",
+    "Asset save or explicit compile",
+    "Observer asset or descriptor authoring",
+    "Play or cook or deployment",
+    "Shipping gameplay or live control",
+    "Campaign or paid API operations"
+  ],
+  "historical_helpers": "Controller, reference and InstantActionMode lookups completed; do not rerun",
+  "classification": "PROPOSED_BOUNDED_NATIVE_LOOKUP_WITH_PASS_MOCK_ONLY_PREPARATION"
+}

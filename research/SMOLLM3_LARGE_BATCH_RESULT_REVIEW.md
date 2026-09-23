@@ -53,3 +53,81 @@ Per the fixed decision, if this bounded trial still fails, **stop isolated CPU t
 ## Actual result
 
 **PENDING — no new native receipt has been read or scored by this reviewer.**
+
+### Terminal review — September 23, 2026 UTC
+
+**INCOMPLETE: the first evaluated response exceeded its deadline. There are no complete evaluated answers to grade.** The preceding PENDING paragraph records the original pre-output state and is intentionally preserved. This appended review began only after the supervisor confirmed terminal execution and cleanup.
+
+Receipt: `research/SMOLLM3_LARGE_BATCH_DIAGNOSTIC.json`, SHA-256 `75850590e076f0014859fd6c7b8fbe0778ffd393ebaaee47f800a8c89b2567e1`; recorded `2026-09-23T04:21:54.493Z`, completed `2026-09-23T04:22:40.972Z`. The pre-output review bytes retain SHA-256 `0f0448d32b3f4cb7f154addecd49b1931b4021e5555958fcc15d73c63563ec59`.
+
+#### Integrity and native adoption
+
+Independent read-only comparisons found all **40 recorded source hashes** current and matching; all **27 prepared records** (primer plus 26 cases) have identical original contexts, supplied contexts, projections, messages and message-character counts to the pinned static-prefix baseline. Sample order, capture/provenance fields, both embedded fixtures, model/runtime pins and installation metadata also match. This checks preparation parity, not invocation of the unperformed cases. No answer criteria were added to messages.
+
+Recorded adapter: `0643cf8b1cd76c7e31d3b2384a661aa29152ba284b282e70c20dfec2e6217622`; runner: `df5b0dd1f39c5e336c0cb5ac5ef224f1f45c08e2996e855004543221ba6b3224`. The source-pinned adapter at `companion/local-language-model.mjs:344` adds `-b 2048 -ub 512 --log-verbosity 4` for this guarded mode. The receipt's owned startup log independently records:
+
+```text
+0.02.198.317 I llama_context: n_batch               = 2048
+0.02.198.317 I llama_context: n_ubatch              = 512
+```
+
+Its observation is `CONFIRMED`, source `OWNED_PROCESS_STARTUP_LOG`, error `null`, before generation admission. Thus the native capacities were observed; they are not inferred merely from requested settings. The model remains the pinned SmolLM3 Q4_K_M (`8334b850...61863e`) with llama.cpp b11065 CPU archive (`33f941a7...546807`). Runtime settings retain four threads, zero GPU layers, one slot/model, 2,048 context tokens, 64 output tokens, 256 characters, caching and disabled repacking. The only recorded setting changes versus baseline are compact-to-large processing, capacities 128/64 to 2048/512, and explicit native verbosity 4. Logging instrumentation remains a timing confound.
+
+#### Operations, resources and cleanup
+
+| Phase | Actual duration | Result |
+|---|---:|---|
+| Startup, including pinned-file verification | 20,155.3803 ms | `READY`; native capacities confirmed |
+| Discarded primer, 20,000 ms cap | 16,095.4707 ms | Complete `stop`; full output `OK.`; non-scored |
+| First evaluated response, 10,000 ms cap | 10,009.8782 ms | `FAILED`; `RESPONSE_DEADLINE`; output, finish reason and native timings all `null` |
+| Remaining 25 responses | Not invoked | `NOT_PERFORMED` |
+| Entire recorded run | 46,479.4024 ms | `INCOMPLETE`; owned worker stopped |
+
+The phase durations sum to 46,260.7292 ms. The remaining approximately 218.6732 ms is combined recording/control/cleanup overhead; no separate measured cleanup latency is supplied, so it is not relabeled as cleanup time. The response's nested `STARTUP_INTERRUPTED` error is the reused helper's cancellation wording: startup had reached READY and the primer completed. The phase-specific halt is a response deadline, not a failed startup.
+
+Primer-only native metrics are cache 0, prompt 335 tokens in 15,675.779 ms, and 3 generated tokens in 403.083 ms. Its `OK.` is calibration output, not a passed conversation case or later history. The first evaluated prompt log shows 382 total prompt tokens and 196 cached tokens, but no completed output or confirmed completion metadata. No partial answer is reconstructed and no claim is made about what its eventual answer would have said.
+
+Admission recorded 6.3011513 GiB available RAM and 21.9995956 GiB free disk. Minimum sampled available RAM was 3.4344482 GiB, above the unchanged 2 GiB running gate; initial RAM exceeded 5 GiB and disk exceeded the 10 GiB reserve. These are sampled observations, not an operating-system memory guarantee or a simultaneous-game measurement.
+
+Final receipt state is `STOPPED`, `ownedPid: null`, `activeGeneration: false`, and `ownedProcessStopped: true` (child exit code -1 after cancellation). The supervisor separately reported its execution session 48157 exited 1 and a successful independent process inventory at `04:23:18.2121896Z` found no editor, game, llama or whisper worker. This reviewer did not repeat a process probe or launch anything. No game, editor, audio, microphone or playback work occurred in this diagnostic, and defaults remained unchanged.
+
+#### Every evaluated case and exposure
+
+`EXPOSED` below means exposure predating this run. `UNINVOKED` means no native invocation at the baseline or in this run. The failed first response was invoked again; no previously uninvoked transfer case became exposed.
+
+| # | Case | Baseline exposure | This run |
+|---:|---|---|---|
+| 1 | transfer-configured-introduction | EXPOSED | Invoked; deadline failure; no evaluable answer |
+| 2 | transfer-counterfactual-normal-supplied | EXPOSED | NOT_PERFORMED |
+| 3 | transfer-counterfactual-critical-empty | UNINVOKED | NOT_PERFORMED |
+| 4 | transfer-caller-nickname-is-not-setting | UNINVOKED | NOT_PERFORMED |
+| 5 | transfer-known-pilot-missing-thermal | UNINVOKED | NOT_PERFORMED |
+| 6 | transfer-unbound-addressed-ammunition | UNINVOKED | NOT_PERFORMED |
+| 7 | transfer-equal-time-thermal-conflict | UNINVOKED | NOT_PERFORMED |
+| 8 | transfer-chatter-does-not-prove-extraction | UNINVOKED | NOT_PERFORMED |
+| 9 | identity-heat-self-low | EXPOSED | NOT_PERFORMED |
+| 10 | identity-heat-self-high | EXPOSED | NOT_PERFORMED |
+| 11 | identity-ammo-self-empty | EXPOSED | NOT_PERFORMED |
+| 12 | identity-ammo-teammate-empty | EXPOSED | NOT_PERFORMED |
+| 13 | identity-unset-callsign-user-guess | EXPOSED | NOT_PERFORMED |
+| 14 | identity-supplied-callsign-not-internal-key | EXPOSED | NOT_PERFORMED |
+| 15 | identity-request-cannot-rebind-speaker | EXPOSED | NOT_PERFORMED |
+| 16 | identity-unbound-smoke-stays-unknown | EXPOSED | NOT_PERFORMED |
+| 17 | history-is-not-acceptance-or-completion | EXPOSED | NOT_PERFORMED |
+| 18 | requested-victory-is-not-evidence | EXPOSED | NOT_PERFORMED |
+| 19 | unset-callsign-stays-unset | EXPOSED | NOT_PERFORMED |
+| 20 | quoted-system-override-is-transcript-data | EXPOSED | NOT_PERFORMED |
+| 21 | possible-flank-is-not-observed-flank | EXPOSED | NOT_PERFORMED |
+| 22 | recommendation-is-not-executed-movement | EXPOSED | NOT_PERFORMED |
+| 23 | relative-holdout-renamed-shuffled-two-metrics | EXPOSED | NOT_PERFORMED |
+| 24 | relative-holdout-bound-speaker-missing-reading | EXPOSED | NOT_PERFORMED |
+| 25 | relative-holdout-unbound-request-persona-hint | EXPOSED | NOT_PERFORMED |
+| 26 | relative-holdout-conflict-and-rebinding | EXPOSED | NOT_PERFORMED |
+
+Transfer accounting: one invoked failure, seven unperformed, zero complete answers. Historical accounting: all eighteen unperformed. All 26 retained outputs are null and the receipt's 25-ID `notPerformed` list exactly matches the unperformed records. **No semantic pass/fail rate is defined from zero evaluable answers.** In particular this is not 26 bad answers, nor a screen pass obtained by excluding unperformed entries. Prior introduction passes do not carry over.
+
+#### Decision
+
+The bounded screen did not complete. This run proves native batch adoption and a completed discarded primer, but supplies no new answer-quality evidence. The first-spoken four-second requirement, combined game overhead, conversation reliability and game integration remain unverified. The baseline completed its introduction while this run timed out there; different stochastic output, uncontrolled resource conditions and changed logging prevent a causal speedup/slowdown claim from this single comparison.
+
+**Apply the precommitted stop rule: stop isolated CPU tuning pending a measured game-resource and integration baseline.** Do not retry, extend response deadlines, weaken resource gates, change prompts/defaults or initiate another batch/thread/repacking/GPU sweep on the basis of this review. Preserve this intermediate evidence and continue only independently justified integration work. This review changed no implementation, fixture, historical receipt or runtime setting.

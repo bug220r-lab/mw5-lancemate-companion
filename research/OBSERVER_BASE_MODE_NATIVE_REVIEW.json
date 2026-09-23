@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-09-23T04:23:10.512Z",
+  "status": "VERIFIED_NATIVE_EDITOR_SOURCE_RECEIPT_ONLY",
+  "classification": "READ_ONLY_RECEIPT_INTEGRITY_AND_SCOPE_REVIEW",
+  "workspace": "C:/Users/jlewi/OneDrive/Documents/ChatGPT/MW5 LANCEMATE COMPANION",
+  "review_actions": "Read named files; independently recompute SHA256 and sizes; compare prepared identities, sequence and byte accounting; inspect export outer headers and two preserved log lines. Write only this review and its Markdown summary.",
+  "reviewer_helper_editor_game_test_execution": "NOT_PERFORMED",
+  "graph_interpretation": "NOT_PERFORMED_SEPARATE_OBSERVER_TASK",
+  "raw_directory": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6",
+  "raw_files": [
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/checkpoint-00.json",
+      "bytes": 1458,
+      "sha256": "a9c9eb56bf050d16f1a75384c80956a9f1c45ce7fa7c373eb069933fdc2a7cc5"
+    },
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/checkpoint-01.json",
+      "bytes": 1862,
+      "sha256": "bf4a4352ec08ac9f0d9e091ac62cac1b1359c37cee775589cdc4a9a06dff5914"
+    },
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/checkpoint-02.json",
+      "bytes": 2178,
+      "sha256": "7e87bf217ec0d19f70e1db01f1c736f0095db9fc4958d7d03e87500889be22a7"
+    },
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/checkpoint-03.json",
+      "bytes": 2498,
+      "sha256": "fd9212d3a742bc24a3462b6a26d03647dab2be958e3a60f97d19b2fa2e44bac6"
+    },
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/defaults.COPY",
+      "bytes": 8885,
+      "sha256": "fb31627725783ff7e950952039732b5053c288ec5850e374fcd7277804a844d0"
+    },
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/report.json",
+      "bytes": 2719,
+      "sha256": "966f19638290fbd3dbfb8af1e134fc8ae5331430eb6f17e09b15ff9ed1b824e6"
+    },
+    {
+      "file": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6/source.COPY",
+      "bytes": 3099,
+      "sha256": "c8ad84b384428010190db4a6a5a639d41561e4a1506ff675a1dd072c256f899d"
+    }
+  ],
+  "exact_inventory_verified": true,
+  "raw_files_total_bytes": 22699,
+  "findings": {
+    "raw_export_identity_hash_counter_errors": [],
+    "raw_status_preserved": "COLLECTED_REQUIRES_REVIEW",
+    "export_returns": {
+      "source": true,
+      "defaults": true
+    },
+    "exporter_errors": {
+      "source": [],
+      "defaults": []
+    },
+    "recorded_errors": [],
+    "source_unchanged_after": true,
+    "current_installed_source_matches": true,
+    "owned_lock_present_at_review": false
+  },
+  "identities": {
+    "object": "/Game/Modes/MW5GameMode.MW5GameMode",
+    "loaded_object": "/Game/Modes/MW5GameMode.MW5GameMode",
+    "generated_class": "/Game/Modes/MW5GameMode.MW5GameMode_C",
+    "default_object": "/Game/Modes/MW5GameMode.Default__MW5GameMode_C",
+    "source_outer_header": "Begin Object Class=/Script/Engine.Blueprint Name=\"MW5GameMode\"",
+    "defaults_outer_header": "Begin Object Class=/Game/Modes/MW5GameMode.MW5GameMode_C Name=\"Default__MW5GameMode_C\"",
+    "parent_metadata": {
+      "status": "EXPORTED_TEXT_ONLY",
+      "value": "Class'\"/Script/MechWarrior.MWGameMode\"'",
+      "parent_lookup_performed_by_reviewer": false
+    },
+    "already_loaded": true,
+    "explicit_scope": "One named Blueprint source plus its checked generated-class default object; parent identity from exported text."
+  },
+  "current_helper": {
+    "file": "scripts/Inspect-ObserverBaseMode.py",
+    "bytes": 14913,
+    "sha256": "d339df11dba3a9fd752b0ebbe417ba415c54a883c5374f8090fe0f88ebf14bd7"
+  },
+  "current_installed_target": {
+    "file": "C:/Program Files/Epic Games/MechWarrior5Editor/MW5Mercs/Content/Modes/MW5GameMode.uasset",
+    "bytes": 18329,
+    "sha256": "83c3fce0632f3f92f0594a9534e77a8fa02a523bb5688d015922374e7a296279"
+  },
+  "preparation": {
+    "file": "research/OBSERVER_BASE_MODE_PREPARATION.json",
+    "bytes": 6712,
+    "sha256": "023351aafba1b886d0ef6ac06e25b25e3a612d1186876e3d4b2ea82a673850f3",
+    "recorded_at_utc": "2026-09-23T04:14:30.5333925Z",
+    "precedes_preserved_log_invocation": true,
+    "linked_pins_checked": 9,
+    "matching_current_linked_pins": 8,
+    "matching_bindings": [
+      "helper",
+      "asset",
+      "asset_pin",
+      "candidate_evidence",
+      "review.receipt",
+      "review.summary",
+      "review.script",
+      "review.immutable_receipt"
+    ],
+    "worksheet": {
+      "file": "design/OBSERVER_BASE_MODE_SOURCE_LOOKUP.md",
+      "frozen_preparation_pin": {
+        "bytes": 5334,
+        "sha256": "fd41734233c6dfe841ed6d9499a2ee0d6015b2e5ac0994188cb109f1ce42d759"
+      },
+      "later_current_pin": {
+        "bytes": 5611,
+        "sha256": "415630a6aac7778ab141d3ba058cf12f16ac99872f93e586e9b31ad85a68f366"
+      },
+      "current_last_write_utc": "2026-09-23T04:16:05Z",
+      "disposition": "LATER_STATUS_EDIT_NOT_CURRENT_BYTE_IDENTICAL",
+      "observed_changes": "Current header qualifies native NOT_PERFORMED as at preparation; added Later output paragraph names this result, marks receipt review pending and says not to repeat. The frozen preparation retains the original document pin; this review does not claim every linked document remains byte-identical."
+    }
+  },
+  "checkpoints": [
+    {
+      "file": "checkpoint-00.json",
+      "stage": "FIND_NAMED_ASSET",
+      "elapsed_seconds": 0,
+      "recorded_output_bytes_before_this_receipt": 0
+    },
+    {
+      "file": "checkpoint-01.json",
+      "stage": "EXPORT_SOURCE",
+      "elapsed_seconds": 0.015,
+      "recorded_output_bytes_before_this_receipt": 1458
+    },
+    {
+      "file": "checkpoint-02.json",
+      "stage": "GET_NAMED_GENERATED_CLASS",
+      "elapsed_seconds": 0.125,
+      "recorded_output_bytes_before_this_receipt": 6419
+    },
+    {
+      "file": "checkpoint-03.json",
+      "stage": "EXPORT_DEFAULTS",
+      "elapsed_seconds": 0.125,
+      "recorded_output_bytes_before_this_receipt": 8597
+    }
+  ],
+  "accounting": {
+    "load_checkpoint_absence": "EXPECTED_ALREADY_LOADED_TRUE",
+    "final_stage": "EXPORT_DEFAULTS",
+    "final_elapsed_seconds": 0.187,
+    "final_recorded_output_bytes_before_this_receipt": 19980,
+    "final_report_bytes": 2719,
+    "sum_all_files_bytes": 22699,
+    "sequence_and_cumulative_counters_match": true,
+    "sizes_within_configured_limits": true,
+    "recorded_checkpoint_health_above_thresholds": true,
+    "final_historical_health_bytes": {
+      "disk_free": 22785536000,
+      "physical_available": 4502179840,
+      "commit_available": 4703195136
+    }
+  },
+  "cooperative_limits": {
+    "source_file_bytes": 1048576,
+    "per_export_bytes": 8388608,
+    "total_output_stop_budget_bytes": 17825792,
+    "per_json_bytes": 65536,
+    "seconds": 120,
+    "disk_free_minimum_bytes": 2147483648,
+    "physical_available_minimum_bytes": 805306368,
+    "commit_available_minimum_bytes": 1073741824,
+    "native_calls_interruptible": false,
+    "native_allocation_or_output_hard_capped": false
+  },
+  "native_attribution": {
+    "observed_invocation": "USER_ASSISTED_NATIVE_EDITOR_EXPORT",
+    "evidence_checked": "Preserved snapshot bytes and capture receipt; snapshot lines1136-1137 independently read. Current live editor log was not read.",
+    "snapshot": {
+      "file": "research/evidence/editor-source/observer-base-mode-native-evidence-20260923T041728Z-1636a297a4e4/editor-log-snapshot.log",
+      "bytes": 125242,
+      "sha256": "fcd9358ea2e905e5874fbda6bd2d3e23c782967263a748c176918d6d1e8eac5c"
+    },
+    "capture": {
+      "file": "research/evidence/editor-source/observer-base-mode-native-evidence-20260923T041728Z-1636a297a4e4/capture.json",
+      "bytes": 1328,
+      "sha256": "d5e08e0238f44997786eb214fb3547e6b55bab44e17bc650ae68a0656ebf73cb"
+    },
+    "invocation": {
+      "line": 1136,
+      "utc": "2026-09-23T04:14:36.411Z",
+      "script": "scripts/Inspect-ObserverBaseMode.py"
+    },
+    "completion": {
+      "line": 1137,
+      "utc": "2026-09-23T04:14:36.618Z",
+      "status": "COLLECTED_REQUIRES_REVIEW",
+      "directory": "research/evidence/editor-source/observer-base-mode-20260923T041436Z-7a4f6d0899d6"
+    },
+    "snapshot_metadata_matches_capture": true
+  },
+  "preserved_earlier_mode": {
+    "directory": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f",
+    "files_checked": [
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/checkpoint-00.json",
+        "bytes": 1500,
+        "sha256": "90ceea587ca240c61d60ec4d8a6d69f914076f910cbfc1af49b40b72b9a92cf7"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/checkpoint-01.json",
+        "bytes": 1657,
+        "sha256": "55ffc70bd8d243dbc10495afde81942e8990b6898c98521e6fdf704d90e533ad"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/checkpoint-02.json",
+        "bytes": 1926,
+        "sha256": "dd665700352e2a6a465d6a196dff0d8aa00d878d436b1dd139b0cc95fe426fc8"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/checkpoint-03.json",
+        "bytes": 2271,
+        "sha256": "b61ccddc8a63d818eec1b6d57d19d6e25c3436a2d22e1516bb05bb2031d5a065"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/checkpoint-04.json",
+        "bytes": 2638,
+        "sha256": "821a30ff02bb423e7a1138f529d297b72cb2a99437b84e4d79e00a3a0c19f16d"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/defaults.COPY",
+        "bytes": 9362,
+        "sha256": "be04eec660121621a7497a65edf6f72578c9cca28ebaf02076c71fd886a9e9ce"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/report.json",
+        "bytes": 2858,
+        "sha256": "40833043ec712ae8a03e13041577602636bfc646c8f48b83c0de108983c765cb"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/source.COPY",
+        "bytes": 617929,
+        "sha256": "b95a06b61aeead0cfe27fd2012e50e7d4be07353c3e5e4e3dafbaccaee5dd551"
+      }
+    ],
+    "all_eight_match_prior_review_pins": true
+  },
+  "separate_repeated_mode": {
+    "directory": "research/evidence/editor-source/observer-mode-20260923T041339Z-46bd6b40588b",
+    "disposition": "SEPARATE_INVOCATION_NOT_BASEMODE_EVIDENCE",
+    "files_checked": [
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T041339Z-46bd6b40588b/report.json",
+        "bytes": 2856,
+        "sha256": "023d048a89ebe177939ab532d4392479dd543232856e18e4586a6a57e62cf125"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T041339Z-46bd6b40588b/source.COPY",
+        "bytes": 617929,
+        "sha256": "b95a06b61aeead0cfe27fd2012e50e7d4be07353c3e5e4e3dafbaccaee5dd551"
+      },
+      {
+        "file": "research/evidence/editor-source/observer-mode-20260923T041339Z-46bd6b40588b/defaults.COPY",
+        "bytes": 9362,
+        "sha256": "be04eec660121621a7497a65edf6f72578c9cca28ebaf02076c71fd886a9e9ce"
+      }
+    ],
+    "both_exports_match_original": true,
+    "repeated_mode_checkpoint_audit": "NOT_PERFORMED_NOT_REQUIRED_FOR_BASEMODE_AUDIT"
+  },
+  "limits": [
+    "Editor source/default export and receipt integrity only; no graph connectedness or lifecycle interpretation.",
+    "No observer instance creation, cooking, packaging, deployment, shipping-game behavior or compatibility is established.",
+    "Exactly one explicit Blueprint does not exclude implicit dependency loading or editor cache regeneration.",
+    "Matching installed disk hashes does not establish that exported in-memory objects lack unsaved edits.",
+    "Cooperative time/resource/size checks cannot interrupt a synchronous native call or prevent its initial allocation/output.",
+    "Historical health values are not current resource admission.",
+    "No raw receipt, prior export, preparation, helper or installed asset was edited."
+  ]
+}

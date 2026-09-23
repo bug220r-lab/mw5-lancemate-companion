@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-09-23T04:03:28.9322594Z",
+  "classification": "OBSERVED_EXACT_PARENT_FILE_METADATA_NOT_NATIVE_ASSET_LOOKUP",
+  "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\MW5GameMode.uasset",
+  "bytes": 18329,
+  "sha256": "83C3FCE0632F3F92F0594A9534E77A8FA02A523BB5688D015922374E7A296279",
+  "package": "/Game/Modes/MW5GameMode",
+  "object_path": "/Game/Modes/MW5GameMode.MW5GameMode",
+  "observed_parent_class_path": "/Game/Modes/MW5GameMode.MW5GameMode_C",
+  "source_evidence": "research/evidence/editor-source/observer-mode-20260923T035542Z-8fe04811300f/source.COPY",
+  "source_evidence_lines": [
+    3341,
+    3348,
+    3393
+  ],
+  "reason": "Connected parent-construction boundary with exact exported parent identity; no parent source in prior collection receipts",
+  "existing_native_export": "NOT_PERFORMED",
+  "runtime_factory_invocation": "UNKNOWN_BLOCKED"
+}

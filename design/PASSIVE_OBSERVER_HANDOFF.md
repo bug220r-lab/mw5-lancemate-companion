@@ -1,5 +1,7 @@
 # Next integration experiment: passive actor-bound observation
 
+**September 23 source checkpoint:** controller/reference/mode/base-mode lookups are complete. The [last export](../research/OBSERVER_BASE_MODE_NATIVE_RESULT.md) reaches native `/Script/MechWarrior.MWGameMode` through an empty Blueprint body; it does not expose the factory caller. Do not repeat these lookups. The smaller [creation-only probe contract](OBSERVER_CREATION_ONLY_PROBE.md) must be made concrete before the broader observation experiment below. No observer assets, registry/readout mechanism or cooked startup have been proven.
+
 Prepared 2026-09-21 UTC. PROPOSED, NOT_BUILT and NOT_PERFORMED. This is the handoff after the offline package, not permission to deploy. Read [control support](../research/AI_CONTROL_SUPPORT_ANALYSIS.md), [tactical state](../research/TACTICAL_STATE_TRACE.md) and [order lifecycle](../research/ORDER_LIFECYCLE_TRACE.md) with their cited RUN sources.
 
 ## Smallest credible first route
