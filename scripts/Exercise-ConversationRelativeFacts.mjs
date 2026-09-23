@@ -21,9 +21,12 @@ export const RELATIVE_FACTS_QWEN17B_RECEIPT = 'research/QWEN17B_RELATIVE_FACTS_D
 export const RELATIVE_FACTS_QWEN17B_PREDECESSOR_SHA256 = 'e227f94995bab1c44a3296c50202c995e36c9b25d2302f0cd1d05bd6266fb67b';
 export const BRIEFING_RECEIPT = 'research/QWEN17B_BRIEFING_DIAGNOSTIC.json';
 export const BRIEFING_PREDECESSOR_SHA256 = '456ae004e7497fe9d90a574b218a1da2c47d26b4546c87d21c5133f9d26137a3';
+export const SEPARATED_REQUEST_RECEIPT = 'research/QWEN17B_SEPARATED_REQUEST_DIAGNOSTIC.json';
+export const SEPARATED_REQUEST_PREDECESSOR_SHA256 = 'f63a50b7d1c20d98ce106fbb4a907dd03bb75fecd972c29b1645ad30c47b8389';
 const secondAttemptAction = '--run-attempt-002';
 const qwen17bAction = '--run-qwen17b';
 const briefingAction = '--run-briefing-qwen17b';
+const separatedRequestAction = '--run-separated-request-qwen17b';
 const fixtureRelative = 'synthetic/conversation-relative-facts-cases.json';
 const options = Object.freeze({ modelId: 'qwen4b', threads: 4, processingBatch: 'compact', weightRepacking: false,
   promptCaching: true, experimentalSpeakerRelativeFacts: true });
@@ -86,21 +89,45 @@ async function briefingPromptTreatment() {
     exposure: { regressionCount: 18, freshHoldoutCount: 0, originalHoldoutCount: 4, originalProvenanceRetained: true } };
 }
 
+export function readSeparatedRequestPredecessor(bytes) {
+  if (hash(bytes) !== SEPARATED_REQUEST_PREDECESSOR_SHA256) throw Error('SEPARATED_REQUEST_PREDECESSOR_EVIDENCE_CHANGED');
+  const prior = JSON.parse(bytes.toString('utf8'));
+  if (prior.status !== 'COMPLETE_PENDING_SEMANTIC_REVIEW' || prior.samples.length !== 18 ||
+      prior.promptTreatment?.id !== 'SPEAKER_FACT_BRIEFING_V1' || prior.settings?.modelId !== 'qwen1_7b' ||
+      prior.primer.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY' || prior.samples.some(s => s.status !== 'TEXT_COMPLETE_DIAGNOSTIC_ONLY') ||
+      prior.notPerformed.length !== 0 || !prior.ownedProcessStopped || prior.finalRuntime.state !== 'STOPPED' ||
+      prior.finalRuntime.ownedPid !== null || prior.finalRuntime.activeGeneration !== false)
+    throw Error('SEPARATED_REQUEST_PREDECESSOR_NOT_STOPPED_DIAGNOSTIC');
+  return { path: BRIEFING_RECEIPT, sha256: SEPARATED_REQUEST_PREDECESSOR_SHA256 };
+}
+
+async function separatedRequestPromptTreatment() {
+  return { id: 'SEPARATED_REQUEST_BRIEFING_V1', revision: 1, receiptPath: SEPARATED_REQUEST_RECEIPT, modelId: 'qwen1_7b',
+    changes: 'REFERENCE_BRIEFING_AND_FINAL_REQUEST_SEPARATION_WITH_SYSTEM_CLARIFICATION',
+    predecessor: readSeparatedRequestPredecessor(await readFile(path.join(root, BRIEFING_RECEIPT))),
+    completionEvidenceChange: { adapterRequiresTerminalReasonAndDone: true,
+      lengthRejectedWith: 'GENERATED_TEXT_TRUNCATED', receiptFinishReason: 'ADAPTER_CONFIRMED_STOP_OR_LENGTH_ELSE_NULL',
+      isolatedPromptCodeComparison: false },
+    exposure: { regressionCount: 18, freshHoldoutCount: 0, originalHoldoutCount: 4, originalProvenanceRetained: true } };
+}
+
 function receiptFor(action) {
   if (action === '--run') return RELATIVE_FACTS_RECEIPT;
   if (action === secondAttemptAction) return RELATIVE_FACTS_ATTEMPT_002_RECEIPT;
   if (action === qwen17bAction) return RELATIVE_FACTS_QWEN17B_RECEIPT;
   if (action === briefingAction) return BRIEFING_RECEIPT;
+  if (action === separatedRequestAction) return SEPARATED_REQUEST_RECEIPT;
   throw Error('INVALID_ATTEMPT');
 }
 
 // Re-read the immutable source fixture before accepting an in-memory plan. This
 // validates the exact case copies without granting metadata any model authority.
 export async function prepareRelativeFactsDiagnostic(args, fixture) {
-  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction, qwen17bAction, briefingAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
+  if (!Array.isArray(args) || args.length !== 1 || !['--check', '--run', secondAttemptAction, qwen17bAction, briefingAction, separatedRequestAction].includes(args[0])) throw Error('INVALID_ARGUMENTS');
   const attempt = args[0] === secondAttemptAction ? await secondAttempt() : null;
   const modelSubstitution = args[0] === qwen17bAction ? await qwen17bSubstitution() : null;
-  const promptTreatment = args[0] === briefingAction ? await briefingPromptTreatment() : null;
+  const promptTreatment = args[0] === briefingAction ? await briefingPromptTreatment() :
+    args[0] === separatedRequestAction ? await separatedRequestPromptTreatment() : null;
   const frozen = readFrozenRelativeFactsFixture(await readFile(path.join(root, fixtureRelative)));
   if (!isDeepStrictEqual(fixture, frozen)) throw Error('FROZEN_FIXTURE_CHANGED');
   const f = structuredClone(fixture), sourceFixtures = {};
@@ -148,19 +175,19 @@ export async function prepareRelativeFactsDiagnostic(args, fixture) {
       originalContext = { persona: profiles.profiles.find(p => p.id === input.persona),
         request: { text: c.request }, facts: c.facts, history: c.history };
     }
-    const prepared = prepareProjection(originalContext, Boolean(promptTreatment));
+    const prepared = prepareProjection(originalContext, Boolean(promptTreatment), args[0] === separatedRequestAction);
     cases.push({ provenance: origin, specification: c, capture: { mode: input.mode, coordinatorCalls: captures,
       syntheticClockMs: input.mode === 'COORDINATOR_CAPTURE' ? 1000 : null, placeholderInMeasuredHistory: false,
       addedContextFields: ['classification'], otherContextFieldsUnchanged: true }, ...prepared });
   }
   if (cases.length !== 18 || cases.filter(c => c.capture.coordinatorCalls === 1).length !== 10 ||
       cases.filter(c => c.provenance.kind === 'NEW_PREDECLARED_HOLDOUT').length !== 4) throw Error('INVALID_CAPTURE_COUNTS');
-  const primer = prepareProjection({ persona: { id: 'calibration', callsign: null }, request: { text: 'Say OK.' }, facts: [], history: [] }, Boolean(promptTreatment));
+  const primer = prepareProjection({ persona: { id: 'calibration', callsign: null }, request: { text: 'Say OK.' }, facts: [], history: [] }, Boolean(promptTreatment), args[0] === separatedRequestAction);
   return freeze({ action: args[0], ...(attempt ? { attempt } : {}), ...(modelSubstitution ? { modelSubstitution } : {}),
     ...(promptTreatment ? { promptTreatment } : {}), fixture: f, primer, cases });
 }
 
-function prepareProjection(originalContext, briefing = false) {
+function prepareProjection(originalContext, briefing = false, separateRequest = false) {
   if (Object.hasOwn(originalContext, 'classification')) throw Error('CAPTURE_ALREADY_CLASSIFIED');
   const context = { ...structuredClone(originalContext), classification: 'MOCK_ONLY' };
   const { classification, ...rest } = context;
@@ -170,7 +197,8 @@ function prepareProjection(originalContext, briefing = false) {
   const projectedMessages = messagesFor(context, { experimentalSpeakerRelativeFacts: true });
   const user = JSON.parse(projectedMessages[1].content.slice(0, -' /no_think'.length));
   if (!isDeepStrictEqual(user.callerAssertedCurrentObservations, projection.prompt)) throw Error('SERIALIZED_PROJECTION_MISMATCH');
-  const messages = briefing ? messagesFor(context, { experimentalSpeakerRelativeFacts: true, experimentalSpeakerBriefing: true }) : projectedMessages;
+  const messages = briefing ? messagesFor(context, { experimentalSpeakerRelativeFacts: true, experimentalSpeakerBriefing: true,
+    ...(separateRequest ? { experimentalSeparateRequest: true } : {}) }) : projectedMessages;
   return { originalContext, context, projection, messages, messageCharacters: messages.reduce((n, m) => n + m.content.length, 0) };
 }
 
@@ -193,14 +221,16 @@ export async function reserveRelativeFactsReceipt(openFile = open, action = '--r
 
 // Test substitutions are code-only, never CLI/request data; resulting receipts say MOCK_ONLY.
 export async function executeRelativeFactsDiagnostic(plan, evidence, testDependencies = null) {
-  if (!['--run', secondAttemptAction, qwen17bAction, briefingAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
+  if (!['--run', secondAttemptAction, qwen17bAction, briefingAction, separatedRequestAction].includes(plan?.action) || evidence?.fixtureSha256 !== RELATIVE_FACTS_FIXTURE_SHA256) throw Error('INVALID_EXECUTION_PLAN');
   const attempt = plan.action === secondAttemptAction ? await secondAttempt() : null;
   if (attempt ? !isDeepStrictEqual(plan.attempt, attempt) : Object.hasOwn(plan, 'attempt')) throw Error('INVALID_EXECUTION_PLAN');
   const modelSubstitution = plan.action === qwen17bAction ? await qwen17bSubstitution() : null;
   if (modelSubstitution ? !isDeepStrictEqual(plan.modelSubstitution, modelSubstitution) : Object.hasOwn(plan, 'modelSubstitution')) throw Error('INVALID_EXECUTION_PLAN');
-  const promptTreatment = plan.action === briefingAction ? await briefingPromptTreatment() : null;
+  const promptTreatment = plan.action === briefingAction ? await briefingPromptTreatment() :
+    plan.action === separatedRequestAction ? await separatedRequestPromptTreatment() : null;
   if (promptTreatment ? !isDeepStrictEqual(plan.promptTreatment, promptTreatment) : Object.hasOwn(plan, 'promptTreatment')) throw Error('INVALID_EXECUTION_PLAN');
-  const engineOptions = promptTreatment ? Object.freeze({ ...options, modelId: 'qwen1_7b', experimentalSpeakerBriefing: true }) :
+  const engineOptions = promptTreatment ? Object.freeze({ ...options, modelId: 'qwen1_7b', experimentalSpeakerBriefing: true,
+    ...(plan.action === separatedRequestAction ? { experimentalSeparateRequest: true } : {}) }) :
     modelSubstitution ? Object.freeze({ ...options, modelId: 'qwen1_7b' }) : options;
   const io = { reserveReceipt: action => reserveRelativeFactsReceipt(open, action), createEngine: createLocalLanguageModel, availableRam: () => os.freemem(),
     availableDisk: async () => { const s = await statfs(root); return s.bavail * s.bsize; }, now: () => performance.now(),
@@ -293,6 +323,7 @@ export async function executeRelativeFactsDiagnostic(plan, evidence, testDepende
         Object.entries({ host: '127.0.0.1', contextTokens: 2048, maxOutputTokens: 64, maxOutputChars: 256, gpuLayers: 0,
           processingBatch: 'compact', weightRepacking: false, promptCaching: true, experimentalSpeakerRelativeFacts: true,
           ...(promptTreatment ? { experimentalSpeakerBriefing: true } : {}),
+          ...(plan.action === separatedRequestAction ? { experimentalSeparateRequest: true } : {}),
           logicalBatchTokens: 128, physicalBatchTokens: 64, simultaneousModels: 1, thinking: false, webUI: false, mcpProxy: false })
           .some(([key, value]) => report.runtime.settings?.[key] !== value)) throw Error('CONFIGURATION_NOT_CONFIRMED');
     report.status = 'PRIMING'; await perform(report.primer);
@@ -345,15 +376,20 @@ async function main(args) {
       'research/RELATIVE_FACTS_ATTEMPT_002_PREPARATION.md'] : []),
     ...(plan.action === qwen17bAction ? ['companion/tests/relative-facts-fallback-review.test.mjs',
       'research/RELATIVE_FACTS_FALLBACK_PREPARATION.md'] : []),
-    ...(plan.action === briefingAction ? ['companion/tests/briefing-diagnostic.test.mjs',
+    ...([briefingAction, separatedRequestAction].includes(plan.action) ? ['companion/tests/briefing-diagnostic.test.mjs',
       'companion/tests/speaker-briefing.test.mjs', 'companion/tests/local-language-model.test.mjs',
       'companion/tests/speaker-briefing-review.test.mjs',
       'design/SPEAKER_FACT_BRIEFING.md', 'research/SPEAKER_BRIEFING_REVIEW.md',
-      'research/CONVERSATION_BRIEFING_EVALUATION.md'] : [])])
+      'research/CONVERSATION_BRIEFING_EVALUATION.md'] : []),
+    ...(plan.action === separatedRequestAction ? ['companion/tests/separated-request-diagnostic.test.mjs',
+      'companion/tests/separated-request.test.mjs', 'companion/tests/separated-request-review.test.mjs',
+      'design/SEPARATED_REQUEST_EXPERIMENT.md', 'research/CONVERSATION_REQUEST_SEPARATION_REVIEW.md',
+      'research/CONVERSATION_NEXT_EXPERIMENT_REVIEW.md', 'research/SEPARATED_REQUEST_PREPARATION.md',
+      'research/GENERATION_COMPLETION_DIAGNOSTIC_REVIEW.md'] : [])])
     sources[rel] = hash(await readFile(path.join(root, rel)));
   const lock = JSON.parse(await readFile(path.join(root, 'companion/models.lock.json')));
   const evidence = { fixtureSha256: hash(fixtureBytes), sources,
-    modelPins: lock.artifacts.filter(a => [[qwen17bAction, briefingAction].includes(plan.action) ? 'qwen1_7b' : 'qwen4b', 'llama-cpu'].includes(a.id)),
+    modelPins: lock.artifacts.filter(a => [[qwen17bAction, briefingAction, separatedRequestAction].includes(plan.action) ? 'qwen1_7b' : 'qwen4b', 'llama-cpu'].includes(a.id)),
     runtimePins: JSON.parse(await readFile(path.join(root, 'companion/llama-runtime-pins.json'))) };
   const report = await executeRelativeFactsDiagnostic(plan, evidence);
   console.log(JSON.stringify({ status: report.status, completed: report.samples.filter(s => s.status === 'TEXT_COMPLETE_DIAGNOSTIC_ONLY').length,

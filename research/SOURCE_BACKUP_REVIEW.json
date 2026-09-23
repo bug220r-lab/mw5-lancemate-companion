@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23T01:01:02.590Z",
+  "reviewedAt": "2026-09-23T01:16:48.337Z",
   "reviewer": "Independent project-local source-content review",
   "status": "READY_FOR_PRIVATE_SOURCE_CHECKPOINT",
   "target": {
@@ -24,8 +24,8 @@
     "stagingOrCommitOrNetworkPerformed": false
   },
   "counts": {
-    "includedFiles": 390,
-    "includedBytesExcludingThisReceipt": 8514998,
+    "includedFiles": 400,
+    "includedBytesExcludingThisReceipt": 8907540,
     "excludedEntries": 30,
     "unresolved": 0
   },
@@ -188,6 +188,9 @@
     "companion/tests/radio.test.mjs",
     "companion/tests/relative-facts-attempt-review.test.mjs",
     "companion/tests/relative-facts-fallback-review.test.mjs",
+    "companion/tests/separated-request-diagnostic.test.mjs",
+    "companion/tests/separated-request-review.test.mjs",
+    "companion/tests/separated-request.test.mjs",
     "companion/tests/server-callsign.test.mjs",
     "companion/tests/server-conversation.test.mjs",
     "companion/tests/server-mission-speech.test.mjs",
@@ -237,6 +240,7 @@
     "design/PROOF_OF_CONCEPT.md",
     "design/PUSH_TO_TALK_PREVIEW.md",
     "design/QWEN_REQUANTIZATION_PROPOSAL.md",
+    "design/SEPARATED_REQUEST_EXPERIMENT.md",
     "design/SPEAKER_FACT_BRIEFING.md",
     "design/SPEAKER_RELATIVE_OBSERVATIONS.md",
     "design/TACTICAL_CONTROL_READINESS.md",
@@ -283,7 +287,9 @@
     "research/CONVERSATION_IDENTITY_EVALUATION.md",
     "research/CONVERSATION_IDENTITY_HARNESS_REVIEW.md",
     "research/CONVERSATION_LATENCY_DIAGNOSTIC.json",
+    "research/CONVERSATION_NEXT_EXPERIMENT_REVIEW.md",
     "research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md",
+    "research/CONVERSATION_REQUEST_SEPARATION_REVIEW.md",
     "research/CONVERSATION_TRANSPORT_AUDIT.md",
     "research/DIRECT_PILOT_AIM_DELTA.md",
     "research/DIRECT_PILOT_CONTROL_DELTA.md",
@@ -380,6 +386,8 @@
     "research/QWEN17B_BRIEFING_REVIEW.md",
     "research/QWEN17B_RELATIVE_FACTS_DIAGNOSTIC.json",
     "research/QWEN17B_RELATIVE_FACTS_REVIEW.md",
+    "research/QWEN17B_SEPARATED_REQUEST_DIAGNOSTIC.json",
+    "research/QWEN17B_SEPARATED_REQUEST_REVIEW.md",
     "research/QWEN4B_EDITOR_CLOSED_REVIEW.md",
     "research/QWEN4B_GROUNDING_COMPACT_DIAGNOSTIC.json",
     "research/QWEN4B_GROUNDING_DIAGNOSTIC.json",
@@ -403,6 +411,8 @@
     "research/RELATIVE_FACTS_FALLBACK_RECEIPT_AUDIT.md",
     "research/RELEASE_EVIDENCE_V1_GAP.json",
     "research/RELEASE_EVIDENCE_V2_REVIEW.md",
+    "research/SEPARATED_REQUEST_PREPARATION.md",
+    "research/SEPARATED_REQUEST_RECEIPT_AUDIT.md",
     "research/SOURCES.md",
     "research/SOURCE_BACKUP_REVIEW.json",
     "research/SPEAKER_BRIEFING_REVIEW.md",
@@ -699,9 +709,9 @@
     },
     {
       "path": "companion/local-language-model.mjs",
-      "bytes": 30417,
-      "sha256": "5dd6712ffdcfc17fc53d4ebba3903e414862ace20aa3bc9fb5542d3f73f5032f",
-      "lines": 405,
+      "bytes": 31357,
+      "sha256": "71e4b7195caa3e903d4b6beb223543265ca28e0db6cfc444126c7f13b622f815",
+      "lines": 414,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1081,9 +1091,9 @@
     },
     {
       "path": "companion/tests/local-language-model.test.mjs",
-      "bytes": 38711,
-      "sha256": "70d63b87ab001c061a935f02977540eeef9d8d92a9e74293ee7f96ce3e2dd213",
-      "lines": 567,
+      "bytes": 39590,
+      "sha256": "9986bb9bd7db4b6a6f631c608f6433831aa80deddb55b117175a063cb52ed023",
+      "lines": 580,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1234,6 +1244,36 @@
       "bytes": 10527,
       "sha256": "dadec5dc506b0b35b57191459103eef213ee831f75d5e6fe02211a2369451a8b",
       "lines": 130,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/separated-request-diagnostic.test.mjs",
+      "bytes": 14519,
+      "sha256": "56c4d107afd53650201f136b76fa8396b937805f3d406d10db28d851b4273c93",
+      "lines": 190,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/separated-request-review.test.mjs",
+      "bytes": 10611,
+      "sha256": "4345f83461c6838a90e8d01d92a69a29eb45c32280c38c4ec0aaadfbb8fb334f",
+      "lines": 143,
+      "category": "PROJECT_SOURCE_OR_CONFIGURATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "companion/tests/separated-request.test.mjs",
+      "bytes": 5401,
+      "sha256": "d48c2d30bb94c572dd3d1bb3a30606a511a18228a933830ef0ee94ffd0623a0c",
+      "lines": 81,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -1744,6 +1784,16 @@
       "bytes": 5280,
       "sha256": "4f8bbf822db697c5b45dbd7bb9a0af8f5812b7b049c28a394fd43fd4b981d1c5",
       "lines": 42,
+      "category": "PROJECT_DOCUMENTATION",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "design/SEPARATED_REQUEST_EXPERIMENT.md",
+      "bytes": 7320,
+      "sha256": "ca8fc71a31bb8ba4627bdb140ea51d31d552e9c8e21c4df6bd8821fc37d42cac",
+      "lines": 40,
       "category": "PROJECT_DOCUMENTATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2272,9 +2322,9 @@
     },
     {
       "path": "research/COMPANION_VALIDATION.json",
-      "bytes": 16784,
-      "sha256": "df4c9ff95ec8c3b84faec7d763bb2090222d4e7ba32847c05c8f086efa50fba7",
-      "lines": 424,
+      "bytes": 17438,
+      "sha256": "3baff28e116f6eeba9dbf419c477c4ecd7a2a0bf0bbd4778f18a0abf4b2aea41",
+      "lines": 439,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2368,10 +2418,32 @@
       ]
     },
     {
+      "path": "research/CONVERSATION_NEXT_EXPERIMENT_REVIEW.md",
+      "bytes": 11891,
+      "sha256": "ab40cf5402f02b58fbcfe5c5991acec7e602ddae16a8d2f498b19249b0866345",
+      "lines": 71,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "References evidence deliberately excluded from this source-only backup; those paths will not resolve in a clean checkout."
+      ]
+    },
+    {
       "path": "research/CONVERSATION_RELATIVE_FACTS_EVALUATION.md",
       "bytes": 12219,
       "sha256": "63aa636a9518fcba5b2b86a5bae63b3ee961f04ec577cc86cdcf9838956fda27",
       "lines": 72,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/CONVERSATION_REQUEST_SEPARATION_REVIEW.md",
+      "bytes": 9914,
+      "sha256": "8ed4e0f056941102e0a1e6acd5f164ce746914935fdb47a02e289ebe8084275a",
+      "lines": 62,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -2767,7 +2839,7 @@
     {
       "path": "research/GITHUB_BACKUP.json",
       "bytes": 6513,
-      "sha256": "a1b84a229ac08660c853c0a7ee4f1ec2bfb29284e06bf0eafa8b04a4e4f8e94f",
+      "sha256": "12305739e412b9c77e52c4fcfbae562f7cc49929bbd39d6e121715da04cf3a60",
       "lines": 137,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
@@ -2778,9 +2850,9 @@
     },
     {
       "path": "research/IMPLEMENTATION_STATUS.md",
-      "bytes": 75985,
-      "sha256": "f0e23509c08e84b070fc0cdb65703bfdd026927fcb1a21cd4844f65deab2b646",
-      "lines": 287,
+      "bytes": 81077,
+      "sha256": "908145174603533befdc2a4a1b832fb8a2f1a5b549a4f80621ffe49a5c51a401",
+      "lines": 303,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -3551,6 +3623,29 @@
       "notes": []
     },
     {
+      "path": "research/QWEN17B_SEPARATED_REQUEST_DIAGNOSTIC.json",
+      "bytes": 294920,
+      "sha256": "b76aee167224bcd9cfd199ece83bd2a07ef02ec71cd60445c2df41a1712ec5ea",
+      "lines": 5302,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": [
+        "Contains the local Windows username/path; personal project backup is intended to remain private.",
+        "Contains bounded authored execution/log metadata; scanned for credentials, not treated as a raw account-log dump."
+      ]
+    },
+    {
+      "path": "research/QWEN17B_SEPARATED_REQUEST_REVIEW.md",
+      "bytes": 15947,
+      "sha256": "29b9bbbe39bb9443963624ca7f42d3b7bdc6dcc5f9e28980b57bc22bbeb01879",
+      "lines": 101,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
       "path": "research/QWEN4B_EDITOR_CLOSED_REVIEW.md",
       "bytes": 7496,
       "sha256": "690930ebf0251ffa1b3643713d32ab598ba2af92482f46af579b518d64f84a03",
@@ -3762,6 +3857,26 @@
       "bytes": 8019,
       "sha256": "d06e5af0f06341768a278dd55bc85003f0785bcc59a76daa8e5ed290c6b3a197",
       "lines": 63,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SEPARATED_REQUEST_PREPARATION.md",
+      "bytes": 5001,
+      "sha256": "9430ec002d4b6dc8e29c6f7d872da382173b024c18d411698dd3982b4c0a1a90",
+      "lines": 26,
+      "category": "AUTHORED_RESEARCH_OR_RECEIPT",
+      "contentRead": true,
+      "credentialScan": "NO_PATTERN_MATCHES",
+      "notes": []
+    },
+    {
+      "path": "research/SEPARATED_REQUEST_RECEIPT_AUDIT.md",
+      "bytes": 6311,
+      "sha256": "d424a4d5df6bb11b640561a2238a36b3aa6b48517f2345038fd05434f32c53fa",
+      "lines": 37,
       "category": "AUTHORED_RESEARCH_OR_RECEIPT",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",
@@ -4061,9 +4176,9 @@
     },
     {
       "path": "scripts/Exercise-ConversationRelativeFacts.mjs",
-      "bytes": 27945,
-      "sha256": "852c3c1414971a1269e05ca88395e75d23a25223471ec919dd0f779fbf8ec6ad",
-      "lines": 368,
+      "bytes": 31087,
+      "sha256": "4be2f6f5f3c6c05ffa577d14054597325022dd0c01b85693ba355c6bf7604b72",
+      "lines": 404,
       "category": "PROJECT_SOURCE_OR_CONFIGURATION",
       "contentRead": true,
       "credentialScan": "NO_PATTERN_MATCHES",

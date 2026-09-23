@@ -107,6 +107,19 @@ test('explicit experimental briefing reaches actual request construction and pre
   assert.equal(r.model.status().nativeCalls, 0);
 });
 
+test('separated request flag reaches real request construction without tools or changed model budgets', async t => {
+  const r = rig(t, () => {}, { experimentalSpeakerRelativeFacts: true, experimentalSpeakerBriefing: true, experimentalSeparateRequest: true });
+  await r.model.start(); const c = { ...ctx(), classification: 'MOCK_ONLY', speakerId: 'alpha' };
+  await r.model.generate(c);
+  const body = JSON.parse(r.fetches.at(-1).options.body);
+  assert.deepEqual(body.messages.map(m => m.role), ['system', 'user', 'user']);
+  assert.equal(body.messages[2].content, c.request.text + ' /no_think');
+  assert.equal(body.max_tokens, 64); assert.equal(body.stream, true);
+  assert.deepEqual(body.chat_template_kwargs, { enable_thinking: false });
+  assert.equal(Object.hasOwn(body, 'tools'), false);
+  assert.equal(r.model.status().settings.experimentalSeparateRequest, true);
+});
+
 test('start verifies pinned model/archive and every inventoried runtime file before one hidden CPU process', async t => {
   const r = rig(t); const [a, b] = await Promise.all([r.model.start(), r.model.start()]);
   assert.equal(a.state, 'READY'); assert.equal(b.state, 'READY'); assert.equal(r.calls.length, 1);
