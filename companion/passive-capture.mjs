@@ -35,10 +35,15 @@ const booleanKeys = new Set(['membership', 'humanPossession', 'actorDestroying',
 
 export const PASSIVE_CAPTURE_LIMITS = Object.freeze({ bytes: 32 * 1024 ** 2, samples: 20000,
   sampleBytes: 128 * 1024, sessions: 128, readingsPerSample: 256,
-  detailedFindings: 200, reviewEvents: 200, depth: 32, nodes: 30000 });
+  detailedFindings: 200, reviewEvents: 200, acquisitionExceptions: 200,
+  depth: 32, nodes: 30000 });
 export const PASSIVE_CAPTURE_STATUSES = Object.freeze(['VALUE', 'NULL_RELATION', 'INVALID_OBJECT',
   'UNSUPPORTED_READ', 'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']);
 const statuses = new Set(PASSIVE_CAPTURE_STATUSES);
+// Explicit unavailable or incomplete producer statuses. NULL_RELATION is a
+// successfully resolved null relationship and is not an acquisition exception.
+const acquisitionExceptionStatuses = new Set(['INVALID_OBJECT', 'UNSUPPORTED_READ',
+  'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']);
 // These are project assertions about the subject of a read, not validated MW5 types.
 export const PASSIVE_CAPTURE_ROLES = Object.freeze(['world', 'playerController', 'squad',
   'aiController', 'playerPawn', 'aiPawn', 'worker', 'job', 'area']);
@@ -104,7 +109,9 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     fieldMapKeyCount: keys.length, sampleCount: 0, sessionChanges: 0,
     findingCount: 0, findingsTruncated: false,
     findings: [], reviewEventCount: 0, reviewEventsOmitted: 0,
-    reviewEvents: [], streams: [], runtimeAcceptance: 'NOT_PERFORMED',
+    reviewEvents: [], acquisitionExceptionCount: 0,
+    acquisitionExceptionsOmitted: 0, acquisitionExceptions: [],
+    streams: [], runtimeAcceptance: 'NOT_PERFORMED',
     nativeIdentityValidation: 'NOT_PERFORMED', clockCalibration: 'NOT_PERFORMED',
     commandsIssued: 0, sourceModified: false, replay: null,
     limitations: [
@@ -126,6 +133,12 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     if (report.reviewEvents.length < PASSIVE_CAPTURE_LIMITS.reviewEvents)
       report.reviewEvents.push({ index, session: sample.session, sequence: sample.sequence, code });
     else report.reviewEventsOmitted++;
+  };
+  const acquisitionException = detail => {
+    report.acquisitionExceptionCount++;
+    if (report.acquisitionExceptions.length < PASSIVE_CAPTURE_LIMITS.acquisitionExceptions)
+      report.acquisitionExceptions.push(detail);
+    else report.acquisitionExceptionsOmitted++;
   };
   if (bytes.byteLength > PASSIVE_CAPTURE_LIMITS.bytes) {
     finding(null, 'CAPTURE_TOO_LARGE'); return report;
@@ -165,10 +178,12 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     const seen = new Set(), roleBindings = new Map(), rolesByBinding = new Map();
     const aiControllersWithRead = new Set(), acquiredPlayerPawns = new Set();
     const readStatuses = emptyStatuses(), readKeys = new Set();
+    const acquisitionCandidates = [];
     let unboundReadings = 0, truncatedInventory = false, maxTruncatedInventoryCount = null;
     let pauseClaim = null, areaLoadingClaim = null;
     let pauseValueCount = 0, areaLoadingValueCount = 0;
-    for (const reading of sample.readings) {
+    for (let readingIndex = 0; readingIndex < sample.readings.length; readingIndex++) {
+      const reading = sample.readings[readingIndex];
       if (!obj(reading) || !fieldKeys.has(reading.key) || !roles.has(reading.subjectRole) ||
           !allowedRolesByKey[reading.key]?.includes(reading.subjectRole) ||
           !(reading.bindingId === null || id(reading.bindingId)) || !statuses.has(reading.status)) {
@@ -197,6 +212,10 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
       seen.add(identity);
       readStatuses[reading.status]++;
       readKeys.add(reading.key);
+      if (acquisitionExceptionStatuses.has(reading.status))
+        acquisitionCandidates.push({ index, session: sample.session, sequence: sample.sequence,
+          readingIndex, key: reading.key, subjectRole: reading.subjectRole,
+          bindingId: reading.bindingId, status: reading.status });
       if (reading.key === 'paused' && reading.status === 'VALUE') {
         pauseValueCount++; pauseClaim = reading;
       }
@@ -326,6 +345,7 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     const reviewCurrentValid = !crossRoleBindingCollision && !retiredSessionReappeared &&
       sameStream && !syntheticDisabled && diagnosticReviewCodes.length === 0;
     if (reviewCurrentValid) {
+      for (const detail of acquisitionCandidates) acquisitionException(detail);
       if (sessionChanged) reviewEvent(index, sample, 'ASSERTED_SESSION_CHANGED');
       if (truncatedInventory) reviewEvent(index, sample, 'ASSERTED_AI_INVENTORY_TRUNCATED');
       for (const code of transitionReviewCodes) reviewEvent(index, sample, code);

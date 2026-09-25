@@ -44,6 +44,19 @@ test('synthetic example preserves bytes and reports asserted coverage without re
   assert.equal(report.streams[1].maxReportedTruncatedAiInventoryCount, 4);
   assert.equal(report.streams[1].readingsByStatus.READ_FAILED, 1);
   assert.equal(report.streams[1].readingsByStatus.NOT_ATTEMPTED, 1);
+  assert.deepEqual(report.acquisitionExceptions, [
+    { index: 2, session: 'synthetic-mission-b', sequence: 1, readingIndex: 0,
+      key: 'currentAiControllers', subjectRole: 'squad', bindingId: 'squad-b',
+      status: 'TRUNCATED' },
+    { index: 2, session: 'synthetic-mission-b', sequence: 1, readingIndex: 4,
+      key: 'currentJob', subjectRole: 'worker', bindingId: 'worker-d',
+      status: 'READ_FAILED' },
+    { index: 2, session: 'synthetic-mission-b', sequence: 1, readingIndex: 5,
+      key: 'paused', subjectRole: 'world', bindingId: null,
+      status: 'NOT_ATTEMPTED' },
+  ]);
+  assert.equal(report.acquisitionExceptionCount, 3);
+  assert.equal(report.acquisitionExceptionsOmitted, 0);
   assert.equal(report.runtimeAcceptance, 'NOT_PERFORMED');
   assert.equal(report.nativeIdentityValidation, 'NOT_PERFORMED');
   assert.equal(report.clockCalibration, 'NOT_PERFORMED');
@@ -82,6 +95,10 @@ test('value, obtained null and unavailable statuses stay distinct', () => {
   const counts = report.streams[0].readingsByStatus;
   for (const status of ['VALUE', 'NULL_RELATION', 'INVALID_OBJECT', 'UNSUPPORTED_READ',
     'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']) assert.equal(counts[status], 1);
+  assert.deepEqual(report.acquisitionExceptions.map(item => item.status),
+    ['INVALID_OBJECT', 'UNSUPPORTED_READ', 'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']);
+  assert.deepEqual(report.acquisitionExceptions.map(item => item.readingIndex), [2, 3, 4, 5, 6]);
+  assert.ok(report.acquisitionExceptions.every(item => !Object.hasOwn(item, 'value')));
   assert.equal(report.streams[0].unreportedFieldKeys.length, 12);
   const emptyRoster = audit([sample(1, 1000, { readings: [reading({
     key: 'currentAiControllers', subjectRole: 'squad', bindingId: 'squad-a', value: []
@@ -92,6 +109,46 @@ test('value, obtained null and unavailable statuses stay distinct', () => {
   const omitted = audit([sample()]);
   assert.equal(omitted.streams[0].unreportedFieldKeys.length, 19);
   assert.equal(omitted.streams[0].readingsByStatus.NOT_ATTEMPTED, 0);
+  assert.equal(omitted.acquisitionExceptionCount, 0);
+});
+
+test('only valid samples contribute explicit acquisition-exception locations', () => {
+  const failed = (bindingId = 'ai-a') => {
+    const item = reading({ bindingId, status: 'READ_FAILED' });
+    delete item.value;
+    return item;
+  };
+  const report = audit([
+    sample(1, 1000, { readings: [failed()] }),
+    sample(2, 1500, { readings: [failed(), failed()] }),
+    sample(3, 2000, { readings: [failed('shared'),
+      { key: 'controlledPawn', subjectRole: 'playerController',
+        bindingId: 'shared', status: 'NOT_ATTEMPTED' }] }),
+    sample(3, 2500, { readings: [failed()] }),
+    sample(4, 3000, { readings: [failed()] }),
+  ]);
+  assert.equal(report.formatStatus, 'INVALID');
+  assert.ok(codes(report).includes('DUPLICATE_READING'));
+  assert.ok(codes(report).includes('CROSS_ROLE_BINDING_COLLISION'));
+  assert.ok(codes(report).includes('NON_INCREASING_SEQUENCE'));
+  assert.deepEqual(report.acquisitionExceptions.map(item => item.index), [0, 4]);
+  assert.equal(report.acquisitionExceptionCount, 2);
+  assert.equal(report.acquisitionExceptionsOmitted, 0);
+});
+
+test('acquisition-exception detail cap retains total and omitted counts', () => {
+  const samples = Array.from({ length: PASSIVE_CAPTURE_LIMITS.acquisitionExceptions + 3 }, (_, i) => {
+    const item = reading({ status: 'READ_FAILED' });
+    delete item.value;
+    return sample(i + 1, 1000 + i * 500, { readings: [item] });
+  });
+  const report = audit(samples);
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(report.acquisitionExceptionCount, samples.length);
+  assert.equal(report.acquisitionExceptions.length, PASSIVE_CAPTURE_LIMITS.acquisitionExceptions);
+  assert.equal(report.acquisitionExceptionsOmitted, 3);
+  assert.deepEqual(report.acquisitionExceptions.map(item => item.index),
+    Array.from({ length: PASSIVE_CAPTURE_LIMITS.acquisitionExceptions }, (_, i) => i));
 });
 
 test('failed AI reads mention bindings without counting successful asserted coverage', () => {
@@ -436,7 +493,9 @@ test('read-only file inspection and CLI keep the source unchanged', async () => 
   const valid = spawnSync(process.execPath, [cli, fixture, '--allow-synthetic'],
     { cwd: root, encoding: 'utf8', windowsHide: true });
   assert.equal(valid.status, 0, valid.stderr);
-  assert.equal(JSON.parse(valid.stdout).classification, 'MOCK_ONLY');
+  const parsed = JSON.parse(valid.stdout);
+  assert.equal(parsed.classification, 'MOCK_ONLY');
+  assert.deepEqual(parsed.acquisitionExceptions, report.acquisitionExceptions);
   const disabled = spawnSync(process.execPath, [cli, fixture],
     { cwd: root, encoding: 'utf8', windowsHide: true });
   assert.equal(disabled.status, 1, disabled.stderr);
