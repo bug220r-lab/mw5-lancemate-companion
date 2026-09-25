@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-25T16:28:28.126Z",
+  "recordedAt": "2026-09-25T18:11:35.445Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1367,
-  "passed": 1367,
+  "tests": 1370,
+  "passed": 1370,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
@@ -241,7 +241,7 @@
     },
     {
       "file": "companion/tests/passive-capture.test.mjs",
-      "sha256": "b40004fe31a8e011b2fa9271f67b26414809606e28330b79c611c2e5e7db981c"
+      "sha256": "5c724f6203a53b874994e8656588feb311f92d84b163b9048f0471def5e05c04"
     },
     {
       "file": "companion/tests/policy-regression.test.mjs",
@@ -453,7 +453,7 @@
     },
     {
       "file": "companion/passive-capture.mjs",
-      "sha256": "848ea7d82303d1e30fb3bb87a0da60069c8ff20290fa0a380ebd12356b982a2b"
+      "sha256": "9955f5b6e0615a061af1a6df78ce2afe0398881b742964d5c1e54fc494a2d138"
     },
     {
       "file": "companion/personas.json",
@@ -589,7 +589,7 @@
     },
     {
       "file": "design/PASSIVE_RECORDING_WORKFLOW.md",
-      "sha256": "47cf7bf7ddd027f4c5a9ff10e249d8e9048c8ae177cb5b9684e63d07b757ce06"
+      "sha256": "db4d3d1aa04f8bb3b6d5eebb02afd2a67ca67378ff7231a0e5754fb02c478dd9"
     },
     {
       "file": "scripts/Exercise-ConversationIdentity.mjs",
@@ -643,8 +643,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790353708083.tap",
-    "sha256": "9ea0615fc7ffda992a145b466d992d7405cdb53172d5bb7a993160f3e1c407b3",
+    "file": "tmp/companion-verification-1790359895394.tap",
+    "sha256": "f337e9b7bfdbbef187406ae3ef3eebc1717db5114c0dc3c328d6dc5f535d32ff",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

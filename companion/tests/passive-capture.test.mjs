@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rmdir, unlink, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -79,6 +79,70 @@ test('mock input needs opt-in; claimed game input stays unvalidated', () => {
   const mixed = audit([sample(), sample(1, 0,
     { session: 'mission-b', provenance: 'GAME_OBSERVED' })]);
   assert.equal(mixed.classification, 'MIXED_OR_INVALID_PROVENANCE');
+});
+
+test('duplicate JSON member names cannot change provenance, status or nested raw values', () => {
+  const game = JSON.stringify([sample(1, 1000, {
+    provenance: 'GAME_OBSERVED', readings: [reading()],
+  })]);
+  const vector = JSON.stringify([sample(1, 1000, {
+    provenance: 'GAME_OBSERVED', readings: [reading({
+      key: 'positionNative', subjectRole: 'aiPawn', bindingId: 'pawn-a',
+      value: { x: 1, y: 2, z: 3 },
+    })],
+  })]);
+  const cases = [
+    game.replace('"provenance":"GAME_OBSERVED"',
+      '"provenance":"MOCK_ONLY","provenance":"GAME_OBSERVED"'),
+    game.replace('"provenance":"GAME_OBSERVED"',
+      '"provenance":"MOCK_ONLY","\\u0070rovenance":"GAME_OBSERVED"'),
+    game.replace('"status":"VALUE"', '"status":"READ_FAILED","status":"VALUE"'),
+    game.replace('"status":"VALUE"', '"status":"READ_FAILED","\\u0073tatus":"VALUE"'),
+    vector.replace('"x":1', '"x":1,"\\u0078":2'),
+  ];
+  for (const raw of cases) {
+    assert.doesNotThrow(() => JSON.parse(raw));
+    const input = Buffer.from(raw);
+    const original = Buffer.from(input);
+    const report = auditPassiveCaptureBytes(input);
+    assert.equal(report.formatStatus, 'INVALID');
+    assert.ok(codes(report).includes('DUPLICATE_JSON_MEMBER'));
+    assert.equal(report.sourceSha256, createHash('sha256').update(original).digest('hex'));
+    assert.deepEqual(input, original);
+  }
+});
+
+test('CLI rejects duplicate-provenance JSON without rewriting input', async () => {
+  const raw = JSON.stringify([sample(1, 1000, { provenance: 'GAME_OBSERVED' })])
+    .replace('"provenance":"GAME_OBSERVED"',
+      '"provenance":"MOCK_ONLY","provenance":"GAME_OBSERVED"');
+  const original = Buffer.from(raw);
+  const directory = await mkdtemp(path.join(root, 'artifacts', 'passive-capture-duplicate-'));
+  const file = path.join(directory, 'capture.json');
+  try {
+    await writeFile(file, original);
+    const result = spawnSync(process.execPath,
+      [path.join(root, 'scripts/Inspect-PassiveCapture.mjs'), file],
+      { cwd: root, encoding: 'utf8', windowsHide: true });
+    assert.equal(result.status, 1, result.stderr);
+    const report = JSON.parse(result.stdout);
+    assert.equal(report.formatStatus, 'INVALID');
+    assert.ok(codes(report).includes('DUPLICATE_JSON_MEMBER'));
+    assert.equal(report.sourceSha256, createHash('sha256').update(original).digest('hex'));
+    assert.deepEqual(await readFile(file), original);
+  } finally {
+    await unlink(file).catch(error => { if (error.code !== 'ENOENT') throw error; });
+    await rmdir(directory);
+  }
+});
+
+test('valid captures can exceed the per-sample structure limit in aggregate', () => {
+  const samples = Array.from({ length: 4000 }, (_, index) =>
+    sample(index + 1, index));
+  const report = audit(samples);
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(report.sampleCount, samples.length);
+  assert.deepEqual(report.findings, []);
 });
 
 test('value, obtained null and unavailable statuses stay distinct', () => {

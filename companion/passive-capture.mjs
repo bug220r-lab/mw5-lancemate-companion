@@ -98,6 +98,43 @@ function rawSampleByteSizes(bytes) {
   return sizes;
 }
 
+// JSON.parse keeps the last occurrence of a member name. In an evidence file,
+// that could erase an earlier provenance or failed-read claim. Scan object keys
+// in the original JSON text before interpreting any parsed sample. JSON.parse
+// has already established syntax, including valid escapes, when this runs.
+function duplicateJsonMemberStatus(source) {
+  const frames = [];
+  for (let index = 0; index < source.length; index++) {
+    const code = source.charCodeAt(index);
+    if (code === 0x22) {
+      const start = index;
+      let escaped = false;
+      for (index++; index < source.length; index++) {
+        const character = source.charCodeAt(index);
+        if (escaped) escaped = false;
+        else if (character === 0x5c) escaped = true;
+        else if (character === 0x22) break;
+      }
+      const frame = frames.at(-1);
+      if (frame?.kind === 'object' && frame.expectKey) {
+        const key = JSON.parse(source.slice(start, index + 1));
+        if (frame.keys.has(key)) return 'DUPLICATE_JSON_MEMBER';
+        frame.keys.add(key);
+        frame.expectKey = false;
+        // The structure-node limit is per sample, not per capture file.
+        if (frame.keys.size > PASSIVE_CAPTURE_LIMITS.nodes) return 'CAPTURE_STRUCTURE_LIMIT';
+      }
+    } else if (code === 0x7b || code === 0x5b) {
+      frames.push(code === 0x7b ? { kind: 'object', expectKey: true, keys: new Set() } :
+        { kind: 'array' });
+      if (frames.length > 1024) return 'CAPTURE_STRUCTURE_LIMIT';
+    } else if (code === 0x7d || code === 0x5d) frames.pop();
+    else if (code === 0x2c && frames.at(-1)?.kind === 'object')
+      frames.at(-1).expectKey = true;
+  }
+  return null;
+}
+
 /** Inspect exact source bytes without rewriting values or projecting tactical state. */
 export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nominalIntervalMs = 500 } = {}) {
   if (!(bytes instanceof Uint8Array)) throw new Error('CAPTURE_BYTES_REQUIRED');
@@ -144,9 +181,14 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     finding(null, 'CAPTURE_TOO_LARGE'); return report;
   }
   report.sourceSha256 = createHash('sha256').update(bytes).digest('hex');
-  let samples;
-  try { samples = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
+  let samples, source;
+  try {
+    source = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    samples = JSON.parse(source);
+  }
   catch { finding(null, 'INVALID_UTF8_OR_JSON'); return report; }
+  const duplicateStatus = duplicateJsonMemberStatus(source);
+  if (duplicateStatus !== null) { finding(null, duplicateStatus); return report; }
   if (!Array.isArray(samples) || !samples.length || samples.length > PASSIVE_CAPTURE_LIMITS.samples) {
     finding(null, 'INVALID_SAMPLE_COUNT'); return report;
   }
