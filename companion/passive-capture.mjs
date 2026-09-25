@@ -35,7 +35,7 @@ const booleanKeys = new Set(['membership', 'humanPossession', 'actorDestroying',
 
 export const PASSIVE_CAPTURE_LIMITS = Object.freeze({ bytes: 32 * 1024 ** 2, samples: 20000,
   sampleBytes: 128 * 1024, sessions: 128, readingsPerSample: 256,
-  detailedFindings: 200, depth: 32, nodes: 30000 });
+  detailedFindings: 200, reviewEvents: 200, depth: 32, nodes: 30000 });
 export const PASSIVE_CAPTURE_STATUSES = Object.freeze(['VALUE', 'NULL_RELATION', 'INVALID_OBJECT',
   'UNSUPPORTED_READ', 'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']);
 const statuses = new Set(PASSIVE_CAPTURE_STATUSES);
@@ -75,13 +75,15 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     sourceBytes: bytes.byteLength, sourceSha256: null, fieldMapSha256,
     fieldMapKeyCount: keys.length, sampleCount: 0, sessionChanges: 0,
     findingCount: 0, findingsTruncated: false,
-    findings: [], streams: [], runtimeAcceptance: 'NOT_PERFORMED',
+    findings: [], reviewEventCount: 0, reviewEventsOmitted: 0,
+    reviewEvents: [], streams: [], runtimeAcceptance: 'NOT_PERFORMED',
     nativeIdentityValidation: 'NOT_PERFORMED', clockCalibration: 'NOT_PERFORMED',
     commandsIssued: 0, sourceModified: false, replay: null,
     limitations: [
       'PROPOSED project format; no native producer or MW5 runtime read is verified.',
       'Producer, subject roles, binding IDs, provenance and clock units are unvalidated input assertions.',
       'Reported intervals are arithmetic on submitted timestamps, not calibrated game timing.',
+      'Review events include diagnostic sequence/clock anomalies and changes in valid producer assertions; neither is an independently observed game event.',
       'Three asserted AI bindings do not prove roster completeness, AI ownership or durable identity.',
       'Raw values and unknown extra fields remain in the original bytes; none is mapped to tactical authority or replay.'
     ] };
@@ -90,6 +92,12 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     if (report.findings.length < PASSIVE_CAPTURE_LIMITS.detailedFindings)
       report.findings.push({ index, code });
     else report.findingsTruncated = true;
+  };
+  const reviewEvent = (index, sample, code) => {
+    report.reviewEventCount++;
+    if (report.reviewEvents.length < PASSIVE_CAPTURE_LIMITS.reviewEvents)
+      report.reviewEvents.push({ index, session: sample.session, sequence: sample.sequence, code });
+    else report.reviewEventsOmitted++;
   };
   if (bytes.byteLength > PASSIVE_CAPTURE_LIMITS.bytes) {
     finding(null, 'CAPTURE_TOO_LARGE'); return report;
@@ -107,7 +115,7 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     labels.size === 1 && labels.has('GAME_OBSERVED') ? 'GAME_OBSERVED_UNVALIDATED' :
       'MIXED_OR_INVALID_PROVENANCE';
   const streams = new Map(), retired = new Set();
-  let currentSession = null, previous = null;
+  let currentSession = null, previous = null, previousClaims = null;
   for (let index = 0; index < samples.length; index++) {
     const sample = samples[index];
     if (!boundedStructure(sample)) { finding(index, 'SAMPLE_STRUCTURE_LIMIT'); previous = null; continue; }
@@ -123,9 +131,11 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     }
     let validReadings = true;
     const seen = new Set(), roleBindings = new Map(), rolesByBinding = new Map();
-    const aiControllersWithRead = new Set();
+    const aiControllersWithRead = new Set(), acquiredPlayerPawns = new Set();
     const readStatuses = emptyStatuses(), readKeys = new Set();
     let unboundReadings = 0, truncatedInventory = false, maxTruncatedInventoryCount = null;
+    let pauseClaim = null, areaLoadingClaim = null;
+    let pauseValueCount = 0, areaLoadingValueCount = 0;
     for (const reading of sample.readings) {
       if (!obj(reading) || !fieldKeys.has(reading.key) || !roles.has(reading.subjectRole) ||
           !allowedRolesByKey[reading.key]?.includes(reading.subjectRole) ||
@@ -155,6 +165,15 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
       seen.add(identity);
       readStatuses[reading.status]++;
       readKeys.add(reading.key);
+      if (reading.key === 'paused' && reading.status === 'VALUE') {
+        pauseValueCount++; pauseClaim = reading;
+      }
+      if (reading.key === 'areaLoading' && reading.status === 'VALUE') {
+        areaLoadingValueCount++; areaLoadingClaim = reading;
+      }
+      if (reading.subjectRole === 'playerPawn' && reading.bindingId !== null &&
+          ['VALUE', 'NULL_RELATION'].includes(reading.status))
+        acquiredPlayerPawns.add(reading.bindingId);
       if (reading.bindingId === null && reading.subjectRole !== 'world') unboundReadings++;
       if (reading.key === 'currentAiControllers' && reading.status === 'TRUNCATED') {
         truncatedInventory = true;
@@ -171,16 +190,22 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
       }
     }
     if (!validReadings) { previous = null; continue; }
+    const currentClaims = { pause: pauseValueCount === 1 ? pauseClaim : null,
+      areaLoading: areaLoadingValueCount === 1 ? areaLoadingClaim : null,
+      playerPawnBinding: acquiredPlayerPawns.size === 1 ? [...acquiredPlayerPawns][0] : null };
     const mentionedAiControllers = roleBindings.get('aiController') ?? new Set();
     const playerPawns = roleBindings.get('playerPawn') ?? new Set();
     const aiPawns = roleBindings.get('aiPawn') ?? new Set();
     const ambiguousPawnRoleOverlap = [...rolesByBinding.values()].some(claims =>
       claims.size === 2 && claims.has('playerPawn') && claims.has('aiPawn'));
-    if ([...rolesByBinding.values()].some(claims => claims.size > 1 &&
-        !(claims.size === 2 && claims.has('playerPawn') && claims.has('aiPawn'))))
-      finding(index, 'CROSS_ROLE_BINDING_COLLISION');
+    const crossRoleBindingCollision = [...rolesByBinding.values()].some(claims =>
+      claims.size > 1 && !(claims.size === 2 &&
+        claims.has('playerPawn') && claims.has('aiPawn')));
+    if (crossRoleBindingCollision) finding(index, 'CROSS_ROLE_BINDING_COLLISION');
+    const sessionChanged = currentSession !== null && currentSession !== sample.session;
+    const retiredSessionReappeared = sessionChanged && retired.has(sample.session);
     if (currentSession !== sample.session) {
-      if (retired.has(sample.session)) finding(index, 'RETIRED_SESSION_REAPPEARED');
+      if (retiredSessionReappeared) finding(index, 'RETIRED_SESSION_REAPPEARED');
       if (currentSession !== null) {
         retired.add(currentSession);
         report.sessionChanges++;
@@ -209,7 +234,8 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     const stream = streams.get(sample.session);
     const sameStream = stream.producerId === sample.producerId && stream.provenance === sample.provenance;
     if (!sameStream) finding(index, 'SESSION_STREAM_CHANGED');
-    if (sample.provenance === 'MOCK_ONLY' && allowSynthetic !== true) finding(index, 'SYNTHETIC_DISABLED');
+    const syntheticDisabled = sample.provenance === 'MOCK_ONLY' && allowSynthetic !== true;
+    if (syntheticDisabled) finding(index, 'SYNTHETIC_DISABLED');
     stream.sampleCount++;
     stream.lastObservedAtMs = sample.observedAtMs;
     stream._sequences.push(sample.sequence);
@@ -232,20 +258,48 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
           stream._lastPlayerPawnBinding !== playerPawnBinding) stream.assertedPlayerPawnBindingChanges++;
       stream._lastPlayerPawnBinding = playerPawnBinding;
     } else stream._lastPlayerPawnBinding = null;
+    const diagnosticReviewCodes = [], transitionReviewCodes = [];
     if (previous?.session === sample.session && previous.producerId === sample.producerId &&
         previous.provenance === sample.provenance && sameStream) {
       if (sample.sequence <= previous.sequence) {
         stream.nonIncreasingSequences++; finding(index, 'NON_INCREASING_SEQUENCE');
-      } else if (sample.sequence - previous.sequence > 1) stream.sequenceGaps++;
+        diagnosticReviewCodes.push('NON_INCREASING_SEQUENCE');
+      } else if (sample.sequence - previous.sequence > 1) {
+        stream.sequenceGaps++;
+        if (previousClaims) transitionReviewCodes.push('SEQUENCE_GAP');
+      }
       const delta = sample.observedAtMs - previous.observedAtMs;
       if (delta < 0) {
         stream.reportedClockRegressions++; finding(index, 'REPORTED_CLOCK_REGRESSED');
+        diagnosticReviewCodes.push('REPORTED_CLOCK_REGRESSION');
       } else {
         stream._intervals.push(delta);
         if (delta > nominalIntervalMs * 1.5) stream.longReportedIntervals++;
       }
+      if (sample.sequence > previous.sequence && delta >= 0 && previousClaims) {
+        if (currentClaims.pause && previousClaims.pause &&
+            currentClaims.pause.bindingId === previousClaims.pause.bindingId &&
+            currentClaims.pause.value !== previousClaims.pause.value)
+          transitionReviewCodes.push('ASSERTED_PAUSE_CHANGED');
+        if (currentClaims.areaLoading && previousClaims.areaLoading &&
+            currentClaims.areaLoading.bindingId === previousClaims.areaLoading.bindingId &&
+            currentClaims.areaLoading.value !== previousClaims.areaLoading.value)
+          transitionReviewCodes.push('ASSERTED_AREA_LOADING_CHANGED');
+        if (currentClaims.playerPawnBinding !== null && previousClaims.playerPawnBinding !== null &&
+            currentClaims.playerPawnBinding !== previousClaims.playerPawnBinding)
+          transitionReviewCodes.push('ASSERTED_PLAYER_PAWN_ROLE_BINDING_CHANGED');
+      }
+    }
+    for (const code of diagnosticReviewCodes) reviewEvent(index, sample, code);
+    const reviewCurrentValid = !crossRoleBindingCollision && !retiredSessionReappeared &&
+      sameStream && !syntheticDisabled && diagnosticReviewCodes.length === 0;
+    if (reviewCurrentValid) {
+      if (sessionChanged) reviewEvent(index, sample, 'ASSERTED_SESSION_CHANGED');
+      if (truncatedInventory) reviewEvent(index, sample, 'ASSERTED_AI_INVENTORY_TRUNCATED');
+      for (const code of transitionReviewCodes) reviewEvent(index, sample, code);
     }
     previous = sameStream ? sample : null;
+    previousClaims = reviewCurrentValid ? currentClaims : null;
   }
   report.streams = [...streams.values()].map(stream => {
     const intervals = stream._intervals.sort((a, b) => a - b);

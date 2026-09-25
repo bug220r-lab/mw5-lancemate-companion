@@ -23,6 +23,7 @@ const reading = (changes = {}) => ({ key: 'membership', subjectRole: 'aiControll
 const audit = (samples, options = {}) => auditPassiveCaptureBytes(bytes(samples),
   { allowSynthetic: true, ...options });
 const codes = report => report.findings.map(f => f.code);
+const reviewCodes = report => report.reviewEvents.map(event => event.code);
 
 test('synthetic example preserves bytes and reports asserted coverage without replay', async () => {
   const input = await readFile(fixture);
@@ -195,6 +196,147 @@ test('sequence gaps and reported intervals are measurements, not invented sample
   assert.equal(stream.p95ReportedIntervalMs, 2000);
   assert.equal(stream.longReportedIntervals, 1);
   assert.equal(stream.reportedClockRegressions, 0);
+  assert.deepEqual(report.reviewEvents, [{ index: 1, session: 'mission-a',
+    sequence: 4, code: 'SEQUENCE_GAP' }]);
+});
+
+test('review index locates asserted state changes and truncation without interpreting them', () => {
+  const readings = (paused, areaLoading, pawn) => [
+    { key: 'paused', subjectRole: 'world', bindingId: null, status: 'VALUE', value: paused },
+    { key: 'areaLoading', subjectRole: 'area', bindingId: 'area-a',
+      status: 'VALUE', value: areaLoading },
+    { key: 'positionNative', subjectRole: 'playerPawn', bindingId: pawn,
+      status: 'VALUE', value: { x: 1, y: 2, z: 3 } },
+  ];
+  const truncated = { key: 'currentAiControllers', subjectRole: 'squad',
+    bindingId: 'squad-a', status: 'TRUNCATED', observedCount: 4 };
+  const report = audit([
+    sample(1, 1000, { readings: readings(false, true, 'pawn-a') }),
+    sample(3, 2000, { readings: [...readings(true, false, 'pawn-b'), truncated] }),
+    sample(1, 0, { session: 'mission-b', readings: [] }),
+  ]);
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.deepEqual(reviewCodes(report), [
+    'ASSERTED_AI_INVENTORY_TRUNCATED', 'SEQUENCE_GAP', 'ASSERTED_PAUSE_CHANGED',
+    'ASSERTED_AREA_LOADING_CHANGED', 'ASSERTED_PLAYER_PAWN_ROLE_BINDING_CHANGED',
+    'ASSERTED_SESSION_CHANGED',
+  ]);
+  assert.deepEqual(report.reviewEvents.map(event => [event.index, event.session, event.sequence]),
+    [[1, 'mission-a', 3], [1, 'mission-a', 3], [1, 'mission-a', 3],
+      [1, 'mission-a', 3], [1, 'mission-a', 3], [2, 'mission-b', 1]]);
+  assert.equal(report.reviewEventCount, 6);
+  assert.equal(report.reviewEventsOmitted, 0);
+  assert.equal(report.commandsIssued, 0);
+  assert.equal(report.replay, null);
+});
+
+test('unavailable or omitted reads, changed area binding and invalid samples break state comparisons', () => {
+  const paused = value => ({ key: 'paused', subjectRole: 'world', bindingId: null,
+    status: 'VALUE', value });
+  const area = (bindingId, value) => ({ key: 'areaLoading', subjectRole: 'area',
+    bindingId, status: 'VALUE', value });
+  const pawn = bindingId => ({ key: 'humanPossession', subjectRole: 'playerPawn',
+    bindingId, status: 'VALUE', value: true });
+  const unavailable = { key: 'paused', subjectRole: 'world', bindingId: null,
+    status: 'READ_FAILED' };
+  const report = audit([
+    sample(1, 1000, { readings: [paused(false), area('area-a', false), pawn('pawn-a')] }),
+    sample(2, 1500, { readings: [unavailable, area('area-b', true)] }),
+    sample(3, 2000, { readings: [paused(true), area('area-b', true), pawn('pawn-b')] }),
+    null,
+    sample(4, 2500, { readings: [paused(false), area('area-b', false), pawn('pawn-c')] }),
+  ]);
+  assert.equal(report.formatStatus, 'INVALID');
+  assert.deepEqual(report.reviewEvents, []);
+  assert.equal(report.reviewEventCount, 0);
+});
+
+test('multiple acquired pause or area-loading values cannot create order-dependent flip events', () => {
+  const paused = (bindingId, value) => ({ key: 'paused', subjectRole: 'world',
+    bindingId, status: 'VALUE', value });
+  const area = (bindingId, value) => ({ key: 'areaLoading', subjectRole: 'area',
+    bindingId, status: 'VALUE', value });
+  const ambiguous = [paused('world-a', true), paused('world-b', false),
+    area('area-a', true), area('area-b', false)];
+  for (const middle of [ambiguous, [...ambiguous].reverse()]) {
+    const report = audit([
+      sample(1, 1000, { readings: [paused('world-a', false), area('area-a', false)] }),
+      sample(2, 1500, { readings: middle }),
+      sample(3, 2000, { readings: [paused('world-a', true), area('area-a', true)] }),
+    ]);
+    assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+    assert.equal(report.streams[0].readingsByStatus.VALUE, 8);
+    assert.deepEqual(report.reviewEvents, []);
+    assert.equal(report.reviewEventCount, 0);
+  }
+});
+
+test('a cross-role collision breaks review adjacency without changing aggregate accounting', () => {
+  const paused = value => ({ key: 'paused', subjectRole: 'world',
+    bindingId: 'shared', status: 'VALUE', value });
+  const report = audit([
+    sample(1, 1000, { readings: [paused(false)] }),
+    sample(2, 1500, { readings: [paused(true), reading({ bindingId: 'shared' })] }),
+    sample(3, 2000, { readings: [paused(false)] }),
+  ]);
+  assert.equal(report.formatStatus, 'INVALID');
+  assert.ok(codes(report).includes('CROSS_ROLE_BINDING_COLLISION'));
+  assert.deepEqual(report.reviewEvents, []);
+  assert.equal(report.streams[0].sampleCount, 3);
+  assert.equal(report.streams[0].reportedIntervalCount, 2);
+  assert.equal(report.streams[0].readingsByStatus.VALUE, 4);
+});
+
+test('an invalid session-transition sample cannot shift its event onto a later sample', () => {
+  const paused = value => ({ key: 'paused', subjectRole: 'world',
+    bindingId: 'shared', status: 'VALUE', value });
+  const report = audit([
+    sample(1, 1000, { session: 'mission-a', readings: [paused(false)] }),
+    sample(1, 0, { session: 'mission-b',
+      readings: [paused(true), reading({ bindingId: 'shared' })] }),
+    sample(2, 500, { session: 'mission-b', readings: [paused(false)] }),
+  ]);
+  assert.equal(report.formatStatus, 'INVALID');
+  assert.ok(codes(report).includes('CROSS_ROLE_BINDING_COLLISION'));
+  assert.equal(report.sessionChanges, 1);
+  assert.deepEqual(report.streams.map(stream => stream.sampleCount), [1, 2]);
+  assert.deepEqual(report.reviewEvents, []);
+  assert.equal(report.reviewEventCount, 0);
+});
+
+test('sequence and clock regressions are indexed but break asserted-state adjacency', () => {
+  const paused = value => ({ key: 'paused', subjectRole: 'world',
+    bindingId: null, status: 'VALUE', value });
+  for (const [middleSequence, middleTime, expectedCode] of [
+    [1, 1500, 'NON_INCREASING_SEQUENCE'],
+    [2, 900, 'REPORTED_CLOCK_REGRESSION'],
+  ]) {
+    const report = audit([
+      sample(1, 1000, { readings: [paused(false)] }),
+      sample(middleSequence, middleTime, { readings: [paused(true)] }),
+      sample(3, 2000, { readings: [paused(false)] }),
+      sample(4, 2500, { readings: [paused(true)] }),
+    ]);
+    assert.equal(report.formatStatus, 'INVALID');
+    assert.deepEqual(reviewCodes(report), [expectedCode, 'ASSERTED_PAUSE_CHANGED']);
+    assert.deepEqual(report.reviewEvents.map(event => event.index), [1, 3]);
+    assert.equal(report.streams[0].sampleCount, 4);
+    assert.equal(report.streams[0].reportedIntervalCount,
+      expectedCode === 'REPORTED_CLOCK_REGRESSION' ? 2 : 3);
+  }
+});
+
+test('review event details are capped while total and omitted counts remain exact', () => {
+  const samples = Array.from({ length: PASSIVE_CAPTURE_LIMITS.reviewEvents + 50 }, (_, i) =>
+    sample(i + 1, 1000 + i * 500, { readings: [{ key: 'paused', subjectRole: 'world',
+      bindingId: null, status: 'VALUE', value: i % 2 === 0 }] }));
+  const report = audit(samples);
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(report.reviewEventCount, samples.length - 1);
+  assert.equal(report.reviewEvents.length, PASSIVE_CAPTURE_LIMITS.reviewEvents);
+  assert.equal(report.reviewEventsOmitted,
+    report.reviewEventCount - PASSIVE_CAPTURE_LIMITS.reviewEvents);
+  assert.ok(reviewCodes(report).every(code => code === 'ASSERTED_PAUSE_CHANGED'));
 });
 
 test('reordered samples, clock regressions and retired-session return are explicit', () => {
@@ -203,6 +345,8 @@ test('reordered samples, clock regressions and retired-session return are explic
   assert.equal(backwards.streams[0].reportedClockRegressions, 1);
   assert.ok(codes(backwards).includes('NON_INCREASING_SEQUENCE'));
   assert.ok(codes(backwards).includes('REPORTED_CLOCK_REGRESSED'));
+  assert.deepEqual(reviewCodes(backwards), ['NON_INCREASING_SEQUENCE',
+    'REPORTED_CLOCK_REGRESSION', 'NON_INCREASING_SEQUENCE']);
   const fresh = audit([sample(), sample(1, 0, { session: 'mission-b' })]);
   assert.equal(fresh.formatStatus, 'VALID_PROJECT_CAPTURE');
   assert.equal(fresh.sessionChanges, 1);
