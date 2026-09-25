@@ -1,0 +1,386 @@
+{
+  "status": "READY_FOR_BOUNDED_AUTHORING_SOURCE_ONLY",
+  "reviewed_utc": "2026-09-25T19:30:52.608705+00:00",
+  "files": [
+    {
+      "path": "research/evidence/editor-source/observer-caller-20260921T044217Z-54302cc3f1af/report.json",
+      "bytes": 2995,
+      "sha256": "f3a8d60c904c6375f6e413f439d854957a951d583b4cd5ddaab49ba0c35b5543"
+    },
+    {
+      "path": "research/evidence/editor-source/observer-caller-20260921T044217Z-54302cc3f1af/source.COPY",
+      "bytes": 83932,
+      "sha256": "6690e8c5a192d28cc15f84798c6e053fe3f543728f7aecee0f2ce81968c6a0fd"
+    },
+    {
+      "path": "research/evidence/editor-source/observer-caller-20260921T044217Z-54302cc3f1af/defaults.COPY",
+      "bytes": 9087,
+      "sha256": "fa10c21c165e2ab68a2d7c841c413909fc3ff04b58097d1a15b710c2cbedf7c0"
+    },
+    {
+      "path": "research/evidence/editor-source/diagnostic-controller-copy-20260925T192618Z-cfd90ca1/report.json",
+      "bytes": 11461,
+      "sha256": "9edf171d01a00d0930bb371c1650e99a65baa093d08594e1332a001f9f39f8c5"
+    },
+    {
+      "path": "research/evidence/editor-source/diagnostic-controller-copy-20260925T192618Z-cfd90ca1/mod-copy-source.COPY",
+      "bytes": 43446,
+      "sha256": "07ac445c6a13ff8f7143c938ad920a1df9e2ffce247a59419724927916bccaa7"
+    },
+    {
+      "path": "research/evidence/editor-source/diagnostic-controller-copy-20260925T192618Z-cfd90ca1/mod-copy-defaults.COPY",
+      "bytes": 9125,
+      "sha256": "47768e473f46d951feccc60eaf879c3abf8e1c396051de0b68771529f3e7c912"
+    }
+  ],
+  "source_basis": "Actual exact mod-copy export compared with pinned historical stock export; current stock query returned mod-copy aliases and was not accepted.",
+  "native_receipt_checks": "Both exports true with no errors; exact copy identities; nine disk pins and three historical files unchanged.",
+  "normalization": {
+    "only_value_substitution": {
+      "from": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController",
+      "to": "/Game/Modes/InstantAction/InstantActionPlayerController"
+    },
+    "occurrences": {
+      "source": 4,
+      "defaults": 1
+    },
+    "comparison": "Complete Begin/End object tree keyed by declaration/definition and object name. Every common property/pin/header compared; emission-order differences explicitly retained. No GUID, pin, property, type, link or graph registration values normalized."
+  },
+  "common_object_blocks_compared": 56,
+  "registered_graphs": [
+    {
+      "name": "UserConstructionScript",
+      "stock_lines": [
+        109,
+        128
+      ],
+      "copy_lines": [
+        46,
+        65
+      ],
+      "graph_properties_identical": true,
+      "nodes": [
+        {
+          "node": "definition:K2Node_CallParentFunction_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 3,
+          "linked_pin_count": 1
+        },
+        {
+          "node": "definition:K2Node_FunctionEntry_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 1,
+          "linked_pin_count": 1
+        }
+      ]
+    },
+    {
+      "name": "EventGraph",
+      "stock_lines": [
+        82,
+        108
+      ],
+      "copy_lines": [
+        66,
+        92
+      ],
+      "graph_properties_identical": true,
+      "nodes": [
+        {
+          "node": "definition:K2Node_VariableSet_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 5,
+          "linked_pin_count": 0
+        },
+        {
+          "node": "definition:K2Node_VariableSet_1",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 5,
+          "linked_pin_count": 0
+        }
+      ]
+    },
+    {
+      "name": "CheckAndShowPostMissionScreen",
+      "stock_lines": [
+        129,
+        238
+      ],
+      "copy_lines": [
+        93,
+        202
+      ],
+      "graph_properties_identical": true,
+      "nodes": [
+        {
+          "node": "definition:K2Node_CallFunction_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 4,
+          "linked_pin_count": 3
+        },
+        {
+          "node": "definition:K2Node_CallFunction_21",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 3,
+          "linked_pin_count": 1
+        },
+        {
+          "node": "definition:K2Node_CallFunction_8",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 4,
+          "linked_pin_count": 3
+        },
+        {
+          "node": "definition:K2Node_CallParentFunction_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 5,
+          "linked_pin_count": 3
+        },
+        {
+          "node": "definition:K2Node_FunctionEntry_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 2,
+          "linked_pin_count": 1
+        },
+        {
+          "node": "definition:K2Node_FunctionResult_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 2,
+          "linked_pin_count": 1
+        },
+        {
+          "node": "definition:K2Node_FunctionResult_1",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 2,
+          "linked_pin_count": 1
+        },
+        {
+          "node": "definition:K2Node_IfThenElse_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 4,
+          "linked_pin_count": 4
+        },
+        {
+          "node": "definition:K2Node_Knot_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 2,
+          "linked_pin_count": 2
+        },
+        {
+          "node": "definition:K2Node_Knot_1",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 2,
+          "linked_pin_count": 2
+        },
+        {
+          "node": "definition:K2Node_VariableGet_0",
+          "all_properties_and_pins_identical": true,
+          "pin_count": 5,
+          "linked_pin_count": 4
+        }
+      ]
+    }
+  ],
+  "changed_properties": [
+    {
+      "object": "source",
+      "field": "BlueprintGuid",
+      "before": "BlueprintGuid=00800D4E491D9CA79F18F3B6E3CF5AF7",
+      "after": "BlueprintGuid=9FC1925A4FB02F5489AA54B6837CB174"
+    },
+    {
+      "object": "source",
+      "field": "LastEditedDocuments(1)",
+      "before": "LastEditedDocuments(1)=(EditedObjectPath=/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController:EventGraph,SavedViewOffset=(X=-285.122253,Y=-367.191101),SavedZoomAmount=1.000000)",
+      "after": "LastEditedDocuments(1)=(EditedObjectPath=/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController:EventGraph,SavedZoomAmount=1.000000)"
+    },
+    {
+      "object": "source",
+      "field": "LastEditedDocuments(2)",
+      "before": "LastEditedDocuments(2)=(EditedObjectPath=/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController:CheckAndShowPostMissionScreen,SavedViewOffset=(X=1174.552246,Y=-59.679321),SavedZoomAmount=1.000000)",
+      "after": null
+    }
+  ],
+  "removed_object_blocks": [
+    {
+      "object": "source/declaration:EdGraph_0",
+      "stock_lines": [
+        46,
+        51
+      ]
+    },
+    {
+      "object": "source/declaration:EdGraph_1",
+      "stock_lines": [
+        52,
+        81
+      ]
+    },
+    {
+      "object": "source/declaration:ExecuteUbergraph_InstantActionPlayerController",
+      "stock_lines": [
+        44,
+        45
+      ]
+    },
+    {
+      "object": "source/definition:EdGraph_0",
+      "stock_lines": [
+        251,
+        272
+      ]
+    },
+    {
+      "object": "source/definition:EdGraph_1",
+      "stock_lines": [
+        273,
+        420
+      ]
+    },
+    {
+      "object": "source/definition:ExecuteUbergraph_InstantActionPlayerController",
+      "stock_lines": [
+        247,
+        250
+      ]
+    }
+  ],
+  "added_object_blocks": [],
+  "object_emission_order_changes": [
+    {
+      "object": "source",
+      "before": [
+        "declaration:EventGraph",
+        "declaration:UserConstructionScript",
+        "declaration:CheckAndShowPostMissionScreen",
+        "declaration:Breakpoint_2",
+        "declaration:Breakpoint_4",
+        "declaration:SceneThumbnailInfo_0",
+        "declaration:ExecuteUbergraph_InstantActionPlayerController",
+        "declaration:EdGraph_0",
+        "declaration:EdGraph_1",
+        "definition:EventGraph",
+        "definition:UserConstructionScript",
+        "definition:CheckAndShowPostMissionScreen",
+        "definition:Breakpoint_2",
+        "definition:Breakpoint_4",
+        "definition:SceneThumbnailInfo_0",
+        "definition:ExecuteUbergraph_InstantActionPlayerController",
+        "definition:EdGraph_0",
+        "definition:EdGraph_1"
+      ],
+      "after": [
+        "declaration:SceneThumbnailInfo_0",
+        "declaration:UserConstructionScript",
+        "declaration:EventGraph",
+        "declaration:CheckAndShowPostMissionScreen",
+        "declaration:Breakpoint_4",
+        "declaration:Breakpoint_2",
+        "definition:SceneThumbnailInfo_0",
+        "definition:UserConstructionScript",
+        "definition:EventGraph",
+        "definition:CheckAndShowPostMissionScreen",
+        "definition:Breakpoint_4",
+        "definition:Breakpoint_2"
+      ]
+    },
+    {
+      "object": "source/declaration:CheckAndShowPostMissionScreen",
+      "before": [
+        "declaration:K2Node_FunctionEntry_0",
+        "declaration:K2Node_FunctionResult_1",
+        "declaration:K2Node_CallParentFunction_0",
+        "declaration:K2Node_IfThenElse_0",
+        "declaration:K2Node_FunctionResult_0",
+        "declaration:K2Node_CallFunction_21",
+        "declaration:K2Node_CallFunction_8",
+        "declaration:K2Node_VariableGet_0",
+        "declaration:K2Node_CallFunction_0",
+        "declaration:K2Node_Knot_0",
+        "declaration:K2Node_Knot_1"
+      ],
+      "after": [
+        "declaration:K2Node_VariableGet_0",
+        "declaration:K2Node_Knot_1",
+        "declaration:K2Node_Knot_0",
+        "declaration:K2Node_IfThenElse_0",
+        "declaration:K2Node_FunctionResult_1",
+        "declaration:K2Node_FunctionResult_0",
+        "declaration:K2Node_FunctionEntry_0",
+        "declaration:K2Node_CallParentFunction_0",
+        "declaration:K2Node_CallFunction_8",
+        "declaration:K2Node_CallFunction_21",
+        "declaration:K2Node_CallFunction_0"
+      ]
+    },
+    {
+      "object": "source/definition:CheckAndShowPostMissionScreen",
+      "before": [
+        "definition:K2Node_FunctionEntry_0",
+        "definition:K2Node_FunctionResult_1",
+        "definition:K2Node_CallParentFunction_0",
+        "definition:K2Node_IfThenElse_0",
+        "definition:K2Node_FunctionResult_0",
+        "definition:K2Node_CallFunction_21",
+        "definition:K2Node_CallFunction_8",
+        "definition:K2Node_VariableGet_0",
+        "definition:K2Node_CallFunction_0",
+        "definition:K2Node_Knot_0",
+        "definition:K2Node_Knot_1"
+      ],
+      "after": [
+        "definition:K2Node_VariableGet_0",
+        "definition:K2Node_Knot_1",
+        "definition:K2Node_Knot_0",
+        "definition:K2Node_IfThenElse_0",
+        "definition:K2Node_FunctionResult_1",
+        "definition:K2Node_FunctionResult_0",
+        "definition:K2Node_FunctionEntry_0",
+        "definition:K2Node_CallParentFunction_0",
+        "definition:K2Node_CallFunction_8",
+        "definition:K2Node_CallFunction_21",
+        "definition:K2Node_CallFunction_0"
+      ]
+    },
+    {
+      "object": "defaults",
+      "before": [
+        "declaration:TransformComponent0",
+        "declaration:RemoteControl",
+        "declaration:PlayerTargetVisibilityComponent",
+        "declaration:MissionLifecycleComponent",
+        "declaration:KeyRemappingSystem",
+        "declaration:AimAssistComponent",
+        "definition:TransformComponent0",
+        "definition:RemoteControl",
+        "definition:PlayerTargetVisibilityComponent",
+        "definition:MissionLifecycleComponent",
+        "definition:KeyRemappingSystem",
+        "definition:AimAssistComponent"
+      ],
+      "after": [
+        "declaration:AimAssistComponent",
+        "declaration:KeyRemappingSystem",
+        "declaration:MissionLifecycleComponent",
+        "declaration:PlayerTargetVisibilityComponent",
+        "declaration:RemoteControl",
+        "declaration:TransformComponent0",
+        "definition:AimAssistComponent",
+        "definition:KeyRemappingSystem",
+        "definition:MissionLifecycleComponent",
+        "definition:PlayerTargetVisibilityComponent",
+        "definition:RemoteControl",
+        "definition:TransformComponent0"
+      ]
+    }
+  ],
+  "default_property_changes": 0,
+  "warning_limitations": [
+    "Save To Mod handled localization validator ensure has not been shown resolved.",
+    "ReloadPackage warned that PlayerControllerSwitchMech_GEN_VARIABLE, PlayerControllerAirStrikeComponent_GEN_VARIABLE and ControllerFeedbackComponent_GEN_VARIABLE replacements were missing. No root cause established.",
+    "Those GEN_VARIABLE template objects are not exposed by these source/CDO text exports; matching CDO None values cannot clear the warning.",
+    "The missing unregistered graph blocks explain most of the byte-size drop, but compiler-internal cause and runtime consequence are not established.",
+    "No compile, package, retail or memory-to-saved-copy equivalence acceptance from this review."
+  ],
+  "recommendation": "No demonstrated registered-graph or CDO-default regression blocks continuing separate bounded Phase A authoring on the mod copy. Preserve the pre-edit copy and these warnings. Review final compile/save/reopen and exported graph/defaults before a package decision."
+}
