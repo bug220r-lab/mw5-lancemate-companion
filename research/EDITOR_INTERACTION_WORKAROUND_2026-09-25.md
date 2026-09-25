@@ -1,6 +1,8 @@
 # Editor interaction workaround — September 25, 2026
 
-**Status: EDITOR_CAPTURE_AND_NAVIGATION_PROVEN; SCRATCH_CLICK_TYPE_DRAG_PROVEN; Blueprint authoring NOT_VERIFIED.** The user requested this workaround, then explicitly overrode the 10% usage stop point and the fixed RAM reserve. They subsequently authorized one usage-reset credit when the allowance runs out; the latest check showed 96% weekly usage and one available reset, which has not been consumed. The earlier Notepad findings are preserved below; this continuation supersedes their unimplemented-pointer status.
+**Latest follow-up: PASS_EDITOR_AUTHORING_ONLY.** The separate [authoring probe](EDITOR_AUTHORING_PROBE_2026-09-25.md) now verifies creation, wiring, compilation, save and same-process reopen of a disposable Blueprint. It also records consumption of the one authorized usage reset. The original mod remains unchanged and its missing in-game readout remains unresolved.
+
+**Historical navigation checkpoint: EDITOR_CAPTURE_AND_NAVIGATION_PROVEN; SCRATCH_CLICK_TYPE_DRAG_PROVEN; Blueprint authoring NOT_VERIFIED at that checkpoint.** The user requested this workaround, then explicitly overrode the 10% usage stop point and the fixed RAM reserve. At that checkpoint, usage was 96% weekly with one available reset, not yet consumed. The findings and helper capabilities below describe that earlier revision; use the linked authoring record for the later result.
 
 ## September 25 continuation
 

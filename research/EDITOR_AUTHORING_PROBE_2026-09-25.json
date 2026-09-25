@@ -1,0 +1,192 @@
+{
+  "created_utc": "2026-09-25T16:14:03.494852+00:00",
+  "status": "PASS_EDITOR_AUTHORING_ONLY",
+  "result": {
+    "status": "PASS_EDITOR_AUTHORING_ONLY",
+    "verified_utc": "2026-09-25T17:22:59.8570868Z",
+    "observed_graph": "Actor Event BeginPlay execution pin connected to Print String; literal AUTHORING PROBE - NOT RUNTIME",
+    "compiler_result": "[6431.30] Compile of BP_CodexAuthoringProbe successful! [in 227 ms]",
+    "compiler_result_limit": "The package path following this visible message is clipped by the panel; no fabricated complete line.",
+    "save_method": "File > Save As to same dedicated /Game path, replacing only the test asset created during this experiment. Save To Mod was not used.",
+    "graph_saved_utc": "2026-09-25T17:15:22.409Z",
+    "manually_closed_utc": "2026-09-25T17:19:39.974395Z",
+    "manually_reopened_utc": "2026-09-25T17:20:52.218700Z",
+    "reopen_scope": "Asset editor window closed and reopened in the same UE4Editor process; cold process restart and package unload/reload not performed.",
+    "evidence": {
+      "reopen": {
+        "receipt": "research/evidence/window-bridge/editor-2cdac1d0248a4da9a97805ea3706e087/capture-59fbffe369634ddea14e214a11de5cc6/receipt.json",
+        "image": "research/evidence/window-bridge/editor-2cdac1d0248a4da9a97805ea3706e087/capture-59fbffe369634ddea14e214a11de5cc6/client.png",
+        "sha256": "f32a1f4d5ed7ec4223c4a763ae72b78a743e0336ef9be953e668394af22f1731"
+      },
+      "compile": {
+        "receipt": "research/evidence/window-bridge/editor-fbb7a8971adf49c08657d1aabdad4f21/capture-bbc2e639e86b4597b5abe108bd1e87f0/receipt.json",
+        "image": "research/evidence/window-bridge/editor-fbb7a8971adf49c08657d1aabdad4f21/capture-bbc2e639e86b4597b5abe108bd1e87f0/client.png",
+        "sha256": "0990bb6c71b616eb19df22363db86db308b112f9496b04cc3d981de2bd229cbb"
+      },
+      "closed": {
+        "receipt": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-b3eefb63d8ac4874a3d781f4fa27d5d5/receipt.json",
+        "image": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-b3eefb63d8ac4874a3d781f4fa27d5d5/client.png",
+        "sha256": "0d6ad5c904f854141581797c72d8f5abafb7d60a726005706efd415787703989"
+      }
+    },
+    "final_checks": {
+      "checked_utc": "2026-09-25T17:22:59.8570868Z",
+      "original_files": [
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "matches": true,
+          "bytes": 0
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+          "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+          "matches": true,
+          "bytes": 422
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+          "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+          "matches": true,
+          "bytes": 1383
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+          "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+          "matches": true,
+          "bytes": 43
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+          "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+          "matches": true,
+          "bytes": 139586
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+          "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+          "matches": true,
+          "bytes": 31659
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+          "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+          "matches": true,
+          "bytes": 2111
+        },
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+          "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+          "matches": true,
+          "bytes": 12352
+        }
+      ],
+      "created_files": [
+        {
+          "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\CodexEditorControlScratch20260925\\BP_CodexAuthoringProbe.uasset",
+          "bytes": 28153,
+          "sha256": "0b7d06f0004d67d1944cd288b44a4b63d7f95d4e17de22b8ee828f4f96f0b6dc"
+        }
+      ],
+      "temporary_NewFolder_absent": true,
+      "bridge_hash": "583cf0d4cf5ed5f4a6c7233084d23c9e128f9ec80a294bd435bad9b559a6ae82",
+      "test_hash": "5a0aa0a911c2208e49205daa0aed00651300a1c7c43042aea9696519a11753b4"
+    },
+    "local_backup": {
+      "path": "artifacts/editor-authoring-probe-20260925/BP_CodexAuthoringProbe.uasset",
+      "sha256": "0b7d06f0004d67d1944cd288b44a4b63d7f95d4e17de22b8ee828f4f96f0b6dc",
+      "bytes": 28153
+    },
+    "editor_generated_autosave": {
+      "path": "%LOCALAPPDATA%/MW5Mercs/Saved/Autosaves/Game/CodexEditorControlScratch20260925/BP_CodexAuthoringProbe_Auto1.uasset",
+      "bytes": 25808,
+      "sha256": "dba3313d04bb369dcf5619ea14b766b2501c276bd0818f75cd94a37c774ea018",
+      "status": "Automatically created by editor; not the accepted final asset"
+    },
+    "regression_tests": {
+      "path": "scripts/Test-WindowBridge.py",
+      "passed": 15,
+      "failed": 0,
+      "evidence_kind": "MOCK_ONLY",
+      "desktop_input": false,
+      "syntax_and_diff_check": "PASS"
+    },
+    "limitations": [
+      "Visual Slate field focus is reviewed by the operator, not mechanically proven by native HWND focus.",
+      "Global input retains a focus-switch race; no unattended arbitrary editor automation guarantee.",
+      "Right-click extension has mocked coverage but was not exercised live in this proof.",
+      "No Play, cook, packaging, retail deployment, runtime marker or original observer repair acceptance."
+    ],
+    "reset": {
+      "consumed_credits": 1,
+      "precheck_used_percent": 100,
+      "precheck_ordinary_usage_allowed": true,
+      "outcome": "reset",
+      "after_used_percent": 0,
+      "remaining_reset_credits": 0,
+      "authorization": "User requested one reset when usage runs out; applied when reported remaining percentage reached zero."
+    }
+  },
+  "authorized_scope": "Disposable editor authoring test after user Continue with the next step",
+  "asset_package": "/Game/CodexEditorControlScratch20260925/BP_CodexAuthoringProbe",
+  "asset_directory": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\CodexEditorControlScratch20260925",
+  "target_absent": true,
+  "proposed_graph": "Actor Blueprint: Event BeginPlay execution connected to Print String with AUTHORING PROBE - NOT RUNTIME; verify actual node availability in UI",
+  "execution": "No Play, cook, packaging, or retail-game launch",
+  "original_source_checks": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+      "bytes": 422
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+      "bytes": 1383
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+      "bytes": 43
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+      "bytes": 139586
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+      "bytes": 31659
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+      "bytes": 2111
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+      "bytes": 12352
+    }
+  ],
+  "rollback": "Close disposable asset normally; retain its manifested files as local evidence. Any later removal must be confined to the newly created dedicated directory after path/hash and closed-editor checks. Original assets are not cleanup targets.",
+  "stop_conditions": [
+    "Unexpected original-asset change",
+    "Wrong or ambiguous input focus",
+    "Uncertain input result until fresh observation",
+    "Editor error or loss of responsiveness"
+  ],
+  "acceptance": [
+    "Fresh UI shows new named asset",
+    "Fresh graph shows typed marker and execution wire",
+    "Compile reports success",
+    "Save creates named uasset",
+    "Close and reopen confirms graph and text persisted"
+  ]
+}

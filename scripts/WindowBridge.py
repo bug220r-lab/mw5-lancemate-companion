@@ -1,7 +1,8 @@
 """One-shot Windows input proof for a scratch fixture or pinned editor navigation.
 
 No game targets, network listener, focus stealing or arbitrary key chords.
-Editor mode accepts pointer actions only; no text entry or asset-authoring API.
+Editor text requires an explicitly reviewed active-field rectangle; no key chords,
+clipboard paste or asset-authoring API. Slate field focus still needs visual review.
 Capture first, visually review its PNG, then explicitly supply that image hash.
 Pointer coordinates are relative to that screenshot, not the native client origin.
 """
@@ -106,6 +107,7 @@ class Desktop:
         bind(u, 'GetMonitorInfoW', [W.HANDLE, C.POINTER(MONITORINFO)], W.BOOL)
         bind(u, 'WindowFromPoint', [W.POINT], W.HWND)
         bind(u, 'GetAncestor', [W.HWND, W.UINT], W.HWND)
+        bind(u, 'GetWindow', [W.HWND, W.UINT], W.HWND)
         bind(u, 'SetCursorPos', [C.c_int, C.c_int], W.BOOL)
         bind(u, 'GetCursorPos', [C.POINTER(W.POINT)], W.BOOL)
         bind(u, 'GetAsyncKeyState', [C.c_int], C.c_short)
@@ -169,6 +171,24 @@ class Desktop:
                 'monitor': rect(mi.monitor), 'work_area': rect(mi.work)}
 
     def resolve(self, session):
+        if session.get('kind') == 'editor-navigation':
+            # Slate menus can have empty/nonunique titles. Resolve only the
+            # explicitly pinned handle, retaining exact identity checks.
+            result = self.identity(session['hwnd'])
+            fields = ('hwnd', 'pid', 'tid', 'process', 'title', 'process_created')
+            if any(result[field] != session[field] for field in fields):
+                raise RuntimeError('Editor window identity does not match session')
+            owner = session.get('owner_identity')
+            if owner is not None:
+                if (not owner['hwnd'] or owner['hwnd'] == result['hwnd']
+                        or any(owner[field] != result[field]
+                               for field in ('pid', 'process', 'process_created'))):
+                    raise RuntimeError('Invalid pinned editor popup owner')
+                if int(self.u.GetWindow(result['hwnd'], 4) or 0) != owner['hwnd']:
+                    raise RuntimeError('Editor popup owner relationship changed')
+                if self.identity(owner['hwnd']) != owner:
+                    raise RuntimeError('Editor popup owner identity or geometry changed')
+            return result
         candidates, errors = [], []
         @self.callback_type
         def visit(hwnd, unused):
@@ -205,7 +225,9 @@ class Desktop:
     def guard(self, identity, session, focus=None, dragging=False):
         if self.resolve(session) != identity:
             raise RuntimeError('Window/process/geometry changed; recapture')
-        if self.u.GetForegroundWindow() != identity['hwnd']:
+        owner = session.get('owner_identity') if session.get('kind') == 'editor-navigation' else None
+        foreground = owner['hwnd'] if owner is not None else identity['hwnd']
+        if self.u.GetForegroundWindow() != foreground:
             raise RuntimeError('Foreground changed; operation refused')
         if focus is not None and self.focus(identity) != focus:
             raise RuntimeError('Focus changed; recapture')
@@ -278,6 +300,43 @@ def entry_focused(session_path, session):
         raise RuntimeError('Scratch receiver does not confirm Entry focus')
 
 
+def require_fresh_receipt(receipt):
+    age = (datetime.now(timezone.utc)-datetime.fromisoformat(receipt['created_utc'])).total_seconds()
+    if not 0 <= age <= 120:
+        raise RuntimeError('Capture expired; recapture and inspect')
+
+
+def wait_reviewed_pixels(d, ident, session, receipt, png, review_region, wait_ms):
+    if not 0 <= wait_ms <= 1200:
+        raise RuntimeError('Pixel wait must be between 0 and 1200 milliseconds')
+    started = time.monotonic()
+    samples = 0
+    with Image.open(png) as reviewed:
+        size = reviewed.size
+        if review_region is not None:
+            reviewed = reviewed.crop(tuple(review_region))
+        expected = reviewed.convert('RGB').tobytes()
+        while True:
+            require_fresh_receipt(receipt)
+            d.guard(ident, session, receipt['focus_hwnd'])
+            current = ImageGrab.grab(bbox=tuple(ident['client_rect']), all_screens=True)
+            d.guard(ident, session, receipt['focus_hwnd'])
+            require_fresh_receipt(receipt)
+            if current.size != size:
+                raise RuntimeError('Client dimensions changed')
+            if review_region is not None:
+                current = current.crop(tuple(review_region))
+            samples += 1
+            elapsed = time.monotonic()-started
+            matches = current.convert('RGB').tobytes() == expected
+            if matches and (samples == 1 or elapsed <= wait_ms/1000):
+                return {'samples': samples, 'elapsed_ms': round(elapsed*1000, 3)}
+            remaining = wait_ms/1000-elapsed
+            if remaining <= 0:
+                raise RuntimeError('Visible client changed since review; recapture')
+            time.sleep(min(.05, remaining))
+
+
 def capture(d, session_path, session):
     before = d.resolve(session)
     d.guard(before, session)
@@ -305,14 +364,16 @@ def capture(d, session_path, session):
 
 
 def act(args, d, attempt):
+    if not 0 <= args.wait_pixels_ms <= 1200:
+        raise RuntimeError('Pixel wait must be between 0 and 1200 milliseconds')
+    if args.mouse_button == 'right' and (not args.click or args.click_count != 1):
+        raise RuntimeError('Right button permits exactly one click only')
     rp = contained(args.receipt)
     receipt = json.loads(rp.read_text(encoding='utf-8'))
     session_path, session = read_session(receipt['session'])
     if rp.parent.parent != session_path.parent:
         raise RuntimeError('Receipt from different session')
-    age = (datetime.now(timezone.utc)-datetime.fromisoformat(receipt['created_utc'])).total_seconds()
-    if not 0 <= age <= 120:
-        raise RuntimeError('Capture expired; recapture and inspect')
+    require_fresh_receipt(receipt)
     if receipt['mapping'] != 'physical_capture_pixels_1_to_1':
         raise RuntimeError('Uncalibrated capture')
     png = contained(receipt['image'])
@@ -320,6 +381,23 @@ def act(args, d, attempt):
         raise RuntimeError('Reviewed image hash mismatch')
     ident = receipt['identity']
     d.guard(ident, session, receipt['focus_hwnd'])
+    editor_text_field = args.editor_text_field
+    if editor_text_field is not None:
+        if session.get('kind') != 'editor-navigation' or args.text is None:
+            raise RuntimeError('An editor text field is allowed only with editor text input')
+        if session.get('owner_identity') is not None:
+            raise RuntimeError('Editor popup text input is not enabled')
+        if not receipt['focus_hwnd']:
+            raise RuntimeError('Editor text input requires a focused native window')
+        if not encloses([0, 0, *receipt['size']], editor_text_field):
+            raise RuntimeError('Editor text field outside captured image')
+        l, t, r, b = editor_text_field
+        if r-l < 4 or b-t < 4:
+            raise RuntimeError('Editor text field is too small')
+        # This confirms window ownership, not Slate's internal keyboard focus.
+        # The reviewed screenshot must show this exact field already active.
+        text_point = ((l+r)//2, (t+b)//2)
+        d.point(ident, text_point)
     review_region = args.review_region
     if review_region is not None:
         if session.get('kind') != 'editor-navigation':
@@ -329,44 +407,53 @@ def act(args, d, attempt):
         l, t, r, b = review_region
         if (r-l)*(b-t) < 10000:
             raise RuntimeError('Review region too small')
-        targets = [args.click] if args.click else [args.drag[:2], args.drag[2:]] if args.drag else []
+        if editor_text_field is not None and not encloses(review_region, editor_text_field):
+            raise RuntimeError('Review region must contain the complete editor text field')
+        targets = ([args.click] if args.click else [args.drag[:2], args.drag[2:]]
+                   if args.drag else [text_point] if editor_text_field is not None else [])
         if not targets or any(not (l+16 <= x < r-16 and t+16 <= y < b-16) for x,y in targets):
             raise RuntimeError('Every input point needs a 16px margin inside the reviewed region')
-    # Reject intervening edits/layout/occlusion, not just top-level geometry changes.
-    with Image.open(png) as reviewed:
-        current = ImageGrab.grab(bbox=tuple(ident['client_rect']), all_screens=True)
-        if current.size != reviewed.size:
-            raise RuntimeError('Client dimensions changed')
-        if review_region is not None:
-            current = current.crop(tuple(review_region))
-            reviewed = reviewed.crop(tuple(review_region))
-        if current.convert('RGB').tobytes() != reviewed.convert('RGB').tobytes():
-            raise RuntimeError('Visible client changed since review; recapture')
+    # Wait only for exact equality, e.g. the reviewed caret phase. No pixels are
+    # masked and no tolerance is added; focus, identity and age remain guarded.
+    pixel_check = wait_reviewed_pixels(d, ident, session, receipt, png,
+                                      review_region, args.wait_pixels_ms)
     d.guard(ident, session, receipt['focus_hwnd'])
     if args.text is not None:
-        if session.get('kind') == 'editor-navigation':
-            raise RuntimeError('Editor navigation mode does not permit text input')
+        if session.get('kind') == 'editor-navigation' and editor_text_field is None:
+            raise RuntimeError('Editor text requires an explicitly reviewed active field')
         if not args.text or len(args.text) > 100 or any(ord(c) < 32 or ord(c) > 126 for c in args.text):
-            raise RuntimeError('Scratch text requires 1-100 printable ASCII characters')
+            raise RuntimeError('Text requires 1-100 printable ASCII characters')
         # Tk owns keyboard routing within its native root; corroborate its focus event.
-        entry_focused(session_path, session)
+        if editor_text_field is None:
+            entry_focused(session_path, session)
+        else:
+            d.point(ident, text_point)
     else:
         points = [tuple(args.click)] if args.click else [tuple(args.drag[:2]), tuple(args.drag[2:])]
         for point in points:
             d.point(ident, point)
     # Each reviewed capture permits a single attempt, including uncertain failures.
+    require_fresh_receipt(receipt)
     with (rp.parent / 'consumed.json').open('x', encoding='utf-8') as f:
         json.dump({'started_utc': now(), 'review_region': review_region,
+                   'wait_pixels_ms': args.wait_pixels_ms, 'pixel_check': pixel_check,
                    'click_count': args.click_count if args.click else None,
+                   'mouse_button': args.mouse_button if args.click else 'left' if args.drag else None,
+                   'click': args.click, 'drag': args.drag,
+                   'editor_text_field': editor_text_field,
+                   'editor_literal_text': args.text if editor_text_field is not None else None,
                    'action': 'text' if args.text is not None else 'click' if args.click else 'drag'}, f)
-    down = False
+    pending_release = None
     result = {'started_utc': now(), 'status': 'UNKNOWN', 'error': None, 'cleanup_error': None}
     attempt['started'] = True
     try:
         if args.text is not None:
             for c in args.text:
                 d.guard(ident, session, receipt['focus_hwnd'])
-                entry_focused(session_path, session)
+                if editor_text_field is None:
+                    entry_focused(session_path, session)
+                else:
+                    d.point(ident, text_point)
                 try:
                     d.send([key(ord(c)), key(ord(c), True)])
                 except Exception:
@@ -374,6 +461,7 @@ def act(args, d, attempt):
                     d.send([key(ord(c), True)])
                     raise
         elif args.click:
+            down_flag, up_flag = (8, 16) if args.mouse_button == 'right' else (2, 4)
             xy = d.point(ident, tuple(args.click))
             d.move(xy)
             d.guard(ident, session, receipt['focus_hwnd'])
@@ -385,9 +473,9 @@ def act(args, d, attempt):
                     d.guard(ident, session)
                     d.point(ident, tuple(args.click))
                     d.cursor_guard(ident, xy)
-                down = True
-                d.send([mouse(2), mouse(4)])
-                down = False
+                pending_release = up_flag
+                d.send([mouse(down_flag), mouse(up_flag)])
+                pending_release = None
         else:
             start, end = tuple(args.drag[:2]), tuple(args.drag[2:])
             # Check the whole path before holding a button, then check each waypoint again.
@@ -398,7 +486,7 @@ def act(args, d, attempt):
             d.move(d.point(ident, start))
             d.guard(ident, session, receipt['focus_hwnd'])
             d.cursor_guard(ident, d.point(ident, start))
-            down = True
+            pending_release = 4
             d.send([mouse(2)])
             previous = d.point(ident, start)
             for p in path[1:]:
@@ -410,19 +498,21 @@ def act(args, d, attempt):
             d.guard(ident, session, dragging=True)
             d.cursor_guard(ident, previous)
             d.send([mouse(4)])
-            down = False
+            pending_release = None
         result['status'] = 'INPUT_INSERTED_EFFECT_REQUIRES_REVIEW'
     except Exception as e:
         result['status'], result['error'] = 'FAILED_OR_UNCERTAIN', str(e)
     finally:
-        if down:
+        if pending_release is not None:
             try:
-                d.send([mouse(4)])
+                d.send([mouse(pending_release)])
             except Exception as e:
                 result['cleanup_error'] = str(e)
         result['completed_utc'] = now()
         (rp.parent / 'action-result.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
-    time.sleep(.15)
+    # Allow Slate's short layout/focus animations to settle before the review image.
+    # This is only a post-input observation delay, never another input attempt.
+    time.sleep(1.0)
     try:
         result['after'] = capture(d, session_path, session)
     except Exception as e:
@@ -442,12 +532,20 @@ def main():
     bind.add_argument('--title', required=True)
     bind.add_argument('--pid', required=True, type=int)
     bind.add_argument('--hwnd', required=True, type=int)
+    bind.add_argument('--owner-hwnd', type=int,
+                      help='Explicit observed owner for a nonactivating editor popup')
     a = sub.add_parser('act')
     a.add_argument('--receipt', required=True)
     a.add_argument('--image-sha256', required=True)
     a.add_argument('--review-region', nargs=4, type=int,
                    help='Explicit reviewed pixel region for animated editor surfaces; pointer path must stay inside')
     a.add_argument('--click-count', type=int, choices=(1, 2), default=1)
+    a.add_argument('--mouse-button', choices=('left', 'right'), default='left',
+                   help='Click button; right is restricted to a single click')
+    a.add_argument('--editor-text-field', nargs=4, type=int,
+                   help='Explicit reviewed active Slate field rectangle for literal text; visual focus confirmation required')
+    a.add_argument('--wait-pixels-ms', type=int, default=0,
+                   help='Wait 0-1200ms for exact reviewed pixels, preserving focus and freshness guards')
     action = a.add_mutually_exclusive_group(required=True)
     action.add_argument('--click', nargs=2, type=int)
     action.add_argument('--drag', nargs=4, type=int)
@@ -467,12 +565,23 @@ def main():
         ident = d.identity(args.hwnd)
         if ident['pid'] != args.pid or ident['title'] != args.title or Path(ident['process']) != EDITOR.resolve():
             raise RuntimeError('Observed editor identity mismatch')
+        owner = None
+        if args.owner_hwnd is not None:
+            if (not args.owner_hwnd or args.owner_hwnd == args.hwnd
+                    or int(d.u.GetWindow(args.hwnd, 4) or 0) != args.owner_hwnd):
+                raise RuntimeError('Observed editor popup owner relationship mismatch')
+            owner = d.identity(args.owner_hwnd)
+            if any(owner[field] != ident[field]
+                   for field in ('pid', 'process', 'process_created')):
+                raise RuntimeError('Editor popup owner belongs to a different process')
         folder = EVIDENCE / ('editor-' + uuid.uuid4().hex)
         if not EVIDENCE.resolve().is_relative_to(ROOT.resolve()):
             raise RuntimeError('Evidence root escapes project')
         folder.mkdir(parents=True)
         session = {**ident, 'session_id': str(uuid.uuid4()), 'kind': 'editor-navigation',
                    'executable_sha256': digest(EDITOR), 'created_utc': now()}
+        if owner is not None:
+            session['owner_identity'] = owner
         sp = folder / 'session.json'
         sp.write_text(json.dumps(session, indent=2), encoding='utf-8')
         print(json.dumps(capture(d, sp, session)))

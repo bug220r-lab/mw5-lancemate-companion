@@ -1,4 +1,10 @@
 {
+  "authoring_followup": {
+    "status": "PASS_EDITOR_AUTHORING_ONLY",
+    "record": "research/EDITOR_AUTHORING_PROBE_2026-09-25.json",
+    "summary": "Disposable Blueprint created, wired, compiled, saved and reopened in the same editor process. Original eight observer file pins unchanged; runtime readout unresolved. One authorized usage reset consumed.",
+    "historical_record_notice": "The remaining fields preserve the earlier navigation checkpoint and its helper revision, scope and usage state."
+  },
   "status": "EDITOR_CAPTURE_AND_NAVIGATION_PROVEN",
   "classification": "OBSERVED_LOCAL_UI_NOT_GAME_ACCEPTANCE",
   "observed_at_utc": "2026-09-25T15:54:24.280242+00:00",
