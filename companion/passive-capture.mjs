@@ -65,6 +65,34 @@ function boundedStructure(value) {
   return true;
 }
 
+// JSON.parse discards formatting, so measure each array element in the original
+// UTF-8 bytes. Whitespace next to an element counts towards that element's cap.
+function rawSampleByteSizes(bytes) {
+  const sizes = [];
+  let depth = 0, inString = false, escaped = false, start = null;
+  for (let index = 0; index < bytes.byteLength; index++) {
+    const byte = bytes[index];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (byte === 0x5c) escaped = true;
+      else if (byte === 0x22) inString = false;
+      continue;
+    }
+    if (byte === 0x22) inString = true;
+    else if (byte === 0x5b || byte === 0x7b) {
+      depth++;
+      if (depth === 1) start = index + 1;
+    } else if (byte === 0x5d || byte === 0x7d) {
+      if (byte === 0x5d && depth === 1) sizes.push(index - start);
+      depth--;
+    } else if (byte === 0x2c && depth === 1) {
+      sizes.push(index - start);
+      start = index + 1;
+    }
+  }
+  return sizes;
+}
+
 /** Inspect exact source bytes without rewriting values or projecting tactical state. */
 export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nominalIntervalMs = 500 } = {}) {
   if (!(bytes instanceof Uint8Array)) throw new Error('CAPTURE_BYTES_REQUIRED');
@@ -110,6 +138,10 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     finding(null, 'INVALID_SAMPLE_COUNT'); return report;
   }
   report.sampleCount = samples.length;
+  const sampleByteSizes = rawSampleByteSizes(bytes);
+  if (sampleByteSizes.length !== samples.length) {
+    finding(null, 'INVALID_SAMPLE_SPANS'); return report;
+  }
   const labels = new Set(samples.map(sample => sample?.provenance));
   report.classification = labels.size === 1 && labels.has('MOCK_ONLY') ? 'MOCK_ONLY' :
     labels.size === 1 && labels.has('GAME_OBSERVED') ? 'GAME_OBSERVED_UNVALIDATED' :
@@ -119,7 +151,7 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
   for (let index = 0; index < samples.length; index++) {
     const sample = samples[index];
     if (!boundedStructure(sample)) { finding(index, 'SAMPLE_STRUCTURE_LIMIT'); previous = null; continue; }
-    if (Buffer.byteLength(JSON.stringify(sample)) > PASSIVE_CAPTURE_LIMITS.sampleBytes) {
+    if (sampleByteSizes[index] > PASSIVE_CAPTURE_LIMITS.sampleBytes) {
       finding(index, 'SAMPLE_TOO_LARGE'); previous = null; continue;
     }
     if (!obj(sample) || sample.schemaVersion !== 1 || sample.kind !== 'passive-capture' ||

@@ -16,7 +16,7 @@ The raw-capture auditor reports **VALID_PROJECT_CAPTURE** when its proposed file
 
 The file reader does not rewrite input. Its SHA-256 binds the report to the exact original bytes. Keep that file unchanged; store corrections and annotations separately. Unknown extension data remains in the original file and is not automatically interpreted or certified. No native field-to-project mapping is implemented by this checker.
 
-The checker accepts at most 32 MiB, 20,000 frames, 128 KiB per serialized frame and 128 mission sessions. Deep/large structures are rejected before replay. Detailed findings are capped at 200, with total/truncation information preserved. These are project file limits, not native capture-buffer limits or performance results.
+The checker accepts at most 32 MiB, 20,000 frames, 128 KiB per original serialized sample span and 128 mission sessions. Each span includes whitespace adjacent to the sample inside the outer JSON array; the limit is measured before JSON formatting or escapes can be normalized. Deep/large structures are rejected before replay. Detailed findings are capped at 200, with total/truncation information preserved. These are project file limits, not native capture-buffer limits or performance results.
 
 ## Inspect a file
 

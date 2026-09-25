@@ -393,6 +393,31 @@ test('file, sample, reading, structure and session limits bound processing', () 
   assert.ok(codes(audit(manySessions)).includes('SESSION_LIMIT'));
 });
 
+test('sample byte cap measures original JSON spans including whitespace and escapes', () => {
+  const base = JSON.stringify(sample(1, 1000, {
+    extra: { note: 'quote " ,[]{} café', nested: [[1, { value: 'a,b' }]] },
+  }));
+  const padded = padding => Buffer.from(`[${base.slice(0, -1)}${' '.repeat(padding)}}]`);
+  const atLimit = padded(PASSIVE_CAPTURE_LIMITS.sampleBytes - Buffer.byteLength(base));
+  assert.equal(auditPassiveCaptureBytes(atLimit, { allowSynthetic: true }).formatStatus,
+    'VALID_PROJECT_CAPTURE');
+  const overLimit = padded(PASSIVE_CAPTURE_LIMITS.sampleBytes - Buffer.byteLength(base) + 1);
+  const original = Buffer.from(overLimit);
+  const oversized = auditPassiveCaptureBytes(overLimit, { allowSynthetic: true });
+  assert.equal(oversized.formatStatus, 'INVALID');
+  assert.ok(codes(oversized).includes('SAMPLE_TOO_LARGE'));
+  assert.equal(oversized.sourceSha256, createHash('sha256').update(original).digest('hex'));
+  assert.deepEqual(overLimit, original);
+  const escaped = Buffer.from(`[${JSON.stringify(sample()).slice(0, -1)},` +
+    `"padding":"${'\\u0041'.repeat(Math.ceil(PASSIVE_CAPTURE_LIMITS.sampleBytes / 6))}"}]`);
+  const parsedEscape = JSON.parse(escaped.toString('utf8'))[0];
+  assert.equal(parsedEscape.padding.length,
+    Math.ceil(PASSIVE_CAPTURE_LIMITS.sampleBytes / 6));
+  assert.ok(Buffer.byteLength(JSON.stringify(parsedEscape)) < PASSIVE_CAPTURE_LIMITS.sampleBytes);
+  assert.ok(codes(auditPassiveCaptureBytes(escaped, { allowSynthetic: true }))
+    .includes('SAMPLE_TOO_LARGE'));
+});
+
 test('finding detail is capped while total count remains visible', () => {
   const report = audit(Array(250).fill(null));
   assert.equal(report.findingCount, 250);
