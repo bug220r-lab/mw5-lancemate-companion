@@ -1,0 +1,181 @@
+{
+  "status": "SEPARATE_MOD_CREATED_CONTROLLER_COPY_NOT_PERFORMED",
+  "recorded_utc": "2026-09-25T17:42:00.6388862Z",
+  "scope": "Separate Phase A static-output diagnostic mod authoring only; no Play, cook, package, retail deployment or runtime",
+  "plan": "design/OBSERVER_DIAGNOSTIC_CONTROL_MORNING.md",
+  "original_observer_pins": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "bytes": 422,
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "bytes": 1383,
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "bytes": 139586,
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "bytes": 31659,
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "bytes": 2111,
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+      "matches": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+      "matches": true
+    }
+  ],
+  "stock_controller": {
+    "path": "C:/Program Files/Epic Games/MechWarrior5Editor/MW5Mercs/Content/Modes/InstantAction/InstantActionPlayerController.uasset",
+    "bytes": 53635,
+    "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6"
+  },
+  "proposed_destination": "C:/Program Files/Epic Games/MechWarrior5Editor/MW5Mercs/Plugins/LanceObserverDiagnosticControl",
+  "destination_absent": true,
+  "editor_pid": 28296,
+  "retail_process_observed": false,
+  "active_mod_before": "LanceObserverProbe",
+  "expected_selection_effect": "Creating/selecting diagnostic mod may move ActiveMod.txt selection marker. Record and restore initial selection after authoring; original observer content/config/resource hashes must remain unchanged.",
+  "stop_conditions": [
+    "Unexpected stock or original asset/config/resource changes",
+    "Ambiguous destination, focus or action result",
+    "Unsupported node or compile error",
+    "Editor crash or lost responsiveness"
+  ],
+  "rollback": "Retain only the separate manifested diagnostic files as local evidence, close its asset windows normally, restore original active-mod selection, recheck original and stock hashes. Never replace original assets or retail files.",
+  "runtime_acceptance": "NOT_PERFORMED",
+  "checkpoint": {
+    "recorded_utc": "2026-09-25T17:52:25.6735540Z",
+    "created_files": [
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ActiveMod.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\LanceObserverDiagnosticControl.uplugin",
+        "bytes": 389,
+        "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+        "bytes": 1383,
+        "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Tags\\LanceObserverDiagnosticControlTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+      }
+    ],
+    "original_checks": [
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+        "exists": false,
+        "sha256": null,
+        "matches": false,
+        "selection_marker": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+        "exists": true,
+        "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+        "matches": true,
+        "selection_marker": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+        "exists": true,
+        "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+        "matches": true,
+        "selection_marker": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+        "exists": true,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+        "matches": true,
+        "selection_marker": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+        "exists": true,
+        "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+        "matches": true,
+        "selection_marker": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+        "exists": true,
+        "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+        "matches": true,
+        "selection_marker": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+        "exists": true,
+        "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+        "matches": true,
+        "selection_marker": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+        "exists": true,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+        "matches": true,
+        "selection_marker": false
+      }
+    ],
+    "stock_controller_sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6",
+    "active_mod_observed": "LanceObserverDiagnosticControl",
+    "stock_controller_opened": "InstantActionPlayerController window observed, HWND3083264; no Save To Mod action performed",
+    "pending_user": "Window focus/pointer interference; editor input stopped and question pending. Offline review continues.",
+    "controller_copy": "NOT_PERFORMED",
+    "widget": "NOT_BUILT",
+    "input_mapping": "PROPOSED_F8_NOT_WRITTEN",
+    "compile": "NOT_PERFORMED",
+    "cook": "NOT_PERFORMED",
+    "retail": "NOT_PERFORMED",
+    "active_mod_evidence": {
+      "receipt": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-f5cf322bbf14480b9c63378443b790ca/receipt.json",
+      "image": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-f5cf322bbf14480b9c63378443b790ca/client.png",
+      "sha256": "a3eef2aac9c53d621536437be32018eec0d332dd75394d544eb5a6bfa060cf77",
+      "created_utc": "2026-09-25T17:47:31.933653+00:00"
+    },
+    "selection_restore": "PENDING_USER_EDITOR_AVAILABILITY; current active selection is diagnostic mod, original content unchanged"
+  },
+  "resource_override": "User waived fixed RAM reserve; no fixed physical-RAM/commit admission threshold"
+}
