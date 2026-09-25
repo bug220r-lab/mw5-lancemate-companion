@@ -135,14 +135,10 @@ function duplicateJsonMemberStatus(source) {
   return null;
 }
 
-/** Inspect exact source bytes without rewriting values or projecting tactical state. */
-export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nominalIntervalMs = 500 } = {}) {
-  if (!(bytes instanceof Uint8Array)) throw new Error('CAPTURE_BYTES_REQUIRED');
-  if (!nat(nominalIntervalMs) || nominalIntervalMs < 1 || nominalIntervalMs > 60000)
-    throw new Error('INVALID_NOMINAL_INTERVAL');
-  const report = { schemaVersion: 1, kind: 'passive-capture-audit',
+function emptyAuditReport(sourceBytes) {
+  return { schemaVersion: 1, kind: 'passive-capture-audit',
     classification: 'UNVALIDATED_CAPTURE', formatStatus: 'INVALID',
-    sourceBytes: bytes.byteLength, sourceSha256: null, fieldMapSha256,
+    sourceBytes, sourceSha256: null, fieldMapSha256,
     fieldMapKeyCount: keys.length, sampleCount: 0, sessionChanges: 0,
     findingCount: 0, findingsTruncated: false,
     findings: [], reviewEventCount: 0, reviewEventsOmitted: 0,
@@ -159,6 +155,25 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
       'Three asserted AI bindings do not prove roster completeness, AI ownership or durable identity.',
       'Raw values and unknown extra fields remain in the original bytes; none is mapped to tactical authority or replay.'
     ] };
+}
+
+function oversizedAuditReport(sourceBytes) {
+  const report = emptyAuditReport(sourceBytes);
+  report.findingCount = 1;
+  report.findings.push({ index: null, code: 'CAPTURE_TOO_LARGE' });
+  report.sourceHashStatus = 'NOT_COMPUTED_SIZE_LIMIT';
+  report.limitations.push('The source exceeded the 32 MiB file limit and was not hashed or parsed.');
+  return report;
+}
+
+/** Inspect exact source bytes without rewriting values or projecting tactical state. */
+export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nominalIntervalMs = 500 } = {}) {
+  if (!(bytes instanceof Uint8Array)) throw new Error('CAPTURE_BYTES_REQUIRED');
+  if (!nat(nominalIntervalMs) || nominalIntervalMs < 1 || nominalIntervalMs > 60000)
+    throw new Error('INVALID_NOMINAL_INTERVAL');
+  if (bytes.byteLength > PASSIVE_CAPTURE_LIMITS.bytes)
+    return oversizedAuditReport(bytes.byteLength);
+  const report = emptyAuditReport(bytes.byteLength);
   const finding = (index, code) => {
     report.findingCount++;
     if (report.findings.length < PASSIVE_CAPTURE_LIMITS.detailedFindings)
@@ -177,9 +192,6 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
       report.acquisitionExceptions.push(detail);
     else report.acquisitionExceptionsOmitted++;
   };
-  if (bytes.byteLength > PASSIVE_CAPTURE_LIMITS.bytes) {
-    finding(null, 'CAPTURE_TOO_LARGE'); return report;
-  }
   report.sourceSha256 = createHash('sha256').update(bytes).digest('hex');
   let samples, source;
   try {
@@ -415,8 +427,13 @@ export async function inspectPassiveCaptureFile(file, options) {
   const handle = await open(file, 'r');
   try {
     const before = await handle.stat();
-    if (!before.isFile() || before.size > PASSIVE_CAPTURE_LIMITS.bytes)
-      throw new Error('INPUT_NOT_BOUNDED_REGULAR_FILE');
+    if (!before.isFile()) throw new Error('INPUT_NOT_BOUNDED_REGULAR_FILE');
+    if (before.size > PASSIVE_CAPTURE_LIMITS.bytes) {
+      const after = await handle.stat();
+      if (after.size !== before.size || after.mtimeMs !== before.mtimeMs ||
+          after.ctimeMs !== before.ctimeMs) throw new Error('INPUT_CHANGED_DURING_READ');
+      return oversizedAuditReport(before.size);
+    }
     const bytes = Buffer.alloc(before.size + 1);
     let offset = 0;
     while (offset < bytes.length) {

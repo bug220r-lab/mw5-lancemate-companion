@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { mkdtemp, readFile, rmdir, unlink, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rmdir, stat, truncate, unlink, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -494,8 +494,9 @@ test('invalid samples break adjacency and do not turn missing reads into failure
 });
 
 test('file, sample, reading, structure and session limits bound processing', () => {
-  assert.equal(codes(auditPassiveCaptureBytes(Buffer.alloc(PASSIVE_CAPTURE_LIMITS.bytes + 1)))[0],
-    'CAPTURE_TOO_LARGE');
+  const overFileLimit = auditPassiveCaptureBytes(Buffer.alloc(PASSIVE_CAPTURE_LIMITS.bytes + 1));
+  assert.equal(codes(overFileLimit)[0], 'CAPTURE_TOO_LARGE');
+  assert.equal(overFileLimit.sourceHashStatus, 'NOT_COMPUTED_SIZE_LIMIT');
   for (const input of [Buffer.from([0xff]), Buffer.from('{'), bytes([]), bytes({}),
     bytes(Array(PASSIVE_CAPTURE_LIMITS.samples + 1).fill(null))])
     assert.equal(auditPassiveCaptureBytes(input).formatStatus, 'INVALID');
@@ -512,6 +513,33 @@ test('file, sample, reading, structure and session limits bound processing', () 
   const manySessions = Array.from({ length: PASSIVE_CAPTURE_LIMITS.sessions + 1 }, (_, i) =>
     sample(1, 0, { session: `mission-${i}` }));
   assert.ok(codes(audit(manySessions)).includes('SESSION_LIMIT'));
+});
+
+test('oversized regular capture is invalid format in the file API and CLI', async () => {
+  const directory = await mkdtemp(path.join(root, 'artifacts', 'passive-capture-oversize-'));
+  const file = path.join(directory, 'capture.json');
+  try {
+    await writeFile(file, Buffer.alloc(0));
+    await truncate(file, PASSIVE_CAPTURE_LIMITS.bytes + 1);
+    const before = await stat(file);
+    const report = await inspectPassiveCaptureFile(file);
+    assert.equal(report.formatStatus, 'INVALID');
+    assert.deepEqual(codes(report), ['CAPTURE_TOO_LARGE']);
+    assert.equal(report.sourceBytes, before.size);
+    assert.equal(report.sourceSha256, null);
+    assert.equal(report.sourceHashStatus, 'NOT_COMPUTED_SIZE_LIMIT');
+    const result = spawnSync(process.execPath,
+      [path.join(root, 'scripts/Inspect-PassiveCapture.mjs'), file],
+      { cwd: root, encoding: 'utf8', windowsHide: true });
+    assert.equal(result.status, 1, result.stderr);
+    assert.deepEqual(codes(JSON.parse(result.stdout)), ['CAPTURE_TOO_LARGE']);
+    const after = await stat(file);
+    assert.equal(after.size, before.size);
+    assert.equal(after.mtimeMs, before.mtimeMs);
+  } finally {
+    await unlink(file).catch(error => { if (error.code !== 'ENOENT') throw error; });
+    await rmdir(directory);
+  }
 });
 
 test('sample byte cap measures original JSON spans including whitespace and escapes', () => {
