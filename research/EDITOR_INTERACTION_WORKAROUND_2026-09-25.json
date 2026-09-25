@@ -1,0 +1,645 @@
+{
+  "status": "EDITOR_CAPTURE_AND_NAVIGATION_PROVEN",
+  "classification": "OBSERVED_LOCAL_UI_NOT_GAME_ACCEPTANCE",
+  "observed_at_utc": "2026-09-25T15:54:24.280242+00:00",
+  "scope": {
+    "scratch_click": "OBSERVED",
+    "scratch_typing": "OBSERVED",
+    "scratch_drag": "OBSERVED",
+    "editor_navigation": "OBSERVED",
+    "editor_text_input": "NOT_PERFORMED",
+    "blueprint_authoring": "NOT_PERFORMED",
+    "compile": "NOT_PERFORMED",
+    "cook": "NOT_PERFORMED",
+    "retail_game": "NOT_PERFORMED"
+  },
+  "resource_override": "User waived fixed RAM requirement for this work; no fixed reserve enforced",
+  "usage_override": "User allowed continuation below 10% and authorized one reset on exhaustion; no reset consumed",
+  "sources_final": [
+    {
+      "path": "scripts/WindowBridge.py",
+      "sha256": "647815d5690c2452bad42ff28ddc2a25425e1b362cd743e472267b3b9f0a9288",
+      "bytes": 23599,
+      "syntax": "PASS"
+    },
+    {
+      "path": "scripts/WindowBridge-Fixture.py",
+      "sha256": "40bbcff7b78449c25546d675109ee3050449dce3e5f50f9ad5724b685e137435",
+      "bytes": 17632,
+      "syntax": "PASS"
+    }
+  ],
+  "thumbnail_open_helper_sha256": "ea15961cfac60c331f5b41e4d67cede3631baef969406d41467d75ffe5603ba8",
+  "revision_limit": "Scratch and Message Log observations used earlier helper revisions. Final source changes after thumbnail open affected coordinate mapping label and error wording; final capture and single-click variable selection were exercised. Earlier receipt mapping labels are historical only.",
+  "source_baseline": "research/OBSERVER_PACKAGE_PREPARATION.json",
+  "all_eight_source_pins_match": true,
+  "source_checks": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+      "bytes": 422,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+      "bytes": 1383,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+      "bytes": 43,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+      "bytes": 139586,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+      "bytes": 31659,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+      "bytes": 2111,
+      "matches_baseline": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+      "bytes": 12352,
+      "matches_baseline": true
+    }
+  ],
+  "scratch_sessions": [
+    {
+      "session": "research/evidence/window-bridge/live-20260925-01",
+      "closed_receipt_sha256": "7912ada4e70098c1c4c2486883f3423fd2a6b57adc7ada56d4edf62fcaee975b",
+      "closure": {
+        "session_id": "03acea4b-26ae-4582-8ddf-a46b2dbaa78c",
+        "title": "MW5 Window Bridge Scratch 03acea4b-26ae-4582-8ddf-a46b2dbaa78c",
+        "pid": 8720,
+        "started_utc": "2026-09-25T15:18:04.262386+00:00",
+        "closed_utc": "2026-09-25T15:24:32.796866+00:00",
+        "reason": "close_button",
+        "click_count": 1,
+        "entry_value": "",
+        "drag_release_count": 1,
+        "accepted_drag_count": 1,
+        "event_count": 6,
+        "synthesized_input_actions": 0
+      }
+    },
+    {
+      "session": "research/evidence/window-bridge/live-20260925-02",
+      "closed_receipt_sha256": "9c19663f74efa8203e8ad686ef58f9c425ec787bbbdb3e8eee1c4a248abad53e",
+      "closure": {
+        "session_id": "9cad0630-4a01-4449-ba3c-3273e62981e9",
+        "title": "MW5 Window Bridge Scratch 9cad0630-4a01-4449-ba3c-3273e62981e9",
+        "pid": 12916,
+        "started_utc": "2026-09-25T15:26:46.295112+00:00",
+        "closed_utc": "2026-09-25T15:30:51.184573+00:00",
+        "reason": "close_button",
+        "click_count": 0,
+        "entry_value": "MW5 bridge typing verified",
+        "drag_release_count": 1,
+        "accepted_drag_count": 1,
+        "event_count": 57,
+        "synthesized_input_actions": 0
+      }
+    }
+  ],
+  "editor_evidence": [
+    {
+      "observation": "message_log_before",
+      "receipt": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-7804c26eae114f3cb3ca85c1f10534c1/receipt.json",
+      "receipt_sha256": "10f60d6eb8f71352d0f64bc0f061a9e71b74d1aba09e8537fa2be816cf297c4b",
+      "image_sha256": "e0a52e449527d13e0775068d4731bded748300cc6ddc061de5abcf168522101e",
+      "created_utc": "2026-09-25T15:37:03.621530+00:00",
+      "identity": {
+        "hwnd": 2818214,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "Message Log",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          455,
+          215,
+          1465,
+          825
+        ],
+        "client_rect": [
+          455,
+          215,
+          1465,
+          825
+        ],
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_client_pixels_1_to_1",
+      "capture_origin": [
+        455,
+        215
+      ],
+      "consumed.json": {
+        "path": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-7804c26eae114f3cb3ca85c1f10534c1/consumed.json",
+        "sha256": "535361b319817c048e48b72672d14659ddde41e7bcaf9734a73ee1ee8b2acf63",
+        "data": {
+          "started_utc": "2026-09-25T15:37:34.193280+00:00",
+          "action": "click"
+        }
+      },
+      "action-result.json": {
+        "path": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-7804c26eae114f3cb3ca85c1f10534c1/action-result.json",
+        "sha256": "9a4c5aba2fd1089dfd5b0b2002ea65f49692dbe0d1bdd10652e3dc8d8a7cb52e",
+        "data": {
+          "started_utc": "2026-09-25T15:37:34.193280+00:00",
+          "status": "INPUT_INSERTED_EFFECT_REQUIRES_REVIEW",
+          "error": null,
+          "cleanup_error": null,
+          "completed_utc": "2026-09-25T15:37:34.209296+00:00"
+        }
+      },
+      "rejections": []
+    },
+    {
+      "observation": "message_log_selected",
+      "receipt": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-8ed8729eb5e44aceaa068b0bb238e4ef/receipt.json",
+      "receipt_sha256": "f2fca9a4f7a266fa0d5fed751988b1f828ffcb751847d8f56896bc4a8f0ef5e1",
+      "image_sha256": "0bc2b68453ec7c3653153cd283a9cb7daa9bae5182e0b6ea74e84b5241996081",
+      "created_utc": "2026-09-25T15:37:34.475907+00:00",
+      "identity": {
+        "hwnd": 2818214,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "Message Log",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          455,
+          215,
+          1465,
+          825
+        ],
+        "client_rect": [
+          455,
+          215,
+          1465,
+          825
+        ],
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_client_pixels_1_to_1",
+      "capture_origin": [
+        455,
+        215
+      ],
+      "rejections": [
+        {
+          "path": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-8ed8729eb5e44aceaa068b0bb238e4ef/rejected-48a7b8bd08f94bdcb0d1de2e1924f802.json",
+          "sha256": "1c92313897ca1c223c7557999fa65105ff1c15ab576a54c3925b261f099d9b7a",
+          "data": {
+            "status": "REJECTED_BEFORE_INPUT",
+            "utc": "2026-09-25T15:38:21.484308+00:00",
+            "error": "Visible client changed since review; recapture",
+            "input_events": 0,
+            "receipt": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-8ed8729eb5e44aceaa068b0bb238e4ef/receipt.json"
+          }
+        }
+      ]
+    },
+    {
+      "observation": "message_log_close_input",
+      "receipt": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-51ee9459ca304b589151432a7cc44777/receipt.json",
+      "receipt_sha256": "845c24dbc57807004250def032b8c26a1bf0abf44716e686ec49513a5bb3d14d",
+      "image_sha256": "54a3b4887430cf01d94263a06e74a406e7270aed2f90971a361c3f4d0a49a8b7",
+      "created_utc": "2026-09-25T15:38:43.385714+00:00",
+      "identity": {
+        "hwnd": 2818214,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "Message Log",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          455,
+          215,
+          1465,
+          825
+        ],
+        "client_rect": [
+          455,
+          215,
+          1465,
+          825
+        ],
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_client_pixels_1_to_1",
+      "capture_origin": [
+        455,
+        215
+      ],
+      "consumed.json": {
+        "path": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-51ee9459ca304b589151432a7cc44777/consumed.json",
+        "sha256": "2afbe3b51b4c7b8fc8affdf1d27000efb63dc13cd7aab41684bd3b16ebf5c554",
+        "data": {
+          "started_utc": "2026-09-25T15:39:25.533351+00:00",
+          "action": "click"
+        }
+      },
+      "action-result.json": {
+        "path": "research/evidence/window-bridge/editor-987943d63ae94f778f5aead2828121a7/capture-51ee9459ca304b589151432a7cc44777/action-result.json",
+        "sha256": "acedf4836c18a4ca1fc3aa9994fcbe2499bd2eea4245ff9c9093545dc8e37b01",
+        "data": {
+          "started_utc": "2026-09-25T15:39:25.533351+00:00",
+          "status": "INPUT_INSERTED_EFFECT_REQUIRES_REVIEW",
+          "error": null,
+          "cleanup_error": null,
+          "completed_utc": "2026-09-25T15:39:25.544324+00:00",
+          "refresh_error": "Expected exactly one visible scratch fixture"
+        }
+      },
+      "rejections": []
+    },
+    {
+      "observation": "foreground_refusal",
+      "receipt": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-89f0dd0b63aa4e09823af40f79c4edb1/receipt.json",
+      "receipt_sha256": "5251dc9364ba93f9dd62c0f4dfb72c8383f35684ef506f9e819404c00a69244d",
+      "image_sha256": "a792a1fdefd1057c5344aa985bfa692aa0714fd3f713068c9e4c8c1d5ae90f8d",
+      "created_utc": "2026-09-25T15:46:53.384529+00:00",
+      "identity": {
+        "hwnd": 4264034,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "MW5Mercs - Unreal Editor",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          -8,
+          -8,
+          1928,
+          1048
+        ],
+        "client_rect": [
+          0,
+          0,
+          1920,
+          1040
+        ],
+        "native_client_rect": [
+          -8,
+          -8,
+          1928,
+          1048
+        ],
+        "maximized": false,
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_client_pixels_1_to_1",
+      "capture_origin": [
+        0,
+        0
+      ],
+      "rejections": [
+        {
+          "path": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-89f0dd0b63aa4e09823af40f79c4edb1/rejected-f06d8c73c23a44488aad6256126aa205.json",
+          "sha256": "27e6b7521e3267724e772f50f11e437bdfab28b92882bf381d232d887ba62241",
+          "data": {
+            "status": "REJECTED_BEFORE_INPUT",
+            "utc": "2026-09-25T15:47:31.893871+00:00",
+            "error": "Foreground changed; no input sent",
+            "input_events": 0,
+            "receipt": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-89f0dd0b63aa4e09823af40f79c4edb1/receipt.json"
+          }
+        }
+      ]
+    },
+    {
+      "observation": "existing_blueprint_open_input",
+      "receipt": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-7806f277507247a9afe4046c9554bc42/receipt.json",
+      "receipt_sha256": "603bb944dea9cacea6de8830e931479e30bc403a1d6a2118e5348c96b99feb5c",
+      "image_sha256": "1bc48453ac399ea1f1912ac452255d443f4cfbaa4bccc565e757e410a239b13f",
+      "created_utc": "2026-09-25T15:49:03.792372+00:00",
+      "identity": {
+        "hwnd": 4264034,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "MW5Mercs - Unreal Editor",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          -8,
+          -8,
+          1928,
+          1048
+        ],
+        "client_rect": [
+          0,
+          0,
+          1920,
+          1040
+        ],
+        "native_client_rect": [
+          -8,
+          -8,
+          1928,
+          1048
+        ],
+        "maximized": false,
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_client_pixels_1_to_1",
+      "capture_origin": [
+        0,
+        0
+      ],
+      "consumed.json": {
+        "path": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-7806f277507247a9afe4046c9554bc42/consumed.json",
+        "sha256": "ff82d2103da0cc996c2595cfc4aa1f9fd39ab106ac54ec55e25d27bf9f15e052",
+        "data": {
+          "started_utc": "2026-09-25T15:49:42.000448+00:00",
+          "review_region": [
+            0,
+            700,
+            500,
+            930
+          ],
+          "click_count": 2,
+          "action": "click"
+        }
+      },
+      "action-result.json": {
+        "path": "research/evidence/window-bridge/editor-3defac3b038842c2a27fdd29510e213a/capture-7806f277507247a9afe4046c9554bc42/action-result.json",
+        "sha256": "bf1b42d458fc25aef8a00468bbdb21ff53e04543e52d0802357e0f10478d3342",
+        "data": {
+          "started_utc": "2026-09-25T15:49:42.000448+00:00",
+          "status": "INPUT_INSERTED_EFFECT_REQUIRES_REVIEW",
+          "error": null,
+          "cleanup_error": null,
+          "completed_utc": "2026-09-25T15:49:42.105485+00:00",
+          "refresh_error": "Foreground changed; no input sent"
+        }
+      },
+      "rejections": []
+    },
+    {
+      "observation": "opened_blueprint",
+      "receipt": "research/evidence/window-bridge/editor-013d4df02b534f97adb81d26bd42d2b9/capture-91616a23464e40429c23295b6ecaa91e/receipt.json",
+      "receipt_sha256": "f5b2faf73296130f29180825a3f36045ffd6196b397e9aa48378a4a44a0c731f",
+      "image_sha256": "88bd1327794c99a17a29502efdd56f6504d1f4ea9f9853ab9b48d3bfa685c7bc",
+      "created_utc": "2026-09-25T15:50:19.268400+00:00",
+      "identity": {
+        "hwnd": 7868404,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "BP_LanceObserverProbeComponent",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "client_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "native_client_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "maximized": false,
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_client_pixels_1_to_1",
+      "capture_origin": [
+        331,
+        177
+      ],
+      "rejections": []
+    },
+    {
+      "observation": "final_revision_variable_select_input",
+      "receipt": "research/evidence/window-bridge/editor-013d4df02b534f97adb81d26bd42d2b9/capture-f949175028444ad68c28bb7a3af766ec/receipt.json",
+      "receipt_sha256": "0916e2e97a82b9071548867f33a529673c65a0c29dd95e0b693fd60ec29c8eec",
+      "image_sha256": "88bd1327794c99a17a29502efdd56f6504d1f4ea9f9853ab9b48d3bfa685c7bc",
+      "created_utc": "2026-09-25T15:52:13.061943+00:00",
+      "identity": {
+        "hwnd": 7868404,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "BP_LanceObserverProbeComponent",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "client_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "native_client_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "maximized": false,
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_capture_pixels_1_to_1",
+      "capture_origin": [
+        331,
+        177
+      ],
+      "consumed.json": {
+        "path": "research/evidence/window-bridge/editor-013d4df02b534f97adb81d26bd42d2b9/capture-f949175028444ad68c28bb7a3af766ec/consumed.json",
+        "sha256": "e52316a8a440fb8a7e113232a452b986873e86d640a05f3ea4279793ce257a8c",
+        "data": {
+          "started_utc": "2026-09-25T15:52:43.073460+00:00",
+          "review_region": null,
+          "click_count": 1,
+          "action": "click"
+        }
+      },
+      "action-result.json": {
+        "path": "research/evidence/window-bridge/editor-013d4df02b534f97adb81d26bd42d2b9/capture-f949175028444ad68c28bb7a3af766ec/action-result.json",
+        "sha256": "967ebf3173e9b28d8a3d4df31596b1b7f61ebeb583bd27329ea2a65f021c0427",
+        "data": {
+          "started_utc": "2026-09-25T15:52:43.073460+00:00",
+          "status": "INPUT_INSERTED_EFFECT_REQUIRES_REVIEW",
+          "error": null,
+          "cleanup_error": null,
+          "completed_utc": "2026-09-25T15:52:43.096398+00:00"
+        }
+      },
+      "rejections": []
+    },
+    {
+      "observation": "variable_details_visible",
+      "receipt": "research/evidence/window-bridge/editor-013d4df02b534f97adb81d26bd42d2b9/capture-9ef986b89e7140cba48aa5eb83ee5706/receipt.json",
+      "receipt_sha256": "1cdfebb965aa4e7fc940c1e9babf73ccbe65323d98fd9b3176d88e05fbd7e12c",
+      "image_sha256": "d2bcb350ebd66b9b89e93ae0baea6a13f942c1f4984a6547efbc444a27e175d3",
+      "created_utc": "2026-09-25T15:52:43.413093+00:00",
+      "identity": {
+        "hwnd": 7868404,
+        "pid": 28296,
+        "tid": 1216,
+        "process": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+        "title": "BP_LanceObserverProbeComponent",
+        "process_created": 134348239112222110,
+        "window_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "client_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "native_client_rect": [
+          331,
+          177,
+          1571,
+          845
+        ],
+        "maximized": false,
+        "monitor": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "work_area": [
+          0,
+          0,
+          1920,
+          1040
+        ]
+      },
+      "mapping": "physical_capture_pixels_1_to_1",
+      "capture_origin": [
+        331,
+        177
+      ],
+      "rejections": []
+    }
+  ],
+  "editor_left_open": {
+    "pid": 28296,
+    "hwnd": 7868404,
+    "title": "BP_LanceObserverProbeComponent",
+    "selected_variable": "SnapshotOwner",
+    "reuse_requires_fresh_identity_and_capture": true
+  },
+  "limits": [
+    "Global input cannot eliminate human focus/cursor races",
+    "Editor navigation is a procedural scope, not a mechanical ban on mutating pointer targets",
+    "PNG evidence is local and excluded from source backup",
+    "Missing retail readout remains inconclusive"
+  ]
+}
