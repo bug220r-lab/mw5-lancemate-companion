@@ -1,6 +1,7 @@
 /companion/local/
 /tmp/
 /output/
+/artifacts/
 /research/evidence/
 __pycache__/
 *.pyc

@@ -1,0 +1,67 @@
+{
+  "status": "EDITOR_SOURCE_REVIEW_COMPLETED_WITH_NOTES",
+  "classification": "OBSERVED_EDITOR_SOURCE_ONLY",
+  "verified_at_utc": "2026-09-25T05:30:07.2212297Z",
+  "export_directory": "research/evidence/editor-source/observer-authored-20260925T052357Z-b89383e2",
+  "export_report_sha256": "35b071ed976157abc7e7fdb6c3cdfb7308d0f2df3a75405d6fac834a5dd43404",
+  "helper_sha256": "c3244f8205168027a1997d7a0b7e0c6c1a1c24431a56a2528a8eec5725b0b31f",
+  "exports_verified": [
+    {
+      "file": "WBP_LanceObserverProbeReadout.COPY",
+      "bytes": 17218,
+      "sha256": "f1514ddd2484bf545749c640c892e1b7e7ebf1c3d1dd914fe234ccc004b7d2c3"
+    },
+    {
+      "file": "WBP_LanceObserverProbeReadout-defaults.COPY",
+      "bytes": 1962,
+      "sha256": "2db67f3b51795ba5101c6f59a3b68fc1e83b01ccb56ac3e9c3c0c2dbe8dee9e6"
+    },
+    {
+      "file": "BP_LanceObserverProbeComponent.COPY",
+      "bytes": 311678,
+      "sha256": "7ca123068c6a73ee2e4a9ca9bc970f3e3cd88223951be239edff1f2b9c212ce4"
+    },
+    {
+      "file": "BP_LanceObserverProbeComponent-defaults.COPY",
+      "bytes": 800,
+      "sha256": "9f56c1229c2285fe9725f6bc5591db43bcf82e857328d5070d3507c78ba21b23"
+    },
+    {
+      "file": "DA_LanceObserverProbeRegistration.COPY",
+      "bytes": 533,
+      "sha256": "08d0eb03b249ef97031aa57ba27138ae99e1a33c21f62fe27c3595007ef4b331"
+    }
+  ],
+  "saved_asset_hashes_match_export": true,
+  "disk_sources_unchanged_during_backup": true,
+  "backup_manifest": "research/evidence/editor-authored/LanceObserverProbe-20260925-053007-reviewed/BACKUP_MANIFEST.json",
+  "backup_manifest_sha256": "3185505b5b83449cda09beb343884bfcbf029d756ef7823f3c1b25902c6f52a4",
+  "backup_file_count": 8,
+  "review_result": "research/AUTHORED_OBSERVER_REVIEW_RESULT.md",
+  "review_result_sha256": "e37b5f17814dede37d14d0b62d191f62e6fadefec4e3530abbecbefe76a76417",
+  "review_roles": {
+    "component": "Independent read-only authored_graph_review agent",
+    "widget_registration_integrity": "Root coordinator"
+  },
+  "component_structural_review": {
+    "nodes": 49,
+    "pins": 172,
+    "reciprocal_link_pairs": 58,
+    "missing_endpoints": 0,
+    "nonreciprocal_links": 0,
+    "orphaned_pin_flags": 0
+  },
+  "notes": [
+    "Cosmetic Componet label typo retained.",
+    "Slash separators match guided authoring; AutoWrapText true; real readability untested.",
+    "SnapshotComponents CDO default omitted and unknown; active path overwrites it before count use.",
+    "Loaded/saved graph equivalence is not independently established by disk hashes."
+  ],
+  "compile": "USER_SCREENSHOT_GREEN_ICON_ONLY",
+  "runtime": "NOT_PERFORMED",
+  "cook": "NOT_PERFORMED",
+  "retail_deployment": "NOT_PERFORMED",
+  "lifecycle": "NOT_PERFORMED",
+  "recording": "NOT_PERFORMED",
+  "next": "Inspect installed Manage Mod options; prepare bounded local package before invocation."
+}

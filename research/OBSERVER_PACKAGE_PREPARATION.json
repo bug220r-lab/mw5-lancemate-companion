@@ -1,0 +1,126 @@
+{
+  "status": "PREPARED_FOR_DESTINATION_DIALOG_ONLY",
+  "observed_at_utc": "2026-09-25T05:36:12.9467789Z",
+  "classification": "OBSERVED_LOCAL_INPUTS_AND_USER_SCREENSHOT",
+  "screenshot": "C:/Users/jlewi/AppData/Local/Temp/codex-clipboard-a5b6df34-71b3-447a-b555-4959294642cf.png",
+  "observed_ui": {
+    "active_mod": "LanceObserverProbe",
+    "title": "LanceObserverProbe",
+    "author": "Jlewis1231",
+    "description": "Passive lancemate observation probe",
+    "load_order": 0,
+    "upper_action": "Package",
+    "separate_lower_section": "Publish To Steam",
+    "publication_visibility": "Private",
+    "message": "You have not yet packaged this mod"
+  },
+  "documented_sequence": {
+    "source": "https://static.mw5mercs.com/docs/MW5Mercs_Mod_Editor_Guide_%28v2.3%29.pdf#page=11",
+    "accessed": "2026-09-25",
+    "steps": [
+      "Package Mod opens destination picker",
+      "Select Folder starts packaging"
+    ],
+    "limitation": "Historical official UI description; current installed picker behavior not yet observed"
+  },
+  "output_directory": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\artifacts\\LanceObserverProbe\\package-20260925-01",
+  "output_directory_empty": true,
+  "source_files": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "bytes": 422,
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "bytes": 1383,
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "bytes": 139586,
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "bytes": 31659,
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "bytes": 2111,
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+    }
+  ],
+  "source_matches_reviewed_backup": true,
+  "engine_build": {
+    "MajorVersion": 4,
+    "MinorVersion": 26,
+    "PatchVersion": 2,
+    "Changelist": 0,
+    "CompatibleChangelist": 14830424,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 0,
+    "BranchName": "++UE4+Release-4.26"
+  },
+  "engine_build_sha256": "820d6814cf61b6458fb4fc22247a0ee77b964b3bd7a48fe07222c78389785765",
+  "resource_observation": {
+    "observed_at_utc": "2026-09-25T01:34:49.672841-04:00",
+    "method": "GlobalMemoryStatusEx and disk_usage",
+    "physical_total_bytes": 16988229632,
+    "physical_available_bytes": 1283702784,
+    "commit_available_bytes": 3718729728,
+    "disk_free_bytes": 14986534912,
+    "limitation": "Point-in-time observation, not build admission. Initial CIM query was denied; its derived zero values are invalid and discarded."
+  },
+  "action_limit": "Open upper Package destination picker only; do not confirm Select Folder or begin build yet.",
+  "build_preflight": "PENDING: resource headroom, cache/staging/log paths, stop and cleanup plan, refreshed admission checks",
+  "cook": "NOT_PERFORMED",
+  "publication": "NOT_PERFORMED",
+  "retail_deployment": "NOT_PERFORMED",
+  "destination_dialog_observation": {
+    "screenshot": "C:/Users/jlewi/AppData/Local/Temp/codex-clipboard-5d42c029-680f-4603-8923-338653587447.png",
+    "title": "Select Mod Output Folder",
+    "current_location": "C:/Program Files/Epic Games/MechWarrior5Editor/MW5Mercs/Mods",
+    "folder_field": "Blank",
+    "buttons": [
+      "Select Folder",
+      "Cancel"
+    ],
+    "select_folder_clicked": false
+  },
+  "last_input_hash_check_utc": "2026-09-25T05:38:28.4812222Z",
+  "latest_resource_observation": {
+    "observed_at_utc": "2026-09-25T05:43:53.884167+00:00",
+    "physical_available_bytes": 4224356352,
+    "commit_available_bytes": 4217729024,
+    "disk_free_bytes": 14907822080,
+    "limitation": "Point-in-time observation, not admission; slightly below proposed 4GiB physical/commit reserves."
+  },
+  "proposed_cook_reserves": {
+    "classification": "PROPOSED_ENGINEERING_LIMITS_NOT_MEASURED_REQUIREMENTS",
+    "physical_admission_bytes": 4294967296,
+    "commit_admission_bytes": 4294967296,
+    "disk_admission_bytes": 12884901888,
+    "physical_floor_bytes": 2147483648,
+    "commit_floor_bytes": 2147483648,
+    "disk_floor_bytes": 10737418240,
+    "explanation": "Manual packaging in existing GUI; distinct from 8GiB cold-start profile. Two passing fresh observations before native action. No automatic termination of user editor."
+  },
+  "user_preference": "Keep Spotify open."
+}

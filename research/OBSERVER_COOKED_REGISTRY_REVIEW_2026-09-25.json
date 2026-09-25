@@ -1,0 +1,1306 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-25T06:23:04.405471+00:00",
+  "classification": "OBSERVED_OFFLINE_BINARY_METADATA",
+  "status": "STRUCTURED_COOKED_REGISTRY_PARSE_PASS_RUNTIME_UNKNOWN",
+  "input": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\retail-observer\\startup-observation-20260925T061051Z\\cooked-AssetRegistry.bin",
+    "bytes": 2447,
+    "sha256": "bad69d85cd2a54641c2e41f756708a7b7354c2f9bf490b3d8a10830e9636773a"
+  },
+  "decoder": {
+    "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-CookedObserverRegistry.py",
+    "sha256": "994c2ec4274d411020501d183ba32b2d3b23e30377b7124814e59c7b8487a8fe",
+    "stdlib_only": true,
+    "maximum_input_bytes": 65536
+  },
+  "schema_source": {
+    "project": "FabianFG/CUE4Parse",
+    "commit": "149cad578905243d181ab12ace556ed218f6563a",
+    "accessed_date": "2026-09-25",
+    "source_executed": false,
+    "url_root": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/",
+    "files": [
+      {
+        "path": "AssetRegistry/FAssetRegistryState.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/AssetRegistry/FAssetRegistryState.cs",
+        "bytes": 3679,
+        "sha256": "af2aea451c116fa96d1b1cd2ae33f7eb1ab7702b2ddc41cfe748df8ff8ae5609",
+        "section": "constructor and Load"
+      },
+      {
+        "path": "AssetRegistry/Objects/FNameTableArchiveReader.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/AssetRegistry/Objects/FNameTableArchiveReader.cs",
+        "bytes": 2724,
+        "sha256": "e3e4d17293317e9ab0d9cce34bdef24efbf5436facf822074042b7e6c560e08a",
+        "section": "constructor, ReadFName, SerializeTagsAndBundles"
+      },
+      {
+        "path": "AssetRegistry/Objects/FAssetData.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/AssetRegistry/Objects/FAssetData.cs",
+        "bytes": 2030,
+        "sha256": "ae1db026752607f0f676bdce4941e97a925d1e7ca5d5764c69b5169575ee8cd2",
+        "section": "constructor field order and version gates"
+      },
+      {
+        "path": "Versions/FAssetRegistryVersion.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/Versions/FAssetRegistryVersion.cs",
+        "bytes": 4273,
+        "sha256": "3db711eeecca34b8e14c474bcbecbdb9be6df699e44f497375e68225b0ce476f",
+        "section": "enum and GUID/version serialization"
+      },
+      {
+        "path": "Objects/UObject/FNameEntrySerialized.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/Objects/UObject/FNameEntrySerialized.cs",
+        "bytes": 5702,
+        "sha256": "743a7c38e8ec7be46cfe830a14f133d8272e52eef2f20f259e135cbcaec92c1c",
+        "section": "constructor string and two uint16 hashes"
+      },
+      {
+        "path": "AssetRegistry/Objects/FAssetRegistryHeader.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/AssetRegistry/Objects/FAssetRegistryHeader.cs",
+        "bytes": 650,
+        "sha256": "0bab084ecfa71ab11def210a49c12874bf5816414c14ae47e4726acbebd6c699",
+        "section": "constructor header version gate"
+      },
+      {
+        "path": "Readers/FArchive.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/Readers/FArchive.cs",
+        "bytes": 31575,
+        "sha256": "0e8c3046d95b2905695441a5cba1f72b39c085f7e0d2b67807a981697e802b47",
+        "section": "ReadFString, lines 522-579; ReadArray"
+      },
+      {
+        "path": "Versions/EGame.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/Versions/EGame.cs",
+        "bytes": 17067,
+        "sha256": "7fda6cee2ec993626476ea5b949b8194be7849ed0c7e3cce3331a6f8aee3e8bd",
+        "section": "GetVersion UE4.26 mapping, lines 349-350"
+      },
+      {
+        "path": "Versions/ObjectVersion.cs",
+        "url": "https://github.com/FabianFG/CUE4Parse/blob/149cad578905243d181ab12ace556ed218f6563a/CUE4Parse/UE4/Versions/ObjectVersion.cs",
+        "bytes": 117696,
+        "sha256": "ac2e5427f5870d7db41494def8f122202212f4b6e90e43af30efe5aee9b35c6e",
+        "section": "chunk array, package flags, name hashes and dependency flags enum entries"
+      }
+    ]
+  },
+  "result": {
+    "registry_guid_words": [
+      "717f9ee7",
+      "e9b0493a",
+      "88b39132",
+      "1b388107"
+    ],
+    "registry_version": 7,
+    "registry_version_name": "AddedDependencyFlags",
+    "engine_serialization_profile": "UE4.26 (object version 522); provided by package context, not encoded in registry",
+    "name_table_offset": 1356,
+    "name_count": 30,
+    "names": [
+      {
+        "index": 0,
+        "offset": 1360,
+        "end": 1450,
+        "name": "/LanceObserverProbe/BP_LanceObserverProbeComponent.BP_LanceObserverProbeComponent",
+        "serialized_hashes_u16": [
+          14100,
+          63237
+        ]
+      },
+      {
+        "index": 1,
+        "offset": 1450,
+        "end": 1478,
+        "name": "/LanceObserverProbe",
+        "serialized_hashes_u16": [
+          49564,
+          11601
+        ]
+      },
+      {
+        "index": 2,
+        "offset": 1478,
+        "end": 1496,
+        "name": "Blueprint",
+        "serialized_hashes_u16": [
+          14612,
+          3379
+        ]
+      },
+      {
+        "index": 3,
+        "offset": 1496,
+        "end": 1555,
+        "name": "/LanceObserverProbe/BP_LanceObserverProbeComponent",
+        "serialized_hashes_u16": [
+          63230,
+          52209
+        ]
+      },
+      {
+        "index": 4,
+        "offset": 1555,
+        "end": 1594,
+        "name": "BP_LanceObserverProbeComponent",
+        "serialized_hashes_u16": [
+          20883,
+          35079
+        ]
+      },
+      {
+        "index": 5,
+        "offset": 1594,
+        "end": 1617,
+        "name": "GeneratedClass",
+        "serialized_hashes_u16": [
+          2182,
+          21592
+        ]
+      },
+      {
+        "index": 6,
+        "offset": 1617,
+        "end": 1637,
+        "name": "ParentClass",
+        "serialized_hashes_u16": [
+          56600,
+          23461
+        ]
+      },
+      {
+        "index": 7,
+        "offset": 1637,
+        "end": 1663,
+        "name": "NativeParentClass",
+        "serialized_hashes_u16": [
+          56918,
+          30583
+        ]
+      },
+      {
+        "index": 8,
+        "offset": 1663,
+        "end": 1682,
+        "name": "ClassFlags",
+        "serialized_hashes_u16": [
+          25346,
+          18139
+        ]
+      },
+      {
+        "index": 9,
+        "offset": 1682,
+        "end": 1704,
+        "name": "BlueprintType",
+        "serialized_hashes_u16": [
+          4364,
+          57234
+        ]
+      },
+      {
+        "index": 10,
+        "offset": 1704,
+        "end": 1723,
+        "name": "IsDataOnly",
+        "serialized_hashes_u16": [
+          28125,
+          37227
+        ]
+      },
+      {
+        "index": 11,
+        "offset": 1723,
+        "end": 1755,
+        "name": "NumReplicatedProperties",
+        "serialized_hashes_u16": [
+          46868,
+          29107
+        ]
+      },
+      {
+        "index": 12,
+        "offset": 1755,
+        "end": 1780,
+        "name": "NativeComponents",
+        "serialized_hashes_u16": [
+          53091,
+          30463
+        ]
+      },
+      {
+        "index": 13,
+        "offset": 1780,
+        "end": 1808,
+        "name": "BlueprintComponents",
+        "serialized_hashes_u16": [
+          27538,
+          17685
+        ]
+      },
+      {
+        "index": 14,
+        "offset": 1808,
+        "end": 1830,
+        "name": "BlueprintPath",
+        "serialized_hashes_u16": [
+          57757,
+          56880
+        ]
+      },
+      {
+        "index": 15,
+        "offset": 1830,
+        "end": 1926,
+        "name": "/LanceObserverProbe/DA_LanceObserverProbeRegistration.DA_LanceObserverProbeRegistration",
+        "serialized_hashes_u16": [
+          43034,
+          60848
+        ]
+      },
+      {
+        "index": 16,
+        "offset": 1926,
+        "end": 1971,
+        "name": "PlayerControllerComponentDataAsset_C",
+        "serialized_hashes_u16": [
+          39714,
+          62442
+        ]
+      },
+      {
+        "index": 17,
+        "offset": 1971,
+        "end": 2033,
+        "name": "/LanceObserverProbe/DA_LanceObserverProbeRegistration",
+        "serialized_hashes_u16": [
+          11887,
+          16380
+        ]
+      },
+      {
+        "index": 18,
+        "offset": 2033,
+        "end": 2075,
+        "name": "DA_LanceObserverProbeRegistration",
+        "serialized_hashes_u16": [
+          34024,
+          32483
+        ]
+      },
+      {
+        "index": 19,
+        "offset": 2075,
+        "end": 2100,
+        "name": "PrimaryAssetType",
+        "serialized_hashes_u16": [
+          15388,
+          28888
+        ]
+      },
+      {
+        "index": 20,
+        "offset": 2100,
+        "end": 2125,
+        "name": "PrimaryAssetName",
+        "serialized_hashes_u16": [
+          26533,
+          19346
+        ]
+      },
+      {
+        "index": 21,
+        "offset": 2125,
+        "end": 2149,
+        "name": "AssetBundleData",
+        "serialized_hashes_u16": [
+          216,
+          38313
+        ]
+      },
+      {
+        "index": 22,
+        "offset": 2149,
+        "end": 2169,
+        "name": "NativeClass",
+        "serialized_hashes_u16": [
+          7467,
+          31227
+        ]
+      },
+      {
+        "index": 23,
+        "offset": 2169,
+        "end": 2257,
+        "name": "/LanceObserverProbe/WBP_LanceObserverProbeReadout.WBP_LanceObserverProbeReadout",
+        "serialized_hashes_u16": [
+          52291,
+          28739
+        ]
+      },
+      {
+        "index": 24,
+        "offset": 2257,
+        "end": 2281,
+        "name": "WidgetBlueprint",
+        "serialized_hashes_u16": [
+          24143,
+          39369
+        ]
+      },
+      {
+        "index": 25,
+        "offset": 2281,
+        "end": 2339,
+        "name": "/LanceObserverProbe/WBP_LanceObserverProbeReadout",
+        "serialized_hashes_u16": [
+          51874,
+          51984
+        ]
+      },
+      {
+        "index": 26,
+        "offset": 2339,
+        "end": 2377,
+        "name": "WBP_LanceObserverProbeReadout",
+        "serialized_hashes_u16": [
+          53474,
+          6895
+        ]
+      },
+      {
+        "index": 27,
+        "offset": 2377,
+        "end": 2399,
+        "name": "TickFrequency",
+        "serialized_hashes_u16": [
+          56929,
+          42525
+        ]
+      },
+      {
+        "index": 28,
+        "offset": 2399,
+        "end": 2424,
+        "name": "PropertyBindings",
+        "serialized_hashes_u16": [
+          48390,
+          43817
+        ]
+      },
+      {
+        "index": 29,
+        "offset": 2424,
+        "end": 2447,
+        "name": "TickPrediction",
+        "serialized_hashes_u16": [
+          31791,
+          28117
+        ]
+      }
+    ],
+    "asset_count": 3,
+    "assets": [
+      {
+        "index": 0,
+        "offset": 32,
+        "end": 559,
+        "object_path": "/LanceObserverProbe/BP_LanceObserverProbeComponent.BP_LanceObserverProbeComponent",
+        "package_path": "/LanceObserverProbe",
+        "asset_class": "Blueprint",
+        "package_name": "/LanceObserverProbe/BP_LanceObserverProbeComponent",
+        "asset_name": "BP_LanceObserverProbeComponent",
+        "tag_count_offset": 72,
+        "tags": [
+          {
+            "offset": 76,
+            "end": 197,
+            "key": "GeneratedClass",
+            "value": "BlueprintGeneratedClass'/LanceObserverProbe/BP_LanceObserverProbeComponent.BP_LanceObserverProbeComponent_C'"
+          },
+          {
+            "offset": 197,
+            "end": 348,
+            "key": "ParentClass",
+            "value": "BlueprintGeneratedClass'/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponent.PlayerControllerComponent_C'"
+          },
+          {
+            "offset": 348,
+            "end": 397,
+            "key": "NativeParentClass",
+            "value": "Class'/Script/Engine.ActorComponent'"
+          },
+          {
+            "offset": 397,
+            "end": 418,
+            "key": "ClassFlags",
+            "value": "14944276"
+          },
+          {
+            "offset": 418,
+            "end": 444,
+            "key": "BlueprintType",
+            "value": "BPTYPE_Normal"
+          },
+          {
+            "offset": 444,
+            "end": 462,
+            "key": "IsDataOnly",
+            "value": "False"
+          },
+          {
+            "offset": 462,
+            "end": 476,
+            "key": "NumReplicatedProperties",
+            "value": "0"
+          },
+          {
+            "offset": 476,
+            "end": 490,
+            "key": "NativeComponents",
+            "value": "0"
+          },
+          {
+            "offset": 490,
+            "end": 504,
+            "key": "BlueprintComponents",
+            "value": "0"
+          },
+          {
+            "offset": 504,
+            "end": 547,
+            "key": "BlueprintPath",
+            "value": "BP_LanceObserverProbeComponent"
+          }
+        ],
+        "chunk_count_offset": 547,
+        "chunk_ids": [
+          0
+        ],
+        "package_flags_offset": 555,
+        "package_flags_u32": 262144,
+        "package_flags_hex": "0x00040000"
+      },
+      {
+        "index": 1,
+        "offset": 559,
+        "end": 902,
+        "object_path": "/LanceObserverProbe/DA_LanceObserverProbeRegistration.DA_LanceObserverProbeRegistration",
+        "package_path": "/LanceObserverProbe",
+        "asset_class": "PlayerControllerComponentDataAsset_C",
+        "package_name": "/LanceObserverProbe/DA_LanceObserverProbeRegistration",
+        "asset_name": "DA_LanceObserverProbeRegistration",
+        "tag_count_offset": 599,
+        "tags": [
+          {
+            "offset": 603,
+            "end": 652,
+            "key": "PrimaryAssetType",
+            "value": "PlayerControllerComponentDataAsset_C"
+          },
+          {
+            "offset": 652,
+            "end": 698,
+            "key": "PrimaryAssetName",
+            "value": "DA_LanceObserverProbeRegistration"
+          },
+          {
+            "offset": 698,
+            "end": 721,
+            "key": "AssetBundleData",
+            "value": "(Bundles=)"
+          },
+          {
+            "offset": 721,
+            "end": 890,
+            "key": "NativeClass",
+            "value": "BlueprintGeneratedClass'/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerComponentDataAsset.PlayerControllerComponentDataAsset_C'"
+          }
+        ],
+        "chunk_count_offset": 890,
+        "chunk_ids": [
+          0
+        ],
+        "package_flags_offset": 898,
+        "package_flags_u32": 0,
+        "package_flags_hex": "0x00000000"
+      },
+      {
+        "index": 2,
+        "offset": 902,
+        "end": 1340,
+        "object_path": "/LanceObserverProbe/WBP_LanceObserverProbeReadout.WBP_LanceObserverProbeReadout",
+        "package_path": "/LanceObserverProbe",
+        "asset_class": "WidgetBlueprint",
+        "package_name": "/LanceObserverProbe/WBP_LanceObserverProbeReadout",
+        "asset_name": "WBP_LanceObserverProbeReadout",
+        "tag_count_offset": 942,
+        "tags": [
+          {
+            "offset": 946,
+            "end": 1071,
+            "key": "GeneratedClass",
+            "value": "WidgetBlueprintGeneratedClass'/LanceObserverProbe/WBP_LanceObserverProbeReadout.WBP_LanceObserverProbeReadout_C'"
+          },
+          {
+            "offset": 1071,
+            "end": 1113,
+            "key": "ParentClass",
+            "value": "Class'/Script/UMG.UserWidget'"
+          },
+          {
+            "offset": 1113,
+            "end": 1155,
+            "key": "NativeParentClass",
+            "value": "Class'/Script/UMG.UserWidget'"
+          },
+          {
+            "offset": 1155,
+            "end": 1176,
+            "key": "ClassFlags",
+            "value": "14948368"
+          },
+          {
+            "offset": 1176,
+            "end": 1202,
+            "key": "BlueprintType",
+            "value": "BPTYPE_Normal"
+          },
+          {
+            "offset": 1202,
+            "end": 1220,
+            "key": "IsDataOnly",
+            "value": "False"
+          },
+          {
+            "offset": 1220,
+            "end": 1234,
+            "key": "NumReplicatedProperties",
+            "value": "0"
+          },
+          {
+            "offset": 1234,
+            "end": 1276,
+            "key": "BlueprintPath",
+            "value": "WBP_LanceObserverProbeReadout"
+          },
+          {
+            "offset": 1276,
+            "end": 1293,
+            "key": "TickFrequency",
+            "value": "Auto"
+          },
+          {
+            "offset": 1293,
+            "end": 1307,
+            "key": "PropertyBindings",
+            "value": "0"
+          },
+          {
+            "offset": 1307,
+            "end": 1328,
+            "key": "TickPrediction",
+            "value": "WontTick"
+          }
+        ],
+        "chunk_count_offset": 1328,
+        "chunk_ids": [
+          0
+        ],
+        "package_flags_offset": 1336,
+        "package_flags_u32": 262144,
+        "package_flags_hex": "0x00040000"
+      }
+    ],
+    "dependency_section": {
+      "size_offset": 1340,
+      "size": 4,
+      "count_offset": 1348,
+      "count": 0
+    },
+    "package_data": {
+      "count_offset": 1352,
+      "count": 0
+    },
+    "fname_references": [
+      {
+        "offset": 32,
+        "index": 0,
+        "number": 0
+      },
+      {
+        "offset": 40,
+        "index": 1,
+        "number": 0
+      },
+      {
+        "offset": 48,
+        "index": 2,
+        "number": 0
+      },
+      {
+        "offset": 56,
+        "index": 3,
+        "number": 0
+      },
+      {
+        "offset": 64,
+        "index": 4,
+        "number": 0
+      },
+      {
+        "offset": 76,
+        "index": 5,
+        "number": 0
+      },
+      {
+        "offset": 197,
+        "index": 6,
+        "number": 0
+      },
+      {
+        "offset": 348,
+        "index": 7,
+        "number": 0
+      },
+      {
+        "offset": 397,
+        "index": 8,
+        "number": 0
+      },
+      {
+        "offset": 418,
+        "index": 9,
+        "number": 0
+      },
+      {
+        "offset": 444,
+        "index": 10,
+        "number": 0
+      },
+      {
+        "offset": 462,
+        "index": 11,
+        "number": 0
+      },
+      {
+        "offset": 476,
+        "index": 12,
+        "number": 0
+      },
+      {
+        "offset": 490,
+        "index": 13,
+        "number": 0
+      },
+      {
+        "offset": 504,
+        "index": 14,
+        "number": 0
+      },
+      {
+        "offset": 559,
+        "index": 15,
+        "number": 0
+      },
+      {
+        "offset": 567,
+        "index": 1,
+        "number": 0
+      },
+      {
+        "offset": 575,
+        "index": 16,
+        "number": 0
+      },
+      {
+        "offset": 583,
+        "index": 17,
+        "number": 0
+      },
+      {
+        "offset": 591,
+        "index": 18,
+        "number": 0
+      },
+      {
+        "offset": 603,
+        "index": 19,
+        "number": 0
+      },
+      {
+        "offset": 652,
+        "index": 20,
+        "number": 0
+      },
+      {
+        "offset": 698,
+        "index": 21,
+        "number": 0
+      },
+      {
+        "offset": 721,
+        "index": 22,
+        "number": 0
+      },
+      {
+        "offset": 902,
+        "index": 23,
+        "number": 0
+      },
+      {
+        "offset": 910,
+        "index": 1,
+        "number": 0
+      },
+      {
+        "offset": 918,
+        "index": 24,
+        "number": 0
+      },
+      {
+        "offset": 926,
+        "index": 25,
+        "number": 0
+      },
+      {
+        "offset": 934,
+        "index": 26,
+        "number": 0
+      },
+      {
+        "offset": 946,
+        "index": 5,
+        "number": 0
+      },
+      {
+        "offset": 1071,
+        "index": 6,
+        "number": 0
+      },
+      {
+        "offset": 1113,
+        "index": 7,
+        "number": 0
+      },
+      {
+        "offset": 1155,
+        "index": 8,
+        "number": 0
+      },
+      {
+        "offset": 1176,
+        "index": 9,
+        "number": 0
+      },
+      {
+        "offset": 1202,
+        "index": 10,
+        "number": 0
+      },
+      {
+        "offset": 1220,
+        "index": 11,
+        "number": 0
+      },
+      {
+        "offset": 1234,
+        "index": 14,
+        "number": 0
+      },
+      {
+        "offset": 1276,
+        "index": 27,
+        "number": 0
+      },
+      {
+        "offset": 1293,
+        "index": 28,
+        "number": 0
+      },
+      {
+        "offset": 1307,
+        "index": 29,
+        "number": 0
+      }
+    ],
+    "strings": [
+      {
+        "offset": 84,
+        "end": 197,
+        "length_field": 109
+      },
+      {
+        "offset": 205,
+        "end": 348,
+        "length_field": 139
+      },
+      {
+        "offset": 356,
+        "end": 397,
+        "length_field": 37
+      },
+      {
+        "offset": 405,
+        "end": 418,
+        "length_field": 9
+      },
+      {
+        "offset": 426,
+        "end": 444,
+        "length_field": 14
+      },
+      {
+        "offset": 452,
+        "end": 462,
+        "length_field": 6
+      },
+      {
+        "offset": 470,
+        "end": 476,
+        "length_field": 2
+      },
+      {
+        "offset": 484,
+        "end": 490,
+        "length_field": 2
+      },
+      {
+        "offset": 498,
+        "end": 504,
+        "length_field": 2
+      },
+      {
+        "offset": 512,
+        "end": 547,
+        "length_field": 31
+      },
+      {
+        "offset": 611,
+        "end": 652,
+        "length_field": 37
+      },
+      {
+        "offset": 660,
+        "end": 698,
+        "length_field": 34
+      },
+      {
+        "offset": 706,
+        "end": 721,
+        "length_field": 11
+      },
+      {
+        "offset": 729,
+        "end": 890,
+        "length_field": 157
+      },
+      {
+        "offset": 954,
+        "end": 1071,
+        "length_field": 113
+      },
+      {
+        "offset": 1079,
+        "end": 1113,
+        "length_field": 30
+      },
+      {
+        "offset": 1121,
+        "end": 1155,
+        "length_field": 30
+      },
+      {
+        "offset": 1163,
+        "end": 1176,
+        "length_field": 9
+      },
+      {
+        "offset": 1184,
+        "end": 1202,
+        "length_field": 14
+      },
+      {
+        "offset": 1210,
+        "end": 1220,
+        "length_field": 6
+      },
+      {
+        "offset": 1228,
+        "end": 1234,
+        "length_field": 2
+      },
+      {
+        "offset": 1242,
+        "end": 1276,
+        "length_field": 30
+      },
+      {
+        "offset": 1284,
+        "end": 1293,
+        "length_field": 5
+      },
+      {
+        "offset": 1301,
+        "end": 1307,
+        "length_field": 2
+      },
+      {
+        "offset": 1315,
+        "end": 1328,
+        "length_field": 9
+      },
+      {
+        "offset": 1360,
+        "end": 1446,
+        "length_field": 82
+      },
+      {
+        "offset": 1450,
+        "end": 1474,
+        "length_field": 20
+      },
+      {
+        "offset": 1478,
+        "end": 1492,
+        "length_field": 10
+      },
+      {
+        "offset": 1496,
+        "end": 1551,
+        "length_field": 51
+      },
+      {
+        "offset": 1555,
+        "end": 1590,
+        "length_field": 31
+      },
+      {
+        "offset": 1594,
+        "end": 1613,
+        "length_field": 15
+      },
+      {
+        "offset": 1617,
+        "end": 1633,
+        "length_field": 12
+      },
+      {
+        "offset": 1637,
+        "end": 1659,
+        "length_field": 18
+      },
+      {
+        "offset": 1663,
+        "end": 1678,
+        "length_field": 11
+      },
+      {
+        "offset": 1682,
+        "end": 1700,
+        "length_field": 14
+      },
+      {
+        "offset": 1704,
+        "end": 1719,
+        "length_field": 11
+      },
+      {
+        "offset": 1723,
+        "end": 1751,
+        "length_field": 24
+      },
+      {
+        "offset": 1755,
+        "end": 1776,
+        "length_field": 17
+      },
+      {
+        "offset": 1780,
+        "end": 1804,
+        "length_field": 20
+      },
+      {
+        "offset": 1808,
+        "end": 1826,
+        "length_field": 14
+      },
+      {
+        "offset": 1830,
+        "end": 1922,
+        "length_field": 88
+      },
+      {
+        "offset": 1926,
+        "end": 1967,
+        "length_field": 37
+      },
+      {
+        "offset": 1971,
+        "end": 2029,
+        "length_field": 54
+      },
+      {
+        "offset": 2033,
+        "end": 2071,
+        "length_field": 34
+      },
+      {
+        "offset": 2075,
+        "end": 2096,
+        "length_field": 17
+      },
+      {
+        "offset": 2100,
+        "end": 2121,
+        "length_field": 17
+      },
+      {
+        "offset": 2125,
+        "end": 2145,
+        "length_field": 16
+      },
+      {
+        "offset": 2149,
+        "end": 2165,
+        "length_field": 12
+      },
+      {
+        "offset": 2169,
+        "end": 2253,
+        "length_field": 80
+      },
+      {
+        "offset": 2257,
+        "end": 2277,
+        "length_field": 16
+      },
+      {
+        "offset": 2281,
+        "end": 2335,
+        "length_field": 50
+      },
+      {
+        "offset": 2339,
+        "end": 2373,
+        "length_field": 30
+      },
+      {
+        "offset": 2377,
+        "end": 2395,
+        "length_field": 14
+      },
+      {
+        "offset": 2399,
+        "end": 2420,
+        "length_field": 17
+      },
+      {
+        "offset": 2424,
+        "end": 2443,
+        "length_field": 15
+      }
+    ],
+    "coverage": {
+      "file_bytes": 2447,
+      "parsed_bytes": 2447,
+      "unparsed_bytes": 0,
+      "ranges_half_open": [
+        [
+          0,
+          28
+        ],
+        [
+          28,
+          1356
+        ],
+        [
+          1356,
+          2447
+        ]
+      ],
+      "all_name_indices_valid": true,
+      "all_fname_numbers_zero": true,
+      "string_terminators_valid": true,
+      "serialized_name_hashes_recomputed": false
+    }
+  },
+  "limitations": [
+    "Third-party serialization source, not a locally executed Unreal deserializer",
+    "Only registry version 7, zero-number FNames and empty dependency/package-data sections are supported",
+    "Name hashes are retained but not recomputed; narrow text must be ASCII",
+    "AssetRegistry tags do not contain or establish data asset bAddAtRuntime or ActorComponent property values",
+    "No shipping mount/merge, registry query, object load/cast, instance creation, factory timing, readout or recording acceptance"
+  ],
+  "validation": {
+    "classification": "OFFLINE_PARSER_VALIDATION_ONLY",
+    "status": "PASS",
+    "expected_asset_identities_checked": 3,
+    "malformed_inputs_rejected": 2606,
+    "all_proper_prefixes_rejected": 2447,
+    "invalid_name_index_cases": 80,
+    "malformed_case_labels": [
+      "negative-name-index:32",
+      "out-of-range-name-index:32",
+      "negative-name-index:40",
+      "out-of-range-name-index:40",
+      "negative-name-index:48",
+      "out-of-range-name-index:48",
+      "negative-name-index:56",
+      "out-of-range-name-index:56",
+      "negative-name-index:64",
+      "out-of-range-name-index:64",
+      "negative-name-index:76",
+      "out-of-range-name-index:76",
+      "negative-name-index:197",
+      "out-of-range-name-index:197",
+      "negative-name-index:348",
+      "out-of-range-name-index:348",
+      "negative-name-index:397",
+      "out-of-range-name-index:397",
+      "negative-name-index:418",
+      "out-of-range-name-index:418",
+      "negative-name-index:444",
+      "out-of-range-name-index:444",
+      "negative-name-index:462",
+      "out-of-range-name-index:462",
+      "negative-name-index:476",
+      "out-of-range-name-index:476",
+      "negative-name-index:490",
+      "out-of-range-name-index:490",
+      "negative-name-index:504",
+      "out-of-range-name-index:504",
+      "negative-name-index:559",
+      "out-of-range-name-index:559",
+      "negative-name-index:567",
+      "out-of-range-name-index:567",
+      "negative-name-index:575",
+      "out-of-range-name-index:575",
+      "negative-name-index:583",
+      "out-of-range-name-index:583",
+      "negative-name-index:591",
+      "out-of-range-name-index:591",
+      "negative-name-index:603",
+      "out-of-range-name-index:603",
+      "negative-name-index:652",
+      "out-of-range-name-index:652",
+      "negative-name-index:698",
+      "out-of-range-name-index:698",
+      "negative-name-index:721",
+      "out-of-range-name-index:721",
+      "negative-name-index:902",
+      "out-of-range-name-index:902",
+      "negative-name-index:910",
+      "out-of-range-name-index:910",
+      "negative-name-index:918",
+      "out-of-range-name-index:918",
+      "negative-name-index:926",
+      "out-of-range-name-index:926",
+      "negative-name-index:934",
+      "out-of-range-name-index:934",
+      "negative-name-index:946",
+      "out-of-range-name-index:946",
+      "negative-name-index:1071",
+      "out-of-range-name-index:1071",
+      "negative-name-index:1113",
+      "out-of-range-name-index:1113",
+      "negative-name-index:1155",
+      "out-of-range-name-index:1155",
+      "negative-name-index:1176",
+      "out-of-range-name-index:1176",
+      "negative-name-index:1202",
+      "out-of-range-name-index:1202",
+      "negative-name-index:1220",
+      "out-of-range-name-index:1220",
+      "negative-name-index:1234",
+      "out-of-range-name-index:1234",
+      "negative-name-index:1276",
+      "out-of-range-name-index:1276",
+      "negative-name-index:1293",
+      "out-of-range-name-index:1293",
+      "negative-name-index:1307",
+      "out-of-range-name-index:1307",
+      "missing-terminator:84",
+      "missing-terminator:205",
+      "missing-terminator:356",
+      "missing-terminator:405",
+      "missing-terminator:426",
+      "missing-terminator:452",
+      "missing-terminator:470",
+      "missing-terminator:484",
+      "missing-terminator:498",
+      "missing-terminator:512",
+      "missing-terminator:611",
+      "missing-terminator:660",
+      "missing-terminator:706",
+      "missing-terminator:729",
+      "missing-terminator:954",
+      "missing-terminator:1079",
+      "missing-terminator:1121",
+      "missing-terminator:1163",
+      "missing-terminator:1184",
+      "missing-terminator:1210",
+      "missing-terminator:1228",
+      "missing-terminator:1242",
+      "missing-terminator:1284",
+      "missing-terminator:1301",
+      "missing-terminator:1315",
+      "missing-terminator:1360",
+      "missing-terminator:1450",
+      "missing-terminator:1478",
+      "missing-terminator:1496",
+      "missing-terminator:1555",
+      "missing-terminator:1594",
+      "missing-terminator:1617",
+      "missing-terminator:1637",
+      "missing-terminator:1663",
+      "missing-terminator:1682",
+      "missing-terminator:1704",
+      "missing-terminator:1723",
+      "missing-terminator:1755",
+      "missing-terminator:1780",
+      "missing-terminator:1808",
+      "missing-terminator:1830",
+      "missing-terminator:1926",
+      "missing-terminator:1971",
+      "missing-terminator:2033",
+      "missing-terminator:2075",
+      "missing-terminator:2100",
+      "missing-terminator:2125",
+      "missing-terminator:2149",
+      "missing-terminator:2169",
+      "missing-terminator:2257",
+      "missing-terminator:2281",
+      "missing-terminator:2339",
+      "missing-terminator:2377",
+      "missing-terminator:2399",
+      "missing-terminator:2424",
+      "invalid-guid",
+      "unsupported-version",
+      "bad-name-table-offset:-1",
+      "bad-name-table-offset:0",
+      "bad-name-table-offset:28",
+      "bad-name-table-offset:2447",
+      "bad-name-table-offset:2448",
+      "negative-name-count",
+      "excessive-name-count",
+      "negative-asset-count",
+      "excessive-asset-count",
+      "excessive-string-length",
+      "unsupported-numbered-fname",
+      "wrong-object-path-valid-index",
+      "nonempty-dependencies",
+      "bad-dependency-section-size",
+      "nonempty-package-data",
+      "trailing-byte",
+      "negative-tag-count:0",
+      "negative-chunk-count:0",
+      "negative-tag-count:1",
+      "negative-chunk-count:1",
+      "negative-tag-count:2",
+      "negative-chunk-count:2"
+    ],
+    "does_not_test": "Engine deserialization, shipping mount/merge, load/cast, factory execution, component creation or UI"
+  }
+}

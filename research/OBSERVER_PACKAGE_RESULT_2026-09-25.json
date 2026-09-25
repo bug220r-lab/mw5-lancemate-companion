@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-25T05:59:00.587047+00:00",
+  "status": "LOCAL_PACKAGE_VERIFIED_RUNTIME_NOT_PERFORMED",
+  "classification": "OBSERVED",
+  "build": {
+    "start_utc": "2026-09-25T05:45:07.267Z",
+    "success_utc": "2026-09-25T05:52:43.443Z",
+    "cook_process_exit_code": 0,
+    "automation_exit_code": 0,
+    "publish_to_steam": false,
+    "skip_packaging": false,
+    "platform": "WindowsNoEditor",
+    "based_on_release": "1.0",
+    "editor_game_version": "1.14.70",
+    "cook_process_seconds": 454.4531892
+  },
+  "outputs": [
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\artifacts\\LanceObserverProbe\\package-20260925-01\\LanceObserverProbe\\mod.json",
+      "bytes": 405,
+      "sha256": "dce8fc883da38b6cafdfd7baf4256ecd350bf9c6c6d621861bc9393e142793a7",
+      "modified_utc": "2026-09-25T05:52:43.423696+00:00"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\artifacts\\LanceObserverProbe\\package-20260925-01\\LanceObserverProbe\\Paks\\LanceObserverProbe.pak",
+      "bytes": 19675,
+      "sha256": "b913e0f0a8c9f6aa53b8f25e2414f8c700e06fbab0a53bcec5884ab8ce5211d6",
+      "modified_utc": "2026-09-25T05:52:42.912040+00:00"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\artifacts\\LanceObserverProbe\\package-20260925-01\\LanceObserverProbe\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+      "modified_utc": "2026-09-24T03:46:17.528213+00:00"
+    }
+  ],
+  "output_descriptor": {
+    "displayName": "LanceObserverProbe",
+    "version": "1.0",
+    "buildNumber": 1,
+    "description": "Passive lancemate observation probe",
+    "author": "Jlewis1231",
+    "authorURL": "",
+    "defaultLoadOrder": 0,
+    "gameVersion": "1.14.70",
+    "manifest": [],
+    "steamPublishedFileId": 0,
+    "steamLastSubmittedBuildNumber": 0,
+    "steamModVisibility": "Private"
+  },
+  "pak_listing": {
+    "exit_code": 0,
+    "mount_point": "../../../MW5Mercs/",
+    "members": [
+      {
+        "path": "Config/Input/LanceObserverProbeInput.ini",
+        "offset": 0,
+        "bytes": 1383,
+        "listed_sha1": "6f09714c36590136fefd12627978c9b45a8bae19"
+      },
+      {
+        "path": "Config/Tags/LanceObserverProbeTags.ini",
+        "offset": 1436,
+        "bytes": 43,
+        "listed_sha1": "55a6a1f3e093e68d45a20d717eb09863ae3fbcb8"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/Content/BP_LanceObserverProbeComponent.uasset",
+        "offset": 1532,
+        "bytes": 4746,
+        "listed_sha1": "32d87110a0f15484c20d4069a48880bf47a3d8bb"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/Content/DA_LanceObserverProbeRegistration.uasset",
+        "offset": 6331,
+        "bytes": 1162,
+        "listed_sha1": "f4b5b60c4b0d1cfb97e186bf8715a682c3697e4b"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/Content/WBP_LanceObserverProbeReadout.uasset",
+        "offset": 7546,
+        "bytes": 2817,
+        "listed_sha1": "3d2d815e8abaf940cb8a8862e24523d08e1c53d1"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/Content/BP_LanceObserverProbeComponent.uexp",
+        "offset": 10416,
+        "bytes": 4142,
+        "listed_sha1": "242f00c133d4f9ffff68b4b4e7df84eb93576579"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/Content/DA_LanceObserverProbeRegistration.uexp",
+        "offset": 14611,
+        "bytes": 100,
+        "listed_sha1": "66002862291cc92e8e0444d43edf56e29a8951e7"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/Content/WBP_LanceObserverProbeReadout.uexp",
+        "offset": 14764,
+        "bytes": 1012,
+        "listed_sha1": "3522451452380dfe75ea95743ceaaeadd74ecb7e"
+      },
+      {
+        "path": "Plugins/LanceObserverProbe/AssetRegistry.bin",
+        "offset": 15829,
+        "bytes": 2447,
+        "listed_sha1": "c5b6d7e357f5b439870f00c3f6429b1bb679ce26"
+      }
+    ],
+    "tool": {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UnrealPak.exe",
+      "bytes": 166400,
+      "sha256": "fd05fe25d9707b39b8419028b867e3a1d9f0ea395577af7a3b41712a062b7dc5",
+      "modified_utc": "2026-09-20T18:18:13.680692+00:00"
+    },
+    "limitation": "Native listing verifies directory membership; no extraction or runtime loading performed."
+  },
+  "source_files": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified_utc": "2026-09-25T05:50:13.648086+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "bytes": 422,
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+      "modified_utc": "2026-09-24T03:46:17.497326+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "bytes": 1383,
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+      "modified_utc": "2026-09-24T03:46:17.536191+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+      "modified_utc": "2026-09-24T03:46:17.541178+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "bytes": 139586,
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+      "modified_utc": "2026-09-25T05:02:58.747537+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "bytes": 31659,
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+      "modified_utc": "2026-09-25T05:15:20.605791+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "bytes": 2111,
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+      "modified_utc": "2026-09-25T05:10:25.698860+00:00",
+      "matches_reviewed_input": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+      "modified_utc": "2026-09-24T03:46:17.528213+00:00",
+      "matches_reviewed_input": true
+    }
+  ],
+  "source_metadata": {
+    "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\mod.json",
+    "bytes": 405,
+    "sha256": "dce8fc883da38b6cafdfd7baf4256ecd350bf9c6c6d621861bc9393e142793a7",
+    "modified_utc": "2026-09-25T05:52:43.423696+00:00",
+    "value": {
+      "displayName": "LanceObserverProbe",
+      "version": "1.0",
+      "buildNumber": 1,
+      "description": "Passive lancemate observation probe",
+      "author": "Jlewis1231",
+      "authorURL": "",
+      "defaultLoadOrder": 0,
+      "gameVersion": "1.14.70",
+      "manifest": [],
+      "steamPublishedFileId": 0,
+      "steamLastSubmittedBuildNumber": 0,
+      "steamModVisibility": "Private"
+    }
+  },
+  "source_metadata_changes": {
+    "buildNumber": {
+      "before": 0,
+      "after": 1
+    }
+  },
+  "source_and_output_metadata_semantically_equal": true,
+  "logs": {
+    "cook_source": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Saved\\Logs\\LanceObserverProbeCookOutput.txt-2026.09.25-01.45.07.txt",
+    "cook_copy": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-package-20260925T054502Z\\cook-output.txt",
+      "bytes": 161137,
+      "sha256": "a4d8a8fba96ea3be21b32834e660185efe6ad9619da111455ed0c1b051fd41b1",
+      "modified_utc": "2026-09-25T05:59:00.614978+00:00"
+    },
+    "editor_source": "C:\\Users\\jlewi\\AppData\\Local\\MW5Mercs\\Saved\\Logs\\MW5Mercs.log",
+    "editor_original_line_start": 1192,
+    "editor_original_line_end": 1799,
+    "editor_segment": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-package-20260925T054502Z\\editor-package-segment.txt",
+      "bytes": 136332,
+      "sha256": "bec6a73683b86f361221911a498f74b202a62c1f89bd865d150e658bb2477ba0",
+      "modified_utc": "2026-09-25T05:59:00.616968+00:00"
+    },
+    "list_output": {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\observer-package-20260925T054502Z\\UnrealPak-list-output.txt",
+      "bytes": 1912,
+      "sha256": "6f5907bc1dc847988b69a6186d421b2c6543cccc8fdfab8aae4ff2364058213e",
+      "modified_utc": "2026-09-25T05:57:02.343831+00:00"
+    }
+  },
+  "warnings": {
+    "errors": 0,
+    "total": 186,
+    "original_missing_load": 27,
+    "original_unresolved_release_registry_packages": 159,
+    "explosionsmegapack": 179,
+    "wwise_icons_types": 7,
+    "authored_asset_warning_references": 0,
+    "limitation": "Stock warnings were not repaired; their runtime implications are untested."
+  },
+  "resource_post_build": {
+    "utc": "2026-09-25T05:59:00.587047+00:00",
+    "physical_available": 7808180224,
+    "commit_available": 5979803648,
+    "disk_free": 13774901248,
+    "method": "GlobalMemoryStatusEx and shutil.disk_usage"
+  },
+  "resource_sample_minima": {
+    "physical_available": {
+      "utc": "2026-09-25T05:51:05.780518+00:00",
+      "bytes": 228003840
+    },
+    "commit_available": {
+      "utc": "2026-09-25T05:51:14.832900+00:00",
+      "bytes": 3538395136
+    },
+    "disk_free": {
+      "utc": "2026-09-25T05:51:25.876161+00:00",
+      "bytes": 5426802688
+    }
+  },
+  "resource_sample_count": 69,
+  "resource_limitation": "Short sampled windows, not a continuous full-run trace; minima do not prove full-run peaks. User started before the proposed admission gate passed and explicitly chose to continue after proposed floors were crossed. Completion does not validate those proposed gates.",
+  "processes_observed": [
+    {
+      "Id": 11420,
+      "ProcessName": "UE4Editor",
+      "StartTime": "2026-09-25T01:06:12.1269507-04:00",
+      "WorkingSet64": 765124608
+    }
+  ],
+  "packaging_children_exited": true,
+  "publication": "NOT_PERFORMED",
+  "retail_installation": "NOT_PERFORMED",
+  "retail_startup": "NOT_PERFORMED",
+  "instant_action_test": "NOT_PERFORMED",
+  "recording": "NOT_PERFORMED"
+}

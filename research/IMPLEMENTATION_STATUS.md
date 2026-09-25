@@ -1,4 +1,16 @@
-# Implementation checkpoint — 2026-09-22
+# Implementation checkpoint — 2026-09-25
+
+## Current observer continuation
+
+**The full companion remains incomplete. The passive probe was authored, packaged and installed, but its first retail Instant Action observation showed no diagnostic readout.** The user also reported none earlier. This is `INCONCLUSIVE_READOUT_NOT_VISIBLE`; it does not establish component absence or a working mission recorder. No live command adapter or direct-piloting acceptance is claimed.
+
+The [overnight handoff](OBSERVER_OVERNIGHT_HANDOFF_2026-09-25.md) records completed package/source checks, the cooked-registry decoder, independent graph audit and unchanged source/package/installed hashes. No demonstrated wiring or registry-record class mismatch was found. Game/editor processes were absent at the [preservation checkpoint](OBSERVER_OVERNIGHT_CHECKPOINT_2026-09-25.json), and this overnight preparation launched neither application.
+
+Next: [manual authoring of a separate static diagnostic control](../design/OBSERVER_DIAGNOSTIC_CONTROL_MORNING.md), followed by authored/package review and the applicable bounded-test gate. Component enumeration is deferred until independent output is visible. The proposed stock-controller substitution/input addition is not yet authored or deployed and is not an automatic-startup fix. Keep the original probe and its first runtime result intact.
+
+The separate passive-capture auditor's owner reports source commit `a10faa53c7c08edf8b388defdf26992848fdcbb1` and 1,357/1,357 `MOCK_ONLY` checks. That separate suite was not rerun by this overnight observer preparation. Its receipt is [COMPANION_VALIDATION.json](COMPANION_VALIDATION.json). The older counts and pre-deployment statements below are preserved historical checkpoints, not the September 25 state.
+
+## Historical implementation checkpoint — 2026-09-22
 
 **The full mod is not complete. No live adapter, game deployment or direct piloting has been performed.** The user approved continued implementation, then asked to keep progressing until account usage stops work. The continuing goal reached its usage limit overnight. On 2026-09-22 the user reported restored usage and asked to continue; ordinary account usage was verified available and project work resumed. The goal initially still returned `usageLimited`; a subsequent tool check after the source checkpoint returned **active**, confirming automatic goal continuation was restored. No duplicate goal or schedule was created. Old account snapshots are not a guaranteed work-duration estimate.
 
@@ -51,7 +63,7 @@ M0–M2 require further native lifecycle/observation/action evidence. M3–M5 ha
 
 The next integration step is the observer task's targeted reference search, followed by a concrete creation-only probe only if source evidence remains insufficient. The user subsequently authorized running the game/editor when needed, and the observer task has that update. Before any game-affecting test: exact hashes/manifest, disposable stock Instant Action setup, baseline, sentinel, stop conditions and rollback. Retail/native deployment remains a distinct gate; avoid repeatedly asking permission for an already authorized editor lookup.
 
-The user also requested GitHub backup. Reviewed checkpoints were pushed and verified in the private [bug220r-lab/mw5-lancemate-companion repository](https://github.com/bug220r-lab/mw5-lancemate-companion), branch `codex/companion-foundation`. The latest exact pushed commit and file count are recorded in [GITHUB_BACKUP.json](GITHUB_BACKUP.json); that local post-push receipt can be one checkpoint ahead of its committed copy. Working-tree changes require their own verified checkpoint and are not implicitly backed up. The unrelated `sales-assist` repository was not part of this backup.
+The user also requested GitHub backup. Reviewed checkpoints were pushed and verified in the private [bug220r-lab/mw5-lancemate-companion repository](https://github.com/bug220r-lab/mw5-lancemate-companion), branch `codex/companion-foundation`. [GITHUB_BACKUP.json](GITHUB_BACKUP.json) records a point-in-time pushed commit and file count; it may lag the current remote branch. Working-tree changes require their own verified checkpoint and are not implicitly backed up. The unrelated `sales-assist` repository was not part of this backup.
 
 The [source/content review](SOURCE_BACKUP_REVIEW.json) records the include/exclude policy and redacted credential checks. Local credentials are used only through existing Git Credential Manager; no token is printed or written to source. `companion/local/`, `tmp/`, raw `research/evidence/` game/editor exports, downloaded third-party payloads and audio/media are excluded and remain local. Restoring this source checkpoint alone cannot reverify raw export hashes or rerun model/audio experiments. Preserve the original local evidence separately; future native recollection would need its own bounded authorization.
 

@@ -1,0 +1,30 @@
+{
+  "classification": "MOCK_ONLY_PREPARATION",
+  "tests": {
+    "passed": 9,
+    "failed": 0
+  },
+  "native_export": "NOT_PERFORMED",
+  "gameplay": "NOT_PERFORMED",
+  "health_bytes": {
+    "disk_free": 15118925824,
+    "physical_available": 970985472,
+    "commit_available": 4798701568
+  },
+  "source_pins": [
+    {
+      "asset": "WBP_LanceObserverProbeReadout",
+      "matches": true
+    },
+    {
+      "asset": "BP_LanceObserverProbeComponent",
+      "matches": true
+    },
+    {
+      "asset": "DA_LanceObserverProbeRegistration",
+      "matches": true
+    }
+  ],
+  "script_sha256": "c3244f8205168027a1997d7a0b7e0c6c1a1c24431a56a2528a8eec5725b0b31f",
+  "test_sha256": "dac161fb95fb9046904bbd792c8cd04bbed2964241987bed2d4b41ef5069613f"
+}
