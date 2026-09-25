@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-09-23T06:04:32.486Z",
+  "recordedAt": "2026-09-25T06:25:50.670Z",
   "classification": "MOCK_ONLY",
   "status": "PASS",
-  "tests": 1343,
-  "passed": 1343,
+  "tests": 1357,
+  "passed": 1357,
   "failed": 0,
   "skipped": 0,
   "legacyAssertions": "48 scenarios + 31 independent adversarial cases + 3 properties retained via policy regression wrappers; historical receipts unchanged",
   "nodeVersion": "v24.19.0",
-  "testConcurrency": 2,
+  "testConcurrency": 1,
   "testFiles": [
     "companion/tests/benchmark-review.test.mjs",
     "companion/tests/benchmark.test.mjs",
@@ -48,6 +48,7 @@
     "companion/tests/model-transfer-warmup.test.mjs",
     "companion/tests/observation-review.test.mjs",
     "companion/tests/observation.test.mjs",
+    "companion/tests/passive-capture.test.mjs",
     "companion/tests/policy-regression.test.mjs",
     "companion/tests/preview-timing-review.test.mjs",
     "companion/tests/preview-timing.test.mjs",
@@ -237,6 +238,10 @@
     {
       "file": "companion/tests/observation.test.mjs",
       "sha256": "00a130a64b16af939e8305467f715a6d2a8bc3d922f7bb7c89cf4f0babd2892d"
+    },
+    {
+      "file": "companion/tests/passive-capture.test.mjs",
+      "sha256": "1c4389b0bfbbaf0c943da3e399aa658059082ad3d99fb09ef3e78cc1e98cfde8"
     },
     {
       "file": "companion/tests/policy-regression.test.mjs",
@@ -447,6 +452,10 @@
       "sha256": "107f6ecb9eeaf65b075735a012c5ffa100d10f490a880951f44d2106c2d22af9"
     },
     {
+      "file": "companion/passive-capture.mjs",
+      "sha256": "1281f5542115591518a05f18a046598d6f00cdeaf9deed5a8aaa1914b0db5e32"
+    },
+    {
       "file": "companion/personas.json",
       "sha256": "1f66276cc3db94dd8dc824d069440c24eb5e2bfb005960b02d9e1ab4b690d0ee"
     },
@@ -552,7 +561,7 @@
     },
     {
       "file": "research/RESIDENT_RECOGNITION_REPAIR_PLAN.md",
-      "sha256": "5a548bf95f4790aafda7829a5785ee9d87872dc246a33c37776f1cc94a10cfcf"
+      "sha256": "f83b0a24081c271c607e3394a9ee75b364232e139b0e72b0ee1e1a34b9ff92e2"
     },
     {
       "file": "scripts/Inspect-MissionRecording.mjs",
@@ -563,12 +572,24 @@
       "sha256": "97d311e98a5b7e06f82cbe7e07c5eb7cd68976137b58c136d67072fe924a4d0d"
     },
     {
+      "file": "scripts/Inspect-PassiveCapture.mjs",
+      "sha256": "5d1c8582bf5d753508b89ed18fd36812fb94ef1a62360c72e227f1fd6a1c90d9"
+    },
+    {
+      "file": "synthetic/passive-capture-example.json",
+      "sha256": "fa02fe322382753d811631d184b6ae7bcab03137eab85f1030cdfc681b8f92d4"
+    },
+    {
+      "file": "design/PASSIVE_CAPTURE_FIELD_MAP.json",
+      "sha256": "d3522e9b2a4822dbabf5ee02e58931508fa7157bef061b16880af22f72ac165f"
+    },
+    {
       "file": "synthetic/passive-recording-annotation-template.json",
       "sha256": "b01a5af5ad726a01d03c5e428e17d0c93b64a51849478f45f0138ba48da8fe98"
     },
     {
       "file": "design/PASSIVE_RECORDING_WORKFLOW.md",
-      "sha256": "4c1725a96bcbf7f03ca7b1b23ba1cfe631c40bd75616ff5681584eac1d0f1b32"
+      "sha256": "3c7a459262a3a18512ce1113013b7b2dfafc4788dca2ac7ce595261a7d06a25f"
     },
     {
       "file": "scripts/Exercise-ConversationIdentity.mjs",
@@ -612,7 +633,7 @@
     },
     {
       "file": "scripts/Verify-Companion.mjs",
-      "sha256": "a6f0506e386a654fa4a17c41f37462ca3c100ba496c2bbbb25f1277fc0566dfa"
+      "sha256": "173810ed619451ac554150022cd08c8e3354968c38365bcfe5a3fcc626f61bd0"
     },
     {
       "file": "design/WORKBENCH_PACKAGE_README.md",
@@ -622,8 +643,8 @@
   "gameTests": "NOT_PERFORMED",
   "nativeAdapter": "NOT_BUILT",
   "localFullTestLog": {
-    "file": "tmp/companion-verification-1790143472433.tap",
-    "sha256": "39f53968bbede72391870b4e48f20e288941675343f81b8231a42b5ba4ba91e2",
+    "file": "tmp/companion-verification-1790317550638.tap",
+    "sha256": "b1451df0a28d22f6a8cd5f860e4b1395f5a55fe9ee28d559a13234af4c245ea8",
     "includedInSourceBackup": false
   },
   "visualBrowserCheck": "SEPARATE_RECEIPT: research/WORKBENCH_BROWSER_VALIDATION_2026-09-22.json records bounded real-browser checks with synthetic game state. This test run does not repeat them or establish microphone/audio/game acceptance.",

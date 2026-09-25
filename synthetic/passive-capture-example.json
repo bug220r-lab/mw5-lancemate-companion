@@ -1,0 +1,56 @@
+[
+  {
+    "schemaVersion": 1,
+    "kind": "passive-capture",
+    "provenance": "MOCK_ONLY",
+    "producerId": "synthetic-observer",
+    "session": "synthetic-mission-a",
+    "sequence": 1,
+    "observedAtMs": 1000,
+    "readings": [
+      { "key": "currentAiControllers", "subjectRole": "squad", "bindingId": "squad-a", "status": "VALUE", "value": ["ai-a", "ai-b", "ai-c"] },
+      { "key": "controlledPawn", "subjectRole": "playerController", "bindingId": "player-controller-a", "status": "VALUE", "value": "player-pawn-a" },
+      { "key": "positionNative", "subjectRole": "playerPawn", "bindingId": "player-pawn-a", "status": "VALUE", "value": { "x": 100, "y": 200, "z": 300 } },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-a", "status": "VALUE", "value": true },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-b", "status": "VALUE", "value": true },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-c", "status": "VALUE", "value": true },
+      { "key": "currentJob", "subjectRole": "worker", "bindingId": "worker-a", "status": "NULL_RELATION", "value": null },
+      { "key": "paused", "subjectRole": "world", "bindingId": null, "status": "VALUE", "value": false }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "kind": "passive-capture",
+    "provenance": "MOCK_ONLY",
+    "producerId": "synthetic-observer",
+    "session": "synthetic-mission-a",
+    "sequence": 2,
+    "observedAtMs": 1500,
+    "readings": [
+      { "key": "currentAiControllers", "subjectRole": "squad", "bindingId": "squad-a", "status": "VALUE", "value": ["ai-a", "ai-b", "ai-c"] },
+      { "key": "controlledPawn", "subjectRole": "playerController", "bindingId": "player-controller-a", "status": "VALUE", "value": "player-pawn-b" },
+      { "key": "positionNative", "subjectRole": "playerPawn", "bindingId": "player-pawn-b", "status": "VALUE", "value": { "x": 105, "y": 201, "z": 300 } },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-a", "status": "VALUE", "value": true },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-b", "status": "VALUE", "value": true },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-c", "status": "VALUE", "value": true },
+      { "key": "paused", "subjectRole": "world", "bindingId": null, "status": "VALUE", "value": false }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "kind": "passive-capture",
+    "provenance": "MOCK_ONLY",
+    "producerId": "synthetic-observer",
+    "session": "synthetic-mission-b",
+    "sequence": 1,
+    "observedAtMs": 0,
+    "readings": [
+      { "key": "currentAiControllers", "subjectRole": "squad", "bindingId": "squad-b", "status": "TRUNCATED", "observedCount": 4 },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-d", "status": "VALUE", "value": true },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-e", "status": "VALUE", "value": true },
+      { "key": "membership", "subjectRole": "aiController", "bindingId": "ai-f", "status": "VALUE", "value": true },
+      { "key": "currentJob", "subjectRole": "worker", "bindingId": "worker-d", "status": "READ_FAILED" },
+      { "key": "paused", "subjectRole": "world", "bindingId": null, "status": "NOT_ATTEMPTED" }
+    ]
+  }
+]

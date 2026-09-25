@@ -1,0 +1,282 @@
+// MOCK_ONLY. These cases test a project file format, not an MW5 recorder.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { auditPassiveCaptureBytes, inspectPassiveCaptureFile,
+  PASSIVE_CAPTURE_LIMITS } from '../passive-capture.mjs';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const fixture = path.join(root, 'synthetic/passive-capture-example.json');
+const mapFile = path.join(root, 'design/PASSIVE_CAPTURE_FIELD_MAP.json');
+const bytes = samples => Buffer.from(JSON.stringify(samples));
+const sample = (sequence = 1, observedAtMs = 1000, changes = {}) => ({
+  schemaVersion: 1, kind: 'passive-capture', provenance: 'MOCK_ONLY',
+  producerId: 'synthetic-observer', session: 'mission-a', sequence, observedAtMs,
+  readings: [], ...changes,
+});
+const reading = (changes = {}) => ({ key: 'membership', subjectRole: 'aiController',
+  bindingId: 'ai-a', status: 'VALUE', value: true, ...changes });
+const audit = (samples, options = {}) => auditPassiveCaptureBytes(bytes(samples),
+  { allowSynthetic: true, ...options });
+const codes = report => report.findings.map(f => f.code);
+
+test('synthetic example preserves bytes and reports asserted coverage without replay', async () => {
+  const input = await readFile(fixture);
+  const original = Buffer.from(input);
+  const report = auditPassiveCaptureBytes(input, { allowSynthetic: true });
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(report.classification, 'MOCK_ONLY');
+  assert.equal(report.sourceSha256, createHash('sha256').update(original).digest('hex'));
+  assert.equal(report.fieldMapSha256,
+    createHash('sha256').update(await readFile(mapFile)).digest('hex'));
+  assert.equal(report.fieldMapKeyCount, 19);
+  assert.equal(report.streams.length, 2);
+  assert.equal(report.sessionChanges, 1);
+  assert.equal(report.streams[0].samplesWithThreeAssertedAiBindings, 2);
+  assert.equal(report.streams[0].assertedPlayerPawnBindingChanges, 1);
+  assert.equal(report.streams[1].samplesWithThreeAssertedAiBindings, 1);
+  assert.equal(report.streams[1].samplesWithTruncatedAiInventory, 1);
+  assert.equal(report.streams[1].maxReportedTruncatedAiInventoryCount, 4);
+  assert.equal(report.streams[1].readingsByStatus.READ_FAILED, 1);
+  assert.equal(report.streams[1].readingsByStatus.NOT_ATTEMPTED, 1);
+  assert.equal(report.runtimeAcceptance, 'NOT_PERFORMED');
+  assert.equal(report.nativeIdentityValidation, 'NOT_PERFORMED');
+  assert.equal(report.clockCalibration, 'NOT_PERFORMED');
+  assert.equal(report.commandsIssued, 0);
+  assert.equal(report.replay, null);
+  assert.equal(report.sourceModified, false);
+  assert.deepEqual(input, original);
+});
+
+test('mock input needs opt-in; claimed game input stays unvalidated', () => {
+  const disabled = auditPassiveCaptureBytes(bytes([sample()]));
+  assert.equal(disabled.formatStatus, 'INVALID');
+  assert.ok(codes(disabled).includes('SYNTHETIC_DISABLED'));
+  const claimedGame = auditPassiveCaptureBytes(bytes([sample(1, 1000,
+    { provenance: 'GAME_OBSERVED' })]));
+  assert.equal(claimedGame.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(claimedGame.classification, 'GAME_OBSERVED_UNVALIDATED');
+  assert.equal(claimedGame.runtimeAcceptance, 'NOT_PERFORMED');
+  assert.equal(claimedGame.replay, null);
+  const mixed = audit([sample(), sample(1, 0,
+    { session: 'mission-b', provenance: 'GAME_OBSERVED' })]);
+  assert.equal(mixed.classification, 'MIXED_OR_INVALID_PROVENANCE');
+});
+
+test('value, obtained null and unavailable statuses stay distinct', () => {
+  const statuses = [reading(), reading({ key: 'currentJob', subjectRole: 'worker',
+    bindingId: 'worker-a', status: 'NULL_RELATION', value: null }),
+  ...['INVALID_OBJECT', 'UNSUPPORTED_READ', 'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']
+    .map((status, i) => ({ key: ['controlledPawn', 'pawnController', 'positionNative',
+      'workerActor', 'currentAiControllers'][i],
+      subjectRole: ['aiController', 'aiPawn', 'aiPawn', 'worker', 'squad'][i],
+      bindingId: ['ai-b', 'pawn-a', 'pawn-a', 'worker-b', 'squad-a'][i], status,
+      ...(status === 'TRUNCATED' ? { observedCount: 4 } : {}) }))];
+  const report = audit([sample(1, 1000, { readings: statuses })]);
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  const counts = report.streams[0].readingsByStatus;
+  for (const status of ['VALUE', 'NULL_RELATION', 'INVALID_OBJECT', 'UNSUPPORTED_READ',
+    'READ_FAILED', 'NOT_ATTEMPTED', 'TRUNCATED']) assert.equal(counts[status], 1);
+  assert.equal(report.streams[0].unreportedFieldKeys.length, 12);
+  const emptyRoster = audit([sample(1, 1000, { readings: [reading({
+    key: 'currentAiControllers', subjectRole: 'squad', bindingId: 'squad-a', value: []
+  })] })]);
+  assert.equal(emptyRoster.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(emptyRoster.streams[0].readingsByStatus.READ_FAILED, 0);
+  assert.equal(emptyRoster.streams[0].samplesWithThreeAssertedAiBindings, 0);
+  const omitted = audit([sample()]);
+  assert.equal(omitted.streams[0].unreportedFieldKeys.length, 19);
+  assert.equal(omitted.streams[0].readingsByStatus.NOT_ATTEMPTED, 0);
+});
+
+test('failed AI reads mention bindings without counting successful asserted coverage', () => {
+  const failed = ['ai-a', 'ai-b', 'ai-c'].map(bindingId => {
+    const item = reading({ bindingId, status: 'READ_FAILED' });
+    delete item.value;
+    return item;
+  });
+  const result = audit([sample(1, 1000, { readings: failed })]);
+  assert.equal(result.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(result.streams[0].samplesWithThreeMentionedAiBindings, 1);
+  assert.equal(result.streams[0].samplesWithThreeAssertedAiBindings, 0);
+  const acquired = failed.map((item, index) =>
+    index === 0 ? reading({ bindingId: item.bindingId }) : item);
+  const partial = audit([sample(1, 1000, { readings: acquired })]);
+  assert.equal(partial.streams[0].samplesWithThreeMentionedAiBindings, 1);
+  assert.equal(partial.streams[0].samplesWithThreeAssertedAiBindings, 0);
+});
+
+test('status-value mismatches and unknown field keys fail the proposed format', () => {
+  const invalid = [
+    reading({ value: null }),
+    reading({ status: 'NULL_RELATION', value: true }),
+    reading({ status: 'READ_FAILED', value: null }),
+    reading({ key: 'inventedNativeRead' }),
+  ];
+  for (const item of invalid) {
+    const result = audit([sample(1, 1000, { readings: [item] })]);
+    assert.equal(result.formatStatus, 'INVALID');
+    assert.ok(codes(result).includes(item.key === 'inventedNativeRead' ?
+      'INVALID_READING' : 'STATUS_VALUE_MISMATCH'));
+  }
+  const noValue = reading(); delete noValue.value;
+  assert.ok(codes(audit([sample(1, 1000, { readings: [noValue] })]))
+    .includes('STATUS_VALUE_MISMATCH'));
+});
+
+test('duplicate readings and contradictory player/AI binding claims are reported', () => {
+  const duplicate = audit([sample(1, 1000, { readings: [reading(), reading()] })]);
+  assert.ok(codes(duplicate).includes('DUPLICATE_READING'));
+  const distinctKeySameBinding = audit([sample(1, 1000, { readings: [reading(),
+    reading({ key: 'controlledPawn', value: 'pawn-a' })] })]);
+  assert.equal(distinctKeySameBinding.formatStatus, 'VALID_PROJECT_CAPTURE');
+  const collision = audit([sample(1, 1000, { readings: [reading(),
+    reading({ key: 'controlledPawn', subjectRole: 'playerController', value: 'pawn-a' })] })]);
+  assert.ok(codes(collision).includes('CROSS_ROLE_BINDING_COLLISION'));
+  const workerCollision = audit([sample(1, 1000, { readings: [reading(),
+    reading({ key: 'currentJob', subjectRole: 'worker', status: 'VALUE', value: 'job-a' })] })]);
+  assert.ok(codes(workerCollision).includes('CROSS_ROLE_BINDING_COLLISION'));
+  const transitionalPawn = audit([sample(1, 1000, { readings: [
+    reading({ key: 'positionNative', subjectRole: 'playerPawn', bindingId: 'pawn-a',
+      value: { x: 1, y: 2, z: 3 } }),
+    reading({ key: 'humanPossession', subjectRole: 'aiPawn', bindingId: 'pawn-a', value: false }),
+  ] })]);
+  assert.equal(transitionalPawn.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(transitionalPawn.streams[0].samplesWithAmbiguousPawnRoleOverlap, 1);
+});
+
+test('source-backed role and status restrictions reject impossible positive reads', () => {
+  const cases = [
+    [reading({ key: 'currentJob', subjectRole: 'world', bindingId: null, value: 'job-a' }),
+      'INVALID_READING'],
+    [reading({ key: 'paused', subjectRole: 'world', bindingId: null,
+      status: 'NULL_RELATION', value: null }), 'READING_SEMANTIC_MISMATCH'],
+    [reading({ bindingId: null }), 'READING_SEMANTIC_MISMATCH'],
+    [reading({ value: 'true' }), 'READING_SEMANTIC_MISMATCH'],
+    [reading({ key: 'currentAiControllers', subjectRole: 'squad',
+      bindingId: 'squad-a', value: 'ai-a' }), 'READING_SEMANTIC_MISMATCH'],
+    [reading({ key: 'currentAiControllers', subjectRole: 'squad',
+      bindingId: 'squad-a', value: ['ai-a', 'ai-b', 'ai-c', 'ai-d'] }),
+      'READING_SEMANTIC_MISMATCH'],
+  ];
+  for (const [item, expected] of cases) {
+    assert.ok(codes(audit([sample(1, 1000, { readings: [item] })])).includes(expected));
+  }
+  const truncatedScalar = reading({ key: 'paused', subjectRole: 'world', bindingId: null,
+    status: 'TRUNCATED', observedCount: 4 });
+  delete truncatedScalar.value;
+  assert.ok(codes(audit([sample(1, 1000, { readings: [truncatedScalar] })]))
+    .includes('READING_SEMANTIC_MISMATCH'));
+  for (const observedCount of [undefined, 3, -1]) {
+    const truncatedRoster = reading({ key: 'currentAiControllers', subjectRole: 'squad',
+      bindingId: 'squad-a', status: 'TRUNCATED' });
+    delete truncatedRoster.value;
+    if (observedCount !== undefined) truncatedRoster.observedCount = observedCount;
+    assert.ok(codes(audit([sample(1, 1000, { readings: [truncatedRoster] })]))
+      .includes('READING_SEMANTIC_MISMATCH'));
+  }
+  assert.ok(codes(audit([sample(1, 1000, { readings: [reading({ observedCount: 4 })] })]))
+    .includes('READING_SEMANTIC_MISMATCH'));
+});
+
+test('sequence gaps and reported intervals are measurements, not invented samples', () => {
+  const report = audit([sample(1, 1000), sample(4, 3000), sample(5, 3000)]);
+  const stream = report.streams[0];
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(stream.sampleCount, 3);
+  assert.equal(stream.sequenceGaps, 1);
+  assert.equal(stream.unaccountedSequenceNumbers, '2');
+  assert.equal(stream.reportedIntervalCount, 2);
+  assert.equal(stream.minReportedIntervalMs, 0);
+  assert.equal(stream.p95ReportedIntervalMs, 2000);
+  assert.equal(stream.longReportedIntervals, 1);
+  assert.equal(stream.reportedClockRegressions, 0);
+});
+
+test('reordered samples, clock regressions and retired-session return are explicit', () => {
+  const backwards = audit([sample(3, 2000), sample(2, 1500), sample(2, 1500)]);
+  assert.equal(backwards.streams[0].nonIncreasingSequences, 2);
+  assert.equal(backwards.streams[0].reportedClockRegressions, 1);
+  assert.ok(codes(backwards).includes('NON_INCREASING_SEQUENCE'));
+  assert.ok(codes(backwards).includes('REPORTED_CLOCK_REGRESSED'));
+  const fresh = audit([sample(), sample(1, 0, { session: 'mission-b' })]);
+  assert.equal(fresh.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.equal(fresh.sessionChanges, 1);
+  assert.ok(fresh.streams.every(stream => stream.reportedIntervalCount === 0));
+  const returned = audit([sample(), sample(1, 0, { session: 'mission-b' }), sample(2, 1500)]);
+  assert.ok(codes(returned).includes('RETIRED_SESSION_REAPPEARED'));
+  assert.equal(returned.sessionChanges, 2);
+  assert.equal(returned.streams.length, 2);
+});
+
+test('producer or provenance drift in one session breaks reported-clock adjacency', () => {
+  for (const changes of [{ producerId: 'different-producer' }, { provenance: 'GAME_OBSERVED' }]) {
+    const report = audit([sample(), sample(2, 1500, changes)]);
+    assert.ok(codes(report).includes('SESSION_STREAM_CHANGED'));
+    assert.equal(report.streams[0].reportedIntervalCount, 0);
+  }
+});
+
+test('invalid samples break adjacency and do not turn missing reads into failures', () => {
+  const report = audit([sample(), null, sample(3, 2000)]);
+  assert.equal(report.formatStatus, 'INVALID');
+  assert.equal(report.streams[0].reportedIntervalCount, 0);
+  assert.equal(report.streams[0].readingsByStatus.READ_FAILED, 0);
+});
+
+test('file, sample, reading, structure and session limits bound processing', () => {
+  assert.equal(codes(auditPassiveCaptureBytes(Buffer.alloc(PASSIVE_CAPTURE_LIMITS.bytes + 1)))[0],
+    'CAPTURE_TOO_LARGE');
+  for (const input of [Buffer.from([0xff]), Buffer.from('{'), bytes([]), bytes({}),
+    bytes(Array(PASSIVE_CAPTURE_LIMITS.samples + 1).fill(null))])
+    assert.equal(auditPassiveCaptureBytes(input).formatStatus, 'INVALID');
+  const huge = sample(); huge.padding = 'x'.repeat(PASSIVE_CAPTURE_LIMITS.sampleBytes);
+  assert.ok(codes(audit([huge])).includes('SAMPLE_TOO_LARGE'));
+  const tooManyReads = sample(1, 1000,
+    { readings: Array(PASSIVE_CAPTURE_LIMITS.readingsPerSample + 1).fill(reading()) });
+  assert.ok(codes(audit([tooManyReads])).includes('INVALID_SAMPLE_ENVELOPE'));
+  let nested = {}, last = nested;
+  for (let i = 0; i < PASSIVE_CAPTURE_LIMITS.depth + 1; i++) {
+    last.next = {}; last = last.next;
+  }
+  assert.ok(codes(audit([sample(1, 1000, { extra: nested })])).includes('SAMPLE_STRUCTURE_LIMIT'));
+  const manySessions = Array.from({ length: PASSIVE_CAPTURE_LIMITS.sessions + 1 }, (_, i) =>
+    sample(1, 0, { session: `mission-${i}` }));
+  assert.ok(codes(audit(manySessions)).includes('SESSION_LIMIT'));
+});
+
+test('finding detail is capped while total count remains visible', () => {
+  const report = audit(Array(250).fill(null));
+  assert.equal(report.findingCount, 250);
+  assert.equal(report.findings.length, PASSIVE_CAPTURE_LIMITS.detailedFindings);
+  assert.equal(report.findingsTruncated, true);
+});
+
+test('read-only file inspection and CLI keep the source unchanged', async () => {
+  const original = await readFile(fixture);
+  const report = await inspectPassiveCaptureFile(fixture, { allowSynthetic: true });
+  assert.equal(report.formatStatus, 'VALID_PROJECT_CAPTURE');
+  assert.deepEqual(await readFile(fixture), original);
+  await assert.rejects(inspectPassiveCaptureFile(path.dirname(fixture)),
+    /INPUT_NOT_BOUNDED_REGULAR_FILE|EISDIR/);
+  const cli = path.join(root, 'scripts/Inspect-PassiveCapture.mjs');
+  const valid = spawnSync(process.execPath, [cli, fixture, '--allow-synthetic'],
+    { cwd: root, encoding: 'utf8', windowsHide: true });
+  assert.equal(valid.status, 0, valid.stderr);
+  assert.equal(JSON.parse(valid.stdout).classification, 'MOCK_ONLY');
+  const disabled = spawnSync(process.execPath, [cli, fixture],
+    { cwd: root, encoding: 'utf8', windowsHide: true });
+  assert.equal(disabled.status, 1, disabled.stderr);
+  const usage = spawnSync(process.execPath, [cli],
+    { cwd: root, encoding: 'utf8', windowsHide: true });
+  assert.equal(usage.status, 2);
+  const missing = spawnSync(process.execPath, [cli, path.join(root, 'synthetic/no-such-capture.json')],
+    { cwd: root, encoding: 'utf8', windowsHide: true });
+  assert.equal(missing.status, 2);
+  assert.equal(JSON.parse(missing.stderr).status, 'READ_FAILED');
+  assert.deepEqual(await readFile(fixture), original);
+});

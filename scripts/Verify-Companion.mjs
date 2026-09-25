@@ -36,6 +36,8 @@ const files = [...tests, ...(await readdir(path.join(root, 'companion'))).filter
   'scripts/Test-ResidentRecognitionWorker.py','scripts/Exercise-ResidentRecognition.mjs',
   'research/RESIDENT_RECOGNITION_REPAIR_PLAN.md',
   'scripts/Inspect-MissionRecording.mjs','synthetic/passive-recording-example.json',
+  'scripts/Inspect-PassiveCapture.mjs','synthetic/passive-capture-example.json',
+  'design/PASSIVE_CAPTURE_FIELD_MAP.json',
   'synthetic/passive-recording-annotation-template.json','design/PASSIVE_RECORDING_WORKFLOW.md',
   'scripts/Exercise-ConversationIdentity.mjs','synthetic/conversation-identity-cases.json',
   'scripts/Exercise-ConversationRelativeFacts.mjs','synthetic/conversation-relative-facts-cases.json',
