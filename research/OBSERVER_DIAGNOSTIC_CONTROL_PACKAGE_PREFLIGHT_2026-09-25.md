@@ -1,6 +1,6 @@
 # Diagnostic-control Phase A package and test preflight
 
-Prepared September 25, 2026. **PROPOSED / PACKAGE NOT PERFORMED.** This is the review gate for the separate `LanceObserverDiagnosticControl` static-output mod in [the Phase A plan](../design/OBSERVER_DIAGNOSTIC_CONTROL_MORNING.md). The original `LanceObserverProbe` package and its seven content/configuration/resource files are historical, pinned inputs to preserve; its eighth file, `ActiveMod.txt`, is editor selection state that may move temporarily and must be restored. The [authoring receipt](OBSERVER_DIAGNOSTIC_CONTROL_AUTHORING_2026-09-25.json) currently records baseline state only; actual Phase A assets, compile and Save To Mod results remain pending.
+Prepared September 25, 2026. **PROPOSED / PACKAGE NOT PERFORMED.** This is the review gate for the separate `LanceObserverDiagnosticControl` static-output mod in [the Phase A plan](../design/OBSERVER_DIAGNOSTIC_CONTROL_MORNING.md). The original `LanceObserverProbe` package and its seven content/configuration/resource files are historical, pinned inputs to preserve; its eighth file, `ActiveMod.txt`, is editor selection state that may move temporarily and must be restored. At its 17:52:25 UTC checkpoint, the [authoring receipt](OBSERVER_DIAGNOSTIC_CONTROL_AUTHORING_2026-09-25.json) records the separate mod's five generated files and no `.uasset`; actual Phase A assets, compile and Save To Mod results remain pending.
 
 ## Input freeze before packaging
 
