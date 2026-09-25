@@ -1,6 +1,6 @@
 # LanceObserverProbe creation-only Instant Action evidence sheet
 
-Prepared 2026-09-25 UTC. **TEMPLATE; ALL RUNTIME ROWS NOT_PERFORMED.** Use only after the exact [package preflight](../research/OBSERVER_PACKAGE_PREFLIGHT_2026-09-25.md), cooked hashes, retail additions/removal manifest and isolated test configuration are reviewable. The [creation-only contract](OBSERVER_CREATION_ONLY_PROBE.md) supplies the acceptance semantics. The current authored widget is a **one-time BeginPlay snapshot**, not a live recorder or a complete lifecycle monitor.
+Prepared 2026-09-25 UTC. **NEW-ATTEMPT TEMPLATE; ALL ROWS BELOW NOT_PERFORMED.** The [first local package](../research/OBSERVER_PACKAGE_RESULT_2026-09-25.md) and [installed-file checkpoint](../research/OBSERVER_OVERNIGHT_CHECKPOINT_2026-09-25.json) are historical inputs, not a fresh deployment manifest. A prior [retail Instant Action observation](../research/OBSERVER_STARTUP_RESULT_2026-09-25.md) found no visible readout and left component creation **INCONCLUSIVE**; it did not record a mod-off gameplay baseline. The probe is already installed and enabled in the [later retail inventory](../research/OBSERVER_DIAGNOSTIC_CONTROL_RETAIL_MANIFEST_2026-09-25.md). Before a new attempt, refresh exact cooked/retail hashes, a complete additions/removal manifest, mod-off baseline and isolated test configuration. The [historical package preflight](../research/OBSERVER_PACKAGE_PREFLIGHT_2026-09-25.md) does not stand in for these fresh checks. The [creation-only contract](OBSERVER_CREATION_ONLY_PROBE.md) supplies the acceptance semantics. The current authored widget is a **one-time BeginPlay snapshot**, not a live recorder or a complete lifecycle monitor.
 
 ## Attempt identity and independent measurement
 
@@ -19,13 +19,13 @@ Before deployment, predeclare the supported measurement method, observation wind
 
 | Boundary | Method, scope, evidence reference and what it can establish |
 |---|---|
-| Cooked registration asset included in the package | NOT_PERFORMED / method UNAVAILABLE |
-| Registration visible to the relevant runtime registry | NOT_PERFORMED / method UNAVAILABLE |
-| Registration and component class load/cast successfully | NOT_PERFORMED / method UNAVAILABLE |
-| Intended live controller selected; complete probe-instance enumeration and owner/liveness verified | NOT_PERFORMED / method UNAVAILABLE |
-| Independent controller/world replacement and teardown measurement | NOT_PERFORMED / method UNAVAILABLE |
+| Cooked registration asset included in the package | NOT_PERFORMED / method UNKNOWN for this attempt |
+| Registration visible to the relevant runtime registry | NOT_PERFORMED / method UNKNOWN for this attempt |
+| Registration and component class load/cast successfully | NOT_PERFORMED / method UNKNOWN for this attempt |
+| Intended live controller selected; complete probe-instance enumeration and owner/liveness verified | NOT_PERFORMED / method UNKNOWN for this attempt |
+| Independent controller/world replacement and teardown measurement | NOT_PERFORMED / method UNKNOWN for this attempt |
 
-The overlay's owner path and stored component count can support an attributable **positive** creation observation if the cooked source identity and displayed owner are verified. Its saved BeginPlay count cannot prove a stable count over time. No overlay is **INCONCLUSIVE** unless an independent live readout, registry visibility/load/cast, intended controller selection and reliable enumeration establish a bounded negative result. A disappeared overlay or missing EndPlay notice does not prove component destruction.
+The overlay's owner path and stored component count can support an attributable **positive** creation observation if the cooked source identity and displayed owner are verified. Its saved BeginPlay count cannot prove a stable count over time. A missing overlay alone is **INCONCLUSIVE**. A bounded negative requires independent live readout, registry visibility/load/cast, intended controller selection and reliable enumeration. A disappeared overlay or missing EndPlay notice does not prove component destruction.
 
 ## Stock baseline and observation points
 
@@ -35,7 +35,7 @@ At each declared point below, record the same fields: UTC/video time; world/sess
 
 | Point | Mod-off / probe-on | World and controller | Pawn | Complete live component enumeration and owners | Widget/readout | Independent evidence and finding |
 |---|---|---|---|---|---|---|
-| Stock baseline, before installation | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT PERFORMED | NOT_PERFORMED | NOT_PERFORMED |
+| Stock/mod-off baseline, before new installation or enablement | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED |
 | Initial mission/controller established | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED |
 | Before one ordinary possession change | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED |
 | After that possession change | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED | NOT_PERFORMED |
