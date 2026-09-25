@@ -2,11 +2,11 @@
 
 **Start here:** keep the existing `LanceObserverProbe` unchanged. The next useful editor task is a small, separate control that displays one static message when deliberately triggered after the mission HUD appears. First prove that message; component enumeration comes later.
 
-**Status: PLAN_READY / MANUAL_AUTHORING_REQUIRED.** The control has not been authored, compiled, packaged, installed or run. Reliable unattended Blueprint authoring is not available in this session. No new game test is running. The [overnight handoff](../research/OBSERVER_OVERNIGHT_HANDOFF_2026-09-25.md) records completed work and the preserved build.
+**Current checkpoint at 20:41 UTC: PHASE_A_PARTIAL_AUTHORING.** The separate controller copy has a saved F8 action and compiled/saved `Pressed → Do Once` fragment. Its later `Create Widget` link and widget duplicate remain unsaved; the display and cleanup paths are unfinished. See the [working authoring record](../research/OBSERVER_DIAGNOSTIC_CONTROL_AUTHORING_2026-09-25.md) and [package preflight](../research/OBSERVER_DIAGNOSTIC_CONTROL_PACKAGE_PREFLIGHT_2026-09-25.md) for current pins and blockers. No Phase A cook, package, retail installation or runtime test has occurred. The steps below are the original morning plan; the [overnight handoff](../research/OBSERVER_OVERNIGHT_HANDOFF_2026-09-25.md) preserves the earlier build history.
 
 ## What we know
 
-- **OBSERVED:** the original package built successfully, and all three installed files still match it. All eight pinned editor inputs also match the saved baseline.
+- **OBSERVED:** the original package built successfully, and its three installed retail files matched the saved baseline at the overnight checkpoint. At the morning authoring baseline all eight reviewed editor files matched; selecting the separate diagnostic mod later moved the `ActiveMod.txt` marker while the seven original content/configuration/resource files remained pinned. Recheck both claims before packaging or retail work.
 - **OBSERVED:** the cooked registry contains the component, widget and registration asset; the registration record has the class name searched by the stock factory. This is stored metadata, not a live registry query or successful object load.
 - **OBSERVED:** the first retail mission displayed no observer overlay; the user saw none earlier either. The result remains `INCONCLUSIVE_READOUT_NOT_VISIBLE`.
 - **UNKNOWN:** whether a probe instance existed, whether its BeginPlay ran, or which owner/cast/widget/display stage was reached. The source audit found no concrete wiring repair to make.
