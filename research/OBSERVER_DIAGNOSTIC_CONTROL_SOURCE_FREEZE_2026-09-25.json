@@ -1,0 +1,62 @@
+{
+  "kind": "DIAGNOSTIC_SOURCE_FREEZE",
+  "schemaVersion": 1,
+  "classification": "REVIEWED_SOURCE_CONTENT_SELECTION_REQUIRED_PACKAGE_BLOCKED",
+  "reviewedAtUtc": "2026-09-25T22:37:54Z",
+  "sourceCheckpoint": {
+    "path": "research/evidence/editor-authored/LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint/SOURCE_CHECKPOINT.json",
+    "bytes": 14976,
+    "sha256": "e178797fac03c6558f427a862fc1d6c0750c3198f190a18d6e528416477b698f"
+  },
+  "finalNativeInspection": {
+    "path": "research/evidence/editor-source/diagnostic-final-source-20260925T221745Z-530263a1/report.json",
+    "bytes": 12552,
+    "sha256": "203245c934b937c0aa3b87a429cf7a857235c2574c4c77f40787f988154ab839"
+  },
+  "independentSourceReview": "research/OBSERVER_DIAGNOSTIC_CONTROL_FINAL_SOURCE_REVIEW_2026-09-25.md",
+  "selection": "The empty diagnostic ActiveMod.txt was present in the 22:28 source checkpoint. The authoring task restored the original observer selection at 22:30. The diagnostic marker must be deliberately recreated by selecting the diagnostic mod before this manifest can pass the package-source inspector.",
+  "files": [
+    {
+      "path": "ActiveMod.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Config/Input/LanceObserverDiagnosticControlInput.ini",
+      "bytes": 1498,
+      "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f"
+    },
+    {
+      "path": "Config/Tags/LanceObserverDiagnosticControlTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+    },
+    {
+      "path": "Content/WBP_ObserverDiagnosticControl.uasset",
+      "bytes": 30768,
+      "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b"
+    },
+    {
+      "path": "LanceObserverDiagnosticControl.uplugin",
+      "bytes": 389,
+      "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+    },
+    {
+      "path": "mod.json",
+      "bytes": 484,
+      "sha256": "1733b881793403a6b577bba8effa9f8ab9ca4dbbdddcaf070c98f03f543f90a1"
+    },
+    {
+      "path": "ModOverride/Modes/InstantAction/InstantActionPlayerController.uasset",
+      "bytes": 92019,
+      "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948"
+    },
+    {
+      "path": "Resources/Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+    }
+  ],
+  "packageStatus": "NOT_PERFORMED",
+  "limitations": "Exact saved-source identities only. The restored original selection makes the diagnostic marker currently absent. Warning impact, disk headroom, cook membership, retail installation and Instant Action behavior remain unverified."
+}
