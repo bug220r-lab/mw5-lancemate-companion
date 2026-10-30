@@ -1,7 +1,7 @@
 {
-  "status": "SEPARATE_MOD_CREATED_CONTROLLER_COPY_NOT_PERFORMED",
+  "status": "SOURCE_CHECKPOINT_REVIEWED_WITH_WARNING_BLOCKERS",
   "recorded_utc": "2026-09-25T17:42:00.6388862Z",
-  "scope": "Separate Phase A static-output diagnostic mod authoring only; no Play, cook, package, retail deployment or runtime",
+  "scope": "Separate Phase A authoring, source review and separately reviewed local packaging preparation; no retail deployment or runtime test",
   "plan": "design/OBSERVER_DIAGNOSTIC_CONTROL_MORNING.md",
   "original_observer_pins": [
     {
@@ -177,5 +177,357 @@
     },
     "selection_restore": "PENDING_USER_EDITOR_AVAILABILITY; current active selection is diagnostic mod, original content unchanged"
   },
-  "resource_override": "User waived fixed RAM reserve; no fixed physical-RAM/commit admission threshold"
+  "resource_override": "User waived fixed RAM reserve; no fixed physical-RAM/commit admission threshold",
+  "continuation_checkpoint": {
+    "recorded_utc": "2026-09-25T18:57:59.624777+00:00",
+    "user_continued": true,
+    "controller_copy": {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 50172,
+      "sha256": "c9bdddac76f53b163752e778e8dfeaf354201d636ea4d627368229dadcef376f",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController",
+      "saved_utc": "2026-09-25T18:47:43.534Z",
+      "semantic_comparison": "NOT_PERFORMED",
+      "baseline_copy": "artifacts\\diagnostic-control-authoring-20260925\\baseline\\diagnostic-copy-before-authoring.uasset"
+    },
+    "stock_controller": {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6"
+    },
+    "original_immutable_checks": [
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+        "bytes": 422,
+        "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+        "matches": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+        "bytes": 1383,
+        "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+        "matches": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+        "matches": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+        "bytes": 139586,
+        "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+        "matches": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+        "bytes": 31659,
+        "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+        "matches": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+        "bytes": 2111,
+        "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+        "matches": true
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+        "matches": true
+      }
+    ],
+    "original_active_marker_present": false,
+    "diagnostic_active_marker_present": true,
+    "save_action_result": "research/evidence/window-bridge/editor-d734f3e02db84c1e8666f18ae4da6aee/capture-ea45c616fce044c78c86e3cdee424df2/action-result.json",
+    "editor_log": {
+      "path": "C:/Users/jlewi/AppData/Local/MW5Mercs/Saved/Logs/MW5Mercs.log",
+      "save_line": 1898,
+      "open_copy_line": 1899
+    },
+    "native_copy_export": "NOT_PERFORMED",
+    "offline_inspector_tests": "21/21 PASS MOCK_ONLY",
+    "widget": "NOT_BUILT",
+    "input_mapping": "PROPOSED_F8_NOT_WRITTEN",
+    "diagnostic_graph": "NOT_BUILT",
+    "compile": "NOT_PERFORMED",
+    "cook": "NOT_PERFORMED",
+    "retail": "NOT_PERFORMED",
+    "ui_state": "Changing foreground and native user-input detection; clicks stopped; new availability question pending",
+    "selection_restore": "PENDING; diagnostic remains selected, immutable observer files unchanged",
+    "planned_sequence": [
+      "Export and compare exact loaded stock/copy source and CDOs",
+      "Author independent static widget",
+      "Add reviewed F8 action and one-shot display plus owned cleanup",
+      "Compile/save/review actual Phase A result",
+      "Package separately after source review",
+      "Prepare concrete retail additions, test and rollback manifest for deployment approval"
+    ]
+  },
+  "updated_utc": "2026-09-25T22:34:32.343825+00:00",
+  "checkpoint_record_kind": "current source checkpoint with retained historical partial states",
+  "current_checkpoint_key": "final_source_checkpoint_20260925T2233Z",
+  "historical_checkpoint_keys": [
+    "checkpoint",
+    "continuation_checkpoint"
+  ],
+  "historical_field_note": "recorded_utc, editor_pid, destination_absent, original_observer_pins and earlier checkpoint objects retain their original observation times; current state is only in partial_authoring_checkpoint.",
+  "partial_authoring_checkpoint": {
+    "recorded_utc": "2026-09-25T19:56:49.431060+00:00",
+    "status": "PHASE_A_PARTIAL_AUTHORING",
+    "final_freeze": false,
+    "copy_review": {
+      "status": "READY_FOR_BOUNDED_AUTHORING_SOURCE_ONLY",
+      "report": "research/OBSERVER_DIAGNOSTIC_CONTROLLER_COPY_REVIEW_2026-09-25.md",
+      "index": "research/OBSERVER_DIAGNOSTIC_CONTROLLER_COPY_REVIEW_2026-09-25.json",
+      "native_export_utc": "2026-09-25T19:26:18Z",
+      "native_receipt": "research/evidence/editor-source/diagnostic-controller-copy-20260925T192618Z-cfd90ca1/report.json",
+      "comparison_basis": "Exact current mod-copy export versus pinned historical stock source/CDO; stock aliases rejected, not accepted as live stock.",
+      "registered_nodes_preserved": 15,
+      "pins_preserved": 49,
+      "linked_pins_preserved": 27,
+      "class_default_property_changes": 0
+    },
+    "input_mapping": {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+      "bytes": 1498,
+      "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f",
+      "action": "ObserverDiagnosticSnapshot",
+      "key": "F8",
+      "shift": false,
+      "ctrl": false,
+      "alt": false,
+      "cmd": false,
+      "runtime_key_test": "NOT_PERFORMED"
+    },
+    "diagnostic_graph": {
+      "status": "INCOMPLETE",
+      "observed_chain": "InputAction ObserverDiagnosticSnapshot: Pressed -> Do Once",
+      "consume_input": false,
+      "execute_when_paused": false,
+      "flags_evidence": "Coordinator observed node Details; graph and intermediate compile independently visible in linked compile image.",
+      "do_once_completed_output": "UNCONNECTED",
+      "widget": "NOT_CREATED_AT_THIS_CHECKPOINT",
+      "display_and_cleanup": "NOT_BUILT"
+    },
+    "intermediate_compile": {
+      "status": "PASS_EDITOR_INTERMEDIATE_FRAGMENT_ONLY",
+      "observed_utc": "2026-09-25T19:49:18Z",
+      "milliseconds": 614,
+      "message": "Compile of InstantActionPlayerController successful! [in 614 ms]",
+      "receipt": "research/evidence/window-bridge/editor-5175991c49a04cfebfc0610c8ea668de/capture-604b5f21404847dda87d99499fe5b18b/receipt.json",
+      "image": "research/evidence/window-bridge/editor-5175991c49a04cfebfc0610c8ea668de/capture-604b5f21404847dda87d99499fe5b18b/client.png",
+      "image_sha256": "1a1a0756585834a2d692344e41c20e5c67bc07e2cf0e8f0604fc92a1c3d56ed2"
+    },
+    "saved_controller": {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 61058,
+      "sha256": "e08001c7c1c8bf5c67b5bd00dc7fb65deed4c7ac8e1935a41e48f2c0f5ab85bc",
+      "saved_utc_approx": "2026-09-25T19:49:49Z",
+      "disk_modified_utc": "2026-09-25T19:49:48.9537073Z",
+      "independently_rehashed_for_this_checkpoint": true
+    },
+    "original_integrity": {
+      "basis": "Coordinator reverified all seven immutable original observer pins and stock controller during the UI authoring unit.",
+      "seven_immutable_observer_pins_match": true,
+      "stock_controller_hash_matches": true,
+      "selection_restore": "PENDING_COMPLETION_OF_AUTHORING_UNIT"
+    },
+    "editor_restart": {
+      "old_pid": 28296,
+      "trigger": "Coordinator intended Alt+F4 for controller window; entire editor closed normally.",
+      "log_exit_utc": "2026-09-25T19:51:02.564Z",
+      "saved_controller_and_input_hashes_preserved": true,
+      "new_pid": 25916,
+      "new_process_start_utc": "2026-09-25T19:52:38.2716223Z",
+      "start_time_evidence": "Independently read Get-Process StartTime.ToUniversalTime; no process action by this documentation update.",
+      "asset_graph_readback_after_restart": "PENDING"
+    },
+    "ui_continuation": {
+      "status": "POPUP_FOCUS_WORKFLOW_RECOVERED",
+      "old_availability_pause_is_current": false,
+      "unanswered_availability_question_treated_as_answer": false,
+      "basis": "Subsequent authorized continuation and coordinator capture/focus verification; no invented user answer.",
+      "next_input_requires": "Fresh current window identity, focus and reviewed capture"
+    },
+    "unresolved_warnings": [
+      "Save To Mod handled localization-validator ensure at18:47:46UTC.",
+      "ReloadPackage missing replacements for PlayerControllerSwitchMech_GEN_VARIABLE, PlayerControllerAirStrikeComponent_GEN_VARIABLE and ControllerFeedbackComponent_GEN_VARIABLE at18:47:48UTC.",
+      "Intermediate compile does not by itself resolve generated-template reload warnings or prove runtime health."
+    ],
+    "final_phase_a_compile_and_review": "NOT_PERFORMED",
+    "play": "NOT_PERFORMED",
+    "cook": "NOT_PERFORMED",
+    "package": "NOT_PERFORMED",
+    "retail": "NOT_PERFORMED",
+    "runtime_acceptance": "NOT_PERFORMED",
+    "inspector_reuse_note": "Existing controller-copy inspector is pinned to the pre-authoring50172-byte copy. The changed saved asset requires a separately reviewed updated pin before any final export.",
+    "next_steps": [
+      "Verify saved controller after reopening",
+      "Create static independent widget",
+      "Finish one-shot display and owned cleanup",
+      "Final compile/save/reopen and graph/default/input review",
+      "Separate package decision using reviewed preflight"
+    ],
+    "resource_policy": "Fixed physical RAM and commit reserves remain waived; observe health and actual failures."
+  },
+  "in_memory_continuation_20260925T204153Z": {
+    "editor_pid": 20352,
+    "launch_arguments": "MW5Mercs -Installed",
+    "widget_copy_receipt": "research/evidence/editor-source/diagnostic-widget-copy-20260925T201450Z-0d8a7d1e/report.json",
+    "widget_status": "DUPLICATED_UNSAVED_INSPECTION_STOPPED_ON_DEPRECATED_GETTER",
+    "widget_text_update": "NOT_PERFORMED",
+    "controller_unsaved_change": "Do Once Completed connected to Create Widget; WBP_ObserverDiagnosticControl selected; owning player and display/cleanup incomplete",
+    "last_saved_controller_sha256": "e08001c7c1c8bf5c67b5bd00dc7fb65deed4c7ac8e1935a41e48f2c0f5ab85bc",
+    "script_sha256": "8e17c1eee8acfc13c96c5cf8d054c83d1b35c0aa15349db423fb5d0d5131f3a3",
+    "final_compile_save_reopen_review": "NOT_PERFORMED",
+    "cook_retail_runtime": "NOT_PERFORMED",
+    "working_checkpoint_not_final_freeze": true
+  },
+  "final_source_checkpoint_20260925T2233Z": {
+    "recorded_utc": "2026-09-25T22:34:32.343825+00:00",
+    "status": "SOURCE_CHECKPOINT_REVIEWED_WITH_WARNING_BLOCKERS",
+    "native_export_report": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-source\\diagnostic-final-source-20260925T221745Z-530263a1\\report.json",
+    "source_checkpoint": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\SOURCE_CHECKPOINT.json",
+    "checks": [
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+        "bytes": 422,
+        "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+        "bytes": 1383,
+        "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+        "bytes": 139586,
+        "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+        "bytes": 31659,
+        "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+        "bytes": 2111,
+        "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+        "bytes": 53635,
+        "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\LanceObserverDiagnosticControl.uplugin",
+        "bytes": 389,
+        "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+        "bytes": 1498,
+        "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+        "bytes": 92019,
+        "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Content\\WBP_ObserverDiagnosticControl.uasset",
+        "bytes": 30768,
+        "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+        "bytes": 1498,
+        "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Tags\\LanceObserverDiagnosticControlTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Content\\WBP_ObserverDiagnosticControl.uasset",
+        "bytes": 30768,
+        "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\LanceObserverDiagnosticControl.uplugin",
+        "bytes": 389,
+        "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\mod.json",
+        "bytes": 484,
+        "sha256": "1733b881793403a6b577bba8effa9f8ab9ca4dbbdddcaf070c98f03f543f90a1",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+        "bytes": 92019,
+        "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e",
+        "matches": true
+      },
+      {
+        "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\mod.json",
+        "bytes": 356,
+        "sha256": "475c4ed15264743f84d326f28903079d3d72f102985d10c8a7ede4ccf7d5cea3",
+        "matches": true
+      }
+    ],
+    "all_disk_checks_match": true,
+    "selection_after": {
+      "original_present": true,
+      "diagnostic_present": false
+    },
+    "disk_free_bytes": 5845786624,
+    "cook_start_floor_bytes": 12884901888,
+    "compile": "BOTH_EXPLICIT_UI_SUCCESS",
+    "asset_tab_reopen": "BOTH_OBSERVED_SAME_PROCESS_NOT_COLD_RELOAD",
+    "package": "NOT_PERFORMED",
+    "retail": "NOT_PERFORMED",
+    "unresolved": [
+      "generated component template equivalence",
+      "intermittent localization validation ensure",
+      "disk headroom below proposed cook floor"
+    ]
+  }
 }

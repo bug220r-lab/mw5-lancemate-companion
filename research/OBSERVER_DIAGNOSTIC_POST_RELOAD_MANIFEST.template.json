@@ -1,0 +1,779 @@
+{
+  "classification": "OFFLINE_NON_EXECUTABLE_TEMPLATE",
+  "native_execution": "NOT_PERFORMED",
+  "instructions": [
+    "This is not a reviewed native manifest, executable entry or dispatcher.",
+    "Populate a new diagnostic-post-reload timestamp-and-nonce attempt only from fresh reviewed evidence. Preserve all historical manifests, entries, claims and exports.",
+    "Pin a dormant run-diagnostic.py inner entry accepting run(api,approved_manifest_sha256), then finalize the reviewed manifest. Generate the exact canonical dispatch-diagnostic.py bytes from that final manifest SHA and entry pin; its descriptor specifies exact path and format version without creating a circular wrapper hash. Independently record the resulting wrapper hash in the external artifact review.",
+    "Native dispatch requires a separately reviewed fresh complete log prefix and exactly one timestamped command echo for the exact derived dispatcher. Any additional or unreviewed source-log line blocks admission. No actual entry, dispatcher or native-ready manifest is created by this template.",
+    "Native inspection observes fixed editor source identities and exports only. Reference health, memory rollback, mount registry and runtime acceptance remain UNKNOWN.",
+    "Restoration validation reports recorded transition and current saved files only. Fresh current UI/process and source-log continuity remain separate mandatory checks before any full restoration claim.",
+    "Every explicit and automatic observation poll must have result OBSERVED for transition admission. FAILED, REFUSED and TIMED_OUT polls still count toward the five-poll limit and must remain in the evidence, but each prevents admission even with an empty unsafe list or a reason. Later successful polls cannot repair the gap; a separate recovery review is required."
+  ],
+  "manifest": {
+    "protocol": "DIAGNOSTIC_POST_RELOAD_LOADED_ONLY_V1",
+    "phase": "diagnostic",
+    "targets": [
+      {
+        "label": "diagnostic-SimpleConstructionScript_0",
+        "scope": "diagnostic",
+        "name": "SimpleConstructionScript_0",
+        "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:SimpleConstructionScript_0",
+        "class_path": "/Script/Engine.SimpleConstructionScript",
+        "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+      },
+      {
+        "label": "diagnostic-InheritableComponentHandler",
+        "scope": "diagnostic",
+        "name": "InheritableComponentHandler",
+        "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:InheritableComponentHandler",
+        "class_path": "/Script/Engine.InheritableComponentHandler",
+        "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+      },
+      {
+        "label": "diagnostic-PlayerControllerSwitchMech_GEN_VARIABLE",
+        "scope": "diagnostic",
+        "name": "PlayerControllerSwitchMech_GEN_VARIABLE",
+        "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:PlayerControllerSwitchMech_GEN_VARIABLE",
+        "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerSwitchMech.PlayerControllerSwitchMech_C",
+        "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+      },
+      {
+        "label": "diagnostic-PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+        "scope": "diagnostic",
+        "name": "PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+        "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+        "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerAirStrikeComponent.PlayerControllerAirStrikeComponent_C",
+        "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+      },
+      {
+        "label": "diagnostic-ControllerFeedbackComponent_GEN_VARIABLE",
+        "scope": "diagnostic",
+        "name": "ControllerFeedbackComponent_GEN_VARIABLE",
+        "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:ControllerFeedbackComponent_GEN_VARIABLE",
+        "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/ControllerFeedbackComponent.ControllerFeedbackComponent_C",
+        "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+      }
+    ],
+    "root_asset": {
+      "label": "diagnostic",
+      "scope": "diagnostic",
+      "name": "InstantActionPlayerController",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController",
+      "class_path": "/Script/Engine.Blueprint",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController"
+    },
+    "allow_load": false,
+    "allow_exact_root_load": false,
+    "limits": {
+      "root_finds": 2,
+      "diagnostic_root_loads": 0,
+      "subobject_finds": 5,
+      "exports": 5,
+      "seconds": 90,
+      "export_bytes": 1048576,
+      "raw_bytes": 8388608,
+      "inventory_bytes": 8388608,
+      "receipt_bytes": 131072,
+      "outer_depth": 8,
+      "lexical_depth": 16,
+      "disk_free_bytes": 2147483648,
+      "mod_files": 256,
+      "mod_total_bytes": 536870912,
+      "mod_directories": 1024,
+      "capture_bytes": 8388608,
+      "log_span_bytes": 262144
+    },
+    "schema_version": 1,
+    "status": "PROPOSED_NON_EXECUTABLE",
+    "attempt_id": null,
+    "editor_identity": null,
+    "reviewed_at_utc": null,
+    "native_owner_confirmed": false,
+    "native_owner": null,
+    "owner_evidence": null,
+    "authorization_evidence": null,
+    "helper_sha256": "aa09f44960508e4fe98b8b9551da7e3675d2c79f287ccd3794afc9735252071a",
+    "evidence_helper_sha256": "6a860fef0dae9e3c787cae10e6ef157a1227632db957fa4c6d0f48986890ef05",
+    "phase_helper_sha256": "13b0e9d3e395468b70c6e06ced6edfb5018b8c56d0339c284167d15e308a0105",
+    "base_helper_sha256": "8b92919782afdc799b2c415d7c18cba0282be24e0bf7c698e9a54500ecb018fd",
+    "entry_file": null,
+    "implementation_review": null,
+    "editor_executable": null,
+    "editor_build": null,
+    "editor_version": {
+      "MajorVersion": 4,
+      "MinorVersion": 26,
+      "PatchVersion": 2,
+      "CompatibleChangelist": 14830424
+    },
+    "protected_files": [
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+        "bytes": 1498,
+        "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Tags\\LanceObserverDiagnosticControlTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Content\\WBP_ObserverDiagnosticControl.uasset",
+        "bytes": 30768,
+        "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\LanceObserverDiagnosticControl.uplugin",
+        "bytes": 389,
+        "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\mod.json",
+        "bytes": 484,
+        "sha256": "1733b881793403a6b577bba8effa9f8ab9ca4dbbdddcaf070c98f03f543f90a1"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+        "bytes": 92019,
+        "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+        "bytes": 1498,
+        "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Config\\Tags\\LanceObserverDiagnosticControlTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Content\\WBP_ObserverDiagnosticControl.uasset",
+        "bytes": 30768,
+        "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\LanceObserverDiagnosticControl.uplugin",
+        "bytes": 389,
+        "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\mod.json",
+        "bytes": 484,
+        "sha256": "1733b881793403a6b577bba8effa9f8ab9ca4dbbdddcaf070c98f03f543f90a1"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+        "bytes": 92019,
+        "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+        "bytes": 422,
+        "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+        "bytes": 1383,
+        "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+        "bytes": 43,
+        "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+        "bytes": 139586,
+        "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+        "bytes": 31659,
+        "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+        "bytes": 2111,
+        "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+        "bytes": 12352,
+        "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+        "bytes": 53635,
+        "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6"
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\mod.json",
+        "bytes": 356,
+        "sha256": "475c4ed15264743f84d326f28903079d3d72f102985d10c8a7ede4ccf7d5cea3"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\SOURCE_CHECKPOINT.json",
+        "bytes": 14976,
+        "sha256": "e178797fac03c6558f427a862fc1d6c0750c3198f190a18d6e528416477b698f"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_DIAGNOSTIC_CONTROL_SOURCE_FREEZE_2026-09-25.json",
+        "bytes": 2796,
+        "sha256": "9f515b7b40cc9ab2830dda5f739fb5c367486c135b0b90d04b3ab3bee8e7c6ef"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-FinalDiagnosticControl.py",
+        "bytes": 19186,
+        "sha256": "055fe707fcd7044a294e6fef99732bb2373c38364ebc509de17eab5d1d0b0c60"
+      },
+      {
+        "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-DiagnosticControllerCopy.py",
+        "bytes": 17562,
+        "sha256": "daa431f3d271e1d0f01345a97d87f018211bcbdbdefdd0f6d9d4a3f15e092360"
+      }
+    ],
+    "selection": [
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+        "present": false
+      },
+      {
+        "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ActiveMod.txt",
+        "present": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "mod_inventory": null,
+    "original_mod_inventory": null,
+    "predecessor": {
+      "attempt_id": "REQUIRES_HISTORICAL_ATTEMPT",
+      "report": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "manifest": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "entry": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "helper": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "base_helper": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "review": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "baseline": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "post_verification": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "continuity": {
+        "path": "REQUIRES_REVIEWED_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_FRESH_SHA256"
+      },
+      "files": [
+        {
+          "export": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          },
+          "inventory": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        },
+        {
+          "export": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          },
+          "inventory": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        },
+        {
+          "export": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          },
+          "inventory": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        },
+        {
+          "export": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          },
+          "inventory": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        },
+        {
+          "export": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          },
+          "inventory": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        }
+      ],
+      "intervening": [
+        {
+          "role": "selection",
+          "receipt": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        },
+        {
+          "role": "restoration",
+          "receipt": {
+            "path": "REQUIRES_REVIEWED_EXACT_PATH",
+            "bytes": 0,
+            "sha256": "REQUIRES_FRESH_SHA256"
+          }
+        }
+      ]
+    },
+    "selection_receipt": {
+      "path": "REQUIRES_REVIEWED_EXACT_PATH",
+      "bytes": 0,
+      "sha256": "REQUIRES_FRESH_SHA256"
+    },
+    "restoration_receipt": null,
+    "dispatch_log": {
+      "path": "REQUIRES_REVIEWED_EXACT_PATH",
+      "bytes": 0,
+      "sha256": "REQUIRES_FRESH_SHA256"
+    },
+    "native_dispatch_continuity": "REQUIRES_REVIEWED_PREFIX_AND_EXACT_DISPATCHER_ECHO",
+    "engine_version": "4.26.2/CL14830424",
+    "dispatcher": {
+      "path": "REQUIRES_EXACT_NEW_ATTEMPT/dispatch-diagnostic.py",
+      "format_version": 1
+    }
+  },
+  "receipt_templates": {
+    "review": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "schema_version": 1,
+      "protocol": "DIAGNOSTIC_POST_RELOAD_LOADED_ONLY_V1",
+      "transition": "selection",
+      "status": "PROPOSED_NON_EXECUTABLE",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "pre_click": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "action": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "polls": [],
+      "final_state": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "log_review": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "final_log": {
+        "source_log_path": "REQUIRES_SOURCE_PATH",
+        "stat_identity": [],
+        "prefix_bytes": 0,
+        "prefix_sha256": "REQUIRES_SHA256"
+      },
+      "live_reference_health": "UNKNOWN",
+      "in_memory_rollback": "UNKNOWN"
+    },
+    "before": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "transition": "selection",
+      "clock_source": "time.monotonic",
+      "clock_domain": "",
+      "clock_domain_verified": false,
+      "start": {
+        "utc": "REQUIRES_UTC",
+        "monotonic": null,
+        "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+      },
+      "durable_written_at": {
+        "utc": "REQUIRES_UTC",
+        "monotonic": null,
+        "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+      },
+      "ui": {
+        "capture": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        },
+        "receipt": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        }
+      },
+      "log": {
+        "source_log_path": "REQUIRES_SOURCE_PATH",
+        "stat_identity": [],
+        "prefix_bytes": 0,
+        "prefix_sha256": "REQUIRES_SHA256"
+      },
+      "log_prefix_file": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "intervening_lines": [],
+      "state": {},
+      "eligibility_review": null
+    },
+    "action": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "transition": "selection",
+      "pre_click_sha256": "",
+      "selection_clicks": 0,
+      "result": "NOT_PERFORMED",
+      "timing": {
+        "submitted": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "started": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "completed": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "returned": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        }
+      },
+      "observation_call_count": 0,
+      "uncounted_observation_calls": 0,
+      "explicit_loads": 0,
+      "explicit_reloads": 0,
+      "asset_edits": 0,
+      "saves": 0,
+      "compiles": 0,
+      "dialog_dismissals": 0,
+      "restarts": 0
+    },
+    "poll": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "poll_id": 1,
+      "kind": "explicit",
+      "result": "NOT_PERFORMED",
+      "timing": {
+        "submitted": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "started": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "completed": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "returned": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        }
+      },
+      "elapsed_seconds": null,
+      "unsafe_conditions_observed": [],
+      "ui": {
+        "capture": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        },
+        "receipt": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        }
+      },
+      "log": {
+        "source_log_path": "",
+        "stat_identity": [],
+        "start_byte": 0,
+        "end_byte": 0,
+        "source_prefix_sha256": "",
+        "file": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        },
+        "read_started": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "read_completed": {
+          "utc": "REQUIRES_UTC",
+          "monotonic": null,
+          "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+        },
+        "truncated": false,
+        "rotated": false
+      }
+    },
+    "ui": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "capture": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "active_mod": "",
+      "responsive": false,
+      "main_window_foreground": false,
+      "exclusive_owner": false,
+      "modal_visible": null,
+      "human_intervention": null,
+      "pending_tool_work": null,
+      "observed_at": {
+        "utc": "REQUIRES_UTC",
+        "monotonic": null,
+        "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+      },
+      "reviewer": "",
+      "interpretation": ""
+    },
+    "state": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "observed_at": {
+        "utc": "REQUIRES_UTC",
+        "monotonic": null,
+        "clock_domain": "REQUIRES_VERIFIED_DOMAIN"
+      },
+      "ui": {
+        "capture": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        },
+        "receipt": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        }
+      },
+      "selection": [],
+      "protected_files": [],
+      "mod_inventory": [],
+      "descriptors": [],
+      "inventory_complete": false,
+      "inventory_differences": {
+        "added": [],
+        "removed": [],
+        "changed": []
+      }
+    },
+    "log_review": {
+      "source": {
+        "source_log_path": "REQUIRES_SOURCE_PATH",
+        "stat_identity": [],
+        "prefix_bytes": 0,
+        "prefix_sha256": "REQUIRES_SHA256"
+      },
+      "file": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "end_byte": 0,
+      "lines": []
+    },
+    "line": {
+      "start_byte": 0,
+      "end_byte": 0,
+      "text": "",
+      "channel": "",
+      "operation": "",
+      "path": "",
+      "interpretation": "",
+      "reviewer": "",
+      "disposition": "UNREVIEWED"
+    },
+    "dispatch_log_review": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "status": "PROPOSED_NON_EXECUTABLE",
+      "reviewer": "",
+      "selection_receipt": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "entry_file": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "expected_command": "",
+      "reviewed_at_utc": "",
+      "expires_at_utc": "",
+      "log": {
+        "source_log_path": "REQUIRES_SOURCE_PATH",
+        "stat_identity": [],
+        "prefix_bytes": 0,
+        "prefix_sha256": "REQUIRES_SHA256"
+      },
+      "prefix_file": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "intervening_lines": [],
+      "log_timestamp_basis": "UTC_OBSERVED_EDITOR_LOG",
+      "ui": {
+        "capture": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        },
+        "receipt": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        }
+      }
+    },
+    "restoration_eligibility_review": {
+      "editor_identity": {},
+      "engine_version": "4.26.2/CL14830424",
+      "attempt_id": "REQUIRES_NEW_ATTEMPT",
+      "status": "PROPOSED_NON_EXECUTABLE",
+      "selection_receipt": {
+        "path": "REQUIRES_EXACT_PATH",
+        "bytes": 0,
+        "sha256": "REQUIRES_SHA256"
+      },
+      "ui": {
+        "capture": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        },
+        "receipt": {
+          "path": "REQUIRES_EXACT_PATH",
+          "bytes": 0,
+          "sha256": "REQUIRES_SHA256"
+        }
+      },
+      "state": {},
+      "log": {
+        "source_log_path": "REQUIRES_SOURCE_PATH",
+        "stat_identity": [],
+        "prefix_bytes": 0,
+        "prefix_sha256": "REQUIRES_SHA256"
+      },
+      "unsafe_conditions_observed": [],
+      "reviewer": "",
+      "reason": "",
+      "reviewed_at_utc": "",
+      "outcome": "NOT_PERFORMED_COMPARISON_ONLY_STOP",
+      "diagnostic_report": null,
+      "diagnostic_manifest": null
+    }
+  },
+  "implementation_review_template": {
+    "status": "PROPOSED_NON_EXECUTABLE",
+    "protocol": "DIAGNOSTIC_POST_RELOAD_LOADED_ONLY_V1",
+    "helper_sha256": "aa09f44960508e4fe98b8b9551da7e3675d2c79f287ccd3794afc9735252071a",
+    "evidence_helper_sha256": "6a860fef0dae9e3c787cae10e6ef157a1227632db957fa4c6d0f48986890ef05",
+    "entry_file": null,
+    "dispatcher": {
+      "path": "REQUIRES_EXACT_NEW_ATTEMPT/dispatch-diagnostic.py",
+      "format_version": 1
+    },
+    "native_execution": "NOT_PERFORMED",
+    "reviewer": null
+  }
+}

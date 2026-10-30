@@ -153,6 +153,233 @@ class BridgeGuardTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, 'owner identity or geometry changed'):
                     d.resolve(session)
 
+    def child_desktop(self):
+        child = {**self.ident, 'hwnd': 301, 'title': 'Explicit foreground child', 'tid': 8}
+        middle = {**self.ident, 'hwnd': 201, 'title': 'Intermediate owner'}
+        identities = {101: dict(self.ident), 201: middle, 301: child}
+        owners = {301: 201, 201: 101, 101: 0}
+        d = object.__new__(bridge.Desktop)
+        d.u = SimpleNamespace(GetWindow=mock.Mock(side_effect=lambda hwnd, flag: owners[hwnd]),
+                             GetForegroundWindow=mock.Mock(return_value=301),
+                             GetAsyncKeyState=mock.Mock(return_value=0))
+        d.identity = mock.Mock(side_effect=lambda hwnd: dict(identities[hwnd]))
+        d.focus = mock.Mock(side_effect=lambda ident: ident['hwnd'])
+        session = {**self.session, 'foreground_child_chain': [dict(child), dict(middle), dict(self.ident)],
+                   'foreground_child_focus_hwnd': 301}
+        return d, session, identities, owners
+
+    def test_child_chain_pins_each_owner_and_accepts_only_exact_foreground(self):
+        d, session, identities, owners = self.child_desktop()
+        self.assertEqual(d.foreground_owner_chain(self.ident, 301), session['foreground_child_chain'])
+        d.guard(self.ident, session, focus=101)
+        self.assertTrue(all(call.args[1] == 4 for call in d.u.GetWindow.call_args_list))
+        d.u.GetForegroundWindow.return_value = 101
+        with self.assertRaisesRegex(RuntimeError, 'not foreground'):
+            d.guard(self.ident, session, focus=101)
+
+    def test_default_binding_still_rejects_an_owned_foreground_child(self):
+        d, unused, identities, owners = self.child_desktop()
+        with self.assertRaisesRegex(RuntimeError, 'Foreground changed'):
+            d.guard(self.ident, self.session, focus=101)
+
+    def test_child_chain_rejects_other_process_reused_process_or_changed_geometry(self):
+        changes = ({'pid': 43}, {'process_created': 901}, {'process': 'other.exe'},
+                   {'window_rect': [0, 0, 200, 120]}, {'title': 'Changed'}, {'tid': 9})
+        for change in changes:
+            with self.subTest(change=change):
+                d, session, identities, owners = self.child_desktop()
+                identities[201].update(change)
+                with self.assertRaisesRegex(RuntimeError, 'process identity|identity or geometry changed'):
+                    d.resolve(session)
+
+    def test_child_chain_rejects_changed_link_cycle_missing_target_and_depth(self):
+        for changed_owners in ({301: 101}, {201: 301}, {201: 0}):
+            with self.subTest(owners=changed_owners):
+                d, session, identities, owners = self.child_desktop()
+                owners.update(changed_owners)
+                with self.assertRaisesRegex(RuntimeError, 'chain'):
+                    d.resolve(session)
+        d, session, identities, owners = self.child_desktop()
+        d.identity.side_effect = lambda hwnd: {**self.ident, 'hwnd': hwnd}
+        d.u.GetWindow.side_effect = lambda hwnd, flag: hwnd + 1
+        with self.assertRaisesRegex(RuntimeError, 'bounded depth'):
+            d.foreground_owner_chain(self.ident, 301)
+        self.assertEqual(d.identity.call_count, bridge.MAX_OWNER_CHAIN)
+
+    def test_child_chain_accepts_exactly_eight_identity_nodes(self):
+        d, session, identities, owners = self.child_desktop()
+        handles = list(range(301, 301 + bridge.MAX_OWNER_CHAIN - 1)) + [101]
+        d.identity.side_effect = lambda hwnd: {**self.ident, 'hwnd': hwnd}
+        mapping = dict(zip(handles, handles[1:]))
+        d.u.GetWindow.side_effect = lambda hwnd, flag: mapping[hwnd]
+        self.assertEqual([item['hwnd'] for item in d.foreground_owner_chain(self.ident, 301)], handles)
+
+    def test_child_chain_rejects_self_hidden_child_mixed_popup_and_focus_changes(self):
+        d, session, identities, owners = self.child_desktop()
+        with self.assertRaisesRegex(RuntimeError, 'differ from target'):
+            d.foreground_owner_chain(self.ident, 101)
+        d.identity.side_effect = RuntimeError('Target absent, hidden or minimized')
+        with self.assertRaisesRegex(RuntimeError, 'hidden'):
+            d.foreground_owner_chain(self.ident, 301)
+        d, session, identities, owners = self.child_desktop()
+        session['owner_identity'] = identities[201]
+        with self.assertRaisesRegex(RuntimeError, 'Invalid foreground child session'):
+            d.resolve(session)
+        del session['owner_identity']
+        d.focus.side_effect = lambda ident: 999 if ident['hwnd'] == 301 else 101
+        with self.assertRaisesRegex(RuntimeError, 'child focus changed'):
+            d.guard(self.ident, session, focus=101)
+        d.focus.side_effect = lambda ident: 301 if ident['hwnd'] == 301 else 999
+        with self.assertRaisesRegex(RuntimeError, 'Focus changed'):
+            d.guard(self.ident, session, focus=101)
+
+    def test_child_chain_retains_physical_key_and_occlusion_checks(self):
+        d, session, identities, owners = self.child_desktop()
+        d.u.GetAsyncKeyState.side_effect = lambda vk: 0x8000 if vk == 16 else 0
+        with self.assertRaisesRegex(RuntimeError, 'key or mouse button is held'):
+            d.guard(self.ident, session, focus=101)
+        d.u.WindowFromPoint = mock.Mock(return_value=301)
+        d.u.GetAncestor = mock.Mock(return_value=301)
+        with self.assertRaisesRegex(RuntimeError, 'occluded'):
+            d.point(self.ident, (60, 60))
+
+    def test_child_session_rejects_text_drag_and_double_click_before_input(self):
+        unused, self.session, identities, owners = self.child_desktop()
+        self.write_session()
+        for updates in ({'click': None, 'text': 'Probe', 'editor_text_field': [40, 30, 120, 55]},
+                        {'click': None, 'drag': [20, 20, 80, 80]}, {'click_count': 2}):
+            with self.subTest(updates=updates):
+                self.assert_rejected_without_input(self.args(**updates), 'one single click only')
+
+    def test_child_single_click_closes_session_and_requires_normal_rebind_without_capture(self):
+        unused, self.session, identities, owners = self.child_desktop()
+        self.write_session()
+        original_send = self.d.send
+        def checked_send(events):
+            self.assertTrue((self.folder / 'closed.json').exists())
+            return original_send(events)
+        with mock.patch.object(self.d, 'send', side_effect=checked_send):
+            self.call_act(self.args())
+        self.assertEqual(self.d.u.calls, [[('mouse', 2), ('mouse', 4)]])
+        bridge.capture.assert_not_called()
+        self.assertTrue((self.folder / 'closed.json').exists())
+        result = json.loads((self.receipt_path.parent / 'action-result.json').read_text())
+        self.assertEqual(result['next_step'], 'FRESH_NORMAL_BIND_REQUIRED')
+        with self.assertRaisesRegex(RuntimeError, 'closed scratch session'):
+            bridge.read_session(self.session_path)
+
+    def test_child_uncertain_click_closes_session_and_only_releases_pending_button(self):
+        unused, self.session, identities, owners = self.child_desktop()
+        self.write_session()
+        self.d.u = FakeUser(partial_first=True)
+        with self.assertRaises(SystemExit):
+            self.call_act(self.args())
+        self.assertEqual(self.d.u.calls, [[('mouse', 2), ('mouse', 4)], [('mouse', 4)]])
+        self.assertTrue((self.folder / 'closed.json').exists())
+        bridge.capture.assert_not_called()
+
+    def test_child_pixel_mismatch_does_not_consume_session_or_send_input(self):
+        unused, self.session, identities, owners = self.child_desktop()
+        self.write_session()
+        self.grab.return_value = self.changed
+        self.assert_rejected_without_input(self.args(), 'Visible client changed')
+        self.assertFalse((self.folder / 'closed.json').exists())
+
+    def test_bind_child_cli_persists_chain_and_flags_are_mutually_exclusive(self):
+        d, session, identities, owners = self.child_desktop()
+        command = ['WindowBridge.py', 'bind-editor', '--title', self.ident['title'],
+                   '--pid', '42', '--hwnd', '101', '--foreground-child-hwnd', '301']
+        with mock.patch.object(bridge.sys, 'argv', command), \
+             mock.patch.object(bridge, 'Desktop', return_value=d), contextlib.redirect_stdout(io.StringIO()):
+            bridge.main()
+        bound = bridge.capture.call_args.args[2]
+        self.assertEqual(bound['foreground_child_chain'], session['foreground_child_chain'])
+        self.assertEqual(bound['foreground_child_focus_hwnd'], 301)
+        with mock.patch.object(bridge.sys, 'argv', command + ['--owner-hwnd', '201']), \
+             contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as rejected:
+            bridge.main()
+        self.assertEqual(rejected.exception.code, 2)
+
+    def prepare_maximize(self, observed_maximized=True):
+        self.ident['maximized'] = False
+        self.session.update(maximized=False, created_utc=bridge.now())
+        self.write_session()
+        after = {**self.ident, 'maximized': observed_maximized,
+                 'window_rect': [0, 0, 400, 300], 'client_rect': [0, 0, 400, 280]}
+        self.d.resolve = mock.Mock(return_value=dict(self.ident))
+        self.d.identity = mock.Mock(return_value=after)
+        self.d.focus = mock.Mock(return_value=101)
+        self.d.placement = mock.Mock(side_effect=[{'normal_position': [90, 80, 310, 230], 'show_command': 1},
+                                                {'normal_position': [90, 80, 310, 230], 'show_command': 3}])
+        def show(hwnd, command):
+            self.assertTrue((self.folder / 'closed.json').exists())
+            self.assertTrue((self.folder / 'maximize-result.json').exists())
+            self.assertEqual((hwnd, command), (101, 3))
+            return 0  # The previous-visibility return is deliberately not success.
+        self.d.u.ShowWindow = mock.Mock(side_effect=show)
+
+    def call_maximize(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            bridge.maximize(self.d, self.session_path, self.session)
+
+    def test_maximize_records_placement_calls_once_and_requires_new_bind_without_input(self):
+        self.prepare_maximize()
+        self.call_maximize()
+        self.d.u.ShowWindow.assert_called_once_with(101, 3)
+        self.assertEqual(self.d.u.calls, [])
+        bridge.capture.assert_not_called()
+        result = json.loads((self.folder / 'maximize-result.json').read_text())
+        self.assertEqual(result['status'], 'MAXIMIZED_REQUIRES_REVIEW')
+        self.assertFalse(result['show_window_previously_visible'])
+        self.assertEqual(result['placement_before']['normal_position'], [90, 80, 310, 230])
+        self.assertEqual(result['next_step'], 'FRESH_NORMAL_BIND_AND_CAPTURE_REQUIRED')
+        with self.assertRaisesRegex(RuntimeError, 'closed scratch session'):
+            bridge.read_session(self.session_path)
+
+    def test_maximize_rejects_non_normal_sessions_without_layout_call(self):
+        self.prepare_maximize()
+        for changes in ({'kind': 'scratch'}, {'owner_identity': {'hwnd': 201}},
+                        {'foreground_child_chain': [{'hwnd': 301}]}):
+            with self.subTest(changes=changes), mock.patch.dict(self.session, changes):
+                with self.assertRaisesRegex(RuntimeError, 'normal editor binding'):
+                    self.call_maximize()
+        self.d.u.ShowWindow.assert_not_called()
+
+    def test_maximize_rejects_expired_or_changed_binding_and_foreground_without_layout_call(self):
+        self.prepare_maximize()
+        with mock.patch.dict(self.session, {'created_utc': (datetime.now(timezone.utc)-timedelta(seconds=121)).isoformat()}):
+            with self.assertRaisesRegex(RuntimeError, 'expired'):
+                self.call_maximize()
+        self.d.resolve.return_value = {**self.ident, 'title': 'Changed'}
+        with self.assertRaisesRegex(RuntimeError, 'geometry changed since binding'):
+            self.call_maximize()
+        self.d.resolve.return_value = dict(self.ident)
+        self.d.guard.side_effect = RuntimeError('Foreground changed')
+        with self.assertRaisesRegex(RuntimeError, 'Foreground changed'):
+            self.call_maximize()
+        self.d.u.ShowWindow.assert_not_called()
+
+    def test_maximize_does_not_treat_showwindow_return_as_success_or_retry(self):
+        self.prepare_maximize(observed_maximized=False)
+        with self.assertRaises(SystemExit) as rejected:
+            self.call_maximize()
+        self.assertEqual(rejected.exception.code, 2)
+        self.d.u.ShowWindow.assert_called_once_with(101, 3)
+        result = json.loads((self.folder / 'maximize-result.json').read_text())
+        self.assertEqual(result['status'], 'LAYOUT_OUTCOME_UNCERTAIN')
+        self.assertEqual(result['error'], 'Maximized state not observed')
+        self.assertTrue((self.folder / 'closed.json').exists())
+
+    def test_maximize_reports_changed_process_after_layout_without_followup_input(self):
+        self.prepare_maximize()
+        self.d.identity.return_value['process_created'] = 901
+        with self.assertRaises(SystemExit):
+            self.call_maximize()
+        self.d.u.ShowWindow.assert_called_once_with(101, 3)
+        self.assertEqual(self.d.u.calls, [])
+        result = json.loads((self.folder / 'maximize-result.json').read_text())
+        self.assertEqual(result['error'], 'Window identity changed during maximize')
+
     def test_partial_right_click_releases_right_button_and_reports_uncertainty(self):
         self.d.u = FakeUser(partial_first=True)
         with self.assertRaises(SystemExit) as stopped:
@@ -163,11 +390,89 @@ class BridgeGuardTests(unittest.TestCase):
         self.assertEqual(result['status'], 'FAILED_OR_UNCERTAIN')
         self.assertIsNone(result['cleanup_error'])
 
-    def test_right_double_click_and_right_drag_reject_before_input(self):
-        for updates in ({'click_count': 2}, {'click': None, 'drag': [20, 20, 80, 80]}):
+    def test_right_double_click_drag_count_two_and_text_reject_before_input(self):
+        for updates in ({'click_count': 2}, {'click': None, 'drag': [20, 20, 80, 80], 'click_count': 2},
+                        {'click': None, 'text': 'Probe'}):
             with self.subTest(updates=updates):
                 self.assert_rejected_without_input(self.args(mouse_button='right', **updates),
-                                                   'Right button permits exactly one click')
+                                                   'Right button permits one single click or one drag')
+
+    def test_right_drag_sends_right_pair_checks_path_and_records_actual_button(self):
+        self.call_act(self.args(click=None, drag=[20, 20, 80, 80], mouse_button='right'))
+        self.assertEqual(self.d.u.calls, [[('mouse', 8)], [('mouse', 16)]])
+        expected_path = [(20 + 3*i, 20 + 3*i) for i in range(21)]
+        checked = [call.args[1] for call in self.d.point.call_args_list]
+        self.assertEqual(checked[2:23], expected_path)
+        held_guards = [call.kwargs for call in self.d.guard.call_args_list if call.kwargs.get('dragging')]
+        self.assertEqual(held_guards, [{'dragging': True, 'mouse_button': 'right'}] * 21)
+        evidence = json.loads((self.receipt_path.parent / 'consumed.json').read_text())
+        self.assertEqual(evidence['mouse_button'], 'right')
+        self.assertEqual(evidence['action'], 'drag')
+
+    def test_left_drag_keeps_original_button_and_held_key(self):
+        self.call_act(self.args(click=None, drag=[20, 20, 80, 80]))
+        self.assertEqual(self.d.u.calls, [[('mouse', 2)], [('mouse', 4)]])
+        held_guards = [call.kwargs for call in self.d.guard.call_args_list if call.kwargs.get('dragging')]
+        self.assertEqual(held_guards, [{'dragging': True, 'mouse_button': 'left'}] * 21)
+
+    def test_right_drag_ignores_only_right_button_during_held_phase(self):
+        d, unused, identities, owners = self.child_desktop()
+        d.u.GetForegroundWindow.return_value = 101
+        for held in (1, 2, 16):
+            d.u.GetAsyncKeyState.side_effect = lambda vk, held=held: 0x8000 if vk == held else 0
+            if held == 2:
+                d.guard(self.ident, self.session, dragging=True, mouse_button='right')
+            else:
+                with self.assertRaisesRegex(RuntimeError, 'key or mouse button is held'):
+                    d.guard(self.ident, self.session, dragging=True, mouse_button='right')
+            with self.assertRaisesRegex(RuntimeError, 'key or mouse button is held'):
+                d.guard(self.ident, self.session, mouse_button='right')
+
+    def test_right_drag_refuses_child_popup_and_scratch_modes(self):
+        unused, child_session, identities, owners = self.child_desktop()
+        for changes, message in (({'foreground_child_chain': child_session['foreground_child_chain']}, 'one single click'),
+                                 ({'owner_identity': {'hwnd': 201}}, 'normal editor canvas')):
+            with self.subTest(changes=changes), mock.patch.dict(self.session, changes):
+                self.write_session()
+                self.assert_rejected_without_input(self.args(click=None, drag=[20, 20, 80, 80],
+                                                             mouse_button='right'), message)
+        with mock.patch.object(bridge, 'read_session', return_value=(self.session_path, {'kind': 'scratch'})):
+            self.assert_rejected_without_input(self.args(click=None, drag=[20, 20, 80, 80],
+                                                         mouse_button='right'), 'normal editor canvas')
+
+    def test_right_drag_path_occlusion_before_press_sends_no_input(self):
+        self.d.point.side_effect = lambda ident, point: (_ for _ in ()).throw(RuntimeError('Point is occluded')) \
+            if point == (50, 50) else (100 + point[0], 100 + point[1])
+        with self.assertRaises(SystemExit):
+            self.call_act(self.args(click=None, drag=[20, 20, 80, 80], mouse_button='right'))
+        self.assertEqual(self.d.u.calls, [])
+
+    def test_right_drag_guard_failure_after_down_releases_only_right_button(self):
+        def guard(*args, **kwargs):
+            if kwargs.get('dragging'):
+                raise RuntimeError('Foreground changed during drag')
+        self.d.guard.side_effect = guard
+        with self.assertRaises(SystemExit):
+            self.call_act(self.args(click=None, drag=[20, 20, 80, 80], mouse_button='right'))
+        self.assertEqual(self.d.u.calls, [[('mouse', 8)], [('mouse', 16)]])
+        result = json.loads((self.receipt_path.parent / 'action-result.json').read_text())
+        self.assertEqual(result['status'], 'FAILED_OR_UNCERTAIN')
+        self.assertIsNone(result['cleanup_error'])
+
+    def test_uncertain_right_drag_down_attempts_right_release_without_replay(self):
+        original = self.d.send
+        def uncertain(events):
+            original(events)
+            if len(self.d.u.calls) == 1:
+                raise RuntimeError('Input outcome uncertain')
+        with mock.patch.object(self.d, 'send', side_effect=uncertain), self.assertRaises(SystemExit):
+            self.call_act(self.args(click=None, drag=[20, 20, 80, 80], mouse_button='right'))
+        self.assertEqual(self.d.u.calls, [[('mouse', 8)], [('mouse', 16)]])
+
+    def test_right_drag_pixel_mismatch_rejects_before_input(self):
+        self.grab.return_value = self.changed
+        self.assert_rejected_without_input(self.args(click=None, drag=[20, 20, 80, 80],
+                                                     mouse_button='right'), 'Visible client changed')
 
     def test_editor_text_requires_explicit_field_and_rejects_popup_text(self):
         self.assert_rejected_without_input(self.args(click=None, text='Probe'), 'explicitly reviewed active field')

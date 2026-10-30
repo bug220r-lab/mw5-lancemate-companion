@@ -1,10 +1,7 @@
 // Conservative local preview policy; neither admission nor polling proves peak capacity.
 import os from 'node:os';
 import { statfs } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const PROJECT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+import { RUNTIME_ROOT } from './runtime-paths.mjs';
 const GiB = 1024 ** 3;
 export const WORKBENCH_RESOURCE_POLICY = Object.freeze({
   admissionRamBytes: 5 * GiB, workingDiskBytes: 10 * GiB, runningRamBytes: 2 * GiB,
@@ -33,7 +30,7 @@ export function createWorkbenchResources(testIo = null) {
     owned.done = Promise.resolve().then(async () => {
       let availableDiskBytes = null;
       if (includeDisk) {
-        const disk = await io.statfs(PROJECT);
+        const disk = await io.statfs(RUNTIME_ROOT);
         if (!disk || !validBytes(disk.bavail) || !validBytes(disk.bsize)) throw fault('RESOURCE_READING_UNAVAILABLE');
         availableDiskBytes = disk.bavail * disk.bsize;
         if (!validBytes(availableDiskBytes)) throw fault('RESOURCE_READING_UNAVAILABLE');

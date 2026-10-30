@@ -244,6 +244,20 @@ def _read_verified(root, path, maximum, expected=None, retain=False):
     return b"".join(chunks) if retain else digest.hexdigest()
 
 
+def runtime_root():
+    source = Path(__file__).absolute().parents[1]
+    configured = os.environ.get("MW5_COMPANION_RUNTIME_ROOT")
+    if configured is None:
+        return source / "companion/local"  # Inert historical fixture compatibility only.
+    path = Path(configured)
+    if (not configured or configured.strip() != configured or not path.is_absolute() or
+            configured.startswith(("\\\\", "//")) or ".." in path.parts or
+            any(part.casefold() in ("librarycache", ".handoff", ".codex", "codex-runtimes") for part in path.parts) or
+            path == source or source in path.parents or path in source.parents):
+        raise WorkerError("INSTALLATION_REJECTED")
+    return path
+
+
 def verify_installation():
     """Fixed project-local paths only. No executable/model is loaded here."""
     try:
@@ -264,7 +278,8 @@ def verify_installation():
                 pins.get("archiveBytes") != ARCHIVE["bytes"] or pins.get("source") != ARCHIVE_URL or
                 type(pins.get("files")) is not list or len(pins["files"]) != 40):
             raise WorkerError("INSTALLATION_REJECTED")
-        runtime = _checked_path(root, root / "companion/local/runtimes/whisper-cpu-b5130/Release", True)
+        local = runtime_root()
+        runtime = _checked_path(local, local / "runtimes/whisper-cpu-b5130/Release", True)
         names = set()
         for pin in pins["files"]:
             name = pin.get("name", "")
@@ -273,7 +288,7 @@ def verify_installation():
                     pin["bytes"] <= 0 or not re.fullmatch(r"[a-f0-9]{64}", pin.get("sha256", ""))):
                 raise WorkerError("INSTALLATION_REJECTED")
             names.add(name.lower())
-            _read_verified(root, runtime / name, pin["bytes"], pin)
+            _read_verified(local, runtime / name, pin["bytes"], pin)
         observed_names = set()
         with os.scandir(runtime) as entries:
             for index, entry in enumerate(entries):
@@ -287,8 +302,8 @@ def verify_installation():
             if len(dll_pin) != 1 or dll_pin[0]["sha256"] != digest:
                 raise WorkerError("INSTALLATION_REJECTED")
         for pin in (MODEL, ARCHIVE):
-            _read_verified(root, root / "companion/local/models" / pin["name"], pin["bytes"], pin)
-        return runtime, root / "companion/local/models" / MODEL["name"]
+            _read_verified(local, local / "models" / pin["name"], pin["bytes"], pin)
+        return runtime, local / "models" / MODEL["name"]
     except Exception:
         raise WorkerError("INSTALLATION_REJECTED") from None
 
@@ -528,6 +543,8 @@ def main(argv=None):
     args = sys.argv[1:] if argv is None else argv
     if args != ["--serve"]:
         return 0 if not args else 2
+    if "MW5_COMPANION_RUNTIME_ROOT" not in os.environ:
+        return 2
     # Save the inherited protocol pipe before redirecting native stdout to stderr.
     # No listener, audio file, or native worker starts on import/default invocation.
     with os.fdopen(os.dup(sys.stdout.fileno()), "wb", buffering=0) as protocol:

@@ -1,0 +1,23 @@
+{
+  "status": "DORMANT_SELECTION_REVIEW_NOT_PERFORMED",
+  "editor_identity": null,
+  "stock_report_sha256": null,
+  "selection": null,
+  "mod_inventory": null,
+  "protected_unchanged": null,
+  "stock_source_review_passed": null,
+  "stock_log_review_passed": null,
+  "unexpected_dialog_reload_warning_save_compile": null,
+  "exclusive_owner_confirmed": false,
+  "evidence": {
+    "stock_review": null,
+    "ui_captures": [
+      {"role": "before_selection", "capture": null, "receipt": null},
+      {"role": "after_selection", "capture": null, "receipt": null}
+    ],
+    "log_spans": [
+      {"role": "stock_inspection", "file": null, "source_log_path": null, "start_byte": null, "end_byte": null},
+      {"role": "selection", "file": null, "source_log_path": null, "start_byte": null, "end_byte": null}
+    ]
+  }
+}

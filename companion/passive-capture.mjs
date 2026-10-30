@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { open } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { jsonArrayElementByteSizes } from './json-array-spans.mjs';
+import { duplicateJsonMemberStatus } from './json-member-names.mjs';
 
 const fieldMapBytes = readFileSync(fileURLToPath(new URL('../design/PASSIVE_CAPTURE_FIELD_MAP.json', import.meta.url)));
 const fieldMap = JSON.parse(fieldMapBytes.toString('utf8'));
@@ -70,71 +72,6 @@ function boundedStructure(value) {
   return true;
 }
 
-// JSON.parse discards formatting, so measure each array element in the original
-// UTF-8 bytes. Whitespace next to an element counts towards that element's cap.
-function rawSampleByteSizes(bytes) {
-  const sizes = [];
-  let depth = 0, inString = false, escaped = false, start = null;
-  for (let index = 0; index < bytes.byteLength; index++) {
-    const byte = bytes[index];
-    if (inString) {
-      if (escaped) escaped = false;
-      else if (byte === 0x5c) escaped = true;
-      else if (byte === 0x22) inString = false;
-      continue;
-    }
-    if (byte === 0x22) inString = true;
-    else if (byte === 0x5b || byte === 0x7b) {
-      depth++;
-      if (depth === 1) start = index + 1;
-    } else if (byte === 0x5d || byte === 0x7d) {
-      if (byte === 0x5d && depth === 1) sizes.push(index - start);
-      depth--;
-    } else if (byte === 0x2c && depth === 1) {
-      sizes.push(index - start);
-      start = index + 1;
-    }
-  }
-  return sizes;
-}
-
-// JSON.parse keeps the last occurrence of a member name. In an evidence file,
-// that could erase an earlier provenance or failed-read claim. Scan object keys
-// in the original JSON text before interpreting any parsed sample. JSON.parse
-// has already established syntax, including valid escapes, when this runs.
-function duplicateJsonMemberStatus(source) {
-  const frames = [];
-  for (let index = 0; index < source.length; index++) {
-    const code = source.charCodeAt(index);
-    if (code === 0x22) {
-      const start = index;
-      let escaped = false;
-      for (index++; index < source.length; index++) {
-        const character = source.charCodeAt(index);
-        if (escaped) escaped = false;
-        else if (character === 0x5c) escaped = true;
-        else if (character === 0x22) break;
-      }
-      const frame = frames.at(-1);
-      if (frame?.kind === 'object' && frame.expectKey) {
-        const key = JSON.parse(source.slice(start, index + 1));
-        if (frame.keys.has(key)) return 'DUPLICATE_JSON_MEMBER';
-        frame.keys.add(key);
-        frame.expectKey = false;
-        // The structure-node limit is per sample, not per capture file.
-        if (frame.keys.size > PASSIVE_CAPTURE_LIMITS.nodes) return 'CAPTURE_STRUCTURE_LIMIT';
-      }
-    } else if (code === 0x7b || code === 0x5b) {
-      frames.push(code === 0x7b ? { kind: 'object', expectKey: true, keys: new Set() } :
-        { kind: 'array' });
-      if (frames.length > 1024) return 'CAPTURE_STRUCTURE_LIMIT';
-    } else if (code === 0x7d || code === 0x5d) frames.pop();
-    else if (code === 0x2c && frames.at(-1)?.kind === 'object')
-      frames.at(-1).expectKey = true;
-  }
-  return null;
-}
-
 function emptyAuditReport(sourceBytes) {
   return { schemaVersion: 1, kind: 'passive-capture-audit',
     classification: 'UNVALIDATED_CAPTURE', formatStatus: 'INVALID',
@@ -200,12 +137,15 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
   }
   catch { finding(null, 'INVALID_UTF8_OR_JSON'); return report; }
   const duplicateStatus = duplicateJsonMemberStatus(source);
-  if (duplicateStatus !== null) { finding(null, duplicateStatus); return report; }
+  if (duplicateStatus !== null) {
+    finding(null, duplicateStatus === 'JSON_STRUCTURE_LIMIT' ? 'CAPTURE_STRUCTURE_LIMIT' : duplicateStatus);
+    return report;
+  }
   if (!Array.isArray(samples) || !samples.length || samples.length > PASSIVE_CAPTURE_LIMITS.samples) {
     finding(null, 'INVALID_SAMPLE_COUNT'); return report;
   }
   report.sampleCount = samples.length;
-  const sampleByteSizes = rawSampleByteSizes(bytes);
+  const sampleByteSizes = jsonArrayElementByteSizes(bytes);
   if (sampleByteSizes.length !== samples.length) {
     finding(null, 'INVALID_SAMPLE_SPANS'); return report;
   }

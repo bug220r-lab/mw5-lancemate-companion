@@ -12,8 +12,16 @@ import sys
 import time
 
 PROJECT = Path(__file__).resolve().parents[1]
-ROOT = PROJECT / "companion" / "local" / "tts"
-OUTPUT = PROJECT / "companion" / "local" / "speech-output"
+configured = os.environ.get("MW5_COMPANION_RUNTIME_ROOT", "")
+LOCAL = Path(configured)
+if (not configured or configured.strip() != configured or not LOCAL.is_absolute() or
+        configured.startswith(("\\\\", "//")) or ".." in LOCAL.parts or
+        any(part.casefold() in ("librarycache", ".handoff", ".codex", "codex-runtimes") for part in LOCAL.parts) or
+        LOCAL == PROJECT or PROJECT in LOCAL.parents or LOCAL in PROJECT.parents or
+        LOCAL.is_symlink() or LOCAL.resolve() != LOCAL.absolute()):
+    raise RuntimeError("RUNTIME_ROOT_INVALID")
+ROOT = LOCAL / "tts"
+OUTPUT = LOCAL / "speech-output"
 VOICES = ("af_bella", "am_adam", "af_heart")
 LIMIT = 64 * 1024**2
 PROTOCOL = sys.stdout

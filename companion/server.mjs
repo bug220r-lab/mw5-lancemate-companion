@@ -52,7 +52,8 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   try { settings = validateSettings(JSON.parse(await readFile(settingsPath, 'utf8'))); settingsStatus = 'LOADED'; }
   catch (error) { if (error.code !== 'ENOENT') settingsStatus = 'INVALID_SETTINGS_IGNORED'; }
   let clock = 1000, sequence = 0, epoch = 0, snapshot = null, last = null;
-  let control = new ControlSession(), radio = createRadioDirector({ personas: radioProfiles, now: () => clock });
+  // Radio playback has real elapsed deadlines; observation/control retain the fixture clock.
+  let control = new ControlSession(), radio = createRadioDirector({ personas: radioProfiles, now: realNow });
   const language = languageModel ?? createLocalLanguageModel();
   const speech = speechEngine ?? createLocalSpeech();
   const resources = resourcePolicy ?? createWorkbenchResources();
@@ -68,6 +69,20 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   let modelError = null, modelStart = null, modelEpoch = 0, reply = null, audioJob = null, disposed = false;
   let modelStop = null, modelAbort = null, stopUnconfirmed = false;
   let missionSpeech = null;
+  let exchange = null;
+  const exchangeActive = () => exchange && !['CANCELLED', 'COMPLETED'].includes(exchange.status);
+  function exchangeCurrent() {
+    if (!exchangeActive() || exchange.invalid || disposed || !snapshot || exchange.session !== snapshot.session ||
+        snapshot.phase !== 'active' || settings.speechMuted || settings.quiet || residentPending()) return false;
+    const at = realNow();
+    if (!Number.isFinite(at) || at < exchange.lastWallMs || at >= exchange.deadlineMs) { exchange.invalid = true; return false; }
+    exchange.lastWallMs = at;
+    return exchange.participants.every(saved => {
+      const current = snapshot.lancemates.find(a => a.id === saved.id);
+      return current?.aiOwned === true && current.alive === true && current.pawnId === saved.pawnId &&
+        current.generation === saved.generation && !pendingCallsignActors.has(saved.id);
+    }) && !radio.getState().gates.ptt;
+  }
   function statusContext() {
     const entries = control.getState().ledger;
     // Only the server-owned MOCK ledger is mapped. Arbitrary HTTP reports,
@@ -97,8 +112,47 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   const stopAudio = reason => {
     if (audioJob) audioJob.abort.abort(reason);
     audioJob = null; radio.interrupt(reason);
+    if (exchangeActive()) { exchange.status = 'CANCELLED'; exchange.reason = reason; }
   };
   function cancelConversation(reason) { conversation.cancelAll(reason); reply = null; stopAudio(reason); }
+  function requestExchangeTurn(owned, turn) {
+    if (exchange !== owned || !exchangeCurrent()) { cancelConversation('EXCHANGE_CONTEXT_INVALID'); return; }
+    const at = realNow(), b = owned.participants[turn];
+    // This is a current workbench fact, not a claimed MW5 observation or model output.
+    const fact = { id: randomUUID(), session: snapshot.session, kind: 'fact', verified: true,
+      classification: 'MOCK_ONLY', source: 'OFFLINE_WORKBENCH_CONTEXT', observedAtMs: at, expiresAtMs: at + 5000,
+      data: { classification: 'MOCK_ONLY', gameConnected: false, exercise: 'two-pilot offline radio check' } };
+    if (radio.observe(fact).status !== 'OBSERVED') { cancelConversation('EXCHANGE_FACT_REJECTED'); return; }
+    const id = randomUUID(), request = { id, session: snapshot.session, speakerId: b.id, pawnId: b.pawnId,
+      generation: b.generation, priority: 'banter', facts: [fact], expiresAtMs: Math.min(at + 5000, owned.deadlineMs),
+      exchangeId: owned.id, exchangeTurn: turn,
+      text: turn === 0 ? 'Give one brief in-character radio check for this offline exercise. Do not invent mission events.' :
+        ('Reply once to this unverified prior radio line without inventing mission events: ' + owned.firstText).slice(0, 300) };
+    owned.turn = turn; owned.status = 'GENERATING'; audioJob = null;
+    reply = { ...request, status: 'GENERATING', classification: 'OFFLINE_EXCHANGE_PREVIEW' };
+    conversation.request(request).then(result => {
+      if (exchange !== owned || !exchangeActive() || reply?.id !== id) return;
+      if (!exchangeCurrent() || result.status !== 'GENERATED') { cancelConversation('EXCHANGE_GENERATION_REJECTED'); return; }
+      reply = result; owned.status = 'GENERATED';
+      if (turn === 0) owned.firstText = result.text;
+    }).catch(() => { if (exchange === owned && reply?.id === id) cancelConversation('EXCHANGE_GENERATION_FAILED'); });
+  }
+  function acknowledgeExchange(input, failed = false) {
+    const job = audioJob;
+    if (!exchangeActive() || !job?.exchangeId || job.exchangeId !== exchange.id ||
+        job.status !== 'DELIVERED_FOR_USER_PLAYBACK' || job.receiptUsed ||
+        typeof input.receipt !== 'string' || input.receipt !== job.deliveryReceipt || input.lineId !== job.id)
+      throw new Error('CURRENT_PLAYBACK_RECEIPT_REQUIRED');
+    if (!exchangeCurrent() || !audioCurrent()) { cancelConversation('EXCHANGE_PLAYBACK_STALE'); throw new Error('EXCHANGE_PLAYBACK_STALE'); }
+    job.receiptUsed = true;
+    if (failed) { cancelConversation('EXCHANGE_PLAYBACK_FAILED'); return { status: 'CANCELLED', classification: 'OFFLINE_EXCHANGE_PREVIEW' }; }
+    const completed = radio.complete(job.id);
+    if (completed.status !== 'COMPLETED') { cancelConversation('EXCHANGE_COMPLETION_REJECTED'); throw new Error('EXCHANGE_COMPLETION_REJECTED'); }
+    job.status = 'COMPLETED';
+    if (exchange.turn === 0) requestExchangeTurn(exchange, 1);
+    else exchange.status = 'COMPLETED';
+    return { status: 'COMPLETED', lineId: job.id, classification: 'OFFLINE_EXCHANGE_PREVIEW', nativeCalls: 0 };
+  }
   const speechInput = createSpeechInput({ recognizer: recognitionEngine ?? createLocalRecognition({ requestTimeoutMs: 10000 }),
     getContext: () => disposed || !snapshot ? null : { session: snapshot.session, phase: snapshot.phase,
       micMuted: settings.micMuted, bindings: bindings() }, now: realNow,
@@ -178,14 +232,17 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
   }
   function audioCurrent() {
     speechInput.status();
+    const currentExchange = reply?.exchangeId === undefined || (reply.exchangeId === exchange?.id && exchangeCurrent());
     const actor = snapshot?.lancemates.find(a => a.id === reply?.speakerId);
     return !disposed && !residentPending() && !pendingCallsignActors.has(reply?.speakerId) && reply?.status === 'GENERATED' && reply.session === snapshot?.session && actor?.aiOwned === true &&
       actor.alive === true && actor.pawnId === reply.pawnId && actor.generation === reply.generation &&
-      reply.expiresAtMs > realNow() && snapshot.phase === 'active' && !settings.speechMuted && !radio.getState().gates.ptt;
+      reply.expiresAtMs > realNow() && snapshot.phase === 'active' && !settings.speechMuted && !radio.getState().gates.ptt &&
+      currentExchange;
   }
   const state = () => {
     // Validate the capture lease before taking the radio snapshot: validation can release PTT.
     const inputState = speechInput.status();
+    if (exchangeActive() && !exchangeCurrent()) cancelConversation('EXCHANGE_CONTEXT_INVALID');
     return ({ classification: snapshot ? 'MOCK_ONLY' : 'DISCONNECTED',
     clockMs: clock, settings: clone(settings), settingsStatus, profiles: clone(profiles),
     control: control.getState(), radio: radio.getState(), last: clone(last), missionSpeech: statusPreview(),
@@ -193,6 +250,9 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     localModels: { language: language.status(), speech: speech.getState(), error: modelError,
       resources: resources.status(), stopping: !!modelStop, cleanupPending: !!modelStop || stopUnconfirmed || resourcePending() || (!!modelStart && modelAbort?.signal.aborted === true),
       starting: !!modelStart, previewDeadlineMs, firstSpokenTargetMs: 4000, timingAcceptance: 'NOT_ESTABLISHED',
+      exchange: exchange ? { id: exchange.id, status: exchange.status, turn: exchange.turn,
+        actorIds: exchange.participants.map(b => b.id), reason: exchange.reason,
+        classification: 'OFFLINE_EXCHANGE_PREVIEW' } : null,
       reply: clone(reply), audio: audioJob ? { id: audioJob.id, status: audioJob.status,
         voiceId: audioJob.voiceId, error: audioJob.error, classification: 'LOCAL_AUDIO_PREVIEW_NOT_GAMEPLAY' } : null },
     speechInput: inputState,
@@ -225,13 +285,14 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     speechInput.invalidate('MISSION_CHANGED');
     missionSpeech = null;
     cancelConversation('MISSION_CHANGED');
+    exchange = null;
     clock = 1000; sequence = 0; snapshot = baseline(); snapshot.session = `demo_${++epoch}`;
     snapshot.lancemates = ids.map((id, index) => ({ ...clone(snapshot.lancemates[0]), id,
       pawnId: `pawn${index + 1}`, controllerId: `controller${index + 1}`,
       weaponRangeM: [{ min: 0, max: 180 }, { min: 100, max: 700 }, { min: 0, max: 400 }][index] }));
     snapshot.lancemates[0].distanceToLeaderM = 700;
     control = new ControlSession({ mode: 'MOCK_ONLY', now: () => clock });
-    radio = createRadioDirector({ personas: radioProfiles, now: () => clock }); radio.startMission(snapshot.session, bindings());
+    radio = createRadioDirector({ personas: radioProfiles, now: realNow }); radio.startMission(snapshot.session, bindings());
     conversation.startMission(snapshot.session, conversationBindings());
     conversation.setGates({ paused: false, speechMuted: settings.speechMuted, quiet: settings.quiet });
     radio.setGates(radioGates(settings)); return ingest();
@@ -282,7 +343,9 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       if (pendingCallsignActors.size > 0) speechInput.invalidate('CALLSIGN_CHANGED');
       // Invalidate before any persistence await. Unsaved names never enter a
       // prompt, and old speaker work cannot become eligible during the write.
-      if (pendingCallsignActors.has(reply?.speakerId)) {
+      if (exchangeActive() && exchange.participants.some(b => pendingCallsignActors.has(b.id))) {
+        cancelConversation('CALLSIGN_CHANGED');
+      } else if (pendingCallsignActors.has(reply?.speakerId)) {
         conversation.cancel(reply.id); reply = null; stopAudio('CALLSIGN_CHANGED');
       }
       try {
@@ -293,7 +356,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         settings = next; settingsStatus = 'SAVED'; radio.setGates(radioGates(settings));
         conversation.updateCallsigns(settings.pilots.map(p => ({ profileId: p.profile, callsign: p.callsign })));
         conversation.setGates({ speechMuted: settings.speechMuted, quiet: settings.quiet });
-        if (settings.speechMuted) cancelConversation('SPEECH_MUTED');
+        if (settings.speechMuted || (settings.quiet && exchangeActive())) cancelConversation(settings.speechMuted ? 'SPEECH_MUTED' : 'QUIET');
         // Preferences never grant control. Changing modes requires explicit rearming of the mock.
         control.disarm('SETTINGS_CHANGED'); last = { status: 'SETTINGS_SAVED', nativeCalls: 0 };
       } finally { settingsSaving = false; pendingCallsignActors = new Set(); }
@@ -318,6 +381,23 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         missionSpeech = { line, wallCreatedAtMs: at, wallLastObservedMs: at, wallExpiresAtMs: at + 5000 };
         last = { status: 'AUTHORED_STATUS_PREVIEW', classification: line.classification, nativeCalls: 0,
           audioGenerated: false, conversationAcceptance: 'NOT_ESTABLISHED' };
+      } else if (input.type === 'exchange_preview') {
+        if (Object.keys(input).some(k => !['type', 'actorIds'].includes(k)) || !Array.isArray(input.actorIds) ||
+            input.actorIds.length !== 2 || new Set(input.actorIds).size !== 2) throw new Error('TWO_EXCHANGE_PARTICIPANTS_REQUIRED');
+        if (residentPending() || language.status().state !== 'READY') throw new Error('LOCAL_LANGUAGE_MODEL_NOT_READY');
+        if (radio.getState().gates.ptt || settings.quiet || settings.speechMuted || snapshot.phase !== 'active')
+          throw new Error('EXCHANGE_GATE_CLOSED');
+        const participants = input.actorIds.map(id => bindings().find(b => b.id === id));
+        if (participants.some(b => !b || !b.aiOwned || !b.alive || pendingCallsignActors.has(b.id))) throw new Error('INVALID_RECIPIENT');
+        cancelConversation('NEW_EXCHANGE');
+        const at = realNow();
+        if (!Number.isFinite(at) || at < 0) throw new Error('INVALID_CLOCK');
+        exchange = { id: randomUUID(), session: snapshot.session, participants: clone(participants),
+          status: 'GENERATING', turn: 0, lastWallMs: at, deadlineMs: at + 10000 };
+        requestExchangeTurn(exchange, 0);
+        last = { status: 'GENERATING', classification: 'OFFLINE_EXCHANGE_PREVIEW', nativeCalls: 0 };
+      } else if (input.type === 'playback_complete' || input.type === 'playback_failed') {
+        last = acknowledgeExchange(input, input.type === 'playback_failed');
       } else if (input.type === 'converse') {
         if (residentPending()) throw new Error('LOCAL_MODEL_CLEANUP_PENDING');
         if (radio.getState().gates.ptt) throw new Error('USER_SPEAKING');
@@ -325,7 +405,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         const b = bindings().find(b => b.id === input.actorId); if (!b) throw new Error('INVALID_RECIPIENT');
         if (pendingCallsignActors.has(b.id)) throw new Error('CALLSIGN_UPDATE_PENDING');
         if (reply?.status === 'GENERATING') throw new Error('CONVERSATION_BUSY');
-        stopAudio('NEW_REQUEST');
+        cancelConversation('NEW_REQUEST');
         const id = randomUUID(), request = { id, session: snapshot.session, speakerId: b.id, pawnId: b.pawnId,
           generation: b.generation, priority: 'answer', text: input.text, facts: [], expiresAtMs: realNow() + 10000 };
         reply = { ...request, status: 'GENERATING', classification: 'OFFLINE_CONVERSATION_PREVIEW' };
@@ -337,15 +417,21 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         if (!audioCurrent()) throw new Error('REPLY_STALE_OR_INELIGIBLE');
         if (speech.getState().state !== 'READY') throw new Error('LOCAL_SPEECH_NOT_READY');
         if (audioJob?.status === 'SYNTHESIZING') throw new Error('SPEECH_BUSY');
+        if (reply.exchangeId && audioJob && !['FAILED', 'EXPIRED', 'COMPLETED'].includes(audioJob.status))
+          throw new Error('EXCHANGE_AUDIO_IN_PROGRESS');
         const index = ids.indexOf(reply.speakerId), configured = settings.pilots[index].voice;
         const voiceId = LOCAL_SPEECH_VOICES.includes(configured) ? configured : LOCAL_SPEECH_VOICES[index];
         const id = randomUUID(), resultId = reply.id;
-        const job = { id, replyId: resultId, voiceId, status: 'SYNTHESIZING', abort: new AbortController() };
+        const job = { id, replyId: resultId, voiceId, status: 'SYNTHESIZING', abort: new AbortController(),
+          ...(reply.exchangeId ? { exchangeId: reply.exchangeId, exchangeTurn: reply.exchangeTurn } : {}) };
         audioJob = job;
         speech.synthesize({ text: reply.text, voiceId }, { signal: job.abort.signal }).then(result => {
           if (audioJob !== job || reply?.id !== resultId || !audioCurrent()) { if (audioJob === job) { job.status = 'EXPIRED'; } return; }
           job.status = 'READY'; job.wavPath = result.wavPath;
-        }).catch(error => { if (audioJob === job) { job.status = 'FAILED'; job.error = error.code || error.message; } });
+        }).catch(error => { if (audioJob === job) {
+          if (job.exchangeId) cancelConversation('EXCHANGE_SYNTHESIS_FAILED');
+          else { job.status = 'FAILED'; job.error = error.code || error.message; }
+        } });
         last = { status: 'SYNTHESIZING_LOCAL_PREVIEW', id, nativeCalls: 0 };
       } else if (input.type === 'arm') last = control.armSimulation(settings.pilots.filter(p => p.mode === 'ADVISORY').map(p => p.id));
       else if (input.type === 'queue') last = { queue: control.queueRecommendations(), results: control.drainSimulation() };
@@ -357,15 +443,17 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
       else if (input.type === 'step') {
         const a = snapshot.lancemates.find(actor => actor.id === input.actorId);
         if (!a) throw new Error('INVALID_RECIPIENT'); clock += 100;
+        if (exchangeActive() && ['hold', 'release'].includes(input.event)) cancelConversation('HUMAN_COMMAND');
         if (input.event === 'hold') a.manual = { observable: true, revision: a.manual.revision + 1,
           orderId: `human_${a.id}_${sequence}`, status: 'active', persistent: true };
         else if (input.event === 'release') { a.manual = { ...a.manual, revision: a.manual.revision + 1, status: 'released' }; }
         else if (input.event === 'possession') {
           speechInput.invalidate('POSSESSION');
+          if (exchangeActive() && exchange.participants.some(b => b.id === a.id)) cancelConversation('POSSESSION');
           a.aiOwned = false; a.generation += 1;
           conversation.updateBinding(conversationBindings().find(b => b.id === a.id));
           if (reply?.speakerId === a.id) { reply = null; stopAudio('POSSESSION'); }
-          radio.observe({ id: `possession_${sequence}`, session: snapshot.session, observedAtMs: clock,
+          radio.observe({ id: `possession_${sequence}`, session: snapshot.session, observedAtMs: realNow(),
             kind: 'binding', binding: bindings().find(b => b.id === a.id) });
         } else if (input.event === 'pause') { speechInput.invalidate('PAUSED'); snapshot.phase = 'paused'; radio.setGates({ paused: true });
           conversation.setGates({ paused: true }); cancelConversation('PAUSED'); }
@@ -378,11 +466,12 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         const lineId = `line_${sequence}_${clock}`;
         last = radio.enqueue({ lineId, session: snapshot.session, speakerId: b.id, pawnId: b.pawnId,
           generation: b.generation, priority: 'answer', text: 'Radio check. Ready when you are.',
-          createdAtMs: clock, expiresAtMs: clock + 5000, factIds: [] });
+          createdAtMs: realNow(), expiresAtMs: realNow() + 5000, factIds: [] });
         if (last.status === 'QUEUED') last = { ...last, textPreview: radio.next(), audioGenerated: false,
           classification: 'MOCK_ONLY', source: 'AUTHORED_TEST_LINE' };
         clock += 1;
       } else if (input.type === 'radio_complete') {
+        if (radio.getState().playing?.exchangeId) throw new Error('CURRENT_PLAYBACK_RECEIPT_REQUIRED');
         last = radio.complete(input.lineId);
         if (last.status === 'COMPLETED') last = { ...last, textPreview: radio.next(),
           audioGenerated: false, classification: 'MOCK_ONLY' };
@@ -391,14 +480,19 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     }
     return state();
   }
-  async function readAudio(id) {
+  async function readAudioBytes(id) {
     if (disposed) throw new Error('WORKBENCH_CLOSED');
     if (!audioJob || audioJob.id !== id || audioJob.status !== 'READY' || !audioCurrent()) throw new Error('AUDIO_STALE_OR_UNAVAILABLE');
     if (radio.getState().playing) throw new Error('RADIO_OCCUPIED');
-    const job = audioJob, r = reply, result = radio.enqueue({ lineId: audioJob.id, session: r.session, speakerId: r.speakerId,
-      pawnId: r.pawnId, generation: r.generation, priority: 'answer', text: r.text,
-      createdAtMs: clock, expiresAtMs: clock + 5000, factIds: [] });
-    if (result.status !== 'QUEUED' || radio.next()?.lineId !== audioJob.id) throw new Error('RADIO_REJECTED');
+    const job = audioJob, r = reply, at = realNow(), result = radio.enqueue({ lineId: audioJob.id, session: r.session, speakerId: r.speakerId,
+      pawnId: r.pawnId, generation: r.generation, priority: r.priority, text: r.text,
+      createdAtMs: at, expiresAtMs: Math.min(at + 5000, r.expiresAtMs), factIds: r.sourceFactIds,
+      ...(r.exchangeId ? { exchangeId: r.exchangeId, exchangeTurn: r.exchangeTurn } : {}) });
+    if (result.status !== 'QUEUED' || radio.next()?.lineId !== audioJob.id) {
+      if (job.exchangeId) cancelConversation('EXCHANGE_RADIO_REJECTED');
+      throw new Error('RADIO_REJECTED');
+    }
+    if (job.exchangeId && job.exchangeTurn === 0) exchange.deadlineMs = Math.min(exchange.deadlineMs, at + 10000);
     job.status = 'DELIVERING';
     try {
       const bytes = await readAudioFile(job.wavPath);
@@ -406,12 +500,35 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         throw new Error('AUDIO_STALE_OR_UNAVAILABLE');
       if (bytes.length > 4 * 1024 * 1024 || bytes.toString('ascii',0,4) !== 'RIFF' || bytes.toString('ascii',8,12) !== 'WAVE')
         throw new Error('INVALID_AUDIO_FILE');
-      job.status = 'DELIVERED_FOR_USER_PLAYBACK'; return bytes;
+      job.status = job.exchangeId ? 'AWAITING_DELIVERY' : 'DELIVERED_FOR_USER_PLAYBACK'; return bytes;
     } catch (error) {
       if (radio.getState().playing?.lineId === job.id) radio.interrupt('AUDIO_READ_FAILED');
-      if (audioJob === job) { job.status = 'FAILED'; job.error = error.message; }
+      if (audioJob === job) {
+        if (job.exchangeId) cancelConversation('EXCHANGE_AUDIO_READ_FAILED');
+        else { job.status = 'FAILED'; job.error = error.message; }
+      }
       throw error;
     }
+  }
+  async function readAudio(id) {
+    if (audioJob?.id === id && audioJob.exchangeId) throw new Error('EXCHANGE_DELIVERY_RECEIPT_REQUIRED');
+    return readAudioBytes(id);
+  }
+  async function readAudioDelivery(id) {
+    const bytes = await readAudioBytes(id), job = audioJob;
+    if (!job || job.id !== id || !audioCurrent() || radio.getState().playing?.lineId !== id)
+      throw new Error('AUDIO_STALE_OR_UNAVAILABLE');
+    if (!job?.exchangeId) return { bytes, receipt: null, delivered() {}, failed() {} };
+    const receipt = randomUUID(); job.deliveryReceipt = receipt;
+    return { bytes, receipt,
+      // Only the transport host calls this after its complete WAV response finishes.
+      // Receipt possession is not proof of actual playback; a separate ended ack is required.
+      delivered() {
+        if (audioJob !== job || job.status !== 'AWAITING_DELIVERY' || !audioCurrent() || radio.getState().playing?.lineId !== job.id) return false;
+        job.status = 'DELIVERED_FOR_USER_PLAYBACK'; return true;
+      },
+      failed() { if (audioJob === job && !job.receiptUsed) cancelConversation('EXCHANGE_DELIVERY_FAILED'); }
+    };
   }
   async function submitRecognition(id, bytes, options) {
     if (disposed) throw new Error('WORKBENCH_CLOSED');
@@ -424,7 +541,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
     const recognitionStopped = speechInput.status().shutdownComplete === true;
     modelError = stopped.some(result => result.status === 'rejected') || residentPending() || !recognitionStopped ? 'LOCAL_MODEL_STOP_UNCONFIRMED' : null;
     return { status: modelError || 'LOCAL_MODELS_STOPPED' }; }
-  return { state, act, readAudio, submitRecognition, cancelRecognition, dispose };
+  return { state, act, readAudio, readAudioDelivery, submitRecognition, cancelRecognition, dispose };
 }
 
 export async function startServer({ port = 0, settingsPath, recognitionEngine = null, realNow = () => Date.now() } = {}) {
@@ -455,8 +572,14 @@ export async function startServer({ port = 0, settingsPath, recognitionEngine = 
         return send(401, { error: 'SESSION_TOKEN_REQUIRED' });
       if (req.method === 'GET' && url.pathname === '/api/state') return send(200, workbench.state());
       if (req.method === 'GET' && /^\/api\/audio\/[a-f0-9-]{36}$/.test(url.pathname)) {
-        const bytes = await workbench.readAudio(url.pathname.split('/').at(-1));
-        res.writeHead(200, { ...headers, 'Content-Type': 'audio/wav' }); return res.end(bytes);
+        const delivery = await workbench.readAudioDelivery(url.pathname.split('/').at(-1));
+        if (res.destroyed || res.writableEnded) { delivery.failed(); return; }
+        let finished = false;
+        res.once('finish', () => { finished = true; delivery.delivered(); });
+        res.once('close', () => { if (!finished) delivery.failed(); });
+        res.writeHead(200, { ...headers, 'Content-Type': 'audio/wav',
+          ...(delivery.receipt ? { 'X-MW5-Playback-Receipt': delivery.receipt } : {}) });
+        return res.end(delivery.bytes);
       }
       if (req.method === 'POST' && /^\/api\/recognition\/[a-f0-9-]{36}$/.test(url.pathname)) {
         if (req.headers['content-type'] !== 'audio/wav') return send(415, { error: 'WAV_REQUIRED' });

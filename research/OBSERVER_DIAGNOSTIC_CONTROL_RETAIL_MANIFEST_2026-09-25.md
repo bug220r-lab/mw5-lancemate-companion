@@ -1,6 +1,10 @@
 # Diagnostic-control retail additions and removal manifest
 
-Prepared 2026-09-25 19:09:21 UTC from read-only inspection of the installed Steam `MW5Mercs/Mods` directory. **PRELIMINARY / NO INSTALL OR GAME TEST PERFORMED.** This is a starting inventory for the [separate package and test preflight](OBSERVER_DIAGNOSTIC_CONTROL_PACKAGE_PREFLIGHT_2026-09-25.md). Reinspect every path, enabled state, process and hash immediately before any authorized deployment; this snapshot is not an install-time backup or a stock mod-off gameplay baseline.
+## Outcome update — 2026-09-27
+
+This document is the **historical preliminary inventory and proposed ledger**. The separately authorized [three-file installation result](evidence/diagnostic-package-20260927-01/INSTALL_RESULT.json) and [actual additions/removal manifest](evidence/diagnostic-package-20260927-01/INSTALL_MANIFEST.json) supersede its proposed package rows. The package has three verified files; all three installed diagnostic copies matched their package hashes at independent review. Later `modlist.json` enabled both `LanceObserverProbe` and `LanceObserverDiagnosticControl` and differed from the preinstall backup, reflecting subsequent game-test changes rather than the 04:52 install transaction. A game process was running during that review. Do not use the 2026-09-25 four-file inventory below as the current retail state. Refresh the seven-file inventory and current `modlist.json` after game exit before rollback; remove only the three manifest-listed diagnostic additions and preserve intervening user edits. Full rollback remains **NOT_PERFORMED**.
+
+Prepared 2026-09-25 19:09:21 UTC from read-only inspection of the installed Steam `MW5Mercs/Mods` directory. **PRELIMINARY / NO INSTALL OR GAME TEST HAD BEEN PERFORMED AT PREPARATION.** This is a historical starting inventory for the [separate package and test preflight](OBSERVER_DIAGNOSTIC_CONTROL_PACKAGE_PREFLIGHT_2026-09-25.md), not an install-time backup or a stock mod-off gameplay baseline.
 
 ## Observed retail starting inventory
 
@@ -17,7 +21,7 @@ The current `modlist.json` says `gameVersion: 1.14.390` and has one `modStatus` 
 
 ## Package-to-retail file ledger — PROPOSED / NOT_PERFORMED
 
-The package has not been cooked. After a successful reviewed package, inventory **every** regular file in that package, including its descriptor, PAK, resources and any other output. Add one ledger row per actual file before any retail copy. The number of populated package-file rows must equal the reviewed package inventory; do not infer the final file list from the earlier `LanceObserverProbe` package. Use paths relative to the package output and to the retail `Mods` root, plus the exact absolute backup location. Reinspect the target immediately before the approved install; the absence reported above is historical. Stop if any destination is outside `Mods/LanceObserverDiagnosticControl/`, if an unexpected file or preexisting directory appears, or if a source hash differs from the reviewed package manifest.
+At preparation, the package had not been cooked. The later actual three-file package inventory and copy ledger are in the [installation manifest](evidence/diagnostic-package-20260927-01/INSTALL_MANIFEST.json). The original proposed ledger below is retained to show the planned checks; its `NOT_PERFORMED` rows describe the September 25 state, not current install status.
 
 | Package-relative source; bytes; SHA-256 | Exact `Mods`-relative destination | Preexisting state; bytes; SHA-256 | Exact preexisting-byte backup; backup SHA-256 | Install action; UTC; operator | Installed bytes; SHA-256 | Removal or restore action; UTC | Post-rollback state; bytes; SHA-256 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -40,6 +44,6 @@ The stock mod-off baseline must show the normal HUD and responsive controls befo
 
 ## Gate and provenance
 
-**Remaining before deployment:** finish package gates; verify native logs, complete PAK membership and every package-file hash; refresh installed game/editor builds, DLC entitlement, Mods inventory and enabled state; choose a disposable stock Instant Action scenario; fill both ledgers from fresh reads; and obtain the separate game-affecting approval required by project operating rules. No retail copy, selection change, gameplay or rollback occurred in this preparation.
+**Historical gate before deployment:** the September 25 plan required package review, a fresh retail inventory, a disposable Instant Action scenario, filled ledgers and separate game-affecting approval. Later package and installation results are linked above. No retail copy, selection change, gameplay or rollback occurred **during this preparation**; final rollback still remains to be recorded.
 
 **Evidence provenance:** `C:\Program Files (x86)\Steam\steamapps\common\MechWarrior 5 Mercenaries\MW5Mercs\Mods` read-only inventory on 2026-09-25 19:09:21 UTC; applicable installed-game version as recorded in that historical `modlist.json` was `1.14.390`. The exact four inventory hashes above are that historical snapshot only. The [package preflight](OBSERVER_DIAGNOSTIC_CONTROL_PACKAGE_PREFLIGHT_2026-09-25.md) and [Phase A evidence sheet](../design/OBSERVER_DIAGNOSTIC_CONTROL_EVIDENCE_SHEET.md) are proposed procedures, not retail observations. Fresh package, process, configuration and rollback evidence remains **UNKNOWN/BLOCKED** or **NOT_PERFORMED** as labeled above.

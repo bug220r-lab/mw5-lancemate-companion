@@ -60,6 +60,14 @@ test('review: changing runtime executable and its manifest together must not sat
   assert.equal(r.api.children.length, 0);
 });
 
+test('review: same-pinned runtime redirected outside its requested directory is refused before spawn', async t => {
+  const r = rig(t, io => {
+    io.realpath = async file => file.startsWith(directory) ? file.replace(directory, path.join(root, 'captured-runtime')) : file;
+  });
+  await assert.rejects(r.model.start(), /UNSAFE_ARTIFACT_PATH/);
+  assert.equal(r.api.children.length, 0);
+});
+
 test('review: old child error after restart cannot mark the current owned process stopped', async t => {
   const r = rig(t); await r.model.start(); const old = r.api.children[0];
   await r.model.stop(); await r.model.start(); const current = r.api.children[1];

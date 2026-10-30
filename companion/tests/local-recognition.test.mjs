@@ -91,6 +91,9 @@ test('constructor is inert; start is verified preflight only and remains process
 });
 
 test('only a fixed hidden CPU CLI executes and text remains explicitly untrusted', async t => {
+  const key = 'GgMl_BaCkEnD_pAtH', previous = process.env[key];
+  process.env[key] = 'UNREVIEWED_EXTERNAL_BACKEND';
+  t.after(() => { if (previous === undefined) delete process.env[key]; else process.env[key] = previous; });
   const r = rig(t); await r.recognizer.start(); const pending = r.recognizer.transcribe(wav()); await spawned(r);
   const { file, args, opts } = r.calls[0];
   assert.equal(file, path.join(runtime, 'whisper-cli.exe')); assert.equal(opts.windowsHide, true); assert.equal(opts.shell, false);
@@ -98,6 +101,7 @@ test('only a fixed hidden CPU CLI executes and text remains explicitly untrusted
   assert.deepEqual(args, ['--model', path.join(project, 'companion/local/models/ggml-base.en.bin'), '--file', path.join(scratch, 'asr-1/input.wav'),
     '--threads', '4', '--language', 'en', '--no-gpu', '--output-txt', '--output-file', path.join(scratch, 'asr-1/transcript')]);
   assert.equal(opts.env.OMP_NUM_THREADS, '4'); assert.equal(r.hashed.length, 84);
+  assert.ok(Object.keys(opts.env).every(k => k.toUpperCase() !== 'GGML_BACKEND_PATH'));
   r.complete('  Attack this known target.\n'); const result = await pending;
   assert.equal(result.text, 'Attack this known target.'); assert.equal(result.classification, 'MOCK_ONLY');
   assert.equal(result.transcriptTrust, 'UNTRUSTED_RECOGNITION'); assert.equal(result.commandExecution, false);

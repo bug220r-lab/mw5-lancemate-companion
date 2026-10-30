@@ -7,17 +7,15 @@ import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { performance } from 'node:perf_hooks';
 import { fileURLToPath } from 'node:url';
+import bootstrapPins from './runtime-bootstrap-pins.json' with { type: 'json' };
+import { RUNTIME_ROOT, requireRuntimeConfiguration, verifyRuntimeDirectory } from './runtime-paths.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const WORKER = path.join(ROOT, 'companion', 'resident_recognition_worker.py');
-const PYTHON_ROOT = path.join(os.homedir(), '.cache', 'codex-runtimes', 'codex-primary-runtime', 'dependencies', 'python');
+const PYTHON_ROOT = path.join(RUNTIME_ROOT, 'python');
 // Independent source/ABI review: research/RESIDENT_RECOGNITION_WORKER_REVIEW.md.
-const WORKER_SHA256 = '5c041fa4db196d65b12ae7650536532cc9a8b7d0e51d9a3cc303f95a7df44bad';
-const PYTHON_PINS = [
-  ['python.exe', 107312, '372c2eae555b344520bf147be0096e009069aeca4e7f78d6aecea6d53158056a'],
-  ['python3.dll', 71984, 'c57bc21e131857f26db78d1512fbfcf67cac3273ee8b1cd704ed5645ec250884'],
-  ['python312.dll', 6985520, 'c1ce6d603041759061139f482c4b90c4ac9db676e30abf52fda66a794aab1bd0'],
-];
+const WORKER_SHA256 = 'a2053464cf54e23c159625ea2cd91e516613560b8cb076e92ad85df09c448cc5';
+const PYTHON_PINS = bootstrapPins.python.files;
 const GiB = 1024 ** 3, MODE = 'RESIDENT_PIPE_TRANSCRIPTION_ONLY';
 const fault = code => Object.assign(new Error(code), { code });
 const deferred = () => { let resolve, reject; const promise = new Promise((a,b) => { resolve=a; reject=b; }); return {promise,resolve,reject,settled:false}; };
@@ -45,11 +43,12 @@ async function verifyFile(file, expectedHash, expectedBytes) {
   if (createHash('sha256').update(bytes).digest('hex') !== expectedHash) throw fault('RESIDENT_PIN_MISMATCH');
 }
 async function productionPreflight() {
+  await verifyRuntimeDirectory(requireRuntimeConfiguration());
   if (process.platform !== 'win32' || process.arch !== 'x64') throw fault('RESIDENT_PLATFORM_UNSUPPORTED');
   if (!/^[a-f0-9]{64}$/.test(WORKER_SHA256)) throw fault('RESIDENT_SOURCE_NOT_PINNED');
   await verifyFile(WORKER, WORKER_SHA256);
-  for (const [name,bytes,hash] of PYTHON_PINS) await verifyFile(path.join(PYTHON_ROOT,name),hash,bytes);
-  const disk = await fs.statfs(ROOT);
+  for (const {name,bytes,sha256} of PYTHON_PINS) await verifyFile(path.join(PYTHON_ROOT,name),sha256,bytes);
+  const disk = await fs.statfs(RUNTIME_ROOT);
   const availableDisk=Number(disk.bavail)*Number(disk.bsize);
   if (!Number.isFinite(availableDisk)||availableDisk<10*GiB) throw fault('RESIDENT_DISK_RESERVE');
   // The worker independently verifies the complete pinned Whisper inventory,
@@ -65,7 +64,8 @@ export async function verifyResidentRecognitionPreparation() {
 }
 
 function workerEnvironment() {
-  const environment = {...process.env, OMP_NUM_THREADS:'4', MKL_NUM_THREADS:'4', CUDA_VISIBLE_DEVICES:'-1'};
+  const environment = {...process.env, MW5_COMPANION_RUNTIME_ROOT:RUNTIME_ROOT,
+    OMP_NUM_THREADS:'4', MKL_NUM_THREADS:'4', CUDA_VISIBLE_DEVICES:'-1'};
   // Windows environment names are case-insensitive. Never pass the loader's
   // optional out-of-tree DLL override into the isolated child.
   for(const name of Object.keys(environment)) if(name.toUpperCase()==='GGML_BACKEND_PATH') delete environment[name];

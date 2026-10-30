@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "REVIEWED_READY_FOR_SOURCE_INSPECTION",
+  "reviewed_at_utc": "2026-09-25T22:04:29Z",
+  "editor_pid": 20352,
+  "allow_exact_path_load": false,
+  "targets": [
+    {
+      "label": "controller",
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController",
+      "class_path": "/Script/Engine.Blueprint",
+      "bytes": 92019,
+      "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948"
+    },
+    {
+      "label": "widget",
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Content\\WBP_ObserverDiagnosticControl.uasset",
+      "object_path": "/LanceObserverDiagnosticControl/WBP_ObserverDiagnosticControl.WBP_ObserverDiagnosticControl",
+      "class_path": "/Script/UMGEditor.WidgetBlueprint",
+      "bytes": 30768,
+      "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b"
+    }
+  ],
+  "protected_files": [
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "bytes": 422,
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "bytes": 1383,
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "bytes": 139586,
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "bytes": 31659,
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "bytes": 2111,
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\LanceObserverDiagnosticControl.uplugin",
+      "bytes": 389,
+      "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+    },
+    {
+      "file": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+      "bytes": 1498,
+      "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f"
+    }
+  ],
+  "notes": [
+    "Both saved checkpoints are pinned from current disk: controller saved 2026-09-25T21:43:44.9336853Z; widget saved 2026-09-25T22:02:29.2307555Z. Coordinator reports UI compile/save; final graph/default review remains pending.",
+    "Manifest prepared from coordinator-reviewed saved checkpoints. Root must review this complete manifest and pin its SHA256 in the inspector; the inspector remains dormant with REVIEWED_MANIFEST_SHA256 unset until then.",
+    "Default loading decision is false: already-loaded exact assets and CDOs only. If separately reviewed true, at most one exact load_asset per missing target is permitted; implicit dependencies may load.",
+    "No redirectors or stock aliases accepted. Missing CDO stops; no class-loading or compilation fallback.",
+    "Ten protected files plus the two final target assets are hashed before, after and between operations.",
+    "ActiveMod.txt is selection state and excluded from immutable content pins.",
+    "Source inventory is not compilation, saved-memory equivalence, dependency closure, packaging or runtime acceptance."
+  ]
+}

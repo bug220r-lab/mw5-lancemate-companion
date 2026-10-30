@@ -11,7 +11,8 @@ import runtimePins from './llama-runtime-pins.json' with { type: 'json' };
 import { projectSpeakerObservations } from './speaker-observations.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const runtimeDirectory = path.join(root, 'companion/local/runtimes/llama-cpu-b11065');
+import { RUNTIME_ROOT, requireRuntimeConfiguration, verifyRuntimeDirectory, runtimeInventoryPath } from './runtime-paths.mjs';
+const runtimeDirectory = path.join(RUNTIME_ROOT, 'runtimes/llama-cpu-b11065');
 const executable = path.join(runtimeDirectory, 'llama-server.exe');
 const pins = Object.freeze({
   qwen1_7b: { name: 'Qwen3-1.7B-Q8_0.gguf', bytes: 1834426016, sha256: '061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a' },
@@ -264,12 +265,16 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     const read = promise => signal ? abortable(promise, signal) : promise;
     const stat = await read(io.lstat(file)); if (!stat.isFile() || stat.isSymbolicLink()) fail('UNSAFE_ARTIFACT_PATH');
     const real = await read(io.realpath(file)), base = await read(io.realpath(directory));
-    if (!below(real, base)) fail('UNSAFE_ARTIFACT_PATH');
+    const same = (a, b) => process.platform === 'win32' ? a.toLowerCase() === b.toLowerCase() : a === b;
+    if (!same(real, file) || !same(base, directory) || !below(real, base)) fail('UNSAFE_ARTIFACT_PATH');
     return stat;
   }
   async function verify(signal) {
-    const lockFile = path.join(root, 'companion/models.lock.json'), manifestFile = path.join(root, 'companion/local/runtimes/runtime-files.json');
-    for (const file of [lockFile, manifestFile]) { const s = await checked(file, root, signal); if (s.size > 1024 * 1024) fail('MANIFEST_LIMIT'); }
+    if (!testDependencies) await verifyRuntimeDirectory(requireRuntimeConfiguration());
+    const lockFile = path.join(root, 'companion/models.lock.json'), manifestFile = path.join(RUNTIME_ROOT, 'runtimes/runtime-files.json');
+    for (const [file, base] of [[lockFile, root], [manifestFile, RUNTIME_ROOT]]) {
+      const s = await checked(file, base, signal); if (s.size > 1024 * 1024) fail('MANIFEST_LIMIT');
+    }
     const lock = JSON.parse((await abortable(io.readFile(lockFile, 'utf8'), signal)).replace(/^\uFEFF/, ''));
     const manifest = JSON.parse((await abortable(io.readFile(manifestFile, 'utf8'), signal)).replace(/^\uFEFF/, ''));
     if (lock.schemaVersion !== 1 || !Array.isArray(lock.artifacts) || manifest.schemaVersion !== 1 ||
@@ -277,7 +282,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     for (const id of [modelId, 'llama-cpu']) {
       const matches = lock.artifacts.filter(a => a.id === id), pin = pins[id];
       if (matches.length !== 1 || ['name', 'bytes', 'sha256'].some(k => matches[0][k] !== pin[k])) fail('ARTIFACT_PIN_MISMATCH');
-      const file = path.join(root, 'companion/local/models', pin.name), stat = await checked(file, root, signal);
+      const file = path.join(RUNTIME_ROOT, 'models', pin.name), stat = await checked(file, RUNTIME_ROOT, signal);
       if (stat.size !== pin.bytes || await abortable(io.hashFile(file, signal), signal) !== pin.sha256) fail('ARTIFACT_HASH_MISMATCH');
       checkAbort(signal);
     }
@@ -289,7 +294,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     const expected = new Map(runtimePins.files.map(f => [f.name.toLowerCase(), f]));
     for (const f of files) {
       if (typeof f.path !== 'string' || !bounded(f.bytes, 1024 ** 3) || !/^[a-f0-9]{64}$/.test(f.sha256)) fail('INVALID_RUNTIME_MANIFEST');
-      const file = path.resolve(root, f.path.replace(/[\\/]/g, path.sep));
+      const file = runtimeInventoryPath(f.path);
       const pinned = expected.get(path.relative(runtimeDirectory, file).toLowerCase());
       if (!pinned || pinned.bytes !== f.bytes || pinned.sha256 !== f.sha256) fail('RUNTIME_MANIFEST_PIN_MISMATCH');
       if (listed.has(file.toLowerCase())) fail('DUPLICATE_RUNTIME_FILE'); listed.add(file.toLowerCase());
@@ -336,8 +341,8 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
         token = io.randomBytes(24).toString('hex'); if (!/^[a-f0-9]{48}$/.test(token)) fail('INVALID_SESSION_TOKEN');
         origin = `http://127.0.0.1:${port}`; state = 'STARTING'; childExited = false; exitCode = null;
         let resolveExit; childExitPromise = new Promise(resolve => { resolveExit = resolve; });
-        const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^LLAMA_ARG_/i.test(k)));
-        const args = ['-m', path.join(root, 'companion/local/models', pins[modelId].name), '--host', '127.0.0.1', '--port', String(port),
+        const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^LLAMA_ARG_/i.test(k) && k.toUpperCase() !== 'GGML_BACKEND_PATH'));
+        const args = ['-m', path.join(RUNTIME_ROOT, 'models', pins[modelId].name), '--host', '127.0.0.1', '--port', String(port),
           '--api-key', token, '--offline', '--no-webui', '--no-webui-mcp-proxy', '-ngl', '0', '-t', String(threads), '-tb', String(threads),
           '-c', '2048', '-np', '1', '-n', '64', '--jinja', '--chat-template-kwargs', '{"enable_thinking":false}', '--reasoning-budget', '0'];
         if (processingBatch === 'compact') args.push('-b', '128', '-ub', '64');

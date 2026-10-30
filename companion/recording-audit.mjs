@@ -2,6 +2,8 @@
 import { createHash } from 'node:crypto';
 import { open } from 'node:fs/promises';
 import { replayFrames } from './observation.mjs';
+import { jsonArrayElementByteSizes } from './json-array-spans.mjs';
+import { duplicateJsonMemberStatus } from './json-member-names.mjs';
 
 export const RECORDING_LIMITS = Object.freeze({ bytes: 32 * 1024 ** 2, frames: 20000,
   frameBytes: 128 * 1024, streams: 128, detailedFindings: 200 });
@@ -50,13 +52,25 @@ export function auditRecordingBytes(bytes, { allowSynthetic = false, nominalInte
   };
   if (bytes.byteLength > RECORDING_LIMITS.bytes) { finding(null, 'RECORDING_TOO_LARGE'); return report; }
   report.sourceSha256 = createHash('sha256').update(bytes).digest('hex');
-  let frames;
-  try { frames = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
+  let frames, source;
+  try {
+    source = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    frames = JSON.parse(source);
+  }
   catch { finding(null, 'INVALID_UTF8_OR_JSON'); return report; }
+  const duplicateStatus = duplicateJsonMemberStatus(source);
+  if (duplicateStatus !== null) {
+    finding(null, duplicateStatus === 'JSON_STRUCTURE_LIMIT' ? 'RECORDING_STRUCTURE_LIMIT' : duplicateStatus);
+    return report;
+  }
   if (!Array.isArray(frames) || !frames.length || frames.length > RECORDING_LIMITS.frames) {
     finding(null, 'INVALID_FRAME_COUNT'); return report;
   }
   report.frameCount = frames.length;
+  const frameByteSizes = jsonArrayElementByteSizes(bytes);
+  if (frameByteSizes.length !== frames.length) {
+    finding(null, 'INVALID_FRAME_SPANS'); return report;
+  }
   const labels = new Set(frames.map(f => f?.provenance));
   report.classification = labels.size === 1 && labels.has('MOCK_ONLY') ? 'MOCK_ONLY' :
     labels.size === 1 && labels.has('GAME_OBSERVED') ? 'GAME_OBSERVED_UNVALIDATED' : 'MIXED_OR_INVALID_PROVENANCE';
@@ -67,7 +81,7 @@ export function auditRecordingBytes(bytes, { allowSynthetic = false, nominalInte
     if (!boundedStructure(f)) {
       finding(index, 'FRAME_STRUCTURE_LIMIT'); canReplay = false; previous = null; continue;
     }
-    if (Buffer.byteLength(JSON.stringify(f)) > RECORDING_LIMITS.frameBytes) {
+    if (frameByteSizes[index] > RECORDING_LIMITS.frameBytes) {
       finding(index, 'FRAME_TOO_LARGE'); canReplay = false; previous = null; continue;
     }
     if (!obj(f) || f.schemaVersion !== 1 || f.kind !== 'observation' || !id(f.session) ||

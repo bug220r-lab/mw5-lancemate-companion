@@ -132,6 +132,7 @@ export function createConversationCoordinator({ generate, personas = defaultPers
             requiresRadioGate: true, grounding: 'NOT_VALIDATED', id: r.id, session: r.session,
             speakerId: r.speakerId, pawnId: r.pawnId, generation: r.generation, priority: r.priority,
             text, sourceFactIds: r.facts.map(f => f.id), createdAtMs: at,
+            ...(r.exchangeId === undefined ? {} : { exchangeId: r.exchangeId, exchangeTurn: r.exchangeTurn }),
             expiresAtMs: Math.min(r.expiresAtMs, ...r.facts.map(f => f.expiresAtMs)),
             audioGenerated: false, delivery: 'NOT_PLAYED_BY_COORDINATOR' };
           const history = histories.get(r.speakerId);
@@ -245,6 +246,9 @@ export function createConversationCoordinator({ generate, personas = defaultPers
         return Promise.resolve(rejected('INVALID_FACT_PACK'));
     }
     if (r.priority !== 'answer' && r.facts.length === 0) return Promise.resolve(rejected('FACTS_REQUIRED'));
+    if (r.exchangeId !== undefined && (!idOk(r.exchangeId) || !unsolicited(r) || ![0, 1].includes(r.exchangeTurn)))
+      return Promise.resolve(rejected('INVALID_EXCHANGE'));
+    if (r.exchangeId === undefined && r.exchangeTurn !== undefined) return Promise.resolve(rejected('INVALID_EXCHANGE'));
     const reason = current(r, t); if (reason) return Promise.resolve(rejected(reason));
     if (ids.has(r.id)) return Promise.resolve(rejected('DUPLICATE_REQUEST'));
     if (ids.size >= CONVERSATION_LIMITS.requestIdsPerMission) return Promise.resolve(rejected('REQUEST_ID_CAPACITY'));
@@ -252,6 +256,7 @@ export function createConversationCoordinator({ generate, personas = defaultPers
     // Whitelist evidence fields: extra model/tool-shaped metadata is not passed.
     r = { id: r.id, session: r.session, speakerId: r.speakerId, pawnId: r.pawnId, generation: r.generation,
       priority: r.priority, text: r.text.trim(), expiresAtMs: r.expiresAtMs,
+      ...(r.exchangeId === undefined ? {} : { exchangeId: r.exchangeId, exchangeTurn: r.exchangeTurn }),
       facts: r.facts.map(f => ({ id: f.id, session: f.session, observedAtMs: f.observedAtMs,
         expiresAtMs: f.expiresAtMs, data: f.data, evidenceStatus: 'CALLER_ASSERTED_OBSERVATION' })) };
     ids.add(r.id);

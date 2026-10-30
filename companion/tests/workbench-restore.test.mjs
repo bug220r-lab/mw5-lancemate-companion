@@ -98,6 +98,6 @@ test('plan-only preparation pins the full source allowlist without reserving a n
     'synthetic/tactical-cases.mjs', 'scripts/Kokoro-Worker.py', 'design/WORKBENCH_PACKAGE_README.md'])
     assert.ok(result.sources.some(item => item.file === expected && /^[a-f0-9]{64}$/.test(item.sha256)));
   assert.ok(result.sources.every(item => !item.file.includes('companion/local/')));
-  assert.equal(result.sources.length, 31);
+  assert.equal(result.sources.length, 34);
   assert.deepEqual(await identity(file), before);
 });

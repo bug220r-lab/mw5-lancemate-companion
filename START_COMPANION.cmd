@@ -1,18 +1,23 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-rem Use the existing local runtime even when Explorer lacks Codex's injected PATH.
+rem Configure an independently provisioned runtime; never restore/use a Codex cache implicitly.
+if not defined MW5_COMPANION_RUNTIME_ROOT (
+  echo Set MW5_COMPANION_RUNTIME_ROOT to the reviewed writable runtime installation.
+  exit /b 1
+)
 if defined MW5_COMPANION_NODE (
   set "MW5_LAUNCH_NODE=%MW5_COMPANION_NODE%"
 ) else (
-  set "MW5_LAUNCH_NODE=%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe"
+  set "MW5_LAUNCH_NODE=%MW5_COMPANION_RUNTIME_ROOT%\node\node.exe"
 )
 if not exist "%MW5_LAUNCH_NODE%" (
   if defined MW5_COMPANION_NODE (
     echo The configured MW5_COMPANION_NODE executable was not found.
     exit /b 1
   )
-  set "MW5_LAUNCH_NODE=node"
+  echo The configured runtime has no Node executable. Provision it before launching.
+  exit /b 1
 )
 "%MW5_LAUNCH_NODE%" -e "if (Number(process.versions.node.split('.')[0]) !== 24) process.exit(1)" >nul 2>nul
 if errorlevel 1 (

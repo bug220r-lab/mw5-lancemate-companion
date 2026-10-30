@@ -70,8 +70,12 @@ export function decideSquad(snapshot, previousState = null) {
     t.observedAtMs <= s.nowMs && s.nowMs - t.observedAtMs <= LIMITS.maxAgeMs && fraction(t.threat));
   const targetsById = new Map(targets.map(t => [t.id, t]));
   const assigned = new Map(); const reserved = new Set(); const recommendations = [];
-  // Stable identity order, not input array/UI order, defines deterministic coordination.
-  for (const a of [...members].sort((x, y) => x.id.localeCompare(y.id, 'en'))) {
+  // Critical retreats claim supplied positions before offensive range moves.
+  // Every actor still passes the binding, human-order and tactical gates below.
+  // Stable identity breaks ties; public recommendations retain identity order.
+  const critical = a => fraction(a.healthFraction) && a.healthFraction <= LIMITS.criticalHealth;
+  for (const a of [...members].sort((x, y) => Number(critical(y)) - Number(critical(x)) ||
+    x.id.localeCompare(y.id, 'en'))) {
     const before = obj(state.actors[a.id]) ? state.actors[a.id] : {};
     const output = r => { recommendations.push(r); state.actors[a.id] = { ...before,
       ...(state.actors[a.id] ?? {}), recommendation: r }; };
@@ -177,5 +181,5 @@ export function decideSquad(snapshot, previousState = null) {
   // Retain mission-scoped history for temporarily absent actors, including human
   // holds. Only currently observed members receive recommendations; a new session
   // resets history. Disappearance is never evidence of completion or release.
-  return result(recommendations);
+  return result(recommendations.sort((x, y) => x.actorId.localeCompare(y.actorId, 'en')));
 }

@@ -121,6 +121,9 @@ test('separated request flag reaches real request construction without tools or 
 });
 
 test('start verifies pinned model/archive and every inventoried runtime file before one hidden CPU process', async t => {
+  const key = 'GgMl_BaCkEnD_pAtH', previous = process.env[key];
+  process.env[key] = 'UNREVIEWED_EXTERNAL_BACKEND';
+  t.after(() => { if (previous === undefined) delete process.env[key]; else process.env[key] = previous; });
   const r = rig(t); const [a, b] = await Promise.all([r.model.start(), r.model.start()]);
   assert.equal(a.state, 'READY'); assert.equal(b.state, 'READY'); assert.equal(r.calls.length, 1);
   const runtimeFiles = inventory.files.filter(f => f.artifact === 'llama-cpu'); assert.equal(r.hashed.length, runtimeFiles.length + 2);
@@ -130,6 +133,7 @@ test('start verifies pinned model/archive and every inventoried runtime file bef
   for (const [key, value] of [['--host','127.0.0.1'],['-ngl','0'],['-c','2048'],['-np','1'],['-n','64'],['--reasoning-budget','0']])
     assert.equal(args[args.indexOf(key) + 1], value);
   assert.ok(Object.keys(options.env).every(k => !/^LLAMA_ARG_/i.test(k)));
+  assert.ok(Object.keys(options.env).every(k => k.toUpperCase() !== 'GGML_BACKEND_PATH'));
   assert.equal(r.model.status().verification, 'MOCK_VERIFIED');
   assert.equal(r.model.status().gameTests, 'NOT_PERFORMED');
   const token = args[args.indexOf('--api-key') + 1]; assert.match(token, /^[a-f0-9]{48}$/);

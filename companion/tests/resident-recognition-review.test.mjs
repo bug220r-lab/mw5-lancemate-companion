@@ -6,6 +6,7 @@ import { EventEmitter } from 'node:events';
 import { setImmediate as flush } from 'node:timers/promises';
 import { readFile } from 'node:fs/promises';
 import { createResidentRecognition } from '../resident-recognition.mjs';
+import bootstrapPins from '../runtime-bootstrap-pins.json' with { type: 'json' };
 
 const GiB = 1024 ** 3;
 const deferred = () => { let resolve; const promise = new Promise(r => { resolve = r; }); return { promise, resolve }; };
@@ -62,12 +63,12 @@ test('resident review: construction/import is inert; explicit injected instances
 
 test('resident review: interpreter source pins are complete SHA-256 identities and fixed byte sizes', async () => {
   const source = await readFile(new URL('../resident-recognition.mjs', import.meta.url), 'utf8');
-  const block = source.match(/const PYTHON_PINS = \[([\s\S]*?)\n\];/)[1];
-  const rows = [...block.matchAll(/\['([^']+)',\s*(\d+),\s*'([^']+)'(?:\.replace\(' ', ''\))?\]/g)]
-    .map(([, name, bytes, hash]) => ({ name, bytes: Number(bytes), hash: hash.replace(' ', '') }));
+  const rows = bootstrapPins.python.files;
   assert.deepEqual(rows.map(x => x.name), ['python.exe', 'python3.dll', 'python312.dll']);
   assert.deepEqual(rows.map(x => x.bytes), [107312, 71984, 6985520]);
-  assert.ok(rows.every(x => /^[a-f0-9]{64}$/.test(x.hash)));
+  assert.ok(rows.every(x => /^[a-f0-9]{64}$/.test(x.sha256)));
+  assert.equal(bootstrapPins.python.version, '3.12.14');
+  assert.match(source, /const PYTHON_PINS = bootstrapPins\.python\.files/);
   // The reviewed source must still refuse a missing/unreviewed worker identity.
   assert.match(source, /RESIDENT_SOURCE_NOT_PINNED/);
 });

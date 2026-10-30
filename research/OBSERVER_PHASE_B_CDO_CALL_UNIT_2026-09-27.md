@@ -1,0 +1,15 @@
+# One loaded-CDO call proof
+
+Prepared 2026-09-27. Native action is NOT_PERFORMED at preparation. This unit executes one disposable Blueprint function; it is not an asset-only read.
+
+The parent explicitly authorized investigating one bounded ProofHelper call after the local-binding proof. Use the existing owned editor PID26084 and disposable BP_CodexAuthoringProbe. Its current independently reviewed export is bindings.COPY (60287 bytes, SHA256 df7db4ca13667e154780d6ace2cba0fea4a0d593d295c789a1bec6fedb05bcd2). ProofHelper_0 contains only Entry-to-Return execution, a String input, default empty String output, and unused Boolean local. It has no world query, member setter, print, latent action or caller.
+
+The helper performs two exact already-loaded lookups: generated class, then Default__BP_CodexAuthoringProbe_C. Require exact paths and that the CDO's class equals the scratch generated class. Invoke only call_method('ProofHelper_0', args=('PHASE_B_CDO_LITERAL_PROBE',)) once. The literal input is unused by the function; this checks reflected output marshalling and editor CDO eligibility, not an echo or algorithm.
+
+Installed Python reference (SHA256 ac4c46761bc54099302155bc0a908ae3f64b161ca77eb9afd0cc6c1f1b826480) documents already-loaded find_object at lines48-51 and Object.call_method at372-375. get_default_object at90-94 and get_type_from_class at126-130 are documented, but the latter promises only the best matching Python type. This experiment avoids conversion and CDO creation entirely. The expected scratch CDO path is a constrained candidate until actually found and identity-checked; missing or changed identity stops without fallback.
+
+An expiring separately reviewed entry pins process ID, creation time, executable, helper, baseline/review, source/backup, this unit and installed reference. Persistent one-use claim precedes any lookup; existing claim or result refuses replay. Native binding metadata must establish built-in functions rather than collected Python declaration stubs. Recheck source/backup/baseline before and after each stage. Result is exclusive, bounded32768bytes; 60-second budget is cooperative only.
+
+Stop on missing class/CDO, identity or pin change, wrong native binding, Python exception, elapsed budget, unexpected output or new editor error. One invocation maximum, no retry or fallback. No Play, BeginPlay, actor creation, loading, world access, input, save, compile, package or retail action. A Python exception does not establish impossibility. The result must preserve actual return shape without coercing it into a passing String.
+
+Parent must maintain the reviewed in-memory function unchanged and verify the editor has no Play session before dispatch; disk pins alone cannot prove current memory contents. Cleanup is the established eventual discard of the unsaved disposable scratch session and verification of original source/backup hashes; leave evidence and autosaves intact. No original observer or PhaseA source/package is touched.

@@ -4,10 +4,12 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID, createHash } from 'node:crypto';
+import { RUNTIME_ROOT, requireRuntimeConfiguration } from './runtime-paths.mjs';
+import { verifySpeechPreparation } from './runtime-readiness.mjs';
 
 const project = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const root = path.join(project, 'companion', 'local', 'tts');
-export const SPEECH_OUTPUT_DIRECTORY = path.join(project, 'companion', 'local', 'speech-output');
+const root = path.join(RUNTIME_ROOT, 'tts');
+export const SPEECH_OUTPUT_DIRECTORY = path.join(RUNTIME_ROOT, 'speech-output');
 export const LOCAL_SPEECH_VOICES = Object.freeze(['af_bella', 'am_adam', 'af_heart']);
 const fault = code => Object.assign(new Error(code), { code });
 const finite = x => typeof x === 'number' && Number.isFinite(x) && x >= 0;
@@ -101,11 +103,12 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
     } catch { if (generation === epoch) fail('OUTPUT_VERIFICATION_FAILED'); }
   }
   async function start() {
+    if (spawnProcess === spawn) await verifySpeechPreparation(requireRuntimeConfiguration());
     if (state === 'READY' || state === 'BUSY') return structuredClone(ready);
     if (state === 'STARTING') return boot.promise;
     if (restartRequired || state !== 'NEW') throw fault('EXPLICIT_RESTART_REQUIRED');
     state = 'STARTING'; buffer = ''; stderr = ''; const generation = ++epoch;
-    const env = { ...process.env, PYTHONNOUSERSITE: '1', PYTHONIOENCODING: 'utf-8',
+    const env = { ...process.env, MW5_COMPANION_RUNTIME_ROOT: RUNTIME_ROOT, PYTHONNOUSERSITE: '1', PYTHONIOENCODING: 'utf-8',
       HF_HOME: path.join(root, 'hf-cache'), HF_HUB_OFFLINE: '1', TRANSFORMERS_OFFLINE: '1',
       HF_HUB_DISABLE_TELEMETRY: '1', CUDA_VISIBLE_DEVICES: '-1', OMP_NUM_THREADS: '2', MKL_NUM_THREADS: '2',
       TEMP: path.join(root, 'tmp'), TMP: path.join(root, 'tmp') };

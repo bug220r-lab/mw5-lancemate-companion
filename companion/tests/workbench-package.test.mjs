@@ -31,11 +31,11 @@ async function fixture(t) {
 }
 
 test('fixed mapping is frozen, bounded and excludes local state, tests, raw research and arbitrary files', () => {
-  assert.equal(WORKBENCH_PACKAGE_FILES.length, 29); assert.ok(Object.isFrozen(WORKBENCH_PACKAGE_FILES));
+  assert.equal(WORKBENCH_PACKAGE_FILES.length, 32); assert.ok(Object.isFrozen(WORKBENCH_PACKAGE_FILES));
   assert.ok(WORKBENCH_PACKAGE_FILES.every(Object.isFrozen));
   assert.deepEqual(WORKBENCH_PACKAGE_FILES.find(f => f.path === 'README.md'), { source: 'design/WORKBENCH_PACKAGE_README.md', path: 'README.md' });
   const names = WORKBENCH_PACKAGE_FILES.map(f => f.path);
-  assert.equal(new Set(names.map(n => n.toLowerCase())).size, 29);
+  assert.equal(new Set(names.map(n => n.toLowerCase())).size, 32);
   assert.deepEqual(names, [...names].sort());
   for (const name of ['companion/local/settings.json', 'companion/local/models/model.gguf', 'companion/tests/radio.test.mjs', '.git/config', 'research/report.json'])
     assert.equal(names.includes(name), false);

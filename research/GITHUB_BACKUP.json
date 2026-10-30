@@ -1,14 +1,14 @@
 {
-  "recordedAt": "2026-09-23T05:58:13.777Z",
+  "recordedAt": "2026-09-26T00:21:26Z",
   "status": "PRIVATE_SOURCE_BACKUP_VERIFIED",
   "repository": "https://github.com/bug220r-lab/mw5-lancemate-companion",
   "owner": "bug220r-lab",
   "visibility": "private",
   "branch": "codex/companion-foundation",
-  "commit": "d3454ecde90b3cd5ddc0df91a26c73e664138a15",
-  "remoteCommit": "d3454ecde90b3cd5ddc0df91a26c73e664138a15",
-  "files": 544,
-  "reviewedBytes": 12135463,
+  "commit": "2d078efd1554b0452c29ed261deb211209d57866",
+  "remoteCommit": "2d078efd1554b0452c29ed261deb211209d57866",
+  "files": 600,
+  "reviewedBytes": 12787687,
   "scope": "Original source, design/research reports, synthetic fixtures and bounded authored receipts; not a whole-machine or complete raw-evidence backup.",
   "excluded": [
     {
@@ -134,7 +134,12 @@
     {
       "path": "tmp/",
       "reason": "Scratch work, downloaded third-party source/media and intermediate inspection material."
+    },
+    {
+      "path": "artifacts/",
+      "reason": "Cooked mod outputs and PAK payloads remain local; this checkpoint contains reviewed source and evidence summaries only."
     }
   ],
-  "gameDeployment": "NOT_PERFORMED"
+  "gameDeployment": "NOT_PERFORMED",
+  "gameDeploymentScope": "This source-backup operation. The separate first retail observer observation is recorded in research/OBSERVER_STARTUP_RESULT_2026-09-25.md."
 }

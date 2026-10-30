@@ -1,4 +1,5 @@
 // Project observation contract only. No game access, transport or dispatch.
+import { types as utilTypes } from 'node:util';
 import { decideSquad, LIMITS } from '../scripts/tactical-policy.mjs';
 
 const record = x => x !== null && typeof x === 'object' && !Array.isArray(x);
@@ -18,15 +19,23 @@ function copyRecord(value) {
     if (++nodes > 30000 || depth > 32) throw new Error('RECORD_LIMIT');
     if (x === null || typeof x === 'string' || typeof x === 'boolean') return x;
     if (finite(x)) return x;
-    if (!record(x) && !Array.isArray(x)) throw new Error('NON_JSON_VALUE');
+    if (utilTypes.isProxy(x)) throw new Error('PROXY_RECORD');
+    const array = Array.isArray(x);
+    if (!record(x) && !array) throw new Error('NON_JSON_VALUE');
     if (stack.has(x)) throw new Error('CYCLIC_RECORD');
     const proto = Object.getPrototypeOf(x);
-    if (!Array.isArray(x) && proto !== Object.prototype && proto !== null)
+    if (array ? proto !== Array.prototype : proto !== Object.prototype && proto !== null)
       throw new Error('NON_PLAIN_RECORD');
+    const length = array ? Object.getOwnPropertyDescriptor(x, 'length').value : null;
+    if (array && (!nat(length) || length > 30000)) throw new Error('RECORD_LIMIT');
+    const keys = Reflect.ownKeys(x);
+    if (array && (keys.length !== length + 1 || keys.some(key => key !== 'length' &&
+        (typeof key !== 'string' || !/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= length))))
+      throw new Error('SPARSE_OR_EXTENDED_ARRAY');
     stack.add(x);
-    const out = Array.isArray(x) ? [] : {};
-    for (const key of Reflect.ownKeys(x)) {
-      if (Array.isArray(x) && key === 'length') continue;
+    const out = array ? [] : {};
+    for (const key of keys) {
+      if (array && key === 'length') continue;
       if (typeof key !== 'string' || ['__proto__', 'constructor', 'prototype'].includes(key))
         throw new Error('INVALID_RECORD_KEY');
       const descriptor = Object.getOwnPropertyDescriptor(x, key);
@@ -34,8 +43,6 @@ function copyRecord(value) {
         throw new Error('NON_DATA_PROPERTY');
       out[key] = visit(descriptor.value, depth + 1);
     }
-    if (Array.isArray(x) && (out.length !== x.length || Object.keys(out).length !== x.length))
-      throw new Error('SPARSE_OR_EXTENDED_ARRAY');
     stack.delete(x);
     return out;
   }

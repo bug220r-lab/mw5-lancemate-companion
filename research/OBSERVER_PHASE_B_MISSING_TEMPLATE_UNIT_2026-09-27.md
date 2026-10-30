@@ -1,0 +1,7 @@
+# Native scratch template collection
+
+Authorized overnight editor work, September 27, 2026. Root owns all UI input. The starting unsaved scratch baseline is `phase-b-typed-variable-proof-20260927-01/typed.COPY`, 36,240 bytes, SHA-256 `faf4d7cce4a304693576c9c2207b61a85b79987104d31e71b116ba6e43ffa829`. It contains nine authored EventGraph nodes and two scratch-owned variables. Original source and backup remain unchanged; this is not a restored on-disk graph.
+
+Collect native Get Object Class, Is Game Paused and Get Character as Number templates through observed menus in the same unplaced scratch Actor Blueprint. Keep all new nodes disconnected from execution. Then create one small scratch function and its native parameter/local-variable binding templates if the available UI permits. Compile, export the already loaded object into a new evidence directory and independently compare added declarations and all original graph content. The exact API references and pins come from that export; search phrases are not evidence of interfaces.
+
+No Play, source save, Save To Mod, packaging, retail change or probe creation occurs in this unit. On unexpected mutation, compile failure or ownership/focus loss, stop and preserve evidence. Retain a reviewed unsaved scratch baseline only while immediately continuing this bounded work. Otherwise close the owned editor normally and discard only these known unsaved scratch edits; verify original source and backup hashes. Autosaves are separate preserved artifacts, not restoration evidence.

@@ -72,7 +72,17 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
     try { return structuredClone(recognizer.status()); }
     catch { return { state: 'UNAVAILABLE', busy: true, processStopConfirmed: false }; }
   }
-  function engineReady() { const value = engine(); return value?.state === 'READY' && value.busy === false && value.ownsProcess !== true; }
+  function engineReady() {
+    const value = engine();
+    if (value?.state !== 'READY' || value.busy !== false || value.cleanupPending === true ||
+        value.cleanupBlocked === true || value.pendingPreflight === true) return false;
+    // Resident ASR retains its worker between requests. Readiness must describe
+    // that healthy ownership explicitly; it must never imply confirmed closure.
+    if (value.mode === 'RESIDENT_PIPE_TRANSCRIPTION_ONLY') return value.ownsProcess === true &&
+      value.processStopConfirmed === false && value.pendingPreflight === false && value.lastError === null &&
+      Number.isSafeInteger(value.pid) && value.pid > 0;
+    return value.ownsProcess === false && value.processStopConfirmed === true;
+  }
   function clearCaptureTimer(capture) { clearTimeout(capture?.timer); if (capture) capture.timer = null; }
   function callHook(fn, value) {
     const result = fn(value);

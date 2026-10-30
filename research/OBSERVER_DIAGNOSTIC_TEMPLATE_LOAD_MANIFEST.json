@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "editor_identity": {
+    "pid": 11980,
+    "executable": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+    "creation_filetime": "134349304323350249"
+  },
+  "native_owner": "Research MW5 Lancemate AI",
+  "native_owner_confirmed": true,
+  "protected_files": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+      "bytes": 1498,
+      "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Config\\Tags\\LanceObserverDiagnosticControlTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Content\\WBP_ObserverDiagnosticControl.uasset",
+      "bytes": 30768,
+      "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\LanceObserverDiagnosticControl.uplugin",
+      "bytes": 389,
+      "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\mod.json",
+      "bytes": 484,
+      "sha256": "1733b881793403a6b577bba8effa9f8ab9ca4dbbdddcaf070c98f03f543f90a1"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 92019,
+      "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Config\\Input\\LanceObserverDiagnosticControlInput.ini",
+      "bytes": 1498,
+      "sha256": "d1a5492fcb7e0ad41d8f4eb15e953fd0032e174510f3db89a74fec5901dbbd3f"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Config\\Tags\\LanceObserverDiagnosticControlTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Content\\WBP_ObserverDiagnosticControl.uasset",
+      "bytes": 30768,
+      "sha256": "80f52bb21156b638ca22d6c8ab778bfcfc7a6feb1f26286977a3324ac5978b4b"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\LanceObserverDiagnosticControl.uplugin",
+      "bytes": 389,
+      "sha256": "52b5bef1004246ac5377e81d9508579393be258f9c5477cf3626ee4c33cf1c79"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\mod.json",
+      "bytes": 484,
+      "sha256": "1733b881793403a6b577bba8effa9f8ab9ca4dbbdddcaf070c98f03f543f90a1"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\ModOverride\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 92019,
+      "sha256": "ba725129011767a82935bd36a811ce2583bfebbfbbd8c4b2cff3fcbc1ca14948"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\content\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\LanceObserverProbe.uplugin",
+      "bytes": 422,
+      "sha256": "fdee15a050ec0df0a0b54af070c0680e248190d21e10e6ade1efaaddec010a08"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Input\\LanceObserverProbeInput.ini",
+      "bytes": 1383,
+      "sha256": "fc21b00d6db183e8434466e27f0f4fc194f7e852f66ce68bc15c9323271aa17d"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Config\\Tags\\LanceObserverProbeTags.ini",
+      "bytes": 43,
+      "sha256": "ad7f8b6d4415fb7edb4d52e83942a67c66313da7ea504e6196679db31b147e1b"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\BP_LanceObserverProbeComponent.uasset",
+      "bytes": 139586,
+      "sha256": "6a364cd8e9a35da959de67c0ab1ac0707a062100083f4503da74aef9ad57913a"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\WBP_LanceObserverProbeReadout.uasset",
+      "bytes": 31659,
+      "sha256": "937538d7420b6b810cfaa1b4bfcc2fa5c2f7e50be2eb25ff8a771f0e00564282"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Content\\DA_LanceObserverProbeRegistration.uasset",
+      "bytes": 2111,
+      "sha256": "c5c09bbc3f6ee38e18e8ed330f405a6d7aba649a9ca8c4b9aad6581f82a28c35"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\Resources\\Icon128.png",
+      "bytes": 12352,
+      "sha256": "ec157f56f486e5a68fd4b27df6c88fecdb1b8f9bfff18aa5ef10a21bca6a4c5e"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Content\\Modes\\InstantAction\\InstantActionPlayerController.uasset",
+      "bytes": 53635,
+      "sha256": "7107745a8de461275a7acfa1f3ffc5be9bcb7002682c37b7705af5f00783e4f6"
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\mod.json",
+      "bytes": 356,
+      "sha256": "475c4ed15264743f84d326f28903079d3d72f102985d10c8a7ede4ccf7d5cea3"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\evidence\\editor-authored\\LanceObserverDiagnosticControl-20260925T222809Z-548b77b2-source-checkpoint\\SOURCE_CHECKPOINT.json",
+      "bytes": 14976,
+      "sha256": "e178797fac03c6558f427a862fc1d6c0750c3198f190a18d6e528416477b698f"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\research\\OBSERVER_DIAGNOSTIC_CONTROL_SOURCE_FREEZE_2026-09-25.json",
+      "bytes": 2796,
+      "sha256": "9f515b7b40cc9ab2830dda5f739fb5c367486c135b0b90d04b3ab3bee8e7c6ef"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-FinalDiagnosticControl.py",
+      "bytes": 19186,
+      "sha256": "055fe707fcd7044a294e6fef99732bb2373c38364ebc509de17eab5d1d0b0c60"
+    },
+    {
+      "path": "C:\\Users\\jlewi\\OneDrive\\Documents\\ChatGPT\\MW5 LANCEMATE COMPANION\\scripts\\Inspect-DiagnosticControllerCopy.py",
+      "bytes": 17562,
+      "sha256": "daa431f3d271e1d0f01345a97d87f018211bcbdbdefdd0f6d9d4a3f15e092360"
+    }
+  ],
+  "selection": [
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverProbe\\ActiveMod.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "present": true
+    },
+    {
+      "path": "C:\\Program Files\\Epic Games\\MechWarrior5Editor\\MW5Mercs\\Plugins\\LanceObserverDiagnosticControl\\ActiveMod.txt",
+      "present": false
+    }
+  ],
+  "targets": [
+    {
+      "label": "diagnostic-SimpleConstructionScript_0",
+      "scope": "diagnostic",
+      "name": "SimpleConstructionScript_0",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:SimpleConstructionScript_0",
+      "class_path": "/Script/Engine.SimpleConstructionScript",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "diagnostic-InheritableComponentHandler",
+      "scope": "diagnostic",
+      "name": "InheritableComponentHandler",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:InheritableComponentHandler",
+      "class_path": "/Script/Engine.InheritableComponentHandler",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "diagnostic-PlayerControllerSwitchMech_GEN_VARIABLE",
+      "scope": "diagnostic",
+      "name": "PlayerControllerSwitchMech_GEN_VARIABLE",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:PlayerControllerSwitchMech_GEN_VARIABLE",
+      "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerSwitchMech.PlayerControllerSwitchMech_C",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "diagnostic-PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+      "scope": "diagnostic",
+      "name": "PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+      "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerAirStrikeComponent.PlayerControllerAirStrikeComponent_C",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "diagnostic-ControllerFeedbackComponent_GEN_VARIABLE",
+      "scope": "diagnostic",
+      "name": "ControllerFeedbackComponent_GEN_VARIABLE",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:ControllerFeedbackComponent_GEN_VARIABLE",
+      "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/ControllerFeedbackComponent.ControllerFeedbackComponent_C",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "stock-SimpleConstructionScript_0",
+      "scope": "stock",
+      "name": "SimpleConstructionScript_0",
+      "object_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:SimpleConstructionScript_0",
+      "class_path": "/Script/Engine.SimpleConstructionScript",
+      "outer_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "stock-InheritableComponentHandler",
+      "scope": "stock",
+      "name": "InheritableComponentHandler",
+      "object_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:InheritableComponentHandler",
+      "class_path": "/Script/Engine.InheritableComponentHandler",
+      "outer_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "stock-PlayerControllerSwitchMech_GEN_VARIABLE",
+      "scope": "stock",
+      "name": "PlayerControllerSwitchMech_GEN_VARIABLE",
+      "object_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:PlayerControllerSwitchMech_GEN_VARIABLE",
+      "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerSwitchMech.PlayerControllerSwitchMech_C",
+      "outer_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "stock-PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+      "scope": "stock",
+      "name": "PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+      "object_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:PlayerControllerAirStrikeComponent_GEN_VARIABLE",
+      "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/PlayerControllerAirStrikeComponent.PlayerControllerAirStrikeComponent_C",
+      "outer_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    },
+    {
+      "label": "stock-ControllerFeedbackComponent_GEN_VARIABLE",
+      "scope": "stock",
+      "name": "ControllerFeedbackComponent_GEN_VARIABLE",
+      "object_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C:ControllerFeedbackComponent_GEN_VARIABLE",
+      "class_path": "/Game/Objects/_common/Components/PlayerControllerComponents/ControllerFeedbackComponent.ControllerFeedbackComponent_C",
+      "outer_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController_C"
+    }
+  ],
+  "status": "REVIEWED_NATIVE_READY",
+  "attempt_id": "diagnostic-template-load-20260926T214811Z-2eb064c1",
+  "prepared_at_utc": "2026-09-26T21:56:54.093913+00:00",
+  "reviewed_at_utc": "2026-09-26T22:00:32.353159+00:00",
+  "allow_load": false,
+  "allow_exact_path_load": true,
+  "root_assets": [
+    {
+      "label": "stock",
+      "scope": "stock",
+      "name": "InstantActionPlayerController",
+      "object_path": "/Game/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController",
+      "class_path": "/Script/Engine.Blueprint",
+      "outer_path": "/Game/Modes/InstantAction/InstantActionPlayerController"
+    },
+    {
+      "label": "diagnostic",
+      "scope": "diagnostic",
+      "name": "InstantActionPlayerController",
+      "object_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController.InstantActionPlayerController",
+      "class_path": "/Script/Engine.Blueprint",
+      "outer_path": "/ModOverride/LanceObserverDiagnosticControl/Modes/InstantAction/InstantActionPlayerController"
+    }
+  ],
+  "helper_sha256": "30697c7e5d2011af33644e031e0bae2c20e556e627cc3295222a0f8b84c2d1d2",
+  "base_helper_sha256": "8b92919782afdc799b2c415d7c18cba0282be24e0bf7c698e9a54500ecb018fd",
+  "owner_evidence": "User said Proceed after the exact-package loading next step; same-process editor availability confirmation persists. Research owns UI/assets; independent reviewer makes no editor calls; coordinator is idle and bound not to operate editor concurrently. Exact current window/process creation rechecked; reviewer source review passed with count wording correction.",
+  "authorization": "User Proceed on 2026-09-26; only bounded exact-package loading inspection. Prior no-save/no-reload/no-selection/no-restart/cook/retail boundaries retained.",
+  "limits": {
+    "explicit_loads": 2,
+    "find_asset": 4,
+    "find_object": 10,
+    "exports": 10,
+    "outer_steps": 8,
+    "lexical_depth": 16,
+    "seconds_cooperative": 90,
+    "per_export_bytes": 1048576,
+    "aggregate_raw_bytes": 8388608,
+    "aggregate_inventory_bytes": 8388608,
+    "receipt_bytes": 131072,
+    "min_disk_free": 2147483648,
+    "fixed_ram_reserve": "WAIVED"
+  },
+  "limitations": [
+    "Native loading may load implicit dependencies and invoke engine post-load work; no explicit compile/save/reload.",
+    "Find-before-load uses resident object when present. Neither branch proves disk-memory equivalence or fresh-process acceptance.",
+    "Missing/mismatched/aliased root stops UNKNOWN. No mount registration, alternate path, selection or restart fallback.",
+    "Synchronous native calls are not interruptible; budget is checked before/after calls."
+  ],
+  "stop_conditions": [
+    "Protected source/helper/manifest/selection drift",
+    "Class/path/outer mismatch or root replacement",
+    "Missing root, alias, other active collector/lock, user STOP",
+    "Allocation/native failure, disk/time/output bounds"
+  ],
+  "rollback": "No automatic restore/unload. Preserve evidence and stop. Loaded objects remain resident; restart/repair requires a separately scoped action."
+}

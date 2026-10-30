@@ -16,6 +16,7 @@ const payload = [
   'companion/models.lock.json', 'companion/observation.mjs', 'companion/personas.json', 'companion/radio.mjs',
   'companion/server.mjs', 'companion/speaker-observations.mjs', 'companion/speech-input.mjs',
   'companion/whisper-runtime-pins.json', 'companion/workbench-resources.mjs',
+  'companion/runtime-paths.mjs', 'companion/runtime-readiness.mjs', 'companion/runtime-bootstrap-pins.json',
   'companion/public/app.js', 'companion/public/index.html', 'companion/public/microphone-worklet.js',
   'companion/public/microphone.js', 'companion/public/styles.css',
   'scripts/Kokoro-Worker.py', 'scripts/tactical-policy.mjs', 'synthetic/tactical-cases.mjs'

@@ -59,7 +59,7 @@ test('package review: fixed source-only inventory excludes models, settings, evi
   const result = await verifyWorkbenchPackage(f.outputDir); assert.equal(result.status, 'VERIFIED');
   const m = await manifest(f.outputDir);
   assert.equal(m.classification, 'OFFLINE_WORKBENCH_ONLY'); assert.equal(m.modelsIncluded, false);
-  assert.equal(m.nodeRequirement.major, 24); assert.equal(m.files.length, 29);
+  assert.equal(m.nodeRequirement.major, 24); assert.equal(m.files.length, 32);
   assert.deepEqual(await inventory(f.outputDir), [...WORKBENCH_PACKAGE_FILES.map(f => f.path), manifestName].sort());
   for (const row of m.files) {
     const bytes = await readFile(path.join(f.outputDir, row.path));

@@ -8,10 +8,11 @@ import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { performance } from 'node:perf_hooks';
+import { RUNTIME_ROOT, requireRuntimeConfiguration, verifyRuntimeDirectory } from './runtime-paths.mjs';
 
 const PROJECT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SCRATCH = path.join(PROJECT, 'companion', 'local', 'recognition-tmp');
-const RUNTIME = path.join(PROJECT, 'companion', 'local', 'runtimes', 'whisper-cpu-b5130', 'Release');
+const SCRATCH = path.join(RUNTIME_ROOT, 'recognition-tmp');
+const RUNTIME = path.join(RUNTIME_ROOT, 'runtimes', 'whisper-cpu-b5130', 'Release');
 const GiB = 1024 ** 3, MAX_TRANSCRIPT_BYTES = 4096, MAX_NATIVE_BYTES = 131072;
 const PINNED_INVENTORY_SHA256 = '7bc2ffa17febb5ed6439cc285756cfe08fdb2a30852b4dd07e0010eae7500d7a';
 const PINNED_ARTIFACTS = Object.freeze({
@@ -23,7 +24,7 @@ const PINNED_ARTIFACTS = Object.freeze({
 });
 const fault = code => Object.assign(new Error(code), { code });
 const samePath = (a, b) => process.platform === 'win32' ? a.toLowerCase() === b.toLowerCase() : a === b;
-const contained = file => { const rel = path.relative(PROJECT, file); return rel && !rel.startsWith('..') && !path.isAbsolute(rel); };
+const contained = (file, root) => { const rel = path.relative(root, file); return rel && !rel.startsWith('..') && !path.isAbsolute(rel); };
 const ownOptions = (value, keys) => value && Object.getPrototypeOf(value) === Object.prototype &&
   Reflect.ownKeys(value).every(key => typeof key === 'string' && keys.includes(key) &&
     Object.hasOwn(Object.getOwnPropertyDescriptor(value, key), 'value'));
@@ -86,9 +87,10 @@ export function createLocalRecognition(options = {}, testIo = {}) {
   // every component before reads/writes/deletes, including the workspace itself.
   async function checked(file, kind, guard = () => {}) {
     file = path.resolve(file);
-    if (!samePath(file, PROJECT) && !contained(file)) throw fault('RECOGNITION_PATH_REJECTED');
-    const components = [PROJECT];
-    const parts = path.relative(PROJECT, file).split(path.sep).filter(Boolean);
+    const base = samePath(file, PROJECT) || contained(file, PROJECT) ? PROJECT : RUNTIME_ROOT;
+    if (!samePath(file, base) && !contained(file, base)) throw fault('RECOGNITION_PATH_REJECTED');
+    const components = [base];
+    const parts = path.relative(base, file).split(path.sep).filter(Boolean);
     for (const part of parts) components.push(path.join(components.at(-1), part));
     for (let index = 0; index < components.length; index++) {
       const item = components[index]; guard(); const stat = await io.lstat(item); guard();
@@ -125,6 +127,7 @@ export function createLocalRecognition(options = {}, testIo = {}) {
     guard(); await checked(file, 'file', guard);
   }
   async function installation(guard) {
+    if (!mock) await verifyRuntimeDirectory(requireRuntimeConfiguration());
     const decode = bytes => JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes).replace(/^\uFEFF/, ''));
     const lock = decode(await readBounded(path.join(PROJECT, 'companion', 'models.lock.json'), 1048576, guard));
     const inventoryBytes = await readBounded(path.join(PROJECT, 'companion', 'whisper-runtime-pins.json'), 1048576, guard);
@@ -159,19 +162,19 @@ export function createLocalRecognition(options = {}, testIo = {}) {
     const entries = await io.readdir(RUNTIME, { withFileTypes: true }); guard();
     if (entries.length !== names.size || entries.some(e => !e.isFile() || e.isSymbolicLink() || !names.has(e.name.toLowerCase())))
       throw fault('RECOGNITION_RUNTIME_INVENTORY_MISMATCH');
-    for (const pin of [model, archive]) await hashPinned(path.join(PROJECT, 'companion', 'local', 'models', pin.name), pin, guard);
+    for (const pin of [model, archive]) await hashPinned(path.join(RUNTIME_ROOT, 'models', pin.name), pin, guard);
     for (const pin of pins.files) await hashPinned(path.join(RUNTIME, pin.name), pin, guard);
-    return { model: path.join(PROJECT, 'companion', 'local', 'models', model.name), runtime: path.join(RUNTIME, 'whisper-cli.exe') };
+    return { model: path.join(RUNTIME_ROOT, 'models', model.name), runtime: path.join(RUNTIME, 'whisper-cli.exe') };
   }
   async function resources(guard) {
-    const disk = await io.statfs(PROJECT); guard(); const availableRamBytes = io.freemem();
+    const disk = await io.statfs(RUNTIME_ROOT); guard(); const availableRamBytes = io.freemem();
     const availableDiskBytes = Number(disk.bavail) * Number(disk.bsize);
     resourceSnapshot = { availableDiskBytes, availableRamBytes, continuousReserveGuaranteed: false };
     if (!Number.isFinite(availableDiskBytes) || availableDiskBytes < 10 * GiB) throw fault('RECOGNITION_DISK_RESERVE');
     if (!Number.isFinite(availableRamBytes) || availableRamBytes < 3 * GiB) throw fault('RECOGNITION_RAM_RESERVE');
   }
   async function makeScratch(guard) {
-    for (const dir of [path.join(PROJECT, 'companion'), path.join(PROJECT, 'companion', 'local'), SCRATCH]) {
+    for (const dir of [SCRATCH]) {
       await checked(path.dirname(dir), 'directory', guard); guard();
       try { await io.mkdir(dir); } catch (error) { if (error.code !== 'EEXIST') throw error; }
       await checked(dir, 'directory', guard);
@@ -270,6 +273,7 @@ export function createLocalRecognition(options = {}, testIo = {}) {
       await checked(input, 'file', guard); await checked(verified.runtime, 'file', guard);
       await checked(verified.model, 'file', guard); await resources(guard); guard();
       const env = { ...process.env, OMP_NUM_THREADS: '4', MKL_NUM_THREADS: '4', CUDA_VISIBLE_DEVICES: '-1' };
+      for (const name of Object.keys(env)) if (name.toUpperCase() === 'GGML_BACKEND_PATH') delete env[name];
       const args = ['--model', verified.model, '--file', input, '--threads', '4', '--language', 'en',
         '--no-gpu', '--output-txt', '--output-file', prefix];
       const child = io.spawn(verified.runtime, args, { cwd: RUNTIME, windowsHide: true, shell: false,

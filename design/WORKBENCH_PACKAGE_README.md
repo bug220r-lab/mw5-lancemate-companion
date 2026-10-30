@@ -5,11 +5,13 @@ This personal preview lets you explore three fictional pilots, tactical recommen
 ## Start
 
 1. Keep the complete package together in its own writable folder.
-2. Use an existing **Node.js 24** installation. The package does not include or install Node. The launcher checks the existing local runtime, then the system path; an explicit `MW5_COMPANION_NODE` setting can select a full Node executable path.
+2. Set **MW5_COMPANION_RUNTIME_ROOT** to a separately reviewed writable runtime directory outside this package, LibraryCache and private handoff archives. On THIS-MACHINE the intended directory is `C:\Users\Jude\Documents\Codex\MW5-MOD\RuntimeWorking\this-machine`. The launcher uses its `node\node.exe`; an explicit **MW5_COMPANION_NODE** can select another reviewed Node.js 24 executable. There is no implicit Codex-cache or PATH fallback. The package does not include or install Node, models or speech environments.
 3. Open **START_COMPANION.cmd**. It starts the local workbench and opens its browser page. Opening the page does not start speech engines, request microphone access or play audio.
 4. Click **Start synthetic mission**. Explore the pilots, **Arm simulation**, and **Simulate recommendations**. **Disarm simulation** stops simulated dispatch. Typed commands only show how the text would be interpreted.
 
 The Node version used for a restore check is recorded in its accompanying validation receipt. Other machines and an Explorer double-click need their own validation.
+
+Runtime paths are trusted operator settings, never a command/model parameter. `START_COMPANION.cmd --check` checks only the selected Node version. Separate runtime preparation must verify the model/runtime pins, Python environment and available storage before engines are used; a version check or source package is not runtime or game acceptance.
 
 ## Included features and optional components
 

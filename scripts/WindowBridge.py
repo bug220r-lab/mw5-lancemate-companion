@@ -5,6 +5,8 @@ Editor text requires an explicitly reviewed active-field rectangle; no key chord
 clipboard paste or asset-authoring API. Slate field focus still needs visual review.
 Capture first, visually review its PNG, then explicitly supply that image hash.
 Pointer coordinates are relative to that screenshot, not the native client origin.
+An explicitly pinned foreground owned window permits one click on its owner;
+that session then closes and requires a fresh normal binding.
 """
 import argparse
 import ctypes as C
@@ -22,6 +24,7 @@ from PIL import Image, ImageGrab
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / 'research' / 'evidence' / 'window-bridge'
 EDITOR = Path('C:/Program Files/Epic Games/MechWarrior5Editor/Engine/Binaries/Win64/UE4Editor.exe')
+MAX_OWNER_CHAIN = 8
 
 
 def now():
@@ -50,6 +53,12 @@ class GUITHREADINFO(C.Structure):
                 ('active', W.HWND), ('focus', W.HWND), ('capture', W.HWND),
                 ('menuOwner', W.HWND), ('moveSize', W.HWND),
                 ('caret', W.HWND), ('caretRect', W.RECT)]
+
+
+class WINDOWPLACEMENT(C.Structure):
+    _fields_ = [('length', W.UINT), ('flags', W.UINT), ('showCmd', W.UINT),
+                ('minPosition', W.POINT), ('maxPosition', W.POINT),
+                ('normalPosition', W.RECT)]
 
 
 class MOUSEINPUT(C.Structure):
@@ -108,6 +117,8 @@ class Desktop:
         bind(u, 'WindowFromPoint', [W.POINT], W.HWND)
         bind(u, 'GetAncestor', [W.HWND, W.UINT], W.HWND)
         bind(u, 'GetWindow', [W.HWND, W.UINT], W.HWND)
+        bind(u, 'GetWindowPlacement', [W.HWND, C.POINTER(WINDOWPLACEMENT)], W.BOOL)
+        bind(u, 'ShowWindow', [W.HWND, C.c_int], W.BOOL)
         bind(u, 'SetCursorPos', [C.c_int, C.c_int], W.BOOL)
         bind(u, 'GetCursorPos', [C.POINTER(W.POINT)], W.BOOL)
         bind(u, 'GetAsyncKeyState', [C.c_int], C.c_short)
@@ -170,6 +181,39 @@ class Desktop:
                 'native_client_rect': native_client, 'maximized': maximized,
                 'monitor': rect(mi.monitor), 'work_area': rect(mi.work)}
 
+    def foreground_owner_chain(self, target, child_hwnd):
+        # GW_OWNER, not parent/ancestry or a last-active-popup heuristic. Every
+        # visible link must belong to this exact editor process incarnation.
+        if not child_hwnd or child_hwnd == target['hwnd']:
+            raise RuntimeError('Foreground child must differ from target')
+        if self.u.GetForegroundWindow() != child_hwnd:
+            raise RuntimeError('Observed foreground child is not foreground')
+        chain, seen, hwnd = [], set(), child_hwnd
+        for unused in range(MAX_OWNER_CHAIN):
+            if not hwnd or hwnd in seen:
+                raise RuntimeError('Foreground owner chain is broken or cyclic')
+            seen.add(hwnd)
+            current = self.identity(hwnd)
+            if any(current[field] != target[field]
+                   for field in ('pid', 'process', 'process_created')):
+                raise RuntimeError('Foreground owner chain crosses process identity')
+            chain.append(current)
+            if hwnd == target['hwnd']:
+                if current != target:
+                    raise RuntimeError('Owner target identity or geometry changed')
+                return chain
+            hwnd = int(self.u.GetWindow(hwnd, 4) or 0)
+        raise RuntimeError('Foreground owner chain exceeds bounded depth')
+
+    def placement(self, hwnd):
+        placement = WINDOWPLACEMENT(length=C.sizeof(WINDOWPLACEMENT))
+        if not self.u.GetWindowPlacement(hwnd, C.byref(placement)):
+            raise C.WinError(C.get_last_error())
+        return {'flags': placement.flags, 'show_command': placement.showCmd,
+                'min_position': [placement.minPosition.x, placement.minPosition.y],
+                'max_position': [placement.maxPosition.x, placement.maxPosition.y],
+                'normal_position': rect(placement.normalPosition)}
+
     def resolve(self, session):
         if session.get('kind') == 'editor-navigation':
             # Slate menus can have empty/nonunique titles. Resolve only the
@@ -179,6 +223,14 @@ class Desktop:
             if any(result[field] != session[field] for field in fields):
                 raise RuntimeError('Editor window identity does not match session')
             owner = session.get('owner_identity')
+            chain = session.get('foreground_child_chain')
+            if chain is not None:
+                if owner is not None or not isinstance(chain, list) or not 2 <= len(chain) <= MAX_OWNER_CHAIN:
+                    raise RuntimeError('Invalid foreground child session')
+                if self.foreground_owner_chain(result, chain[0]['hwnd']) != chain:
+                    raise RuntimeError('Foreground owner chain identity or geometry changed')
+                if self.focus(chain[0]) != session['foreground_child_focus_hwnd']:
+                    raise RuntimeError('Foreground child focus changed; rebind')
             if owner is not None:
                 if (not owner['hwnd'] or owner['hwnd'] == result['hwnd']
                         or any(owner[field] != result[field]
@@ -222,16 +274,19 @@ class Desktop:
             raise RuntimeError('Menu, move/size or mouse capture is active')
         return int(g.focus or 0)
 
-    def guard(self, identity, session, focus=None, dragging=False):
+    def guard(self, identity, session, focus=None, dragging=False, mouse_button='left'):
         if self.resolve(session) != identity:
             raise RuntimeError('Window/process/geometry changed; recapture')
         owner = session.get('owner_identity') if session.get('kind') == 'editor-navigation' else None
-        foreground = owner['hwnd'] if owner is not None else identity['hwnd']
+        chain = session.get('foreground_child_chain') if session.get('kind') == 'editor-navigation' else None
+        foreground = chain[0]['hwnd'] if chain is not None else owner['hwnd'] if owner is not None else identity['hwnd']
         if self.u.GetForegroundWindow() != foreground:
             raise RuntimeError('Foreground changed; operation refused')
         if focus is not None and self.focus(identity) != focus:
             raise RuntimeError('Focus changed; recapture')
-        ignored = {1} if dragging else set()
+        if mouse_button not in ('left', 'right'):
+            raise RuntimeError('Unsupported held mouse button')
+        ignored = {2 if mouse_button == 'right' else 1} if dragging else set()
         if any(self.u.GetAsyncKeyState(vk) & 0x8000 for vk in range(1, 256) if vk not in ignored):
             raise RuntimeError('A key or mouse button is held; stop')
 
@@ -363,14 +418,71 @@ def capture(d, session_path, session):
     return {'receipt': str(rp), **receipt}
 
 
+def maximize(d, session_path, session):
+    if (session.get('kind') != 'editor-navigation' or session.get('owner_identity') is not None
+            or session.get('foreground_child_chain') is not None):
+        raise RuntimeError('Maximize requires a normal editor binding')
+    require_fresh_receipt(session)
+    before = d.resolve(session)
+    if any(before[field] != session[field] for field in before):
+        raise RuntimeError('Window identity or geometry changed since binding; rebind')
+    d.guard(before, session)
+    focus = d.focus(before)
+    placement_before = d.placement(before['hwnd'])
+    result = {'started_utc': now(), 'status': 'NOT_ATTEMPTED', 'before': before,
+              'placement_before': placement_before, 'command': 'SW_MAXIMIZE',
+              'next_step': 'FRESH_NORMAL_BIND_AND_CAPTURE_REQUIRED',
+              'input_events': 0, 'error': None}
+    destination = session_path.parent / 'maximize-result.json'
+    # Persist rollback evidence and consume the binding before the one native
+    # layout call. SW_MAXIMIZE activates; this exact target must already be
+    # foreground. Its BOOL result means prior visibility, never success.
+    with destination.open('x', encoding='utf-8') as f:
+        json.dump(result, f, indent=2)
+    require_fresh_receipt(session)
+    d.guard(before, session, focus)
+    with (session_path.parent / 'closed.json').open('x', encoding='utf-8') as f:
+        json.dump({'closed_utc': now(), 'reason': 'Explicit maximize attempt',
+                   'next_step': result['next_step']}, f)
+    try:
+        d.guard(before, session, focus)
+        result['status'] = 'LAYOUT_OUTCOME_UNCERTAIN'
+        result['show_window_previously_visible'] = bool(d.u.ShowWindow(before['hwnd'], 3))
+        after = d.identity(before['hwnd'])
+        result['after'] = after
+        result['placement_after'] = d.placement(before['hwnd'])
+        if any(after[field] != before[field]
+               for field in ('hwnd', 'pid', 'tid', 'process', 'title', 'process_created')):
+            raise RuntimeError('Window identity changed during maximize')
+        if not after['maximized']:
+            raise RuntimeError('Maximized state not observed')
+        d.guard(after, session)
+        result['status'] = 'MAXIMIZED_REQUIRES_REVIEW'
+    except Exception as error:
+        result['error'] = str(error)
+    result['completed_utc'] = now()
+    destination.write_text(json.dumps(result, indent=2), encoding='utf-8')
+    print(json.dumps(result))
+    if result['status'] != 'MAXIMIZED_REQUIRES_REVIEW':
+        raise SystemExit(2)
+
+
 def act(args, d, attempt):
     if not 0 <= args.wait_pixels_ms <= 1200:
         raise RuntimeError('Pixel wait must be between 0 and 1200 milliseconds')
-    if args.mouse_button == 'right' and (not args.click or args.click_count != 1):
-        raise RuntimeError('Right button permits exactly one click only')
+    if args.mouse_button == 'right' and (not (args.click or args.drag) or args.click_count != 1):
+        raise RuntimeError('Right button permits one single click or one drag only')
     rp = contained(args.receipt)
     receipt = json.loads(rp.read_text(encoding='utf-8'))
     session_path, session = read_session(receipt['session'])
+    foreground_child = session.get('foreground_child_chain') is not None
+    if foreground_child and (session.get('kind') != 'editor-navigation' or not args.click
+                             or args.click_count != 1 or args.drag is not None
+                             or args.text is not None or args.editor_text_field is not None):
+        raise RuntimeError('Foreground child session permits one single click only')
+    if args.drag and args.mouse_button == 'right' and (session.get('kind') != 'editor-navigation'
+                                                     or session.get('owner_identity') is not None):
+        raise RuntimeError('Right drag requires a normal editor canvas binding')
     if rp.parent.parent != session_path.parent:
         raise RuntimeError('Receipt from different session')
     require_fresh_receipt(receipt)
@@ -438,11 +550,17 @@ def act(args, d, attempt):
         json.dump({'started_utc': now(), 'review_region': review_region,
                    'wait_pixels_ms': args.wait_pixels_ms, 'pixel_check': pixel_check,
                    'click_count': args.click_count if args.click else None,
-                   'mouse_button': args.mouse_button if args.click else 'left' if args.drag else None,
+                   'mouse_button': args.mouse_button if args.click or args.drag else None,
                    'click': args.click, 'drag': args.drag,
                    'editor_text_field': editor_text_field,
                    'editor_literal_text': args.text if editor_text_field is not None else None,
                    'action': 'text' if args.text is not None else 'click' if args.click else 'drag'}, f)
+    if foreground_child:
+        # Consume the whole session, even on an uncertain/failed attempt. Other
+        # receipts cannot become a route for input after this focus transition.
+        with (session_path.parent / 'closed.json').open('x', encoding='utf-8') as f:
+            json.dump({'closed_utc': now(), 'reason': 'Foreground child click attempt',
+                       'next_step': 'FRESH_NORMAL_BIND_REQUIRED'}, f)
     pending_release = None
     result = {'started_utc': now(), 'status': 'UNKNOWN', 'error': None, 'cleanup_error': None}
     attempt['started'] = True
@@ -477,6 +595,7 @@ def act(args, d, attempt):
                 d.send([mouse(down_flag), mouse(up_flag)])
                 pending_release = None
         else:
+            down_flag, up_flag = (8, 16) if args.mouse_button == 'right' else (2, 4)
             start, end = tuple(args.drag[:2]), tuple(args.drag[2:])
             # Check the whole path before holding a button, then check each waypoint again.
             path = [(round(start[0]+(end[0]-start[0])*i/20),
@@ -486,18 +605,18 @@ def act(args, d, attempt):
             d.move(d.point(ident, start))
             d.guard(ident, session, receipt['focus_hwnd'])
             d.cursor_guard(ident, d.point(ident, start))
-            pending_release = 4
-            d.send([mouse(2)])
+            pending_release = up_flag
+            d.send([mouse(down_flag)])
             previous = d.point(ident, start)
             for p in path[1:]:
-                d.guard(ident, session, dragging=True)
+                d.guard(ident, session, dragging=True, mouse_button=args.mouse_button)
                 d.cursor_guard(ident, previous)
                 previous = d.point(ident, p)
                 d.move(previous)
                 time.sleep(.02)
-            d.guard(ident, session, dragging=True)
+            d.guard(ident, session, dragging=True, mouse_button=args.mouse_button)
             d.cursor_guard(ident, previous)
-            d.send([mouse(4)])
+            d.send([mouse(up_flag)])
             pending_release = None
         result['status'] = 'INPUT_INSERTED_EFFECT_REQUIRES_REVIEW'
     except Exception as e:
@@ -512,11 +631,14 @@ def act(args, d, attempt):
         (rp.parent / 'action-result.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     # Allow Slate's short layout/focus animations to settle before the review image.
     # This is only a post-input observation delay, never another input attempt.
-    time.sleep(1.0)
-    try:
-        result['after'] = capture(d, session_path, session)
-    except Exception as e:
-        result['refresh_error'] = str(e)
+    if foreground_child:
+        result['next_step'] = 'FRESH_NORMAL_BIND_REQUIRED'
+    else:
+        time.sleep(1.0)
+        try:
+            result['after'] = capture(d, session_path, session)
+        except Exception as e:
+            result['refresh_error'] = str(e)
     (rp.parent / 'action-result.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     print(json.dumps(result))
     if result['status'] != 'INPUT_INSERTED_EFFECT_REQUIRES_REVIEW':
@@ -528,12 +650,17 @@ def main():
     sub = p.add_subparsers(dest='command', required=True)
     cap = sub.add_parser('capture')
     cap.add_argument('--session', required=True)
+    maxim = sub.add_parser('maximize', help='Maximize an already-foreground editor from a fresh normal binding; then rebind')
+    maxim.add_argument('--session', required=True)
     bind = sub.add_parser('bind-editor')
     bind.add_argument('--title', required=True)
     bind.add_argument('--pid', required=True, type=int)
     bind.add_argument('--hwnd', required=True, type=int)
-    bind.add_argument('--owner-hwnd', type=int,
+    relationship = bind.add_mutually_exclusive_group()
+    relationship.add_argument('--owner-hwnd', type=int,
                       help='Explicit observed owner for a nonactivating editor popup')
+    relationship.add_argument('--foreground-child-hwnd', type=int,
+                      help='Explicit current foreground owned window; target must be in its owner chain; one click then rebind')
     a = sub.add_parser('act')
     a.add_argument('--receipt', required=True)
     a.add_argument('--image-sha256', required=True)
@@ -541,7 +668,7 @@ def main():
                    help='Explicit reviewed pixel region for animated editor surfaces; pointer path must stay inside')
     a.add_argument('--click-count', type=int, choices=(1, 2), default=1)
     a.add_argument('--mouse-button', choices=('left', 'right'), default='left',
-                   help='Click button; right is restricted to a single click')
+                   help='Pointer button; right permits one click or a normal editor canvas drag')
     a.add_argument('--editor-text-field', nargs=4, type=int,
                    help='Explicit reviewed active Slate field rectangle for literal text; visual focus confirmation required')
     a.add_argument('--wait-pixels-ms', type=int, default=0,
@@ -552,7 +679,7 @@ def main():
     action.add_argument('--text')
     args = p.parse_args()
     editor = args.command == 'bind-editor'
-    if args.command == 'capture':
+    if args.command in ('capture', 'maximize'):
         _, selected = read_session(args.session)
         editor = selected.get('kind') == 'editor-navigation'
     elif args.command == 'act':
@@ -582,11 +709,18 @@ def main():
                    'executable_sha256': digest(EDITOR), 'created_utc': now()}
         if owner is not None:
             session['owner_identity'] = owner
+        if args.foreground_child_hwnd is not None:
+            chain = d.foreground_owner_chain(ident, args.foreground_child_hwnd)
+            session['foreground_child_chain'] = chain
+            session['foreground_child_focus_hwnd'] = d.focus(chain[0])
         sp = folder / 'session.json'
         sp.write_text(json.dumps(session, indent=2), encoding='utf-8')
         print(json.dumps(capture(d, sp, session)))
         return
-    if args.command == 'capture':
+    if args.command == 'maximize':
+        sp, session = read_session(args.session)
+        maximize(d, sp, session)
+    elif args.command == 'capture':
         sp, session = read_session(args.session)
         print(json.dumps(capture(d, sp, session)))
     else:

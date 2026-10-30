@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-30",
+  "classification": "LOCAL_SETUP_AND_STATIC_INTEGRITY_ONLY_NO_INFERENCE_ACCEPTANCE",
+  "python": {
+    "version": "3.12.14",
+    "platform": "win32",
+    "architecture": "x64",
+    "signatureStatus": "Valid",
+    "signer": "OpenAI OpCo, LLC",
+    "files": [
+      {"name":"python.exe","bytes":107312,"sha256":"5640e9be2fd33d05a1a9ae1228e2354609a69ab831605995ec4e2bd6da8fff5e"},
+      {"name":"python3.dll","bytes":71984,"sha256":"62845ba25fcd76557c127b01b9dc6680845f8a4acb97fadf72035d7a6eb2d2d3"},
+      {"name":"python312.dll","bytes":6985520,"sha256":"886fa6b89e09ca6c87599c802402fdca160e06b2fa9c658f6fe91ed926f63e1f"}
+    ],
+    "acceptance": "Copied interpreter metadata and all nine worker ctypes layouts passed on THIS-MACHINE. Native library/inference acceptance remains NOT_PERFORMED."
+  },
+  "ttsEnvironment": {
+    "status": "LOCKED_OFFLINE_ENVIRONMENT_PINNED",
+    "inventory": {
+      "path": "tts/manifests/venv-files.json",
+      "bytes": 4729266,
+      "sha256": "a69a9128a94c4ce410e008f96848ee4bb7ae64d802e14b64ba54b737bb5b5d12",
+      "fileCount": 22629
+    },
+    "interpreter": {"bytes":277808,"sha256":"8e11f5c0c4cdea438059feea1b750721929433374b389674c8368ae8bfcbf525"},
+    "worker": {"bytes":7907,"sha256":"e856619032db0e8a74e9388be98b78c3d15dabd5e5efcbf70ea9cdc377340fcc"},
+    "acceptance": "Locked offline wheel installation and pip check only. Runtime/model/audio behavior remains NOT_PERFORMED."
+  },
+  "node": {
+    "version": "24.19.0",
+    "name": "node.exe",
+    "bytes": 92825416,
+    "sha256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+    "signatureStatus": "Valid",
+    "signer": "OpenJS Foundation"
+  }
+}

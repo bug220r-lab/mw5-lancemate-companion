@@ -324,7 +324,7 @@ export function parseSpokenCommand(input = {}) {
   if (origin !== 'human_ptt' || final !== true) return reject('TRUSTED_FINAL_HUMAN_PTT_REQUIRED');
   if (!idOk(session)) return reject('INVALID_CONTEXT');
   if (typeof text !== 'string' || text.length > 300) return reject('INVALID_TEXT');
-  let spoken = text.trim().toLowerCase().replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
+  let spoken = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
   const clarify = reason => ({ status: 'CLARIFICATION', reason });
   const intent = (action, recipients, extra = {}) => ({ status: 'INTENT', classification: 'PROJECT_INTENT',
     dispatchable: false, session, origin, action, recipientIds: recipients.map(b => b.id), bindings: recipients.map(copyBinding), ...extra });

@@ -107,9 +107,10 @@ function cancelPlayback() {
   old?.controller.abort(); old?.audio?.pause(); if (old?.url) URL.revokeObjectURL(old.url);
 }
 function invalidatesPlayback(action) {
-  return action && (['demo','models_stop','interrupt','converse','synthesize_reply','radio_complete','preview_timing'].includes(action.type) ||
-    (action.type === 'step' && ['pause','possession'].includes(action.event)) ||
-    (action.type === 'settings' && (action.settings.speechMuted || action.settings.pilots?.some(p =>
+  return action && (['demo','models_stop','interrupt','converse','exchange_preview','synthesize_reply','radio_complete','preview_timing'].includes(action.type) ||
+    (action.type === 'step' && (['pause','possession'].includes(action.event) ||
+      (playback?.exchangeId && ['hold','release'].includes(action.event) && playback.actorIds.includes(action.actorId)))) ||
+    (action.type === 'settings' && (action.settings.speechMuted || (playback?.exchangeId && action.settings.quiet) || action.settings.pilots?.some(p =>
       (p.callsign?.trim() || null) !== (current?.settings.pilots.find(old => old.id === p.id)?.callsign ?? null)))));
 }
 async function api(action) {
@@ -157,6 +158,42 @@ function clearCommandPreview() {
 function residentUnavailable(models) {
   return !!(models?.starting || models?.stopping || models?.cleanupPending || models?.resources?.cleanupPending);
 }
+function exchangePlaying(data) {
+  return !!data?.radio.playing && (data.radio.playing.exchangeId !== undefined ||
+    (data.localModels.reply?.exchangeId !== undefined && data.radio.playing.lineId === data.localModels.audio?.id));
+}
+function exchangeCurrent(data, job, delivered = false) {
+  const models = data.localModels, exchange = models.exchange;
+  return data.classification === 'MOCK_ONLY' && !data.settings.quiet &&
+    exchange?.classification === 'OFFLINE_EXCHANGE_PREVIEW' && exchange.id === job.exchangeId &&
+    exchange.status === 'GENERATED' && exchange.turn === job.exchangeTurn &&
+    Array.isArray(exchange.actorIds) && exchange.actorIds.length === 2 &&
+    job.actorIds[0] !== job.actorIds[1] &&
+    exchange.actorIds.every((id, index) => id === job.actorIds[index]) &&
+    models.reply?.exchangeId === job.exchangeId && models.reply.exchangeTurn === job.exchangeTurn &&
+    models.reply.speakerId === job.speakerId && models.reply.speakerId === job.actorIds[job.exchangeTurn] &&
+    models.reply.pawnId === job.pawnId && models.reply.generation === job.generation &&
+    (!delivered || (models.audio?.status === 'DELIVERED_FOR_USER_PLAYBACK' &&
+      data.radio.playing?.exchangeId === job.exchangeId && data.radio.playing.exchangeTurn === job.exchangeTurn &&
+      data.radio.playing.speakerId === job.speakerId && data.radio.playing.pawnId === job.pawnId &&
+      data.radio.playing.generation === job.generation));
+}
+function renderExchange(data) {
+  const models = data.localModels, primary = $('speaker').value;
+  const actors = Array.isArray(data.radio.bindings) ? data.radio.bindings.filter(a => a.alive && a.aiOwned).map(a => a.id) :
+    data.settings.pilots.map(p => p.id);
+  for (const option of $('exchangePartner').children) option.disabled = option.value === primary || !actors.includes(option.value);
+  if (!actors.includes($('exchangePartner').value) || $('exchangePartner').value === primary)
+    $('exchangePartner').value = actors.find(id => id !== primary) || '';
+  $('previewExchange').disabled = residentUnavailable(models) || data.classification !== 'MOCK_ONLY' ||
+    models.language.state !== 'READY' || models.reply?.status === 'GENERATING' || data.settings.speechMuted ||
+    data.settings.quiet || !!data.radio.gates?.ptt || !actors.includes(primary) ||
+    !actors.includes($('exchangePartner').value) || $('exchangePartner').value === primary;
+  const exchange = models.exchange;
+  $('exchangeStatus').textContent = exchange ?
+    `Offline exchange preview · turn ${exchange.turn + 1}/2 · ${exchange.status}` :
+    'Offline radio check. Generate voice and listen manually for each pilot.';
+}
 const modelMessages = {
   RESOURCE_ADMISSION_RAM: 'Not enough free memory to start. At least 5 GiB is required.',
   RESOURCE_ADMISSION_DISK: 'Not enough free disk space to start. At least 10 GiB is required.',
@@ -178,13 +215,17 @@ function render(data) {
   $('reply').textContent = models.reply?.text ? `${models.reply.speakerId}: ${models.reply.text} (generated; facts unverified)` :
     models.reply ? `${models.reply.status}${models.reply.reason ? ` · ${models.reply.reason}` : ''}` : 'No generated reply.';
   $('synthesize').disabled = residentUnavailable(models) || models.reply?.status !== 'GENERATED' || models.speech.state !== 'READY' || models.audio?.status === 'SYNTHESIZING';
+  if (models.reply?.exchangeId && models.audio && !['FAILED', 'EXPIRED', 'COMPLETED'].includes(models.audio.status)) $('synthesize').disabled = true;
   $('listen').disabled = residentUnavailable(models) || models.audio?.status !== 'READY';
   $('voiceStatus').textContent = models.audio ? `${models.audio.status} · ${models.audio.voiceId}${models.audio.error ? ` · ${models.audio.error}` : ''}` : 'No voice preview.';
+  renderExchange(data);
   clearTimeout(pollTimer);
   if (residentUnavailable(models) || models.resources?.monitoring || models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING' || data.missionSpeech?.status === 'PREPARED' ||
+      ['GENERATING', 'GENERATED'].includes(models.exchange?.status) ||
       data.speechInput?.preparing || ['CAPTURING', 'TRANSCRIBING', 'TRANSCRIBED'].includes(data.speechInput?.current?.status)) pollTimer = setTimeout(() => api(), 750);
   if (playback && (residentUnavailable(models) || models.audio?.id !== playback.id || models.reply?.id !== playback.replyId ||
       models.reply?.session !== playback.session || data.settings.speechMuted ||
+      (playback.exchangeId && !exchangeCurrent(data, playback, !!playback.audio)) ||
       (playback.audio && data.radio.playing?.lineId !== playback.id))) cancelPlayback();
   $('clock').textContent = `Recorded simulation time: ${(data.clockMs / 1000).toFixed(1)}s`;
   $('arm').disabled = data.classification !== 'MOCK_ONLY'; $('queue').disabled = !data.control.armed;
@@ -224,7 +265,7 @@ function render(data) {
   }
   $('radio').textContent = data.radio.playing ? `${data.radio.playing.speakerId}: ${data.radio.playing.text} (${data.radio.playing.lineId === models.audio?.id ? 'generated preview; facts unverified' : 'authored text; no audio'})` :
     data.missionSpeech?.status === 'PREPARED' ? `${data.missionSpeech.request.speakerId}: ${data.missionSpeech.text} (authored status; text only)` : 'No speaker.';
-  $('complete').disabled = !data.radio.playing;
+  $('complete').disabled = !data.radio.playing || exchangePlaying(data);
   // Polls cannot attach an older global "last action" to a newer typed request.
   $('commandPreview').textContent = commandPreview($('transcript').value === parsedCommand?.text &&
     parsedCommand?.context === data.commandPreviewContext ? parsedCommand.result : null);
@@ -234,7 +275,7 @@ function render(data) {
 }
 $('demo').onclick = () => api({ type: 'demo' }); $('arm').onclick = () => api({ type: 'arm' });
 $('queue').onclick = () => api({ type: 'queue' }); $('disarm').onclick = () => api({ type: 'disarm' });
-$('complete').onclick = () => api({ type: 'radio_complete', lineId: current.radio.playing?.lineId });
+$('complete').onclick = () => { if (!exchangePlaying(current)) api({ type: 'radio_complete', lineId: current.radio.playing?.lineId }); };
 $('command').onsubmit = async event => {
   event.preventDefault(); clearCommandPreview();
   const epoch = commandEpoch, text = $('transcript').value;
@@ -297,6 +338,13 @@ $('slowPreview').onchange = () => api({ type: 'preview_timing', allowSlow: $('sl
 $('modelsStop').onclick = () => api({ type: 'models_stop' });
 $('interrupt').onclick = () => api({ type: 'interrupt' });
 $('conversation').onsubmit = event => { event.preventDefault(); api({ type: 'converse', actorId: $('speaker').value, text: $('utterance').value }); };
+$('speaker').onchange = () => { if (current) renderExchange(current); };
+$('exchangePartner').onchange = () => { if (current) renderExchange(current); };
+$('previewExchange').onclick = () => {
+  if (!current || !$('speaker').value || !$('exchangePartner').value || $('speaker').value === $('exchangePartner').value) return;
+  renderExchange(current); if ($('previewExchange').disabled) return;
+  api({ type: 'exchange_preview', actorIds: [$('speaker').value, $('exchangePartner').value] });
+};
 $('synthesize').onclick = () => api({ type: 'synthesize_reply' });
 $('listen').onclick = async () => {
   if (microphoneJob || recorder?.active || residentUnavailable(current?.localModels)) return;
@@ -304,26 +352,46 @@ $('listen').onclick = async () => {
   if (!id || !reply || current.localModels.audio.status !== 'READY') return;
   cancelPlayback();
   const job = { id, replyId: reply.id, session: reply.session, epoch: playbackEpoch, controller: new AbortController() };
+  const exchange = current.localModels.exchange;
+  if (reply.exchangeId !== undefined || reply.exchangeTurn !== undefined || exchangePlaying(current)) {
+    if (typeof reply.exchangeId !== 'string' || !reply.exchangeId || ![0, 1].includes(reply.exchangeTurn) ||
+        typeof reply.pawnId !== 'string' || !reply.pawnId || !Number.isSafeInteger(reply.generation) || reply.generation < 0 ||
+        !Array.isArray(exchange?.actorIds) || exchange.actorIds.length !== 2) return;
+    job.exchangeId = reply.exchangeId; job.exchangeTurn = reply.exchangeTurn; job.actorIds = [...exchange.actorIds];
+    job.speakerId = reply.speakerId; job.pawnId = reply.pawnId; job.generation = reply.generation;
+    if (!exchangeCurrent(current, job)) return;
+  }
   playback = job; const eligible = () => playback === job && job.epoch === playbackEpoch && !job.controller.signal.aborted;
+  const finish = failed => {
+    if (!eligible()) return;
+    const action = job.exchangeId ? job.receipt ? { type: failed ? 'playback_failed' : 'playback_complete', lineId: id, receipt: job.receipt } : null :
+      { type: 'radio_complete', lineId: id };
+    cancelPlayback(); if (action) api(action);
+  };
   try {
     const options = { headers: { Authorization: `Bearer ${token}` }, signal: job.controller.signal };
     const response = await fetch(`/api/audio/${id}`, options);
     if (!response.ok) throw new Error((await response.json()).error);
+    if (job.exchangeId) {
+      job.receipt = response.headers?.get('X-MW5-Playback-Receipt');
+      if (typeof job.receipt !== 'string' || !job.receipt) throw new Error('Playback receipt unavailable. Interrupt and start another exchange.');
+    }
     const blob = await response.blob(); if (!eligible()) return;
     const sequence = ++requestSequence, fresh = await fetch('/api/state', options);
     if (!fresh.ok) throw new Error('Playback state unavailable.');
     const data = await fresh.json(); if (!eligible() || sequence !== requestSequence) return;
     if (data.localModels.audio?.id !== id || data.localModels.reply?.id !== job.replyId ||
         data.localModels.reply?.session !== job.session || data.localModels.reply?.expiresAtMs <= Date.now() ||
-         residentUnavailable(data.localModels) || data.settings.speechMuted || data.radio.playing?.lineId !== id) throw new Error('Voice preview expired or interrupted.');
+         residentUnavailable(data.localModels) || data.settings.speechMuted || data.radio.playing?.lineId !== id ||
+        (job.exchangeId && !exchangeCurrent(data, job, true))) throw new Error('Voice preview expired or interrupted.');
     render(data); if (!eligible()) return;
     job.url = URL.createObjectURL(blob); const audio = new Audio(job.url); job.audio = audio;
-    audio.onended = () => { if (!eligible()) return; cancelPlayback(); api({ type: 'radio_complete', lineId: id }); };
-    audio.onerror = () => { if (!eligible()) return; cancelPlayback(); api({ type: 'radio_complete', lineId: id }); $('error').textContent = 'Audio playback failed.'; };
-    await audio.play(); if (!eligible()) audio.pause();
+    audio.onended = () => { if (!eligible() || (job.exchangeId && !job.started)) return; finish(false); };
+    audio.onerror = () => { if (!eligible()) return; finish(true); $('error').textContent = 'Audio playback failed.'; };
+    await audio.play(); if (!eligible()) audio.pause(); else job.started = true;
   } catch (error) {
     if (!eligible()) return;
-    cancelPlayback(); api({ type: 'radio_complete', lineId: id }); $('error').textContent = error.message;
+    finish(true); $('error').textContent = error.message;
   }
 };
 window.addEventListener('pagehide', cancelPlayback);
