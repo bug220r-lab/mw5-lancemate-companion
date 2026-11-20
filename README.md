@@ -1,5 +1,9 @@
 # MW5 Lancemate Companion
 
+**Latest reviewed source - 20 November 2026:** [Open the current source and design checkpoint](https://github.com/bug220r-lab/mw5-lancemate-companion/tree/codex/source-checkpoint-20261120). It contains the shared Tactical Companion and Direct Pilot designs, current offline modules, synthetic fixtures and focused tests. This is unfinished source work; native, gameplay and complete voice acceptance remain pending. The original development branches and history are preserved.
+
+**Historical README follows.** Its older status, dates and workstation instructions are retained as history and do not describe the November source checkpoint.
+
 Research snapshot: **2026-09-25**. Current priority is the [observer-first plan](design/OBSERVER_FIRST_GOAL.md): a passive mission observer and useful exported recordings, with no orders or AI-behavior changes. The longer-term three-lancemate/direct-piloting plan remains separate. Speech and broad model work remain paused; a diagnostic display alone is not a recorder.
 
 ## Current verdict
