@@ -26,7 +26,9 @@ function jsonCopy(input) {
     for (const key of Reflect.ownKeys(x)) {
       if (Array.isArray(x) && key === 'length') continue;
       const d = Object.getOwnPropertyDescriptor(x, key);
-      if (typeof key !== 'string' || ['__proto__', 'constructor', 'prototype'].includes(key) ||
+      if (typeof key !== 'string' || (Array.isArray(x) &&
+          (!/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= x.length)) ||
+          ['__proto__', 'constructor', 'prototype'].includes(key) ||
           !d || !Object.hasOwn(d, 'value') || !d.enumerable) throw new Error('INVALID_DATA');
       out[key] = visit(d.value, depth + 1);
     }
