@@ -2,7 +2,7 @@
 
 Version 1, 2026-09-21. **PROPOSED provider selection and procedure. No model/download/install/game/microphone benchmark was performed.** This document replaces older cloud-first recommendations for the user's current requirement of zero recurring service charges, mission-only memory and single-player with three AI lancemates. It does not authorize downloads or native execution by itself.
 
-Recorded host: i7-10750H, RTX 2070 Max-Q with 8 GiB VRAM, approximately 16 GB RAM. Historical environment details are in [FEASIBILITY](../research/FEASIBILITY.md); available memory, free disk, driver and game configuration must be refreshed before a real benchmark. None of these candidates has demonstrated acceptable simultaneous MW5 performance on this host.
+Recorded host: i7-10750H, RTX 2070 Max-Q with 8 GiB VRAM, approximately 16 GB RAM. Historical environment details are in FEASIBILITY (local reference omitted from this source export); available memory, free disk, driver and game configuration must be refreshed before a real benchmark. None of these candidates has demonstrated acceptable simultaneous MW5 performance on this host.
 
 ## Candidates verified against primary sources on 2026-09-21
 

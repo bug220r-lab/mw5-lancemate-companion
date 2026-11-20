@@ -1,6 +1,6 @@
 # Passive mission recordings: preparation and offline inspection
 
-Updated September 25, 2026. **OFFLINE RECORDING TOOLS ONLY; native recorder and real-mission recording acceptance NOT_PERFORMED.** The active observer-first goal is not complete. The three assets in the [manual recipe](OBSERVER_MINIMAL_AUTHORING_RECIPE.md) have been authored and [cooked locally](../research/OBSERVER_PACKAGE_RESULT_2026-09-25.md) as a minimal creation probe, not a recorder. In the [first retail observation](../research/OBSERVER_STARTUP_RESULT_2026-09-25.md), its readout was not visible; component creation remains inconclusive.
+Updated September 25, 2026. **OFFLINE RECORDING TOOLS ONLY; native recorder and real-mission recording acceptance NOT_PERFORMED.** The active observer-first goal is not complete. The three assets in the manual recipe (local reference omitted from this source export) have been authored and cooked locally (local reference omitted from this source export) as a minimal creation probe, not a recorder. In the first retail observation (local reference omitted from this source export), its readout was not visible; component creation remains inconclusive.
 
 ## What exists now
 
@@ -42,7 +42,7 @@ The default nominal interval is the proposed 500 ms. Actual minimum, median, p95
 
 ## Native capture readiness: still pending
 
-The [creation probe package](../research/OBSERVER_PACKAGE_RESULT_2026-09-25.md) now supplies cooked hashes and a PAK mount. Its first retail observation did not show the readout and did not prove component creation. Before a real recording test, a separate native recorder package still needs actual artifact hashes, supported game/editor builds, an installation manifest and removal procedure. Confirm the isolated stock Instant Action configuration and unchanged baseline. Establish sampling clock, timestamp units, identifier generation, source-backed field mapping, bounded buffer and supported export path. Keep unavailable state explicitly unknown.
+The creation probe package (local reference omitted from this source export) now supplies cooked hashes and a PAK mount. Its first retail observation did not show the readout and did not prove component creation. Before a real recording test, a separate native recorder package still needs actual artifact hashes, supported game/editor builds, an installation manifest and removal procedure. Confirm the isolated stock Instant Action configuration and unchanged baseline. Establish sampling clock, timestamp units, identifier generation, source-backed field mapping, bounded buffer and supported export path. Keep unavailable state explicitly unknown.
 
 The current tool supplies no in-game Start, Stop or Export control. Those instructions cannot be completed until the executable assets and export mechanism are built and proven. Do not install the source-only workbench or the minimal overlay as though it were a mission recorder.
 

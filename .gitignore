@@ -38,3 +38,13 @@ node_modules/
 *.uasset
 *.umap
 *.COPY
+
+.handoff/
+LibraryCache/
+RuntimeWorking/
+Saved/
+Intermediate/
+DerivedDataCache/
+Binaries/
+*.before
+*.bak

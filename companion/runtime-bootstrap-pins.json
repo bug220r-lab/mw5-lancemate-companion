@@ -13,7 +13,7 @@
       {"name":"python3.dll","bytes":71984,"sha256":"62845ba25fcd76557c127b01b9dc6680845f8a4acb97fadf72035d7a6eb2d2d3"},
       {"name":"python312.dll","bytes":6985520,"sha256":"886fa6b89e09ca6c87599c802402fdca160e06b2fa9c658f6fe91ed926f63e1f"}
     ],
-    "acceptance": "Copied interpreter metadata and all nine worker ctypes layouts passed on THIS-MACHINE. Native library/inference acceptance remains NOT_PERFORMED."
+    "acceptance": "Copied interpreter metadata and all nine worker ctypes layouts passed in a prior local setup check. Native library/inference acceptance remains NOT_PERFORMED."
   },
   "ttsEnvironment": {
     "status": "LOCKED_OFFLINE_ENVIRONMENT_PINNED",

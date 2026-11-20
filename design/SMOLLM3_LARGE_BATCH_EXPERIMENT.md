@@ -4,7 +4,7 @@ September 23, 2026 UTC. **Preparation for one local component diagnostic; native
 
 ## Hypothesis and preserved baseline
 
-The [next CPU decision](../research/LOCAL_CPU_NEXT_DECISION.md) identifies one untested combination: larger prompt batches with repacking disabled. Prior large/compact Qwen comparisons used repacking, and all SmolLM3 runs used compact 128/64 batches. The static-prefix introduction still spent 6.434 of 7.375 seconds processing the prompt. These observations justify testing a batch constraint; they do not predict an improvement or prove sufficient memory.
+The next CPU decision (local reference omitted from this source export) identifies one untested combination: larger prompt batches with repacking disabled. Prior large/compact Qwen comparisons used repacking, and all SmolLM3 runs used compact 128/64 batches. The static-prefix introduction still spent 6.434 of 7.375 seconds processing the prompt. These observations justify testing a batch constraint; they do not predict an improvement or prove sufficient memory.
 
 Compare against `research/SMOLLM3_STATIC_PREFIX_DIAGNOSTIC.json`, SHA-256 `e0f5c52fd4be5c5d1d9baa91b93145bea567438969fc7791a394472f0d3bacb7`. Its exact runner (`e4a66ff4881e06450c2fa7a65722f541157cd12f757a422b4c3366fcd25d1320`) and adapter (`840e38296555cbda077b9e3290b308dbf7acc055e4c7b2b422e3119b3b2015d3`) are preserved at private Git commit `7d44b06154ad602bf207e947240ff3e7bcc6b21d`. Preserve all historical receipts.
 

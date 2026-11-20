@@ -34,7 +34,7 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
   if (!recognizer || ['start', 'transcribe', 'stop', 'dispose', 'status'].some(k => typeof recognizer[k] !== 'function') ||
       [getContext, now, onInterrupt, onPttChange].some(fn => typeof fn !== 'function')) throw fault('SPEECH_INPUT_CONFIGURATION');
   let current = null, prepared = false, preparedFingerprint = null, preparing = null, recognition = null, stopping = null;
-  let engineDisposal = null, disposalFailed = false;
+  let engineDisposal = null, disposalConfirmed = false, disposalFailed = false;
   let lastError = null;
   let disposed = false, epoch = 0, lastNow = -Infinity, clockFault = false, ptt = false;
 
@@ -98,11 +98,18 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
     try { callHook(onPttChange, value); } catch { throw fault('SPEECH_INPUT_HOOK_FAILED'); }
   }
   function releasePtt() { try { hookPtt(false); return true; } catch { return false; } }
+  function maybeDisposeEngine() {
+    if (!disposed || disposalConfirmed || disposalFailed || engineDisposal || stopping || preparing || recognition) return;
+    const work = { promise: null }; engineDisposal = work;
+    work.promise = Promise.resolve().then(() => recognizer.dispose())
+      .then(() => { disposalConfirmed = true; }, () => { disposalFailed = true; })
+      .finally(() => { if (engineDisposal === work) engineDisposal = null; });
+  }
   function stopEngine() {
     if (stopping) return stopping.promise;
     const work = { promise: null }; stopping = work;
     work.promise = Promise.resolve().then(() => recognizer.stop()).catch(() => null)
-      .finally(() => { if (stopping === work) stopping = null; });
+      .finally(() => { if (stopping === work) { stopping = null; maybeDisposeEngine(); } });
     return work.promise;
   }
   function settleRecognition(work) {
@@ -133,9 +140,9 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
     else { releasePtt(); void stopEngine(); }
   }
   function validate() {
+    if (disposed) throw fault('SPEECH_INPUT_DISPOSED');
     try {
       const t = time(), c = context();
-      if (disposed) throw fault('SPEECH_INPUT_DISPOSED');
       if (preparedFingerprint && c.fingerprint !== preparedFingerprint) throw fault('SPEECH_INPUT_CONTEXT_CHANGED');
       if (preparing && c.fingerprint !== preparing.fingerprint) throw fault('SPEECH_INPUT_CONTEXT_CHANGED');
       if (current && !terminal(current)) {
@@ -159,8 +166,9 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
   function view() {
     const snapshot = engine();
     const cleanupPending = !!preparing || !!recognition || !!stopping || !!engineDisposal ||
+      (disposed && !disposalConfirmed && !disposalFailed) ||
       snapshot?.cleanupPending === true || snapshot?.cleanupBlocked === true;
-    const shutdownComplete = disposed && !prepared && !cleanupPending && !disposalFailed &&
+    const shutdownComplete = disposed && disposalConfirmed && !prepared && !cleanupPending &&
       snapshot?.busy === false && snapshot.ownsProcess === false && snapshot.processStopConfirmed === true &&
       ['STOPPED', 'DISPOSED'].includes(snapshot.state);
     return { engine: snapshot, preparing: !!preparing, pendingRecognition: !!recognition, stopping: !!stopping,
@@ -190,7 +198,7 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
         prepared = false; preparedFingerprint = null;
         if (!work.settled) { lastError = knownCode(error) ?? 'SPEECH_INPUT_PREPARE_FAILED'; work.settled = true; work.reject(fault(lastError)); }
         void stopEngine();
-      } finally { if (preparing === work) preparing = null; }
+      } finally { if (preparing === work) { preparing = null; maybeDisposeEngine(); } }
       if (!work.settled) { work.settled = true; work.resolve(view()); }
     })();
     return work.promise;
@@ -259,7 +267,7 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
           error?.code === 'SPEECH_INPUT_RESULT_INVALID' ? error.code : 'SPEECH_INPUT_RECOGNITION_FAILED', 'FAILED');
       } finally {
         work.signal?.removeEventListener('abort', work.onAbort);
-        if (recognition === work) recognition = null;
+        if (recognition === work) { recognition = null; maybeDisposeEngine(); }
         settleRecognition(work);
       }
     })();
@@ -269,17 +277,17 @@ export function createSpeechInput({ recognizer, getContext, now = Date.now,
     if (current?.id === captureId) endCapture(current, 'SPEECH_INPUT_CANCELLED');
     return status();
   }
-  function invalidate(_reason = 'INVALIDATED') { invalidateInternal('SPEECH_INPUT_INVALIDATED'); return status(); }
+  function invalidate(_reason = 'INVALIDATED') { if (!disposed) invalidateInternal('SPEECH_INPUT_INVALIDATED'); return status(); }
   async function dispose() {
     if (!disposed) { disposed = true; invalidateInternal('SPEECH_INPUT_DISPOSED'); }
+    // Retry an explicit disposal failure only on a later public request.
+    else if (disposalFailed && !engineDisposal) { disposalFailed = false; maybeDisposeEngine(); }
+    // A bounded caller can return while work drains. The owning cleanup paths
+    // still schedule disposal once; neither timeout nor STOPPED is its receipt.
     let timer;
-    const stopped = engineDisposal ? Promise.resolve() : stopEngine();
-    await Promise.race([stopped, new Promise(resolve => { timer = setTimeout(resolve, STOP_WAIT_MS); })]); clearTimeout(timer);
-    // The coordinator never assumes unresolved stop/disposal means terminated.
-    if (!stopping && !recognition && !preparing && !engineDisposal) {
-      const work = { promise: null }; engineDisposal = work; disposalFailed = false;
-      work.promise = Promise.resolve().then(() => recognizer.dispose()).catch(() => { disposalFailed = true; })
-        .finally(() => { if (engineDisposal === work) engineDisposal = null; });
+    if (stopping) {
+      await Promise.race([stopping.promise, new Promise(resolve => { timer = setTimeout(resolve, STOP_WAIT_MS); })]);
+      clearTimeout(timer);
     }
     if (engineDisposal) {
       await Promise.race([engineDisposal.promise, new Promise(resolve => { timer = setTimeout(resolve, STOP_WAIT_MS); })]);

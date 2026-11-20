@@ -1,8 +1,6 @@
 # Complete mod delivery contract
 
-Approved by the user on 2026-09-21. This is the current product scope; historical reports and receipts remain evidence for their original artifacts. Current work is tracked separately in [IMPLEMENTATION_STATUS.md](../research/IMPLEMENTATION_STATUS.md).
-
-Subsequent user authorization: continue until usage limits stop work; create a GitHub backup; run the game or editor when needed. Needed bounded execution is authorized, while the concrete test preparation, private source review and retail/native-deployment gates remain. Do not repeatedly request permission for already authorized application execution.
+Product scope for the planned Tactical Companion and Direct Pilot releases. Current status is recorded in [SOURCE_STATUS.md](../SOURCE_STATUS.md).
 
 ## Target
 

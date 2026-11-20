@@ -16,7 +16,7 @@ From the project root:
 node .\scripts\Exercise-CommandContract.mjs
 ```
 
-The [script](../scripts/Exercise-CommandContract.mjs) uses Node's built-in modules, reads only its [synthetic cases](../synthetic/command-cases.json) and its own source, then writes [OFFLINE_COMMAND_REPORT.json](../research/OFFLINE_COMMAND_REPORT.json). No package install is needed. The report includes fixture/script hashes, individual assertions and traces. A nonzero exit code indicates unmet expectations or an invalid fixture.
+The [script](../scripts/Exercise-CommandContract.mjs) uses Node's built-in modules, reads only its [synthetic cases](../synthetic/command-cases.json) and its own source, then writes OFFLINE_COMMAND_REPORT.json (local reference omitted from this source export). No package install is needed. The report includes fixture/script hashes, individual assertions and traces. A nonzero exit code indicates unmet expectations or an invalid fixture.
 
 `EXPECTATIONS_MET` means the listed synthetic expectations match the model's output. A `mock_dispatch` event means the model would permit a call; no native call occurs. The model contains no transition to accepted order or observed game behavior. One case deliberately allows a second order after the configured cooldown; that does not authorize repeated runtime control.
 
@@ -24,7 +24,7 @@ The [script](../scripts/Exercise-CommandContract.mjs) uses Node's built-in modul
 
 The first action is project-defined `FORM_ON_PLAYER`. Mapping it to an actual native Form On Me receiver is an editor task. Attack, arbitrary targets, coordinates, scripts, functions and additional message fields are rejected by this first exercise.
 
-**Source-mapping update:** the [order lifecycle trace](../research/ORDER_LIFECYCLE_TRACE.md) establishes that native FollowJob worker initialization uses `GetPlayerSquadLeader`, overwriting the earlier IssuerPawn target. A future mapping of `FORM_ON_PLAYER` must verify that this native leader matches the intended current player target, or reject the intent. Supplying IssuerPawn alone cannot request arbitrary-actor following. The existing synthetic model/fixtures were not changed or rerun; their expected bindings remain stipulated, not native proof.
+**Source-mapping update:** the order lifecycle trace (local reference omitted from this source export) establishes that native FollowJob worker initialization uses `GetPlayerSquadLeader`, overwriting the earlier IssuerPawn target. A future mapping of `FORM_ON_PLAYER` must verify that this native leader matches the intended current player target, or reject the intent. Supplying IssuerPawn alone cannot request arbitrary-actor following. The existing synthetic model/fixtures were not changed or rerun; their expected bindings remain stipulated, not native proof.
 
 | Command field | Proposed meaning |
 |---|---|
@@ -60,4 +60,4 @@ The fixtures are examples, not an exhaustive proof. They do not model concurrent
 
 Unattended-goal follow-up2026-09-20: the43-case baseline passed before changes. AddedC44–C47 for a wrong actor with matching generation, a null binding, a human override after simulated dispatch, and a disconnect/reconnect after simulated dispatch. All47cases now meet their expectations; the model code and original43case objects were unchanged. `connected=false` models companion/IPC loss within the same authoritative mission: retained ID history prevents replay, while queued actions and arming are revoked. Actual world/host-session replacement requires a new epoch and is a separate signal. This distinction is now explicit in ARCHITECTURE.md. C24 stipulates uncertainty; an actual acknowledgement timeout timer and native readback remain **NOT_IMPLEMENTED / NOT_PERFORMED**.
 
-After editor inspection, replace each stipulated prerequisite with a source-backed acquisition method or retain UNKNOWN. Use [PROOF_OF_CONCEPT.md](PROOF_OF_CONCEPT.md) for the separate shipping test. No offline result passes its editor/source, native transport or live behavior gates.
+After editor inspection, replace each stipulated prerequisite with a source-backed acquisition method or retain UNKNOWN. Use PROOF_OF_CONCEPT.md (local reference omitted from this source export) for the separate shipping test. No offline result passes its editor/source, native transport or live behavior gates.

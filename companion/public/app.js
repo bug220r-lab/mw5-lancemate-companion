@@ -126,7 +126,13 @@ async function api(action) {
       body: action ? JSON.stringify(action) : undefined });
     const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Request failed');
     if (sequence === requestSequence) render(data); return data;
-  } catch (error) { $('error').textContent = error.message; }
+  } catch (error) {
+    if (sequence !== requestSequence) return;
+    $('error').textContent = error.message;
+    $('modelActivityConnection').textContent = 'Status unavailable · last reported data is stale. Refresh to check again.';
+    clearTimeout(pollTimer);
+    if (current && needsPolling(current)) pollTimer = setTimeout(() => api(), 750);
+  }
 }
 function node(tag, text, cls) { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; }
 function commandPreview(result) {
@@ -204,10 +210,53 @@ const modelMessages = {
   LOCAL_MODEL_CLEANUP_PENDING: 'Previous engine work is still finishing.',
   LOCAL_MODEL_STOP_UNCONFIRMED: 'Engine shutdown is not yet confirmed.',
 };
+function activityText(value, fallback, limit = 160) {
+  if (typeof value !== 'string' || !value) return fallback;
+  // Display diagnostic text literally; terminal and bidi controls have no UI meaning.
+  return value.slice(0, limit).replace(/[\x00-\x08\x0b-\x1f\x7f-\x9f\u202a-\u202e\u2066-\u2069]/g, '\ufffd');
+}
+function renderModelActivity(models) {
+  const language = models?.language || {}, state = activityText(language.state, 'Unavailable');
+  const phases = [state];
+  if (models?.starting) phases.push('Starting engines');
+  if (language.activeGeneration) phases.push('Generating');
+  if (models?.stopping) phases.push('Stopping engines');
+  if (models?.cleanupPending || models?.resources?.cleanupPending) phases.push('Cleanup pending');
+  $('modelActivityStatus').textContent = phases.join(' · ');
+  const positiveInteger = value => Number.isSafeInteger(value) && value > 0 ? value : 'Not reported';
+  $('modelActivityIdentity').textContent = `Model: ${activityText(language.modelId, 'Not reported')} · Threads: ${positiveInteger(language.threads)} · Owned PID: ${positiveInteger(language.ownedPid)} · Verification: ${activityText(language.verification, 'Not reported')}`;
+  const errors = [];
+  if (models?.error) errors.push(activityText(models.error, 'Unknown engine error', 240));
+  if (language.lastError) errors.push(activityText(language.lastError, 'Unknown language error', 240));
+  if (models?.reply?.reason) errors.push(`Last reply: ${activityText(models.reply.status, 'Unknown')} · ${activityText(models.reply.reason, 'Unknown reply error', 240)}`);
+  $('modelActivityError').textContent = errors.length ? [...new Set(errors)].join(' · ') : 'No engine error reported.';
+  const timing = language.lastGenerationTimings, finish = language.lastGenerationFinishReason;
+  const count = (value, maximum) => Number.isSafeInteger(value) && value >= 0 && value <= maximum;
+  const duration = value => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 60000;
+  const validTiming = timing && !Array.isArray(timing) && count(timing.cache_n, 2048) && count(timing.prompt_n, 2048) &&
+    timing.cache_n + timing.prompt_n <= 2048 && count(timing.predicted_n, 64) && duration(timing.prompt_ms) && duration(timing.predicted_ms);
+  const terminal = finish === 'length' ? 'length (truncated; reply rejected)' : finish === 'stop' ? 'stop (stream ended; reply shown separately)' : null;
+  $('modelActivityMetrics').textContent = terminal ?
+    `Last reported generation · ${terminal}${validTiming ? ` · Cached: ${timing.cache_n} tokens · Prompt: ${timing.prompt_n} tokens / ${timing.prompt_ms} ms · Output: ${timing.predicted_n} tokens / ${timing.predicted_ms} ms` : ' · Timing unavailable.'}` :
+    'No terminal generation timing reported.';
+  const log = typeof language.log === 'string' ? language.log : '';
+  $('modelActivityLog').textContent = activityText(log.slice(-8192), 'No engine log reported.', 8192);
+  $('modelActivityUpdated').textContent = `Observed in this page at ${new Date(Date.now()).toLocaleTimeString()}`;
+  $('modelActivityConnection').textContent = 'Current observation · refreshes while engines are active.';
+}
+function needsPolling(data) {
+  const models = data.localModels;
+  return residentUnavailable(models) || models.resources?.monitoring || models.language.activeGeneration ||
+    ['VERIFYING', 'STARTING', 'GENERATING', 'STOPPING'].includes(models.language.state) ||
+    models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING' || data.missionSpeech?.status === 'PREPARED' ||
+    ['GENERATING', 'GENERATED'].includes(models.exchange?.status) || data.speechInput?.preparing ||
+    ['CAPTURING', 'TRANSCRIBING', 'TRANSCRIBED'].includes(data.speechInput?.current?.status);
+}
 function render(data) {
   if (current && current.commandPreviewContext !== data.commandPreviewContext) clearCommandPreview();
   current = data; $('mode').textContent = data.classification;
   const models = data.localModels;
+  renderModelActivity(models);
   $('slowPreview').checked = models.previewDeadlineMs === 10000;
   $('modelStatus').textContent = `${models.language.state} · Voice: ${models.speech.state}${models.error ? ` · ${modelMessages[models.error] || models.error}` : ''}`;
   $('modelsStart').disabled = residentUnavailable(models);
@@ -220,9 +269,7 @@ function render(data) {
   $('voiceStatus').textContent = models.audio ? `${models.audio.status} · ${models.audio.voiceId}${models.audio.error ? ` · ${models.audio.error}` : ''}` : 'No voice preview.';
   renderExchange(data);
   clearTimeout(pollTimer);
-  if (residentUnavailable(models) || models.resources?.monitoring || models.reply?.status === 'GENERATING' || models.audio?.status === 'SYNTHESIZING' || data.missionSpeech?.status === 'PREPARED' ||
-      ['GENERATING', 'GENERATED'].includes(models.exchange?.status) ||
-      data.speechInput?.preparing || ['CAPTURING', 'TRANSCRIBING', 'TRANSCRIBED'].includes(data.speechInput?.current?.status)) pollTimer = setTimeout(() => api(), 750);
+  if (needsPolling(data)) pollTimer = setTimeout(() => api(), 750);
   if (playback && (residentUnavailable(models) || models.audio?.id !== playback.id || models.reply?.id !== playback.replyId ||
       models.reply?.session !== playback.session || data.settings.speechMuted ||
       (playback.exchangeId && !exchangeCurrent(data, playback, !!playback.audio)) ||
@@ -274,6 +321,7 @@ function render(data) {
   renderMicrophone(data);
 }
 $('demo').onclick = () => api({ type: 'demo' }); $('arm').onclick = () => api({ type: 'arm' });
+$('modelActivityRefresh').onclick = () => api();
 $('queue').onclick = () => api({ type: 'queue' }); $('disarm').onclick = () => api({ type: 'disarm' });
 $('complete').onclick = () => { if (!exchangePlaying(current)) api({ type: 'radio_complete', lineId: current.radio.playing?.lineId }); };
 $('command').onsubmit = async event => {

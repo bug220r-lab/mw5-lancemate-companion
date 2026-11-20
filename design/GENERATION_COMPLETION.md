@@ -2,7 +2,7 @@
 
 Implemented September 22, 2026 locally (September 23 UTC). This is a project adapter contract, not an MW5 API. Verification uses injected protocol/lifecycle and workbench tests; native inference with the changed adapter is **NOT_PERFORMED**.
 
-The preserved [briefing diagnostic](../research/QWEN17B_BRIEFING_DIAGNOSTIC.json) returned a fabricated answer that visibly ended mid-sentence after 64 predicted tokens. The old adapter accepted both `stop` and `length` and did not retain the finish reason. That receipt cannot retrospectively prove which native reason was sent. Its factual failure and its original source hashes remain unchanged.
+The preserved briefing diagnostic (local reference omitted from this source export) returned a fabricated answer that visibly ended mid-sentence after 64 predicted tokens. The old adapter accepted both `stop` and `length` and did not retain the finish reason. That receipt cannot retrospectively prove which native reason was sent. Its factual failure and its original source hashes remain unchanged.
 
 ## Accepted response
 
@@ -29,9 +29,9 @@ Future identity and relative-fact diagnostic receipts record `finishReason` sepa
 
 ## Evidence
 
-- [Independent stream review](../research/LLM_COMPLETION_REVIEW.md): malformed/incomplete streams, supported termination forms, reset and recovery boundaries.
-- [Actual adapter/workbench integration review](../research/CONVERSATION_COMPLETION_INTEGRATION_REVIEW.md): mocked worker/transport, actual coordinator and voice-preview admission paths.
-- [Diagnostic harness review](../research/GENERATION_COMPLETION_DIAGNOSTIC_REVIEW.md): honest failed/unperformed accounting and finish metadata.
-- [Current offline verification receipt](../research/COMPANION_VALIDATION.json): exact tested source hashes and synthetic-only results.
+- Independent stream review (local reference omitted from this source export): malformed/incomplete streams, supported termination forms, reset and recovery boundaries.
+- Actual adapter/workbench integration review (local reference omitted from this source export): mocked worker/transport, actual coordinator and voice-preview admission paths.
+- Diagnostic harness review (local reference omitted from this source export): honest failed/unperformed accounting and finish metadata.
+- Current offline verification receipt (local reference omitted from this source export): exact tested source hashes and synthetic-only results.
 
 The editor remains closed. This increment starts no model, game, audio device or public service. Native protocol compatibility, conversation quality, in-game performance and the full companion release still need their own evidence.

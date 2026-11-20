@@ -4,7 +4,7 @@ September 22, 2026 locally. **PROPOSED prompt treatment; MOCK_ONLY contexts; nat
 
 ## Question and intervention
 
-The preceding [briefing result](../research/QWEN17B_BRIEFING_DIAGNOSTIC.json), SHA256 `f63a50b7d1c20d98ce106fbb4a907dd03bb75fecd972c29b1645ad30c47b8389`, contains an exact question echo, a copied unverified history response, a copied hostile transcript and several bare source labels. It also contains three full passes. The explicit instructions already ask for an answer rather than an echo; their absence is **not** the explanation. The [independent diagnosis](../research/CONVERSATION_REQUEST_SEPARATION_REVIEW.md) identifies a competing hypothesis: a quoted player utterance inside the same reference document may encourage selection/copying instead of answering. That is not a proven cause.
+The preceding briefing result (local reference omitted from this source export), SHA256 `f63a50b7d1c20d98ce106fbb4a907dd03bb75fecd972c29b1645ad30c47b8389`, contains an exact question echo, a copied unverified history response, a copied hostile transcript and several bare source labels. It also contains three full passes. The explicit instructions already ask for an answer rather than an echo; their absence is **not** the explanation. The independent diagnosis (local reference omitted from this source export) identifies a competing hypothesis: a quoted player utterance inside the same reference document may encourage selection/copying instead of answering. That is not a proven cause.
 
 The sole new prompt option is `experimentalSeparateRequest: true`, requiring both earlier experimental flags and a `MOCK_ONLY` context. It creates three chat messages:
 
@@ -20,7 +20,7 @@ Before execution, a bounded read of the installed Qwen3-1.7B Q8 GGUF metadata re
 
 ## Evaluation and concrete run scope
 
-Use the existing eighteen-case fixture unchanged, in its original order, plus the same discarded primer. Preserve original contexts, projection audits, persona settings, histories, facts, requests and full semantic criteria. All eighteen cases are exposed regressions with **zero fresh holdouts**. Historical four-holdout labels remain provenance only. The [independent next-step assessment](../research/CONVERSATION_NEXT_EXPERIMENT_REVIEW.md) and [pre-output review commitment](../research/QWEN17B_SEPARATED_REQUEST_REVIEW.md) separate this limited diagnostic from generalization evidence and live semantic admission.
+Use the existing eighteen-case fixture unchanged, in its original order, plus the same discarded primer. Preserve original contexts, projection audits, persona settings, histories, facts, requests and full semantic criteria. All eighteen cases are exposed regressions with **zero fresh holdouts**. Historical four-holdout labels remain provenance only. The independent next-step assessment (local reference omitted from this source export) and pre-output review commitment (local reference omitted from this source export) separate this limited diagnostic from generalization evidence and live semantic admission.
 
 The fixed runner command is `node scripts/Exercise-ConversationRelativeFacts.mjs --run-separated-request-qwen17b`. It may create only the exclusively reserved result `research/QWEN17B_SEPARATED_REQUEST_DIAGNOSTIC.json`; an existing result refuses a rerun. The runner checks the exact predecessor and fixture, pins source/model/runtime files and confirms its actual factory configuration. No arbitrary model, prompt, output path or deadline override is exposed.
 

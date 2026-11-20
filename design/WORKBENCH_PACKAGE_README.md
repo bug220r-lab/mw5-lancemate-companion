@@ -5,7 +5,7 @@ This personal preview lets you explore three fictional pilots, tactical recommen
 ## Start
 
 1. Keep the complete package together in its own writable folder.
-2. Set **MW5_COMPANION_RUNTIME_ROOT** to a separately reviewed writable runtime directory outside this package, LibraryCache and private handoff archives. On THIS-MACHINE the intended directory is `C:\Users\Jude\Documents\Codex\MW5-MOD\RuntimeWorking\this-machine`. The launcher uses its `node\node.exe`; an explicit **MW5_COMPANION_NODE** can select another reviewed Node.js 24 executable. There is no implicit Codex-cache or PATH fallback. The package does not include or install Node, models or speech environments.
+2. Set **MW5_COMPANION_RUNTIME_ROOT** to a separately reviewed writable runtime directory outside this package, LibraryCache and private handoff archives. The launcher uses its `node\node.exe`; an explicit **MW5_COMPANION_NODE** can select another reviewed Node.js 24 executable. There is no implicit Codex-cache or PATH fallback. The package does not include or install Node, models or speech environments.
 3. Open **START_COMPANION.cmd**. It starts the local workbench and opens its browser page. Opening the page does not start speech engines, request microphone access or play audio.
 4. Click **Start synthetic mission**. Explore the pilots, **Arm simulation**, and **Simulate recommendations**. **Disarm simulation** stops simulated dispatch. Typed commands only show how the text would be interpreted.
 

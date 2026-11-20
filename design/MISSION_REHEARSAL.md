@@ -146,7 +146,7 @@ Prepared against the unchanged [pilot profile](PILOT_BEHAVIOR.md), profile `mw5l
 | Document | SHA256 |
 |---|---|
 | [PILOT_BEHAVIOR.md](PILOT_BEHAVIOR.md) | `01C9A95BD0D4A192930B0D1D5F08B1550AF5B3723BF03F85F957AEFC440EDEA0` |
-| [GAMEPLAY_REFERENCE.md](../research/GAMEPLAY_REFERENCE.md), implications 2, 3, 5 and 6 | `5DD8B6A90249AFB9295CA178C5602524F48B6AEB985998DE5668DD06CEBED35F` |
+| GAMEPLAY_REFERENCE.md (local reference omitted from this source export), implications 2, 3, 5 and 6 | `5DD8B6A90249AFB9295CA178C5602524F48B6AEB985998DE5668DD06CEBED35F` |
 | [COMMAND_CONTRACT.md](COMMAND_CONTRACT.md), proposed message rules and invariants 1–2, 6, 8 | `F4B4EDA51A4FE25C6FC40F40D169FAF69508D2D8981C288E5E2C39AFEAC59863` |
 
 The gameplay reference motivates refusal clarity, radio restraint, withdrawal and downtime discussion. It supplies no dialogue or events in this story. The command contract permits only proposed `FORM_ON_PLAYER`; the human's fictional native movement and whole-lance inputs do not enlarge that project allowlist.

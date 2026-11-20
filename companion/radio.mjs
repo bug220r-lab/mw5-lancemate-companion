@@ -317,6 +317,14 @@ function parserCallsigns(value, bindings) {
   });
 }
 
+function hasCompetingDottedId(id, periods, available) {
+  return periods.length > 0 && available.some(candidate => {
+    if (!idOk(candidate)) return false;
+    const folded = candidate.toLowerCase();
+    return folded.length > id.length && folded.startsWith(id) && periods.startsWith(folded.slice(id.length));
+  });
+}
+
 export function parseSpokenCommand(input = {}) {
   let text, origin, final, session;
   try { text = parserField(input, 'text'); origin = parserField(input, 'origin'); final = parserField(input, 'final'); session = parserField(input, 'session'); }
@@ -324,7 +332,12 @@ export function parseSpokenCommand(input = {}) {
   if (origin !== 'human_ptt' || final !== true) return reject('TRUSTED_FINAL_HUMAN_PTT_REQUIRED');
   if (!idOk(session)) return reject('INVALID_CONTEXT');
   if (typeof text !== 'string' || text.length > 300) return reject('INVALID_TEXT');
-  let spoken = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
+  // Match ASCII case only. Keep the discarded suffix available because dots
+  // are legal in explicit actor/location IDs as well as sentence punctuation.
+  const normalized = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/\s+/g, ' ');
+  const terminalPunctuation = normalized.match(/[.!?]+$/)?.[0] ?? '';
+  const terminalPeriods = terminalPunctuation.match(/^\.+/)?.[0] ?? '';
+  const spoken = normalized.slice(0, normalized.length - terminalPunctuation.length);
   const clarify = reason => ({ status: 'CLARIFICATION', reason });
   const intent = (action, recipients, extra = {}) => ({ status: 'INTENT', classification: 'PROJECT_INTENT',
     dispatchable: false, session, origin, action, recipientIds: recipients.map(b => b.id), bindings: recipients.map(copyBinding), ...extra });
@@ -335,18 +348,14 @@ export function parseSpokenCommand(input = {}) {
   if (!bindingsValid(bindings) || !bindings.length) return reject('INVALID_CONTEXT');
   try {
     const map = parserField(input, 'callsigns');
-    if (map !== undefined) {
-      callsigns = parserCallsigns(map, bindings);
-      // Names use ASCII case matching only, without Unicode case/compatibility folding.
-      spoken = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
-    }
+    if (map !== undefined) callsigns = parserCallsigns(map, bindings);
   } catch { return reject('INVALID_CALLSIGNS'); }
   const named = part => callsigns?.filter(c => c.normalized !== null && c.normalized === part.replace(/^callsign /, '')) ?? [];
   const explicit = part => /^(?:slot [1-3]|actor [a-z0-9_.:-]+)$/.test(part);
   if (callsigns !== undefined) {
     // Sentence punctuation must not erase a configured display-only name and pick
     // a different pilot. Inspect its bounded suffix truncations before routing.
-    let candidate = text.trim().replace(/[A-Z]/g, letter => letter.toLowerCase()).replace(/\s+/g, ' ');
+    let candidate = normalized;
     while (/[.!?]$/.test(candidate)) {
       const rawFront = candidate.match(/^(?:regroup|focus|release(?: human hold)?|disarm) (.+)$/);
       if (rawFront) {
@@ -374,11 +383,12 @@ export function parseSpokenCommand(input = {}) {
   } else return clarify('USE_EXPLICIT_SLOT_OR_ACTOR_AND_SUPPORTED_VERB');
   const recipients = [];
   const parts = spec.split(/\s+and\s+|,\s*/);
+  const actorSelector = /^actor ([a-z0-9_.:-]+)$/;
   // A configured compound name is one selector, never an inferred list of other names.
   const explicitParts = parts.every(explicit);
   if (!explicitParts && named(spec).length) parts.splice(0, parts.length, spec);
   for (const part of parts) {
-    const slot = part.match(/^slot ([1-3])$/), actor = part.match(/^actor ([a-z0-9_.:-]+)$/);
+    const slot = part.match(/^slot ([1-3])$/), actor = part.match(actorSelector);
     let matches;
     if (slot || actor) matches = bindings.filter(b => slot ? b.slot === Number(slot[1]) : b.id.toLowerCase() === actor[1]);
     else {
@@ -401,7 +411,13 @@ export function parseSpokenCommand(input = {}) {
     catch { return reject('INVALID_LOCATIONS'); }
     const matches = locations.filter(id => idOk(id) && id.toLowerCase() === locationId);
     if (matches.length !== 1) return clarify('KNOWN_NAMED_LOCATION_REQUIRED');
+    if (hasCompetingDottedId(locationId, terminalPeriods, locations)) return clarify('AMBIGUOUS_LOCATION_PUNCTUATION');
     return intent(action, recipients, { locationId: matches[0] });
   }
+  // Only a recipient at the end of a front-verb command loses punctuation.
+  // Do not discard a competing identity solely because it is ineligible.
+  const terminalActor = front && parts.at(-1).match(actorSelector);
+  if (terminalActor && hasCompetingDottedId(terminalActor[1], terminalPeriods, bindings.map(b => b.id)))
+    return clarify('AMBIGUOUS_ACTOR_PUNCTUATION');
   return intent(action, recipients, action === 'FOCUS' ? { targetId: selectedTargetId } : {});
 }

@@ -218,7 +218,7 @@ test('invalid and regressing clocks cannot prune protected cooldown history', ()
   }
 });
 
-test('a fresh epoch and different recipient cannot hide a clock before the latest dispatch', () => {
+test('a fresh epoch and different recipient cannot reset the control clock', () => {
   for (const pruneExpiredHistory of [false, true]) {
     const effects = [];
     const r = rig(intent => effects.push(intent));
@@ -229,14 +229,25 @@ test('a fresh epoch and different recipient cannot hide a clock before the lates
       r.control.disarm(); // Pruning and queue receipt are not another dispatch.
     }
     r.setTime(999);
-    const observation = r.frame(1, (s, actor) => { s.session = 'mission2'; actor.id = 'bravo'; });
-    assert.equal(r.control.ingest(observation).ok, true);
-    assert.equal(r.control.armSimulation(['bravo']).armed, true);
-    const invalidClock = r.control.queueRecommendations();
-    assert.equal(invalidClock.queued.length, 0);
-    assert.equal(invalidClock.rejected[0].reason, 'EXPIRED_OR_INVALID_CLOCK');
+    const changeMission = (s, actor) => { s.session = 'mission2'; actor.id = 'bravo'; };
+    const rollback = r.control.ingest(r.frame(1, changeMission));
+    assert.equal(rollback.ok, false);
+    assert.deepEqual(rollback.errors, ['REGRESSING_CONTROL_CLOCK']);
+    assert.equal(r.control.getState().session, 'mission1');
+    assert.equal(r.control.getState().ledger.length, 1);
+    assert.equal(r.control.armSimulation(['bravo']).status, 'REJECTED');
+    assert.equal(r.control.queueRecommendations().queued.length, 0);
     assert.equal(r.control.drainSimulation().length, 0);
     assert.equal(effects.length, 1);
+    if (pruneExpiredHistory) {
+      r.setTime(1000); // The later queue read, not just the dispatch, sets the floor.
+      assert.equal(r.control.ingest(r.frame(1, changeMission)).ok, false);
+    }
+    r.setTime(pruneExpiredHistory ? 5000 : 1000);
+    assert.equal(r.control.ingest(r.frame(1, changeMission)).ok, true);
+    assert.equal(r.control.getState().armed, false);
+    assert.equal(r.control.armSimulation(['bravo']).armed, true);
+    assert.equal(r.control.queueRecommendations().queued.length, 1);
   }
 });
 

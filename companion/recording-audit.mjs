@@ -93,6 +93,15 @@ export function auditRecordingBytes(bytes, { allowSynthetic = false, nominalInte
       finding(index, 'INVALID_FRAME_ENVELOPE'); previous = null; continue;
     }
     if (f.provenance === 'MOCK_ONLY' && allowSynthetic !== true) finding(index, 'SYNTHETIC_DISABLED');
+    const knownStream = streams.get(f.session);
+    if (knownStream && (knownStream.adapterId !== f.adapterId || knownStream.provenance !== f.provenance)) {
+      // Keep the finding and original replay row, but do not let another
+      // origin fill gaps, contribute measurements, or change the active session.
+      if (currentSession !== f.session && retired.has(f.session)) finding(index, 'RETIRED_SESSION_REAPPEARED');
+      finding(index, 'SESSION_STREAM_CHANGED');
+      previous = null;
+      continue;
+    }
     if (currentSession !== f.session) {
       if (retired.has(f.session)) finding(index, 'RETIRED_SESSION_REAPPEARED');
       if (currentSession !== null) retired.add(currentSession);
@@ -108,8 +117,6 @@ export function auditRecordingBytes(bytes, { allowSynthetic = false, nominalInte
         inactiveOrUnknownPhaseFrames: 0, missingMemberInventoryFrames: 0 });
     }
     const stream = streams.get(f.session);
-    if (stream.adapterId !== f.adapterId || stream.provenance !== f.provenance)
-      finding(index, 'SESSION_STREAM_CHANGED');
     stream.sampleCount++; stream.lastObservedAtMs = f.observedAtMs; stream.sequences.push(f.sequence);
     if (s.phase !== 'active') stream.inactiveOrUnknownPhaseFrames++;
     if (!Array.isArray(s.lancemates)) stream.missingMemberInventoryFrames++;

@@ -18,17 +18,25 @@ function copy(input) {
         (typeof v === 'string' && v.length <= 1024)) return v;
     if (!v || typeof v !== 'object' || types.isProxy(v) || ancestors.has(v) || (!Array.isArray(v) &&
         ![Object.prototype, null].includes(Object.getPrototypeOf(v)))) throw new Error('INVALID_DATA');
-    ancestors.add(v); const out = Array.isArray(v) ? [] : {};
+    ancestors.add(v); const array = Array.isArray(v), out = array ? [] : {};
     const ownKeys = Reflect.ownKeys(v);
     if (ownKeys.length > 1000 || ownKeys.some(k => typeof k !== 'string' || k.length > 128)) throw new Error('DATA_LIMIT');
-    for (const key of ownKeys.sort()) {
-      if (Array.isArray(v) && key === 'length') continue;
-      const d = Object.getOwnPropertyDescriptor(v, key);
-      if (typeof key !== 'string' || ['__proto__', 'constructor', 'prototype'].includes(key) ||
-          !d?.enumerable || !Object.hasOwn(d, 'value')) throw new Error('INVALID_DATA');
-      out[key] = visit(d.value, depth + 1);
+    if (array) {
+      if (ownKeys.length !== v.length + 1) throw new Error('INVALID_DATA');
+      // A named own property must not stand in for a missing array index.
+      for (let i = 0; i < v.length; i++) {
+        const d = Object.getOwnPropertyDescriptor(v, String(i));
+        if (!d?.enumerable || !Object.hasOwn(d, 'value')) throw new Error('INVALID_DATA');
+        out[i] = visit(d.value, depth + 1);
+      }
+    } else {
+      for (const key of ownKeys.sort()) {
+        const d = Object.getOwnPropertyDescriptor(v, key);
+        if (['__proto__', 'constructor', 'prototype'].includes(key) ||
+            !d?.enumerable || !Object.hasOwn(d, 'value')) throw new Error('INVALID_DATA');
+        out[key] = visit(d.value, depth + 1);
+      }
     }
-    if (Array.isArray(v) && (out.length !== v.length || Object.keys(out).length !== v.length)) throw new Error('INVALID_DATA');
     ancestors.delete(v); return out;
   }
   return visit(input, 0);
@@ -44,8 +52,8 @@ function bindingOk(b) {
 function reportOk(r) {
   return keys(r, ['id','session','actorId','pawnId','generation','actionId','action','stage','source','classification','observedAtMs','expiresAtMs']) &&
     ['id','session','actorId','pawnId','actionId'].every(k => idOk(r[k])) &&
-    Number.isSafeInteger(r.generation) && r.generation > 0 && Object.hasOwn(actions, r.action) &&
-    Object.hasOwn(sources, r.stage) && sources[r.stage] === r.source &&
+    Number.isSafeInteger(r.generation) && r.generation > 0 && typeof r.action === 'string' && Object.hasOwn(actions, r.action) &&
+    typeof r.stage === 'string' && Object.hasOwn(sources, r.stage) && sources[r.stage] === r.source &&
     ['MOCK_ONLY', 'CALLER_ASSERTED_EVIDENCE'].includes(r.classification) &&
     timeOk(r.observedAtMs) && timeOk(r.expiresAtMs) && r.expiresAtMs > r.observedAtMs &&
     r.expiresAtMs <= r.observedAtMs + MISSION_SPEECH_LIMITS.maxAgeMs;

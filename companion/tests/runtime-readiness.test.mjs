@@ -17,7 +17,7 @@ const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 test('operator root is explicit, local and separate from source and preserved caches', () => {
   assert.equal(resolveRuntimeRoot(candidate), candidate);
   assert.equal(resolveRuntimeRoot(undefined), path.join(SOURCE_ROOT, 'companion/local'));
-  for (const value of ['', 'relative', ` ${candidate}`, '\\\\MSI\\ProjectLibrary\\runtime', '//MSI/runtime',
+  for (const value of ['', 'relative', ` ${candidate}`, '\\\\EXAMPLE-HOST\\ProjectLibrary\\runtime', '//EXAMPLE-HOST/runtime',
     path.parse(candidate).root, SOURCE_ROOT, path.join(SOURCE_ROOT, 'runtime'), path.dirname(SOURCE_ROOT),
     path.join(os.tmpdir(), 'LibraryCache', 'runtime'), path.join(os.tmpdir(), '.handoff', 'runtime'),
     path.join(os.tmpdir(), 'codex-runtimes', 'runtime')])

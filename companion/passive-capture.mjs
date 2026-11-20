@@ -249,6 +249,18 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     if (crossRoleBindingCollision) finding(index, 'CROSS_ROLE_BINDING_COLLISION');
     const sessionChanged = currentSession !== null && currentSession !== sample.session;
     const retiredSessionReappeared = sessionChanged && retired.has(sample.session);
+    const knownStream = streams.get(sample.session);
+    const syntheticDisabled = sample.provenance === 'MOCK_ONLY' && allowSynthetic !== true;
+    if (knownStream && (knownStream.producerId !== sample.producerId || knownStream.provenance !== sample.provenance)) {
+      // An incompatible claim is a file finding, not a sample from this
+      // stream or a transition away from the current session.
+      if (retiredSessionReappeared) finding(index, 'RETIRED_SESSION_REAPPEARED');
+      finding(index, 'SESSION_STREAM_CHANGED');
+      if (syntheticDisabled) finding(index, 'SYNTHETIC_DISABLED');
+      previous = null;
+      previousClaims = null;
+      continue;
+    }
     if (currentSession !== sample.session) {
       if (retiredSessionReappeared) finding(index, 'RETIRED_SESSION_REAPPEARED');
       if (currentSession !== null) {
@@ -277,9 +289,6 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
         _lastPlayerPawnBinding: null });
     }
     const stream = streams.get(sample.session);
-    const sameStream = stream.producerId === sample.producerId && stream.provenance === sample.provenance;
-    if (!sameStream) finding(index, 'SESSION_STREAM_CHANGED');
-    const syntheticDisabled = sample.provenance === 'MOCK_ONLY' && allowSynthetic !== true;
     if (syntheticDisabled) finding(index, 'SYNTHETIC_DISABLED');
     stream.sampleCount++;
     stream.lastObservedAtMs = sample.observedAtMs;
@@ -305,7 +314,7 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     } else stream._lastPlayerPawnBinding = null;
     const diagnosticReviewCodes = [], transitionReviewCodes = [];
     if (previous?.session === sample.session && previous.producerId === sample.producerId &&
-        previous.provenance === sample.provenance && sameStream) {
+        previous.provenance === sample.provenance) {
       if (sample.sequence <= previous.sequence) {
         stream.nonIncreasingSequences++; finding(index, 'NON_INCREASING_SEQUENCE');
         diagnosticReviewCodes.push('NON_INCREASING_SEQUENCE');
@@ -337,14 +346,14 @@ export function auditPassiveCaptureBytes(bytes, { allowSynthetic = false, nomina
     }
     for (const code of diagnosticReviewCodes) reviewEvent(index, sample, code);
     const reviewCurrentValid = !crossRoleBindingCollision && !retiredSessionReappeared &&
-      sameStream && !syntheticDisabled && diagnosticReviewCodes.length === 0;
+      !syntheticDisabled && diagnosticReviewCodes.length === 0;
     if (reviewCurrentValid) {
       for (const detail of acquisitionCandidates) acquisitionException(detail);
       if (sessionChanged) reviewEvent(index, sample, 'ASSERTED_SESSION_CHANGED');
       if (truncatedInventory) reviewEvent(index, sample, 'ASSERTED_AI_INVENTORY_TRUNCATED');
       for (const code of transitionReviewCodes) reviewEvent(index, sample, code);
     }
-    previous = sameStream ? sample : null;
+    previous = sample;
     previousClaims = reviewCurrentValid ? currentClaims : null;
   }
   report.streams = [...streams.values()].map(stream => {

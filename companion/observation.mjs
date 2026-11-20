@@ -99,12 +99,15 @@ function continuityValid(c) {
  * Validate a proposed data envelope. GAME_OBSERVED is a sender assertion, never
  * adapter verification. A non-null snapshot with ok:false is usable only for a
  * fail-closed policy pass retaining fresh human holds; it grants no capability.
+ * On success, oldestEvidenceAtMs lets a consumer recheck that same sample's age.
  * nowMs must be supplied by the caller. Packet snapshot.nowMs is ignored.
  */
 export function validateObservation(frame, { nowMs, previousFrame = null, continuity = null, allowSynthetic = false } = {}) {
   const errors = []; let classification = 'INVALID_OBSERVATION';
   let nextContinuity = null;
-  const reject = () => ({ ok: false, errors: [...new Set(errors)], classification, snapshot: null, nextContinuity });
+  let oldestEvidenceAtMs = null;
+  const reject = () => ({ ok: false, errors: [...new Set(errors)], classification, snapshot: null,
+    nextContinuity, oldestEvidenceAtMs: null });
   let f; let previous;
   try {
     nextContinuity = continuity === null ? null : copyRecord(continuity);
@@ -170,7 +173,12 @@ export function validateObservation(frame, { nowMs, previousFrame = null, contin
   const ownershipInvalidations = [];
   const pawnClaims = new Map(history.pawnClaims.map(x => [x.bindingId, x.actorId]));
   const controllerClaims = new Map(history.controllerClaims.map(x => [x.bindingId, x.actorId]));
-  const evidenceTimeValid = value => nat(value) && value <= f.observedAtMs && nowMs - value <= LIMITS.maxAgeMs;
+  oldestEvidenceAtMs = f.observedAtMs;
+  const evidenceTimeValid = value => {
+    if (!nat(value) || value > f.observedAtMs || nowMs - value > LIMITS.maxAgeMs) return false;
+    oldestEvidenceAtMs = Math.min(oldestEvidenceAtMs, value);
+    return true;
+  };
   if (Array.isArray(s.targets)) for (const t of s.targets) {
     if (record(t) && t.observedAtMs !== null && !evidenceTimeValid(t.observedAtMs))
       errors.push(`INVALID_TARGET_EVIDENCE_TIME:${t.id}`);
@@ -229,7 +237,8 @@ export function validateObservation(frame, { nowMs, previousFrame = null, contin
     }
   }
   errors.push(...identityErrors);
-  return { ok: errors.length === 0, errors: [...new Set(errors)], classification, snapshot: s, nextContinuity };
+  return { ok: errors.length === 0, errors: [...new Set(errors)], classification, snapshot: s, nextContinuity,
+    oldestEvidenceAtMs: errors.length === 0 ? oldestEvidenceAtMs : null };
 }
 
 /** Read-only replay. Historical frames use their recorded clock, not Date.now. */

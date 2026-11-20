@@ -2,13 +2,13 @@
 
 Profile ID: `mw5lc.pilot.edgy-female.v0.1`  
 Profile version: **0.2.0** — updated **2026-09-21**  
-Status: **OFFLINE SPECIFICATION; runtime and voice evaluation NOT_PERFORMED**. Static text candidates and their independent agent review are recorded separately in [OFFLINE_RADIO_REVIEW.md](../research/OFFLINE_RADIO_REVIEW.md).
+Status: **OFFLINE SPECIFICATION; runtime and voice evaluation NOT_PERFORMED**. Static text candidates and their independent agent review are recorded separately in OFFLINE_RADIO_REVIEW.md (local reference omitted from this source export).
 
 The user suggested **“an edgy woman.”** That gender/tone preference is accepted. The more specific traits below are editable proposals: a sharp-tongued female mercenary with dry, dark humor, a rebellious streak and loyalty to her lance. She concentrates during combat and shows more attitude during downtime. None of this establishes a biography or a verified campaign history. **Callsign remains unset.**
 
 Current product scope: three mission-only companions. This female persona remains the first; a composed tactician and energetic scout contrast with her. Machine-readable profiles are in [personas.json](../companion/personas.json), with the current scheduling contract in [THREE_PILOT_RADIO.md](THREE_PILOT_RADIO.md). All callsigns and accepted voices remain unset. Settings may persist; mission facts reset. Campaign memory is optional later work. Historical fixtures below remain historical text evaluation, not live implementation evidence.
 
-This sheet and [16 synthetic cases](../synthetic/pilot-radio-cases.json) can be reviewed while the editor installs. They neither implement a voice runtime nor establish any game API or telemetry field. Follow [ARCHITECTURE.md](ARCHITECTURE.md) for evidence, command arbitration and memory boundaries, and [PROOF_OF_CONCEPT.md](PROOF_OF_CONCEPT.md) for the separate live integration gates. Preparing semantic fixtures does not advance those gates.
+This sheet and [16 synthetic cases](../synthetic/pilot-radio-cases.json) can be reviewed while the editor installs. They neither implement a voice runtime nor establish any game API or telemetry field. Follow [ARCHITECTURE.md](ARCHITECTURE.md) for evidence, command arbitration and memory boundaries, and PROOF_OF_CONCEPT.md (local reference omitted from this source export) for the separate live integration gates. Preparing semantic fixtures does not advance those gates.
 
 ## Editable identity and style
 
@@ -93,7 +93,7 @@ Suppress tactical chatter and reject pending gameplay commands during pause, men
 
 ## Gameplay reference refinements
 
-The [reviewed vanilla footage](../research/GAMEPLAY_REFERENCE.md) provides context for these additional design choices, not runtime validation:
+The reviewed vanilla footage (local reference omitted from this source export) provides context for these additional design choices, not runtime validation:
 
 - Optional banter should yield to mission briefings and important native radio feedback. A usable native-radio activity signal has not been found; do not assume video captions are an available gameplay API.
 - An actual movement/engagement refusal gets a clear status first. With no verified cause, avoid blaming terrain, range or the pilot. An original candidate for a confirmed movement refusal is: “That move was refused. Give me another point.”

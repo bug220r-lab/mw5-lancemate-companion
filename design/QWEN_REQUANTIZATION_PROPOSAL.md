@@ -4,7 +4,7 @@
 
 ## Actual conversion result
 
-The [conversion receipt](../research/QWEN_REQUANTIZATION_RECEIPT.json) records **78,105.56 ms**, exit code **0**, and confirmed closure of owned process **25888**. The new local candidate is **1,107,408,544 bytes (1.03 GiB)**, SHA-256 **`54c0f1203a724e9f33e76916beab3bdfaffef56cf7b42a93b1bc21319fc0bf97`**, at `companion/local/models/Qwen3-1.7B-from-Q8_0-Q4_K_M.gguf`. The original Q8 hash was verified before and after conversion and is unchanged. No partial file remains.
+The conversion receipt (local reference omitted from this source export) records **78,105.56 ms**, exit code **0**, and confirmed closure of owned process **25888**. The new local candidate is **1,107,408,544 bytes (1.03 GiB)**, SHA-256 **`54c0f1203a724e9f33e76916beab3bdfaffef56cf7b42a93b1bc21319fc0bf97`**, at `companion/local/models/Qwen3-1.7B-from-Q8_0-Q4_K_M.gguf`. The original Q8 hash was verified before and after conversion and is unchanged. No partial file remains.
 
 Observed minimum disk free was **17,193,041,920 bytes (16.01 GiB)**; minimum available RAM was **4,040,585,216 bytes (3.76 GiB)**. Output stayed below its 1.5 GiB bound, and no guard triggered. The receipt contains supervisor/source/runtime hashes, exact arguments and a hashed process log. These are conversion resource observations, not game or inference acceptance. The remaining proposal/evaluation notes below still apply; no adapter pin was added and the candidate is not enabled.
 

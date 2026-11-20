@@ -103,13 +103,18 @@ export function createConversationCoordinator({ generate, personas = defaultPers
       return 'FACT_STALE';
     return gateReason(request);
   }
+  function jobReason(job, t) {
+    // Delayed timer delivery must not extend the deadline captured on admission.
+    return current(job.request, t) ?? (t >= job.previewDeadlineMs
+      ? (job.invoked ? 'GENERATION_TIMEOUT' : 'QUEUE_TIMEOUT') : null);
+  }
   function pump() {
     if (active || disposed) return;
     const t = time(); if (t === null) return;
     queue.sort((a, b) => priorityOrder[a.request.priority] - priorityOrder[b.request.priority] || a.ordinal - b.ordinal);
     while (queue.length) {
       const job = queue.shift(); if (job.settled) continue;
-      const reason = current(job.request, t);
+      const reason = jobReason(job, t);
       if (reason) { cancelJob(job, reason); continue; }
       active = job;
       const r = job.request, b = bindings.get(r.speakerId);
@@ -118,11 +123,17 @@ export function createConversationCoordinator({ generate, personas = defaultPers
         request: { id: r.id, priority: r.priority, text: r.text }, facts: clone(r.facts),
         evidenceStatus: 'CALLER_ASSERTED_OBSERVATIONS_NOT_TEXT_ENTAILMENT',
         limits: { maxOutputTokens: CONVERSATION_LIMITS.requestedOutputTokens, maxOutputChars: CONVERSATION_LIMITS.outputChars } });
-      Promise.resolve().then(() => job.settled ? null : generate(context, { signal: job.controller.signal }))
+      Promise.resolve().then(() => {
+        if (job.settled) return null;
+        const at = time(); if (at === null || job.settled) return null;
+        const stale = jobReason(job, at); if (stale) { cancelJob(job, stale); return null; }
+        job.invoked = true;
+        return generate(context, { signal: job.controller.signal });
+      })
         .then(output => {
           if (job.settled) return;
           const at = time(); if (at === null || job.settled) return;
-          const stale = current(r, at); if (stale) { cancelJob(job, stale); return; }
+          const stale = jobReason(job, at); if (stale) { cancelJob(job, stale); return; }
           if (typeof output !== 'string' || output.length > CONVERSATION_LIMITS.outputChars ||
               !output.trim() || /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\u202a-\u202e\u2066-\u2069]/.test(output)) {
             settle(job, rejected('INVALID_GENERATED_TEXT')); return;
@@ -233,7 +244,7 @@ export function createConversationCoordinator({ generate, personas = defaultPers
     const t = time(); if (disposed || t === null) return Promise.resolve(rejected(disposed ? 'DISPOSED' : 'CLOCK_INVALID'));
     let r; try { r = jsonCopy(input); } catch { return Promise.resolve(rejected('INVALID_REQUEST')); }
     if (!r || !idOk(r.id) || !idOk(r.session) || !idOk(r.speakerId) || !idOk(r.pawnId) ||
-        !Number.isSafeInteger(r.generation) || r.generation < 1 || !Object.hasOwn(priorityOrder, r.priority) ||
+        !Number.isSafeInteger(r.generation) || r.generation < 1 || typeof r.priority !== 'string' || !Object.hasOwn(priorityOrder, r.priority) ||
         typeof r.text !== 'string' || !r.text.trim() || r.text.length > CONVERSATION_LIMITS.requestChars ||
         !timeOk(r.expiresAtMs) || r.expiresAtMs > t + CONVERSATION_LIMITS.requestLifetimeMs || !Array.isArray(r.facts) ||
         r.facts.length > CONVERSATION_LIMITS.facts || new Set(r.facts.map(f => f?.id)).size !== r.facts.length)
@@ -262,9 +273,9 @@ export function createConversationCoordinator({ generate, personas = defaultPers
     ids.add(r.id);
     return new Promise(resolve => {
       const job = { key: `${session}/${r.id}`, request: freeze(r), ordinal: ordinal++, resolve,
-        controller: new AbortController(), settled: false, timer: null };
+        controller: new AbortController(), settled: false, invoked: false, previewDeadlineMs: t + timeoutMs, timer: null };
       pending.set(job.key, job); queue.push(job);
-      job.timer = setTimeout(() => cancelJob(job, active === job ? 'GENERATION_TIMEOUT' : 'QUEUE_TIMEOUT'),
+      job.timer = setTimeout(() => cancelJob(job, job.invoked ? 'GENERATION_TIMEOUT' : 'QUEUE_TIMEOUT'),
         Math.max(1, Math.min(timeoutMs, r.expiresAtMs - t, ...r.facts.map(f => f.expiresAtMs - t))));
       if (r.priority === 'danger' && active && unsolicited(active.request)) cancelJob(active, 'URGENT_PREEMPTION');
       pump();

@@ -4,7 +4,7 @@ September 23, 2026 UTC. **PROPOSED local component diagnostic; no native result 
 
 ## Mechanism and one change
 
-The [prior finding](../research/SMOLLM3_PREFILL_FINDING.md) records 7.733 seconds of prompt processing within the sole 8.500-second complete response. Variable personality data occurs before two static system instructions, interrupting their shared prefix. Cache reuse is observed, but better reuse and faster replies from reordering remain hypotheses.
+The prior finding (local reference omitted from this source export) records 7.733 seconds of prompt processing within the sole 8.500-second complete response. Variable personality data occurs before two static system instructions, interrupting their shared prefix. Cache reuse is observed, but better reuse and faster replies from reordering remain hypotheses.
 
 Add one opt-in `experimentalStaticPrefix` variant, restricted to the existing synthetic-only SmolLM3 path. Build its system message from the exact existing parts in this order: base instructions, request-separation instruction, `/no_think`, personality-data segment. Preserve every word and JSON value, adding only necessary separating newlines. Both user messages must be byte-identical. Do not shorten observations, history, unknowns, source references or instructions; do not move data between roles, insert answers, or modify evaluation criteria. Default SmolLM3 and Qwen messages/settings remain unchanged.
 

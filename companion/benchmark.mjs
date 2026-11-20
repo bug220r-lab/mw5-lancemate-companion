@@ -24,8 +24,27 @@ const id = x => typeof x === 'string' && x.trim().length > 0 && x.length <= 512;
 const nonnegative = x => typeof x === 'number' && Number.isFinite(x) && x >= 0;
 const bytes = x => Number.isSafeInteger(x) && x >= 0;
 const bool = x => typeof x === 'boolean';
-const finitePositiveArray = x => Array.isArray(x) && x.length > 0 && x.every(n => nonnegative(n) && n > 0);
 const hash = x => typeof x === 'string' && /^[a-f0-9]{64}$/i.test(x);
+
+function ownDataValue(object, key) {
+  const descriptor = Object.getOwnPropertyDescriptor(object, key);
+  return descriptor && Object.hasOwn(descriptor, 'value') ? descriptor.value : undefined;
+}
+
+// Validate and copy the same indexed data that the calculations will consume.
+// Array iteration can skip holes or visit inherited elements and accessors.
+function copySamples(values, predicate) {
+  if (!Array.isArray(values)) return null;
+  const length = ownDataValue(values, 'length');
+  if (!Number.isSafeInteger(length) || length <= 0) return null;
+  const samples = [];
+  for (let i = 0; i < length; i++) {
+    const value = ownDataValue(values, i);
+    if (!predicate(value)) return null;
+    samples.push(value);
+  }
+  return samples;
+}
 
 /** Explicit sizes only; sum includes simultaneously held download, staging and cache. */
 export function storagePreflight(input = {}) {
@@ -47,11 +66,16 @@ export function storagePreflight(input = {}) {
     issues: ok ? [] : ['insufficient space for simultaneous allocations and reserve']};
 }
 
-/** Nearest-rank percentile; no empty/nonfinite sample can become zero. */
-export function percentile(values, fraction) {
-  if (!Array.isArray(values) || !values.length || !values.every(nonnegative) || !Number.isFinite(fraction) || fraction <= 0 || fraction > 1) return null;
+function percentileOfSamples(values, fraction) {
   const sorted = [...values].sort((a, b) => a - b);
   return sorted[Math.ceil(sorted.length * fraction) - 1];
+}
+
+/** Nearest-rank percentile for a nonempty, dense sequence of finite nonnegative numbers. */
+export function percentile(values, fraction) {
+  if (!Number.isFinite(fraction) || fraction <= 0 || fraction > 1) return null;
+  const samples = copySamples(values, nonnegative);
+  return samples ? percentileOfSamples(samples, fraction) : null;
 }
 
 function median(values) {
@@ -63,7 +87,7 @@ function frameMetrics(samples) {
   const sorted = [...samples].sort((a, b) => b - a);
   const worst = sorted.slice(0, Math.max(1, Math.ceil(samples.length * .01)));
   const meanWorst = worst.reduce((sum, n) => sum + n / worst.length, 0);
-  return {p95Ms: percentile(samples, .95), onePercentLowFps: 1000 / meanWorst,
+  return {p95Ms: percentileOfSamples(samples, .95), onePercentLowFps: 1000 / meanWorst,
     stallsOver100MsPer1000Frames: samples.filter(n => n > 100).length / samples.length * 1000};
 }
 function getArray(e, field, issues) {
@@ -165,11 +189,12 @@ export function evaluateReleaseEvidence(evidence) {
     unique(r.sessionId, sessions, `${label}.sessionId`, runIssues);
     if (!bool(r.missionSuccess) || !Number.isInteger(r.lanceLosses) || r.lanceLosses < 0 || r.lanceLosses > 3) runIssues.push(`${label}: invalid success/lance loss result`);
     if (!nonnegative(r.damageDealt) || !nonnegative(r.damageTaken)) runIssues.push(`${label}: damage must be finite and nonnegative`);
-    if (!finitePositiveArray(r.frameTimesMs)) runIssues.push(`${label}: nonempty finite positive frame times are required`);
+    const frames = copySamples(ownDataValue(r, 'frameTimesMs'), n => nonnegative(n) && n > 0);
+    if (!frames) runIssues.push(`${label}: nonempty dense finite positive frame times are required`);
     if (r.mode !== 'vanilla') resourcesValid(r, label, runIssues);
     const key = `${r.scenarioId}/${r.rep}/${r.mode}`;
     if (runMap.has(key)) runIssues.push(`${label}: duplicate scenario/rep/mode ${key}`);
-    if (runIssues.length === start) runMap.set(key, r);
+    if (runIssues.length === start) runMap.set(key, {row: r, frames});
   }
   const missingPairs = [];
   for (const s of SCENARIO_CELLS) for (let rep = 1; rep <= 3; rep++) for (const mode of RELEASE_MODES) {
@@ -182,8 +207,9 @@ export function evaluateReleaseEvidence(evidence) {
     const improvements = [], baselineEfficiencies = [], candidateEfficiencies = [], p95Ratios = [], lowFpsRatios = [], stalls = [];
     let baselineSuccesses = 0, candidateSuccesses = 0, baselineLosses = 0, candidateLosses = 0;
     for (const s of SCENARIO_CELLS) for (let rep = 1; rep <= 3; rep++) {
-      const a = runMap.get(`${s.scenarioId}/${rep}/vanilla`), b = runMap.get(`${s.scenarioId}/${rep}/${mode}`);
-      if (!a || !b) continue;
+      const baseline = runMap.get(`${s.scenarioId}/${rep}/vanilla`), candidate = runMap.get(`${s.scenarioId}/${rep}/${mode}`);
+      if (!baseline || !candidate) continue;
+      const {row: a, frames: aFrames} = baseline, {row: b, frames: bFrames} = candidate;
       if (a.configHash !== b.configHash) { runIssues.push(`${s.scenarioId}/${rep}: unmatched comparison configuration`); continue; }
       const baselineEfficiency = a.damageDealt / Math.max(1, a.damageTaken);
       const candidateEfficiency = b.damageDealt / Math.max(1, b.damageTaken);
@@ -191,7 +217,7 @@ export function evaluateReleaseEvidence(evidence) {
       const improvement = candidateEfficiency / baselineEfficiency - 1;
       if (baselineEfficiency > 0 && Number.isFinite(improvement)) improvements.push(improvement);
       else criticalReview.push(`${s.scenarioId}/${rep}/${mode}: paired percentage improvement undefined; excluded from advisory paired median`);
-      const af = frameMetrics(a.frameTimesMs), bf = frameMetrics(b.frameTimesMs);
+      const af = frameMetrics(aFrames), bf = frameMetrics(bFrames);
       const p95Ratio = bf.p95Ms / af.p95Ms, lowRatio = bf.onePercentLowFps / af.onePercentLowFps;
       if (![...Object.values(af), ...Object.values(bf), p95Ratio, lowRatio].every(Number.isFinite)) {
         runIssues.push(`${s.scenarioId}/${rep}/${mode}: derived frame metrics exceed numeric range`);

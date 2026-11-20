@@ -59,15 +59,22 @@ function copyData(value) {
     if (x === null || typeof x === 'boolean') return x;
     if (typeof x === 'string' && x.length <= 8192) return x;
     if (typeof x === 'number' && Number.isFinite(x)) return x;
-    if (!x || typeof x !== 'object' || ancestors.has(x) || (!Array.isArray(x) && Object.getPrototypeOf(x) !== Object.prototype && Object.getPrototypeOf(x) !== null)) fail('INVALID_CONTEXT');
-    ancestors.add(x); const out = Array.isArray(x) ? [] : {};
-    for (const key of Reflect.ownKeys(x)) {
-      if (Array.isArray(x) && key === 'length') continue;
+    const array = Array.isArray(x);
+    if (!x || typeof x !== 'object' || ancestors.has(x) ||
+        (!array && Object.getPrototypeOf(x) !== Object.prototype && Object.getPrototypeOf(x) !== null)) fail('INVALID_CONTEXT');
+    const length = array ? Object.getOwnPropertyDescriptor(x, 'length')?.value : 0;
+    if (array && (!Number.isSafeInteger(length) || length < 0 || length > 4000)) fail('INVALID_CONTEXT');
+    const keys = Reflect.ownKeys(x);
+    // Preserve only canonical dense arrays; JSON drops named properties.
+    if (array && (keys.length !== length + 1 || keys.some(key => key !== 'length' &&
+        (typeof key !== 'string' || !/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= length)))) fail('INVALID_CONTEXT');
+    ancestors.add(x); const out = array ? [] : {};
+    for (const key of keys) {
+      if (array && key === 'length') continue;
       const d = Object.getOwnPropertyDescriptor(x, key);
       if (typeof key !== 'string' || ['__proto__', 'constructor', 'prototype'].includes(key) || !d || !Object.hasOwn(d, 'value') || !d.enumerable) fail('INVALID_CONTEXT');
       out[key] = visit(d.value, depth + 1);
     }
-    if (Array.isArray(x) && (out.length !== x.length || Object.keys(out).length !== x.length)) fail('INVALID_CONTEXT');
     ancestors.delete(x); return out;
   }
   return visit(value, 0);
@@ -198,7 +205,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     sleep, now: () => performance.now(), randomBytes };
   if (testDependencies && Object.entries(testDependencies).some(([k, v]) => !Object.hasOwn(defaults, k) || typeof v !== 'function')) fail('INVALID_TEST_DEPENDENCIES');
   const io = { ...defaults, ...testDependencies };
-  let state = 'STOPPED', child = null, childExited = true, childExitPromise = null, startPromise = null, termination = null;
+  let state = 'STOPPED', child = null, childExited = true, childExitWaiter = null, startPromise = null, termination = null;
   let startupAbort = null, generationAbort = null, generationPromise = null, activeGeneration = false, stopping = false;
   let token = '', origin = '', log = '', logTail = '', verification = 'NOT_PERFORMED', lastError = null, exitCode = null;
   let lastGenerationTimings = null, lastGenerationFinishReason = null;
@@ -315,13 +322,26 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
     }
     await inventory(runtimeDirectory); checkAbort(signal); verification = testDependencies ? 'MOCK_VERIFIED' : 'PINNED_FILES_VERIFIED';
   }
+  async function waitForChildExit(ownedChild, milliseconds) {
+    if (child !== ownedChild || childExited) return;
+    let wake;
+    const deadlineAbort = new AbortController();
+    const waiting = new Promise(resolve => { wake = resolve; childExitWaiter = { child: ownedChild, wake }; });
+    try {
+      await Promise.race([waiting, io.sleep(milliseconds, undefined, { signal: deadlineAbort.signal })]);
+    } finally {
+      deadlineAbort.abort();
+      if (childExitWaiter?.wake === wake) childExitWaiter = null;
+    }
+  }
   async function terminate() {
     if (!child || childExited) return;
     if (termination) return termination;
+    const ownedChild = child;
     termination = (async () => {
-      child.kill(); await Promise.race([childExitPromise, io.sleep(2000)]);
-      if (!childExited) { child.kill('SIGKILL'); await Promise.race([childExitPromise, io.sleep(3000)]); }
-      if (!childExited) fail('PROCESS_STOP_UNCONFIRMED');
+      ownedChild.kill(); await waitForChildExit(ownedChild, 2000);
+      if (child === ownedChild && !childExited) { ownedChild.kill('SIGKILL'); await waitForChildExit(ownedChild, 3000); }
+      if (child === ownedChild && !childExited) fail('PROCESS_STOP_UNCONFIRMED');
     })().finally(() => { termination = null; });
     return termination;
   }
@@ -340,7 +360,6 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
         if (!Number.isInteger(port) || port < 1 || port > 65535) fail('INVALID_LOCAL_PORT');
         token = io.randomBytes(24).toString('hex'); if (!/^[a-f0-9]{48}$/.test(token)) fail('INVALID_SESSION_TOKEN');
         origin = `http://127.0.0.1:${port}`; state = 'STARTING'; childExited = false; exitCode = null;
-        let resolveExit; childExitPromise = new Promise(resolve => { resolveExit = resolve; });
         const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^LLAMA_ARG_/i.test(k) && k.toUpperCase() !== 'GGML_BACKEND_PATH'));
         const args = ['-m', path.join(RUNTIME_ROOT, 'models', pins[modelId].name), '--host', '127.0.0.1', '--port', String(port),
           '--api-key', token, '--offline', '--no-webui', '--no-webui-mcp-proxy', '-ngl', '0', '-t', String(threads), '-tb', String(threads),
@@ -349,18 +368,28 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
         if (observeNativeBatch) args.push('-b', '2048', '-ub', '512', '--log-verbosity', '4');
         if (!weightRepacking) args.push('--no-repack');
         try { child = io.spawn(executable, args, { cwd: runtimeDirectory, windowsHide: true, shell: false, env, stdio: ['ignore', 'pipe', 'pipe'] }); }
-        catch { childExited = true; resolveExit(); fail('LOCAL_PROCESS_START_FAILED'); }
+        catch { childExited = true; fail('LOCAL_PROCESS_START_FAILED'); }
         const ownedChild = child;
         let ownedExited = false;
         const exited = code => {
-          if (ownedExited) return;
+          if (child !== ownedChild || ownedExited) return;
           ownedExited = true;
-          if (child !== ownedChild) return;
-          childExited = true; exitCode = code ?? -1; appendLog('', true); resolveExit();
+          childExited = true; exitCode = code ?? -1; appendLog('', true);
+          if (childExitWaiter?.child === ownedChild) childExitWaiter.wake();
           if (!stopping && state !== 'FAILED') { state = 'FAILED'; lastError = 'LOCAL_SERVER_EXITED'; }
           startupAbort?.abort(); generationAbort?.abort();
         };
-        child.once('exit', exited); child.once('error', () => exited(-1));
+        ownedChild.once('exit', exited); ownedChild.once('close', exited);
+        // Failed kill/IPC operations can emit error while this process is alive.
+        // Only matching exit/close events release its retained lifetime.
+        ownedChild.on('error', () => {
+          if (child !== ownedChild || ownedExited) return;
+          if (!stopping && state !== 'FAILED') {
+            state = 'FAILED'; lastError = Number.isSafeInteger(ownedChild.pid) && ownedChild.pid > 0
+              ? 'LOCAL_PROCESS_ERROR' : 'LOCAL_PROCESS_START_FAILED';
+          }
+          startupAbort?.abort(); generationAbort?.abort();
+        });
         for (const stream of [ownedChild.stdout, ownedChild.stderr]) {
           const observe = observeNativeBatch ? batchLogReader(ownedChild) : null;
           stream?.on('data', chunk => {
@@ -386,7 +415,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
         }
         fail('LOCAL_SERVER_READY_TIMEOUT');
       } catch (error) {
-        lastError = stopping ? 'START_CANCELLED' : lastError === 'LOCAL_SERVER_EXITED' ? lastError :
+        lastError = stopping ? 'START_CANCELLED' : ['LOCAL_SERVER_EXITED', 'LOCAL_PROCESS_ERROR', 'LOCAL_PROCESS_START_FAILED'].includes(lastError) ? lastError :
           /^[A-Z_]+$/.test(error.message) ? error.message : 'LOCAL_MODEL_START_FAILED';
         state = stopping ? 'STOPPING' : 'FAILED';
         try { await terminate(); } catch { lastError = 'PROCESS_STOP_UNCONFIRMED'; }
@@ -468,7 +497,7 @@ export function createLocalLanguageModel({ modelId = 'qwen1_7b', threads = 4, pr
       ownAbort.abort(); if (reader) { try { await Promise.race([reader.cancel(), io.sleep(500)]); } catch {} }
       // Cleanup itself may cross a caller deadline or owned-process shutdown.
       // ownAbort is deliberately aborted above, so inspect the external causes.
-      const cancelled = signal?.aborted || deadlineSignal.aborted || stopping || childExited;
+      const cancelled = signal?.aborted || deadlineSignal.aborted || stopping || childExited || state === 'FAILED';
       lastGenerationTimings = !cancelled && completionValidated ? finalTimings : null;
       lastGenerationFinishReason = !cancelled && completionValidated ? finishReason : null;
       activeGeneration = false; if (generationAbort === ownAbort) generationAbort = null;

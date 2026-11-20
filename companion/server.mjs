@@ -463,7 +463,7 @@ export async function createWorkbench({ settingsPath = path.join(directory, 'loc
         last = ingest();
       } else if (input.type === 'radio') {
         const b = bindings().find(b => b.id === input.actorId); if (!b) throw new Error('INVALID_RECIPIENT');
-        const lineId = `line_${sequence}_${clock}`;
+        const lineId = randomUUID();
         last = radio.enqueue({ lineId, session: snapshot.session, speakerId: b.id, pawnId: b.pawnId,
           generation: b.generation, priority: 'answer', text: 'Radio check. Ready when you are.',
           createdAtMs: realNow(), expiresAtMs: realNow() + 5000, factIds: [] });

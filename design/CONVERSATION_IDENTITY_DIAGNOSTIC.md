@@ -1,6 +1,6 @@
 # Native speaker-identity diagnostic preparation
 
-2026-09-22. **PREPARED; native inference NOT_PERFORMED.** This bounded text-only experiment tests the explicit identity projection introduced in [the context design](CONVERSATION_IDENTITY_CONTEXT.md). It uses the separately specified eight cases and acceptance criteria in [the independent evaluation](../research/CONVERSATION_IDENTITY_EVALUATION.md). It does not establish full conversation readiness, select a model or enable mission radio.
+2026-09-22. **PREPARED; native inference NOT_PERFORMED.** This bounded text-only experiment tests the explicit identity projection introduced in [the context design](CONVERSATION_IDENTITY_CONTEXT.md). It uses the separately specified eight cases and acceptance criteria in the independent evaluation (local reference omitted from this source export). It does not establish full conversation readiness, select a model or enable mission radio.
 
 `scripts/Exercise-ConversationIdentity.mjs --check` imports the real coordinator and serializer, verifies the frozen fixture's exact SHA-256, and prepares all eight contexts without constructing or starting a native engine, reserving a result receipt, or checking current resource readiness. Import alone is inert. Only the exact argument `--run` selects future inference; there are no output-path, model, tuning or retry arguments.
 

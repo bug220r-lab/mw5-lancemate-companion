@@ -24,7 +24,7 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
       !Number.isInteger(synthesisTimeoutMs) || synthesisTimeoutMs < 1 || synthesisTimeoutMs > 120000) {
     throw new TypeError('INVALID_SPEECH_OPTIONS');
   }
-  let state = 'NEW', child = null, pending = null, boot = null, ready = null, stderr = '', buffer = '';
+  let state = 'NEW', worker = null, pending = null, boot = null, ready = null, stderr = '', buffer = '';
   let restartRequired = false, stopPromise = null, restartPromise = null, epoch = 0, lifecycle = 0;
 
   function settlePending(error, value) {
@@ -37,13 +37,16 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
     boot = null; clearTimeout(start.timer);
     if (error) start.reject(error); else start.resolve(value);
   }
-  async function cleanupInterrupted(id) {
-    if (!id) return;
-    for (const extension of ['.part', '.wav']) {
-      await fs.unlink(path.join(SPEECH_OUTPUT_DIRECTORY, id + extension)).catch(error => {
-        if (error.code !== 'ENOENT') stderr = `OUTPUT_CLEANUP_${error.code}`;
-      });
+  async function cleanupInterrupted(owned) {
+    let failed = false;
+    for (const file of owned?.cleanupPaths ?? []) {
+      try { await fs.unlink(file); owned.cleanupPaths.delete(file); }
+      catch (error) {
+        if (error.code === 'ENOENT') owned.cleanupPaths.delete(file);
+        else { failed = true; stderr = `OUTPUT_CLEANUP_${error.code}`; }
+      }
     }
+    if (failed) throw fault('OUTPUT_CLEANUP_FAILED');
   }
   function stop(reason = 'STOPPED') {
     ++lifecycle;
@@ -52,19 +55,32 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
   function stopOwned(reason) {
     if (stopPromise) return stopPromise;
     restartRequired = true;
-    const owned = child, interruptedId = pending?.id;
+    const owned = worker;
+    if (owned && pending?.id) {
+      for (const extension of ['.part', '.wav'])
+        owned.cleanupPaths.add(path.join(SPEECH_OUTPUT_DIRECTORY, pending.id + extension));
+    }
     ++epoch; state = 'STOPPING'; ready = null;
     settleBoot(fault(reason)); settlePending(fault(reason));
     stopPromise = (async () => {
-      if (owned) {
-        await new Promise((resolve, reject) => {
-          const timer = setTimeout(() => reject(fault('WORKER_STOP_TIMEOUT')), 3000);
-          owned.once('close', () => { clearTimeout(timer); resolve(); });
-          owned.kill();
-        });
+      if (owned && !owned.closed) {
+        let timer, closeWaiter;
+        try {
+          await new Promise((resolve, reject) => {
+            closeWaiter = resolve; owned.closeWaiter = closeWaiter;
+            timer = setTimeout(() => reject(fault('WORKER_STOP_TIMEOUT')), 3000);
+            if (!owned.killAttempted) {
+              owned.killAttempted = true;
+              try { owned.child.kill(); } catch { /* Only this child's close confirms shutdown. */ }
+            }
+          });
+        } finally {
+          clearTimeout(timer);
+          if (owned.closeWaiter === closeWaiter) owned.closeWaiter = null;
+        }
       }
-      if (child === owned) child = null;
-      await cleanupInterrupted(interruptedId);
+      await cleanupInterrupted(owned);
+      if (worker === owned) worker = null;
       state = 'STOPPED';
       return { status: 'STOPPED', reason, restartRequired: true };
     })().catch(error => { state = 'STOP_FAILED'; throw error; }).finally(() => { stopPromise = null; });
@@ -120,7 +136,13 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
       const owned = spawnProcess(path.join(root, 'venv', 'Scripts', 'python.exe'),
         ['-I', '-B', path.join(project, 'scripts', 'Kokoro-Worker.py')],
         { cwd: project, env, windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] });
-      child = owned;
+      const record = { child: owned, closed: false, closeWaiter: null, killAttempted: false, cleanupPaths: new Set() };
+      worker = record;
+      // Process lifetime outlives request epochs and bounded public stop calls.
+      owned.once('close', () => {
+        record.closed = true; record.closeWaiter?.();
+        if (worker === record && generation === epoch) fail('WORKER_EXITED');
+      });
       owned.stdout.setEncoding('utf8'); owned.stderr.setEncoding('utf8');
       owned.stdout.on('data', chunk => {
         if (generation !== epoch) return;
@@ -135,10 +157,6 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
       owned.stderr.on('data', chunk => { if (generation === epoch) stderr = (stderr + chunk).slice(-2048); });
       owned.stdin.on('error', () => { if (generation === epoch) fail('WORKER_INPUT_FAILED'); });
       owned.on('error', () => { if (generation === epoch) fail('WORKER_START_FAILED'); });
-      owned.on('close', () => {
-        if (generation !== epoch) return;
-        child = null; fail('WORKER_EXITED');
-      });
     } catch { fail('WORKER_START_FAILED'); }
     return promise;
   }
@@ -167,7 +185,7 @@ export function createLocalSpeech({ spawnProcess = spawn, startupTimeoutMs = 120
         timer: setTimeout(() => fail('SYNTHESIS_TIMEOUT'), synthesisTimeoutMs) };
       signal?.addEventListener('abort', onAbort, { once: true });
       if (signal?.aborted) return onAbort();
-      try { child.stdin.write(JSON.stringify({ id, text: request.text, voiceId: request.voiceId }) + '\n'); }
+      try { worker.child.stdin.write(JSON.stringify({ id, text: request.text, voiceId: request.voiceId }) + '\n'); }
       catch { fail('WORKER_INPUT_FAILED'); }
     });
   }

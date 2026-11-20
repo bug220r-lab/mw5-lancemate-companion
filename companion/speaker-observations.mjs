@@ -10,17 +10,24 @@ function copyPlain(input) {
     if (value === null || typeof value === 'boolean') return value;
     if (typeof value === 'string' && value.length <= 8192) return value;
     if (typeof value === 'number' && Number.isFinite(value)) return value;
+    const array = Array.isArray(value);
     if (!value || typeof value !== 'object' || ancestors.has(value) ||
-        (!Array.isArray(value) && Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null)) fail();
-    ancestors.add(value); const result = Array.isArray(value) ? [] : {};
-    for (const key of Reflect.ownKeys(value)) {
-      if (Array.isArray(value) && key === 'length') continue;
+        (!array && Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null)) fail();
+    const length = array ? Object.getOwnPropertyDescriptor(value, 'length')?.value : 0;
+    if (array && (!Number.isSafeInteger(length) || length < 0 || length > 4000)) fail();
+    const keys = Reflect.ownKeys(value);
+    // A named property can otherwise replace a hole in the key count and
+    // then disappear from the projected rows and JSON audit.
+    if (array && (keys.length !== length + 1 || keys.some(key => key !== 'length' &&
+        (typeof key !== 'string' || !/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= length)))) fail();
+    ancestors.add(value); const result = array ? [] : {};
+    for (const key of keys) {
+      if (array && key === 'length') continue;
       const d = Object.getOwnPropertyDescriptor(value, key);
       if (typeof key !== 'string' || ['__proto__', 'constructor', 'prototype'].includes(key) ||
           !d || !Object.hasOwn(d, 'value') || !d.enumerable) fail();
       result[key] = visit(d.value, depth + 1);
     }
-    if (Array.isArray(value) && (result.length !== value.length || Object.keys(result).length !== value.length)) fail();
     ancestors.delete(value); return result;
   }
   return visit(input, 0);

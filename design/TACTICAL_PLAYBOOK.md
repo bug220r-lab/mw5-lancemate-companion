@@ -1,6 +1,6 @@
 # Tactical knowledge and revision process
 
-Version1.0.0, 2026-09-21 UTC. The machine-readable [playbook](TACTICAL_PLAYBOOK.json) links each rule used by the [offline prototype](OFFLINE_TACTICAL_PROTOTYPE.md) to observations, evidence, assumptions, intended benefit and abort conditions. The [AI report](../research/AI_REPORT.md) explains the game logic; the [coverage ledger](../research/AI_COVERAGE_LEDGER.json) resolves source IDs to exact files and hashes.
+Version1.0.0, 2026-09-21 UTC. The machine-readable [playbook](TACTICAL_PLAYBOOK.json) links each rule used by the [offline prototype](OFFLINE_TACTICAL_PROTOTYPE.md) to observations, evidence, assumptions, intended benefit and abort conditions. The AI report (local reference omitted from this source export) explains the game logic; the coverage ledger (local reference omitted from this source export) resolves source IDs to exact files and hashes.
 
 ## How future tasks use the findings
 
@@ -22,4 +22,4 @@ Change one behavioral hypothesis at a time. Add a case for the observed failure 
 
 ## Next boundary
 
-The [passive observer handoff](PASSIVE_OBSERVER_HANDOFF.md) defines the next experiment and actual integration gaps. Voice, campaign persistence, model training and direct piloting are later separate phases. Independent squad tactics is the selected eventual mode; native AI retains movement/aiming/firing through the first live tactical milestone.
+The passive observer handoff (local reference omitted from this source export) defines the next experiment and actual integration gaps. Voice, campaign persistence, model training and direct piloting are later separate phases. Independent squad tactics is the selected eventual mode; native AI retains movement/aiming/firing through the first live tactical milestone.

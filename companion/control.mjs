@@ -1,6 +1,7 @@
 // Project control contract. No MW5 API, native adapter, transport, or live dispatch.
+import { createHash, randomUUID } from 'node:crypto';
 import { types as utilTypes } from 'node:util';
-import { decideSquad } from '../scripts/tactical-policy.mjs';
+import { decideSquad, LIMITS } from '../scripts/tactical-policy.mjs';
 import { validateObservation } from './observation.mjs';
 
 const copy = value => structuredClone(value);
@@ -9,6 +10,16 @@ const validId = value => typeof value === 'string' && /^[A-Za-z0-9_-]{1,64}$/.te
 const actions = new Set(['REGROUP', 'FOCUS', 'REPOSITION']);
 const phases = ['SUBMITTED', 'ASSIGNED', 'BEHAVIOR_OBSERVED', 'COMPLETED', 'REJECTED'];
 const fingerprint = actor => `${actor.controllerId}:${actor.pawnId}:${actor.generation}`;
+const armContext = actor => {
+  const manual = actor?.manual;
+  if (!actor || manual?.observable !== true || !Number.isSafeInteger(manual.revision) || manual.revision < 0)
+    return null;
+  return [fingerprint(actor), manual.revision, manual.orderId, manual.status, manual.persistent];
+};
+const matchesArm = (pinned, actor) => {
+  const current = armContext(actor);
+  return current !== null && pinned.every((value, index) => value === current[index]);
+};
 const resultLimits = Object.freeze({ depth: 8, nodes: 256, keys: 32, stringUnits: 4096, evidenceUnits: 256 });
 
 // Like observation admission, accept detached JSON data, never caller hooks.
@@ -62,6 +73,9 @@ export const CAPABILITIES = Object.freeze(['REGROUP', 'FOCUS', 'REPOSITION', 'MO
     ? 'SOURCE_SUPPORTED' : 'UNVERIFIED', enabled: false, gameVerified: false })));
 
 export class ControlSession {
+  #clockHighWaterMs = null;
+  #intentScope;
+
   constructor({ mode = 'DISCONNECTED', now = () => Date.now(), mockSink = null, maxPending = 16,
     maxRemembered = 2048, maxSessions = 256 } = {}) {
     if (!['DISCONNECTED', 'MOCK_ONLY'].includes(mode)) throw new Error('LIVE_ADAPTER_UNAVAILABLE');
@@ -70,60 +84,88 @@ export class ControlSession {
         !Number.isSafeInteger(maxRemembered) || maxRemembered < 1 || maxRemembered > 10000 ||
         !Number.isSafeInteger(maxSessions) || maxSessions < 1 || maxSessions > 1000) throw new Error('INVALID_OPTIONS');
     if (mockSink && mode !== 'MOCK_ONLY') throw new Error('MOCK_SINK_REQUIRES_EXPLICIT_MOCK_MODE');
+    this.#intentScope = mode === 'MOCK_ONLY' ? randomUUID() : null;
     this.mode = mode; this.now = now; this.mockSink = mockSink; this.maxPending = maxPending;
     this.maxRemembered = maxRemembered; this.maxSessions = maxSessions;
     this.armed = false; this.session = null; this.retired = new Set(); this.previousFrame = null;
     this.continuity = null;
     this.frame = null; this.policyState = null; this.recommendations = []; this.queue = [];
-    this.seen = new Set(); this.ledger = new Map(); this.audit = []; this.enabled = new Set();
+    this.seen = new Set(); this.ledger = new Map(); this.audit = []; this.armedRecipients = new Map();
     // Rate-limit timestamps outlive mission permissions and are bounded independently of the ledger.
     this.lastDispatchByActor = new Map();
-    this.latestDispatchAtMs = null;
   }
-  log(type, details = {}) {
-    this.audit.push({ type, atMs: this.now(), classification: this.mode, ...copy(details) });
+  #readControlClock() {
+    const nowMs = this.now();
+    if (!Number.isSafeInteger(nowMs) || nowMs < 0)
+      return { nowMs: null, error: 'INVALID_CALLER_CLOCK' };
+    if (this.#clockHighWaterMs !== null && nowMs < this.#clockHighWaterMs)
+      return { nowMs: null, error: 'REGRESSING_CONTROL_CLOCK' };
+    // Age and rate limits share this clock for the lifetime of the control
+    // instance. A rejection can advance it, and a new mission cannot reset it.
+    this.#clockHighWaterMs = nowMs;
+    return { nowMs, error: null };
+  }
+  log(type, details = {}, atMs = this.now()) {
+    this.audit.push({ type, atMs, classification: this.mode, ...copy(details) });
     if (this.audit.length > 256) this.audit.shift();
   }
-  disarm(reason = 'USER_DISARM') {
+  disarm(reason = 'USER_DISARM', atMs = this.now()) {
     const discarded = this.queue.map(i => i.id); this.queue = []; this.armed = false;
-    this.log('DISARMED', { reason, discarded }); return { status: 'DISARMED', discarded };
+    this.armedRecipients.clear();
+    this.log('DISARMED', { reason, discarded }, atMs); return { status: 'DISARMED', discarded };
   }
   armSimulation(actorIds) {
     if (this.mode !== 'MOCK_ONLY' || !this.frame || this.frame.provenance !== 'MOCK_ONLY')
       return { status: 'REJECTED', reason: 'LIVE_ADAPTER_UNAVAILABLE' };
     const eligible = this.frame.snapshot.lancemates;
-    if (!Array.isArray(actorIds) || !actorIds.length || !actorIds.every(id =>
-      validId(id) && eligible.some(a => a.id === id && a.aiOwned === true)) || new Set(actorIds).size !== actorIds.length)
+    if (!Array.isArray(actorIds) || !actorIds.length || actorIds.length > eligible.length)
       return { status: 'REJECTED', reason: 'INVALID_RECIPIENTS' };
-    this.enabled = new Set(actorIds); this.armed = true; this.log('SIMULATION_ARMED', { actorIds });
+    const recipients = new Map();
+    for (const id of actorIds) {
+      const actor = validId(id) && eligible.find(a => a.id === id && a.aiOwned === true);
+      if (!actor || recipients.has(id)) return { status: 'REJECTED', reason: 'INVALID_RECIPIENTS' };
+      const context = armContext(actor);
+      if (!context) return { status: 'REJECTED', reason: 'UNKNOWN_MANUAL_ORDER' };
+      recipients.set(id, context);
+    }
+    // A successful arm replaces permission. Queued work was formed under
+    // the previous arm and must be explicitly queued again.
+    const discarded = this.queue.map(intent => intent.id);
+    this.queue = []; this.armedRecipients = recipients; this.armed = true;
+    this.log('SIMULATION_ARMED', { actorIds, discarded });
     return { status: 'MOCK_ONLY', armed: true, nativeDispatchEnabled: false };
   }
   ingest(frame) {
+    const { nowMs, error } = this.#readControlClock();
+    if (error) {
+      this.frame = null; this.recommendations = []; this.disarm(error, nowMs);
+      return { ok: false, errors: [error], recommendations: [], dispatchable: false };
+    }
     // Validate data properties before reading any caller-supplied field.
-    let validation = validateObservation(frame, { nowMs: this.now(), continuity: this.continuity,
+    let validation = validateObservation(frame, { nowMs, continuity: this.continuity,
       allowSynthetic: this.mode === 'MOCK_ONLY' });
     const session = validation.snapshot?.session;
     if (session && this.retired.has(session)) {
-      this.frame = null; this.recommendations = []; this.disarm('RETIRED_SESSION');
+      this.frame = null; this.recommendations = []; this.disarm('RETIRED_SESSION', nowMs);
       return { ok: false, errors: ['RETIRED_SESSION'], recommendations: [] };
     }
     if (session && this.previousFrame?.session === session) validation = validateObservation(frame,
-      { nowMs: this.now(), previousFrame: this.previousFrame, continuity: this.continuity,
+      { nowMs, previousFrame: this.previousFrame, continuity: this.continuity,
         allowSynthetic: this.mode === 'MOCK_ONLY' });
     // All new observations supersede queued intentions. Nothing waits across a pause.
     this.queue = [];
     if (!validation.snapshot) {
-      this.frame = null; this.recommendations = []; this.disarm('OBSERVATION_REJECTED');
+      this.frame = null; this.recommendations = []; this.disarm('OBSERVATION_REJECTED', nowMs);
       return { ...validation, recommendations: [] };
     }
     if (this.session !== frame.session) {
       if (this.session !== null && this.retired.size >= this.maxSessions) {
-        this.frame = null; this.recommendations = []; this.disarm('SESSION_HISTORY_FULL');
+        this.frame = null; this.recommendations = []; this.disarm('SESSION_HISTORY_FULL', nowMs);
         return { ok: false, errors: ['SESSION_HISTORY_FULL_RESTART_REQUIRED'], recommendations: [] };
       }
       if (this.session !== null) this.retired.add(this.session);
-      this.disarm('SESSION_CHANGED'); this.session = frame.session; this.policyState = null;
-      this.enabled.clear(); this.seen.clear(); this.ledger.clear();
+      this.disarm('SESSION_CHANGED', nowMs); this.session = frame.session; this.policyState = null;
+      this.seen.clear(); this.ledger.clear();
     }
     const snapshot = copy(validation.snapshot);
     this.continuity = copy(validation.nextContinuity);
@@ -132,25 +174,35 @@ export class ControlSession {
     const decision = decideSquad(snapshot, this.policyState);
     this.policyState = decision.state; this.previousFrame = copy(frame);
     this.recommendations = decision.recommendations;
-    this.frame = validation.ok ? { ...copy(frame), snapshot: copy(validation.snapshot) } : null;
-    if (!validation.ok || snapshot.phase !== 'active') this.disarm('CONTROL_PREREQUISITES_LOST');
-    this.log('OBSERVATION', { session: frame.session, sequence: frame.sequence, ok: validation.ok });
+    this.frame = validation.ok ? { ...copy(frame), snapshot: copy(validation.snapshot),
+      oldestEvidenceAtMs: validation.oldestEvidenceAtMs } : null;
+    if (!validation.ok || snapshot.phase !== 'active') this.disarm('CONTROL_PREREQUISITES_LOST', nowMs);
+    else if (this.armed && [...this.armedRecipients].some(([id, pinned]) =>
+      !matchesArm(pinned, snapshot.lancemates.find(actor => actor.id === id))))
+      this.disarm('ARMED_RECIPIENT_CONTEXT_CHANGED', nowMs);
+    this.log('OBSERVATION', { session: frame.session, sequence: frame.sequence, ok: validation.ok }, nowMs);
     return { ...validation, recommendations: copy(this.recommendations), dispatchable: false };
   }
   queueRecommendations() {
     if (this.mode !== 'MOCK_ONLY' || !this.armed || !this.frame || this.frame.provenance !== 'MOCK_ONLY')
       return { status: 'REJECTED', reason: 'SIMULATION_NOT_ARMED_OR_NO_LIVE_ADAPTER', queued: [] };
-    const queued = []; const rejected = []; const clock = this.now();
+    const { nowMs: clock, error } = this.#readControlClock();
+    if (error) return { status: 'REJECTED', reason: 'EXPIRED_OR_INVALID_CLOCK', queued: [] };
+    const queued = []; const rejected = [];
     for (const recommendation of this.recommendations) {
-      if (!actions.has(recommendation.action) || !this.enabled.has(recommendation.actorId)) continue;
+      if (!actions.has(recommendation.action) || !this.armedRecipients.has(recommendation.actorId)) continue;
       const actor = this.frame.snapshot.lancemates.find(a => a.id === recommendation.actorId);
-      const id = `${this.session}:${actor.id}:${this.frame.sequence}:${recommendation.action}`;
+      // Keep deduplication stable within this instance without letting an
+      // identical fixture in a replacement instance share result identity.
+      const id = createHash('sha256').update(JSON.stringify([
+        this.#intentScope, this.session, actor.id, this.frame.sequence, recommendation.action,
+      ])).digest('hex');
       const intent = { schemaVersion: 1, kind: 'tactical_intent', id, session: this.session,
         actorId: actor.id, binding: fingerprint(actor), observationSequence: this.frame.sequence,
         action: recommendation.action, targetId: recommendation.targetId ?? null,
         positionId: recommendation.positionId ?? null, createdAtMs: clock, expiresAtMs: clock + 500,
         classification: 'MOCK_ONLY', dispatchable: false, evidence: copy(recommendation.evidence) };
-      const reason = this.reasonToReject(intent, clock);
+      const reason = this.#reasonToReject(intent, clock);
       if (reason) { rejected.push({ id, reason }); continue; }
       if (this.seen.has(id) || this.queue.some(i => i.id === id)) { rejected.push({ id, reason: 'DUPLICATE' }); continue; }
       if (this.seen.size + this.queue.length >= this.maxRemembered) { rejected.push({ id, reason: 'HISTORY_FULL' }); continue; }
@@ -159,19 +211,22 @@ export class ControlSession {
     }
     return { status: 'MOCK_ONLY', queued, rejected };
   }
-  reasonToReject(intent, clock = this.now()) {
+  #reasonToReject(intent, clock) {
     if (this.mode !== 'MOCK_ONLY' || !this.armed || !this.frame || this.frame.provenance !== 'MOCK_ONLY') return 'NOT_ARMED';
     const s = this.frame.snapshot;
-    if (!Number.isSafeInteger(clock) || (this.latestDispatchAtMs !== null && clock < this.latestDispatchAtMs) ||
-        clock < intent.createdAtMs || clock >= intent.expiresAtMs ||
-        clock < s.observedAtMs || clock - s.observedAtMs > 1000) return 'EXPIRED_OR_INVALID_CLOCK';
+    if (clock === null || clock < intent.createdAtMs || clock >= intent.expiresAtMs ||
+        clock < s.observedAtMs || clock - s.observedAtMs > LIMITS.maxAgeMs) return 'EXPIRED_OR_INVALID_CLOCK';
     if (intent.session !== this.session || intent.observationSequence !== this.frame.sequence) return 'SUPERSEDED_OBSERVATION';
+    // Recommendations can depend on shared target scoring and position reservations.
+    if (clock - this.frame.oldestEvidenceAtMs > LIMITS.maxAgeMs) return 'STALE_TACTICAL_EVIDENCE';
     if (s.phase !== 'active' || s.authority !== true) return 'INACTIVE_OR_UNKNOWN_AUTHORITY';
     const actor = s.lancemates.find(a => a.id === intent.actorId);
     if (!actor || fingerprint(actor) !== intent.binding || actor.aiOwned !== true || actor.alive !== true ||
         actor.member !== true || actor.reciprocalBinding !== true || actor.configured !== true || actor.authority !== true)
       return 'INVALID_BINDING';
-    if (!this.enabled.has(actor.id)) return 'RECIPIENT_DISABLED';
+    const pinned = this.armedRecipients.get(actor.id);
+    if (!pinned) return 'RECIPIENT_DISABLED';
+    if (!matchesArm(pinned, actor)) return 'ARMED_RECIPIENT_CONTEXT_CHANGED';
     if (this.policyState?.actors?.[actor.id]?.heldHumanOrder || actor.manual?.observable !== true ||
         actor.manual.status === 'active') return 'HUMAN_PRECEDENCE';
     const prior = [...this.ledger.values()].findLast(e => e.actorId === actor.id && e.binding === intent.binding);
@@ -192,13 +247,14 @@ export class ControlSession {
   drainSimulation() {
     const results = [];
     while (this.queue.length) {
-      const intent = this.queue.shift(); const attemptedAtMs = this.now();
-      const reason = this.reasonToReject(intent, attemptedAtMs);
+      const { nowMs: attemptedAtMs } = this.#readControlClock();
+      const intent = this.queue.shift();
+      if (!intent) break;
+      const reason = this.#reasonToReject(intent, attemptedAtMs);
       if (reason) { results.push({ id: intent.id, status: 'REJECTED', reason }); continue; }
       if (this.seen.size >= this.maxRemembered) { results.push({ id: intent.id, status: 'REJECTED', reason: 'HISTORY_FULL' }); continue; }
       this.seen.add(intent.id);
       this.lastDispatchByActor.set(intent.actorId, attemptedAtMs);
-      this.latestDispatchAtMs = attemptedAtMs;
       const entry = { id: intent.id, actorId: intent.actorId, binding: intent.binding, session: intent.session, action: intent.action,
         classification: 'MOCK_ONLY', stages: [{ stage: 'SUBMITTED', observedAtMs: attemptedAtMs,
           evidence: 'SIMULATED_SINK_ONLY' }], dispatchable: false };
@@ -218,7 +274,7 @@ export class ControlSession {
       } catch {
         // Invocation may already have had an effect. Only correlated result evidence can resolve it.
         entry.stages[0].evidence = 'SIMULATED_SINK_OUTCOME_UNKNOWN';
-        this.disarm('SIMULATED_SINK_FAILURE'); results.push({ id: intent.id, status: 'UNCONFIRMED',
+        this.disarm('SIMULATED_SINK_FAILURE', attemptedAtMs); results.push({ id: intent.id, status: 'UNCONFIRMED',
           reason: 'SINK_FAILURE', nativeAcceptance: 'NOT_PERFORMED' });
       }
     }
