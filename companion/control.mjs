@@ -288,9 +288,14 @@ export class ControlSession {
       return { status: 'REJECTED', reason: 'SIMULATION_ONLY' };
     const entry = this.ledger.get(event.id);
     if (!entry || event.session !== this.session || event.actorId !== entry.actorId || event.binding !== entry.binding ||
-        !Number.isSafeInteger(event.observedAtMs) || event.observedAtMs > this.now() || typeof event.evidence !== 'string' ||
+        !Number.isSafeInteger(event.observedAtMs) || typeof event.evidence !== 'string' ||
         event.evidence.length > resultLimits.evidenceUnits ||
         !event.evidence.trim()) return { status: 'REJECTED', reason: 'UNCORRELATED_EVIDENCE' };
+    let clock;
+    try { clock = this.#readControlClock(); }
+    catch { return { status: 'REJECTED', reason: 'UNCORRELATED_EVIDENCE' }; }
+    if (clock.error || event.observedAtMs > clock.nowMs)
+      return { status: 'REJECTED', reason: 'UNCORRELATED_EVIDENCE' };
     const last = entry.stages.at(-1);
     if (last && (event.observedAtMs < last.observedAtMs || ['COMPLETED', 'REJECTED'].includes(last.stage)))
       return { status: 'REJECTED', reason: 'REGRESSING_OR_TERMINAL_RESULT' };
